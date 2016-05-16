@@ -23,6 +23,7 @@ namespace RWInbound2.Account
             string Password = tbPassword.Text.Trim();
             string FirstName = ""; 
             string LastName = "";
+            int success = 0;
 
             try
             {
@@ -59,25 +60,38 @@ namespace RWInbound2.Account
             if (FirstName.Length < 1)   // login failed
             {
                 lblFailureText.Text = "Login Failed"; 
-            }             
+            }     
 
-            //FormsAuthentication.SetAuthCookie(FirstName +" " + LastName, false); // create user name as authenticated  
-           
-            //FormsAuthentication.RedirectFromLoginPage(FirstName + " " + LastName, false);
-            //FormsAuthentication.GetAuthCookie(FirstName + " " + LastName, false);
+
+        // update user profile 
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchWaterDEV"].ConnectionString;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = string.Format("update tbluser set [DateLastActivity] = '{2}' where UserName like '{0}' and Password like '{1}'", UZerName, Password, DateTime.Now.ToString());
+                        cmd.Connection = conn;
+                        conn.Open();
+
+                        success = cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string msg = ex.Message;    // XXXX need to build an error log file and logging code               
+            }
 
 
             FormsAuthentication.SetAuthCookie(UZerName, false); // create user name as authenticated  
 
             FormsAuthentication.RedirectFromLoginPage(UZerName, false);
-        //    FormsAuthentication.GetAuthCookie(UZerName, false);
-      //      HttpContext.Current.Profile.SetPropertyValue("UserName", FirstName + " " + LastName); 
 
-            string usernm = User.Identity.Name; 
-                //System.Environment.UserName;           
-            string contextName = HttpContext.Current.Request.LogonUserIdentity.Name; 
-            bool isAuth = HttpContext.Current.User.Identity.IsAuthenticated;
-            isAuth = User.Identity.IsAuthenticated; 
         }
 
       
