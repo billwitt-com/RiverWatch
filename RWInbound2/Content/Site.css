@@ -1,10 +1,29 @@
 ﻿
 
+tr
+{
+    height:29px; /*this is a 'hand tuned' value to match right table */
+}
+/*used for menu pages like validation page*/
+.menuButton {
+    background-color:lightblue !important;
+
+    border: 1px solid #787878; /*this works*/
+    cursor: pointer;
+    font-size: 1.0em !important; /*!important over rides earler formatting*/
+    font-weight: 600 !important;
+    width:171px;
+    height:31px;
+    /*padding: 7px;
+        margin-right: 8px;*/
+}
+
 .RW-headline,
 .RW-headline a,
 .RW-headline a:link,
 .RW-headline a:visited,
-.RW-headline a:hover {
+.RW-headline a:hover 
+{
     display: inline-block;
     position: absolute;
     font-size: 72px;
@@ -41,23 +60,18 @@
     white-space: nowrap;
 }
 
-
-
-
-
-
-
-
-
-
-
+.pnlBarcodeTab 
+{
+    margin-left: 12px;
+    margin-top:12px;
+}
 
 
 body { /*works for table including fonts of lables but not text boxes see below*/
     background-color: aliceblue;
     border-top: solid 6px #000;
     color: #324253;
-    font-size: .95em;
+    font-size: .85em;
     font-family: Consolas; /* choose as this is fixed width for tables*/
     width: 1006px;
 }
@@ -66,6 +80,7 @@ form {
     /*width: 100%;
     margin-left: 2%;*/
 }
+
 
 html {
     background-color: #e2e2e2;
@@ -87,7 +102,7 @@ html {
 }
 
 /* forms  moved to top for ease of use....*/
-fieldset {
+/*fieldset {
     border-style: none;
     border-color: inherit;
     border-width: medium;
@@ -107,24 +122,42 @@ fieldset {
 
         fieldset ol li {
             padding-bottom: 5px;
-        }
+        }*/
 
-label { /*don't see any changes in labels from here*/
-    display: block;
-    font-size: 1.2em;
+label {
+    /*don't see any changes in labels from here
+        changes text size for checkbox lables*/
+
+    display: inline;
+    font-size: .85em;
     font-weight: 600;
+    padding-left: 4px;
+}
+label.checkbox {
+    display: inline;
+    font-family: Consolas;
+    font-size: .5em;
 }
 
-    label.checkbox {
-        display: inline;
-    }
+.SampleTable
+{
+    margin: 18px;
+    width: 311px;
+    padding-top: 8px;
+    font-size: 1.05em; /*1em; /*table cells font size*/
+    border:none;
+    font-family: Consolas;
+   
+}
 
+/*table cell width is set here !!*/
 input, textarea { /*this has effect on table input*/
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
     font-size: .9em; /*1em; /*table cells font size*/
-    */ margin: 3px 0 1px 0;
+    width: 81px;
+    margin: 3px 0 1px 0;
     /*padding: 5px;*/
 }
 
@@ -141,6 +174,8 @@ input[type="checkbox"] {
     background: transparent;
     border: inherit;
     width: auto;
+    font-family: Consolas;
+    font-size: .85em;
 }
 
 td input[type="submit"],
@@ -150,28 +185,62 @@ input[type="button"],
 
 td button {
     font-size: .85em; /*font size for buttons in table cell*/
+    background-color:aliceblue;
+    border: 1px solid #787878; /*this works*/
     padding: 4px;
     margin-right: 4px;
 }
 
 
-.smallButton {
-    background-color: lightblue;
+/*does not change generic buttons*/
+button {
+    background-color: lightblue !important;
+
     border: 1px solid #787878; /*this works*/
-    cursor: pointer;
-    font-size: .85em; /*does not change font size in button in table, but does on pages*/
+    cursor: pointer !important ;
+    font-size: .85em !important ; /*does not change font size in button in table, but does on pages*/
     font-weight: 600;
     /*padding: 7px;
         margin-right: 8px;*/
 }
 
-.adminButton {  /* This works*/
-    background-color:lightblue;
-    border: 1px solid #787878; /*this works*/
-    border-radius:3px;
-    cursor: pointer;
-    font-size: 2.2em; /*does not change font size in button in table, but does on pages*/
+/*this sets the  check box lable text and text background*/   
+label{
+    /*background-color: lightblue;*/
+    /*border: 1px solid #787878; /*this works*/
+    cursor: pointer;*/
+    font-size: .85em; /*does not change font size in button in table, but does on pages*/
     font-weight: 600;
+}
+
+.smallButton {
+    background-color: lightblue  !important;
+    border: 1px solid #787878 !important; /*this works*/
+    cursor: pointer !important;
+    font-size: .85em !important; /*does not change font size in button in table, but does on pages*/
+    font-weight: 600 !important;
+    /*padding: 7px;
+        margin-right: 8px;*/
+}
+
+.helpButton {  /* This works*/
+    background-color:lightgreen !important;
+    border: 1px solid #787878 !important; /*this works*/
+    border-radius:3px !important;
+    cursor: pointer;
+    font-size: .95em !important; /*does not change font size in button in table, but does on pages*/
+    font-weight: 600 !important;
+    /*padding: 7px;
+        margin-right: 8px;*/
+}
+
+.adminButton {  /* This works*/
+    background-color:lightblue !important;
+    border: 1px solid #787878 !important; /*this works*/
+    border-radius:3px !important;
+    cursor: pointer;
+    font-size: .95em !important; /*does not change font size in button in table, but does on pages*/
+    font-weight: 600 !important;
     /*padding: 7px;
         margin-right: 8px;*/
 }
@@ -1189,3 +1258,11 @@ legend /* Seems to make no difference*/ {
     padding-left: 42px;
 }
 /* END: Mobile Styles */
+.ListboxSample {
+    padding-left: 30px;
+    margin-left: 30px;
+    margin-top: 10px;
+    text-align: left;
+    padding-top: 9px;
+    vertical-align: bottom;
+}
