@@ -226,7 +226,7 @@
         </asp:FormView>
         <ajaxToolkit:RoundedCornersExtender ID="FormView1_RoundedCornersExtender" runat="server" BehaviorID="FormView1_RoundedCornersExtender" TargetControlID="FormView1">
         </ajaxToolkit:RoundedCornersExtender>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dbRiverwatchWaterDataConnectionString %>" 
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchWaterDEV %>" 
             DeleteCommand="DELETE FROM [tblOrganization] WHERE [OrganizationID] = @OrganizationID" 
             InsertCommand="INSERT INTO [tblOrganization] ([KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [State], [Zip], [Phone], [Fax], [YearStarted], [WaterShed], [WaterShedGathering], [Password], [Active], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified]) VALUES (@KitNumber, @OrganizationName, @OrganizationType, @Email, @MailingAddress, @ShippingAddress, @City, @State, @Zip, @Phone, @Fax, @YearStarted, @WaterShed, @WaterShedGathering, @Password, @Active, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified)" 
             SelectCommand="SELECT * FROM [tblOrganization]" 

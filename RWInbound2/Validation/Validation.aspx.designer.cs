@@ -13,13 +13,58 @@ namespace RWInbound2.Validation {
     public partial class Validation {
         
         /// <summary>
-        /// btnICP control.
+        /// btnICPBlanks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnICP;
+        protected global::System.Web.UI.WebControls.Button btnICPBlanks;
+        
+        /// <summary>
+        /// lblICPBlanks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblICPBlanks;
+        
+        /// <summary>
+        /// btnICPDups control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnICPDups;
+        
+        /// <summary>
+        /// lblICPDups control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblICPDups;
+        
+        /// <summary>
+        /// btnICPSamples control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnICPSamples;
+        
+        /// <summary>
+        /// lblICPSamples control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblICPSamples;
         
         /// <summary>
         /// btnField control.
@@ -31,6 +76,15 @@ namespace RWInbound2.Validation {
         protected global::System.Web.UI.WebControls.Button btnField;
         
         /// <summary>
+        /// lblFieldSamples control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFieldSamples;
+        
+        /// <summary>
         /// btnLachet control.
         /// </summary>
         /// <remarks>
@@ -38,5 +92,14 @@ namespace RWInbound2.Validation {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnLachet;
+        
+        /// <summary>
+        /// lblLachet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLachet;
     }
 }

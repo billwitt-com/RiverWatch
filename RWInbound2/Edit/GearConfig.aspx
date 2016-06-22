@@ -32,7 +32,7 @@
     </asp:GridView>
     <asp:Button ID="btnNew" runat="server" OnClick="btnNew_Click" Text="NEW" />
     <br />
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Riverwatch %>" 
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
          OnUpdating="SqlDataSource1_Updating"
 
         DeleteCommand="DELETE FROM [GearConfig] WHERE [ID] = @ID" 

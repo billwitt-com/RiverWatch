@@ -49,13 +49,13 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.TextBox TextBox1;
         
         /// <summary>
-        /// btnSearch control.
+        /// btnSearchKitNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.Button btnSearchKitNumber;
         
         /// <summary>
         /// Label4 control.
@@ -76,13 +76,13 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
         
         /// <summary>
-        /// Button8 control.
+        /// btnSearchStationName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button8;
+        protected global::System.Web.UI.WebControls.Button btnSearchStationName;
         
         /// <summary>
         /// Label2 control.
@@ -103,13 +103,13 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.TextBox tbOrgName;
         
         /// <summary>
-        /// Button9 control.
+        /// btnSearchOrgName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button9;
+        protected global::System.Web.UI.WebControls.Button btnSearchOrgName;
         
         /// <summary>
         /// pnlQuickview_DropShadowExtender control.

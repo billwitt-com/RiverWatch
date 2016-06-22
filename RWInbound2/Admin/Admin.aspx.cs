@@ -18,5 +18,15 @@ namespace RWInbound2.Admin
         {
 
         }
+
+        protected void btnSearchStationName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnSearchOrgName_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -42,12 +42,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -68,9 +77,6 @@
     </Reference>
     <Reference Include="AspNet.ScriptManager.jQuery.UI.Combined">
       <HintPath>..\packages\AspNet.ScriptManager.jQuery.UI.Combined.1.8.24\lib\net40\AspNet.ScriptManager.jQuery.UI.Combined.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
@@ -114,6 +120,7 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Admin\Admin.aspx" />
+    <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Data\Data.aspx" />
@@ -125,6 +132,26 @@
     <Content Include="Images\Colorado_River_Rocky_Mountains crop 877x135.jpg" />
     <Content Include="Images\Colorado_River_Rocky_Mountains with text.jpg" />
     <Content Include="index.aspx" />
+    <Content Include="Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="NewRWModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewRWModel.edmx</DependentUpon>
+      <LastGenOutput>NewRWModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="NewRWModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewRWModel.edmx</DependentUpon>
+      <LastGenOutput>NewRWModel.cs</LastGenOutput>
+    </Content>
     <Content Include="OrgEdit.aspx" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -197,11 +224,27 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Reports\Reports.aspx" />
+    <Content Include="Samples\NewSample.aspx" />
+    <Content Include="Samples\Samples.aspx" />
     <Content Include="Validation\Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Edit\Web.config" />
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="NewRWModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NewRWModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="NewRWModel.edmx.diagram">
+      <DependentUpon>NewRWModel.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -209,9 +252,14 @@
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Validation\ValidateBlanks.aspx" />
+    <Content Include="Validation\ValidateDups.aspx" />
+    <Content Include="Validation\ValidateNormals.aspx" />
     <Content Include="Validation\Validation.aspx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\_references.js" />
@@ -230,6 +278,13 @@
     </Compile>
     <Compile Include="Admin\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminUsers.aspx.cs">
+      <DependentUpon>AdminUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminUsers.aspx.designer.cs">
+      <DependentUpon>AdminUsers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Applications\Applications.aspx.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
@@ -331,12 +386,61 @@
     <Compile Include="Edit\GearConfigNewRow.aspx.designer.cs">
       <DependentUpon>GearConfigNewRow.aspx</DependentUpon>
     </Compile>
+    <Compile Include="expStnMetal.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GearConfig.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InboundICPFinal.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InboundICPOrigional.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="NEWexpWater.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewRWModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewRWModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewRWModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewRWModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewRWModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Organization.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OrgEdit.aspx.cs">
       <DependentUpon>OrgEdit.aspx</DependentUpon>
@@ -351,6 +455,74 @@
     </Compile>
     <Compile Include="Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NewSample.aspx.cs">
+      <DependentUpon>NewSample.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Samples\NewSample.aspx.designer.cs">
+      <DependentUpon>NewSample.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Samples.aspx.cs">
+      <DependentUpon>Samples.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Samples\Samples.aspx.designer.cs">
+      <DependentUpon>Samples.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="tblActivity.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblChemValue.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInboundICP.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInboundSample.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMetalBarCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOrganization.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblParticipant.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSample.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblStation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblStatu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblStatusStation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVolunteer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblWatercode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblWatershedGrp.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkLimit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkMetalBarCodeType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkNutrientBarCodeType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Validation\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -377,6 +549,27 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="Validation\ValidateBlanks.aspx.cs">
+      <DependentUpon>ValidateBlanks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateBlanks.aspx.designer.cs">
+      <DependentUpon>ValidateBlanks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\ValidateDups.aspx.cs">
+      <DependentUpon>ValidateDups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateDups.aspx.designer.cs">
+      <DependentUpon>ValidateDups.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\ValidateNormals.aspx.cs">
+      <DependentUpon>ValidateNormals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateNormals.aspx.designer.cs">
+      <DependentUpon>ValidateNormals.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Validation\Validation.aspx.cs">
       <DependentUpon>Validation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -394,11 +587,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

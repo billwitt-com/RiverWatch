@@ -6,43 +6,43 @@
     <p >
     </p>
     <asp:Panel ID="pnlQuickview"  GroupingText="hello world" runat="server" BackColor="#FFFFCC"  CssClass="panelgrouping"
-          Height="124px" Width="430px" ForeColor="Black"  >
+          Height="145px" Width="468px" ForeColor="Black"  >
         <div  style="text-align:center">
        
         <asp:Label ID="Label3" runat="server" Font-Bold="True" Text="Quick View"></asp:Label>
              </div>
         <table style="width: 90%">
             <tr>
-                <td style="width: 145px">
+                <td style="width: 145px; height: 40px;">
                     <asp:Label ID="Label1" runat="server" Text="Kit Number :"></asp:Label>
                 </td>
-                <td>
+                <td style="height: 40px; width: 185px">
                     <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                 </td>
-                <td>
-                    <asp:Button ID="btnSearch" runat="server" CssClass="smallButton" Height="22px" OnClick="btnSearch_Click" Text="Search" />
+                <td style="height: 40px">
+                    <asp:Button ID="btnSearchKitNumber" runat="server" CssClass="smallButton" Height="32px"  Text="Search" />
                 </td>
             </tr>
             <tr>
                 <td style="width: 145px">
                     <asp:Label ID="Label4" runat="server" Text="Station Name :"></asp:Label>
                 </td>
-                <td>
+                <td style="width: 185px">
                     <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:Button ID="Button8" runat="server" CssClass="smallButton" OnClick="btnSearch_Click" Text="Search" />
+                    <asp:Button ID="btnSearchStationName" runat="server" CssClass="smallButton"  Text="Search" Height="32px" OnClick="btnSearchStationName_Click" />
                 </td>
             </tr>
             <tr>
                 <td style="width: 145px">
                     <asp:Label ID="Label2" runat="server" Text="Org Name :"></asp:Label>
                 </td>
-                <td>
+                <td style="width: 185px">
                     <asp:TextBox ID="tbOrgName" runat="server"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:Button ID="Button9" runat="server" CssClass="smallButton" OnClick="btnSearch_Click" Text="Search" />
+                    <asp:Button ID="btnSearchOrgName" runat="server" CssClass="smallButton" Text="Search" Height="32px" OnClick="btnSearchOrgName_Click" />
                 </td>
             </tr>
         </table>

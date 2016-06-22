@@ -14,7 +14,9 @@
         </div>
 
         <asp:FormView ID="FormView1" runat="server" style="margin-right: 0px; top: -6px; left: 1px;" AllowPaging="True" DataSourceID="SqlDataSource1" 
-            DefaultMode="Edit"  OnPageIndexChanged="FormView1_PageIndexChanged" OnDataBinding="FormView1_DataBinding" OnItemCreated="FormView1_ItemCreated"  OnPreRender="FormView1_PreRender" OnDataBound="FormView1_DataBound" OnItemUpdated="FormView1_ItemUpdated" PagerSettings-Position="TopAndBottom" OnPageIndexChanging="FormView1_PageIndexChanging">
+            DefaultMode="Edit"  OnPageIndexChanged="FormView1_PageIndexChanged" OnDataBinding="FormView1_DataBinding" OnItemCreated="FormView1_ItemCreated"  
+            OnPreRender="FormView1_PreRender" OnDataBound="FormView1_DataBound" OnItemUpdated="FormView1_ItemUpdated" 
+            PagerSettings-Position="TopAndBottom" OnPageIndexChanging="FormView1_PageIndexChanging">
 
             <EditItemTemplate>
                 <table id="VeryTop"  runat="server">
@@ -37,14 +39,14 @@
                     <tr>
                         <td>AL_D:
                             <asp:TextBox ID="AL_DTextBox" runat="server" Text='<%# Bind("AL_D") %>' />
-                            <asp:TextBox ID="AL_DTextBoxN" runat="server" Text='<%# Bind("AL_D") %>' />
+
                         </td>
                         <td>
                             <asp:Button ID="btnAL" CssClass="buttonSWAP" OnCommand="Button1_Click" runat="server" Text="SWAP" />
                         </td>
                         <td>AL_T:
                             <asp:TextBox ID="AL_TTextBox" runat="server" Text='<%# Bind("AL_T") %>' />
-                            <asp:TextBox ID="AL_TTextBoxN" runat="server" Text='<%# Bind("AL_T") %>' />
+
                         </td>
                     </tr>
                     <tr>
@@ -213,7 +215,7 @@
 
         </asp:FormView>
      
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dbRiverwatchWaterDataConnectionString %>" 
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchWaterDEV %>" 
             SelectCommand="SELECT * FROM [tblInboundICP] " 
             InsertCommand="INSERT INTO tblInboundICPBlkDupe(CODE, DUPLICATE, AL_D, AL_T, AS_D, AS_T, CA_D, CA_T, CD_D, CD_T, CU_D, CU_T, FE_D, FE_T, PB_D, PB_T, MG_D, MG_T, MN_D, MN_T, SE_D, SE_T, ZN_D, ZN_T, NA_D, NA_T, K_D, K_T, ANADATE, COMPLETE, DATE_SENT, Comments, PassValStep, Reviewed, FailedChems, tblSampleID) 
             VALUES (@CODE, @DUPLICATE, @AL_D, @AL_T, @AS_D, @AS_T, @CA_D, @CA_T, @CD_D, @CD_T, @CU_D, @CU_T, @FE_D, @FE_T, @PB_D, @PB_T, @MG_D, @MG_T, @MN_D, @MN_T, @SE_D, @SE_T, @ZN_D, @ZN_T, @NA_D, @NA_T, @K_D, @K_T, @ANADATE, @COMPLETE, @DATE_SENT, @Comments, @PassValStep, @Reviewed, @FailedChems, @tblSampleID) where inbICPID = @inbICPID" 

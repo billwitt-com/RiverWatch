@@ -38,11 +38,6 @@
 
             <header>
 
-                  <%--  <div class="art-shapes">
-        
-            </div>--%>
-
-
                 <table class="headerTable ">
                     <tr>
                         <td >
@@ -51,7 +46,7 @@
                         </td>
                         <td  >
 
-                            <<asp:Image runat="server" ImageUrl ="/Images/Colorado_River_Rocky_Mountains%20with%20text.jpg"  />                           
+                            <asp:Image runat="server" ImageUrl ="/Images/Colorado_River_Rocky_Mountains%20with%20text.jpg"  />                           
                            
                         </td>
                     </tr>
@@ -62,13 +57,15 @@
                     <nav class="RW-nav">
                         <ul class="RW-hmenu">
                             <li>
-                                <a  ID = "Home" href="<%= ResolveUrl("~/index.aspx") %>">Home</a>
+                                <asp:HyperLink ID="Home"  runat="server">Home</asp:HyperLink>
+
+                              <%--  <a  ID = "Home" href="<%= ResolveUrl("~/index.aspx") %>">Home</a>--%>
                             </li>
                             <li>
-                                <a  ID = "Samples" href="<%= ResolveUrl("~/index.aspx") %>">Samples</a>
+                                <a ID = "Samples" href="<%= ResolveUrl("~/samples/newsample.aspx") %>">Samples</a>
                             </li>
                             <li>
-                                <a ID = "Val" href="<%= ResolveUrl("~/Validation/Validation.aspx") %>">Validate</a>
+                                <a  ID = "Val" href="<%= ResolveUrl("~/Validation/Validation.aspx") %>">Validate</a>
                             </li>
                             <li>
                                 <a href="<%= ResolveUrl("~/data/data.aspx") %>">Data</a>
@@ -91,13 +88,7 @@
                 </div>
             </header>
 
-        </div>
-
-
-
-
-
-        <%--        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />--%>
+ 
         <section class="content-wrapper main-content clear-fix">
             <asp:ContentPlaceHolder runat="server" ID="MainContent" />
         </section>
@@ -106,6 +97,7 @@
             <div>
                 <div>
                     <p>&copy; <%: DateTime.Now.Year %> - RIVER WATCH</p>
+                   <%-- <asp:Label ID="Label1" runat="server" Text="Place Holder"></asp:Label>--%>
                 </div>
             </div>
         </footer>

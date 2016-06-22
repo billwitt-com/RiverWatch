@@ -12,6 +12,8 @@ namespace RWInbound2
 {
     public partial class _Default : Page
     {
+
+
         // this works for setting control styles !!!
 
 
@@ -22,27 +24,24 @@ namespace RWInbound2
        
         protected void Page_Load(object sender, EventArgs e)
         {
-
              HyperLink HL = this.FindControl("Val") as HyperLink;           
             int x = 0;
             int sampID = 0;            
             string sampleType = ""; // this is Duplicate in data base, for now
-            //int pageCount = FormView1.PageCount;
-         //   lblCount.Text = string.Format("There are {0} records to validate", pageCount); 
             
-            Limits.Add("AL", .1);   // use these names for symbols too, when needed
+            Limits.Add("AL", 450);   // use these names for symbols too, when needed
             Limits.Add("AS", 5.0);  // created a table for these, but will not implement until needed bwitt 05/04/2016
-            Limits.Add("CA", .1);
+            Limits.Add("CA", 300);
             Limits.Add("CD", .1);
-            Limits.Add("CU", .1);
-            Limits.Add("FE", .1);
+            Limits.Add("CU", 60);
+            Limits.Add("FE", 160);
             Limits.Add("PB", .1);
-            Limits.Add("MG", .1);
-            Limits.Add("MN", .1);
-            Limits.Add("SE", .1);
-            Limits.Add("ZN", .1);
+            Limits.Add("MG", 100);
+            Limits.Add("MN", 45);
+            Limits.Add("SE", 18);
+            Limits.Add("ZN", 200);
             Limits.Add("NA", .1);
-            Limits.Add("K", .1); 
+            Limits.Add("K", 99); 
 
 
             MetalsList.Add("AL");   // LOAD SYMBOLS FOR METALS FROM INBOUNDICP
@@ -61,8 +60,10 @@ namespace RWInbound2
 
             DataSourceSelectArguments args = new DataSourceSelectArguments(); 
             SqlDataSource1.SelectCommand = "SELECT* FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] ";
+         //   SqlDataSource1.SelectCommand = "SELECT* FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where left( DUPLICATE, 1) = '1' ";
+
             System.Data.DataView result = (DataView)SqlDataSource1.Select(args);
-            DataTable DT = result.ToTable();
+            DataTable DT = result.ToTable();    // build data table of results 
             int rowCount = (int)DT.Rows.Count; // get number of rows in result   
             lblCount.Text = string.Format("There are {0} ICP records to validate", rowCount); 
            
@@ -74,7 +75,7 @@ namespace RWInbound2
             // now, loop through each row and if not a 'normal' sample, see if there is a normal sample. 
             // for now, use csampID but this may change
 
-            for (x = 0; x < rowCount; x++)  // one pass for each sample in icp inbound
+            for (x = 0; x < rowCount; x++)  // one pass for each sample in icp inbound 
             {
                 DT.Rows[x]["isNormalHere"] = false; // set false as default
                 sampID = (int)DT.Rows[x]["tblSampleID"];
@@ -376,7 +377,7 @@ namespace RWInbound2
                     tbD.Text = string.Format("{0:0.0000}", Disolved);
                     tbT.Text = string.Format("{0:0.0000}", Total);
 
-                    // see if the difference between the two is greater than 2 times the limit
+                    // see if the difference between the two is greater than 2 times the D2Tlimit
                     if ((Disolved - Total) >= (2 * limit))
                     {
                         tbD.BackColor = Color.PowderBlue;
