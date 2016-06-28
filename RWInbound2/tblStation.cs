@@ -16,7 +16,6 @@ namespace RWInbound2
     {
         public tblStation()
         {
-            this.tblSamples = new HashSet<tblSample>();
             this.tblStatusStations = new HashSet<tblStatusStation>();
         }
     
@@ -61,8 +60,6 @@ namespace RWInbound2
         public string UserLastModified { get; set; }
         public string StoretUploaded { get; set; }
     
-        public virtual ICollection<tblSample> tblSamples { get; set; }
         public virtual ICollection<tblStatusStation> tblStatusStations { get; set; }
-        public virtual tblWatercode tblWatercode { get; set; }
     }
 }

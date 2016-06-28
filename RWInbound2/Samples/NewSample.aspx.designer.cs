@@ -31,6 +31,15 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.TextBox tbKitNumber;
         
         /// <summary>
+        /// tbOrg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbOrg;
+        
+        /// <summary>
         /// btnSiteNumber control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace RWInbound2.Samples {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSiteNumber;
+        
+        /// <summary>
+        /// tbSearch_AutoCompleteExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender tbSearch_AutoCompleteExtender;
         
         /// <summary>
         /// Panel1 control.

@@ -33,6 +33,7 @@ namespace RWInbound2
         public virtual DbSet<InboundICPFinal> InboundICPFinals { get; set; }
         public virtual DbSet<InboundICPOrigional> InboundICPOrigionals { get; set; }
         public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
+        public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
     
         public virtual int UpdateLocalTablesFromIncomingICP(string user)
         {

@@ -30,7 +30,7 @@ tr
 }
 
 
-body { /*works for table including fonts of lables but not text boxes see below*/
+body { /*works for table including fonts of labels but not text boxes see below*/
     background-color: aliceblue;
     border-top: solid 6px #000;
     color: #324253;
@@ -65,14 +65,54 @@ label.checkbox {
     font-size: .5em;
 }
 
-.SampleTable
+/*formats tables for validation tables*/ 
+
+.DupsTable
 {
     margin: 18px;
     width: 311px;
     padding-top: 8px;
-    font-size: 1.05em; /*1em; /*table cells font size*/
+    font-size: .95em; /*1em; /*table cells font size*/
     border:none;
     font-family: Consolas;   
+
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border-width: 0px;
+    padding: 0px;
+    /*margin: 0px;*/
+    border-style: none;
+    table-layout: fixed;
+}
+
+.SampleTable
+{
+    margin: 18px;
+    width: 11px;
+    padding-top: 8px;
+    font-size: .95em; /*1em; /*table cells font size*/
+    border:none;
+    font-family: Consolas;   
+
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border-width: 0px;
+    padding: 0px;
+    margin: 0px;
+    border-style: none;
+    table-layout: fixed;
+}
+
+.headerTable /*this is needed to remove all borders, spacing, etc to run cells together*/ 
+{
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border-width: 0px;
+    padding: 0px;
+    margin: 0px;
+    border-style: none;
+    table-layout: fixed;
+   
 }
 
 /*table cell width is set here !!*/
@@ -81,15 +121,11 @@ input, textarea { /*this has effect on table input*/
     background: #fff;
     color: #333;
     font-size: .9em; /*1em; /*table cells font size*/
-    width: 71px;
     margin: 3px 0 1px 0;
+    width: 71px;
     /*padding: 5px;*/
 }
 
-/*textarea {
-    font-family: inherit;
-    width: 500px;
-}*/
 
 input:focus, textarea:focus 
 {
@@ -111,10 +147,25 @@ input[type="button"],
 
 td button {
     font-size: .85em; /*font size for buttons in table cell*/
-    background-color:aliceblue;
+    /*background-color:aliceblue;*/
+    background-color: lightblue !important;
+
+    cursor: pointer !important ;
     border: 1px solid #787878; /*this works*/
-    padding: 4px;
-    margin-right: 4px;
+    padding: 1px;
+    width: 45px;
+    /*margin-right: 4px;*/
+}
+
+buttonSWAP {
+    background-color: lightblue !important;
+
+    border: 1px solid #787878; /*this works*/
+    cursor: pointer !important ;
+    font-size: .85em !important ; /*does not change font size in button in table, but does on pages*/
+    font-weight: 600;
+    /*padding: 7px;
+        margin-right: 8px;*/
 }
 
 
@@ -163,17 +214,7 @@ button {
         margin-right: 8px;*/
 }
 
-.headerTable /*this is needed to remove all borders, spacing, etc to run cells together*/ 
-{
-    border-collapse: collapse;
-    border-spacing: 0px;
-    border-width: 0px;
-    padding: 0px;
-    margin: 0px;
-    border-style: none;
-    table-layout: fixed;
-   
-}
+
 
 .RW-nav /*builds grey bar behind the menu items*/ 
 {
@@ -1249,3 +1290,9 @@ fieldset {
     }   
     
 */
+.pageHeader {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: #808080;
+}

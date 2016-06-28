@@ -12,8 +12,6 @@
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblMetalBarCode" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblOrganization" Width="1.5" PointX="3.75" PointY="15.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblParticipant" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblSample" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblStation" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblStatu" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblStatusStation" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblUser" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
@@ -21,15 +19,15 @@
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblWatercode" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblWatershedGrp" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
         <AssociationConnector Association="dbRiverwatchWaterDataModel.tblOrganization_tblStatus_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="dbRiverwatchWaterDataModel.tblStation_tblSample_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="dbRiverwatchWaterDataModel.tblStation_tblStatusStation_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="dbRiverwatchWaterDataModel.tblWatercodes_tblStation_FK" ManuallyRouted="false" />
         <AssociationConnector Association="dbRiverwatchWaterDataModel.tblStatus_tblStatusStation_FK" ManuallyRouted="false" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tlkMetalBarCodeType" Width="1.5" PointX="10.5" PointY="19" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tlkNutrientBarCodeType" Width="1.5" PointX="13.375" PointY="13.75" />
         <AssociationConnector Association="dbRiverwatchWaterDataModel.tlkMetalBarCodeType_tblMetalBarCode_FK" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.expStnMetal" Width="1.5" PointX="15.375" PointY="0.75" />
         <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tlkLimit" Width="1.5" PointX="15.375" PointY="10.75" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblSample" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblStation" Width="1.5" PointX="3.375" PointY="1.25" />
+        <AssociationConnector Association="dbRiverwatchWaterDataModel.tblStation_tblStatusStation_FK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

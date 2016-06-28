@@ -14,11 +14,6 @@ namespace RWInbound2
     
     public partial class tblWatercode
     {
-        public tblWatercode()
-        {
-            this.tblStations = new HashSet<tblStation>();
-        }
-    
         public string WATERCODE { get; set; }
         public string WATERNAME { get; set; }
         public Nullable<bool> STREAM { get; set; }
@@ -44,7 +39,5 @@ namespace RWInbound2
         public string BLMMAP { get; set; }
         public string TOPOMAP { get; set; }
         public Nullable<bool> OBSOLETE { get; set; }
-    
-        public virtual ICollection<tblStation> tblStations { get; set; }
     }
 }

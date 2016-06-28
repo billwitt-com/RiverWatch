@@ -226,7 +226,6 @@
     <Content Include="Reports\Reports.aspx" />
     <Content Include="Samples\NewSample.aspx" />
     <Content Include="Samples\Samples.aspx" />
-    <Content Include="Validation\Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
@@ -386,6 +385,9 @@
     <Compile Include="Edit\GearConfigNewRow.aspx.designer.cs">
       <DependentUpon>GearConfigNewRow.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ErrorLog.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="expStnMetal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -524,13 +526,6 @@
     <Compile Include="tlkNutrientBarCodeType.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Validation\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Validation\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -549,6 +544,7 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="LogErrror.cs" />
     <Compile Include="Validation\ValidateBlanks.aspx.cs">
       <DependentUpon>ValidateBlanks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

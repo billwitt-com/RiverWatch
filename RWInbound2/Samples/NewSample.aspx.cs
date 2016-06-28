@@ -14,7 +14,7 @@ namespace RWInbound2.Samples
     public partial class NewSample : System.Web.UI.Page
     {
         dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
-       
+        NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();       
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -49,6 +49,7 @@ namespace RWInbound2.Samples
 
         // user has chosen a site number, so get detail
         // this just populates the top section of the page, above the tabs
+        // 06/24 Added org select list too... 
         protected void btnSiteNumber_Click(object sender, EventArgs e)
         {
             int stationNumber = 0;
@@ -58,6 +59,7 @@ namespace RWInbound2.Samples
             DateTime currentYear;
             DateTime thisyear = DateTime.Now;
             string date2parse = "";
+            string orgName = ""; 
 
             //TabPanelSample.Focus(); // put user on sample tab
             //TabPanelSample.BackColor = System.Drawing.Color.Beige;
@@ -74,18 +76,50 @@ namespace RWInbound2.Samples
                 date2parse = string.Format("{0}/07/01", thisyear.Year-2);
                 currentYear = DateTime.Parse(date2parse); 
             }
-            
+
+            kitNumber = -1; // no real kit number
             bool success = int.TryParse(tbSite.Text, out stationNumber);
             bool success2 = int.TryParse(tbKitNumber.Text, out kitNumber);
 
-            if (!success | !success2)
+            orgName = tbOrg.Text;            
+
+            if (!success )
             {
                 tbSite.Text = "";
-                tbKitNumber.Text = ""; 
+                tbKitNumber.Text = "";
+                tbOrg.Text = ""; 
                 Panel1.Visible = false;
                 lstSamples.Visible = false;
                 return;
             }
+            if (!success2)  // first, is there a kit number in the box?
+            {
+                if (orgName.Length > 2)   // there is an org
+                {
+                    var KN = (from k in NRWDE.Organizations
+                              where k.OrganizationName == orgName
+                              select k.KitNumber).FirstOrDefault(); 
+
+                    if (KN != null)
+                    {
+                        kitNumber = KN.Value; 
+                    }
+                }
+            }
+
+            if(kitNumber == -1)
+            {
+                tbSite.Text = "";
+                tbKitNumber.Text = "";
+                tbOrg.Text = "";
+                Panel1.Visible = false;
+                lstSamples.Visible = false;
+                return;            
+            }
+
+            // we have good kit number, so fill in the text box, just for....
+            tbKitNumber.Text = kitNumber.ToString(); 
+
             try
             {
                     var RES = from r in RWDE.tblStations
@@ -121,9 +155,9 @@ namespace RWInbound2.Samples
                 // save some values for later use
                 Session["STNID"] = RES.FirstOrDefault().stnID;
                 Session["ORGID"] = RES.FirstOrDefault().orgID;
-                Session["CURRENTYEAR"] = currentYear; 
+                Session["CURRENTYEAR"] = currentYear;
 
-
+                tbOrg.Text = orgName;   // to make it 'nice'
                 Panel1.Visible = true;
                 lblStationNumber.Text = string.Format("Station Number: {0}", stationNumber);
                 lblEndDate.Text = string.Format("End Date: {0:M/d/yyyy}", RES.FirstOrDefault().endDate);
@@ -316,7 +350,7 @@ namespace RWInbound2.Samples
             double mins = double.Parse(sampMins);           
          
             // scrape the screen
-            // ADD DATES, ETC WHEN WE HAVE NEW TABLE XXXX
+            // ADD DATES, ETC WHEN WE HAVE newWater TABLE XXXX
             tblSample TS = new tblSample();
             TS.StationID = stationNumber;
             TS.OrganizationID = orgNumber;
@@ -918,7 +952,7 @@ namespace RWInbound2.Samples
                 V = (decimal)(from z in RWDE.tlkLimits
                               where z.Element.ToUpper() == "MG"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total smaller than Disolved 
+                InBound.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
                 InBound.MG_T = (decimal)InBound.MG_D - (decimal)RAND.NextDouble() + .5m;
 
                 V = (decimal)(from z in RWDE.tlkLimits
@@ -949,7 +983,7 @@ namespace RWInbound2.Samples
                               where z.Element.ToUpper() == "ZN"
                               select z.Reporting.Value).FirstOrDefault();
 
-                InBound.ZN_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total smaller than Disolved 
+                InBound.ZN_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
                 InBound.ZN_T = (decimal)InBound.ZN_D - .5m;
 
 
@@ -1006,6 +1040,45 @@ namespace RWInbound2.Samples
             {
                 Panel1.Visible = false;
                 string msg = ex.Message;
+            }
+        }
+
+        // approved method of getting data for the autocomplete extender. Can reuse for other tables... 
+
+        [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod]
+        public static List<string> SearchOrgs(string prefixText, int count)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
+                {
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";
+                        cmd.Parameters.AddWithValue("@SearchText", prefixText);
+                        cmd.Connection = conn;
+                        conn.Open();
+
+                        List<string> customers = new List<string>();
+
+                        using (SqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                customers.Add(sdr["OrganizationName"].ToString());
+                            }
+                        }
+                        conn.Close();
+                        return customers;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;    // XXXX need to build an error log file and logging code
+                return null;
             }
         }
     }    

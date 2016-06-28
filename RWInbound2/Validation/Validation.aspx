@@ -2,14 +2,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 
-    <p class="site-title"> Validation </p>
-    <div class="cssoverride">
-    <table class="CSSoverride" style="width: 100%">
-        <tr>
+    <p class="pageHeader">Incoming Validation </p>
+    <div >
+    <table  style="width: 100%">
+        <%--<tr>
             <td style="width: 7px">&nbsp;</td>
             <td style="width: 201px">&nbsp;</td>
             <td>&nbsp;</td>
-        </tr>
+        </tr>--%>
         <tr>
             <td >&nbsp;</td>
             <td >
@@ -43,7 +43,7 @@
     <asp:Button ID="btnField" runat="server"  CssClass="menuButton" Text="Field" Enabled="False" />
             </td>
             <td>
-                <asp:Label ID="lblFieldSamples" runat="server" Text="There are 6 inbound samples"></asp:Label>
+                <asp:Label ID="lblFieldSamples" runat="server" Text="There are XX inbound samples"></asp:Label>
             &nbsp;- Example</td>
         </tr>
         <tr>
@@ -52,7 +52,7 @@
     <asp:Button ID="btnLachet" runat="server" CssClass="menuButton" Text="Lachet" Enabled="False" />
             </td>
             <td>
-                <asp:Label ID="lblLachet" runat="server" Text="There are 12 inbound samples"></asp:Label>
+                <asp:Label ID="lblLachet" runat="server" Text="There are XX inbound samples"></asp:Label>
             &nbsp;- Example</td>
         </tr>
     </table>

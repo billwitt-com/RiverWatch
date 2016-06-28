@@ -32,8 +32,6 @@ namespace RWInbound2
         public DbSet<tblMetalBarCode> tblMetalBarCodes { get; set; }
         public DbSet<tblOrganization> tblOrganizations { get; set; }
         public DbSet<tblParticipant> tblParticipants { get; set; }
-        public DbSet<tblSample> tblSamples { get; set; }
-        public DbSet<tblStation> tblStations { get; set; }
         public DbSet<tblStatu> tblStatus { get; set; }
         public DbSet<tblStatusStation> tblStatusStations { get; set; }
         public DbSet<tblUser> tblUsers { get; set; }
@@ -44,5 +42,7 @@ namespace RWInbound2
         public DbSet<tlkNutrientBarCodeType> tlkNutrientBarCodeTypes { get; set; }
         public DbSet<expStnMetal> expStnMetals { get; set; }
         public DbSet<tlkLimit> tlkLimits { get; set; }
+        public DbSet<tblSample> tblSamples { get; set; }
+        public DbSet<tblStation> tblStations { get; set; }
     }
 }

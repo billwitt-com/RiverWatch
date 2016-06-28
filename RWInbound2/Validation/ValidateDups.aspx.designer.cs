@@ -58,13 +58,13 @@ namespace RWInbound2.Validation {
         protected global::System.Web.UI.WebControls.Button btnHelp;
         
         /// <summary>
-        /// FormViewBlank control.
+        /// FormViewDup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FormView FormViewBlank;
+        protected global::System.Web.UI.WebControls.FormView FormViewDup;
         
         /// <summary>
         /// FormViewSample control.
@@ -76,21 +76,21 @@ namespace RWInbound2.Validation {
         protected global::System.Web.UI.WebControls.FormView FormViewSample;
         
         /// <summary>
-        /// SqlDataSourceSamples control.
+        /// SqlDataSourceNormals control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceSamples;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceNormals;
         
         /// <summary>
-        /// SqlDataSourceBlanks control.
+        /// SqlDataSourceDups control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceBlanks;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceDups;
     }
 }

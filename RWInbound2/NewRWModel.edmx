@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RiverwatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="200" />
+          <Property Name="FromPage" Type="nvarchar" MaxLength="200" />
+          <Property Name="StackTrace" Type="nvarchar(max)" />
+          <Property Name="Severity" Type="int" />
+          <Property Name="LoggedInUser" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="GearConfig">
           <Key>
             <PropertyRef Name="ID" />
@@ -252,6 +265,7 @@
           <Parameter Name="user" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="RiverwatchModelStoreContainer">
+          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GearConfig" EntityType="Self.GearConfig" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InboundICPFinal" EntityType="Self.InboundICPFinal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InboundICPOrigional" EntityType="Self.InboundICPOrigional" Schema="dbo" store:Type="Tables" />
@@ -333,8 +347,9 @@
           <EntitySet Name="InboundICPOrigionals" EntityType="RiverwatchModel.InboundICPOrigional" />
           <EntitySet Name="NEWexpWaters" EntityType="RiverwatchModel.NEWexpWater" />
           <FunctionImport Name="UpdateLocalTablesFromIncomingICP">
-            <Parameter Name="user" Mode="In" Type="String" />
+          <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="ErrorLogs" EntityType="RiverwatchModel.ErrorLog" />
         </EntityContainer>
         <EntityType Name="GearConfig">
           <Key>
@@ -516,6 +531,19 @@
           <Property Name="BadDuplicate" Type="Boolean" />
           <Property Name="BadSample" Type="Boolean" />
           <Property Name="Valid" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FromPage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Severity" Type="Int32" />
+          <Property Name="LoggedInUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -773,6 +801,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="UpdateLocalTablesFromIncomingICP" FunctionName="RiverwatchModel.Store.UpdateLocalTablesFromIncomingICP" />
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="RiverwatchModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLog">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LoggedInUser" ColumnName="LoggedInUser" />
+                <ScalarProperty Name="Severity" ColumnName="Severity" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="FromPage" ColumnName="FromPage" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

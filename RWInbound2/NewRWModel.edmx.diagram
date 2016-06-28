@@ -4,13 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6c734efd613a4d5bbfcd628cc7bce78f" Name="Diagram1" ZoomLevel="53">
-        <EntityTypeShape EntityType="RiverwatchModel.Organization" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblSample" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+      <Diagram DiagramId="6c734efd613a4d5bbfcd628cc7bce78f" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="RiverwatchModel.Organization" Width="1.5" PointX="2.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverwatchModel.tblSample" Width="1.5" PointX="4.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverwatchModel.GearConfig" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.InboundICPFinal" Width="1.5" PointX="3.75" PointY="6.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.InboundICPOrigional" Width="1.5" PointX="5.75" PointY="6.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.NEWexpWater" Width="1.5" PointX="7.75" PointY="6.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.InboundICPFinal" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.InboundICPOrigional" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.NEWexpWater" Width="1.5" PointX="0.5" PointY="3.875" />
+        <EntityTypeShape EntityType="RiverwatchModel.ErrorLog" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

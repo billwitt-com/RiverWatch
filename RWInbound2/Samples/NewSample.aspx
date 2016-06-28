@@ -12,20 +12,30 @@
     <table>
 
         <tr>
-            <td style="width: 253px">Enter Station Number: 
+            <td style="width: 193px">Station Number: 
                  <asp:TextBox ID="tbSite" runat="server" Height="20px" Width="46px" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
 
             </td>
-            <td   style="width: 229px">Enter Kit Number: 
+            <td   style="width: 166px">Kit Number: 
                  <asp:TextBox ID="tbKitNumber"  runat="server"  BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="46px"></asp:TextBox>
             </td>
-            <td style="width: 192px">
+
+            <td   style="width: 300px">OR Org: <asp:TextBox ID="tbOrg"  runat="server"  BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="16px" Width="225px"></asp:TextBox>
+            </td>
+            <td style="width: 116px">
                
                 <asp:Button ID="btnSiteNumber" runat="server" Text="Select" CssClass="smallButton" OnClick="btnSiteNumber_Click" />
             </td>
         </tr>
     </table>
-
+            <ajaxToolkit:AutoCompleteExtender ID="tbSearch_AutoCompleteExtender" runat="server" BehaviorID="tbSearch_AutoCompleteExtender" DelimiterCharacters=""  
+            ServiceMethod="SearchOrgs"             
+            TargetControlID="tbOrg"
+            MinimumPrefixLength="2"
+            CompletionInterval="100" 
+            EnableCaching="false" 
+            CompletionSetCount="10">
+        </ajaxToolkit:AutoCompleteExtender> 
     <asp:Panel ID="Panel1" runat="server" BorderColor="#0099FF" BorderStyle="Solid" BorderWidth="1px">
         <table style="width: 100%">
             <tr>

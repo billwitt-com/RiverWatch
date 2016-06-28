@@ -40,10 +40,10 @@ namespace RWInbound2
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchWaterDEV"].ConnectionString;
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "select OrganizationName from tblOrganization where OrganizationName like @SearchText + '%'";
+                        cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";
                         cmd.Parameters.AddWithValue("@SearchText", prefixText);
                         cmd.Connection = conn;
                         conn.Open();

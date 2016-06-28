@@ -27,8 +27,8 @@
         <tr >   <%--single row to hold all content   --%>         
             <td >       <%-- start of left column in major table for Blanks --%>  
 
-                <asp:FormView ID="FormViewBlank" runat ="server"  OnDataBound ="FormViewBlank_DataBound"  OnItemCreated="FormViewBlank_ItemCreated" AllowPaging="true" 
-                    DefaultMode="Edit" DataKeyNames ="ID" DataSourceID ="SqlDataSourceBlanks" OnPageIndexChanged = "FormViewBlank_PageIndexChanged" 
+                <asp:FormView ID="FormViewBlank" runat ="server"  OnDataBound ="FormViewBlank_DataBound"  AllowPaging="true" 
+                    DefaultMode="Edit" DataKeyNames ="ID" DataSourceID ="SqlDataSourceBlanks"  
                     OnPageIndexChanging = "FormViewBlank_PageIndexChanging" >
                    
                      <EditItemTemplate>    
@@ -206,7 +206,7 @@
                         tblSampleID:
                         <asp:TextBox ID="tblSampleIDTextBox" runat="server" Text='<%# Bind("tblSampleID") %>' />
                         <br />
-                        <asp:Button ID="UpdateButton" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />
+                        <asp:Button ID="UpdateButton" CssClass="adminButton" runat="server"  UseSubmitBehavior="true" OnClick="UpdateButton_Click"  Text="Accept" />
                   
                       <%--  <asp:Button ID="UpdateCancelButton" CssClass="adminButton" runat="server" CausesValidation="False"  Text="Cancel" />--%>
                         <asp:Button ID="btnBadBlank" CssClass="adminButton"  OnClick="btnBadBlank_Click" runat="server" Text="Bad Blank" />
@@ -366,8 +366,8 @@
                         <asp:TextBox ID="tblSampleIDTextBox" runat="server" Text='<%# Bind("tblSampleID") %>' />
                         <br />
                      <%--   <asp:Button ID="Button1" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />--%>
-                        <asp:LinkButton ID="UpdateButton" runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Update" />
-                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+                        <asp:Button ID="DupUpdateButton"  runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Update" />
+                  <%--      &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
                     </EditItemTemplate>
                    
                 </asp:FormView>
@@ -379,7 +379,7 @@
             </td>
             <%-- start of right column in major table for samples --%>
             <td >
-                <asp:FormView ID="FormViewSample" runat="server" DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSourceSamples"  
+                <asp:FormView ID="FormViewSample" runat="server" DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSourceNormals"  
                     GridLines="Horizontal" BorderStyle="None" BorderWidth="0px">
                      <EditItemTemplate>
 
@@ -529,7 +529,7 @@
                         <asp:TextBox ID="tblSampleIDTextBox" runat="server" Text='<%# Bind("tblSampleID") %>' />
                         <br />
                      <%--   <asp:Button ID="Button1" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />--%>
-                        <asp:LinkButton ID="UpdateButton" runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Update" />
+                        <asp:Button ID="NormalUpdateButton"  runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Update" />
                         &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
                     </EditItemTemplate>
                    
@@ -538,17 +538,68 @@
         </tr>
     </table>
 
-    <asp:SqlDataSource ID="SqlDataSourceSamples" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"></asp:SqlDataSource>
-
-    <asp:SqlDataSource ID="SqlDataSourceBlanks" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
-        SelectCommand ="SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1'"
-        DeleteCommand="DELETE FROM [InboundICPFinal] WHERE [ID] = @ID"
-        InsertCommand="INSERT INTO [InboundICPFinal] ([CODE], [DUPLICATE], [AL_D], [AL_T], [AS_D], [AS_T], [CA_D], [CA_T], [CD_D], [CD_T], [CU_D], [CU_T], [FE_D], [FE_T], [PB_D], [PB_T], [MG_D], [MG_T], [MN_D], [MN_T], [SE_D], [SE_T], [ZN_D], [ZN_T], [NA_D], [NA_T], [K_D], [K_T], [ANADATE], [COMPLETE], [DATE_SENT], [Comments], [PassValStep], [Reviewed],[tblSampleID]) VALUES (@CODE, @DUPLICATE, @AL_D, @AL_T, @AS_D, @AS_T, @CA_D, @CA_T, @CD_D, @CD_T, @CU_D, @CU_T, @FE_D, @FE_T, @PB_D, @PB_T, @MG_D, @MG_T, @MN_D, @MN_T, @SE_D, @SE_T, @ZN_D, @ZN_T, @NA_D, @NA_T, @K_D, @K_T, @ANADATE, @COMPLETE, @DATE_SENT, @Comments, @PassValStep, @Reviewed, @tblSampleID)"
-        UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, [NA_D] = @NA_D, [NA_T] = @NA_T, [K_D] = @K_D, [K_T] = @K_T, [ANADATE] = @ANADATE, [COMPLETE] = @COMPLETE, [DATE_SENT] = @DATE_SENT, [Comments] = @Comments, [PassValStep] = @PassValStep, [Reviewed] = @Reviewed, [tblSampleID] = @tblSampleID WHERE [ID] = @inbICPID">
-        <DeleteParameters>
-            <asp:Parameter Name="ID" Type="Int32" />
-        </DeleteParameters>
+    <asp:SqlDataSource ID="SqlDataSourceNormals" OnUpdating="SqlDataSourceNormals_Updating"  OnUpdated="SqlDataSourceNormals_Updated" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
          
+        UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [tblSampleID] = @tblSampleID, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, 
+        [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, 
+        [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, 
+        [NA_D] = @NA_D, [NA_T] = @NA_T, [K_D] = @K_D, [K_T] = @K_T, [ANADATE] = @ANADATE, [COMPLETE] = @COMPLETE, [DATE_SENT] = @DATE_SENT, [Comments] = @Comments       
+        WHERE [ID] = @ID">
+
+<%-- we fill these in in code  [CreatedBy] = @CreatedBy, [CreatedDate] = @CreatedDate, [Valid] = @Valid, [Edited] = @Edited, [Saved] = @Saved --%>
+       
+        <UpdateParameters>
+            <asp:Parameter Name="CODE" Type="String" />
+            <asp:Parameter Name="tblSampleID" Type="Int32" />
+            <asp:Parameter Name="DUPLICATE" Type="String" />
+            <asp:Parameter Name="AL_D" Type="Decimal" />
+            <asp:Parameter Name="AL_T" Type="Decimal" />
+            <asp:Parameter Name="AS_D" Type="Decimal" />
+            <asp:Parameter Name="AS_T" Type="Decimal" />
+            <asp:Parameter Name="CA_D" Type="Decimal" />
+            <asp:Parameter Name="CA_T" Type="Decimal" />
+            <asp:Parameter Name="CD_D" Type="Decimal" />
+            <asp:Parameter Name="CD_T" Type="Decimal" />
+            <asp:Parameter Name="CU_D" Type="Decimal" />
+            <asp:Parameter Name="CU_T" Type="Decimal" />
+            <asp:Parameter Name="FE_D" Type="Decimal" />
+            <asp:Parameter Name="FE_T" Type="Decimal" />
+            <asp:Parameter Name="PB_D" Type="Decimal" />
+            <asp:Parameter Name="PB_T" Type="Decimal" />
+            <asp:Parameter Name="MG_D" Type="Decimal" />
+            <asp:Parameter Name="MG_T" Type="Decimal" />
+            <asp:Parameter Name="MN_D" Type="Decimal" />
+            <asp:Parameter Name="MN_T" Type="Decimal" />
+            <asp:Parameter Name="SE_D" Type="Decimal" />
+            <asp:Parameter Name="SE_T" Type="Decimal" />
+            <asp:Parameter Name="ZN_D" Type="Decimal" />
+            <asp:Parameter Name="ZN_T" Type="Decimal" />
+            <asp:Parameter Name="NA_D" Type="Decimal" />
+            <asp:Parameter Name="NA_T" Type="Decimal" />
+            <asp:Parameter Name="K_D" Type="Decimal" />
+            <asp:Parameter Name="K_T" Type="Decimal" />
+            <asp:Parameter Name="ANADATE" Type="DateTime" />
+            <asp:Parameter Name="COMPLETE" Type="Boolean" />
+            <asp:Parameter Name="DATE_SENT" Type="DateTime" />
+            <asp:Parameter Name="Comments" Type="String" />
+            <asp:Parameter Name="CreatedBy" Type="String" />
+            <asp:Parameter Name="CreatedDate" Type="DateTime" />
+            <asp:Parameter Name="Valid" Type="Boolean" />
+            <asp:Parameter Name="Edited" Type="Boolean" />
+            <asp:Parameter Name="Saved" Type="Boolean" />
+            <asp:Parameter Name="ID" Type="Int32" />
+        </UpdateParameters>
+    </asp:SqlDataSource>
+
+
+<%--    we really don't care about this since we manage in code... --%>
+    <asp:SqlDataSource ID="SqlDataSourceBlanks" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
+
+        UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, 
+        [FE_T] = @FE_T, [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, 
+        [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, [NA_D] = @NA_D, [NA_T] = @NA_T, [K_D] = @K_D, [K_T] = @K_T, [ANADATE] = @ANADATE, [COMPLETE] = @COMPLETE, [DATE_SENT] = @DATE_SENT, 
+        [Comments] = @Comments, [PassValStep] = @PassValStep, [Reviewed] = @Reviewed, [tblSampleID] = @tblSampleID WHERE [ID] = @inbICPID">
+        
         <UpdateParameters>
             <asp:Parameter Name="CODE" Type="String" />
             <asp:Parameter Name="DUPLICATE" Type="String" />
@@ -589,52 +640,56 @@
         </UpdateParameters>
     </asp:SqlDataSource>
 
-      <asp:SqlDataSource ID="SqlDataSourceDups" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
-          InsertCommand="INSERT INTO [InboundICPFinal] ([CODE], [tblSampleID], [DUPLICATE], [AL_D], [AL_T], [AS_D], [AS_T], [CA_D], [CA_T], [CD_D], [CD_T], [CU_D], [CU_T], [FE_D], [FE_T], [PB_D], [PB_T], [MG_D], [MG_T], [MN_D], [MN_T], [SE_D], [SE_T], [ZN_D], [ZN_T], [NA_D], [NA_T], [K_D], [K_T], [ANADATE], [COMPLETE], [DATE_SENT], [Comments], [CreatedBy], [CreatedDate], [Valid], [Edited], [Saved]) VALUES (@CODE, @tblSampleID, @DUPLICATE, @AL_D, @AL_T, @AS_D, @AS_T, @CA_D, @CA_T, @CD_D, @CD_T, @CU_D, @CU_T, @FE_D, @FE_T, @PB_D, @PB_T, @MG_D, @MG_T, @MN_D, @MN_T, @SE_D, @SE_T, @ZN_D, @ZN_T, @NA_D, @NA_T, @K_D, @K_T, @ANADATE, @COMPLETE, @DATE_SENT, @Comments, @CreatedBy, @CreatedDate, @Valid, @Edited, @Saved)" 
-          SelectCommand="SELECT * FROM [InboundICPFinal]" 
-          UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [tblSampleID] = @tblSampleID, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, [NA_D] = @NA_D, [NA_T] = @NA_T, [K_D] = @K_D, [K_T] = @K_T, [ANADATE] = @ANADATE, [COMPLETE] = @COMPLETE, [DATE_SENT] = @DATE_SENT, [Comments] = @Comments, [CreatedBy] = @CreatedBy, [CreatedDate] = @CreatedDate, [Valid] = @Valid, [Edited] = @Edited, [Saved] = @Saved WHERE [ID] = @ID">
-                    
-                    <UpdateParameters>
-                        <asp:Parameter Name="CODE" Type="String" />
-                        <asp:Parameter Name="tblSampleID" Type="Int32" />
-                        <asp:Parameter Name="DUPLICATE" Type="String" />
-                        <asp:Parameter Name="AL_D" Type="Decimal" />
-                        <asp:Parameter Name="AL_T" Type="Decimal" />
-                        <asp:Parameter Name="AS_D" Type="Decimal" />
-                        <asp:Parameter Name="AS_T" Type="Decimal" />
-                        <asp:Parameter Name="CA_D" Type="Decimal" />
-                        <asp:Parameter Name="CA_T" Type="Decimal" />
-                        <asp:Parameter Name="CD_D" Type="Decimal" />
-                        <asp:Parameter Name="CD_T" Type="Decimal" />
-                        <asp:Parameter Name="CU_D" Type="Decimal" />
-                        <asp:Parameter Name="CU_T" Type="Decimal" />
-                        <asp:Parameter Name="FE_D" Type="Decimal" />
-                        <asp:Parameter Name="FE_T" Type="Decimal" />
-                        <asp:Parameter Name="PB_D" Type="Decimal" />
-                        <asp:Parameter Name="PB_T" Type="Decimal" />
-                        <asp:Parameter Name="MG_D" Type="Decimal" />
-                        <asp:Parameter Name="MG_T" Type="Decimal" />
-                        <asp:Parameter Name="MN_D" Type="Decimal" />
-                        <asp:Parameter Name="MN_T" Type="Decimal" />
-                        <asp:Parameter Name="SE_D" Type="Decimal" />
-                        <asp:Parameter Name="SE_T" Type="Decimal" />
-                        <asp:Parameter Name="ZN_D" Type="Decimal" />
-                        <asp:Parameter Name="ZN_T" Type="Decimal" />
-                        <asp:Parameter Name="NA_D" Type="Decimal" />
-                        <asp:Parameter Name="NA_T" Type="Decimal" />
-                        <asp:Parameter Name="K_D" Type="Decimal" />
-                        <asp:Parameter Name="K_T" Type="Decimal" />
-                        <asp:Parameter Name="ANADATE" Type="DateTime" />
-                        <asp:Parameter Name="COMPLETE" Type="Boolean" />
-                        <asp:Parameter Name="DATE_SENT" Type="DateTime" />
-                        <asp:Parameter Name="Comments" Type="String" />
-                        <asp:Parameter Name="CreatedBy" Type="String" />
-                        <asp:Parameter Name="CreatedDate" Type="DateTime" />
-                        <asp:Parameter Name="Valid" Type="Boolean" />
-                        <asp:Parameter Name="Edited" Type="Boolean" />
-                        <asp:Parameter Name="Saved" Type="Boolean" />
-                        <asp:Parameter Name="ID" Type="Int32" />
-                    </UpdateParameters>
+      <asp:SqlDataSource ID="SqlDataSourceDups" runat="server" OnUpdating="SqlDataSourceDups_Updating"  OnUpdated="SqlDataSourceDups_Updated" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
+          UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [tblSampleID] = @tblSampleID, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, 
+        [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, 
+        [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, 
+        [NA_D] = @NA_D, [NA_T] = @NA_T, [K_D] = @K_D, [K_T] = @K_T, [ANADATE] = @ANADATE, [COMPLETE] = @COMPLETE, [DATE_SENT] = @DATE_SENT, [Comments] = @Comments       
+        WHERE [ID] = @ID">
+
+<%-- we fill these in in code        [CreatedBy] = @CreatedBy, [CreatedDate] = @CreatedDate, [Valid] = @Valid, [Edited] = @Edited, [Saved] = @Saved --%>
+       
+        <UpdateParameters>
+            <asp:Parameter Name="CODE" Type="String" />
+            <asp:Parameter Name="tblSampleID" Type="Int32" />
+            <asp:Parameter Name="DUPLICATE" Type="String" />
+            <asp:Parameter Name="AL_D" Type="Decimal" />
+            <asp:Parameter Name="AL_T" Type="Decimal" />
+            <asp:Parameter Name="AS_D" Type="Decimal" />
+            <asp:Parameter Name="AS_T" Type="Decimal" />
+            <asp:Parameter Name="CA_D" Type="Decimal" />
+            <asp:Parameter Name="CA_T" Type="Decimal" />
+            <asp:Parameter Name="CD_D" Type="Decimal" />
+            <asp:Parameter Name="CD_T" Type="Decimal" />
+            <asp:Parameter Name="CU_D" Type="Decimal" />
+            <asp:Parameter Name="CU_T" Type="Decimal" />
+            <asp:Parameter Name="FE_D" Type="Decimal" />
+            <asp:Parameter Name="FE_T" Type="Decimal" />
+            <asp:Parameter Name="PB_D" Type="Decimal" />
+            <asp:Parameter Name="PB_T" Type="Decimal" />
+            <asp:Parameter Name="MG_D" Type="Decimal" />
+            <asp:Parameter Name="MG_T" Type="Decimal" />
+            <asp:Parameter Name="MN_D" Type="Decimal" />
+            <asp:Parameter Name="MN_T" Type="Decimal" />
+            <asp:Parameter Name="SE_D" Type="Decimal" />
+            <asp:Parameter Name="SE_T" Type="Decimal" />
+            <asp:Parameter Name="ZN_D" Type="Decimal" />
+            <asp:Parameter Name="ZN_T" Type="Decimal" />
+            <asp:Parameter Name="NA_D" Type="Decimal" />
+            <asp:Parameter Name="NA_T" Type="Decimal" />
+            <asp:Parameter Name="K_D" Type="Decimal" />
+            <asp:Parameter Name="K_T" Type="Decimal" />
+            <asp:Parameter Name="ANADATE" Type="DateTime" />
+            <asp:Parameter Name="COMPLETE" Type="Boolean" />
+            <asp:Parameter Name="DATE_SENT" Type="DateTime" />
+            <asp:Parameter Name="Comments" Type="String" />
+            <asp:Parameter Name="CreatedBy" Type="String" />
+            <asp:Parameter Name="CreatedDate" Type="DateTime" />
+            <asp:Parameter Name="Valid" Type="Boolean" />
+            <asp:Parameter Name="Edited" Type="Boolean" />
+            <asp:Parameter Name="Saved" Type="Boolean" />
+            <asp:Parameter Name="ID" Type="Int32" />
+        </UpdateParameters>
                 </asp:SqlDataSource>
 
 </asp:Content>

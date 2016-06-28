@@ -516,18 +516,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="tblWatercodes_tblStation_FK">
-          <End Role="tblWatercodes" Type="Self.tblWatercodes" Multiplicity="0..1" />
-          <End Role="tblStation" Type="Self.tblStation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblWatercodes">
-              <PropertyRef Name="WATERCODE" />
-            </Principal>
-            <Dependent Role="tblStation">
-              <PropertyRef Name="WaterCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="tlkMetalBarCodeType_tblMetalBarCode_FK">
           <End Role="tlkMetalBarCodeType" Type="Self.tlkMetalBarCodeType" Multiplicity="0..1" />
           <End Role="tblMetalBarCode" Type="Self.tblMetalBarCode" Multiplicity="*" />
@@ -571,10 +559,6 @@
           <AssociationSet Name="tblStatus_tblStatusStation_FK" Association="Self.tblStatus_tblStatusStation_FK">
             <End Role="tblStatus" EntitySet="tblStatus" />
             <End Role="tblStatusStation" EntitySet="tblStatusStation" />
-          </AssociationSet>
-          <AssociationSet Name="tblWatercodes_tblStation_FK" Association="Self.tblWatercodes_tblStation_FK">
-            <End Role="tblWatercodes" EntitySet="tblWatercodes" />
-            <End Role="tblStation" EntitySet="tblStation" />
           </AssociationSet>
           <AssociationSet Name="tlkMetalBarCodeType_tblMetalBarCode_FK" Association="Self.tlkMetalBarCodeType_tblMetalBarCode_FK">
             <End Role="tlkMetalBarCodeType" EntitySet="tlkMetalBarCodeType" />
@@ -777,91 +761,6 @@
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="tblSample">
-          <Key>
-            <PropertyRef Name="SampleID" />
-          </Key>
-          <Property Name="SampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="StationID" Type="Int32" Nullable="false" />
-          <Property Name="OrganizationID" Type="Int32" />
-          <Property Name="SampleNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NumberSample" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DateCollected" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TimeCollected" Type="DateTime" Precision="3" />
-          <Property Name="DateReceived" Type="DateTime" Precision="3" />
-          <Property Name="DataSheetIncluded" Type="Boolean" Nullable="false" />
-          <Property Name="MissingDataSheetReqDate" Type="DateTime" Precision="3" />
-          <Property Name="ChainOfCustody" Type="Boolean" Nullable="false" />
-          <Property Name="MissingDataSheetReceived" Type="Boolean" Nullable="false" />
-          <Property Name="NoMetals" Type="Boolean" Nullable="false" />
-          <Property Name="PhysicalHabitat" Type="Boolean" Nullable="false" />
-          <Property Name="Bug" Type="Boolean" Nullable="false" />
-          <Property Name="NoNutrient" Type="Boolean" Nullable="false" />
-          <Property Name="TotalSuspendedSolids" Type="Boolean" Nullable="false" />
-          <Property Name="NitratePhosphorus" Type="Boolean" Nullable="false" />
-          <Property Name="DuplicatedTSS" Type="Boolean" Nullable="false" />
-          <Property Name="DuplicatedNP" Type="Boolean" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="ChlorideSulfate" Type="Boolean" />
-          <Property Name="BlankMetals" Type="Boolean" />
-          <Property Name="DuplicatedMetals" Type="Boolean" />
-          <Property Name="BugsQA" Type="Boolean" />
-          <Property Name="DuplicatedCS" Type="Boolean" />
-          <NavigationProperty Name="tblStation" Relationship="Self.tblStation_tblSample_FK" FromRole="tblSample" ToRole="tblStation" />
-          <Property Name="Valid" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="tblStation">
-          <Key>
-            <PropertyRef Name="StationID" />
-          </Key>
-          <Property Name="StationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="StationNumber" Type="Int32" />
-          <Property Name="River" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
-          <Property Name="AquaticModelIndex" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="WaterCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="WaterBodyID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="StationType" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="QUADI" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Township" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Range" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Section" Type="Int32" />
-          <Property Name="QuaterSection" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Grid" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="StationQUAD" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="RWWaterShed" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="WQCCWaterShed" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="HydroUnit" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="EcoRegion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="StationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StationStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Elevation" Type="Double" />
-          <Property Name="WaterShedRegion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Longtitude" Type="Double" />
-          <Property Name="Latitude" Type="Double" />
-          <Property Name="County" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="NearCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Move" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
-          <Property Name="UTMX" Type="Double" />
-          <Property Name="UTMY" Type="Double" />
-          <Property Name="Region" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="USGS" Type="Boolean" />
-          <Property Name="StateEngineering" Type="Boolean" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="StoretUploaded" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblSamples" Relationship="Self.tblStation_tblSample_FK" FromRole="tblStation" ToRole="tblSample" />
-          <NavigationProperty Name="tblStatusStations" Relationship="Self.tblStation_tblStatusStation_FK" FromRole="tblStation" ToRole="tblStatusStation" />
-          <NavigationProperty Name="tblWatercode" Relationship="Self.tblWatercodes_tblStation_FK" FromRole="tblStation" ToRole="tblWatercodes" />
-        </EntityType>
         <EntityType Name="tblStatu">
           <Key>
             <PropertyRef Name="StatusID" />
@@ -930,8 +829,8 @@
           <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblStation" Relationship="Self.tblStation_tblStatusStation_FK" FromRole="tblStatusStation" ToRole="tblStation" />
           <NavigationProperty Name="tblStatu" Relationship="Self.tblStatus_tblStatusStation_FK" FromRole="tblStatusStation" ToRole="tblStatus" />
+          <NavigationProperty Name="tblStation" Relationship="dbRiverwatchWaterDataModel.tblStation_tblStatusStation_FK" FromRole="tblStatusStation" ToRole="tblStation" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
@@ -983,7 +882,6 @@
           <Property Name="BLMMAP" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="TOPOMAP" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="OBSOLETE" Type="Boolean" />
-          <NavigationProperty Name="tblStations" Relationship="Self.tblWatercodes_tblStation_FK" FromRole="tblWatercodes" ToRole="tblStation" />
         </EntityType>
         <EntityType Name="tblWatershedGrp">
           <Key>
@@ -1008,42 +906,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="tblStation_tblSample_FK">
-          <End Role="tblStation" Type="Self.tblStation" Multiplicity="1" />
-          <End Role="tblSample" Type="Self.tblSample" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblStation">
-              <PropertyRef Name="StationID" />
-            </Principal>
-            <Dependent Role="tblSample">
-              <PropertyRef Name="StationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="tblStation_tblStatusStation_FK">
-          <End Role="tblStation" Type="Self.tblStation" Multiplicity="1" />
-          <End Role="tblStatusStation" Type="Self.tblStatusStation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblStation">
-              <PropertyRef Name="StationID" />
-            </Principal>
-            <Dependent Role="tblStatusStation">
-              <PropertyRef Name="StationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="tblWatercodes_tblStation_FK">
-          <End Role="tblWatercodes" Type="Self.tblWatercode" Multiplicity="0..1" />
-          <End Role="tblStation" Type="Self.tblStation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblWatercodes">
-              <PropertyRef Name="WATERCODE" />
-            </Principal>
-            <Dependent Role="tblStation">
-              <PropertyRef Name="WaterCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="tblStatus_tblStatusStation_FK">
           <End Role="tblStatus" Type="Self.tblStatu" Multiplicity="1" />
           <End Role="tblStatusStation" Type="Self.tblStatusStation" Multiplicity="*" />
@@ -1064,8 +926,6 @@
           <EntitySet Name="tblMetalBarCodes" EntityType="Self.tblMetalBarCode" />
           <EntitySet Name="tblOrganizations" EntityType="Self.tblOrganization" />
           <EntitySet Name="tblParticipants" EntityType="Self.tblParticipant" />
-          <EntitySet Name="tblSamples" EntityType="Self.tblSample" />
-          <EntitySet Name="tblStations" EntityType="Self.tblStation" />
           <EntitySet Name="tblStatus" EntityType="Self.tblStatu" />
           <EntitySet Name="tblStatusStations" EntityType="Self.tblStatusStation" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
@@ -1075,18 +935,6 @@
           <AssociationSet Name="tblOrganization_tblStatus_FK" Association="Self.tblOrganization_tblStatus_FK">
             <End Role="tblOrganization" EntitySet="tblOrganizations" />
             <End Role="tblStatus" EntitySet="tblStatus" />
-          </AssociationSet>
-          <AssociationSet Name="tblStation_tblSample_FK" Association="Self.tblStation_tblSample_FK">
-            <End Role="tblStation" EntitySet="tblStations" />
-            <End Role="tblSample" EntitySet="tblSamples" />
-          </AssociationSet>
-          <AssociationSet Name="tblStation_tblStatusStation_FK" Association="Self.tblStation_tblStatusStation_FK">
-            <End Role="tblStation" EntitySet="tblStations" />
-            <End Role="tblStatusStation" EntitySet="tblStatusStations" />
-          </AssociationSet>
-          <AssociationSet Name="tblWatercodes_tblStation_FK" Association="Self.tblWatercodes_tblStation_FK">
-            <End Role="tblWatercodes" EntitySet="tblWatercodes" />
-            <End Role="tblStation" EntitySet="tblStations" />
           </AssociationSet>
           <AssociationSet Name="tblStatus_tblStatusStation_FK" Association="Self.tblStatus_tblStatusStation_FK">
             <End Role="tblStatus" EntitySet="tblStatus" />
@@ -1100,6 +948,12 @@
           </AssociationSet>
           <EntitySet Name="expStnMetals" EntityType="dbRiverwatchWaterDataModel.expStnMetal" />
           <EntitySet Name="tlkLimits" EntityType="dbRiverwatchWaterDataModel.tlkLimit" />
+          <EntitySet Name="tblSamples" EntityType="dbRiverwatchWaterDataModel.tblSample" />
+          <EntitySet Name="tblStations" EntityType="dbRiverwatchWaterDataModel.tblStation" />
+          <AssociationSet Name="tblStation_tblStatusStation_FK" Association="dbRiverwatchWaterDataModel.tblStation_tblStatusStation_FK">
+            <End Role="tblStation" EntitySet="tblStations" />
+            <End Role="tblStatusStation" EntitySet="tblStatusStations" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tlkMetalBarCodeType">
           <Key>
@@ -1189,6 +1043,100 @@
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tblSample">
+          <Key>
+            <PropertyRef Name="SampleID" />
+          </Key>
+          <Property Name="SampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StationID" Type="Int32" Nullable="false" />
+          <Property Name="OrganizationID" Type="Int32" />
+          <Property Name="SampleNumber" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NumberSample" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateCollected" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeCollected" Type="DateTime" Precision="3" />
+          <Property Name="DateReceived" Type="DateTime" Precision="3" />
+          <Property Name="DataSheetIncluded" Type="Boolean" Nullable="false" />
+          <Property Name="MissingDataSheetReqDate" Type="DateTime" Precision="3" />
+          <Property Name="ChainOfCustody" Type="Boolean" Nullable="false" />
+          <Property Name="MissingDataSheetReceived" Type="Boolean" Nullable="false" />
+          <Property Name="NoMetals" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicalHabitat" Type="Boolean" Nullable="false" />
+          <Property Name="Bug" Type="Boolean" Nullable="false" />
+          <Property Name="NoNutrient" Type="Boolean" Nullable="false" />
+          <Property Name="TotalSuspendedSolids" Type="Boolean" Nullable="false" />
+          <Property Name="NitratePhosphorus" Type="Boolean" Nullable="false" />
+          <Property Name="DuplicatedTSS" Type="Boolean" Nullable="false" />
+          <Property Name="DuplicatedNP" Type="Boolean" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ChlorideSulfate" Type="Boolean" />
+          <Property Name="BlankMetals" Type="Boolean" />
+          <Property Name="DuplicatedMetals" Type="Boolean" />
+          <Property Name="BugsQA" Type="Boolean" />
+          <Property Name="DuplicatedCS" Type="Boolean" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblStation">
+          <Key>
+            <PropertyRef Name="StationID" />
+          </Key>
+          <Property Name="StationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StationNumber" Type="Int32" />
+          <Property Name="River" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="AquaticModelIndex" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="WaterCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="WaterBodyID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StationType" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="QUADI" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Township" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Range" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Section" Type="Int32" />
+          <Property Name="QuaterSection" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Grid" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StationQUAD" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="RWWaterShed" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="WQCCWaterShed" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="HydroUnit" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="EcoRegion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StationStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Elevation" Type="Double" />
+          <Property Name="WaterShedRegion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Longtitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="County" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="NearCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Move" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="UTMX" Type="Double" />
+          <Property Name="UTMY" Type="Double" />
+          <Property Name="Region" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="USGS" Type="Boolean" />
+          <Property Name="StateEngineering" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StoretUploaded" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblStatusStations" Relationship="dbRiverwatchWaterDataModel.tblStation_tblStatusStation_FK" FromRole="tblStation" ToRole="tblStatusStation" />
+        </EntityType>
+        <Association Name="tblStation_tblStatusStation_FK">
+          <End Type="dbRiverwatchWaterDataModel.tblStation" Role="tblStation" Multiplicity="1" />
+          <End Type="dbRiverwatchWaterDataModel.tblStatusStation" Role="tblStatusStation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStation">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="tblStatusStation">
+              <PropertyRef Name="StationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1387,89 +1335,6 @@
                 <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
                 <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblSamples">
-            <EntityTypeMapping TypeName="dbRiverwatchWaterDataModel.tblSample">
-              <MappingFragment StoreEntitySet="tblSample">
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
-                <ScalarProperty Name="StationID" ColumnName="StationID" />
-                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
-                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
-                <ScalarProperty Name="NumberSample" ColumnName="NumberSample" />
-                <ScalarProperty Name="DateCollected" ColumnName="DateCollected" />
-                <ScalarProperty Name="TimeCollected" ColumnName="TimeCollected" />
-                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
-                <ScalarProperty Name="DataSheetIncluded" ColumnName="DataSheetIncluded" />
-                <ScalarProperty Name="MissingDataSheetReqDate" ColumnName="MissingDataSheetReqDate" />
-                <ScalarProperty Name="ChainOfCustody" ColumnName="ChainOfCustody" />
-                <ScalarProperty Name="MissingDataSheetReceived" ColumnName="MissingDataSheetReceived" />
-                <ScalarProperty Name="NoMetals" ColumnName="NoMetals" />
-                <ScalarProperty Name="PhysicalHabitat" ColumnName="PhysicalHabitat" />
-                <ScalarProperty Name="Bug" ColumnName="Bug" />
-                <ScalarProperty Name="NoNutrient" ColumnName="NoNutrient" />
-                <ScalarProperty Name="TotalSuspendedSolids" ColumnName="TotalSuspendedSolids" />
-                <ScalarProperty Name="NitratePhosphorus" ColumnName="NitratePhosphorus" />
-                <ScalarProperty Name="DuplicatedTSS" ColumnName="DuplicatedTSS" />
-                <ScalarProperty Name="DuplicatedNP" ColumnName="DuplicatedNP" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="ChlorideSulfate" ColumnName="ChlorideSulfate" />
-                <ScalarProperty Name="BlankMetals" ColumnName="BlankMetals" />
-                <ScalarProperty Name="DuplicatedMetals" ColumnName="DuplicatedMetals" />
-                <ScalarProperty Name="BugsQA" ColumnName="BugsQA" />
-                <ScalarProperty Name="DuplicatedCS" ColumnName="DuplicatedCS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblStations">
-            <EntityTypeMapping TypeName="dbRiverwatchWaterDataModel.tblStation">
-              <MappingFragment StoreEntitySet="tblStation">
-                <ScalarProperty Name="StationID" ColumnName="StationID" />
-                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
-                <ScalarProperty Name="River" ColumnName="River" />
-                <ScalarProperty Name="AquaticModelIndex" ColumnName="AquaticModelIndex" />
-                <ScalarProperty Name="WaterCode" ColumnName="WaterCode" />
-                <ScalarProperty Name="WaterBodyID" ColumnName="WaterBodyID" />
-                <ScalarProperty Name="StationType" ColumnName="StationType" />
-                <ScalarProperty Name="QUADI" ColumnName="QUADI" />
-                <ScalarProperty Name="Township" ColumnName="Township" />
-                <ScalarProperty Name="Range" ColumnName="Range" />
-                <ScalarProperty Name="Section" ColumnName="Section" />
-                <ScalarProperty Name="QuaterSection" ColumnName="QuaterSection" />
-                <ScalarProperty Name="Grid" ColumnName="Grid" />
-                <ScalarProperty Name="StationQUAD" ColumnName="StationQUAD" />
-                <ScalarProperty Name="RWWaterShed" ColumnName="RWWaterShed" />
-                <ScalarProperty Name="WQCCWaterShed" ColumnName="WQCCWaterShed" />
-                <ScalarProperty Name="HydroUnit" ColumnName="HydroUnit" />
-                <ScalarProperty Name="EcoRegion" ColumnName="EcoRegion" />
-                <ScalarProperty Name="StationName" ColumnName="StationName" />
-                <ScalarProperty Name="StationStatus" ColumnName="StationStatus" />
-                <ScalarProperty Name="Elevation" ColumnName="Elevation" />
-                <ScalarProperty Name="WaterShedRegion" ColumnName="WaterShedRegion" />
-                <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="County" ColumnName="County" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="NearCity" ColumnName="NearCity" />
-                <ScalarProperty Name="Move" ColumnName="Move" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="UTMX" ColumnName="UTMX" />
-                <ScalarProperty Name="UTMY" ColumnName="UTMY" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-                <ScalarProperty Name="USGS" ColumnName="USGS" />
-                <ScalarProperty Name="StateEngineering" ColumnName="StateEngineering" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1684,6 +1549,89 @@
                 <ScalarProperty Name="RowID" ColumnName="RowID" />
                 <ScalarProperty Name="Element" ColumnName="Element" />
                 <ScalarProperty Name="LimitID" ColumnName="LimitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSamples">
+            <EntityTypeMapping TypeName="dbRiverwatchWaterDataModel.tblSample">
+              <MappingFragment StoreEntitySet="tblSample">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="DuplicatedCS" ColumnName="DuplicatedCS" />
+                <ScalarProperty Name="BugsQA" ColumnName="BugsQA" />
+                <ScalarProperty Name="DuplicatedMetals" ColumnName="DuplicatedMetals" />
+                <ScalarProperty Name="BlankMetals" ColumnName="BlankMetals" />
+                <ScalarProperty Name="ChlorideSulfate" ColumnName="ChlorideSulfate" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="DuplicatedNP" ColumnName="DuplicatedNP" />
+                <ScalarProperty Name="DuplicatedTSS" ColumnName="DuplicatedTSS" />
+                <ScalarProperty Name="NitratePhosphorus" ColumnName="NitratePhosphorus" />
+                <ScalarProperty Name="TotalSuspendedSolids" ColumnName="TotalSuspendedSolids" />
+                <ScalarProperty Name="NoNutrient" ColumnName="NoNutrient" />
+                <ScalarProperty Name="Bug" ColumnName="Bug" />
+                <ScalarProperty Name="PhysicalHabitat" ColumnName="PhysicalHabitat" />
+                <ScalarProperty Name="NoMetals" ColumnName="NoMetals" />
+                <ScalarProperty Name="MissingDataSheetReceived" ColumnName="MissingDataSheetReceived" />
+                <ScalarProperty Name="ChainOfCustody" ColumnName="ChainOfCustody" />
+                <ScalarProperty Name="MissingDataSheetReqDate" ColumnName="MissingDataSheetReqDate" />
+                <ScalarProperty Name="DataSheetIncluded" ColumnName="DataSheetIncluded" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="TimeCollected" ColumnName="TimeCollected" />
+                <ScalarProperty Name="DateCollected" ColumnName="DateCollected" />
+                <ScalarProperty Name="NumberSample" ColumnName="NumberSample" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStations">
+            <EntityTypeMapping TypeName="dbRiverwatchWaterDataModel.tblStation">
+              <MappingFragment StoreEntitySet="tblStation">
+                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="StateEngineering" ColumnName="StateEngineering" />
+                <ScalarProperty Name="USGS" ColumnName="USGS" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="UTMY" ColumnName="UTMY" />
+                <ScalarProperty Name="UTMX" ColumnName="UTMX" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Move" ColumnName="Move" />
+                <ScalarProperty Name="NearCity" ColumnName="NearCity" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+                <ScalarProperty Name="WaterShedRegion" ColumnName="WaterShedRegion" />
+                <ScalarProperty Name="Elevation" ColumnName="Elevation" />
+                <ScalarProperty Name="StationStatus" ColumnName="StationStatus" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="EcoRegion" ColumnName="EcoRegion" />
+                <ScalarProperty Name="HydroUnit" ColumnName="HydroUnit" />
+                <ScalarProperty Name="WQCCWaterShed" ColumnName="WQCCWaterShed" />
+                <ScalarProperty Name="RWWaterShed" ColumnName="RWWaterShed" />
+                <ScalarProperty Name="StationQUAD" ColumnName="StationQUAD" />
+                <ScalarProperty Name="Grid" ColumnName="Grid" />
+                <ScalarProperty Name="QuaterSection" ColumnName="QuaterSection" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Range" ColumnName="Range" />
+                <ScalarProperty Name="Township" ColumnName="Township" />
+                <ScalarProperty Name="QUADI" ColumnName="QUADI" />
+                <ScalarProperty Name="StationType" ColumnName="StationType" />
+                <ScalarProperty Name="WaterBodyID" ColumnName="WaterBodyID" />
+                <ScalarProperty Name="WaterCode" ColumnName="WaterCode" />
+                <ScalarProperty Name="AquaticModelIndex" ColumnName="AquaticModelIndex" />
+                <ScalarProperty Name="River" ColumnName="River" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

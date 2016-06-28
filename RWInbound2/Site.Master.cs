@@ -72,10 +72,10 @@ namespace RWInbound2
         // this works to control menu items, so can be used to hide or deactivate menu items depending on user permissions 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            //string uniqueID = this.Controls[0].UniqueID; 
+            //string DupsUniqueID = this.Controls[0].UniqueID; 
             ////FormView1.Controls[0].UniqueID; // CC[0].UniqueID;   // get the whole name as made up by ASP web page
 
-            //string homeMenu = uniqueID + "$" + "Home";
+            //string homeMenu = DupsUniqueID + "$" + "Home";
 
             //HyperLink HL = this.FindControl(homeMenu) as HyperLink;
             //HL.ResolveUrl("~/index.aspx");
