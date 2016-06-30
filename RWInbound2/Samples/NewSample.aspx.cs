@@ -27,23 +27,25 @@ namespace RWInbound2.Samples
                 TabContainer1.Visible = false;
 
                 // fill radio button list from tlkMetalBarCodeType
+                // the order should be better, most used first id normal and then filtered
+                // hand coded 06/30 bwitt
 
-                try
-                {
-                    var types = (from t in RWDE.tlkMetalBarCodeTypes
-                                 orderby t.Code
-                                 select                                 
-                                    t.Code + " " + t.Description
-                                 ).ToList();
+                List<string> types = new List<string>();
+                types.Add("00 Normal-NonFiltered");
+                types.Add("04 Normal-Filtered");
+                types.Add("03 Normal-NonFilteredOnly");
+                types.Add("01 Normal-FilteredOnly");
+                types.Add("10 Blank-NonFiltered");
+                types.Add("14 Blank-Filtered");
+                types.Add("13 Blank-NonFilteredOnly");
+                types.Add("11 Blank-FilteredOnly");
+                types.Add("20 Duplicate-NonFiltered");
+                types.Add("24 Duplicate-Filtered");
+                types.Add("23 Duplicate-NonFilteredOnly");
+                types.Add("21 Duplicate-FilteredOnly");
 
-                    rbListSampleTypes.DataSource = types;  
-                    rbListSampleTypes.DataBind();
-                }
-                catch(Exception ex)
-                {
-                    string msg = ex.Message; 
-
-                }
+                rbListSampleTypes.DataSource = types;
+                rbListSampleTypes.DataBind();
             }
         }
 
@@ -122,9 +124,9 @@ namespace RWInbound2.Samples
 
             try
             {
-                    var RES = from r in RWDE.tblStations
-                          join o in RWDE.tblOrganizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
-                          join ts in RWDE.tblStatus on o.OrganizationID equals ts.OrganizationID
+                    var RES = from r in NRWDE.Stations
+                          join o in NRWDE.Organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                          join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
                           
                           where r.StationNumber == stationNumber & o.KitNumber == kitNumber
                           select new
@@ -136,8 +138,8 @@ namespace RWInbound2.Samples
                               endDate = ts.ContractEndDate,
                               active = o.Active,
                               watershed = r.RWWaterShed,
-                              stnID = r.StationID,
-                              orgID = o.OrganizationID
+                              stnID = r.ID,
+                              orgID = o.ID
                           };
                 if (RES.Count() == 0)
                 {
@@ -171,10 +173,19 @@ namespace RWInbound2.Samples
             }
             catch (Exception ex)
             {
-                Panel1.Visible = false;
+                Panel1.Visible = false; // clean up and then report error
                 lstSamples.Visible = false;
+              
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
                 string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
+
 
             // now populate list box of samples 
             samplenumber = string.Format("{0}.", stationNumber);
@@ -187,30 +198,38 @@ namespace RWInbound2.Samples
 
             try
             {
-                var query = from i in RWDE.tblInboundSamples
+                var query = from i in NRWDE.InboundSamples
                             where i.KitNum == kitNumber & i.StationNum == stationNumber
                             select
                             i.SampleID.Value;
 
-                List<string> ls = new List<string>();
-                string tmps = "";
-                foreach (long? val in query)
+                if (query != null)
                 {
-                    if (val == null)
-                        tmps = "";
-                    else
-                        tmps = val.Value.ToString();
-                    ls.Add(tmps);
+                    List<string> ls = new List<string>();
+                    string tmps = "";
+                    foreach (long? val in query)
+                    {
+                        if (val == null)
+                            tmps = "";
+                        else
+                            tmps = val.Value.ToString();
+                        ls.Add(tmps);
+                    }
+                    ddlInboundSamplePick.DataSource = ls;
+                    ddlInboundSamplePick.DataBind();
                 }
-
-                ddlInboundSamplePick.DataSource = ls;
-                ddlInboundSamplePick.DataBind(); 
-
             }
             catch (Exception ex)
             {
                 Panel1.Visible = false;
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
                 string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }            
         }
 
@@ -220,7 +239,7 @@ namespace RWInbound2.Samples
             tblSample TS;   
             try
             {
-                TS = (tblSample)(from r in RWDE.tblSamples
+                TS = (tblSample)(from r in NRWDE.tblSamples
                                  where r.NumberSample.StartsWith(stationChoice) 
                                  select r).FirstOrDefault(); 
 
@@ -265,7 +284,14 @@ namespace RWInbound2.Samples
             catch (Exception ex)
             {
                 Panel1.Visible = false;
+                string nam;
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
                 string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
             FillTabPanelICPdata(stationChoice);
@@ -391,7 +417,7 @@ namespace RWInbound2.Samples
             {
                
                 // if there is an old record, update old record by setting valid = false
-                orgTS = (from s in RWDE.tblSamples
+                orgTS = (from s in NRWDE.tblSamples
                             where s.SampleNumber == txtSmpNum.Text & s.Valid == true
                             select s).FirstOrDefault();
 
@@ -400,7 +426,7 @@ namespace RWInbound2.Samples
                     orgTS.Valid = false;
                     orgTS.UserCreated = User.Identity.Name;
                     orgTS.DateCreated = DateTime.Now; 
-                    RWDE.SaveChanges(); // update all records
+                    NRWDE.SaveChanges(); // update all records
                 }               
 
                 // add new record 
@@ -412,8 +438,8 @@ namespace RWInbound2.Samples
                 TS.DateCollected = DateTime.Parse(txtDateCollected.Text.Trim());
                 TS.Comment = txtComment.Text;
 
-                RWDE.tblSamples.Add(TS);
-                RWDE.SaveChanges(); // update all records
+                NRWDE.tblSamples.Add(TS);
+                NRWDE.SaveChanges(); // update all records
             }
             catch(Exception ex)
             {
@@ -432,8 +458,6 @@ namespace RWInbound2.Samples
                 }
                 populateSamplesList(numsample, currentYear); // populate ddl on right side of samples page   
             }
-                    
-
         }
 
         // we are making a new, fresh sample set with new dates, etc.
@@ -491,7 +515,7 @@ namespace RWInbound2.Samples
 
             try
             {
-                string result =  (string) (from r in RWDE.tblSamples
+                string result =  (string) (from r in NRWDE.tblSamples
                                            where r.NumberSample.StartsWith(tbSite.Text + ".") & r.Valid == true
                                                  orderby r.NumberSample descending 
                                                  select r.NumberSample).Take(1).FirstOrDefault();
@@ -513,12 +537,18 @@ namespace RWInbound2.Samples
                 }            
 
             }
-                
 
-            catch(Exception ex)
+
+            catch (Exception ex)
             {
-
-
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
 
@@ -537,7 +567,7 @@ namespace RWInbound2.Samples
 
             try
             {
-                var query = from s in RWDE.tblSamples
+                var query = from s in NRWDE.tblSamples
                             where s.SampleNumber == sampNumber
                             select s.NumberSample;
                             
@@ -549,16 +579,23 @@ namespace RWInbound2.Samples
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
             // now fill in some of the known values
 
             try
             {
-                tblInboundSample TS = (tblInboundSample)(from s in RWDE.tblInboundSamples
+                InboundSample TS = (InboundSample)(from s in NRWDE.InboundSamples
                                                         where s.SampleID.Value == sNum
                                                         select s).FirstOrDefault();
 
@@ -604,7 +641,7 @@ namespace RWInbound2.Samples
         {
 
 
-        //    var RES = from r in RWDE.tblStatus 
+        //    var RES = from r in NRWDE.tblStatus 
 
 
 
@@ -625,7 +662,7 @@ namespace RWInbound2.Samples
 
             // check to see if barcode is in use, if so, warn user and return to page
 
-                       var query = from q in RWDE.tblMetalBarCodes
+                       var query = from q in NRWDE.MetalBarCodes
                         where q.LabID.ToUpper() == barcode
                         select q;
 
@@ -663,11 +700,11 @@ namespace RWInbound2.Samples
 
             // get sample number from tblSample 
 
-            int SN = (from q in RWDE.tblSamples
+            int SN = (from q in NRWDE.tblSamples
                         where q.SampleNumber == smpNum & q.Valid == true
                         select q.SampleID).FirstOrDefault();
 
-            tblMetalBarCode TMB = new tblMetalBarCode(); // make a new entity to fill in wiht data
+            MetalBarCode TMB = new MetalBarCode(); // make a new entity to fill in with data
 
             TMB.DateCreated = DateTime.Now;
             TMB.Filtered = filtered;
@@ -682,9 +719,12 @@ namespace RWInbound2.Samples
             TMB.BoxNumber = tbBoxNumber.Text.Trim();
             TMB.Verified = cbVerified.Checked;
             TMB.SampleID = SN;
+            NRWDE.MetalBarCodes.Add(TMB);  
+            NRWDE.SaveChanges(); // insert record 
+            // update barcode grid at bottom of tab
 
-            RWDE.tblMetalBarCodes.Add(TMB);
-            RWDE.SaveChanges(); // insert record 
+            FillTabPanelBarcode(txtNumSmp.Text.Trim());
+            FillTabPanelICPdata(txtNumSmp.Text.Trim());
         }
         
         protected void FillTabPanelBarcode(string station)
@@ -708,7 +748,7 @@ namespace RWInbound2.Samples
                 {
                     using (SqlConnection con = new SqlConnection())
                     {
-                        con.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchWaterDEV"].ConnectionString;
+                        con.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
                         cmd.CommandText = queryString;
                         cmd.Connection = con;
                         cmd.CommandType = System.Data.CommandType.Text;
@@ -717,7 +757,6 @@ namespace RWInbound2.Samples
                         {
                             if (rdr.HasRows)
                             {
-
                                 GridViewBarCodes.DataSource = rdr;
                                 GridViewBarCodes.DataBind();
                                 GridViewBarCodes.Visible = true;
@@ -734,28 +773,17 @@ namespace RWInbound2.Samples
             {
                 string msg = ex.Message;
             }
-
-
-
         }
+
         protected void FillTabPanelICPdata(string station)
         {
             // quick fix:
 
             string sid = txtNumSmp.Text.Trim(); // scrape page
            // query for barcodes that have been entered but not analyzed
-            // thus are in tblsample BUT NOT IN METALBARCODES
-            //string sid = station;  
-            //string stationID = station; 
-            //int idx = stationID.IndexOf(".");
-
-            //if(idx > 0)
-            //{
-            //   sid = stationID.Substring(0, idx); // if this was a complete event, get the leading station id
-            //}
+            // thus are in tblsample BUT NOT IN METALBARCODES        
            
             // use a sql command since it allows easier reading of the not exists and is perhaps faster
-            //    " WHERE    a.NumberSample like '{0}.%' " + 
             string queryString = "";
             queryString = string.Format(
                 " SELECT    [SampleID] , LabID as [Barcode], Code as [Sample Type] " +
@@ -772,7 +800,7 @@ namespace RWInbound2.Samples
                 {
                     using (SqlConnection con = new SqlConnection())
                     {
-                        con.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchWaterDEV"].ConnectionString;
+                        con.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
                         cmd.CommandText = queryString;
                         cmd.Connection = con;
                         cmd.CommandType = System.Data.CommandType.Text;
@@ -804,7 +832,7 @@ namespace RWInbound2.Samples
         {
             // scrape table
             string barcode = tbBarcode.Text.Trim().ToUpper();
-            var query = from q in RWDE.tblMetalBarCodes
+            var query = from q in NRWDE.MetalBarCodes
                         where q.LabID.ToUpper() == barcode
                         select q;
              
@@ -821,21 +849,6 @@ namespace RWInbound2.Samples
                 lblBarcodeUsed.ForeColor = System.Drawing.Color.Green;
                 lblCodeInUse.Text = "";
             }
-
-
-
-            //if (query.Count() > 0)   // code in use
-            //{
-            //    lblBarcodeUsed.Text = "CODE IN USE!";
-            //    lblBarcodeUsed.ForeColor = System.Drawing.Color.Red; 
-            //    return;
-            //}
-            //else
-            //{
-            //    lblBarcodeUsed.Text = "OK";
-            //    lblBarcodeUsed.ForeColor = System.Drawing.Color.Green;  
-            //    return;
-            //}
         }
 
         // user wants to update incomingICP table with the checked barcodes        
@@ -898,88 +911,88 @@ namespace RWInbound2.Samples
             // create queriable data set so we only do one db hit, I hope... 
 
             //DbSet<tlkLimit>
-            //    LIM = (DbSet<tlkLimit>)from r in RWDE.tlkLimits
+            //    LIM = (DbSet<tlkLimit>)from r in NRWDE.tlkLimits
             //                                              select r;
 
             try
             {
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "AL"
                               select z.Reporting.Value).FirstOrDefault();
 
                 InBound.AL_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.AL_T = (decimal)InBound.AL_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "AS"
                               select z.Reporting.Value).FirstOrDefault();
 
                 InBound.AS_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.AS_T = (decimal)InBound.AS_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CA"
                               select z.Reporting.Value).FirstOrDefault();
 
                 InBound.CA_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.CA_T = (decimal)InBound.CA_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CD"
                               select z.Reporting.Value).FirstOrDefault();
 
                 InBound.CD_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.CD_T = (decimal)InBound.CD_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CU"
                               select z.Reporting.Value).FirstOrDefault();
                 InBound.CU_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.CU_T = (decimal)InBound.CU_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "FE"
                               select z.Reporting.Value).FirstOrDefault();
                 InBound.FE_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.FE_T = (decimal)InBound.FE_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "K"
                               select z.Reporting.Value).FirstOrDefault();
                 InBound.K_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.K_T = (decimal)InBound.K_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "MG"
                               select z.Reporting.Value).FirstOrDefault();
                 InBound.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
                 InBound.MG_T = (decimal)InBound.MG_D - (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "MN"
                               select z.Reporting.Value).FirstOrDefault();
                 InBound.MN_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.MN_T = (decimal)InBound.MN_D + (decimal)RAND.NextDouble() - .5m; ;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "NA"
                               select z.Reporting.Value).FirstOrDefault();
                 InBound.NA_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.NA_T = (decimal)InBound.NA_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "PB"
                               select z.Reporting.Value).FirstOrDefault();
                 InBound.PB_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.PB_T = (decimal)InBound.PB_D + (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "SE"
                               select z.Reporting.Value).FirstOrDefault();
                 InBound.SE_D = (decimal)RAND.NextDouble() * V * mult;
                 InBound.SE_T = (decimal)InBound.SE_D - (decimal)RAND.NextDouble() + .5m;
 
-                V = (decimal)(from z in RWDE.tlkLimits
+                V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "ZN"
                               select z.Reporting.Value).FirstOrDefault();
 
@@ -997,7 +1010,8 @@ namespace RWInbound2.Samples
                 InBound.COMPLETE = true;
                 InBound.FailedChems = "From Fake ICP record"; 
 
-                RWDE.tblInboundICPs.Add(InBound);
+                // XXXX since this is a temp workaround for not having incoming data, we will put this in old db, where sproc will move it to local tables
+                RWDE.tblInboundICPs.Add(InBound);   
                 RWDE.SaveChanges();
             }
 
@@ -1006,8 +1020,8 @@ namespace RWInbound2.Samples
                 string msg = ex.Message;
             }
 
-            // rebuild the data grid for icp creation
-
+            // rebuild the data grid for icp creation 
+            // XXXX why is this commented out? bw 06/30
        //     FillTabPanelICPdata(txtNumSmp.Text.Trim()); 
         }
 
@@ -1018,7 +1032,7 @@ namespace RWInbound2.Samples
             // get drop down list of samples and numbers from DB, for this current year
             try
             {
-                var SMP = from s in RWDE.tblSamples
+                var SMP = from s in NRWDE.tblSamples
                           where s.NumberSample.StartsWith(sampleNumber) & s.DateCollected >= currentYear & s.Valid == true
                           orderby s.DateCollected descending
                           select new
@@ -1044,10 +1058,15 @@ namespace RWInbound2.Samples
         }
 
         // approved method of getting data for the autocomplete extender. Can reuse for other tables... 
-
+        /// <summary>
+        /// used to populate text box asking for org name
+        /// </summary>
+        /// <param name="prefixText"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchOrgs(string prefixText, int count)
+        public static List<string> SearchOrgs(string prefixText, int count) 
         {
             try
             {

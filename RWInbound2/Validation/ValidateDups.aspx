@@ -46,7 +46,7 @@
                                     <asp:TextBox ID="AL_DTextBox" AutoPostBack="true"  OnTextChanged="AL_DTextBox_TextChanged" runat="server" Text='<%# Bind("AL_D","{0:0.00}") %>' />
                                 </td>
                                 <td style="width:40px;">
-                                    <asp:Button ID="btnAL" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnAL" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td> AL_T:
                                     <asp:TextBox ID="AL_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("AL_T","{0:0.00}") %>' />
@@ -58,7 +58,7 @@
                                 <asp:TextBox ID="AS_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("AS_D","{0:0.00}") %>' />
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnAS" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnAS" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>AS_T:
                             <asp:TextBox ID="AS_TTextBox" AutoPostBack="true"  runat="server" OnTextChanged="TextBox_TextChanged" Text='<%# Bind("AS_T","{0:0.00}") %>' />
@@ -70,7 +70,7 @@
                             <asp:TextBox ID="CA_DTextBox" AutoPostBack="true"  runat="server" OnTextChanged="TextBox_TextChanged" Text='<%# Bind("CA_D","{0:0.00}") %>' />
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnCA" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnCA" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>CA_T:
                             <asp:TextBox ID="CA_TTextBox" runat="server" OnTextChanged="TextBox_TextChanged" Text='<%# Bind("CA_T","{0:0.00}") %>' />
@@ -82,7 +82,7 @@
                                 <asp:TextBox ID="CD_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"  runat="server" Text='<%# Bind("CD_D","{0:0.00}") %>' />
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnCD" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnCD" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>CD_T:
                                <asp:TextBox ID="CD_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("CD_T","{0:0.00}") %>' />
@@ -94,7 +94,7 @@
                                 <asp:TextBox ID="CU_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"  runat="server" Text='<%# Bind("CU_D","{0:0.00}") %>' />
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnCU" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnCU" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>CU_T:
                             <asp:TextBox ID="CU_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("CU_T","{0:0.00}") %>' />
@@ -106,7 +106,7 @@
                             <asp:TextBox ID="FE_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("FE_D","{0:0.00}") %>' />
                                 </td>
                                  <td>
-                                    <asp:Button ID="btnFE" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnFE" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>FE_T:
                              <asp:TextBox ID="FE_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("FE_T","{0:0.00}") %>' /></td>
@@ -117,7 +117,7 @@
                                     <asp:TextBox ID="PB_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("PB_D","{0:0.00}") %>' />
                                 </td>
                                  <td>
-                                    <asp:Button ID="btnPB" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnPB" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>PB_T:
                                     <asp:TextBox ID="PB_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("PB_T","{0:0.00}") %>' />
@@ -129,7 +129,7 @@
                             <asp:TextBox ID="MG_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"  runat="server" Text='<%# Bind("MG_D","{0:0.00}") %>' />
                               </td> 
                                  <td>
-                                    <asp:Button ID="btnMG" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnMG" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>MG_T:
                             <asp:TextBox ID="MG_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("MG_T","{0:0.00}") %>' />
@@ -141,7 +141,7 @@
                                     <asp:TextBox ID="MN_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("MN_D","{0:0.00}") %>' />
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnMN" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnMN" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>MN_T:
                                     <asp:TextBox ID="MN_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("MN_T","{0:0.00}") %>' />
@@ -153,7 +153,7 @@
 
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnSE" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnSE" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>SE_T:
                                     <asp:TextBox ID="SE_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("SE_T","{0:0.00}") %>' /></td>
@@ -165,7 +165,7 @@
 
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnZN" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnZN" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>ZN_T:
                                     <asp:TextBox ID="ZN_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("ZN_T","{0:0.00}") %>' />
@@ -177,7 +177,7 @@
                                     <asp:TextBox ID="NA_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("NA_D","{0:0.00}") %>' />
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnNA" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnNA" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>NA_T:
                                     <asp:TextBox ID="NA_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("NA_T","{0:0.00}") %>' />
@@ -188,7 +188,7 @@
                             <asp:TextBox ID="K_DTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("K_D","{0:0.00}") %>' />
                                 </td>
                                  <td>
-                                    <asp:Button ID="btnK" OnCommand="Button1_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
+                                    <asp:Button ID="btnK" OnCommand="btnSwap_Click" CommandArgument="<%=ID %>" runat="server" Text="SWAP" />
                                 </td>
                                 <td>K_T:
                                     <asp:TextBox ID="K_TTextBox" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"  runat="server" Text='<%# Bind("K_T","{0:0.00}") %>' />

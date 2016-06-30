@@ -12,6 +12,17 @@
         <EntityTypeShape EntityType="RiverwatchModel.InboundICPOrigional" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="RiverwatchModel.NEWexpWater" Width="1.5" PointX="0.5" PointY="3.875" />
         <EntityTypeShape EntityType="RiverwatchModel.ErrorLog" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.MetalBarCode" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.OrgStatu" Width="1.5" PointX="10.375" PointY="4.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.Station" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.tblParticipant" Width="1.5" PointX="7.375" PointY="10.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.tblPartInfo" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.tblPhysHabPara" Width="1.5" PointX="12.375" PointY="3.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.tblProject" Width="1.5" PointX="12.375" PointY="7.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.tblProjectStation" Width="1.5" PointX="12.375" PointY="11.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.tblRegistration" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.InboundSample" Width="1.5" PointX="14.375" PointY="4.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.tlkLimit" Width="1.5" PointX="14.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

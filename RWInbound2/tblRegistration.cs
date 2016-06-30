@@ -12,16 +12,18 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkLimit
+    public partial class tblRegistration
     {
-        public int ID { get; set; }
-        public string Element { get; set; }
-        public string RowID { get; set; }
-        public Nullable<decimal> Reporting { get; set; }
-        public Nullable<decimal> MDL { get; set; }
-        public Nullable<decimal> DvsTDifference { get; set; }
+        public int ParticipantID { get; set; }
+        public int RegistrationID { get; set; }
+        public Nullable<System.DateTime> RegistrationDate { get; set; }
+        public string WorkShop { get; set; }
+        public bool Paid { get; set; }
+        public bool Receipt { get; set; }
+        public Nullable<bool> Attend { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string UserCreated { get; set; }
-        public Nullable<bool> Valid { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
+        public string UserLastModified { get; set; }
     }
 }

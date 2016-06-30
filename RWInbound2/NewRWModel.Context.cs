@@ -34,6 +34,17 @@ namespace RWInbound2
         public virtual DbSet<InboundICPOrigional> InboundICPOrigionals { get; set; }
         public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
+        public virtual DbSet<MetalBarCode> MetalBarCodes { get; set; }
+        public virtual DbSet<OrgStatu> OrgStatus { get; set; }
+        public virtual DbSet<Station> Stations { get; set; }
+        public virtual DbSet<tblParticipant> tblParticipants { get; set; }
+        public virtual DbSet<tblPartInfo> tblPartInfoes { get; set; }
+        public virtual DbSet<tblPhysHabPara> tblPhysHabParas { get; set; }
+        public virtual DbSet<tblProject> tblProjects { get; set; }
+        public virtual DbSet<tblProjectStation> tblProjectStations { get; set; }
+        public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
+        public virtual DbSet<InboundSample> InboundSamples { get; set; }
+        public virtual DbSet<tlkLimit> tlkLimits { get; set; }
     
         public virtual int UpdateLocalTablesFromIncomingICP(string user)
         {

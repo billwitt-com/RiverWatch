@@ -401,12 +401,18 @@
     <Compile Include="InboundICPOrigional.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="InboundSample.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MetalBarCode.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -451,6 +457,9 @@
     <Compile Include="OrgEdit.aspx.designer.cs">
       <DependentUpon>OrgEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OrgStatu.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -472,6 +481,9 @@
     <Compile Include="Samples\Samples.aspx.designer.cs">
       <DependentUpon>Samples.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Station.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblActivity.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -491,7 +503,22 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="tblParticipant.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPartInfo.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPhysHabPara.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProject.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProjectStation.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRegistration.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblSample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -518,7 +545,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="tlkLimit.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tlkMetalBarCodeType.cs">
       <DependentUpon>Model1.tt</DependentUpon>

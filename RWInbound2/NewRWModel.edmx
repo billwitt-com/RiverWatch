@@ -119,6 +119,77 @@
           <Property Name="Edited" Type="bit" Nullable="false" />
           <Property Name="Saved" Type="bit" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.InboundSamples' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="InboundSamples">
+          <Key>
+            <PropertyRef Name="inbSampleID" />
+          </Key>
+          <Property Name="inbSampleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StationNum" Type="int" />
+          <Property Name="SampleID" Type="bigint" />
+          <Property Name="txtSampleID" Type="char" MaxLength="4" />
+          <Property Name="KitNum" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Time" Type="int" />
+          <Property Name="USGSFlow" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="PH" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="TempC" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="PhenAlk" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="TotalAlk" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="TotalHard" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="DO" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="DOsat" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="Tag" Type="varchar" MaxLength="3" />
+          <Property Name="Chk" Type="varchar" MaxLength="4" />
+          <Property Name="EntryType" Type="int" />
+          <Property Name="EntryStaff" Type="varchar" MaxLength="30" />
+          <Property Name="Metals" Type="int" />
+          <Property Name="MetalsBlnk" Type="bit" />
+          <Property Name="MetalsDupe" Type="bit" />
+          <Property Name="Bugs" Type="bit" />
+          <Property Name="BugsQA" Type="bit" />
+          <Property Name="TSS" Type="bit" />
+          <Property Name="CS" Type="bit" />
+          <Property Name="NP" Type="bit" />
+          <Property Name="TSSDupe" Type="bit" />
+          <Property Name="CSDupe" Type="bit" />
+          <Property Name="NPDupe" Type="bit" />
+          <Property Name="FieldValid" Type="bit" />
+          <Property Name="MetalsStat" Type="int" />
+          <Property Name="FinalCheck" Type="bit" />
+          <Property Name="Method" Type="int" />
+          <Property Name="Comments" Type="varchar" MaxLength="500" />
+          <Property Name="DateReceived" Type="datetime" />
+          <Property Name="DataSheetIncluded" Type="bit" />
+          <Property Name="MissingDataSheetReqDate" Type="datetime" />
+          <Property Name="ChainOfCustody" Type="bit" />
+          <Property Name="MissingDataSheetReceived" Type="bit" />
+          <Property Name="PassValStep" Type="numeric" Precision="5" Scale="2" />
+          <Property Name="tblSampleID" Type="int" />
+        </EntityType>
+        <EntityType Name="MetalBarCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SampleNumber" Type="varchar" MaxLength="30" />
+          <Property Name="NumberSample" Type="varchar" MaxLength="10" />
+          <Property Name="LabID" Type="varchar" MaxLength="10" />
+          <Property Name="Code" Type="varchar" MaxLength="2" />
+          <Property Name="Type" Type="varchar" MaxLength="10" />
+          <Property Name="Filtered" Type="bit" Nullable="false" />
+          <Property Name="ContainMetal" Type="bit" Nullable="false" />
+          <Property Name="BoxNumber" Type="varchar" MaxLength="5" />
+          <Property Name="Verified" Type="bit" Nullable="false" />
+          <Property Name="LogDate" Type="datetime" />
+          <Property Name="AnalyzeDate" Type="datetime" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+          <Property Name="SampleID" Type="int" />
+        </EntityType>
         <EntityType Name="NEWexpWater">
           <Key>
             <PropertyRef Name="ID" />
@@ -225,6 +296,218 @@
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="OrgStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrganizationID" Type="int" Nullable="false" />
+          <Property Name="ContractStartDate" Type="datetime" />
+          <Property Name="ContractEndDate" Type="datetime" />
+          <Property Name="ContractSigned" Type="bit" />
+          <Property Name="ContractSignedDate" Type="datetime" />
+          <Property Name="SiteVisited" Type="bit" />
+          <Property Name="VolunteerTimeSheet1" Type="bit" />
+          <Property Name="VolunteerTimeShee2" Type="bit" />
+          <Property Name="VolunteerTimeSheet3" Type="bit" />
+          <Property Name="VolunteerTimeSheet4" Type="bit" />
+          <Property Name="DataEnteredElectronically1" Type="bit" />
+          <Property Name="DataEnteredElectronically2" Type="bit" />
+          <Property Name="DataEnteredElectronically3" Type="bit" />
+          <Property Name="DataEnteredElectronically4" Type="bit" />
+          <Property Name="SampleShipped1" Type="bit" />
+          <Property Name="SampleShipped2" Type="bit" />
+          <Property Name="SampleShipped3" Type="bit" />
+          <Property Name="SampleShipped4" Type="bit" />
+          <Property Name="NumberOfSamplesJan" Type="int" />
+          <Property Name="NumberOfSamplesFeb" Type="int" />
+          <Property Name="NumberOfSamplesMar" Type="int" />
+          <Property Name="NumberOfSamplesApr" Type="int" />
+          <Property Name="NumberOfSamplesMay" Type="int" />
+          <Property Name="NumberOfSamplesJun" Type="int" />
+          <Property Name="NumberOfSamplesJul" Type="int" />
+          <Property Name="NumberOfSamplesAug" Type="int" />
+          <Property Name="NumberOfSamplesSep" Type="int" />
+          <Property Name="NumberOfSamplesOct" Type="int" />
+          <Property Name="NumberOfSamplesNov" Type="int" />
+          <Property Name="NumberOfSamplesDec" Type="int" />
+          <Property Name="Nutrient1Collected" Type="bit" />
+          <Property Name="Nutrient2Collected" Type="bit" />
+          <Property Name="BugCollected" Type="bit" />
+          <Property Name="UnknownSpringRecordedDate" Type="datetime" />
+          <Property Name="UnknownFallRecordedDate" Type="datetime" />
+          <Property Name="NumberOfSamplesBlank" Type="int" />
+          <Property Name="NumberOfSamplesDuplicate" Type="int" />
+          <Property Name="TroubleComment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="NoteComment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="HardshipComment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="nvarchar" MaxLength="25" />
+          <Property Name="NumberOfMetalsBlank" Type="int" />
+          <Property Name="NumberOfMetalsDuplicate" Type="int" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StationNumber" Type="int" />
+          <Property Name="River" Type="varchar" MaxLength="17" />
+          <Property Name="AquaticModelIndex" Type="varchar" MaxLength="25" />
+          <Property Name="WaterCode" Type="varchar" MaxLength="5" />
+          <Property Name="WaterBodyID" Type="varchar" MaxLength="25" />
+          <Property Name="StationType" Type="varchar" MaxLength="25" />
+          <Property Name="QUADI" Type="varchar" MaxLength="25" />
+          <Property Name="Township" Type="varchar" MaxLength="25" />
+          <Property Name="Range" Type="varchar" MaxLength="25" />
+          <Property Name="Section" Type="int" />
+          <Property Name="QuaterSection" Type="varchar" MaxLength="25" />
+          <Property Name="Grid" Type="varchar" MaxLength="25" />
+          <Property Name="StationQUAD" Type="varchar" MaxLength="25" />
+          <Property Name="RWWaterShed" Type="varchar" MaxLength="2" />
+          <Property Name="WQCCWaterShed" Type="varchar" MaxLength="25" />
+          <Property Name="HydroUnit" Type="varchar" MaxLength="25" />
+          <Property Name="EcoRegion" Type="varchar" MaxLength="50" />
+          <Property Name="StationName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StationStatus" Type="varchar" MaxLength="10" />
+          <Property Name="Elevation" Type="float" />
+          <Property Name="WaterShedRegion" Type="varchar" MaxLength="25" />
+          <Property Name="Longtitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="County" Type="varchar" MaxLength="25" />
+          <Property Name="State" Type="varchar" MaxLength="2" />
+          <Property Name="NearCity" Type="varchar" MaxLength="50" />
+          <Property Name="Move" Type="varchar" MaxLength="25" />
+          <Property Name="Description" Type="varchar" MaxLength="1024" />
+          <Property Name="UTMX" Type="float" />
+          <Property Name="UTMY" Type="float" />
+          <Property Name="Region" Type="varchar" MaxLength="25" />
+          <Property Name="Comments" Type="varchar" MaxLength="1000" />
+          <Property Name="USGS" Type="bit" />
+          <Property Name="StateEngineering" Type="bit" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+          <Property Name="StoretUploaded" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblParticipant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblParticipant">
+          <Key>
+            <PropertyRef Name="OrganizationID" />
+            <PropertyRef Name="ParticipantID" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="PrimaryContact" />
+            <PropertyRef Name="Training" />
+          </Key>
+          <Property Name="OrganizationID" Type="int" Nullable="false" />
+          <Property Name="ParticipantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" />
+          <Property Name="Title" Type="varchar" MaxLength="25" />
+          <Property Name="YearSignedOn" Type="int" />
+          <Property Name="Phone" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" />
+          <Property Name="Address2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="25" />
+          <Property Name="State" Type="varchar" MaxLength="2" />
+          <Property Name="Zip" Type="varchar" MaxLength="10" />
+          <Property Name="HomePhone" Type="varchar" MaxLength="30" />
+          <Property Name="HomeEmail" Type="varchar" MaxLength="50" />
+          <Property Name="MailPreference" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="PrimaryContact" Type="bit" Nullable="false" />
+          <Property Name="Training" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblPartInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblPartInfo">
+          <Key>
+            <PropertyRef Name="ptNODE" />
+          </Key>
+          <Property Name="ptNODE" Type="int" Nullable="false" />
+          <Property Name="ptPARENTNODE" Type="int" />
+          <Property Name="ptTEXT" Type="nchar" MaxLength="50" />
+          <Property Name="ptDOCURL" Type="nchar" MaxLength="150" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblPhysHabPara' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblPhysHabPara">
+          <Key>
+            <PropertyRef Name="PhysHabParaID" />
+          </Key>
+          <Property Name="PhysHabParaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LongParameterName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParameterName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParameterTypeI" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParameterTypeII" Type="nvarchar" MaxLength="50" />
+          <Property Name="RowID" Type="nvarchar" MaxLength="15" />
+          <Property Name="CharGroupID" Type="nvarchar" MaxLength="8" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="dsOrder" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectDescription" Type="varchar" MaxLength="250" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+          <Property Name="StoretUploaded" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblProjectStation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblProjectStation">
+          <Key>
+            <PropertyRef Name="ProjectStationID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="StationID" />
+          </Key>
+          <Property Name="ProjectStationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="StationID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblRegistration">
+          <Key>
+            <PropertyRef Name="ParticipantID" />
+            <PropertyRef Name="RegistrationID" />
+            <PropertyRef Name="Paid" />
+            <PropertyRef Name="Receipt" />
+          </Key>
+          <Property Name="ParticipantID" Type="int" Nullable="false" />
+          <Property Name="RegistrationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationDate" Type="datetime" />
+          <Property Name="WorkShop" Type="varchar" MaxLength="50" />
+          <Property Name="Paid" Type="bit" Nullable="false" />
+          <Property Name="Receipt" Type="bit" Nullable="false" />
+          <Property Name="Attend" Type="bit" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+        </EntityType>
         <EntityType Name="tblSample">
           <Key>
             <PropertyRef Name="SampleID" />
@@ -261,6 +544,20 @@
           <Property Name="DuplicatedCS" Type="bit" />
           <Property Name="Valid" Type="bit" />
         </EntityType>
+        <EntityType Name="tlkLimits">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Element" Type="nvarchar" MaxLength="10" />
+          <Property Name="RowID" Type="nvarchar" MaxLength="10" />
+          <Property Name="Reporting" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="MDL" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="DvsTDifference" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="UserCreated" Type="nvarchar" MaxLength="200" />
+          <Property Name="Valid" Type="bit" />
+        </EntityType>
         <Function Name="UpdateLocalTablesFromIncomingICP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user" Type="varchar" Mode="In" />
         </Function>
@@ -269,9 +566,146 @@
           <EntitySet Name="GearConfig" EntityType="Self.GearConfig" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InboundICPFinal" EntityType="Self.InboundICPFinal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InboundICPOrigional" EntityType="Self.InboundICPOrigional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MetalBarCode" EntityType="Self.MetalBarCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NEWexpWater" EntityType="Self.NEWexpWater" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrgStatus" EntityType="Self.OrgStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSample" EntityType="Self.tblSample" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tlkLimits" EntityType="Self.tlkLimits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundSamples" EntityType="Self.InboundSamples" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [InboundSamples].[inbSampleID] AS [inbSampleID], 
+    [InboundSamples].[StationNum] AS [StationNum], 
+    [InboundSamples].[SampleID] AS [SampleID], 
+    [InboundSamples].[txtSampleID] AS [txtSampleID], 
+    [InboundSamples].[KitNum] AS [KitNum], 
+    [InboundSamples].[Date] AS [Date], 
+    [InboundSamples].[Time] AS [Time], 
+    [InboundSamples].[USGSFlow] AS [USGSFlow], 
+    [InboundSamples].[PH] AS [PH], 
+    [InboundSamples].[TempC] AS [TempC], 
+    [InboundSamples].[PhenAlk] AS [PhenAlk], 
+    [InboundSamples].[TotalAlk] AS [TotalAlk], 
+    [InboundSamples].[TotalHard] AS [TotalHard], 
+    [InboundSamples].[DO] AS [DO], 
+    [InboundSamples].[DOsat] AS [DOsat], 
+    [InboundSamples].[Tag] AS [Tag], 
+    [InboundSamples].[Chk] AS [Chk], 
+    [InboundSamples].[EntryType] AS [EntryType], 
+    [InboundSamples].[EntryStaff] AS [EntryStaff], 
+    [InboundSamples].[Metals] AS [Metals], 
+    [InboundSamples].[MetalsBlnk] AS [MetalsBlnk], 
+    [InboundSamples].[MetalsDupe] AS [MetalsDupe], 
+    [InboundSamples].[Bugs] AS [Bugs], 
+    [InboundSamples].[BugsQA] AS [BugsQA], 
+    [InboundSamples].[TSS] AS [TSS], 
+    [InboundSamples].[CS] AS [CS], 
+    [InboundSamples].[NP] AS [NP], 
+    [InboundSamples].[TSSDupe] AS [TSSDupe], 
+    [InboundSamples].[CSDupe] AS [CSDupe], 
+    [InboundSamples].[NPDupe] AS [NPDupe], 
+    [InboundSamples].[FieldValid] AS [FieldValid], 
+    [InboundSamples].[MetalsStat] AS [MetalsStat], 
+    [InboundSamples].[FinalCheck] AS [FinalCheck], 
+    [InboundSamples].[Method] AS [Method], 
+    [InboundSamples].[Comments] AS [Comments], 
+    [InboundSamples].[DateReceived] AS [DateReceived], 
+    [InboundSamples].[DataSheetIncluded] AS [DataSheetIncluded], 
+    [InboundSamples].[MissingDataSheetReqDate] AS [MissingDataSheetReqDate], 
+    [InboundSamples].[ChainOfCustody] AS [ChainOfCustody], 
+    [InboundSamples].[MissingDataSheetReceived] AS [MissingDataSheetReceived], 
+    [InboundSamples].[PassValStep] AS [PassValStep], 
+    [InboundSamples].[tblSampleID] AS [tblSampleID]
+    FROM [dbo].[InboundSamples] AS [InboundSamples]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblParticipant" EntityType="Self.tblParticipant" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblParticipant].[OrganizationID] AS [OrganizationID], 
+    [tblParticipant].[ParticipantID] AS [ParticipantID], 
+    [tblParticipant].[LastName] AS [LastName], 
+    [tblParticipant].[FirstName] AS [FirstName], 
+    [tblParticipant].[Title] AS [Title], 
+    [tblParticipant].[YearSignedOn] AS [YearSignedOn], 
+    [tblParticipant].[Phone] AS [Phone], 
+    [tblParticipant].[Email] AS [Email], 
+    [tblParticipant].[Address1] AS [Address1], 
+    [tblParticipant].[Address2] AS [Address2], 
+    [tblParticipant].[City] AS [City], 
+    [tblParticipant].[State] AS [State], 
+    [tblParticipant].[Zip] AS [Zip], 
+    [tblParticipant].[HomePhone] AS [HomePhone], 
+    [tblParticipant].[HomeEmail] AS [HomeEmail], 
+    [tblParticipant].[MailPreference] AS [MailPreference], 
+    [tblParticipant].[Active] AS [Active], 
+    [tblParticipant].[PrimaryContact] AS [PrimaryContact], 
+    [tblParticipant].[Training] AS [Training], 
+    [tblParticipant].[DateCreated] AS [DateCreated], 
+    [tblParticipant].[UserCreated] AS [UserCreated], 
+    [tblParticipant].[DateLastModified] AS [DateLastModified], 
+    [tblParticipant].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tblParticipant] AS [tblParticipant]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblPartInfo" EntityType="Self.tblPartInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblPartInfo].[ptNODE] AS [ptNODE], 
+    [tblPartInfo].[ptPARENTNODE] AS [ptPARENTNODE], 
+    [tblPartInfo].[ptTEXT] AS [ptTEXT], 
+    [tblPartInfo].[ptDOCURL] AS [ptDOCURL]
+    FROM [dbo].[tblPartInfo] AS [tblPartInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblPhysHabPara" EntityType="Self.tblPhysHabPara" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblPhysHabPara].[PhysHabParaID] AS [PhysHabParaID], 
+    [tblPhysHabPara].[LongParameterName] AS [LongParameterName], 
+    [tblPhysHabPara].[ParameterName] AS [ParameterName], 
+    [tblPhysHabPara].[ParameterTypeI] AS [ParameterTypeI], 
+    [tblPhysHabPara].[ParameterTypeII] AS [ParameterTypeII], 
+    [tblPhysHabPara].[RowID] AS [RowID], 
+    [tblPhysHabPara].[CharGroupID] AS [CharGroupID], 
+    [tblPhysHabPara].[Comments] AS [Comments], 
+    [tblPhysHabPara].[Description] AS [Description], 
+    [tblPhysHabPara].[dsOrder] AS [dsOrder]
+    FROM [dbo].[tblPhysHabPara] AS [tblPhysHabPara]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblProject" EntityType="Self.tblProject" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblProject].[ProjectID] AS [ProjectID], 
+    [tblProject].[ProjectName] AS [ProjectName], 
+    [tblProject].[ProjectDescription] AS [ProjectDescription], 
+    [tblProject].[DateCreated] AS [DateCreated], 
+    [tblProject].[UserCreated] AS [UserCreated], 
+    [tblProject].[DateLastModified] AS [DateLastModified], 
+    [tblProject].[UserLastModified] AS [UserLastModified], 
+    [tblProject].[StoretUploaded] AS [StoretUploaded]
+    FROM [dbo].[tblProject] AS [tblProject]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblProjectStation" EntityType="Self.tblProjectStation" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblProjectStation].[ProjectStationID] AS [ProjectStationID], 
+    [tblProjectStation].[ProjectID] AS [ProjectID], 
+    [tblProjectStation].[StationID] AS [StationID], 
+    [tblProjectStation].[DateCreated] AS [DateCreated], 
+    [tblProjectStation].[UserCreated] AS [UserCreated], 
+    [tblProjectStation].[DateLastModified] AS [DateLastModified], 
+    [tblProjectStation].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tblProjectStation] AS [tblProjectStation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblRegistration" EntityType="Self.tblRegistration" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblRegistration].[ParticipantID] AS [ParticipantID], 
+    [tblRegistration].[RegistrationID] AS [RegistrationID], 
+    [tblRegistration].[RegistrationDate] AS [RegistrationDate], 
+    [tblRegistration].[WorkShop] AS [WorkShop], 
+    [tblRegistration].[Paid] AS [Paid], 
+    [tblRegistration].[Receipt] AS [Receipt], 
+    [tblRegistration].[Attend] AS [Attend], 
+    [tblRegistration].[DateCreated] AS [DateCreated], 
+    [tblRegistration].[UserCreated] AS [UserCreated], 
+    [tblRegistration].[DateLastModified] AS [DateLastModified], 
+    [tblRegistration].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tblRegistration] AS [tblRegistration]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -350,6 +784,17 @@
           <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="ErrorLogs" EntityType="RiverwatchModel.ErrorLog" />
+          <EntitySet Name="MetalBarCodes" EntityType="RiverwatchModel.MetalBarCode" />
+          <EntitySet Name="OrgStatus" EntityType="RiverwatchModel.OrgStatu" />
+          <EntitySet Name="Stations" EntityType="RiverwatchModel.Station" />
+          <EntitySet Name="tblParticipants" EntityType="RiverwatchModel.tblParticipant" />
+          <EntitySet Name="tblPartInfoes" EntityType="RiverwatchModel.tblPartInfo" />
+          <EntitySet Name="tblPhysHabParas" EntityType="RiverwatchModel.tblPhysHabPara" />
+          <EntitySet Name="tblProjects" EntityType="RiverwatchModel.tblProject" />
+          <EntitySet Name="tblProjectStations" EntityType="RiverwatchModel.tblProjectStation" />
+          <EntitySet Name="tblRegistrations" EntityType="RiverwatchModel.tblRegistration" />
+          <EntitySet Name="InboundSamples" EntityType="RiverwatchModel.InboundSample" />
+          <EntitySet Name="tlkLimits" EntityType="RiverwatchModel.tlkLimit" />
         </EntityContainer>
         <EntityType Name="GearConfig">
           <Key>
@@ -544,6 +989,289 @@
           <Property Name="LoggedInUser" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MetalBarCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SampleNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NumberSample" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LabID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Filtered" Type="Boolean" Nullable="false" />
+          <Property Name="ContainMetal" Type="Boolean" Nullable="false" />
+          <Property Name="BoxNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Verified" Type="Boolean" Nullable="false" />
+          <Property Name="LogDate" Type="DateTime" Precision="3" />
+          <Property Name="AnalyzeDate" Type="DateTime" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SampleID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OrgStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrganizationID" Type="Int32" Nullable="false" />
+          <Property Name="ContractStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ContractEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ContractSigned" Type="Boolean" />
+          <Property Name="ContractSignedDate" Type="DateTime" Precision="3" />
+          <Property Name="SiteVisited" Type="Boolean" />
+          <Property Name="VolunteerTimeSheet1" Type="Boolean" />
+          <Property Name="VolunteerTimeShee2" Type="Boolean" />
+          <Property Name="VolunteerTimeSheet3" Type="Boolean" />
+          <Property Name="VolunteerTimeSheet4" Type="Boolean" />
+          <Property Name="DataEnteredElectronically1" Type="Boolean" />
+          <Property Name="DataEnteredElectronically2" Type="Boolean" />
+          <Property Name="DataEnteredElectronically3" Type="Boolean" />
+          <Property Name="DataEnteredElectronically4" Type="Boolean" />
+          <Property Name="SampleShipped1" Type="Boolean" />
+          <Property Name="SampleShipped2" Type="Boolean" />
+          <Property Name="SampleShipped3" Type="Boolean" />
+          <Property Name="SampleShipped4" Type="Boolean" />
+          <Property Name="NumberOfSamplesJan" Type="Int32" />
+          <Property Name="NumberOfSamplesFeb" Type="Int32" />
+          <Property Name="NumberOfSamplesMar" Type="Int32" />
+          <Property Name="NumberOfSamplesApr" Type="Int32" />
+          <Property Name="NumberOfSamplesMay" Type="Int32" />
+          <Property Name="NumberOfSamplesJun" Type="Int32" />
+          <Property Name="NumberOfSamplesJul" Type="Int32" />
+          <Property Name="NumberOfSamplesAug" Type="Int32" />
+          <Property Name="NumberOfSamplesSep" Type="Int32" />
+          <Property Name="NumberOfSamplesOct" Type="Int32" />
+          <Property Name="NumberOfSamplesNov" Type="Int32" />
+          <Property Name="NumberOfSamplesDec" Type="Int32" />
+          <Property Name="Nutrient1Collected" Type="Boolean" />
+          <Property Name="Nutrient2Collected" Type="Boolean" />
+          <Property Name="BugCollected" Type="Boolean" />
+          <Property Name="UnknownSpringRecordedDate" Type="DateTime" Precision="3" />
+          <Property Name="UnknownFallRecordedDate" Type="DateTime" Precision="3" />
+          <Property Name="NumberOfSamplesBlank" Type="Int32" />
+          <Property Name="NumberOfSamplesDuplicate" Type="Int32" />
+          <Property Name="TroubleComment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NoteComment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="HardshipComment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfMetalsBlank" Type="Int32" />
+          <Property Name="NumberOfMetalsDuplicate" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StationNumber" Type="Int32" />
+          <Property Name="River" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="AquaticModelIndex" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="WaterCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="WaterBodyID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StationType" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="QUADI" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Township" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Range" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Section" Type="Int32" />
+          <Property Name="QuaterSection" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Grid" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StationQUAD" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="RWWaterShed" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="WQCCWaterShed" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="HydroUnit" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="EcoRegion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StationStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Elevation" Type="Double" />
+          <Property Name="WaterShedRegion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Longtitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="County" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="NearCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Move" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="UTMX" Type="Double" />
+          <Property Name="UTMY" Type="Double" />
+          <Property Name="Region" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="USGS" Type="Boolean" />
+          <Property Name="StateEngineering" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StoretUploaded" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblParticipant">
+          <Key>
+            <PropertyRef Name="OrganizationID" />
+            <PropertyRef Name="ParticipantID" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="PrimaryContact" />
+            <PropertyRef Name="Training" />
+          </Key>
+          <Property Name="OrganizationID" Type="Int32" Nullable="false" />
+          <Property Name="ParticipantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="YearSignedOn" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HomePhone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HomeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MailPreference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="PrimaryContact" Type="Boolean" Nullable="false" />
+          <Property Name="Training" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblPartInfo">
+          <Key>
+            <PropertyRef Name="ptNODE" />
+          </Key>
+          <Property Name="ptNODE" Type="Int32" Nullable="false" />
+          <Property Name="ptPARENTNODE" Type="Int32" />
+          <Property Name="ptTEXT" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ptDOCURL" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblPhysHabPara">
+          <Key>
+            <PropertyRef Name="PhysHabParaID" />
+          </Key>
+          <Property Name="PhysHabParaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LongParameterName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ParameterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParameterTypeI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParameterTypeII" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RowID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CharGroupID" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dsOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblProjectStation">
+          <Key>
+            <PropertyRef Name="ProjectStationID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="StationID" />
+          </Key>
+          <Property Name="ProjectStationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="StationID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblRegistration">
+          <Key>
+            <PropertyRef Name="ParticipantID" />
+            <PropertyRef Name="RegistrationID" />
+            <PropertyRef Name="Paid" />
+            <PropertyRef Name="Receipt" />
+          </Key>
+          <Property Name="ParticipantID" Type="Int32" Nullable="false" />
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="WorkShop" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Paid" Type="Boolean" Nullable="false" />
+          <Property Name="Receipt" Type="Boolean" Nullable="false" />
+          <Property Name="Attend" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="InboundSample">
+          <Key>
+            <PropertyRef Name="inbSampleID" />
+          </Key>
+          <Property Name="inbSampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StationNum" Type="Int32" />
+          <Property Name="SampleID" Type="Int64" />
+          <Property Name="txtSampleID" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="KitNum" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Time" Type="Int32" />
+          <Property Name="USGSFlow" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="PH" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TempC" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="PhenAlk" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalAlk" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalHard" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="DO" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="DOsat" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Tag" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Chk" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="EntryType" Type="Int32" />
+          <Property Name="EntryStaff" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Metals" Type="Int32" />
+          <Property Name="MetalsBlnk" Type="Boolean" />
+          <Property Name="MetalsDupe" Type="Boolean" />
+          <Property Name="Bugs" Type="Boolean" />
+          <Property Name="BugsQA" Type="Boolean" />
+          <Property Name="TSS" Type="Boolean" />
+          <Property Name="CS" Type="Boolean" />
+          <Property Name="NP" Type="Boolean" />
+          <Property Name="TSSDupe" Type="Boolean" />
+          <Property Name="CSDupe" Type="Boolean" />
+          <Property Name="NPDupe" Type="Boolean" />
+          <Property Name="FieldValid" Type="Boolean" />
+          <Property Name="MetalsStat" Type="Int32" />
+          <Property Name="FinalCheck" Type="Boolean" />
+          <Property Name="Method" Type="Int32" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DateReceived" Type="DateTime" Precision="3" />
+          <Property Name="DataSheetIncluded" Type="Boolean" />
+          <Property Name="MissingDataSheetReqDate" Type="DateTime" Precision="3" />
+          <Property Name="ChainOfCustody" Type="Boolean" />
+          <Property Name="MissingDataSheetReceived" Type="Boolean" />
+          <Property Name="PassValStep" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="tblSampleID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tlkLimit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Element" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RowID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Reporting" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="MDL" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="DvsTDifference" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="UserCreated" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Valid" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -811,6 +1539,290 @@
                 <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
                 <ScalarProperty Name="FromPage" ColumnName="FromPage" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MetalBarCodes">
+            <EntityTypeMapping TypeName="RiverwatchModel.MetalBarCode">
+              <MappingFragment StoreEntitySet="MetalBarCode">
+                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="AnalyzeDate" ColumnName="AnalyzeDate" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="Verified" ColumnName="Verified" />
+                <ScalarProperty Name="BoxNumber" ColumnName="BoxNumber" />
+                <ScalarProperty Name="ContainMetal" ColumnName="ContainMetal" />
+                <ScalarProperty Name="Filtered" ColumnName="Filtered" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="LabID" ColumnName="LabID" />
+                <ScalarProperty Name="NumberSample" ColumnName="NumberSample" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrgStatus">
+            <EntityTypeMapping TypeName="RiverwatchModel.OrgStatu">
+              <MappingFragment StoreEntitySet="OrgStatus">
+                <ScalarProperty Name="NumberOfMetalsDuplicate" ColumnName="NumberOfMetalsDuplicate" />
+                <ScalarProperty Name="NumberOfMetalsBlank" ColumnName="NumberOfMetalsBlank" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="HardshipComment" ColumnName="HardshipComment" />
+                <ScalarProperty Name="NoteComment" ColumnName="NoteComment" />
+                <ScalarProperty Name="TroubleComment" ColumnName="TroubleComment" />
+                <ScalarProperty Name="NumberOfSamplesDuplicate" ColumnName="NumberOfSamplesDuplicate" />
+                <ScalarProperty Name="NumberOfSamplesBlank" ColumnName="NumberOfSamplesBlank" />
+                <ScalarProperty Name="UnknownFallRecordedDate" ColumnName="UnknownFallRecordedDate" />
+                <ScalarProperty Name="UnknownSpringRecordedDate" ColumnName="UnknownSpringRecordedDate" />
+                <ScalarProperty Name="BugCollected" ColumnName="BugCollected" />
+                <ScalarProperty Name="Nutrient2Collected" ColumnName="Nutrient2Collected" />
+                <ScalarProperty Name="Nutrient1Collected" ColumnName="Nutrient1Collected" />
+                <ScalarProperty Name="NumberOfSamplesDec" ColumnName="NumberOfSamplesDec" />
+                <ScalarProperty Name="NumberOfSamplesNov" ColumnName="NumberOfSamplesNov" />
+                <ScalarProperty Name="NumberOfSamplesOct" ColumnName="NumberOfSamplesOct" />
+                <ScalarProperty Name="NumberOfSamplesSep" ColumnName="NumberOfSamplesSep" />
+                <ScalarProperty Name="NumberOfSamplesAug" ColumnName="NumberOfSamplesAug" />
+                <ScalarProperty Name="NumberOfSamplesJul" ColumnName="NumberOfSamplesJul" />
+                <ScalarProperty Name="NumberOfSamplesJun" ColumnName="NumberOfSamplesJun" />
+                <ScalarProperty Name="NumberOfSamplesMay" ColumnName="NumberOfSamplesMay" />
+                <ScalarProperty Name="NumberOfSamplesApr" ColumnName="NumberOfSamplesApr" />
+                <ScalarProperty Name="NumberOfSamplesMar" ColumnName="NumberOfSamplesMar" />
+                <ScalarProperty Name="NumberOfSamplesFeb" ColumnName="NumberOfSamplesFeb" />
+                <ScalarProperty Name="NumberOfSamplesJan" ColumnName="NumberOfSamplesJan" />
+                <ScalarProperty Name="SampleShipped4" ColumnName="SampleShipped4" />
+                <ScalarProperty Name="SampleShipped3" ColumnName="SampleShipped3" />
+                <ScalarProperty Name="SampleShipped2" ColumnName="SampleShipped2" />
+                <ScalarProperty Name="SampleShipped1" ColumnName="SampleShipped1" />
+                <ScalarProperty Name="DataEnteredElectronically4" ColumnName="DataEnteredElectronically4" />
+                <ScalarProperty Name="DataEnteredElectronically3" ColumnName="DataEnteredElectronically3" />
+                <ScalarProperty Name="DataEnteredElectronically2" ColumnName="DataEnteredElectronically2" />
+                <ScalarProperty Name="DataEnteredElectronically1" ColumnName="DataEnteredElectronically1" />
+                <ScalarProperty Name="VolunteerTimeSheet4" ColumnName="VolunteerTimeSheet4" />
+                <ScalarProperty Name="VolunteerTimeSheet3" ColumnName="VolunteerTimeSheet3" />
+                <ScalarProperty Name="VolunteerTimeShee2" ColumnName="VolunteerTimeShee2" />
+                <ScalarProperty Name="VolunteerTimeSheet1" ColumnName="VolunteerTimeSheet1" />
+                <ScalarProperty Name="SiteVisited" ColumnName="SiteVisited" />
+                <ScalarProperty Name="ContractSignedDate" ColumnName="ContractSignedDate" />
+                <ScalarProperty Name="ContractSigned" ColumnName="ContractSigned" />
+                <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
+                <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stations">
+            <EntityTypeMapping TypeName="RiverwatchModel.Station">
+              <MappingFragment StoreEntitySet="Station">
+                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="StateEngineering" ColumnName="StateEngineering" />
+                <ScalarProperty Name="USGS" ColumnName="USGS" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="UTMY" ColumnName="UTMY" />
+                <ScalarProperty Name="UTMX" ColumnName="UTMX" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Move" ColumnName="Move" />
+                <ScalarProperty Name="NearCity" ColumnName="NearCity" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+                <ScalarProperty Name="WaterShedRegion" ColumnName="WaterShedRegion" />
+                <ScalarProperty Name="Elevation" ColumnName="Elevation" />
+                <ScalarProperty Name="StationStatus" ColumnName="StationStatus" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="EcoRegion" ColumnName="EcoRegion" />
+                <ScalarProperty Name="HydroUnit" ColumnName="HydroUnit" />
+                <ScalarProperty Name="WQCCWaterShed" ColumnName="WQCCWaterShed" />
+                <ScalarProperty Name="RWWaterShed" ColumnName="RWWaterShed" />
+                <ScalarProperty Name="StationQUAD" ColumnName="StationQUAD" />
+                <ScalarProperty Name="Grid" ColumnName="Grid" />
+                <ScalarProperty Name="QuaterSection" ColumnName="QuaterSection" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Range" ColumnName="Range" />
+                <ScalarProperty Name="Township" ColumnName="Township" />
+                <ScalarProperty Name="QUADI" ColumnName="QUADI" />
+                <ScalarProperty Name="StationType" ColumnName="StationType" />
+                <ScalarProperty Name="WaterBodyID" ColumnName="WaterBodyID" />
+                <ScalarProperty Name="WaterCode" ColumnName="WaterCode" />
+                <ScalarProperty Name="AquaticModelIndex" ColumnName="AquaticModelIndex" />
+                <ScalarProperty Name="River" ColumnName="River" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblParticipants">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblParticipant">
+              <MappingFragment StoreEntitySet="tblParticipant">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Training" ColumnName="Training" />
+                <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MailPreference" ColumnName="MailPreference" />
+                <ScalarProperty Name="HomeEmail" ColumnName="HomeEmail" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="YearSignedOn" ColumnName="YearSignedOn" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPartInfoes">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblPartInfo">
+              <MappingFragment StoreEntitySet="tblPartInfo">
+                <ScalarProperty Name="ptDOCURL" ColumnName="ptDOCURL" />
+                <ScalarProperty Name="ptTEXT" ColumnName="ptTEXT" />
+                <ScalarProperty Name="ptPARENTNODE" ColumnName="ptPARENTNODE" />
+                <ScalarProperty Name="ptNODE" ColumnName="ptNODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPhysHabParas">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblPhysHabPara">
+              <MappingFragment StoreEntitySet="tblPhysHabPara">
+                <ScalarProperty Name="dsOrder" ColumnName="dsOrder" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="CharGroupID" ColumnName="CharGroupID" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="ParameterTypeII" ColumnName="ParameterTypeII" />
+                <ScalarProperty Name="ParameterTypeI" ColumnName="ParameterTypeI" />
+                <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
+                <ScalarProperty Name="LongParameterName" ColumnName="LongParameterName" />
+                <ScalarProperty Name="PhysHabParaID" ColumnName="PhysHabParaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjects">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblProject">
+              <MappingFragment StoreEntitySet="tblProject">
+                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjectStations">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblProjectStation">
+              <MappingFragment StoreEntitySet="tblProjectStation">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectStationID" ColumnName="ProjectStationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRegistrations">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblRegistration">
+              <MappingFragment StoreEntitySet="tblRegistration">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Attend" ColumnName="Attend" />
+                <ScalarProperty Name="Receipt" ColumnName="Receipt" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="WorkShop" ColumnName="WorkShop" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+                <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundSamples">
+            <EntityTypeMapping TypeName="RiverwatchModel.InboundSample">
+              <MappingFragment StoreEntitySet="InboundSamples">
+                <ScalarProperty Name="tblSampleID" ColumnName="tblSampleID" />
+                <ScalarProperty Name="PassValStep" ColumnName="PassValStep" />
+                <ScalarProperty Name="MissingDataSheetReceived" ColumnName="MissingDataSheetReceived" />
+                <ScalarProperty Name="ChainOfCustody" ColumnName="ChainOfCustody" />
+                <ScalarProperty Name="MissingDataSheetReqDate" ColumnName="MissingDataSheetReqDate" />
+                <ScalarProperty Name="DataSheetIncluded" ColumnName="DataSheetIncluded" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+                <ScalarProperty Name="FinalCheck" ColumnName="FinalCheck" />
+                <ScalarProperty Name="MetalsStat" ColumnName="MetalsStat" />
+                <ScalarProperty Name="FieldValid" ColumnName="FieldValid" />
+                <ScalarProperty Name="NPDupe" ColumnName="NPDupe" />
+                <ScalarProperty Name="CSDupe" ColumnName="CSDupe" />
+                <ScalarProperty Name="TSSDupe" ColumnName="TSSDupe" />
+                <ScalarProperty Name="NP" ColumnName="NP" />
+                <ScalarProperty Name="CS" ColumnName="CS" />
+                <ScalarProperty Name="TSS" ColumnName="TSS" />
+                <ScalarProperty Name="BugsQA" ColumnName="BugsQA" />
+                <ScalarProperty Name="Bugs" ColumnName="Bugs" />
+                <ScalarProperty Name="MetalsDupe" ColumnName="MetalsDupe" />
+                <ScalarProperty Name="MetalsBlnk" ColumnName="MetalsBlnk" />
+                <ScalarProperty Name="Metals" ColumnName="Metals" />
+                <ScalarProperty Name="EntryStaff" ColumnName="EntryStaff" />
+                <ScalarProperty Name="EntryType" ColumnName="EntryType" />
+                <ScalarProperty Name="Chk" ColumnName="Chk" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="DOsat" ColumnName="DOsat" />
+                <ScalarProperty Name="DO" ColumnName="DO" />
+                <ScalarProperty Name="TotalHard" ColumnName="TotalHard" />
+                <ScalarProperty Name="TotalAlk" ColumnName="TotalAlk" />
+                <ScalarProperty Name="PhenAlk" ColumnName="PhenAlk" />
+                <ScalarProperty Name="TempC" ColumnName="TempC" />
+                <ScalarProperty Name="PH" ColumnName="PH" />
+                <ScalarProperty Name="USGSFlow" ColumnName="USGSFlow" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="KitNum" ColumnName="KitNum" />
+                <ScalarProperty Name="txtSampleID" ColumnName="txtSampleID" />
+                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
+                <ScalarProperty Name="StationNum" ColumnName="StationNum" />
+                <ScalarProperty Name="inbSampleID" ColumnName="inbSampleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkLimits">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkLimit">
+              <MappingFragment StoreEntitySet="tlkLimits">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DvsTDifference" ColumnName="DvsTDifference" />
+                <ScalarProperty Name="MDL" ColumnName="MDL" />
+                <ScalarProperty Name="Reporting" ColumnName="Reporting" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Element" ColumnName="Element" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
