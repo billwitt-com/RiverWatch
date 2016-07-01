@@ -270,11 +270,16 @@ warning 6002: The table/view 'RiverWatch.dbo.InboundSamples' does not have a pri
           <Property Name="BadSample" Type="bit" />
           <Property Name="Valid" Type="bit" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.Organization' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Organization">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="OrganizationID" />
+            <PropertyRef Name="OrganizationName" />
+            <PropertyRef Name="OrganizationType" />
+            <PropertyRef Name="Active" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrganizationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KitNumber" Type="int" />
           <Property Name="OrganizationName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="OrganizationType" Type="varchar" MaxLength="50" Nullable="false" />
@@ -568,7 +573,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <EntitySet Name="InboundICPOrigional" EntityType="Self.InboundICPOrigional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MetalBarCode" EntityType="Self.MetalBarCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NEWexpWater" EntityType="Self.NEWexpWater" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrgStatus" EntityType="Self.OrgStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSample" EntityType="Self.tblSample" Schema="dbo" store:Type="Tables" />
@@ -618,6 +622,31 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
     [InboundSamples].[PassValStep] AS [PassValStep], 
     [InboundSamples].[tblSampleID] AS [tblSampleID]
     FROM [dbo].[InboundSamples] AS [InboundSamples]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Organization" EntityType="Self.Organization" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Organization].[OrganizationID] AS [OrganizationID], 
+    [Organization].[KitNumber] AS [KitNumber], 
+    [Organization].[OrganizationName] AS [OrganizationName], 
+    [Organization].[OrganizationType] AS [OrganizationType], 
+    [Organization].[Email] AS [Email], 
+    [Organization].[MailingAddress] AS [MailingAddress], 
+    [Organization].[ShippingAddress] AS [ShippingAddress], 
+    [Organization].[City] AS [City], 
+    [Organization].[State] AS [State], 
+    [Organization].[Zip] AS [Zip], 
+    [Organization].[Phone] AS [Phone], 
+    [Organization].[Fax] AS [Fax], 
+    [Organization].[YearStarted] AS [YearStarted], 
+    [Organization].[WaterShed] AS [WaterShed], 
+    [Organization].[WaterShedGathering] AS [WaterShedGathering], 
+    [Organization].[Password] AS [Password], 
+    [Organization].[Active] AS [Active], 
+    [Organization].[DateCreated] AS [DateCreated], 
+    [Organization].[UserCreated] AS [UserCreated], 
+    [Organization].[DateLastModified] AS [DateLastModified], 
+    [Organization].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[Organization] AS [Organization]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tblParticipant" EntityType="Self.tblParticipant" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -711,32 +740,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RiverwatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Organization">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="KitNumber" Type="Int32" />
-          <Property Name="OrganizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OrganizationType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MailingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ShippingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="YearStarted" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="WaterShed" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="WaterShedGathering" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="tblSample">
           <Key>
             <PropertyRef Name="SampleID" />
@@ -774,7 +777,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="Valid" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="NewRiverwatchEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Organizations" EntityType="Self.Organization" />
           <EntitySet Name="tblSamples" EntityType="Self.tblSample" />
           <EntitySet Name="GearConfigs" EntityType="RiverwatchModel.GearConfig" />
           <EntitySet Name="InboundICPFinals" EntityType="RiverwatchModel.InboundICPFinal" />
@@ -795,6 +797,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <EntitySet Name="tblRegistrations" EntityType="RiverwatchModel.tblRegistration" />
           <EntitySet Name="InboundSamples" EntityType="RiverwatchModel.InboundSample" />
           <EntitySet Name="tlkLimits" EntityType="RiverwatchModel.tlkLimit" />
+          <EntitySet Name="Organizations" EntityType="RiverwatchModel.Organization" />
         </EntityContainer>
         <EntityType Name="GearConfig">
           <Key>
@@ -1273,39 +1276,41 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="UserCreated" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Valid" Type="Boolean" />
         </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="OrganizationID" />
+            <PropertyRef Name="OrganizationName" />
+            <PropertyRef Name="OrganizationType" />
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="OrganizationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KitNumber" Type="Int32" />
+          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrganizationType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MailingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="YearStarted" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="WaterShed" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="WaterShedGathering" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RiverwatchModelStoreContainer" CdmEntityContainer="NewRiverwatchEntities">
-          <EntitySetMapping Name="Organizations">
-            <EntityTypeMapping TypeName="RiverwatchModel.Organization">
-              <MappingFragment StoreEntitySet="Organization">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="KitNumber" ColumnName="KitNumber" />
-                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
-                <ScalarProperty Name="OrganizationType" ColumnName="OrganizationType" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="MailingAddress" ColumnName="MailingAddress" />
-                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="YearStarted" ColumnName="YearStarted" />
-                <ScalarProperty Name="WaterShed" ColumnName="WaterShed" />
-                <ScalarProperty Name="WaterShedGathering" ColumnName="WaterShedGathering" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblSamples">
             <EntityTypeMapping TypeName="RiverwatchModel.tblSample">
               <MappingFragment StoreEntitySet="tblSample">
@@ -1824,6 +1829,33 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
                 <ScalarProperty Name="RowID" ColumnName="RowID" />
                 <ScalarProperty Name="Element" ColumnName="Element" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="RiverwatchModel.Organization">
+              <MappingFragment StoreEntitySet="Organization">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="WaterShedGathering" ColumnName="WaterShedGathering" />
+                <ScalarProperty Name="WaterShed" ColumnName="WaterShed" />
+                <ScalarProperty Name="YearStarted" ColumnName="YearStarted" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
+                <ScalarProperty Name="MailingAddress" ColumnName="MailingAddress" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="OrganizationType" ColumnName="OrganizationType" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="KitNumber" ColumnName="KitNumber" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

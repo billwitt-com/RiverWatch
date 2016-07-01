@@ -14,7 +14,7 @@ namespace RWInbound2
     
     public partial class Organization
     {
-        public int ID { get; set; }
+        public int OrganizationID { get; set; }
         public Nullable<int> KitNumber { get; set; }
         public string OrganizationName { get; set; }
         public string OrganizationType { get; set; }

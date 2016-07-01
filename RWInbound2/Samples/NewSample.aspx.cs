@@ -79,7 +79,7 @@ namespace RWInbound2.Samples
                 currentYear = DateTime.Parse(date2parse); 
             }
 
-            kitNumber = -1; // no real kit number
+            kitNumber = -1; // no real kit number yet
             bool success = int.TryParse(tbSite.Text, out stationNumber);
             bool success2 = int.TryParse(tbKitNumber.Text, out kitNumber);
 
@@ -94,9 +94,9 @@ namespace RWInbound2.Samples
                 lstSamples.Visible = false;
                 return;
             }
-            if (!success2)  // first, is there a kit number in the box?
+            if (!success2)  // first, is there a kit number in the box, if not... 
             {
-                if (orgName.Length > 2)   // there is an org
+                if (orgName.Length > 2)   // there is an org name
                 {
                     var KN = (from k in NRWDE.Organizations
                               where k.OrganizationName == orgName
@@ -126,8 +126,7 @@ namespace RWInbound2.Samples
             {
                     var RES = from r in NRWDE.Stations
                           join o in NRWDE.Organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
-                          join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
-                          
+                          join ts in NRWDE.OrgStatus on o.OrganizationID equals ts.OrganizationID                          
                           where r.StationNumber == stationNumber & o.KitNumber == kitNumber
                           select new
                           {
@@ -139,7 +138,7 @@ namespace RWInbound2.Samples
                               active = o.Active,
                               watershed = r.RWWaterShed,
                               stnID = r.ID,
-                              orgID = o.ID
+                              orgID = o.OrganizationID
                           };
                 if (RES.Count() == 0)
                 {
