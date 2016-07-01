@@ -132,7 +132,9 @@
 
     <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" UseVerticalStripPlacement="False">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <ajaxToolkit:TabPanel   runat="server" HeaderText="Sample" ID="TabPanelSample">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        
+        <ajaxToolkit:TabPanel   runat="server" HeaderText="Sample" ID="TabPanelSample">
             <ContentTemplate>
                 <table style="width: 762px">
                     <tr>
@@ -214,7 +216,8 @@
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <ajaxToolkit:TabPanel runat="server" HeaderText="Metals Barcodes"  ID="TabPanel2">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        <ajaxToolkit:TabPanel runat="server" HeaderText="Metals Barcodes"  ID="TabPanel2">
             <ContentTemplate>
                 <table>
                     <tr>
@@ -271,16 +274,20 @@
             </ContentTemplate>
         </ajaxToolkit:TabPanel>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <ajaxToolkit:TabPanel runat="server" HeaderText="Nutrient Barcodes" ID="TabPanel3">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        <ajaxToolkit:TabPanel runat="server" HeaderText="Nutrient Barcodes" ID="TabPanel3">
             <ContentTemplate>
                 <table>
-
-                    <tr>
-                        
+                    <tr>                        
                         <td style="width: 141px">BarCode / Lab ID:</td>
                         <td>
-                            <asp:TextBox ID="txtLabID" runat="server"></asp:TextBox>&nbsp;
-						<asp:Button ID="btnBarcodeSearch" runat="server"  CssClass="smallButton" Text="Search"></asp:Button>
+                            <asp:TextBox ID="tbNutrientCode" runat="server"></asp:TextBox>&nbsp;
+						<asp:Button ID="btnBarcodeSearch" runat="server"  OnClick="btnBarcodeSearch_Click" CssClass="smallButton" Text="Search"></asp:Button>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblNutBarcodeMsg" runat="server" Text=""></asp:Label>
+                        </td>
                     </tr>
                     <tr>
                     
@@ -308,7 +315,8 @@
 
                         <td style="width: 121px">Analyze Date:</td>
                         <td>
-                            <asp:TextBox ID="txtAnalyzeDate" runat="server"></asp:TextBox></td>
+                            <asp:TextBox ID="tbAnalyzeDate" runat="server"></asp:TextBox></td>
+                        <ajaxToolkit:CalendarExtender ID="CalendarExtenderAnalyzeDate" TargetControlID="tbAnalyzeDate"   runat="server" />
                     </tr>
                     <tr>
 
@@ -324,7 +332,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnSaveNutrient" runat="server" CssClass="smallButton" Text="Save" />
+                            <asp:Button ID="btnSaveNutrient" runat="server" OnClick="btnSaveNutrient_Click" CssClass="smallButton" Text="Save" />
+                        </td>
+                        <td>
+                            <asp:Label ID="lblNutrientBCSave" runat="server" Text=""></asp:Label>
+
                         </td>
                         <td style="width: 121px"></td>
                         <td></td>

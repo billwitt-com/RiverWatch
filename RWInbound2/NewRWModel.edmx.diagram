@@ -23,6 +23,7 @@
         <EntityTypeShape EntityType="RiverwatchModel.InboundSample" Width="1.5" PointX="14.375" PointY="4.75" />
         <EntityTypeShape EntityType="RiverwatchModel.tlkLimit" Width="1.5" PointX="14.375" PointY="14.75" />
         <EntityTypeShape EntityType="RiverwatchModel.Organization" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.NutrientBarCode" Width="1.5" PointX="11.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

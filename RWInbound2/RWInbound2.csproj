@@ -447,6 +447,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="NutrientBarCode.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Organization.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>

@@ -598,13 +598,13 @@ namespace RWInbound2.Samples {
         protected global::AjaxControlToolkit.TabPanel TabPanel3;
         
         /// <summary>
-        /// txtLabID control.
+        /// tbNutrientCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLabID;
+        protected global::System.Web.UI.WebControls.TextBox tbNutrientCode;
         
         /// <summary>
         /// btnBarcodeSearch control.
@@ -614,6 +614,15 @@ namespace RWInbound2.Samples {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnBarcodeSearch;
+        
+        /// <summary>
+        /// lblNutBarcodeMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNutBarcodeMsg;
         
         /// <summary>
         /// chksNutrients control.
@@ -634,13 +643,22 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.Label lblLogDate;
         
         /// <summary>
-        /// txtAnalyzeDate control.
+        /// tbAnalyzeDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAnalyzeDate;
+        protected global::System.Web.UI.WebControls.TextBox tbAnalyzeDate;
+        
+        /// <summary>
+        /// CalendarExtenderAnalyzeDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtenderAnalyzeDate;
         
         /// <summary>
         /// chkDone control.
@@ -668,6 +686,15 @@ namespace RWInbound2.Samples {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveNutrient;
+        
+        /// <summary>
+        /// lblNutrientBCSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNutrientBCSave;
         
         /// <summary>
         /// TabPanel4 control.

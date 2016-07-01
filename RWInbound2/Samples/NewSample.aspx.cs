@@ -25,6 +25,9 @@ namespace RWInbound2.Samples
                 Session["NEWSAMPLE"] = null;
 
                 TabContainer1.Visible = false;
+                
+           //     CalendarExtenderAnalyzeDate.SelectedDate = DateTime.Now; // set for today so there is something there... 
+                tbAnalyzeDate.Text = DateTime.Now.ToShortDateString(); 
 
                 // fill radio button list from tlkMetalBarCodeType
                 // the order should be better, most used first id normal and then filtered
@@ -148,7 +151,7 @@ namespace RWInbound2.Samples
                     tbKitNumber.Text = "";
                     ddlInboundSamplePick.Items.Clear();
                     txtDateCollected.Text = "";
-                    txtAnalyzeDate.Text = "";
+                    tbAnalyzeDate.Text = "";
                     txtSmpNum.Text = "";
                     txtNumSmp.Text = ""; 
                     return;
@@ -233,14 +236,15 @@ namespace RWInbound2.Samples
         }
 
         // common utility to update values on the samples page
+        // XXXX take a look at this, I don't think this is difinitive 
         private void updateSamplesPage(string stationChoice)
         {            
             tblSample TS;   
             try
             {
                 TS = (tblSample)(from r in NRWDE.tblSamples
-                                 where r.NumberSample.StartsWith(stationChoice) 
-                                 select r).FirstOrDefault(); 
+                                 where r.NumberSample.StartsWith(stationChoice)
+                                 select r).LastOrDefault(); // get most recent? 
 
                 // populate the screen 
                 txtSmpNum.Text = TS.SampleNumber;
@@ -726,6 +730,7 @@ namespace RWInbound2.Samples
             FillTabPanelICPdata(txtNumSmp.Text.Trim());
         }
         
+        // XXXX is this correct? Looks like we would get all barcodes for a station, 
         protected void FillTabPanelBarcode(string station)
         {
             string sid = station;   // number sample in this current context. Will change name to EventType or something XXXX
@@ -1098,6 +1103,158 @@ namespace RWInbound2.Samples
                 string msg = ex.Message;    // XXXX need to build an error log file and logging code
                 return null;
             }
+        }
+
+        // check to see if there is a nutrient bar code already and print message 
+        protected void btnBarcodeSearch_Click(object sender, EventArgs e)
+        {
+            // scrape barcode from page
+
+            string barcode = tbNutrientCode.Text.Trim().ToUpper(); 
+            if(barcode.Length < 3)
+            {
+                lblNutBarcodeMsg.Text = "Please enter a valid bar code";
+                tbNutrientCode.Text = "";
+                return;
+            }
+
+            try
+            {
+                string R = (string) (from r in NRWDE.NutrientBarCodes
+                        where r.LabID.ToUpper() == barcode
+                        select r.LabID).FirstOrDefault();
+                if(R == null)   // no existing barcode
+                {
+                    lblNutBarcodeMsg.Text = "Unused Bar Code!";
+                    lblNutBarcodeMsg.ForeColor = System.Drawing.Color.Green; 
+                }
+                else
+                {
+                    lblNutBarcodeMsg.Text = string.Format("Barcode {0} is used", barcode);
+                    lblNutBarcodeMsg.ForeColor = System.Drawing.Color.Red; 
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+
+        }
+
+        // should we filter bar codes for junk chars
+        // must scrape page to save as these controls are not data bound
+        protected void btnSaveNutrient_Click(object sender, EventArgs e)
+        {
+            DateTime anaDate; 
+            // scrape barcode from page
+            string barcode = tbNutrientCode.Text.Trim().ToUpper();  // scrape page
+            if (barcode.Length < 3)
+            {
+                lblNutBarcodeMsg.Text = "Please enter a valid bar code";    // quick check, not sure what else we can do
+                tbNutrientCode.Text = "";
+                return;
+            }
+            string sampNum = txtSmpNum.Text.Trim(); 
+            string numSamp = txtNumSmp.Text.Trim(); 
+            // we presume good barcode here, so get to it... 
+
+            NutrientBarCode NBC = new NutrientBarCode(); // create an empty data set
+            NBC.LabID = barcode;
+
+          // loop througth chksNutrients to see which are checked
+            NBC.Ammonia = chksNutrients.Items.FindByText("Ammonia").Selected;
+            NBC.ChlorA = chksNutrients.Items.FindByValue("ChlorA").Selected;
+            NBC.Chloride = chksNutrients.Items.FindByValue("Chloride").Selected;
+            NBC.DOC = chksNutrients.Items.FindByValue("DOC").Selected;
+            NBC.NitrateNitrite = chksNutrients.Items.FindByValue("NitrateNitrite").Selected;
+            NBC.OrthoPhos = chksNutrients.Items.FindByValue("OrthoPhos").Selected;
+            NBC.Sulfate = chksNutrients.Items.FindByValue("Sulfate").Selected;
+            NBC.TotalNitro = chksNutrients.Items.FindByValue("TotalNitro").Selected;
+            NBC.TotalPhos = chksNutrients.Items.FindByValue("TotalPhos").Selected;
+            NBC.TSS = chksNutrients.Items.FindByValue("TSS").Selected;
+
+            NBC.DateCreated = DateTime.Now;
+
+            bool success = DateTime.TryParse(tbAnalyzeDate.Text, out anaDate);
+            if (!success)
+            {
+                anaDate = DateTime.Now; 
+                
+            }
+            NBC.AnalyzeDate = anaDate;
+            NBC.SampleNumber = sampNum; 
+
+           
+
+
+
+            // test to see if the code exists, if so, don't save
+            try
+            {
+                var R = (from r in NRWDE.NutrientBarCodes
+                              where r.LabID.ToUpper() == barcode
+                              select r.ID).FirstOrDefault();
+                if ((R == null) | (R < 0))
+                {
+                    lblNutBarcodeMsg.Text = "Bar Code Saved!";
+                    lblNutBarcodeMsg.ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    lblNutrientBCSave.Text = string.Format("NOT SAVED - Barcode {0} is used", barcode);
+                    lblNutrientBCSave.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+
+
+            try
+            {
+                int R = (int)(from r in NRWDE.NutrientBarCodes
+                              where r.LabID.ToUpper() == barcode
+                              select r.ID).FirstOrDefault();
+                if ((R == null) | (R < 0))
+                {
+                    lblNutBarcodeMsg.Text = "Bar Code Saved!";
+                    lblNutBarcodeMsg.ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    lblNutrientBCSave.Text = string.Format("Barcode {0} is used", barcode);
+                    lblNutrientBCSave.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
         }
     }    
 }

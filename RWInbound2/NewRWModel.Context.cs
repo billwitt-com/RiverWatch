@@ -45,6 +45,7 @@ namespace RWInbound2
         public virtual DbSet<InboundSample> InboundSamples { get; set; }
         public virtual DbSet<tlkLimit> tlkLimits { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
+        public virtual DbSet<NutrientBarCode> NutrientBarCodes { get; set; }
     
         public virtual int UpdateLocalTablesFromIncomingICP(string user)
         {

@@ -271,6 +271,36 @@ warning 6002: The table/view 'RiverWatch.dbo.InboundSamples' does not have a pri
           <Property Name="Valid" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.NutrientBarCode' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NutrientBarCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SampleID" Type="int" />
+          <Property Name="SampleNumber" Type="varchar" MaxLength="30" />
+          <Property Name="LabID" Type="varchar" MaxLength="10" />
+          <Property Name="Batch" Type="varchar" MaxLength="5" />
+          <Property Name="Done" Type="bit" />
+          <Property Name="LogDate" Type="datetime" />
+          <Property Name="AnalyzeDate" Type="datetime" />
+          <Property Name="Comment" Type="varchar" MaxLength="128" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+          <Property Name="TotalPhos" Type="bit" />
+          <Property Name="OrthoPhos" Type="bit" />
+          <Property Name="TotalNitro" Type="bit" />
+          <Property Name="NitrateNitrite" Type="bit" />
+          <Property Name="Ammonia" Type="bit" />
+          <Property Name="DOC" Type="bit" />
+          <Property Name="Chloride" Type="bit" />
+          <Property Name="Sulfate" Type="bit" />
+          <Property Name="TSS" Type="bit" />
+          <Property Name="ChlorA" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'RiverWatch.dbo.Organization' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Organization">
           <Key>
@@ -623,6 +653,33 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
     [InboundSamples].[tblSampleID] AS [tblSampleID]
     FROM [dbo].[InboundSamples] AS [InboundSamples]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="NutrientBarCode" EntityType="Self.NutrientBarCode" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [NutrientBarCode].[ID] AS [ID], 
+    [NutrientBarCode].[SampleID] AS [SampleID], 
+    [NutrientBarCode].[SampleNumber] AS [SampleNumber], 
+    [NutrientBarCode].[LabID] AS [LabID], 
+    [NutrientBarCode].[Batch] AS [Batch], 
+    [NutrientBarCode].[Done] AS [Done], 
+    [NutrientBarCode].[LogDate] AS [LogDate], 
+    [NutrientBarCode].[AnalyzeDate] AS [AnalyzeDate], 
+    [NutrientBarCode].[Comment] AS [Comment], 
+    [NutrientBarCode].[DateCreated] AS [DateCreated], 
+    [NutrientBarCode].[UserCreated] AS [UserCreated], 
+    [NutrientBarCode].[DateLastModified] AS [DateLastModified], 
+    [NutrientBarCode].[UserLastModified] AS [UserLastModified], 
+    [NutrientBarCode].[TotalPhos] AS [TotalPhos], 
+    [NutrientBarCode].[OrthoPhos] AS [OrthoPhos], 
+    [NutrientBarCode].[TotalNitro] AS [TotalNitro], 
+    [NutrientBarCode].[NitrateNitrite] AS [NitrateNitrite], 
+    [NutrientBarCode].[Ammonia] AS [Ammonia], 
+    [NutrientBarCode].[DOC] AS [DOC], 
+    [NutrientBarCode].[Chloride] AS [Chloride], 
+    [NutrientBarCode].[Sulfate] AS [Sulfate], 
+    [NutrientBarCode].[TSS] AS [TSS], 
+    [NutrientBarCode].[ChlorA] AS [ChlorA]
+    FROM [dbo].[NutrientBarCode] AS [NutrientBarCode]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Organization" EntityType="Self.Organization" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Organization].[OrganizationID] AS [OrganizationID], 
@@ -798,6 +855,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <EntitySet Name="InboundSamples" EntityType="RiverwatchModel.InboundSample" />
           <EntitySet Name="tlkLimits" EntityType="RiverwatchModel.tlkLimit" />
           <EntitySet Name="Organizations" EntityType="RiverwatchModel.Organization" />
+          <EntitySet Name="NutrientBarCodes" EntityType="RiverwatchModel.NutrientBarCode" />
         </EntityContainer>
         <EntityType Name="GearConfig">
           <Key>
@@ -1304,6 +1362,34 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NutrientBarCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SampleID" Type="Int32" />
+          <Property Name="SampleNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LabID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Batch" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Done" Type="Boolean" />
+          <Property Name="LogDate" Type="DateTime" Precision="3" />
+          <Property Name="AnalyzeDate" Type="DateTime" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="TotalPhos" Type="Boolean" />
+          <Property Name="OrthoPhos" Type="Boolean" />
+          <Property Name="TotalNitro" Type="Boolean" />
+          <Property Name="NitrateNitrite" Type="Boolean" />
+          <Property Name="Ammonia" Type="Boolean" />
+          <Property Name="DOC" Type="Boolean" />
+          <Property Name="Chloride" Type="Boolean" />
+          <Property Name="Sulfate" Type="Boolean" />
+          <Property Name="TSS" Type="Boolean" />
+          <Property Name="ChlorA" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1856,6 +1942,35 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
                 <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
                 <ScalarProperty Name="KitNumber" ColumnName="KitNumber" />
                 <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NutrientBarCodes">
+            <EntityTypeMapping TypeName="RiverwatchModel.NutrientBarCode">
+              <MappingFragment StoreEntitySet="NutrientBarCode">
+                <ScalarProperty Name="ChlorA" ColumnName="ChlorA" />
+                <ScalarProperty Name="TSS" ColumnName="TSS" />
+                <ScalarProperty Name="Sulfate" ColumnName="Sulfate" />
+                <ScalarProperty Name="Chloride" ColumnName="Chloride" />
+                <ScalarProperty Name="DOC" ColumnName="DOC" />
+                <ScalarProperty Name="Ammonia" ColumnName="Ammonia" />
+                <ScalarProperty Name="NitrateNitrite" ColumnName="NitrateNitrite" />
+                <ScalarProperty Name="TotalNitro" ColumnName="TotalNitro" />
+                <ScalarProperty Name="OrthoPhos" ColumnName="OrthoPhos" />
+                <ScalarProperty Name="TotalPhos" ColumnName="TotalPhos" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AnalyzeDate" ColumnName="AnalyzeDate" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="Done" ColumnName="Done" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="LabID" ColumnName="LabID" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
