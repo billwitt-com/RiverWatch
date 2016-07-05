@@ -8,6 +8,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace RWInbound2.Samples
 {
@@ -24,9 +25,7 @@ namespace RWInbound2.Samples
                 lstSamples.Visible = false;              
                 Session["NEWSAMPLE"] = null;
 
-                TabContainer1.Visible = false;
-                
-           //     CalendarExtenderAnalyzeDate.SelectedDate = DateTime.Now; // set for today so there is something there... 
+                TabContainer1.Visible = false;          
                 tbAnalyzeDate.Text = DateTime.Now.ToShortDateString(); 
 
                 // fill radio button list from tlkMetalBarCodeType
@@ -237,14 +236,14 @@ namespace RWInbound2.Samples
 
         // common utility to update values on the samples page
         // XXXX take a look at this, I don't think this is difinitive 
-        private void updateSamplesPage(string stationChoice)
+        private void updateSamplesPage(string stationSample)
         {            
             tblSample TS;   
             try
             {
                 TS = (tblSample)(from r in NRWDE.tblSamples
-                                 where r.NumberSample.StartsWith(stationChoice)
-                                 select r).LastOrDefault(); // get most recent? 
+                                 where r.NumberSample.StartsWith(stationSample)
+                                 select r).FirstOrDefault();   //LastOrDefault(); // get most recent? 
 
                 // populate the screen 
                 txtSmpNum.Text = TS.SampleNumber;
@@ -297,8 +296,8 @@ namespace RWInbound2.Samples
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-            FillTabPanelICPdata(stationChoice);
-            FillTabPanelBarcode(stationChoice); 
+            FillTabPanelICPdata(stationSample);
+            FillTabPanelBarcode(stationSample); 
 
             // clean up barcode page - and nutrient page too XXXX
             lblBarcodeUsed.Text = "";
@@ -310,15 +309,15 @@ namespace RWInbound2.Samples
         // user has chosen a current sample
         protected void lstSamples_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string stationChoice;
+            string stationSample;
             int index = 0;
-            stationChoice = lstSamples.SelectedItem.Value;
+            stationSample = lstSamples.SelectedItem.Value;
             // select out the station event which is all digits to the left of the colon
 
-            index = stationChoice.IndexOf(":");
-            stationChoice = stationChoice.Substring(0, index); // all to left of colon
-            stationChoice = stationChoice.Trim();             // remove any spaces, etc.
-            updateSamplesPage(stationChoice); 
+            index = stationSample.IndexOf(":");
+            stationSample = stationSample.Substring(0, index); // all to left of colon
+            stationSample = stationSample.Trim();             // remove any spaces, etc.
+            updateSamplesPage(stationSample);  
         }
 
         // save or update - but we never overwrite so we always create with a valid flag 
@@ -730,17 +729,16 @@ namespace RWInbound2.Samples
             FillTabPanelICPdata(txtNumSmp.Text.Trim());
         }
         
-        // XXXX is this correct? Looks like we would get all barcodes for a station, 
-        protected void FillTabPanelBarcode(string station)
+        protected void FillTabPanelBarcode(string station_Sample)
         {
-            string sid = station;   // number sample in this current context. Will change name to EventType or something XXXX
-            string stationID = station;
-            int idx = stationID.IndexOf(".");
+            string sid = station_Sample;   // number sample in this current context. Will change name to EventType or something XXXX
+            string stationID = station_Sample;
+            //int idx = stationID.IndexOf(".");
 
-            if (idx > 0)
-            {
-                sid = stationID.Substring(0, idx); // if this was a complete event, get the leading station id
-            }
+            //if (idx > 0)
+            //{
+            //    sid = stationID.Substring(0, idx); // if this was a complete event, get the leading station id
+            //}
 
             string queryString = string.Format("SELECT [LabID] ,[Code] ,[Type] ,[Filtered] ,[BoxNumber] " +
 
@@ -779,15 +777,15 @@ namespace RWInbound2.Samples
             }
         }
 
-        protected void FillTabPanelICPdata(string station)
+        protected void FillTabPanelICPdata(string stationSample)
         {
             // quick fix:
 
-            string sid = txtNumSmp.Text.Trim(); // scrape page
+            string sid = stationSample.Trim(); // txtNumSmp.Text.Trim(); // scrape page
            // query for barcodes that have been entered but not analyzed
             // thus are in tblsample BUT NOT IN METALBARCODES        
            
-            // use a sql command since it allows easier reading of the not exists and is perhaps faster
+            // use a sql command since it allows easier reading of the 'not exists' and is perhaps faster than LINQ, which is very cryptic in this area
             string queryString = "";
             queryString = string.Format(
                 " SELECT    [SampleID] , LabID as [Barcode], Code as [Sample Type] " +
@@ -1145,8 +1143,6 @@ namespace RWInbound2.Samples
                 LogErrror LE = new LogErrror();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
-
-
         }
 
         // should we filter bar codes for junk chars
@@ -1167,7 +1163,16 @@ namespace RWInbound2.Samples
             // we presume good barcode here, so get to it... 
 
             NutrientBarCode NBC = new NutrientBarCode(); // create an empty data set
-            NBC.LabID = barcode;
+            NBC.LabID = barcode;            
+            
+            int SN = (from q in NRWDE.tblSamples
+                      where q.SampleNumber == sampNum & q.Valid == true
+                      select q.SampleID).FirstOrDefault();
+
+            if(SN > 0)
+            {
+                NBC.SampleID = SN; 
+            }          
 
           // loop througth chksNutrients to see which are checked
             NBC.Ammonia = chksNutrients.Items.FindByText("Ammonia").Selected;
@@ -1183,78 +1188,57 @@ namespace RWInbound2.Samples
 
             NBC.DateCreated = DateTime.Now;
 
+            string nam = "";
+            if (User.Identity.Name.Length < 3)
+                nam = "Not logged in";
+            else
+                nam = User.Identity.Name;
+            NBC.UserCreated = nam; 
+
             bool success = DateTime.TryParse(tbAnalyzeDate.Text, out anaDate);
             if (!success)
             {
-                anaDate = DateTime.Now; 
-                
+                anaDate = DateTime.Now;                 
             }
             NBC.AnalyzeDate = anaDate;
             NBC.SampleNumber = sampNum; 
 
-           
-
-
-
             // test to see if the code exists, if so, don't save
             try
             {
-                var R = (from r in NRWDE.NutrientBarCodes
+                int? R = (from r in NRWDE.NutrientBarCodes
                               where r.LabID.ToUpper() == barcode
                               select r.ID).FirstOrDefault();
-                if ((R == null) | (R < 0))
+
+                if (R <= 0)  // no existing bar code but will be 0 if no results 
                 {
+                    NRWDE.NutrientBarCodes.Add(NBC);
+                    NRWDE.SaveChanges(); 
+
                     lblNutBarcodeMsg.Text = "Bar Code Saved!";
                     lblNutBarcodeMsg.ForeColor = System.Drawing.Color.Green;
                 }
-                else
+                else    // there is an existing bar code, so do nothing
                 {
                     lblNutrientBCSave.Text = string.Format("NOT SAVED - Barcode {0} is used", barcode);
                     lblNutrientBCSave.ForeColor = System.Drawing.Color.Red;
                 }
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)               //(Exception ex)
             {
-                string nam = "";
+              //  SqlException sex; 
+               
+                
+                string n = "";
                 if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
+                    n = "Not logged in";
                 else
-                    nam = User.Identity.Name;
+                    n = User.Identity.Name;
                 string msg = ex.Message;
+                string comment = string.Format("SQL valication failure: {0}", ex.EntityValidationErrors.FirstOrDefault().ValidationErrors.FirstOrDefault().ErrorMessage); 
                 LogErrror LE = new LogErrror();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), n, comment);
             }
-
-
-
-            try
-            {
-                int R = (int)(from r in NRWDE.NutrientBarCodes
-                              where r.LabID.ToUpper() == barcode
-                              select r.ID).FirstOrDefault();
-                if ((R == null) | (R < 0))
-                {
-                    lblNutBarcodeMsg.Text = "Bar Code Saved!";
-                    lblNutBarcodeMsg.ForeColor = System.Drawing.Color.Green;
-                }
-                else
-                {
-                    lblNutrientBCSave.Text = string.Format("Barcode {0} is used", barcode);
-                    lblNutrientBCSave.ForeColor = System.Drawing.Color.Red;
-                }
-            }
-            catch (Exception ex)
-            {
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogErrror LE = new LogErrror();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
-
         }
     }    
 }

@@ -670,13 +670,13 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.CheckBox chkDone;
         
         /// <summary>
-        /// chkTooWarm control.
+        /// tbComments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkTooWarm;
+        protected global::System.Web.UI.WebControls.TextBox tbComments;
         
         /// <summary>
         /// btnSaveNutrient control.

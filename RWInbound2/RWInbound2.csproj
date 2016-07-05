@@ -223,6 +223,7 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
+    <Content Include="OrgExample.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="Samples\NewSample.aspx" />
     <Content Include="Samples\Samples.aspx" />
@@ -459,6 +460,13 @@
     </Compile>
     <Compile Include="OrgEdit.aspx.designer.cs">
       <DependentUpon>OrgEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrgExample.aspx.cs">
+      <DependentUpon>OrgExample.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OrgExample.aspx.designer.cs">
+      <DependentUpon>OrgExample.aspx</DependentUpon>
     </Compile>
     <Compile Include="OrgStatu.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>

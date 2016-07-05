@@ -10,7 +10,6 @@
 
     </div>
     <table>
-
         <tr>
             <td style="width: 193px">Station Number: 
                  <asp:TextBox ID="tbSite" runat="server" Height="20px" Width="46px" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
@@ -19,7 +18,6 @@
             <td   style="width: 166px">Kit Number: 
                  <asp:TextBox ID="tbKitNumber"  runat="server"  BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="46px"></asp:TextBox>
             </td>
-
             <td   style="width: 300px">OR Org: <asp:TextBox ID="tbOrg"  runat="server"  BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="16px" Width="225px"></asp:TextBox>
             </td>
             <td style="width: 116px">
@@ -201,15 +199,14 @@
                     <tr style="width: 800px">
                         <td style="width: 57px">Comment:</td>
                         <td>
-                            <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine"></asp:TextBox>
+                            <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Width="391px"></asp:TextBox>
                             <br />
                         </td>
                     </tr>
 
-
                 </table>
 
-                <asp:Button ID="btnSaveSample" runat="server" CssClass="smallButton" Text="Save Sample" OnClick="btnSaveSample_Click" />
+                <asp:Button ID="btnSaveSample" runat="server" CssClass="smallButton" Text="Save Sample" OnClick="btnSaveSample_Click" Width="80px" />
 
             </ContentTemplate>
         </ajaxToolkit:TabPanel>
@@ -324,15 +321,25 @@
                         <td>
                             <asp:CheckBox ID="chkDone" runat="server" Enabled="False"></asp:CheckBox></td>
                     </tr>
-                    <tr>
+                   <%-- <tr>
 
                         <td style="width: 121px">Too Warm:</td>
                         <td>
                             <asp:CheckBox ID="chkTooWarm" runat="server"></asp:CheckBox></td>
+                    </tr>--%>
+
+                     <tr>
+
+                        <td style="width: 121px">Comments:</td>
+                        <td>
+                            <asp:TextBox ID="tbComments"  runat="server" TextMode="MultiLine" Width="420px"></asp:TextBox>
+
+                        </td>
+                            
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnSaveNutrient" runat="server" OnClick="btnSaveNutrient_Click" CssClass="smallButton" Text="Save" />
+                            <asp:Button ID="btnSaveNutrient" runat="server" OnClick="btnSaveNutrient_Click" CssClass="smallButton" Text="Save" Width="60px" />
                         </td>
                         <td>
                             <asp:Label ID="lblNutrientBCSave" runat="server" Text=""></asp:Label>
@@ -341,7 +348,6 @@
                         <td style="width: 121px"></td>
                         <td></td>
                     </tr>
-
                 </table>
 
             </ContentTemplate>
@@ -382,8 +388,7 @@
 
                         </tr>
 
-                        <tr>
-                
+                        <tr>                
                             <td>July</td>
                             <td>Aug</td>
                             <td>Sept</td>
