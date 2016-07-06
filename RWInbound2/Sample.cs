@@ -12,8 +12,9 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tblSample
+    public partial class Sample
     {
+        public int ID { get; set; }
         public int SampleID { get; set; }
         public int StationID { get; set; }
         public Nullable<int> OrganizationID { get; set; }

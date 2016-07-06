@@ -18,10 +18,7 @@ tr
     font-size: 1.0em !important; /*!important over rides earler formatting*/
     font-weight: 600 !important;
     width:171px;
-    height:31px;
-    /*padding: 7px;
-        margin-right: 8px;*/
-}
+    }
 
 .pnlBarcodeTab 
 {
@@ -150,12 +147,10 @@ td button {
     /*background-color:aliceblue;*/
     background-color: lightblue !important;
 
-    cursor: pointer !important ;
+    cursor: pointer !important;
     border: 1px solid #787878; /*this works*/
     padding: 1px;
-    width: 45px;
-    /*margin-right: 4px;*/
-}
+    }
 
 buttonSWAP {
     background-color: lightblue !important;

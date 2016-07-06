@@ -13,7 +13,7 @@
         <tr>
             <td >&nbsp;</td>
             <td >
-    <asp:Button ID="btnICPBlanks"   runat="server" OnClick="btnICPBlanks_Click" Text="Step #1 ICP Blanks" CssClass="menuButton"  />
+    <asp:Button ID="btnICPBlanks"   runat="server" OnClick="btnICPBlanks_Click" Text="Step #1 ICP Blanks" CssClass="menuButton" Width="170px"  />
             </td>
             <td>
                 <asp:Label ID="lblICPBlanks" runat="server"></asp:Label>

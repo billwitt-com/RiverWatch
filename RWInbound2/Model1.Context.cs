@@ -42,7 +42,7 @@ namespace RWInbound2
         public DbSet<tlkNutrientBarCodeType> tlkNutrientBarCodeTypes { get; set; }
         public DbSet<expStnMetal> expStnMetals { get; set; }
         public DbSet<tlkLimit> tlkLimits { get; set; }
-        public DbSet<tblSample> tblSamples { get; set; }
+        public DbSet<Sample> Samples { get; set; }
         public DbSet<tblStation> tblStations { get; set; }
     }
 }

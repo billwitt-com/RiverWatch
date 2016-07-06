@@ -478,6 +478,9 @@
     <Compile Include="Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sample.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Samples\NewSample.aspx.cs">
       <DependentUpon>NewSample.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -529,9 +532,6 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblRegistration.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblSample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblStation.cs">

@@ -235,13 +235,13 @@ namespace RWInbound2.Samples
         }
 
         // common utility to update values on the samples page
-        // XXXX take a look at this, I don't think this is difinitive 
+
         private void updateSamplesPage(string stationSample)
         {            
-            tblSample TS;   
+            Sample TS;   
             try
             {
-                TS = (tblSample)(from r in NRWDE.tblSamples
+                TS = (Sample)(from r in NRWDE.Samples
                                  where r.NumberSample.StartsWith(stationSample)
                                  select r).FirstOrDefault();   //LastOrDefault(); // get most recent? 
 
@@ -323,7 +323,7 @@ namespace RWInbound2.Samples
         // save or update - but we never overwrite so we always create with a valid flag 
         protected void btnSaveSample_Click(object sender, EventArgs e)
         {
-             tblSample orgTS ; 
+            Sample orgTS ; 
             bool isNew = false;
             int stationNumber = 0;
             int stnID = 0;
@@ -365,6 +365,7 @@ namespace RWInbound2.Samples
             else
             {
                 // what to do XXXX
+                // need timedout page to jump to... 
 
             }
 
@@ -379,7 +380,7 @@ namespace RWInbound2.Samples
          
             // scrape the screen
             // ADD DATES, ETC WHEN WE HAVE newWater TABLE XXXX
-            tblSample TS = new tblSample();
+            Sample TS = new Sample();
             TS.StationID = stationNumber;
             TS.OrganizationID = orgNumber;
             TS.DateCollected = DateTime.Parse(txtDateCollected.Text);
@@ -419,7 +420,7 @@ namespace RWInbound2.Samples
             {
                
                 // if there is an old record, update old record by setting valid = false
-                orgTS = (from s in NRWDE.tblSamples
+                orgTS = (from s in NRWDE.Samples
                             where s.SampleNumber == txtSmpNum.Text & s.Valid == true
                             select s).FirstOrDefault();
 
@@ -431,6 +432,9 @@ namespace RWInbound2.Samples
                     NRWDE.SaveChanges(); // update all records
                 }               
 
+                // XXXX fetch max sampleID and add one, so we can write the record.
+                // this is crap, but I must evaluate what happens if I create a identity column.
+
                 // add new record 
                 TS.StationID = stnID;
                 TS.OrganizationID = orgID;
@@ -440,12 +444,20 @@ namespace RWInbound2.Samples
                 TS.DateCollected = DateTime.Parse(txtDateCollected.Text.Trim());
                 TS.Comment = txtComment.Text;
 
-                NRWDE.tblSamples.Add(TS);
+                NRWDE.Samples.Add(TS);
                 NRWDE.SaveChanges(); // update all records
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                string msg = ex.Message; 
+                Panel1.Visible = false;
+                string nam;
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
             if(Session["CURRENTYEAR"] != null)
@@ -517,7 +529,7 @@ namespace RWInbound2.Samples
 
             try
             {
-                string result =  (string) (from r in NRWDE.tblSamples
+                string result =  (string) (from r in NRWDE.Samples
                                            where r.NumberSample.StartsWith(tbSite.Text + ".") & r.Valid == true
                                                  orderby r.NumberSample descending 
                                                  select r.NumberSample).Take(1).FirstOrDefault();
@@ -569,7 +581,7 @@ namespace RWInbound2.Samples
 
             try
             {
-                var query = from s in NRWDE.tblSamples
+                var query = from s in NRWDE.Samples
                             where s.SampleNumber == sampNumber
                             select s.NumberSample;
                             
@@ -702,7 +714,7 @@ namespace RWInbound2.Samples
 
             // get sample number from tblSample 
 
-            int SN = (from q in NRWDE.tblSamples
+            int SN = (from q in NRWDE.Samples
                         where q.SampleNumber == smpNum & q.Valid == true
                         select q.SampleID).FirstOrDefault();
 
@@ -1034,7 +1046,7 @@ namespace RWInbound2.Samples
             // get drop down list of samples and numbers from DB, for this current year
             try
             {
-                var SMP = from s in NRWDE.tblSamples
+                var SMP = from s in NRWDE.Samples
                           where s.NumberSample.StartsWith(sampleNumber) & s.DateCollected >= currentYear & s.Valid == true
                           orderby s.DateCollected descending
                           select new
@@ -1165,7 +1177,7 @@ namespace RWInbound2.Samples
             NutrientBarCode NBC = new NutrientBarCode(); // create an empty data set
             NBC.LabID = barcode;            
             
-            int SN = (from q in NRWDE.tblSamples
+            int SN = (from q in NRWDE.Samples
                       where q.SampleNumber == sampNum & q.Valid == true
                       select q.SampleID).FirstOrDefault();
 

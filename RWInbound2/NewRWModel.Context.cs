@@ -27,7 +27,6 @@ namespace RWInbound2
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblSample> tblSamples { get; set; }
         public virtual DbSet<GearConfig> GearConfigs { get; set; }
         public virtual DbSet<InboundICPFinal> InboundICPFinals { get; set; }
         public virtual DbSet<InboundICPOrigional> InboundICPOrigionals { get; set; }
@@ -46,6 +45,7 @@ namespace RWInbound2
         public virtual DbSet<tlkLimit> tlkLimits { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<NutrientBarCode> NutrientBarCodes { get; set; }
+        public virtual DbSet<Sample> Samples { get; set; }
     
         public virtual int UpdateLocalTablesFromIncomingICP(string user)
         {

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace RWInbound2.Samples
 {
-    public partial class Samples : System.Web.UI.Page
+    public partial class SamplesPage : System.Web.UI.Page
     {
         dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2(); 
 
@@ -17,12 +17,12 @@ namespace RWInbound2.Samples
 
         protected void btnNewSample_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Samples/newsample.aspx");
+            Response.Redirect("~/SamplesPage/newsample.aspx");
         }
 
         protected void btnAddMetalBarcode_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Samples.AddMetalBarcode.aspx");
+            Response.Redirect("~/SamplesPage.AddMetalBarcode.aspx");
         }
 
         protected void btnAddNutrientBarcode_Click(object sender, EventArgs e)

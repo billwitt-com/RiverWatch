@@ -10,7 +10,7 @@
 namespace RWInbound2.Samples {
     
     
-    public partial class Samples {
+    public partial class SamplesPage {
         
         /// <summary>
         /// btnNewSample control.
