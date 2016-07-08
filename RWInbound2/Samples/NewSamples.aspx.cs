@@ -11,10 +11,10 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
-
+using System.Web.Providers.Entities;
 namespace RWInbound2.Samples
 {
-    public partial class NewSample : System.Web.UI.Page
+    public partial class NewSamples : System.Web.UI.Page
     {
         dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
         NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
@@ -473,6 +473,7 @@ namespace RWInbound2.Samples
                     numsample = numsample.Substring(0, index);
                 }
                 populateSamplesList(numsample, currentYear); // populate ddl on right side of samples page   
+                
             }
         }
 
@@ -809,27 +810,18 @@ namespace RWInbound2.Samples
 
             string sid = station_Sample.Trim(); // txtNumSmp.Text.Trim(); // scrape page
             // query for barcodes that have been entered but not analyzed
-            // thus are in tblsample BUT NOT IN METALBARCODES        
+            // thus are in newEXPWater (final output) nor in inboundicpfinal and NOT IN METALBARCODES      
 
-            //queryString = string.Format(
-            //  " SELECT    [SampleID] , LabID as [Barcode], Code as [Sample Type] " +
-            //  " FROM      [dbRiverWatch].[dbo].[MetalBarCode] AS a " +
-            //  " WHERE    a.NumberSample like '{0}' " +
-            //  " and   NOT EXISTS (SELECT * FROM[dbRiverwatchWaterData].[dbo].[expStnMetal] AS b " +
-            //  " WHERE b.SampleID = a.SampleID) " +
-            //   " and  Not Exists (Select * From [dbRiverwatchWaterData].[dbo].[tblInboundICP] as c " +
-            //   " Where a.LabID  =  c.CODE) " +
-            //  " order by SampleID desc", sid);
-            // use a sql command since it allows easier reading of the 'not exists' and is perhaps faster than LINQ, which is very cryptic in this area
+
             string queryString = "";
             queryString = string.Format(
-                " SELECT    LabID as [Barcode], Code as [Sample Type] " +
+                " SELECT LabID as [Barcode], Code as [Sample Type] " +
                 " FROM      [RiverWatch].[dbo].[MetalBarCode] AS a " +
                 " WHERE    a.NumberSample like '{0}' " +
                 " and   NOT EXISTS (SELECT * FROM[RiverWatch].[dbo].[NEWexpWater] AS b " +
-                " WHERE b.SampleID = a.SampleID) " +
-                 " and  Not Exists (Select * From [RiverWatch].[dbo].[InboundICPFinal] as c " +
-                 " Where a.LabID  =  c.CODE) " +
+                " WHERE b.tblSampleID = a.ID) " +
+                " and  Not Exists (Select * From [RiverWatch].[dbo].[InboundICPFinal] as c " +
+                " Where a.LabID  =  c.CODE) " +
                 " order by SampleID desc", sid);
             try
             {
@@ -857,6 +849,7 @@ namespace RWInbound2.Samples
                         }
                     }
                 }
+               
             }
             catch (Exception ex)
             {
@@ -914,9 +907,9 @@ namespace RWInbound2.Samples
                 {
                     bool success = int.TryParse(GridView1.Rows[x].Cells[1].Text, out tblSampleID);
 
-                    barcode = GridView1.Rows[x].Cells[2].Text;
-                    type = GridView1.Rows[x].Cells[3].Text;
-                    makeICPInbound(barcode, type, tblSampleID);
+                    barcode = GridView1.Rows[x].Cells[1].Text;
+                    type = GridView1.Rows[x].Cells[2].Text;
+                    makeICPInbound(barcode, type);
                     GridView1.Rows[x].Cells.Clear();
                 }
             }
@@ -931,14 +924,15 @@ namespace RWInbound2.Samples
         /// <param name="barcode"></param>
         /// <param name="type"></param>
         /// <param name="tblSampleID"></param>
-        private void makeICPInbound(string barcode, string type, int tblSampleID)
+        private void makeICPInbound(string barcode, string type)
         {
+            DateTime? newDate;
             Random RAND = new Random();
-            InboundICPFinal InBound = new InboundICPFinal(); // create new data entity
-            InboundICPOrigional Origional = new InboundICPOrigional();
-            InBound.tblSampleID = tblSampleID;
-            InBound.CODE = barcode; //prefix + digits.ToString(); // make new barcode
-            InBound.DUPLICATE = type; // this is poorly named
+            InboundICPFinal INB = new InboundICPFinal(); // create new data entity
+            InboundICPOrigional OR = new InboundICPOrigional();
+
+            string numberSample = txtNumSmp.Text.Trim(); // really bad name, perhaps we will have time to correct           
+           
             decimal mult = 0.0m;
             decimal V = 0;
 
@@ -955,129 +949,184 @@ namespace RWInbound2.Samples
             {
                 mult = 125;
             }
-
-            // create queriable data set so we only do one db hit, I hope... 
-
-            //DbSet<tlkLimit>
-            //    LIM = (DbSet<tlkLimit>)from r in NRWDE.tlkLimits
-            //                                              select r;
-
+            
             try
             {
+                int SID = (from s in NRWDE.Samples                  // get sample table id 
+                           where s.NumberSample == numberSample
+                           select s.ID).FirstOrDefault();
+
+                INB.CODE = barcode;  // make new barcode
+                INB.DUPLICATE = type; // this is poorly named
+                INB.tblSampleID = SID;
+
+                OR.CODE = barcode;  // make new barcode
+                OR.DUPLICATE = type; // this is poorly named
+                OR.tblSampleID = SID;
+
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "AL"
                               select z.Reporting.Value).FirstOrDefault();
 
-                InBound.AL_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.AL_T = (decimal)InBound.AL_D + (decimal)RAND.NextDouble() + .5m;
+                INB.AL_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.AL_T = (decimal)INB.AL_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.AL_D = INB.AL_D;
+                OR.AL_T = INB.AL_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "AS"
                               select z.Reporting.Value).FirstOrDefault();
 
-                InBound.AS_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.AS_T = (decimal)InBound.AS_D + (decimal)RAND.NextDouble() + .5m;
+                INB.AS_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.AS_T = (decimal)INB.AS_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.AS_D = INB.AS_D;
+                OR.AS_T = INB.AS_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CA"
                               select z.Reporting.Value).FirstOrDefault();
 
-                InBound.CA_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.CA_T = (decimal)InBound.CA_D + (decimal)RAND.NextDouble() + .5m;
+                INB.CA_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.CA_T = (decimal)INB.CA_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.CA_D = INB.CA_D;
+                OR.CA_T = INB.CA_T; 
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CD"
                               select z.Reporting.Value).FirstOrDefault();
 
-                InBound.CD_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.CD_T = (decimal)InBound.CD_D + (decimal)RAND.NextDouble() + .5m;
+                INB.CD_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.CD_T = (decimal)INB.CD_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.CD_D = INB.CD_D;
+                OR.CD_T = INB.CD_T; 
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CU"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.CU_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.CU_T = (decimal)InBound.CU_D + (decimal)RAND.NextDouble() + .5m;
+                INB.CU_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.CU_T = (decimal)INB.CU_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.CU_D = INB.CU_D;
+                OR.CU_T = INB.CU_T; 
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "FE"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.FE_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.FE_T = (decimal)InBound.FE_D + (decimal)RAND.NextDouble() + .5m;
+                INB.FE_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.FE_T = (decimal)INB.FE_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.FE_D = INB.FE_D;
+                OR.FE_T = INB.FE_T; 
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "K"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.K_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.K_T = (decimal)InBound.K_D + (decimal)RAND.NextDouble() + .5m;
+                INB.K_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.K_T = (decimal)INB.K_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.K_D = INB.K_D;
+                OR.K_T = INB.K_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "MG"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
-                InBound.MG_T = (decimal)InBound.MG_D - (decimal)RAND.NextDouble() + .5m;
+                INB.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
+                INB.MG_T = (decimal)INB.MG_D - (decimal)RAND.NextDouble() + .5m;
+
+                OR.MG_D = INB.MG_D;
+                OR.MG_T = INB.MG_T; 
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "MN"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.MN_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.MN_T = (decimal)InBound.MN_D + (decimal)RAND.NextDouble() - .5m; ;
+                INB.MN_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.MN_T = (decimal)INB.MN_D + (decimal)RAND.NextDouble() - .5m; ;
+
+                OR.MN_D = INB.MN_D;
+                OR.MN_T = INB.MN_T; 
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "NA"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.NA_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.NA_T = (decimal)InBound.NA_D + (decimal)RAND.NextDouble() + .5m;
+                INB.NA_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.NA_T = (decimal)INB.NA_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.NA_D = INB.NA_D;
+                OR.NA_T = INB.NA_T; 
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "PB"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.PB_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.PB_T = (decimal)InBound.PB_D + (decimal)RAND.NextDouble() + .5m;
+                INB.PB_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.PB_T = (decimal)INB.PB_D + (decimal)RAND.NextDouble() + .5m;
+
+                OR.PB_D = INB.PB_D;
+                OR.PB_T = INB.PB_T; 
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "SE"
                               select z.Reporting.Value).FirstOrDefault();
-                InBound.SE_D = (decimal)RAND.NextDouble() * V * mult;
-                InBound.SE_T = (decimal)InBound.SE_D - (decimal)RAND.NextDouble() + .5m;
+                INB.SE_D = (decimal)RAND.NextDouble() * V * mult;
+                INB.SE_T = (decimal)INB.SE_D - (decimal)RAND.NextDouble() + .5m;
+
+                OR.SE_D = INB.SE_D;
+                OR.SE_T = INB.SE_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "ZN"
                               select z.Reporting.Value).FirstOrDefault();
 
-                InBound.ZN_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
-                InBound.ZN_T = (decimal)InBound.ZN_D - .5m;
+                INB.ZN_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
+                INB.ZN_T = (decimal)INB.ZN_D - .5m;
 
+                OR.ZN_D = INB.ZN_D;
+                OR.ZN_T = INB.ZN_T; 
 
-                InBound.Comments = "Created by hand for testing";
-                //    InBound.FailedChems = ""; 
+                INB.Comments = "Created by hand for testing";
+                OR.Comments = INB.Comments; 
 
-                //   InBound.Reviewed = false;
-                InBound.ANADATE = DateTime.Now;
-                InBound.DATE_SENT = DateTime.Now.AddDays(-2);
-                InBound.CreatedBy = "Test System";
-                //     InBound.PassValStep = 1;    // this needs to be one so that the origional code will run... BW
-                InBound.COMPLETE = true;
-                //    InBound.FailedChems = "From Fake ICP record"; 
+                INB.ANADATE = DateTime.Now;
+                OR.ANADATE = INB.ANADATE;
 
-                InBound.Saved = false;
-                InBound.Edited = false;
-                InBound.Valid = true;
+                newDate = DateTime.Now.AddDays(-2);
 
-                //Origional = Clone(InBound); // make a copy
+                INB.DATE_SENT = newDate ;
+                OR.DATE_SENT = newDate ;
 
-                NRWDE.InboundICPFinals.Add(InBound);
-            //    NRWDE.InboundICPOrigionals.Add(Origional);
-                NRWDE.SaveChanges(); // update both
+                INB.CreatedBy = "Test System";
+                OR.CreatedBy = INB.CreatedBy;
 
-                //RWDE.tblInboundICPs.Add(InBound);   // no longer used
+                newDate = DateTime.Now.AddDays(-6);
+                INB.CreatedDate = newDate.Value;
+                OR.CreatedDate = newDate.Value; 
+
+                INB.COMPLETE = true;
+                OR.COMPLETE = true;
+
+                INB.Saved = false;
+                INB.Edited = false;
+                INB.Valid = true;
+
+                OR.Saved = false;
+                OR.Edited = false;
+                OR.Valid = true;
+
+                NRWDE.InboundICPFinals.Add(INB);
+                NRWDE.SaveChanges(); // update
+
+                NRWDE.InboundICPOrigionals.Add(OR);             
+                NRWDE.SaveChanges(); 
+
+                //RWDE.tblInboundICPs.Add(INB);   // no longer used
                 //RWDE.SaveChanges();
             }
 
             catch (Exception ex)
             {
-                Panel1.Visible = false; // clean up and then report error
-                lstSamples.Visible = false;
-
                 string nam = "";
                 if (User.Identity.Name.Length < 3)
                     nam = "Not logged in";
@@ -1089,22 +1138,11 @@ namespace RWInbound2.Samples
             }
 
             // rebuild the data grid for icp creation 
-            // XXXX why is this commented out? bw 06/30
-            //     FillTabPanelICPdata(txtNumSmp.Text.Trim()); 
+            // XXXX why is this commented out? bw 06/30 
+            // FillTabPanelICPdata(txtNumSmp.Text.Trim()); 
         }
-        // custom utiltiy to clone entity since EF does not have one...  
-        //public static InboundICPOrigional Clone<T>(this T source) where T : InboundICPFinal
-        //{
-        //    var ser = new DataContractSerializer(typeof(T));
-        //    using (var stream = new MemoryStream())
-        //    {
-        //        ser.WriteObject(stream, source);
-        //        stream.Seek(0, SeekOrigin.Begin);
-        //        return (InboundICPOrigional)ser.ReadObject(stream); // write the serialized data back out to new entity
-        //    }
-        //}
 
-
+     
         private void populateSamplesList(string sampleNumber, DateTime currentYear)
         {
             string tmpstr = "";
@@ -1132,9 +1170,6 @@ namespace RWInbound2.Samples
             }
             catch (Exception ex)
             {
-                Panel1.Visible = false; // clean up and then report error
-                lstSamples.Visible = false;
-
                 string nam = "";
                 if (User.Identity.Name.Length < 3)
                     nam = "Not logged in";
@@ -1157,6 +1192,7 @@ namespace RWInbound2.Samples
         [System.Web.Services.WebMethod]
         public static List<string> SearchOrgs(string prefixText, int count)
         {
+            List<string> customers = new List<string>();
             try
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
@@ -1168,8 +1204,6 @@ namespace RWInbound2.Samples
                         cmd.Parameters.AddWithValue("@SearchText", prefixText);
                         cmd.Connection = conn;
                         conn.Open();
-
-                        List<string> customers = new List<string>();
 
                         using (SqlDataReader sdr = cmd.ExecuteReader())
                         {
@@ -1184,18 +1218,12 @@ namespace RWInbound2.Samples
                 }
             }
             catch (Exception ex)
-            {
-                Panel1.Visible = false; // clean up and then report error
-                lstSamples.Visible = false;
-
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
+            {                
+                string nam = "Not Known - in method";
                 string msg = ex.Message;
                 LogErrror LE = new LogErrror();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
+                return customers;
             }
         }
 

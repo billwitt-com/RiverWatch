@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6c734efd613a4d5bbfcd628cc7bce78f" Name="Diagram1" ZoomLevel="100">
+      <Diagram DiagramId="6c734efd613a4d5bbfcd628cc7bce78f" Name="Diagram1" ZoomLevel="70">
         <EntityTypeShape EntityType="RiverwatchModel.GearConfig" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="RiverwatchModel.InboundICPFinal" Width="1.5" PointX="3.25" PointY="0.625" />
         <EntityTypeShape EntityType="RiverwatchModel.InboundICPOrigional" Width="1.5" PointX="5.125" PointY="0.625" />

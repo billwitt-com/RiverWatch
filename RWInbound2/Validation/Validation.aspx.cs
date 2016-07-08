@@ -21,45 +21,38 @@ namespace RWInbound2.Validation
 
             // FIRST, move any samples from incomingICP to new tables using sproc 
             // XXXX will not need this when we change fort collins
-            try
-            {
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        SqlParameter userName = cmd.Parameters.Add("@User", SqlDbType.NVarChar, 90);
-                        userName.Direction = ParameterDirection.Input;
-                        userName.Value = User.Identity.Name;            //"Bill for Now";
-                        cmd.CommandText = "[UpdateLocalTablesFromIncomingICP]"; // name of the sproc 
-                        cmd.Connection = conn;
-                        conn.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery(); // not accurate as there are two updates so only result of second will show up here... 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogErrror LE = new LogErrror();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }     
+            //try
+            //{
+            //    using (SqlConnection conn = new SqlConnection())
+            //    {
+            //        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+            //        using (SqlCommand cmd = new SqlCommand())
+            //        {
+            //            cmd.CommandType = CommandType.StoredProcedure;
+            //            SqlParameter userName = cmd.Parameters.Add("@User", SqlDbType.NVarChar, 90);
+            //            userName.Direction = ParameterDirection.Input;
+            //            userName.Value = User.Identity.Name;            //"Bill for Now";
+            //            cmd.CommandText = "[UpdateLocalTablesFromIncomingICP]"; // name of the sproc 
+            //            cmd.Connection = conn;
+            //            conn.Open();
+            //            int rowsAffected = cmd.ExecuteNonQuery(); // not accurate as there are two updates so only result of second will show up here... 
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    string nam = "";
+            //    if (User.Identity.Name.Length < 3)
+            //        nam = "Not logged in";
+            //    else
+            //        nam = User.Identity.Name;
+            //    string msg = ex.Message;
+            //    LogErrror LE = new LogErrror();
+            //    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            //}     
 
             try
             {
-                //SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
-
-                //System.Data.DataView result = (DataView)SqlDataSourceBlanks.Select(args);
-                //// int rowCount = result.Table.Rows.Count;
-
-                //int rowCount = result.Table.Rows.Count; 
-
                 using (SqlDataSource S = new SqlDataSource())
                 {
                     DataSourceSelectArguments args = new DataSourceSelectArguments();
@@ -149,7 +142,7 @@ namespace RWInbound2.Validation
         
         protected void btnICPSamples_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Validatenormals/Default.aspx");
+            Response.Redirect("~/Validation/ValidateNormals.aspx");
         }
     }
 }

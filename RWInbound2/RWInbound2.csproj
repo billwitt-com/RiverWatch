@@ -225,8 +225,7 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
     <Content Include="Reports\Reports.aspx" />
-    <Content Include="Samples\NewSample.aspx" />
-    <Content Include="Samples\Samples.aspx" />
+    <Content Include="Samples\NewSamples.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
@@ -481,19 +480,12 @@
     <Compile Include="Sample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Samples\NewSample.aspx.cs">
-      <DependentUpon>NewSample.aspx</DependentUpon>
+    <Compile Include="Samples\NewSamples.aspx.cs">
+      <DependentUpon>NewSamples.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Samples\NewSample.aspx.designer.cs">
-      <DependentUpon>NewSample.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Samples.aspx.cs">
-      <DependentUpon>Samples.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Samples\Samples.aspx.designer.cs">
-      <DependentUpon>Samples.aspx</DependentUpon>
+    <Compile Include="Samples\NewSamples.aspx.designer.cs">
+      <DependentUpon>NewSamples.aspx</DependentUpon>
     </Compile>
     <Compile Include="Station.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>

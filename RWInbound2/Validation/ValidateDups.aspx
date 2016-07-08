@@ -18,7 +18,7 @@
     </asp:Panel>
 
     <asp:Label ID="lblCount" runat="server" Text="Count"></asp:Label>
-    <asp:Label ID="lblNote" runat="server" Text="Note:"></asp:Label>
+    <asp:Label ID="lblNote" runat="server" Text=""></asp:Label>
     <asp:Button ID="btnHelp" runat="server" Text="Help" CssClass="helpButton" OnClick="btnHelp_Click" Font-Size="0.95em" />
 
     <table style=" align-items: center; vertical-align:top; ">
@@ -376,7 +376,8 @@
             </td>
         </tr>
     </table>
-    <asp:SqlDataSource ID="SqlDataSourceNormals" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"  OnUpdated="SqlDataSourceNormals_Updated" OnUpdating="SqlDataSourceNormals_Updating"
+    <asp:SqlDataSource ID="SqlDataSourceNormals" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"  
+        OnUpdated="SqlDataSourceNormals_Updated" OnUpdating="SqlDataSourceNormals_Updating"
          
         UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [tblSampleID] = @tblSampleID, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, 
         [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, 

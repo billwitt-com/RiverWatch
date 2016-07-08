@@ -18,7 +18,7 @@
     </asp:Panel>
 
     <asp:Label ID="lblCount" runat="server" Text="Count"></asp:Label>
-    <asp:Label ID="lblNote" runat="server" Text="Note:"></asp:Label>
+    <asp:Label ID="lblNote" runat="server" Text=""></asp:Label>
     <asp:Button ID="btnHelp" runat="server" Text="Help" CssClass="helpButton" OnClick="btnHelp_Click" Font-Size="0.95em" />
 
     <table style=" align-items: center; vertical-align:top; ">

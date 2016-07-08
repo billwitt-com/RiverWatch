@@ -10,7 +10,7 @@
 namespace RWInbound2.Samples {
     
     
-    public partial class NewSample {
+    public partial class NewSamples {
         
         /// <summary>
         /// tbSite control.

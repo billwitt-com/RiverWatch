@@ -19,7 +19,7 @@
     </asp:Panel>
 
     <asp:Label ID="lblCount" runat="server" Text="Count"></asp:Label>
-    <asp:Label ID="lblNote" runat="server" Text="Note:"></asp:Label>
+    <asp:Label ID="lblNote" runat="server" Text=""></asp:Label>
     <asp:Button ID="btnHelp" runat="server" Text="Help" CssClass="helpButton" OnClick="btnHelp_Click" Font-Size="0.95em" />
 
     <table runat="server" id="mainTable" >
@@ -379,12 +379,9 @@
             </td>
             <%-- start of right column in major table for samples --%>
             <td >
-                <asp:FormView ID="FormViewSample" runat="server" DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSourceNormals"  
+                <asp:FormView ID="FormViewNormals" runat="server" DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSourceNormals"  
                     GridLines="Horizontal" BorderStyle="None" BorderWidth="0px">
-                     <EditItemTemplate>
-
-             
-                           
+                     <EditItemTemplate>                           
                         <table id="topTable" class="headerTable"  runat="server">
                            <tr>
                                 <td>

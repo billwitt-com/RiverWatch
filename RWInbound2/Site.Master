@@ -62,7 +62,7 @@
                               <%--  <a  ID = "Home" href="<%= ResolveUrl("~/index.aspx") %>">Home</a>--%>
                             </li>
                             <li>
-                                <a ID = "Samples" href="<%= ResolveUrl("~/samples/newsample.aspx") %>">Samples</a>
+                                <a ID = "Samples" href="<%= ResolveUrl("~/samples/newsamples.aspx") %>">Samples</a>
                             </li>
                             <li>
                                 <a  ID = "Val" href="<%= ResolveUrl("~/Validation/Validation.aspx") %>">Validate</a>
