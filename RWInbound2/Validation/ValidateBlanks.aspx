@@ -204,7 +204,7 @@
                         <br />                      
 
                         tblSampleID:
-                        <asp:TextBox ID="tblSampleIDTextBox" runat="server" Text='<%# Bind("tblSampleID") %>' />
+                        <asp:TextBox ID="tblSampleIDTextBox" ReadOnly="true"  runat="server" Text='<%# Bind("tblSampleID") %>' />
                         <br />
                         <asp:Button ID="UpdateButton" CssClass="adminButton" runat="server"  UseSubmitBehavior="true" OnClick="UpdateButton_Click"  Text="Accept" />
                   
@@ -363,7 +363,7 @@
                         <br />                      
 
                         SampleID:
-                        <asp:TextBox ID="tblSampleIDTextBox" runat="server" Text='<%# Bind("tblSampleID") %>' />
+                        <asp:TextBox ID="tblSampleIDTextBox" ReadOnly="true"  runat="server" Text='<%# Bind("tblSampleID") %>' />
                         <br />
                      <%--   <asp:Button ID="Button1" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />--%>
                         <asp:Button ID="DupUpdateButton"  runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Update" />
@@ -523,11 +523,11 @@
                         <br />                      
 
                         SampleID:
-                        <asp:TextBox ID="tblSampleIDTextBox" runat="server" Text='<%# Bind("tblSampleID") %>' />
+                        <asp:TextBox ID="tblSampleIDTextBox" ReadOnly="true" runat="server" Text='<%# Bind("tblSampleID") %>' />
                         <br />
                      <%--   <asp:Button ID="Button1" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />--%>
                         <asp:Button ID="NormalUpdateButton"  runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Update" />
-                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+<%--                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
                     </EditItemTemplate>
                    
                 </asp:FormView>               

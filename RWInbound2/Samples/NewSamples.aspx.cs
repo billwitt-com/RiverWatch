@@ -761,6 +761,8 @@ namespace RWInbound2.Samples
 
                         " FROM [Riverwatch].[dbo].[MetalBarCode] " +
                         " where NumberSample like '{0}'", station_Sample.Trim());
+
+           
             try
             {
                 using (SqlCommand cmd = new SqlCommand())
@@ -1158,7 +1160,8 @@ namespace RWInbound2.Samples
                               SampNumber = s.NumberSample,
                               SampDate = s.DateCollected
                           };
-
+                        
+                SMP = SMP.OrderByDescending(q => q.SampNumber); 
                 foreach (var s in SMP)
                 {
                     tmpstr = string.Format("{0} : {1:M/d/yyyy}", s.SampNumber, s.SampDate);

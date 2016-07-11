@@ -213,7 +213,9 @@
                         <br />
                      <%--   <asp:Button ID="Button1" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />--%>
                         <asp:Button ID="NormalUpdateButton"  runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Accept" />
-                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+                       <asp:Button ID="btnBadNormal" Width="80px" runat="server" CssClass="adminButton"  OnClick="btnBadNormal_Click" CausesValidation="True" Text="BAD" />
+
+<%--                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
                     </EditItemTemplate>
                 </asp:FormView>
 
@@ -368,7 +370,7 @@
                         <br />
                      <%--   <asp:Button ID="Button1" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />--%>
                         <asp:Button ID="NormalUpdateButton"  runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Update" />
-                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+<%--                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
                     </EditItemTemplate>
                    
                 </asp:FormView>     

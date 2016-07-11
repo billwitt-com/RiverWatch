@@ -211,12 +211,12 @@
                         <br />
                      <%--   <asp:Button ID="Button1" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />--%>
                         <asp:Button ID="NormalUpdateButton" Width="60px" OnClick="UpdateButton_Click" runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Accept" />
-                       <asp:Button ID="btnSaveEdit" Width="80px" runat="server" CssClass="adminButton"   OnClick="btnSaveEdit_Click"   CausesValidation="True" Text="SaveEdit" />
+                       <%--<asp:Button ID="btnSaveEdit" Width="80px" runat="server" CssClass="adminButton"   OnClick="btnSaveEdit_Click"   CausesValidation="True" Text="SaveEdit" />--%>
 
                          <asp:Button ID="btnBadNormal" Width="80px" runat="server" CssClass="adminButton"  OnClick="btnBadNormal_Click" CausesValidation="True" Text="BAD" />
 
-                        &nbsp;<asp:Button ID="UpdateCancelButton" Width="80px"  CssClass="adminButton"  runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
-                    </EditItemTemplate>
+<%--                         &nbsp;<asp:Button ID="UpdateCancelButton" Width="80px" CssClass="adminButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
+                     </EditItemTemplate>
                 </asp:FormView>
             </td>           
         </tr>

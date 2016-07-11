@@ -130,11 +130,6 @@ namespace RWInbound2.Validation
             Response.Redirect("~/Validation/ValidateBlanks.aspx"); 
         }
 
-        //protected void btnICP_Click(object sender, EventArgs e)
-        //{
-        //    Response.Redirect("~/Validation/ValidateBlanks.aspx"); 
-        //}
-
         protected void btnICPDups_Click(object sender, EventArgs e)
         {
              Response.Redirect("~/Validation/ValidateDups.aspx"); 

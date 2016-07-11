@@ -13,7 +13,7 @@
         <tr>
             <td >&nbsp;</td>
             <td >
-    <asp:Button ID="btnICPBlanks"   runat="server" OnClick="btnICPBlanks_Click" Text="Step #1 ICP Blanks" CssClass="menuButton" Width="170px"  />
+    <asp:Button ID="btnICPBlanks"   runat="server" OnClick="btnICPBlanks_Click" Text="Step #1 ICP Blanks" Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
             </td>
             <td>
                 <asp:Label ID="lblICPBlanks" runat="server"></asp:Label>
@@ -22,7 +22,7 @@
         <tr>
             <td >&nbsp;</td>
             <td >
-        <asp:Button ID="btnICPDups"  CssClass="menuButton" runat="server" Text="Step #2 ICP Duplicates" OnClick="btnICPDups_Click" Enabled="False" />
+        <asp:Button ID="btnICPDups"  runat="server" Text="Step #2 ICP Duplicates" OnClick="btnICPDups_Click"  Width="170px"  Height="23px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
             </td>
             <td>
                 <asp:Label ID="lblICPDups" runat="server"></asp:Label>
@@ -31,7 +31,7 @@
         <tr>
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 189px">
-        <asp:Button ID="btnICPSamples"  CssClass="menuButton" runat="server" Text="Step #3 ICP Samples" OnClick="btnICPSamples_Click" Enabled="False" />
+        <asp:Button ID="btnICPSamples"   runat="server" Text="Step #3 ICP Normals" OnClick="btnICPSamples_Click"  Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"   />
             </td>
             <td>
                 <asp:Label ID="lblICPSamples" runat="server"></asp:Label>
@@ -40,7 +40,7 @@
         <tr>
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 189px">
-    <asp:Button ID="btnField" runat="server"  CssClass="menuButton" Text="Field" Enabled="False" />
+    <asp:Button ID="btnField" runat="server"   Text="Field"  Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
             </td>
             <td>
                 <asp:Label ID="lblFieldSamples" runat="server" Text="There are XX inbound samples"></asp:Label>
@@ -49,7 +49,7 @@
         <tr>
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 189px">
-    <asp:Button ID="btnLachet" runat="server" CssClass="menuButton" Text="Lachet" Enabled="False" />
+    <asp:Button ID="btnLachet" runat="server"  Text="Lachet"  Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"   />
             </td>
             <td>
                 <asp:Label ID="lblLachet" runat="server" Text="There are XX inbound samples"></asp:Label>
