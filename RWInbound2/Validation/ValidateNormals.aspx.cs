@@ -1,0 +1,952 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Entity;
+using System.Drawing;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.Sql;
+using System.Web.Providers.Entities;
+
+
+// XXXX need graceful exit if sesson expires - return user to session expired page
+//
+
+namespace RWInbound2.Validation
+{
+    public partial class ValidateNormals : System.Web.UI.Page
+    {
+        Dictionary<string, decimal> D2TLimits = new Dictionary<string, decimal>();   // holds symbol and D2Tlimit values
+        Dictionary<string, decimal> MeasurementLimits = new Dictionary<string, decimal>();   // holds symbol and D2Tlimit values
+
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+            DataSourceSelectArguments args = new DataSourceSelectArguments();
+            string name = "";
+            decimal D2Tvalue = 0;
+            decimal MeasurementValue = 0;
+
+            dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
+            NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
+
+
+            // count rows of not saved, valid Blanks first
+            SqlDataSourceNormals.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";    // this is the working table
+
+            System.Data.DataView result = (DataView)SqlDataSourceNormals.Select(args);
+            // int rowCount = result.Table.Rows.Count;
+
+            int rowCount = result.Table.Rows.Count;
+            if (rowCount == 0)
+            {
+                lblCount.Text = "There are NO ICP Normal records to validate";
+                pnlHelp.Visible = false; // make sure user does not see this unless requested
+                return;
+            }
+            else
+                lblCount.Text = string.Format("There are {0} ICP Normal records to validate", rowCount);
+
+            // Session["OURTABLE"] = DT; // save for later use        
+
+            if (!IsPostBack)
+            {
+                // first thing, make copies of incomingICP record to preserve history and have a final copy of the edited data
+                // this means we will now be working, not from the origonial inbound table but the table that is a copy.
+                // we will also make an archive copy so we can do stats and such.
+                // do this every pass since the data could be changing, ie new records incoming
+                //try
+                //{
+                //    using (SqlConnection conn = new SqlConnection())
+                //    {
+                //        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                //        using (SqlCommand cmd = new SqlCommand())
+                //        {
+                //            cmd.CommandType = CommandType.StoredProcedure;
+                //            SqlParameter userName = cmd.Parameters.Add("@User", SqlDbType.NVarChar, 90);
+                //            userName.Direction = ParameterDirection.Input;
+                //            userName.Value = User.Identity.Name;            //"Bill for Now";
+                //            cmd.CommandText = "[UpdateLocalTablesFromIncomingICP]"; // name of the sproc 
+                //            cmd.Connection = conn;
+                //            conn.Open();
+                //            rowsAffected = cmd.ExecuteNonQuery(); // not accurate as there are two updates so only result of second will show up here... 
+                //        }
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    string nam = "";
+                //    if (User.Identity.Name.Length < 3)
+                //        nam = "Not logged in";
+                //    else
+                //        nam = User.Identity.Name;
+                //    string msg = ex.Message;
+                //    LogErrror LE = new LogErrror();
+                //    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                //}
+
+                Session["CONTROLSSET"] = false;
+                // fill in limits values
+                pnlHelp.Visible = false; // make sure user does not see this unless requested
+
+                try
+                {
+                    // changed this to use tlkLimits as they seem to correspond to Barb's note. 
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkLimits]");
+                            cmd.Connection = conn;
+                            conn.Open();
+
+                            using (SqlDataReader sdr = cmd.ExecuteReader())
+                            {
+                                if (sdr.HasRows)
+                                {
+                                    while (sdr.Read())
+                                    {
+                                        if (sdr["Element"].GetType() != typeof(System.DBNull))      // is this crap or what???
+                                        {
+                                            name = ((string)sdr["Element"]).ToUpper();  // make upper case to be sure
+                                            D2Tvalue = (decimal)sdr["DvsTDifference"];
+                                            MeasurementValue = (decimal)sdr["MDL"];
+                                            D2TLimits.Add(name, D2Tvalue);
+                                            MeasurementLimits.Add(name, MeasurementValue);
+                                        }
+                                    }
+                                }
+                            }
+
+                            conn.Close();
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    string msg = ex.Message;
+                    LogErrror LE = new LogErrror();
+                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                }
+
+                Session["D2TLimits"] = D2TLimits;   // SAVE
+                Session["MEASUREMENTLIMITS"] = MeasurementLimits;
+
+                //SqlDataSourceNormals.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";    // this is the working table
+                //System.Data.DataView r = (DataView)SqlDataSourceNormals.Select(args);
+                //DataTable DT = r.Table;
+
+                //DataColumn DC = new DataColumn();
+                //DC.AllowDBNull = true;
+                //DC.ColumnName = "isNormalHere";
+                //DC.DataType = typeof(bool);
+                //DT.Columns.Add(DC);
+
+                //DataColumn DC1 = new DataColumn();
+                //DC1.AllowDBNull = true;
+                //DC1.ColumnName = "NormalBarCode";
+                //DC1.DataType = typeof(string);
+                //DT.Columns.Add(DC1);
+
+                //DataColumn DC2 = new DataColumn();
+                //DC2.AllowDBNull = true;
+                //DC2.ColumnName = "DuplicateBarCode";
+                //DC2.DataType = typeof(string);
+                //DT.Columns.Add(DC2);
+
+                // now, loop through each row and see if there is a 'normal' sample associated with this blank
+                // for now, use csampID but this may change
+
+                //    for (x = 0; x < rowCount; x++)  // one pass for each sample in icp inbound
+                //    {
+                //        DT.Rows[x]["isNormalHere"] = false; // set false as default
+                //        DT.Rows[x]["NormalBarCode"] = ""; // make sure something is here...
+                //        DT.Rows[x]["DuplicateBarCode"] = "";
+
+                //        sampID = (int)DT.Rows[x]["tblSampleID"];    // get the sample id which is link to all barcodes from this sample set
+                //        sampleType = (string)DT.Rows[x]["DUPLICATE"];
+                //        searchDup = sampleType.Substring(1, 1); // get right most char
+                //        searchDup = "0" + searchDup; // build string for related normal sample
+
+                //        // now query db for this sample to see if there is a barcode
+
+                //        string Q = (from q in NRWDE.InboundICPFinals
+                //                    where q.tblSampleID == sampID & q.DUPLICATE == searchDup & q.Saved == false & q.Valid == true
+                //                    select q.CODE).FirstOrDefault();
+
+                //        if (Q != null)  //  associated 'normal' sample
+                //        {
+                //            DT.Rows[x]["isNormalHere"] = true;  // mark as existing
+                //            DT.Rows[x]["NormalBarCode"] = Q;    // add normal barcode
+                //        }
+                //        else
+                //        {
+                //            DT.Rows[x]["isNormalHere"] = false;  // mark as NOT existing
+                //            DT.Rows[x]["NormalBarCode"] = "";    // NO normal barcode
+                //        }
+
+                //        // query for related duplicate sample so we can display it, or not... 
+
+                //        searchDup = sampleType.Substring(1, 1); // get right most char
+                //        searchDup = "2" + searchDup; // build string for related DUPLICATE sample
+
+                //        // now query db for this sample to see if there is a barcode
+
+                //        string QQ = (from q in NRWDE.InboundICPFinals
+                //                     where q.tblSampleID == sampID & q.DUPLICATE == searchDup & q.Saved == false & q.Valid == true
+                //                     select q.CODE).FirstOrDefault();
+
+                //        if (QQ != null)  //  associated 'duplicate' sample
+                //        {
+                //            DT.Rows[x]["DuplicateBarCode"] = QQ;    // add duplicate sample barcode
+                //        }
+                //        else
+                //        {
+                //            DT.Rows[x]["DuplicateBarCode"] = "";    // NO normal barcode
+                //        }
+                //    }
+
+                //    // not sure we need to save... 
+                //    Session["OURTABLE"] = DT;   //save current copy for later
+
+                //    // now, get page we are on and get associated normal and dup if they exist
+
+                //    int idx = FormViewBlank.PageIndex;
+                //    int id = (int)DT.Rows[idx]["tblSampleID"];
+                //    string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+
+                //    if (barcode.Length > 4)
+                //    {
+                //        // build query to get associated normal
+                //        string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}' ", barcode);
+                //        SqlDataSourceNormals.SelectCommand = cmmd;
+                //        FormViewSample.DataBind();
+                //        FormViewSample.Visible = true;
+                //    }
+                //    else
+                //    {
+                //        FormViewSample.Visible = false;
+                //    }
+
+                //    // do the same for duplicate
+
+                //    barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
+
+                //    if (barcode.Length > 4)
+                //    {
+                //        // build query to get associated normal
+                //        string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+                //        SqlDataSourceDups.SelectCommand = cmmd;
+                //        FormViewDuplicate.DataBind();
+                //        FormViewDuplicate.Visible = true;
+                //    }
+                //    else
+                //    {
+                //        FormViewDuplicate.Visible = false;  // hide since empty
+                //    }
+
+                //    // do one time from postback
+
+                //    if (Session["CONTROLSSET"] != null)
+                //    {
+                //        controlsSet = (bool)Session["CONTROLSSET"];
+                //        if (!controlsSet)
+                //        {
+                //            setControls();      // update color schemes
+                //            Session["CONTROLSSET"] = true;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        string whoknew = "";
+                //    }
+                //}
+
+                //     setControls(); // update color schemes
+            }
+        }
+
+        /// <summary>
+        /// Reads each text box and does validation steps 
+        /// </summary>
+        public void setControls()
+        {
+            TextBox tbD;
+            TextBox tbT;
+            string barCode = "";
+            string dupCode = "";
+            decimal D2Tlimit = 0;
+            decimal MeasureLimit = 0;
+            string tbDName;
+            string tbTName;
+            string codeTextBoxName;
+            string dupTextBoxName;
+            decimal Total;
+            decimal Disolved;
+            lblNote.Text = "";
+            lblNote.ForeColor = Color.White;
+            int pageWeAreOn = 0;
+            string uniqueID = ""; 
+
+
+            // get the dictionaries of limits from session state - these do not change during session
+            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>)Session["D2TLimits"];  //  Session["D2TLimits"] = D2TLimits;  
+            Dictionary<string, decimal> MeasurementLimits = (Dictionary<string, decimal>)Session["MEASUREMENTLIMITS"];
+
+            //// get table we built earlier where we found no normal condition
+            //DataTable DT = (DataTable)Session["OURTABLE"];
+
+            //string uniqueID = FormViewNormals.Controls[0].UniqueID;
+         
+            //codeTextBoxName = uniqueID + "$" + "tbBlankCode"; // get the text box off the page
+            //TextBox CTB = this.FindControl(codeTextBoxName) as TextBox;
+            //if (CTB == null)
+            //{
+            //    // change DupsUniqueID
+            //    uniqueID = uniqueID.Replace("$ctl00", "");
+            //    codeTextBoxName = uniqueID + "$" + "tbBlankCode"; // get the text box off the page
+            //    CTB = this.FindControl(codeTextBoxName) as TextBox;
+            //}
+
+            //if (CTB == null)
+            //{
+            //    // wtf
+            //    string wtf = uniqueID;
+            //}
+
+            //barCode = CTB.Text;
+
+            //// get dup - Type - two digit number for this sample
+            //dupTextBoxName = uniqueID + "$" + "tbBlankType"; // will have to change this name on aspx page XXXX
+            //TextBox DTB = this.FindControl(dupTextBoxName) as TextBox;
+            //dupCode = DTB.Text;
+            //if (DTB == null)
+            //{
+            //    return;
+            //}
+            //if (DTB.Text.Length < 1)
+            //{
+            //    return;
+            //}
+
+
+            //// search datatable for this barcode and the isNormalHere 
+            //int count = DT.Rows.Count;
+
+            //pageWeAreOn = FormViewBlank.PageIndex;
+            //bool isThereANormal = (bool)DT.Rows[pageWeAreOn]["isNormalHere"];
+            //if (isThereANormal)
+            //{
+            //    lblNote.Text = "";
+            //    lblNote.Visible = false;
+            //}
+            //else
+            //{
+            //    lblNote.Text = "No Normal Sample";
+            //    lblNote.Visible = true;
+            //    lblNote.ForeColor = Color.Red;
+            //}
+
+             uniqueID = FormViewNormals.Controls[0].UniqueID;
+            // process each metals data row to see if it falls out of 'specs' 
+            foreach (string item in D2TLimits.Keys)
+            {
+                tbDName = uniqueID + "$" + item + "_DTextBox";  // use the key value to build the name of the text box to be processed
+                tbTName = uniqueID + "$" + item + "_TTextBox";
+                D2Tlimit = D2TLimits[item];
+
+                tbD = this.FindControl(tbDName) as TextBox;
+                tbT = this.FindControl(tbTName) as TextBox;
+
+                if (!decimal.TryParse(tbT.Text, out Total))
+                {
+                    Total = 0;
+                }
+
+                if (!decimal.TryParse(tbD.Text, out Disolved))
+                {
+                    Disolved = 0;
+                }
+
+                // see if the difference between the two is greater than 2 times the D2Tlimit
+                if ((Disolved - Total) >= D2Tlimit)
+                {
+                    tbD.BackColor = Color.PowderBlue;
+                    tbD.ToolTip = string.Format("Disolved - Total is greater than limit of {0}", D2Tlimit);
+                    tbT.BackColor = Color.PowderBlue;
+                    tbT.ToolTip = string.Format("Disolved - Total is greater than limit of {0}", D2Tlimit);
+                }
+                else
+                {
+                    tbD.BackColor = Color.White;
+                    tbT.BackColor = Color.White;
+                    tbD.ToolTip = string.Format("Disolved - Total is less than limit of {0}", D2Tlimit);
+                    tbT.ToolTip = string.Format("Disolved - Total is less than limit of {0}", D2Tlimit);
+                }
+
+                //// now see if this is a blank, then test for out of range
+
+                //if (dupCode.Substring(0, 1) == "1")   // we have a blank
+                //{
+                //    // use item from this loop to find limit for this comparison
+                //    MeasureLimit = MeasurementLimits[item];
+
+                //    if (Total > (MeasureLimit))
+                //    {
+                //        tbT.ForeColor = Color.Red;
+                //        tbT.ToolTip = string.Format("Total_Dups is greater than limit of {0}", MeasureLimit);
+                //    }
+                //    else
+                //    {
+                //        tbT.ForeColor = Color.Black;
+                //        tbT.ToolTip = string.Format("Total_Dups is under limit of {0}", MeasureLimit);
+                //    }
+                //    if (Disolved > (MeasureLimit))
+                //    {
+                //        tbD.ForeColor = Color.Red;
+                //        tbD.ToolTip = string.Format("Dissolved is greater than limit of {0}", MeasureLimit);
+                //    }
+                //    else
+                //    {
+                //        tbD.ForeColor = Color.Black;
+                //        tbD.ToolTip = string.Format("Dissolved is under limit of {0}", MeasureLimit);
+                //    }
+                //}
+            }
+        }
+
+        // user updated a value in a text box, so re-calc the values
+        protected void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            // now, we must record these changes in the data base to persist them... 
+            // or in the data table
+            //TextBox TB = sender as TextBox;
+            //int idx = FormViewNormals.Row.ItemIndex;
+            //int pageWeAreOn = FormViewNormals.PageIndex;  // this is index into datatable
+            //string tbID = TB.ID;
+            //int sl = tbID.IndexOf("_");
+
+            //string bid = tbID.Substring(0, sl + 2); // parse string to get metals type prefix
+
+            setControls(); // update color schemes
+        }
+
+        // user has progressed to another page without updating 
+        // We must get the associated bar code and display it in right hand tables
+        // ez DT.Rows[x]["DuplicateBarCode"] = ""; 
+
+        protected void FormViewNormals_DataBound(object sender, EventArgs e)
+        {
+            //DataTable DT = (DataTable)Session["OURTABLE"];
+
+            //if (DT == null)
+            //{
+            //    return;
+            //}
+            //// FormView locFV = sender as FormView;
+            //int idx = FormViewBlank.PageIndex;
+            //int id = (int)DT.Rows[idx]["tblSampleID"];
+            //string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+
+            //if (barcode.Length > 4)
+            //{
+            //    // build query to get associated normal
+            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+            //    SqlDataSourceNormals.SelectCommand = cmmd;
+            //    FormViewSample.DataBind();
+            //    FormViewSample.Visible = true;
+            //}
+            //else
+            //{
+            //    FormViewSample.Visible = false; // nothing to show as no normal sample
+            //}
+
+            //// now do for duplicate bar code
+            //barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
+            //if (barcode.Length > 4)
+            //{
+            //    // build query to get associated normal
+            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+            //    SqlDataSourceDups.SelectCommand = cmmd;
+
+            //    FormViewDuplicate.DataBind();
+            //    FormViewDuplicate.Visible = true;
+            //}
+            //else
+            //{
+            //    FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
+            //}
+
+            setControls(); // update color schemes
+        }
+
+        /// <summary>
+        ///  help buttons, hide or not help text in panel - Div
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnDone_Click(object sender, EventArgs e)
+        {
+            pnlHelp.Visible = false;
+            btnHelp.Visible = true;
+        }
+
+        protected void btnHelp_Click(object sender, EventArgs e)
+        {
+            pnlHelp.Visible = true;
+            btnHelp.Visible = false;
+        }
+     
+        // user has edited (or just accepts) the blank and now we will save it to table
+        // must update page as there will one fewer blanks to process
+        protected void UpdateButton_Click(object sender, EventArgs e)
+        {
+            CommitNormal("UPDATE");
+        }
+
+        // user has chosen to mark as bad blank and now we will save it to XXXX table
+        // must update page as there will one fewer blanks to process
+        protected void btnBadNormal_Click(object sender, EventArgs e)
+        {
+            CommitNormal("BAD");
+        }
+
+        // type:
+        // EDIT user changed one value in text box but we will not update record until button is pressed, then scrape screen
+        // table inboundICPFinal - which will hold all edits until the record is 'saved' to the new watersample table
+        // this code is NOT correct in that it does not update record but sends it to new water table
+        // must update the final table also. 
+
+        public void CommitNormal(string type)
+        {
+            NewRiverwatchEntities NewRWE = new NewRiverwatchEntities(); // new database RiverWatch 
+            NEWexpWater NEW = null;
+            dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2(); // get access to old db for details, this is temp. XXXX
+            bool existingRecord = false;
+            decimal Total;
+            decimal Disolved;
+            bool isbad = false;
+
+            string uniqueID = FormViewNormals.Controls[0].UniqueID;
+
+            // XXXX another WTF moment, why is the uniqueid different here, just because we pressed a button
+            // note that the data is correct whey we have the correct string
+            uniqueID = uniqueID.Replace("$ctl00", "");
+            // scrape text box strings, which will never be null, but can be zero length
+            string codeTextBoxName = uniqueID + "$" + "tbCode"; // get the text box off the page
+            TextBox CTB = this.FindControl(codeTextBoxName) as TextBox;
+
+            string barCode = CTB.Text;
+
+            string sampleType = uniqueID + "$" + "tbType";
+            TextBox ST = this.FindControl(sampleType) as TextBox;
+            string typeCode = ST.Text.Trim();
+
+            string co = uniqueID + "$" + "CommentsTextBox";
+            TextBox Com = this.FindControl(co) as TextBox;
+            string comment = Com.Text.Trim();
+
+            // tblSampleIDTextBox
+            string sampID = uniqueID + "$" + "tblSampleIDTextBox";
+            TextBox SID = this.FindControl(sampID) as TextBox;
+            int sID = int.Parse(SID.Text.Trim());
+
+            if (type.ToUpper().Equals("BAD"))
+                isbad = true;
+            else
+                isbad = false;
+
+
+            // check to see if a record already exists, it may if field data was entered first.... 
+
+            try
+            {
+                NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
+                                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
+                                    select t).FirstOrDefault();
+                if (TEST != null)
+                {
+                    // skip these as they are not our business to insert into a row that already exists
+                    // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
+                    NEW = TEST; // keep the name common to this method
+                    existingRecord = true; // flag for later
+                }
+                else
+                {
+                    NEW = new NEWexpWater(); // create new entity as there is not one yet
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+           
+            if (!existingRecord) // no existing record, so we are first
+            {
+                NEW.BadDuplicate = false;
+                NEW.BadSample = false;
+                NEW.BenthicsComments = null;
+                NEW.BugsBarCode = null;
+                NEW.BugsComments = null;
+                NEW.Chloride = null;
+                NEW.ChlorophyllA = null;
+                NEW.CreateDate = DateTime.Now;
+                NEW.CreatedBy = User.Identity.Name;
+                NEW.DO_MGL = null;
+                NEW.DOC = null;
+                NEW.DOSAT = null;
+                NEW.FieldBarCode = null;
+                NEW.FieldComment = null;
+
+                NEW.TypeCode = typeCode;
+                NEW.MetalsComment = comment;
+                NEW.MetalsBarCode = barCode;
+                NEW.tblSampleID = sID; // FK to tblSample
+
+                // get some detail from the sample table, which already exists (mostly...)
+                // note: use new table, not origional
+
+                try
+                {
+
+                    Sample ts = (from t in NewRWE.Samples
+                                    where t.SampleID == sID & t.Valid == true
+                                    select t).FirstOrDefault(); // should be only one copy
+                    if (ts != null)
+                    {
+                        // make kit number 
+                        string numS = ts.NumberSample; // looks weird and is, this is the string like 44.096 and kit # is on the right of decimal place
+                        int idx = numS.IndexOf(".");
+                        string numS1 = numS.Substring(0, idx);  // get chars to right of decimal point
+
+                        NEW.KitNumber = short.Parse(numS1);
+                        NEW.Event = numS; // string like above, 10.095
+
+                        NEW.NutrientBarCode = null;
+                        NEW.NutrientComment = null;
+                        NEW.OP = null;
+
+                        NEW.OrganizationName = "";
+                        NEW.orgN = null;
+                        NEW.PH = null;
+                        NEW.PHEN_ALK = null;
+                        NEW.Rep = null;
+
+                        NEW.SampleDate = ts.DateCollected; // this is date part only, no time and may be junk XXXX
+                        if (ts.TimeCollected.Value.Year > 1970)  // likely a real value - otherwise, leave blank
+                        {
+                            NEW.SampleDate.AddHours(ts.TimeCollected.Value.Hour); // add in pieces
+                            NEW.SampleDate.AddMinutes(ts.TimeCollected.Value.Minute);
+                        }
+
+                        NEW.SampleNumber = ts.SampleNumber; // this is the big string of station id + date time - build at sample entry
+                        // tblSample has station id 
+                        var STN = (from s in RWDE.tblStations
+                                   where s.StationID == ts.StationID
+                                   select s).FirstOrDefault();
+
+                        //   ts.StationID
+                        NEW.StationName = STN.StationName;
+                        NEW.River_CD = null;
+                        NEW.RiverName = STN.River;
+                        NEW.StationNumber = (short)ts.StationID;   // XXXX hope this gets working soon and we can get rid of shorts
+                        NEW.Sulfate = null;
+
+                        NEW.tblSampleID = ts.SampleID;
+                        NEW.TempC = null;
+                        NEW.TKN = null;
+                        NEW.TOTAL_ALK = null;
+                        NEW.TOTAL_HARD = null;
+                        NEW.BadBlank = isbad; // record value from type passed in by caller
+                        NEW.Valid = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    string msg = ex.Message;
+                    LogErrror LE = new LogErrror();
+                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                }
+            }
+
+            // now add in the chemistry from ICP
+            // XXXX is this easier and or more accurate than using Datatable ?
+
+            // get existing record from data base and update chems and such
+            // there must be a result, as this is where we got the data from in the first place... 
+
+            try
+            {
+                InboundICPFinal F = (from f in NewRWE.InboundICPFinals
+                                     where f.CODE == NEW.MetalsBarCode
+                                     select f).FirstOrDefault();
+
+                string workString = "";
+
+                workString = "AL";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.AL_D = Disolved;
+                NEW.AL_T = Total;
+                F.AL_D = Disolved;
+                F.AL_T = Total; ;
+
+                workString = "AS";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.AS_D = Disolved;
+                NEW.AS_T = Total;
+                F.AS_D = Disolved;
+                F.AS_T = Total;
+
+                workString = "CA";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.CA_D = Disolved;
+                NEW.CA_T = Total;
+                F.CA_D = Disolved;
+                F.CA_T = Total;
+
+                workString = "CD";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.CD_D = Disolved;
+                NEW.CD_T = Total;
+                F.CD_D = Disolved;
+                F.CD_T = Total;
+
+                workString = "CU";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.CU_D = Disolved;
+                NEW.CU_T = Total;
+                F.CU_D = Disolved;
+                F.CU_T = Total;
+
+                workString = "FE";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.FE_D = Disolved;
+                NEW.FE_T = Total;
+                F.FE_D = Disolved;
+                F.FE_T = Total;
+
+                workString = "PB";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.PB_D = Disolved;
+                NEW.PB_T = Total;
+                F.PB_D = Disolved;
+                F.PB_T = Total;
+
+                workString = "MG";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.MG_D = Disolved;
+                NEW.MG_T = Total;
+                F.MG_D = Disolved;
+                F.MG_T = Total;
+
+                workString = "MN";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.MN_D = Disolved;
+                NEW.MN_T = Total;
+                F.MN_D = Disolved;
+                F.MN_T = Total;
+
+                workString = "NA";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.NA_D = Disolved;
+                NEW.NA_T = Total;
+                F.NA_D = Disolved;
+                F.NA_T = Total;
+
+                workString = "SE";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.SE_D = Disolved;
+                NEW.SE_T = Total;
+                F.SE_D = Disolved;
+                F.SE_T = Disolved;
+
+                workString = "ZN";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.ZN_D = Disolved;
+                NEW.ZN_T = Total;
+                F.ZN_D = Disolved;
+                F.ZN_T = Total;
+
+                workString = "K";
+                getText2Values(workString, uniqueID, out  Disolved, out  Total);
+                NEW.K_D = Disolved;
+                NEW.K_T = Total;
+                F.K_D = Disolved;
+                F.K_T = Total;
+
+                F.Comments = NEW.MetalsComment;
+                F.CreatedBy = "Dev User"; // User.Identity.Name; XXXX
+                F.CreatedDate = DateTime.Now;
+                F.Saved = true;
+                F.Edited = true;
+                F.Valid = true;
+
+                NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+
+                int cnt = NewRWE.SaveChanges(); // update final table as it is 'attached' we don't need to refer to it
+
+                // count rows again
+                DataSourceSelectArguments args = new DataSourceSelectArguments();
+                SqlDataSourceNormals.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and saved = 0";    // this is the working table
+
+                // recount the number of blanks, since we just processed one of them
+                System.Data.DataView result = (DataView)SqlDataSourceNormals.Select(args);
+                int rows = result.Table.Rows.Count;
+
+                if (rows < 1)    // no more records
+                {
+                    Response.Redirect("~/Validation/Validation.aspx"); // send user to menu page
+                }
+ 
+                lblCount.Text = string.Format("There are {0} ICP Normal records to validate", rows);
+                SqlDataSourceNormals.DataBind(); // update the records so we see a new one                
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogErrror LE = new LogErrror();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+        }
+
+        public void getText2Values(string workStr, string UID, out decimal Disolved, out decimal Total)
+        {
+            string workString = "";
+            string uniqueID;
+            string tbDName;
+            string tbTName;
+            TextBox tbD;
+            TextBox tbT;
+
+            workString = workStr;
+            uniqueID = UID; // FormViewBlank.Controls[0].UniqueID;  // I think this is valid here it is not
+
+            tbDName = uniqueID + "$" + workString + "_DTextBox";  // use the key value to build the name of the text box to be processed
+            tbTName = uniqueID + "$" + workString + "_TTextBox";
+
+            tbD = this.FindControl(tbDName) as TextBox;
+            tbT = this.FindControl(tbTName) as TextBox;
+
+            if (tbD == null)
+            {
+                string s = tbDName;
+            }
+            if (tbT == null)
+            {
+                string s = tbTName;
+            }
+
+            if (!decimal.TryParse(tbT.Text, out Total))
+            {
+                Total = 0;
+            }
+
+            if (!decimal.TryParse(tbD.Text, out Disolved))
+            {
+                Disolved = 0;
+            }
+        }
+
+        // these events allow us to insert our own data before commiting to storage
+        // NOTE on this page, we do not commit the data in its final form, just mark it as edited, not saved
+        protected void SqlDataSourceNormals_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            int thispage = FormViewNormals.PageIndex;
+            Session["THISPAGE"] = thispage;
+            string uzr = "Dev User"; 
+            if(User.Identity.Name.Length > 3)
+            {
+                uzr = User.Identity.Name;  
+            }          
+
+            e.Command.Parameters["@CreatedBy"].Value = uzr;
+            e.Command.Parameters["@CreatedDate"].Value = DateTime.Now;
+            e.Command.Parameters["@Valid"].Value = true;
+            e.Command.Parameters["@Edited"].Value = true;
+            e.Command.Parameters["@Saved"].Value = false;
+            //  [CreatedBy] = @CreatedBy, [CreatedDate] = @CreatedDate, [Valid] = @Valid, [Edited] = @Edited, [Saved] = @Saved
+
+        }
+
+        protected void btnSwap_Click(object sender, CommandEventArgs ea)
+        {
+            string tmpStr = "";
+            TextBox tbD = null;
+            TextBox tbT = null;
+            string btnID = "";
+            string bid = "";
+            string uniqueID = "";
+            string CA = ea.CommandArgument.ToString();
+            Button btn = sender as Button;
+            btnID = btn.ID;
+            int sl = btnID.Length;
+
+            bid = btnID.Substring(3, sl - 3); // parse string to get metals type prefix
+
+            uniqueID = FormViewNormals.Controls[0].UniqueID; // CC[0].UniqueID;   // get the whole name as made up by ASP web page
+
+            string tbDName = uniqueID + "$" + bid + "_DTextBox";
+            string tbTName = uniqueID + "$" + bid + "_TTextBox";
+
+            tbD = this.FindControl(tbDName) as TextBox;
+            tbT = this.FindControl(tbTName) as TextBox;
+            tmpStr = tbD.Text; // save for swap
+            tbD.Text = tbT.Text;
+            tbT.Text = tmpStr;
+
+            setControls(); // update color schemes
+        }
+
+        // update the inbound icp final record as edited but not saved
+        protected void btnSaveEdit_Click(object sender, EventArgs e)
+        {
+          //  SqlDataSourceNormals.Update(); // force an update
+        }
+
+        // restore page if just update
+        protected void SqlDataSourceNormals_Updated(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            int thispage = (int)Session["THISPAGE"];
+            FormViewNormals.PageIndex = thispage;
+            FormViewNormals.DataBind();
+        }
+
+        protected void SqlDataSourceDups_Updated(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            int thispage = (int)Session["THISPAGE"];
+            FormViewNormals.PageIndex = thispage;
+            FormViewNormals.DataBind();
+        }
+
+    }
+}
