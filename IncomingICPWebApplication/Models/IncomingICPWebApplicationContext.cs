@@ -19,6 +19,8 @@ namespace IncomingICPWebApplication.Models
         {
         }
 
+        public System.Data.Entity.DbSet<IncomingICPWebApplication.InboundICPFinal> InboundICPFinals { get; set; }
+
    //     public System.Data.Entity.DbSet<IncomingICPWebApplication.Models.InboundICPFinal> InboundICPFinal { get; set; }
     
     }

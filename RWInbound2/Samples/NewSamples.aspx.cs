@@ -185,7 +185,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
@@ -231,7 +231,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
@@ -294,7 +294,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
@@ -458,7 +458,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
@@ -564,7 +564,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
@@ -604,7 +604,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
@@ -658,7 +658,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
@@ -801,7 +801,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
@@ -864,7 +864,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
@@ -1135,7 +1135,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
@@ -1179,7 +1179,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
@@ -1224,7 +1224,7 @@ namespace RWInbound2.Samples
             {                
                 string nam = "Not Known - in method";
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
                 return customers;
             }
@@ -1267,7 +1267,7 @@ namespace RWInbound2.Samples
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
@@ -1360,7 +1360,7 @@ namespace RWInbound2.Samples
                     n = User.Identity.Name;
                 string msg = ex.Message;
                 string comment = string.Format("SQL valication failure: {0}", ex.EntityValidationErrors.FirstOrDefault().ValidationErrors.FirstOrDefault().ErrorMessage);
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), n, comment);
             }
         }

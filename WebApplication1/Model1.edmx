@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RiverWatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="200" />
+          <Property Name="FromPage" Type="nvarchar" MaxLength="200" />
+          <Property Name="StackTrace" Type="nvarchar(max)" />
+          <Property Name="Severity" Type="int" />
+          <Property Name="LoggedInUser" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="InboundICPFinal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODE" Type="nvarchar" MaxLength="30" />
+          <Property Name="tblSampleID" Type="int" />
+          <Property Name="DUPLICATE" Type="nvarchar" MaxLength="2" />
+          <Property Name="AL_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AL_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AS_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AS_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CA_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CA_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CD_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CD_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CU_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CU_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FE_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FE_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="PB_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="PB_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MG_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MG_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MN_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MN_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="SE_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="SE_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="NA_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="NA_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="K_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="K_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ANADATE" Type="datetime" />
+          <Property Name="COMPLETE" Type="bit" />
+          <Property Name="DATE_SENT" Type="datetime" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Valid" Type="bit" Nullable="false" />
+          <Property Name="Edited" Type="bit" Nullable="false" />
+          <Property Name="Saved" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InboundICPOrigional">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODE" Type="nvarchar" MaxLength="30" />
+          <Property Name="tblSampleID" Type="int" />
+          <Property Name="DUPLICATE" Type="nvarchar" MaxLength="2" />
+          <Property Name="AL_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AL_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AS_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AS_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CA_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CA_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CD_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CD_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CU_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CU_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FE_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FE_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="PB_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="PB_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MG_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MG_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MN_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MN_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="SE_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="SE_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="NA_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="NA_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="K_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="K_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ANADATE" Type="datetime" />
+          <Property Name="COMPLETE" Type="bit" />
+          <Property Name="DATE_SENT" Type="datetime" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Valid" Type="bit" Nullable="false" />
+          <Property Name="Edited" Type="bit" Nullable="false" />
+          <Property Name="Saved" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="RiverWatchModelStoreContainer">
+          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundICPFinal" EntityType="Self.InboundICPFinal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundICPOrigional" EntityType="Self.InboundICPOrigional" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RiverWatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FromPage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Severity" Type="Int32" />
+          <Property Name="LoggedInUser" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InboundICPFinal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="tblSampleID" Type="Int32" />
+          <Property Name="DUPLICATE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="AL_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AL_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AS_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AS_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CA_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CA_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CD_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CD_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CU_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CU_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FE_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FE_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PB_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PB_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MG_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MG_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MN_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MN_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="SE_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="SE_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NA_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NA_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="K_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="K_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ANADATE" Type="DateTime" Precision="3" />
+          <Property Name="COMPLETE" Type="Boolean" />
+          <Property Name="DATE_SENT" Type="DateTime" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Valid" Type="Boolean" Nullable="false" />
+          <Property Name="Edited" Type="Boolean" Nullable="false" />
+          <Property Name="Saved" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InboundICPOrigional">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="tblSampleID" Type="Int32" />
+          <Property Name="DUPLICATE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="AL_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AL_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AS_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AS_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CA_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CA_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CD_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CD_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CU_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CU_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FE_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FE_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PB_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PB_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MG_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MG_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MN_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MN_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="SE_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="SE_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NA_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NA_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="K_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="K_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ANADATE" Type="DateTime" Precision="3" />
+          <Property Name="COMPLETE" Type="Boolean" />
+          <Property Name="DATE_SENT" Type="DateTime" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Valid" Type="Boolean" Nullable="false" />
+          <Property Name="Edited" Type="Boolean" Nullable="false" />
+          <Property Name="Saved" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="RiverWatchEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
+          <EntitySet Name="InboundICPFinals" EntityType="Self.InboundICPFinal" />
+          <EntitySet Name="InboundICPOrigionals" EntityType="Self.InboundICPOrigional" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RiverWatchModelStoreContainer" CdmEntityContainer="RiverWatchEntities">
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="RiverWatchModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="FromPage" ColumnName="FromPage" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="Severity" ColumnName="Severity" />
+                <ScalarProperty Name="LoggedInUser" ColumnName="LoggedInUser" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundICPFinals">
+            <EntityTypeMapping TypeName="RiverWatchModel.InboundICPFinal">
+              <MappingFragment StoreEntitySet="InboundICPFinal">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="tblSampleID" ColumnName="tblSampleID" />
+                <ScalarProperty Name="DUPLICATE" ColumnName="DUPLICATE" />
+                <ScalarProperty Name="AL_D" ColumnName="AL_D" />
+                <ScalarProperty Name="AL_T" ColumnName="AL_T" />
+                <ScalarProperty Name="AS_D" ColumnName="AS_D" />
+                <ScalarProperty Name="AS_T" ColumnName="AS_T" />
+                <ScalarProperty Name="CA_D" ColumnName="CA_D" />
+                <ScalarProperty Name="CA_T" ColumnName="CA_T" />
+                <ScalarProperty Name="CD_D" ColumnName="CD_D" />
+                <ScalarProperty Name="CD_T" ColumnName="CD_T" />
+                <ScalarProperty Name="CU_D" ColumnName="CU_D" />
+                <ScalarProperty Name="CU_T" ColumnName="CU_T" />
+                <ScalarProperty Name="FE_D" ColumnName="FE_D" />
+                <ScalarProperty Name="FE_T" ColumnName="FE_T" />
+                <ScalarProperty Name="PB_D" ColumnName="PB_D" />
+                <ScalarProperty Name="PB_T" ColumnName="PB_T" />
+                <ScalarProperty Name="MG_D" ColumnName="MG_D" />
+                <ScalarProperty Name="MG_T" ColumnName="MG_T" />
+                <ScalarProperty Name="MN_D" ColumnName="MN_D" />
+                <ScalarProperty Name="MN_T" ColumnName="MN_T" />
+                <ScalarProperty Name="SE_D" ColumnName="SE_D" />
+                <ScalarProperty Name="SE_T" ColumnName="SE_T" />
+                <ScalarProperty Name="ZN_D" ColumnName="ZN_D" />
+                <ScalarProperty Name="ZN_T" ColumnName="ZN_T" />
+                <ScalarProperty Name="NA_D" ColumnName="NA_D" />
+                <ScalarProperty Name="NA_T" ColumnName="NA_T" />
+                <ScalarProperty Name="K_D" ColumnName="K_D" />
+                <ScalarProperty Name="K_T" ColumnName="K_T" />
+                <ScalarProperty Name="ANADATE" ColumnName="ANADATE" />
+                <ScalarProperty Name="COMPLETE" ColumnName="COMPLETE" />
+                <ScalarProperty Name="DATE_SENT" ColumnName="DATE_SENT" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="Edited" ColumnName="Edited" />
+                <ScalarProperty Name="Saved" ColumnName="Saved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundICPOrigionals">
+            <EntityTypeMapping TypeName="RiverWatchModel.InboundICPOrigional">
+              <MappingFragment StoreEntitySet="InboundICPOrigional">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="tblSampleID" ColumnName="tblSampleID" />
+                <ScalarProperty Name="DUPLICATE" ColumnName="DUPLICATE" />
+                <ScalarProperty Name="AL_D" ColumnName="AL_D" />
+                <ScalarProperty Name="AL_T" ColumnName="AL_T" />
+                <ScalarProperty Name="AS_D" ColumnName="AS_D" />
+                <ScalarProperty Name="AS_T" ColumnName="AS_T" />
+                <ScalarProperty Name="CA_D" ColumnName="CA_D" />
+                <ScalarProperty Name="CA_T" ColumnName="CA_T" />
+                <ScalarProperty Name="CD_D" ColumnName="CD_D" />
+                <ScalarProperty Name="CD_T" ColumnName="CD_T" />
+                <ScalarProperty Name="CU_D" ColumnName="CU_D" />
+                <ScalarProperty Name="CU_T" ColumnName="CU_T" />
+                <ScalarProperty Name="FE_D" ColumnName="FE_D" />
+                <ScalarProperty Name="FE_T" ColumnName="FE_T" />
+                <ScalarProperty Name="PB_D" ColumnName="PB_D" />
+                <ScalarProperty Name="PB_T" ColumnName="PB_T" />
+                <ScalarProperty Name="MG_D" ColumnName="MG_D" />
+                <ScalarProperty Name="MG_T" ColumnName="MG_T" />
+                <ScalarProperty Name="MN_D" ColumnName="MN_D" />
+                <ScalarProperty Name="MN_T" ColumnName="MN_T" />
+                <ScalarProperty Name="SE_D" ColumnName="SE_D" />
+                <ScalarProperty Name="SE_T" ColumnName="SE_T" />
+                <ScalarProperty Name="ZN_D" ColumnName="ZN_D" />
+                <ScalarProperty Name="ZN_T" ColumnName="ZN_T" />
+                <ScalarProperty Name="NA_D" ColumnName="NA_D" />
+                <ScalarProperty Name="NA_T" ColumnName="NA_T" />
+                <ScalarProperty Name="K_D" ColumnName="K_D" />
+                <ScalarProperty Name="K_T" ColumnName="K_T" />
+                <ScalarProperty Name="ANADATE" ColumnName="ANADATE" />
+                <ScalarProperty Name="COMPLETE" ColumnName="COMPLETE" />
+                <ScalarProperty Name="DATE_SENT" ColumnName="DATE_SENT" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="Edited" ColumnName="Edited" />
+                <ScalarProperty Name="Saved" ColumnName="Saved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

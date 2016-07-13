@@ -9,7 +9,7 @@ namespace RWInbound2
     /// class to record errors
     /// could send emails if needed
     /// </summary>
-    public class LogErrror
+    public class LogError
     {
         public void logError(string msg, string fromPage, string stackTrace, string loggedInUser, string comment)
         {
@@ -23,8 +23,16 @@ namespace RWInbound2
             EL.FromPage = fromPage;
             EL.LoggedInUser = loggedInUser;
 
-            NRWE.ErrorLogs.Add(EL);
-            NRWE.SaveChanges(); 
+            try
+            {
+                NRWE.ErrorLogs.Add(EL);
+                int rows = NRWE.SaveChanges();
+                int moreBetter = rows;
+            }
+            catch(Exception ex)
+            {
+                string ms = ex.Message; 
+            }
         }
     }
     
@@ -38,7 +46,7 @@ namespace RWInbound2
                 else
                     name = User.Identity.Name;
                 string msg = ex.Message; 
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), name, "");
             }     
      */

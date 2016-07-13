@@ -15,7 +15,7 @@ namespace webApiTests
         public void TestMethod1()
         {
             var controller = new InboundICPFinalsController(); // the controller class
-           // var result = controller.GetInboundICPFinals(); 
+            var result = controller.PostInboundICPFinal(null); 
         }
     }
 }

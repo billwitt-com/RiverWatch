@@ -90,7 +90,7 @@ namespace RWInbound2.Validation
                 //    else
                 //        nam = User.Identity.Name;
                 //    string msg = ex.Message;
-                //    LogErrror LE = new LogErrror();
+                //    LogError LE = new LogError();
                 //    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 //}     
 
@@ -141,7 +141,7 @@ namespace RWInbound2.Validation
                     else
                         nam = User.Identity.Name;
                     string msg = ex.Message;
-                    LogErrror LE = new LogErrror();
+                    LogError LE = new LogError();
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }     
 
@@ -655,7 +655,7 @@ namespace RWInbound2.Validation
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }     
 
@@ -748,7 +748,7 @@ namespace RWInbound2.Validation
                     else
                         nam = User.Identity.Name;
                     string msg = ex.Message;
-                    LogErrror LE = new LogErrror();
+                    LogError LE = new LogError();
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }     
             }
@@ -893,7 +893,7 @@ namespace RWInbound2.Validation
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }     
         }
@@ -1029,7 +1029,7 @@ namespace RWInbound2.Validation
                
                 string nam = "WebMethod";               
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, "WebMethod searchOrgs Failed", ex.StackTrace.ToString(), nam, "");
                 return null; 
             }     

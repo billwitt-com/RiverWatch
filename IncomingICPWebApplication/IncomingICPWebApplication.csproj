@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\InboundICPFinals1Controller.cs" />
     <Compile Include="Controllers\InboundICPFinalsController.cs" />
     <Compile Include="Controllers\IncomingICPController.cs" />
     <Compile Include="Global.asax.cs">
@@ -161,6 +162,15 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RWInbound2\RWInbound2.csproj">
+      <Project>{67152158-aa3c-45d8-9685-1c55cca1c116}</Project>
+      <Name>RWInbound2</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

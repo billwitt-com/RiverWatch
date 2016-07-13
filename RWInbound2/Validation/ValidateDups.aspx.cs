@@ -80,7 +80,7 @@ namespace RWInbound2.Validation
                 //    else
                 //        nam = User.Identity.Name;
                 //    string msg = ex.Message;
-                //    LogErrror LE = new LogErrror();
+                //    LogError LE = new LogError();
                 //    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 //}
 
@@ -133,7 +133,7 @@ namespace RWInbound2.Validation
                     else
                         nam = User.Identity.Name;
                     string msg = ex.Message;
-                    LogErrror LE = new LogErrror();
+                    LogError LE = new LogError();
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }
 
@@ -585,7 +585,7 @@ namespace RWInbound2.Validation
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
@@ -677,7 +677,7 @@ namespace RWInbound2.Validation
                     else
                         nam = User.Identity.Name;
                     string msg = ex.Message;
-                    LogErrror LE = new LogErrror();
+                    LogError LE = new LogError();
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }
             }
@@ -821,7 +821,7 @@ namespace RWInbound2.Validation
                 else
                     nam = User.Identity.Name;
                 string msg = ex.Message;
-                LogErrror LE = new LogErrror();
+                LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }     
         }
