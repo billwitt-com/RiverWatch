@@ -21,8 +21,23 @@ namespace RWInbound2.Samples
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+            int qsCount = Request.QueryString.Count;
+            if (qsCount > 0)
+            {
+                string query = Request.QueryString[0];
+            }
+
+            bool isPB = IsPostBack; 
+
             if (!IsPostBack)
             {
+
+
+
+                // to debug why js script ends up here and not in SearchOrgs
+
+
                 Panel1.Visible = false;
                 lstSamples.Visible = false;
                 Session["NEWSAMPLE"] = null;
@@ -1184,13 +1199,6 @@ namespace RWInbound2.Samples
             }
         }
 
-        // approved method of getting data for the autocomplete extender. Can reuse for other tables... 
-        /// <summary>
-        /// used to populate text box asking for org name
-        /// </summary>
-        /// <param name="prefixText"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
         public static List<string> SearchOrgs(string prefixText, int count)

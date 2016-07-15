@@ -19,11 +19,11 @@
         <EntityTypeShape EntityType="RiverwatchModel.tblProject" Width="1.5" PointX="9.5" PointY="7.25" />
         <EntityTypeShape EntityType="RiverwatchModel.tblProjectStation" Width="1.5" PointX="11.875" PointY="13" />
         <EntityTypeShape EntityType="RiverwatchModel.tblRegistration" Width="1.5" PointX="11.875" PointY="0.5" />
-        <EntityTypeShape EntityType="RiverwatchModel.InboundSample" Width="1.5" PointX="11.875" PointY="3.75" />
         <EntityTypeShape EntityType="RiverwatchModel.tlkLimit" Width="1.5" PointX="14.25" PointY="12.875" />
         <EntityTypeShape EntityType="RiverwatchModel.Organization" Width="1.5" PointX="8.875" PointY="16.25" />
         <EntityTypeShape EntityType="RiverwatchModel.NutrientBarCode" Width="1.5" PointX="11.125" PointY="16.25" />
         <EntityTypeShape EntityType="RiverwatchModel.Sample" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RiverwatchModel.InboundSample" Width="1.5" PointX="16.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

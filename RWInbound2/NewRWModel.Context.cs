@@ -41,11 +41,11 @@ namespace RWInbound2
         public virtual DbSet<tblProject> tblProjects { get; set; }
         public virtual DbSet<tblProjectStation> tblProjectStations { get; set; }
         public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
-        public virtual DbSet<InboundSample> InboundSamples { get; set; }
         public virtual DbSet<tlkLimit> tlkLimits { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<NutrientBarCode> NutrientBarCodes { get; set; }
         public virtual DbSet<Sample> Samples { get; set; }
+        public virtual DbSet<InboundSample> InboundSamples { get; set; }
     
         public virtual int UpdateLocalTablesFromIncomingICP(string user)
         {

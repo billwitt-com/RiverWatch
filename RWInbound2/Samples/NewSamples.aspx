@@ -1,30 +1,37 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSamples.aspx.cs" Inherits="RWInbound2.Samples.NewSamples" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <br />
     <div class="site-title">
         Sample
 
     </div>
+
+<%--                     <asp:TextBox ID="TextBox1" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="16px" Width="225px"></asp:TextBox>--%>
+
+
     <table>
         <tr>
             <td style="width: 193px">Station Number: 
                  <asp:TextBox ID="tbSite" runat="server" Height="20px" Width="46px" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
 
             </td>
-            <td   style="width: 166px">Kit Number: 
-                 <asp:TextBox ID="tbKitNumber"  runat="server"  BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="46px"></asp:TextBox>
+            <td style="width: 166px">Kit Number: 
+                 <asp:TextBox ID="tbKitNumber" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="46px"></asp:TextBox>
             </td>
-            <td   style="width: 300px">OR Org: <asp:TextBox ID="tbOrg"  runat="server"  BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="16px" Width="225px"></asp:TextBox>
+            <td style="width: 300px">OR Org: 
+                     <asp:TextBox ID="tbOrg" runat="server" ></asp:TextBox>
+
+
             </td>
             <td style="width: 116px">
-               
+
                 <asp:Button ID="btnSiteNumber" runat="server" Text="Select" CssClass="smallButton" OnClick="btnSiteNumber_Click" />
             </td>
         </tr>
     </table>
+
             <ajaxToolkit:AutoCompleteExtender ID="tbSearch_AutoCompleteExtender" runat="server" BehaviorID="tbSearch_AutoCompleteExtender" DelimiterCharacters=""  
             ServiceMethod="SearchOrgs"             
             TargetControlID="tbOrg"
@@ -32,7 +39,10 @@
             CompletionInterval="100" 
             EnableCaching="false" 
             CompletionSetCount="10">
-        </ajaxToolkit:AutoCompleteExtender> 
+            </ajaxToolkit:AutoCompleteExtender>
+
+
+
     <asp:Panel ID="Panel1" runat="server" BorderColor="#0099FF" BorderStyle="Solid" BorderWidth="1px">
         <table style="width: 100%">
             <tr>

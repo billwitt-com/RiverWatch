@@ -82,6 +82,8 @@ namespace WebApplication1.Controllers
                 return BadRequest(ModelState);
             }
 
+            System.Diagnostics.Debugger.Log(3, "message", "This is the message");
+
             db.InboundICPFinals.Add(inboundICPFinal);
             await db.SaveChangesAsync();
 

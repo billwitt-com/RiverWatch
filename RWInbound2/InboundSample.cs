@@ -33,7 +33,7 @@ namespace RWInbound2
         public string Chk { get; set; }
         public Nullable<int> EntryType { get; set; }
         public string EntryStaff { get; set; }
-        public Nullable<int> Metals { get; set; }
+        public Nullable<bool> MetalsNormal { get; set; }
         public Nullable<bool> MetalsBlnk { get; set; }
         public Nullable<bool> MetalsDupe { get; set; }
         public Nullable<bool> Bugs { get; set; }
