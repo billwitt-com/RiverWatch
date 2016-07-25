@@ -209,7 +209,6 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
     <Content Include="Reports\Reports.aspx" />
-    <Content Include="Samples\NewSamples.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
@@ -229,6 +228,7 @@
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
+    <Content Include="Samples\NewSamples1.aspx" />
     <Content Include="Samples\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -457,12 +457,12 @@
     <Compile Include="Sample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Samples\NewSamples.aspx.cs">
-      <DependentUpon>NewSamples.aspx</DependentUpon>
+    <Compile Include="Samples\NewSamples1.aspx.cs">
+      <DependentUpon>NewSamples1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Samples\NewSamples.aspx.designer.cs">
-      <DependentUpon>NewSamples.aspx</DependentUpon>
+    <Compile Include="Samples\NewSamples1.aspx.designer.cs">
+      <DependentUpon>NewSamples1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>

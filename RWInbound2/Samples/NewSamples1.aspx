@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSamples.aspx.cs" Inherits="RWInbound2.Samples.NewSamples" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSamples1.aspx.cs" Inherits="RWInbound2.Samples.NewSamples1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -17,22 +17,15 @@
                  <asp:TextBox ID="tbKitNumber" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="46px"></asp:TextBox>
             </td>
             <td style="width: 300px">OR Org: 
-                     <asp:TextBox ID="tbOrg" runat="server" ></asp:TextBox>
+                     <asp:TextBox ID="tbOrg" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="146px" ></asp:TextBox>
 
                 <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
                      TargetControlID="tbOrg"
                      CompletionSetCount="10"
                      ServiceMethod="SearchOrgs"
-                     MinimumPrefixLength="2"
-
-                    
-                    
-                    
+                     MinimumPrefixLength="2"        
+                     CompletionInterval="100"
                     >
-
-
-
-
                 </ajaxToolkit:AutoCompleteExtender>
 
 
@@ -111,7 +104,7 @@
                         <td>
                             <asp:TextBox ID="txtDateCollected"  BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" runat="server" Width="80px"></asp:TextBox>
 
-                            <ajaxToolkit:CalendarExtender ID="txtDateCollected_CalendarExtender" runat="server" BehaviorID="txtDateCollected_CalendarExtender" TargetControlID="txtDateCollected"></ajaxToolkit:CalendarExtender>
+                            <ajaxToolkit:CalendarExtender  ID="txtDateCollected_CalendarExtender" runat="server" BehaviorID="txtDateCollected_CalendarExtender" TargetControlID="txtDateCollected"></ajaxToolkit:CalendarExtender>
                             <td>
                                 <asp:Label ID="lblCollectionTime" runat="server" Text="Time: "></asp:Label></td>
                         <td>
@@ -163,9 +156,15 @@
                         </td>
                         <td style="height: 21px; width: 163px;">
                             <asp:CheckBox ID="chkPhysHab" runat="server" Text="Physical Habitat"></asp:CheckBox></td>
-                        <td class="ListboxSample" rowspan="7">
+                        <td class="ListboxSample" rowspan="7"> 
+                            <asp:Label ID="lblListYears" runat="server" Text="Status Year: "></asp:Label>
+                            <asp:DropDownList ID="ddlYears"  runat="server" OnSelectedIndexChanged="ddlYears_SelectedIndexChanged" AutoPostBack="True">
 
-                            <asp:ListBox ID="lstSamples" runat="server" AutoPostBack="True" Height="153px" Rows="7" CssClass="ListboxSample" OnSelectedIndexChanged="lstSamples_SelectedIndexChanged"></asp:ListBox>
+                            </asp:DropDownList>
+                            <asp:ListBox ID="lstSamples" runat="server" AutoPostBack="True" Height="153px" Rows="7" CssClass="ListboxSample" 
+                                OnSelectedIndexChanged="lstSamples_SelectedIndexChanged"></asp:ListBox>
+
+                           
 
                         </td>
                     </tr>
@@ -599,3 +598,4 @@
 &nbsp;&nbsp;&nbsp; </ajaxToolkit:TabContainer>
 
 </asp:Content>
+

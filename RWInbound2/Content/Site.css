@@ -47,6 +47,14 @@ html {
     padding: 0;*/
 }
 
+.ListboxSample {
+    padding-left: 30px;
+    margin-left: 30px;
+    margin-top: 10px;
+    text-align: left;
+    padding-top: 9px;
+    vertical-align: bottom;
+}
 label {
     /*don't see any changes in labels from here
         changes text size for checkbox lables*/
@@ -148,7 +156,7 @@ td button {
     background-color: lightblue !important;
 
     cursor: pointer !important;
-    border: 1px solid #787878; /*this works*/
+    border: 2px solid #787878; /*this works*/
     padding: 1px;
     }
 
@@ -1157,14 +1165,7 @@ legend /* Seems to make no difference*/ {
     padding-left: 42px;
 }
 /* END: Mobile Styles */
-.ListboxSample {
-    padding-left: 30px;
-    margin-left: 30px;
-    margin-top: 10px;
-    text-align: left;
-    padding-top: 9px;
-    vertical-align: bottom;
-}
+
 
 /*These are not used*/
 /*.RW-headline,

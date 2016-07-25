@@ -15,28 +15,19 @@ using System.Web.Providers.Entities;
 
 namespace RWInbound2.Samples
 {
-    public partial class NewSamples : System.Web.UI.Page
+    public partial class NewSamples1 : System.Web.UI.Page
     {
         dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
         NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            int qsCount = Request.QueryString.Count;
-            if (qsCount > 0)
-            {
-                string query = Request.QueryString[0];
-            }
-
-            bool isPB = IsPostBack; 
+            DateTime currentYear;
+            DateTime thisyear = DateTime.Now;
+            string date2parse; 
 
             if (!IsPostBack)
             {
-
-                // to debug why js script ends up here and not in SearchOrgs
-
-
                 Panel1.Visible = false;
                 lstSamples.Visible = false;
                 Session["NEWSAMPLE"] = null;
@@ -64,38 +55,57 @@ namespace RWInbound2.Samples
 
                 rbListSampleTypes.DataSource = types;
                 rbListSampleTypes.DataBind();
+
+                // build the current year value, from Barb, ie the year ending on June 30th.
+                // XXXX may not want to do this
+                if (thisyear.Month >= 7) // we are in new current year, so don't adjust the year date
+                {
+                    date2parse = string.Format("{0}/07/01", thisyear.Year - 1);
+                    currentYear = DateTime.Parse(date2parse);
+                }
+                else
+                {
+                    date2parse = string.Format("{0}/07/01", thisyear.Year - 2);
+                    currentYear = DateTime.Parse(date2parse);
+                }
+
+                // XXXX but will do this:
+                date2parse = string.Format("{0}/07/01", thisyear.Year);
+                currentYear = DateTime.Parse(date2parse);
+
+                Session["CURRENTYEAR"] = currentYear;
+
+                // populate year list drop down, we won't select from samples table since we don't really know what samples are used yet
+                // go back 20 years to this year
+
+                List<int> yrsList = new List<int>();
+                int yrs = DateTime.Now.Year; 
+                for(int x = 0; x < 60; x++)
+                {
+                    yrsList.Add(yrs--); 
+                }
+                ddlYears.DataSource = yrsList;
+                ddlYears.DataBind(); 
             }
         }
 
         // user has chosen a site number, so get detail
         // this just populates the top section of the page, above the tabs
         // 06/24 Added org select list too... 
+        // 07/25 added status year ddl 
         protected void btnSiteNumber_Click(object sender, EventArgs e)
         {
             int stationNumber = 0;
             int kitNumber = 0;
-            string samplenumber = "";
+            string NumberSamplePrefix = "";
             string tmpstr = "";
             DateTime currentYear;
             DateTime thisyear = DateTime.Now;
             string date2parse = "";
             string orgName = "";
 
-            //TabPanelSample.Focus(); // put user on sample tab
-            //TabPanelSample.BackColor = System.Drawing.Color.Beige;
-            //TabPanelSample.Focus();
 
-            // build the current year value, from Barb, ie the year ending on June 30th.
-            if (thisyear.Month >= 7) // we are in new current year, so don't adjust the year date
-            {
-                date2parse = string.Format("{0}/07/01", thisyear.Year - 1);
-                currentYear = DateTime.Parse(date2parse);
-            }
-            else
-            {
-                date2parse = string.Format("{0}/07/01", thisyear.Year - 2);
-                currentYear = DateTime.Parse(date2parse);
-            }
+          // move current year calc to page_load 
 
             kitNumber = -1; // no real kit number yet
             bool success = int.TryParse(tbSite.Text, out stationNumber);
@@ -174,7 +184,7 @@ namespace RWInbound2.Samples
                 // save some values for later use
                 Session["STNID"] = RES.FirstOrDefault().stnID;
                 Session["ORGID"] = RES.FirstOrDefault().orgID;
-                Session["CURRENTYEAR"] = currentYear;
+                Session["STATIONNUMBER"] = stationNumber; 
 
                 tbOrg.Text = orgName;   // to make it 'nice'
                 Panel1.Visible = true;
@@ -205,11 +215,16 @@ namespace RWInbound2.Samples
 
 
             // now populate list box of samples 
-            samplenumber = string.Format("{0}.", stationNumber);
+            NumberSamplePrefix = string.Format("{0}.", stationNumber);
             List<string> samps = new List<string>();
             lstSamples.Visible = true;
 
-            populateSamplesList(samplenumber, currentYear); // populate ddl on right side of samples page            
+            // populate the ddl for status year, now that we know 
+            // XXXX calling this from ddlYear choice also
+            // current year is created one time in page load
+            currentYear = (DateTime)Session["CURRENTYEAR"];
+           //    private void populateSamplesList(string NumberSamplePrefix, DateTime currentYear)
+            populateSamplesList(NumberSamplePrefix, currentYear); // populate ddl on right side of samples page            
 
             // get drop down list of inbound samples that have this station and kit numbers 
 
@@ -479,15 +494,15 @@ namespace RWInbound2.Samples
             if (Session["CURRENTYEAR"] != null)
             {
                 DateTime currentYear = (DateTime)Session["CURRENTYEAR"];
-                string numsample = txtNumSmp.Text.Trim();
+                string NumberSamplePrefix = txtNumSmp.Text.Trim();
 
-                int index = numsample.IndexOf(".");
+                int index = NumberSamplePrefix.IndexOf(".");
                 if (index > 0)
                 {
-                    numsample = numsample.Substring(0, index);
+                    NumberSamplePrefix = NumberSamplePrefix.Substring(0, index);
                 }
-                populateSamplesList(numsample, currentYear); // populate ddl on right side of samples page   
-                
+                populateSamplesList(NumberSamplePrefix, currentYear); // populate ddl on right side of samples page   
+
             }
         }
 
@@ -776,7 +791,7 @@ namespace RWInbound2.Samples
                         " FROM [Riverwatch].[dbo].[MetalBarCode] " +
                         " where NumberSample like '{0}'", station_Sample.Trim());
 
-           
+
             try
             {
                 using (SqlCommand cmd = new SqlCommand())
@@ -865,7 +880,7 @@ namespace RWInbound2.Samples
                         }
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -948,7 +963,7 @@ namespace RWInbound2.Samples
             InboundICPOrigional OR = new InboundICPOrigional();
 
             string numberSample = txtNumSmp.Text.Trim(); // really bad name, perhaps we will have time to correct           
-           
+
             decimal mult = 0.0m;
             decimal V = 0;
 
@@ -965,7 +980,7 @@ namespace RWInbound2.Samples
             {
                 mult = 125;
             }
-            
+
             try
             {
                 int SID = (from s in NRWDE.Samples                  // get sample table id 
@@ -1008,7 +1023,7 @@ namespace RWInbound2.Samples
                 INB.CA_T = (decimal)INB.CA_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.CA_D = INB.CA_D;
-                OR.CA_T = INB.CA_T; 
+                OR.CA_T = INB.CA_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CD"
@@ -1018,7 +1033,7 @@ namespace RWInbound2.Samples
                 INB.CD_T = (decimal)INB.CD_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.CD_D = INB.CD_D;
-                OR.CD_T = INB.CD_T; 
+                OR.CD_T = INB.CD_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CU"
@@ -1027,7 +1042,7 @@ namespace RWInbound2.Samples
                 INB.CU_T = (decimal)INB.CU_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.CU_D = INB.CU_D;
-                OR.CU_T = INB.CU_T; 
+                OR.CU_T = INB.CU_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "FE"
@@ -1036,7 +1051,7 @@ namespace RWInbound2.Samples
                 INB.FE_T = (decimal)INB.FE_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.FE_D = INB.FE_D;
-                OR.FE_T = INB.FE_T; 
+                OR.FE_T = INB.FE_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "K"
@@ -1054,7 +1069,7 @@ namespace RWInbound2.Samples
                 INB.MG_T = (decimal)INB.MG_D - (decimal)RAND.NextDouble() + .5m;
 
                 OR.MG_D = INB.MG_D;
-                OR.MG_T = INB.MG_T; 
+                OR.MG_T = INB.MG_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "MN"
@@ -1063,7 +1078,7 @@ namespace RWInbound2.Samples
                 INB.MN_T = (decimal)INB.MN_D + (decimal)RAND.NextDouble() - .5m; ;
 
                 OR.MN_D = INB.MN_D;
-                OR.MN_T = INB.MN_T; 
+                OR.MN_T = INB.MN_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "NA"
@@ -1072,7 +1087,7 @@ namespace RWInbound2.Samples
                 INB.NA_T = (decimal)INB.NA_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.NA_D = INB.NA_D;
-                OR.NA_T = INB.NA_T; 
+                OR.NA_T = INB.NA_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "PB"
@@ -1081,7 +1096,7 @@ namespace RWInbound2.Samples
                 INB.PB_T = (decimal)INB.PB_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.PB_D = INB.PB_D;
-                OR.PB_T = INB.PB_T; 
+                OR.PB_T = INB.PB_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "SE"
@@ -1100,25 +1115,25 @@ namespace RWInbound2.Samples
                 INB.ZN_T = (decimal)INB.ZN_D - .5m;
 
                 OR.ZN_D = INB.ZN_D;
-                OR.ZN_T = INB.ZN_T; 
+                OR.ZN_T = INB.ZN_T;
 
                 INB.Comments = "Created by hand for testing";
-                OR.Comments = INB.Comments; 
+                OR.Comments = INB.Comments;
 
                 INB.ANADATE = DateTime.Now;
                 OR.ANADATE = INB.ANADATE;
 
                 newDate = DateTime.Now.AddDays(-2);
 
-                INB.DATE_SENT = newDate ;
-                OR.DATE_SENT = newDate ;
+                INB.DATE_SENT = newDate;
+                OR.DATE_SENT = newDate;
 
                 INB.CreatedBy = "Test System";
                 OR.CreatedBy = INB.CreatedBy;
 
                 newDate = DateTime.Now.AddDays(-6);
                 INB.CreatedDate = newDate.Value;
-                OR.CreatedDate = newDate.Value; 
+                OR.CreatedDate = newDate.Value;
 
                 INB.COMPLETE = true;
                 OR.COMPLETE = true;
@@ -1134,8 +1149,8 @@ namespace RWInbound2.Samples
                 NRWDE.InboundICPFinals.Add(INB);
                 NRWDE.SaveChanges(); // update
 
-                NRWDE.InboundICPOrigionals.Add(OR);             
-                NRWDE.SaveChanges(); 
+                NRWDE.InboundICPOrigionals.Add(OR);
+                NRWDE.SaveChanges();
 
                 //RWDE.tblInboundICPs.Add(INB);   // no longer used
                 //RWDE.SaveChanges();
@@ -1158,24 +1173,30 @@ namespace RWInbound2.Samples
             // FillTabPanelICPdata(txtNumSmp.Text.Trim()); 
         }
 
-     
-        private void populateSamplesList(string sampleNumber, DateTime currentYear)
+
+        private void populateSamplesList(string NumberSamplePrefix, DateTime currentYear)
         {
             string tmpstr = "";
             List<string> samps = new List<string>();
+            DateTime nextYear = currentYear.AddYears(1); 
             // get drop down list of samples and numbers from DB, for this current year
             try
             {
                 var SMP = from s in NRWDE.Samples
-                          where s.NumberSample.StartsWith(sampleNumber) & s.DateCollected >= currentYear & s.Valid == true
+                          where s.NumberSample.StartsWith(NumberSamplePrefix) & s.DateCollected >= currentYear & s.DateCollected <= nextYear & s.Valid == true
                           orderby s.DateCollected descending
                           select new
                           {
                               SampNumber = s.NumberSample,
                               SampDate = s.DateCollected
                           };
-                        
-                SMP = SMP.OrderByDescending(q => q.SampNumber); 
+                if(SMP.Count() < 1)
+                {
+                    lstSamples.Items.Clear();
+                    return; 
+                }
+
+                SMP = SMP.OrderByDescending(q => q.SampNumber);
                 foreach (var s in SMP)
                 {
                     tmpstr = string.Format("{0} : {1:M/d/yyyy}", s.SampNumber, s.SampDate);
@@ -1377,6 +1398,20 @@ namespace RWInbound2.Samples
                 LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
                 return customers;
             }
+        }
+
+        // user has chosen a new index year from list, so change ddl of years, events
+        protected void ddlYears_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            int CY = int.Parse(ddlYears.SelectedValue);
+            
+            DateTime currentYear = new DateTime(CY, 6, 30);
+            int stationNumber = (int)Session["STATIONNUMBER"]; // from tbSite
+            string NumberSamplePrefix = stationNumber.ToString();            
+
+            Session["CURRENTYEAR"] = currentYear; // save for later
+            populateSamplesList(NumberSamplePrefix, currentYear); // populate ddl on right side of samples page 
         }
     }
 }

@@ -10,7 +10,7 @@
 namespace RWInbound2.Samples {
     
     
-    public partial class NewSamples {
+    public partial class NewSamples1 {
         
         /// <summary>
         /// tbSite control.
@@ -308,6 +308,24 @@ namespace RWInbound2.Samples {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkPhysHab;
+        
+        /// <summary>
+        /// lblListYears control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblListYears;
+        
+        /// <summary>
+        /// ddlYears control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlYears;
         
         /// <summary>
         /// lstSamples control.

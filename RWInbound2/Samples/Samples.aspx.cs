@@ -17,7 +17,7 @@ namespace RWInbound2.Samples
 
         protected void btnNewSample_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Samples/newsamples.aspx");
+            Response.Redirect("~/Samples/newsamples1.aspx");
         }
 
         protected void btnAddMetalBarcode_Click(object sender, EventArgs e)
