@@ -742,6 +742,15 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
+        /// fvOrgs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FormView fvOrgs;
+        
+        /// <summary>
         /// tbJan control.
         /// </summary>
         /// <remarks>
@@ -1064,5 +1073,14 @@ namespace RWInbound2.Samples {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnICPSave;
+        
+        /// <summary>
+        /// SqlDataSourceOrgStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceOrgStatus;
     }
 }

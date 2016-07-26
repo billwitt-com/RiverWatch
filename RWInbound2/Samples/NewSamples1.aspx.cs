@@ -123,6 +123,7 @@ namespace RWInbound2.Samples
                 return;
             }
             if (!success2)  // first, is there a kit number in the box, if not... 
+
             {
                 if (orgName.Length > 2)   // there is an org name
                 {
@@ -233,19 +234,34 @@ namespace RWInbound2.Samples
                 var query = from i in NRWDE.InboundSamples
                             where i.KitNum == kitNumber & i.StationNum == stationNumber
                             select
-                            i.SampleID.Value;
+                            i.SampleID;
 
-                if (query != null)
+                if (query.Count() > 0)
                 {
                     List<string> ls = new List<string>();
+                    ls.Add("Choose from below"); 
                     string tmps = "";
                     foreach (long? val in query)
                     {
-                        if (val == null)
-                            tmps = "";
-                        else
-                            tmps = val.Value.ToString();
-                        ls.Add(tmps);
+                        if (val != null)    // real value to consider
+                        {
+
+                            var q = from s in NRWDE.Samples
+                                    where s.SampleNumber == val.Value.ToString()
+                                    select s.NumberSample;
+
+                            if (q.Count() < 1)  // not found in samples table
+                            {
+                                tmps = val.Value.ToString();
+                                ls.Add(tmps);
+                            }
+                        }
+                    }
+
+                    if(ls.Count == 1)   // there are no 'real' entries, so notify user
+                    {
+                        ls.Clear();
+                        ls.Add("No incoming samples"); 
                     }
                     ddlInboundSamplePick.DataSource = ls;
                     ddlInboundSamplePick.DataBind();
@@ -266,7 +282,6 @@ namespace RWInbound2.Samples
         }
 
         // common utility to update values on the samples page
-
         private void updateSamplesPage(string stationSample)
         {
             Sample TS;
@@ -395,9 +410,7 @@ namespace RWInbound2.Samples
             }
             else
             {
-                // what to do XXXX
-                // need timedout page to jump to... 
-
+                Response.Redirect("timedout.aspx"); // send user somewhere valid to restart work
             }
 
             //  txtDateCollected.Text = TS.DateCollected.ToShortDateString();
@@ -462,9 +475,8 @@ namespace RWInbound2.Samples
                     orgTS.DateCreated = DateTime.Now;
                     NRWDE.SaveChanges(); // update all records
                 }
-
-                // XXXX fetch max sampleID and add one, so we can write the record.
                 // this is crap, but I must evaluate what happens if I create a identity column.
+                // see code at end of update -- it works
 
                 // add new record 
                 TS.StationID = stnID;
@@ -476,7 +488,17 @@ namespace RWInbound2.Samples
                 TS.Comment = txtComment.Text;
 
                 NRWDE.Samples.Add(TS);
-                NRWDE.SaveChanges(); // update all records
+                NRWDE.SaveChanges(); // update 
+                TS.SampleID = TS.ID;    // update old column, just in case
+                NRWDE.SaveChanges(); // update 
+
+                // clear fields for next sample
+                tbSite.Text = "";
+                tbKitNumber.Text = "";
+                tbOrg.Text = "";
+                Panel1.Visible = false;
+                lstSamples.Visible = false;
+                return;
             }
             catch (Exception ex)
             {
@@ -605,7 +627,7 @@ namespace RWInbound2.Samples
         }
 
         // user chose an item from the list of inboundsamples that had kit and station numbers
-
+        // XXXX if we have time, change data type from long? to string. at sampNumber
         protected void ddlInboundSamplePick_SelectedIndexChanged(object sender, EventArgs e)
         {
             string sampNumber = ddlInboundSamplePick.SelectedItem.Text;
@@ -613,42 +635,13 @@ namespace RWInbound2.Samples
 
             try
             {
-                var query = from s in NRWDE.Samples
-                            where s.SampleNumber == sampNumber
-                            select s.NumberSample;
-
-
-                if (query != null)
-                {
-                    txtNumSmp.Text = (string)query.FirstOrDefault();
-                    txtSmpNum.Text = sampNumber;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
-
-            // now fill in some of the known values
-
-            try
-            {
                 InboundSample TS = (InboundSample)(from s in NRWDE.InboundSamples
                                                    where s.SampleID.Value == sNum
                                                    select s).FirstOrDefault();
 
-
                 // populate the screen 
-                //txtSmpNum.Text = TS.SampleID.Value.ToString(); 
-                //txtNumSmp.Text = TS.NumberSample;
+                txtSmpNum.Text = TS.SampleID.Value.ToString(); 
+               // txtNumSmp.Text = TS.NumberSample;
                 chkCOC.Checked = TS.ChainOfCustody ?? false;
                 chkDataSheet.Checked = TS.DataSheetIncluded ?? false;
                 chkBugs.Checked = TS.Bugs ?? false;
@@ -665,6 +658,17 @@ namespace RWInbound2.Samples
                 chkPhysHab.Checked = false; // TS.PhysicalHabitat;
                 chkTSS.Checked = TS.TSS ?? false;
                 chkTSSDupe.Checked = TS.TSSDupe ?? false;
+                tbComments.Text = TS.Comments;
+                txtDateCollected.Text = TS.Date.Value.ToShortDateString(); 
+                // now chop up time and put in correct format hh:mm 24 hour
+
+                string ds = TS.Time.Value.ToString("D4"); // assume 4 digits 
+                if(ds.Length == 4)
+                {
+                    ds = ds.Insert(2,":");
+                    txtTimeCollected.Text = ds; 
+                }
+
                 if (TS.MissingDataSheetReqDate == null)
                 {
                     txtMDSR.Text = "";

@@ -29,16 +29,30 @@ namespace RWInbound2.Data
             }
         }
 
+        protected void SqlDataSourceInBoundSample_Inserting(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            string sampNum = (string)Session["SAMPNUM"];
+            string uzr = User.Identity.Name;
+            if ((uzr == null) | (uzr.Length < 3))
+                uzr = "Dev User";
+            e.Command.Parameters["@EntryStaff"].Value = uzr;    // not really necessary as most entries in table are null [PassValStep]
+            e.Command.Parameters["@PassValStep"].Value = -1;
+            e.Command.Parameters["@StationNum"].Value = (int)Session["STATIONNUMBER"];
+            e.Command.Parameters["@SampleID"].Value = (string)Session["SAMPNUM"];
+            e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
+            e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
+            e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
+            e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
+        }
+
+        // top button on page, does not save, just creates form and fills in some stuff
         protected void btnSelect_Click(object sender, EventArgs e)
         {
             int stationNumber = 0;
             int kitNumber = 0;
-            string samplenumber = "";
-            string tmpstr = "";
-            DateTime currentYear;
             DateTime thisyear = DateTime.Now;
-            string date2parse = "";
             string orgName = "";
+
             NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();  // create our local EF 
 
             kitNumber = -1; // no real kit number yet
@@ -46,41 +60,57 @@ namespace RWInbound2.Data
             bool success2 = int.TryParse(tbKitNumber.Text, out kitNumber);
 
             orgName = tbOrg.Text;
-
-            if (!success)   // no site, so erase input boxes and return, could use message
+            try
             {
-                tbSite.Text = "Enter Site #";
-                tbKitNumber.Text = "";
-                tbOrg.Text = "";
-                Panel1.Visible = false;
-                return;
-            }
-            if (!success2)  // first, no kit number if we get below this
-            {
-                if (orgName.Length > 2)   // there is an org name
+                if (!success)   // no site, so erase input boxes and return, could use message
                 {
-                    var KN = (from k in NRWDE.Organizations
-                              where k.OrganizationName == orgName
-                              select k.KitNumber).FirstOrDefault();
-
-                    if (KN != null)
+                    tbSite.Text = "Enter Site #";
+                    tbKitNumber.Text = "";
+                    tbOrg.Text = "";
+                    Panel1.Visible = false;
+                    return;
+                }
+                if (!success2)  // first, no kit number if we get below this
+                {
+                    if (orgName.Length > 2)   // there is an org name
                     {
-                        kitNumber = KN.Value;
+                        var KN = (from k in NRWDE.Organizations
+                                  where k.OrganizationName == orgName
+                                  select k.KitNumber).FirstOrDefault();
+
+                        if (KN != null)
+                        {
+                            kitNumber = KN.Value;
+                        }
                     }
                 }
-            }
 
-            if (kitNumber == -1)
+                if (kitNumber == -1)
+                {
+                    tbSite.Text = "";
+                    tbKitNumber.Text = "";
+                    tbOrg.Text = "";
+                    Panel1.Visible = false;
+                    return;
+                }
+
+                // we have good kit number, so fill in the text box, just for....
+                tbKitNumber.Text = kitNumber.ToString();
+            }
+            catch (Exception ex)
             {
-                tbSite.Text = "";
-                tbKitNumber.Text = "";
-                tbOrg.Text = "";
-                Panel1.Visible = false;
-                return;
+                Panel1.Visible = false; // clean up and then report error
+
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-            // we have good kit number, so fill in the text box, just for....
-            tbKitNumber.Text = kitNumber.ToString();
 
             try
             {
@@ -118,16 +148,10 @@ namespace RWInbound2.Data
                 tbRiver.Text = string.Format("{0}", RES.FirstOrDefault().riverName);
                 tbStationNum.Text = stationNumber.ToString();
 
+                Session["STATIONNUMBER"] = stationNumber;
+                Session["KITNUMBER"] = kitNumber; 
+              
 
-                //lblStationNumber.Text = string.Format("Station Number: {0}", stationNumber);
-                //lblEndDate.Text = string.Format("End Date: {0:M/d/yyyy}", RES.FirstOrDefault().endDate);
-                //lblOrganization.Text = string.Format("Organization: {0}", RES.FirstOrDefault().orgName);
-                //lblRiver.Text = string.Format("River: {0}", RES.FirstOrDefault().riverName);
-                //LblStartDate.Text = string.Format("Start Date: {0:M/d/yyyy}", RES.FirstOrDefault().startDate);
-                //lblBlankForNow.Text = string.Format("Active: {0}", RES.FirstOrDefault().active.ToString());
-                //lblWatershed.Text = string.Format("Watershed: {0}", RES.FirstOrDefault().watershed);
-                //lblStationDescription.Text = string.Format("Description: {0}", RES.FirstOrDefault().stnName);
-                //TabContainer1.Visible = true;
             }
             catch (Exception ex)
             {
@@ -145,18 +169,52 @@ namespace RWInbound2.Data
             // enable the save button
             Button IB = (Button)FormView1.FindControl("InsertButton");
             IB.Enabled = true; 
-
         }
-
-        protected void FormView1_PageIndexChanging(object sender, FormViewPageEventArgs e)
-        {
-
-        }
-
+      
         // user has chosen to save data 
         protected void InsertButton_Click(object sender, EventArgs e)
         {
+            DateTime newdate;
+            string timestr;
+            bool success;
+            string sampnum; 
             string msg = "we are here";
+            int hours;
+            int mins; 
+            // build sample number 
+
+            // get text box from form TimeTextBox
+            string dateStr = tbDateCollected.Text;
+
+            success = DateTime.TryParse(dateStr, out newdate);
+
+            timestr = tbTimeCollected.Text;           
+
+            success = int.TryParse(timestr.Substring(0, 2), out hours);          
+
+            success = int.TryParse(timestr.Substring(3, 2), out mins);
+
+            sampnum = string.Format("{0}{1}{2:D2}{3:D2}{4:D2}{5:D2}",
+                tbSite.Text,
+                newdate.Year,
+                newdate.Month,
+                newdate.Day,
+                hours,
+                mins);
+
+            Session["SAMPNUM"] = sampnum; // save for sql update
+            Session["DATE"] = newdate;
+            Session["TIME"] = (hours * 100) + mins; 
+                
+                //timestr.Replace(":", ""); // drop colon if here as result field is only 4 chars wide --- 
+
+            ParameterCollection ourCol = SqlDataSourceInBoundSample.InsertParameters;
+
+            //int res = SqlDataSourceInBoundSample.Insert();
+
+            //int smoke = res; 
+
+
         }
 
 

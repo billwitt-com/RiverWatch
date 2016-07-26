@@ -7,29 +7,48 @@
         <strong>Colorado Riverwatch Volunteer Data Entry Form</strong>
     </p>
     <asp:Panel ID="Panel3" runat="server">
-        <table style="border-collapse: collapse; border-spacing: 0px; border-width: 0px; padding: 0px; margin: 0px; border-style: none; table-layout: fixed;">
+        <Table style="border-collapse: collapse; border-spacing: 0px; border-width: 0px; padding: 0px; margin: 0px; border-style: none; table-layout: fixed;">
             <tr>
-                <td style="width: 193px;">Station Number: 
+                <td style="width: 192px;">Station Number: 
                  <asp:TextBox ID="tbSite" runat="server" Height="20px" Width="46px" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
 
                 </td>
-                <td style="width: 166px">Kit Number: 
+                <td style="width: 171px">Kit Number: 
                  <asp:TextBox ID="tbKitNumber" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="46px"></asp:TextBox>
                 </td>
-                <td style="width: 300px"><span style="font-size: large">OR&nbsp; </span>&nbsp;Org: 
+                <td style="width: 300px"><span style="font-size: large">OR </span>&nbsp;Org: 
                      <asp:TextBox ID="tbOrg" Height="20px" runat="server" Width="201px"></asp:TextBox>
                 </td>
                 <td style="width: 116px">
 
-                    <asp:Button ID="btnSelect" runat="server" Text="Select" OnClick="btnSelect_Click" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="21px" Width="67px" />
+                    &nbsp;</td>
+            </tr>
+             </Table>
+            
+            
+            <Table >
+            <tr>
+                <td style="width: 209px;">Date Collected:
+                    <asp:TextBox ID="tbDateCollected" runat="server" Height="20px"></asp:TextBox>
+                       <ajaxToolkit:CalendarExtender ID="txtDateCollected_CalendarExtender" runat="server" BehaviorID="txtDateCollected_CalendarExtender" TargetControlID="tbDateCollected"></ajaxToolkit:CalendarExtender>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbDateCollected" ErrorMessage="Date is required"></asp:RequiredFieldValidator>
+                        
                 </td>
+                <td style="width: 210px">Time Collected:
+                    <asp:TextBox ID="tbTimeCollected" runat="server" Height="20px"></asp:TextBox>
+                     <ajaxToolkit:MaskedEditExtender ID="txtTimeCollected_MaskedEditExtender" runat="server" BehaviorID="txtTimeCollected_MaskedEditExtender" Century="2000"
+                                CultureAMPMPlaceholder="" CultureCurrencySymbolPlaceholder="" CultureDateFormat="" CultureDatePlaceholder="" CultureDecimalPlaceholder=""
+                                CultureThousandsPlaceholder="" CultureTimePlaceholder="" TargetControlID="tbTimeCollected" MaskType="Time" Mask="99:99" AcceptAMPM="false" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbTimeCollected" ErrorMessage="Time is required"></asp:RequiredFieldValidator>
+                        
+                </td>
+                <td style="width: 300px">
+                    <asp:Button ID="btnSelect" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Font-Size="Large" Height="29px" OnClick="btnSelect_Click" Text="Select" Width="76px" />
+                </td>
+                <td style="width: 116px">
+                    &nbsp;</td>
             </tr>
-            <tr style="height: 12px">
-                <td></td>
-            </tr>
-
-        </table>
-
+             </Table>      
 
     </asp:Panel>
 
@@ -83,10 +102,10 @@
         </table>
 
 
-        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSourceInBoundSample" DefaultMode="Insert" DataKeyNames="inbSampleID" OnPageIndexChanging="FormView1_PageIndexChanging" Width="674px">
+        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSourceInBoundSample" DefaultMode="Insert" DataKeyNames="inbSampleID"  Width="674px">
 
             <InsertItemTemplate>
-                <%-- StationNum:
+<%--                 StationNum:
             <asp:TextBox ID="StationNumTextBox" runat="server" Text='<%# Bind("StationNum") %>' />
             <br />
             SampleID:
@@ -100,14 +119,12 @@
             <br />--%>
 
                 <table>
-                    <tr>
+<%--                    <tr>
                         <td>Sample Date:
                         </td>
                         <td>
                             <asp:TextBox ID="DateTextBox" runat="server" Text='<%# Bind("Date") %>' />
-                            <ajaxToolkit:CalendarExtender ID="txtDateCollected_CalendarExtender" runat="server" BehaviorID="txtDateCollected_CalendarExtender" TargetControlID="DateTextBox"></ajaxToolkit:CalendarExtender>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="DateTextBox" ErrorMessage="Date is required"></asp:RequiredFieldValidator>
-                        </td>
+                         </td>
                     </tr>
 
                     <tr>
@@ -115,12 +132,8 @@
                         </td>
                         <td>
                             <asp:TextBox ID="TimeTextBox" runat="server" Text='<%# Bind("Time") %>' />
-                            <ajaxToolkit:MaskedEditExtender ID="txtTimeCollected_MaskedEditExtender" runat="server" BehaviorID="txtTimeCollected_MaskedEditExtender" Century="2000"
-                                CultureAMPMPlaceholder="" CultureCurrencySymbolPlaceholder="" CultureDateFormat="" CultureDatePlaceholder="" CultureDecimalPlaceholder=""
-                                CultureThousandsPlaceholder="" CultureTimePlaceholder="" TargetControlID="TimeTextBox" MaskType="Time" Mask="99:99" AcceptAMPM="false" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TimeTextBox" ErrorMessage="Time is required"></asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
+                           </td>
+                    </tr>--%>
 
                     <tr>
                         <td>USGSFlow (CFSecond):               
@@ -347,7 +360,7 @@
 
     </asp:Panel>
 
-<asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
+<asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server" OnInserting="SqlDataSourceInBoundSample_Inserting" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
     DeleteCommand="DELETE FROM [InboundSamples] WHERE [inbSampleID] = @inbSampleID"
     InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [MetalsNormal], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @MetalsNormal, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID)"
     SelectCommand="SELECT * FROM [InboundSamples]"
