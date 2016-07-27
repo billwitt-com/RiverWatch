@@ -22,15 +22,6 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Panel pnlQuickview;
         
         /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -130,13 +121,13 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Button Button6;
         
         /// <summary>
-        /// Button5 control.
+        /// btnManageStations control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button5;
+        protected global::System.Web.UI.WebControls.Button btnManageStations;
         
         /// <summary>
         /// Button7 control.

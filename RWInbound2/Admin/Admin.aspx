@@ -5,33 +5,35 @@
         Administration</p>
     <p >
     </p>
-    <asp:Panel ID="pnlQuickview"  GroupingText="hello world" runat="server" BackColor="#FFFFCC"  CssClass="panelgrouping"
-          Height="145px" Width="468px" ForeColor="Black"  >
-        <div  style="text-align:center">
+   
+    <asp:Panel ID="pnlQuickview"   runat="server" BackColor="#FFFFCC"  CssClass="panelgrouping"
+          Width="468px" ForeColor="Black"    >
+<%--        <div  style="text-align:center">
        
         <asp:Label ID="Label3" runat="server" Font-Bold="True" Text="Quick View"></asp:Label>
-             </div>
+             <br />
+             </div>--%>
         <table style="width: 90%">
             <tr>
-                <td style="width: 145px; height: 40px;">
+                <td style="width: 145px; height: 29px;">
                     <asp:Label ID="Label1" runat="server" Text="Kit Number :"></asp:Label>
                 </td>
-                <td style="height: 40px; width: 185px">
-                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                <td style="height: 28px; width: 185px">
+                    <asp:TextBox ID="TextBox1" runat="server" Width="95px"></asp:TextBox>
                 </td>
-                <td style="height: 40px">
-                    <asp:Button ID="btnSearchKitNumber" runat="server" CssClass="smallButton" Height="32px"  Text="Search" />
+                <td style="height: 28px">
+                    <asp:Button ID="btnSearchKitNumber" runat="server" CssClass="smallButton" Height="23px"  Text="Search" />
                 </td>
             </tr>
             <tr>
-                <td style="width: 145px">
+                <td style="width: 145px; height: 29px;">
                     <asp:Label ID="Label4" runat="server" Text="Station Name :"></asp:Label>
                 </td>
-                <td style="width: 185px">
+                <td style="width: 185px; height: 29px;">
                     <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
                 </td>
-                <td>
-                    <asp:Button ID="btnSearchStationName" runat="server" CssClass="smallButton"  Text="Search" Height="32px" OnClick="btnSearchStationName_Click" />
+                <td style="height: 29px">
+                    <asp:Button ID="btnSearchStationName" runat="server" CssClass="smallButton"  Text="Search" Height="23px" OnClick="btnSearchStationName_Click" />
                 </td>
             </tr>
             <tr>
@@ -42,18 +44,14 @@
                     <asp:TextBox ID="tbOrgName" runat="server"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:Button ID="btnSearchOrgName" runat="server" CssClass="smallButton" Text="Search" Height="32px" OnClick="btnSearchOrgName_Click" />
+                    <asp:Button ID="btnSearchOrgName" runat="server" CssClass="smallButton" Text="Search" Height="23px" OnClick="btnSearchOrgName_Click" />
                 </td>
             </tr>
         </table>
-        <br />
-
-        <br />
-        <br />
 
     </asp:Panel>
     <ajaxToolkit:DropShadowExtender ID="pnlQuickview_DropShadowExtender" runat="server" 
-        BehaviorID="pnlQuickview_DropShadowExtender" TargetControlID="pnlQuickview">
+        BehaviorID="pnlQuickview_DropShadowExtender"  TargetControlID="pnlQuickview">
     </ajaxToolkit:DropShadowExtender>
 
 
@@ -64,34 +62,34 @@
             <tr>
                 <td style="height: 18px"></td>
                 <td style="width: 262px; height: 18px;">        
-                    <asp:Button ID="Button6" class="adminButton" runat="server" Text="Manage Organizations" Height="27px" /></td>
+                    <asp:Button ID="Button6" class="adminButton" runat="server" Text="Manage Organizations" Width="176px" /></td>
                 <td style="height: 18px">
-        <asp:Button ID="Button5" runat="server" Text="Manage Stations" CssClass="adminButton" />
+        <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />
                 </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button7" runat="server" class="adminButton"  Text="Enter Unknown " />
+        <asp:Button ID="Button7" runat="server" class="adminButton"  Text="Enter Unknown " Width="176px" />
                 </td>
                 <td>
-        <asp:Button ID="Button3" runat="server" class="adminButton"  Enabled="False" Text="Edit Raw Data" CssClass="adminButton" />
+        <asp:Button ID="Button3" runat="server" class="adminButton"  Enabled="False" Text="Edit Raw Data" CssClass="adminButton" Width="176px" />
                 </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button4" class="adminButton"  runat="server" Text="Manage Participants" />
+        <asp:Button ID="Button4" class="adminButton"  runat="server" Text="Manage Participants" Width="176px" />
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button1" class="adminButton"  runat="server" Enabled="False" Text="Manage Users" CssClass="adminButton" />
+        <asp:Button ID="Button1" class="adminButton"  runat="server" Enabled="False" Text="Manage Users" CssClass="adminButton" Width="176px" />
                 </td>
                 <td>
-        <asp:Button ID="Button2" class="adminButton"  runat="server" Enabled="False" Text="Manage Permissions" CssClass="adminButton" />
+        <asp:Button ID="Button2" class="adminButton"  runat="server" Enabled="False" Text="Manage Permissions" CssClass="adminButton" Width="176px" />
 
 
                 </td>

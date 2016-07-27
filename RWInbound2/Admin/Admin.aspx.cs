@@ -11,7 +11,8 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            pnlQuickview.GroupingText = "Title"; 
+            pnlQuickview.GroupingText = "Quick View";
+            pnlQuickview.HorizontalAlign = HorizontalAlign.Center;
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -26,6 +27,12 @@ namespace RWInbound2.Admin
 
         protected void btnSearchOrgName_Click(object sender, EventArgs e)
         {
+
+        }
+
+        protected void btnManageStations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("adminStations.aspx");
 
         }
     }

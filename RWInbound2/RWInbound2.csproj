@@ -124,6 +124,7 @@
     <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\Admin.aspx" />
+    <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Contact.aspx" />
@@ -277,6 +278,13 @@
     </Compile>
     <Compile Include="Admin\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminStations.aspx.cs">
+      <DependentUpon>AdminStations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminStations.aspx.designer.cs">
+      <DependentUpon>AdminStations.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdminUsers.aspx.cs">
       <DependentUpon>AdminUsers.aspx</DependentUpon>

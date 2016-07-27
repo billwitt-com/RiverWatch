@@ -127,9 +127,7 @@ input, textarea { /*this has effect on table input*/
     color: #333;
     font-size: .9em; /*1em; /*table cells font size*/
     margin: 3px 0 1px 0;
-    width: 71px;
-    /*padding: 5px;*/
-}
+    }
 
 
 input:focus, textarea:focus 
@@ -1160,10 +1158,10 @@ legend {
     padding-top: 10px;
 }
 
-legend /* Seems to make no difference*/ {
+/*legend /* Seems to make no difference*/ {
     font-size: 42px;
     padding-left: 42px;
-}
+}*/
 /* END: Mobile Styles */
 
 
