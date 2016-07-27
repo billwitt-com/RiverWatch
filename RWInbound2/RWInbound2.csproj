@@ -230,8 +230,9 @@
     </Content>
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="Samples\FormViewOrgStatus.aspx" />
+    <Content Include="Samples\NewSamples.aspx" />
     <Content Include="Samples\NewSamples1.aspx" />
-    <Content Include="Samples\TimedOut.aspx" />
+    <Content Include="TimedOut.aspx" />
     <Content Include="Samples\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -474,6 +475,13 @@
     <Compile Include="Samples\FormViewOrgStatus.aspx.designer.cs">
       <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Samples\NewSamples.aspx.cs">
+      <DependentUpon>NewSamples.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Samples\NewSamples.aspx.designer.cs">
+      <DependentUpon>NewSamples.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Samples\NewSamples1.aspx.cs">
       <DependentUpon>NewSamples1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -481,11 +489,11 @@
     <Compile Include="Samples\NewSamples1.aspx.designer.cs">
       <DependentUpon>NewSamples1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Samples\TimedOut.aspx.cs">
+    <Compile Include="TimedOut.aspx.cs">
       <DependentUpon>TimedOut.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Samples\TimedOut.aspx.designer.cs">
+    <Compile Include="TimedOut.aspx.designer.cs">
       <DependentUpon>TimedOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
