@@ -36,17 +36,13 @@
         EnableCaching="false"
         CompletionSetCount="10">--%>
 
-
             </td>
             <td style="width: 116px">
 
-                <asp:Button ID="btnSiteNumber" runat="server" Text="Select" CssClass="smallButton" OnClick="btnSiteNumber_Click" />
+                <asp:Button ID="btnSiteNumber" runat="server" Text="Select" CssClass="samplesButton" OnClick="btnSiteNumber_Click" />
             </td>
         </tr>
-
-
     </table>
-
 
     <asp:Panel ID="Panel1" runat="server" BorderColor="#0099FF" BorderStyle="Solid" BorderWidth="1px">
         <table style="width: 100%">
@@ -79,8 +75,6 @@
             </tr>
         </table>
 
-
-
         <table runat="server" id="tableSampleList">
             <tr>
                 <td style="width: 68px">
@@ -90,7 +84,6 @@
                 <td style="height: 10px; width: 179px;">
                     <asp:DropDownList ID="ddlInboundSamplePick" runat="server" AutoPostBack="True" Width="152px" Visible="true" OnSelectedIndexChanged="ddlInboundSamplePick_SelectedIndexChanged">
                     </asp:DropDownList></td>
-
             </tr>
         </table>
 
@@ -115,7 +108,7 @@
                                 <br>
                             </td>
                             <td>
-                                <asp:Button ID="btnCreate" runat="server" Text="Create -&gt;" CausesValidation="False" CssClass="smallButton" OnClick="btnCreate_Click"></asp:Button></td>
+                                <asp:Button ID="btnCreate" runat="server" Text="Create -&gt;" CausesValidation="False" CssClass="samplesButton" OnClick="btnCreate_Click"></asp:Button></td>
                             <td>
                                 <asp:Label ID="lblSampleNumber" runat="server" Text="Samp# "></asp:Label></td>
                             <td>
@@ -160,9 +153,6 @@
                             </asp:DropDownList>
                             <asp:ListBox ID="lstSamples" runat="server" AutoPostBack="True" Height="153px" Rows="7" CssClass="ListboxSample"
                                 OnSelectedIndexChanged="lstSamples_SelectedIndexChanged"></asp:ListBox>
-
-
-
                         </td>
                     </tr>
                     <tr>
@@ -206,7 +196,6 @@
                             <asp:CheckBox ID="chkNPDupe" runat="server" Text="Duplicate N&amp;P"></asp:CheckBox></td>
                         <td style="width: 163px">
                             <asp:CheckBox ID="chkCSDupe" runat="server" Text="Duplicate C/S"></asp:CheckBox></td>
-
                     </tr>
                     <tr>
                         <td></td>
@@ -223,7 +212,9 @@
 
                 </table>
 
-                <asp:Button ID="btnSaveSample" runat="server" CssClass="smallButton" Text="Save Sample" OnClick="btnSaveSample_Click" Width="80px" />
+                <asp:Button ID="btnSaveSample" runat="server" CssClass="samplesButton" Text="Save Sample" OnClick="btnSaveSample_Click" Width="100px" />
+
+                <asp:Label ID="lblWarning" runat="server" ></asp:Label>
 
             </ContentTemplate>
         </ajaxToolkit:TabPanel>
@@ -231,7 +222,7 @@
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-        <ajaxToolkit:TabPanel runat="server" HeaderText="Metals Barcodes" ID="TabPanel2">
+        <ajaxToolkit:TabPanel runat="server" HeaderText="Metals Barcodes" ID="TabMetalsBarcode">
             <ContentTemplate>
                 <table>
                     <tr>
@@ -274,7 +265,7 @@
                     </tr>
                 </table>
 
-                <asp:Button ID="btnMetalsSave" runat="server" Text="Save" OnClick="btnSaveMetals_Click" CssClass="smallButton" />
+                <asp:Button ID="btnMetalsSave" runat="server" Text="Save" OnClick="btnSaveMetals_Click" CssClass="samplesButton" />
 
                 <asp:Label ID="lblCodeInUse" runat="server" Text=""></asp:Label>
 
@@ -289,7 +280,7 @@
         </ajaxToolkit:TabPanel>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-        <ajaxToolkit:TabPanel runat="server" HeaderText="Nutrient Barcodes" ID="TabPanel3">
+        <ajaxToolkit:TabPanel runat="server" HeaderText="Nutrient Barcodes" ID="TabNutrientBarcode">
             <ContentTemplate>
                 <table>
                     <tr>
@@ -356,7 +347,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnSaveNutrient" runat="server" OnClick="btnSaveNutrient_Click" CssClass="smallButton" Text="Save" Width="60px" />
+                            <asp:Button ID="btnSaveNutrient" runat="server" OnClick="btnSaveNutrient_Click" CssClass="samplesButton" Text="Save" Width="60px" />
                         </td>
                         <td>
                             <asp:Label ID="lblNutrientBCSave" runat="server" Text=""></asp:Label>
@@ -372,7 +363,7 @@
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <ajaxToolkit:TabPanel runat="server" HeaderText="Update Org" ID="TabPanel4">
+        <ajaxToolkit:TabPanel runat="server" HeaderText="Update Org" ID="TabUpdateOrg">
             <ContentTemplate>
                 <div runat="server" id="divSizer" style="border-left: 12px">
                 
@@ -522,7 +513,7 @@
                                 NumberOfMetalsDuplicate:
                 <asp:TextBox ID="NumberOfMetalsDuplicateTextBox" runat="server" Text='<%# Bind("NumberOfMetalsDuplicate") %>' />
                                 <br />
-                                <asp:LinkButton ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" CommandName="Update" Text="Update" />
+                                <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" CssClass="samplesButton" CommandName="Update" Text="Update" />
                                 &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
                             </EditItemTemplate>
                         </asp:FormView>
@@ -534,7 +525,7 @@
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <ajaxToolkit:TabPanel runat="server" HeaderText="Create ICP Data" ID="TabPanelICPdata">
+        <ajaxToolkit:TabPanel runat="server" HeaderText="Create ICP Data" ID="TabICPdata">
             <ContentTemplate>
 
                 <div>
@@ -556,7 +547,7 @@
 
                 </div>
 
-                <asp:Button ID="btnICPSave" runat="server" Text="Save" CssClass="smallButton" OnClick="btnICPSave_Click" />
+                <asp:Button ID="btnICPSave" runat="server" Text="Save" CssClass="samplesButton" OnClick="btnICPSave_Click" />
 
             </ContentTemplate>
         </ajaxToolkit:TabPanel>

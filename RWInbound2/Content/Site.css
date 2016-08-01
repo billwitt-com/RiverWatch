@@ -215,6 +215,16 @@ button {
         margin-right: 8px;*/
 }
 
+.samplesButton { 
+    background-color:lightblue !important;
+    border: 1px solid #787878 !important; /*this works*/
+    border-radius:3px !important;
+    cursor: pointer;
+    font-size: 1.11em !important; /*does not change font size in button in table, but does on pages*/
+    font-weight: 600 !important;
+    height: 24px;
+}
+
 
 
 .RW-nav /*builds grey bar behind the menu items*/ 

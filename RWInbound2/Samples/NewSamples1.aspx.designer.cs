@@ -499,13 +499,22 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.Button btnSaveSample;
         
         /// <summary>
-        /// TabPanel2 control.
+        /// lblWarning control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel2;
+        protected global::System.Web.UI.WebControls.Label lblWarning;
+        
+        /// <summary>
+        /// TabMetalsBarcode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabMetalsBarcode;
         
         /// <summary>
         /// tbBarcode control.
@@ -607,13 +616,13 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.GridView GridViewBarCodes;
         
         /// <summary>
-        /// TabPanel3 control.
+        /// TabNutrientBarcode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel3;
+        protected global::AjaxControlToolkit.TabPanel TabNutrientBarcode;
         
         /// <summary>
         /// tbNutrientCode control.
@@ -715,13 +724,13 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.Label lblNutrientBCSave;
         
         /// <summary>
-        /// TabPanel4 control.
+        /// TabUpdateOrg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel4;
+        protected global::AjaxControlToolkit.TabPanel TabUpdateOrg;
         
         /// <summary>
         /// divSizer control.
@@ -751,13 +760,13 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.FormView FormView1;
         
         /// <summary>
-        /// TabPanelICPdata control.
+        /// TabICPdata control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanelICPdata;
+        protected global::AjaxControlToolkit.TabPanel TabICPdata;
         
         /// <summary>
         /// Label5 control.
