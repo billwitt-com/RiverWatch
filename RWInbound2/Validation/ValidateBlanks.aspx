@@ -4,14 +4,20 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:Panel ID="pnlHelp"  BackColor="WhiteSmoke" runat="server" BorderColor="Blue" BorderStyle="Solid" BorderWidth="1px">
+    <asp:Panel ID="pnlHelp"  BackColor="WhiteSmoke" runat="server" BorderColor="Blue" BorderStyle="Solid" BorderWidth="1px" style="font-weight: 700">
         Validation for Blanks:
         <br />
-        Blank sample detail is in the left table - Associated normal sample is in right table<br /> Blank sample data can be edited as needed and the SWAP button will swap the two values as needed<br /> The normal sample data is NOT editable and is only for reference. You can edit it in later steps after the blanks
+        Blank sample detail is in the left table - Associated dup (if there is one) and normal sample is/are in center and right tables<br /> Sample data can be edited as needed.<br /> The normal sample data is editable but not tested for any rules and is only for reference. You can edit it in later steps after the blanks
         <br />
-        The data values are colored RED if they exceed the saved limits (see EDIT tab for changing limits)<br /> The background colors are changed to blue for any sample where the Disolved values are larger than the Total values<br /> by the limit saved in the data tables.
+        The data values are colored RED if they exceed the saved limits (see EDIT Menu for changing limits)<br />
+        A tooltip (flyover) is available for any text value in left table and will help understand the data and the associated rules.<br /> 
+        Just place your mouse over any value in the blank chemical data to see more detail.
         <br />
-        A tooltip (flyover) is available for any text value in left table and will help understand the data.<br /> Just place your mouse over any value in the blank chemical data.
+        The ACCEPT button will move the blank sample data to permanent storage and remove the sample from the validation steps.
+        <br />
+        The BAD button is for bad samples or samples without assocated normals. They will be saved in the data base and marked bad.
+        <br />
+        Updating the duplicate and or normal data will not cause any validation but will update the database so when you get to these samples<br /> in the vaidation steps, the edited values will be presented.
         <br />
         <br />
         <asp:Button ID="btnDone"  CssClass="adminButton" runat="server" OnClick="btnDone_Click" Text="Done" />
@@ -218,7 +224,8 @@
 
             <td>    <%-- start of middle column in major table for dups if they exist--%>
 
-                <asp:FormView ID="FormViewDuplicate" DefaultMode ="Edit" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSourceDups" BorderStyle="None" BorderWidth="0px">
+                <asp:FormView ID="FormViewDuplicate" DefaultMode ="Edit" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSourceDups" BorderStyle="None" 
+                    BorderWidth="0px" >
                     <EditItemTemplate>
                                                
                         <table id="topTable" class="headerTable"  runat="server">
@@ -359,7 +366,7 @@
                         <asp:TextBox ID="DATE_SENTTextBox" runat="server" Text='<%# Bind("DATE_SENT", "{0:d}") %>' />
                         <br />
                         Comments:
-                        <asp:TextBox ID="CommentsTextBox"  TextMode="MultiLine"  Width="80 px" runat="server" Text='<%# Bind("Comments") %>' />
+                        <asp:TextBox ID="CommentsTextBox"  TextMode="MultiLine"  runat="server" Text='<%# Bind("Comments") %>' />
                         <br />                      
 
                         SampleID:
