@@ -246,6 +246,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Validation\ValidateBlanks.aspx" />
     <Content Include="Validation\ValidateDups.aspx" />
+    <Content Include="Validation\ValidateField.aspx" />
     <Content Include="Validation\ValidateNormals.aspx" />
     <Content Include="Validation\Validation.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -597,6 +598,13 @@
     </Compile>
     <Compile Include="Validation\ValidateDups.aspx.designer.cs">
       <DependentUpon>ValidateDups.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\ValidateField.aspx.cs">
+      <DependentUpon>ValidateField.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateField.aspx.designer.cs">
+      <DependentUpon>ValidateField.aspx</DependentUpon>
     </Compile>
     <Compile Include="Validation\ValidateNormals.aspx.cs">
       <DependentUpon>ValidateNormals.aspx</DependentUpon>

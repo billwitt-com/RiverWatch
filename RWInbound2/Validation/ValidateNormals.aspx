@@ -6,11 +6,19 @@
     <asp:Panel ID="pnlHelp"  BackColor="WhiteSmoke" runat="server" BorderColor="Blue" BorderStyle="Solid" BorderWidth="1px">
         Validation for Normal Samples:
         <br />
-        Blank sample detail is in the left table - Associated normal sample is in right table<br /> Blank sample data can be edited as needed and the SWAP button will swap the two values as needed<br /> The normal sample data is NOT editable and is only for reference. You can edit it in later steps after the blanks
+        The normal sample data is editable and the edits will be written to the final data.
         <br />
         The data values are colored RED if they exceed the saved limits (see EDIT tab for changing limits)<br /> The background colors are changed to blue for any sample where the Disolved values are larger than the Total values<br /> by the limit saved in the data tables.
         <br />
-        A tooltip (flyover) is available for any text value in left table and will help understand the data.<br /> Just place your mouse over any value in the blank chemical data.
+        A tooltip (flyover) is available for any text value and will help you understand the data.<br /> Just place your mouse over any value in the blank chemical data.
+        <br />
+        The SWAP button will exchange the dissolved and total values.
+        <br />
+        The accept button will update the data base and remove this sample from the list of samples<br /> that need to be validated.
+        <br />
+        The BAD button will move this sample data to a data table of bad samples.
+        <br />
+        Once the accept or BAD buttons are pressed, you will not be able to edit or change this data.
         <br />
         <br />
         <asp:Button ID="btnDone"  CssClass="adminButton" runat="server" OnClick="btnDone_Click" Text="Done" />
@@ -24,7 +32,7 @@
     <table style=" align-items: center; vertical-align:top; ">
         <tr >
             <td >              
-                <asp:FormView ID="FormViewNormals" runat="server"  OnDataBound="FormViewNormals_DataBound" AllowPaging="true" DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSourceNormals"  >    
+                <asp:FormView ID="FormViewNormals" runat="server"  OnDataBound="FormViewNormals_DataBound" AllowPaging="true" DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSourceNormals"   >    
                      <EditItemTemplate>
 
                         <table id="topTable"  runat="server">
