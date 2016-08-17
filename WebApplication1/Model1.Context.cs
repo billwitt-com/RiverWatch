@@ -28,5 +28,9 @@ namespace WebApplication1
         public DbSet<ErrorLog> ErrorLogs { get; set; }
         public DbSet<InboundICPFinal> InboundICPFinals { get; set; }
         public DbSet<InboundICPOrigional> InboundICPOrigionals { get; set; }
+        public DbSet<InboundSample> InboundSamples { get; set; }
+        public DbSet<MetalBarCode> MetalBarCodes { get; set; }
+        public DbSet<NEWexpWater> NEWexpWaters { get; set; }
+        public DbSet<Sample> Samples { get; set; }
     }
 }

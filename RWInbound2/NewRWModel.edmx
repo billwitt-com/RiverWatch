@@ -195,13 +195,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tblSampleID" Type="int" />
           <Property Name="SampleNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Event" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="Event" Type="varchar" MaxLength="12" />
           <Property Name="WaterShed" Type="varchar" MaxLength="3" />
           <Property Name="River_CD" Type="decimal" Precision="14" Scale="4" />
           <Property Name="RiverName" Type="varchar" MaxLength="17" />
-          <Property Name="KitNumber" Type="int" Nullable="false" />
+          <Property Name="KitNumber" Type="int" />
           <Property Name="OrganizationName" Type="varchar" MaxLength="50" />
-          <Property Name="StationNumber" Type="int" />
+          <Property Name="StationID" Type="int" />
           <Property Name="TypeCode" Type="varchar" MaxLength="5" />
           <Property Name="StationName" Type="varchar" MaxLength="50" />
           <Property Name="MetalsBarCode" Type="varchar" MaxLength="20" />
@@ -261,12 +261,15 @@
           <Property Name="MetalsComment" Type="nvarchar(max)" />
           <Property Name="BugsComments" Type="nvarchar(max)" />
           <Property Name="BenthicsComments" Type="nvarchar(max)" />
-          <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
           <Property Name="BadBlank" Type="bit" />
           <Property Name="BadDuplicate" Type="bit" />
           <Property Name="BadSample" Type="bit" />
           <Property Name="Valid" Type="bit" Nullable="false" />
+          <Property Name="OrganizationID" Type="int" />
+          <Property Name="SampleComments" Type="nvarchar(max)" />
+          <Property Name="StationNumber" Type="int" />
         </EntityType>
         <EntityType Name="NutrientBarCode">
           <Key>
@@ -378,6 +381,34 @@ warning 6002: The table/view 'RiverWatch.dbo.Organization' does not have a prima
           <Property Name="UserLastModified" Type="nvarchar" MaxLength="25" />
           <Property Name="NumberOfMetalsBlank" Type="int" />
           <Property Name="NumberOfMetalsDuplicate" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.Project' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectDescription" Type="varchar" MaxLength="250" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+          <Property Name="StoretUploaded" Type="varchar" MaxLength="25" />
+          <Property Name="valid" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProjectStation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="StationNumber" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="Valid" Type="bit" />
         </EntityType>
         <EntityType Name="Samples">
           <Key>
@@ -524,22 +555,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblPhysHabPara' does not have a pri
           <Property Name="dsOrder" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch.dbo.tblProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="tblProject">
-          <Key>
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ProjectName" />
-          </Key>
-          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ProjectDescription" Type="varchar" MaxLength="250" />
-          <Property Name="DateCreated" Type="datetime" />
-          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
-          <Property Name="DateLastModified" Type="datetime" />
-          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
-          <Property Name="StoretUploaded" Type="varchar" MaxLength="25" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'RiverWatch.dbo.tblProjectStation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblProjectStation">
           <Key>
@@ -576,6 +591,131 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastActivity" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblWatercodes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblWatercodes">
+          <Key>
+            <PropertyRef Name="WATERCODE" />
+          </Key>
+          <Property Name="WATERCODE" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="WATERNAME" Type="varchar" MaxLength="30" />
+          <Property Name="STREAM" Type="bit" />
+          <Property Name="ACRESMILES" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="LOCATION" Type="varchar" MaxLength="31" />
+          <Property Name="DRAINAGE" Type="varchar" MaxLength="2" />
+          <Property Name="DRAINNAME" Type="varchar" MaxLength="25" />
+          <Property Name="HYDROCODE" Type="varchar" MaxLength="10" />
+          <Property Name="COUNTY" Type="varchar" MaxLength="3" />
+          <Property Name="REGION" Type="varchar" MaxLength="2" />
+          <Property Name="AWMAREA" Type="varchar" MaxLength="2" />
+          <Property Name="STKCODE" Type="varchar" MaxLength="4" />
+          <Property Name="BIOLOGIST" Type="varchar" MaxLength="8" />
+          <Property Name="AREABIO" Type="varchar" MaxLength="8" />
+          <Property Name="ADDLDATA" Type="varchar" MaxLength="16" />
+          <Property Name="MAPCOORDIN" Type="varchar" MaxLength="2" />
+          <Property Name="ATLASPAGE" Type="varchar" MaxLength="3" />
+          <Property Name="CATEGORY" Type="varchar" MaxLength="3" />
+          <Property Name="ELEVATION" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UT_ELEVATI" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="OWNERSHIP" Type="varchar" MaxLength="6" />
+          <Property Name="WILDERNESS" Type="bit" />
+          <Property Name="BLMMAP" Type="varchar" MaxLength="2" />
+          <Property Name="TOPOMAP" Type="varchar" MaxLength="4" />
+          <Property Name="OBSOLETE" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblWatershedGrp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblWatershedGrp">
+          <Key>
+            <PropertyRef Name="tvNODE" />
+          </Key>
+          <Property Name="tvNODE" Type="int" Nullable="false" />
+          <Property Name="tvPARENTNODE" Type="int" />
+          <Property Name="tvTEXT" Type="ntext" />
+          <Property Name="tvIMAGEURL" Type="nchar" MaxLength="50" />
+          <Property Name="tvDOCURL" Type="nchar" MaxLength="50" />
+          <Property Name="tvSORTORDER" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblWBKey' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblWBKey">
+          <Key>
+            <PropertyRef Name="WBID" />
+          </Key>
+          <Property Name="WBID" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="WATERSHED" Type="varchar" MaxLength="2" />
+          <Property Name="BASIN" Type="varchar" MaxLength="15" />
+          <Property Name="SUBBASIN" Type="varchar" MaxLength="20" />
+          <Property Name="REGION" Type="varchar" MaxLength="6" />
+          <Property Name="SEGMENT" Type="varchar" MaxLength="4" />
+          <Property Name="DESIG" Type="varchar" MaxLength="2" />
+          <Property Name="SegDesc" Type="varchar" MaxLength="1024" />
+          <Property Name="VerifyDate" Type="datetime" />
+          <Property Name="Comment" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkCounty' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkCounty">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkEcoRegion">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkGrid' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkGrid">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkHydroUnit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkHydroUnit">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tlkLimits">
           <Key>
             <PropertyRef Name="ID" />
@@ -590,6 +730,176 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="UserCreated" Type="nvarchar" MaxLength="200" />
           <Property Name="Valid" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkOrganizationType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkOrganizationType">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkQUADI' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkQUADI">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkQuarterSection' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkQuarterSection">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkRange' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkRange">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkregion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkregion">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+          <Property Name="Valid" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkRiverWatchWaterShed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkRiverWatchWaterShed">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkSection' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkSection">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="char" MaxLength="10" />
+          <Property Name="Valid" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkState' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkStationQUAD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkStationQUAD">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkStationStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkStationStatus">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="ActiveFlag" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+          <Property Name="ActiveFlag" Type="bit" Nullable="false" />
+          <Property Name="Valid" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkStationType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkStationType">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkTownship' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkTownship">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkWQCCWaterShed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkWQCCWaterShed">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkWSG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkWSG">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkWSR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tlkWSR">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
         <Function Name="UpdateLocalTablesFromIncomingICP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user" Type="varchar" Mode="In" />
         </Function>
@@ -603,6 +913,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <EntitySet Name="NEWexpWater" EntityType="Self.NEWexpWater" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NutrientBarCode" EntityType="Self.NutrientBarCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrgStatus" EntityType="Self.OrgStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectStation" EntityType="Self.ProjectStation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Samples" EntityType="Self.Samples" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkLimits" EntityType="Self.tlkLimits" Schema="dbo" store:Type="Tables" />
@@ -630,6 +941,19 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
     [Organization].[DateLastModified] AS [DateLastModified], 
     [Organization].[UserLastModified] AS [UserLastModified]
     FROM [dbo].[Organization] AS [Organization]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Project" EntityType="Self.Project" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Project].[ProjectID] AS [ProjectID], 
+    [Project].[ProjectName] AS [ProjectName], 
+    [Project].[ProjectDescription] AS [ProjectDescription], 
+    [Project].[DateCreated] AS [DateCreated], 
+    [Project].[UserCreated] AS [UserCreated], 
+    [Project].[DateLastModified] AS [DateLastModified], 
+    [Project].[UserLastModified] AS [UserLastModified], 
+    [Project].[StoretUploaded] AS [StoretUploaded], 
+    [Project].[valid] AS [valid]
+    FROM [dbo].[Project] AS [Project]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tblParticipant" EntityType="Self.tblParticipant" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -680,18 +1004,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
     [tblPhysHabPara].[dsOrder] AS [dsOrder]
     FROM [dbo].[tblPhysHabPara] AS [tblPhysHabPara]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="tblProject" EntityType="Self.tblProject" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblProject].[ProjectID] AS [ProjectID], 
-    [tblProject].[ProjectName] AS [ProjectName], 
-    [tblProject].[ProjectDescription] AS [ProjectDescription], 
-    [tblProject].[DateCreated] AS [DateCreated], 
-    [tblProject].[UserCreated] AS [UserCreated], 
-    [tblProject].[DateLastModified] AS [DateLastModified], 
-    [tblProject].[UserLastModified] AS [UserLastModified], 
-    [tblProject].[StoretUploaded] AS [StoretUploaded]
-    FROM [dbo].[tblProject] AS [tblProject]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="tblProjectStation" EntityType="Self.tblProjectStation" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tblProjectStation].[ProjectStationID] AS [ProjectStationID], 
@@ -718,6 +1030,227 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
     [tblRegistration].[UserLastModified] AS [UserLastModified]
     FROM [dbo].[tblRegistration] AS [tblRegistration]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblUser].[UserID] AS [UserID], 
+    [tblUser].[UserName] AS [UserName], 
+    [tblUser].[Password] AS [Password], 
+    [tblUser].[Email] AS [Email], 
+    [tblUser].[FirstName] AS [FirstName], 
+    [tblUser].[LastName] AS [LastName], 
+    [tblUser].[Role] AS [Role], 
+    [tblUser].[DateLastActivity] AS [DateLastActivity]
+    FROM [dbo].[tblUser] AS [tblUser]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblWatercodes" EntityType="Self.tblWatercodes" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblWatercodes].[WATERCODE] AS [WATERCODE], 
+    [tblWatercodes].[WATERNAME] AS [WATERNAME], 
+    [tblWatercodes].[STREAM] AS [STREAM], 
+    [tblWatercodes].[ACRESMILES] AS [ACRESMILES], 
+    [tblWatercodes].[LOCATION] AS [LOCATION], 
+    [tblWatercodes].[DRAINAGE] AS [DRAINAGE], 
+    [tblWatercodes].[DRAINNAME] AS [DRAINNAME], 
+    [tblWatercodes].[HYDROCODE] AS [HYDROCODE], 
+    [tblWatercodes].[COUNTY] AS [COUNTY], 
+    [tblWatercodes].[REGION] AS [REGION], 
+    [tblWatercodes].[AWMAREA] AS [AWMAREA], 
+    [tblWatercodes].[STKCODE] AS [STKCODE], 
+    [tblWatercodes].[BIOLOGIST] AS [BIOLOGIST], 
+    [tblWatercodes].[AREABIO] AS [AREABIO], 
+    [tblWatercodes].[ADDLDATA] AS [ADDLDATA], 
+    [tblWatercodes].[MAPCOORDIN] AS [MAPCOORDIN], 
+    [tblWatercodes].[ATLASPAGE] AS [ATLASPAGE], 
+    [tblWatercodes].[CATEGORY] AS [CATEGORY], 
+    [tblWatercodes].[ELEVATION] AS [ELEVATION], 
+    [tblWatercodes].[UT_ELEVATI] AS [UT_ELEVATI], 
+    [tblWatercodes].[OWNERSHIP] AS [OWNERSHIP], 
+    [tblWatercodes].[WILDERNESS] AS [WILDERNESS], 
+    [tblWatercodes].[BLMMAP] AS [BLMMAP], 
+    [tblWatercodes].[TOPOMAP] AS [TOPOMAP], 
+    [tblWatercodes].[OBSOLETE] AS [OBSOLETE]
+    FROM [dbo].[tblWatercodes] AS [tblWatercodes]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblWatershedGrp" EntityType="Self.tblWatershedGrp" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblWatershedGrp].[tvNODE] AS [tvNODE], 
+    [tblWatershedGrp].[tvPARENTNODE] AS [tvPARENTNODE], 
+    [tblWatershedGrp].[tvTEXT] AS [tvTEXT], 
+    [tblWatershedGrp].[tvIMAGEURL] AS [tvIMAGEURL], 
+    [tblWatershedGrp].[tvDOCURL] AS [tvDOCURL], 
+    [tblWatershedGrp].[tvSORTORDER] AS [tvSORTORDER]
+    FROM [dbo].[tblWatershedGrp] AS [tblWatershedGrp]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblWBKey" EntityType="Self.tblWBKey" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblWBKey].[WBID] AS [WBID], 
+    [tblWBKey].[WATERSHED] AS [WATERSHED], 
+    [tblWBKey].[BASIN] AS [BASIN], 
+    [tblWBKey].[SUBBASIN] AS [SUBBASIN], 
+    [tblWBKey].[REGION] AS [REGION], 
+    [tblWBKey].[SEGMENT] AS [SEGMENT], 
+    [tblWBKey].[DESIG] AS [DESIG], 
+    [tblWBKey].[SegDesc] AS [SegDesc], 
+    [tblWBKey].[VerifyDate] AS [VerifyDate], 
+    [tblWBKey].[Comment] AS [Comment]
+    FROM [dbo].[tblWBKey] AS [tblWBKey]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkCounty" EntityType="Self.tlkCounty" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkCounty].[Code] AS [Code], 
+    [tlkCounty].[Description] AS [Description], 
+    [tlkCounty].[DateLastModified] AS [DateLastModified], 
+    [tlkCounty].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkCounty] AS [tlkCounty]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkEcoRegion" EntityType="Self.tlkEcoRegion" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkEcoRegion].[Code] AS [Code], 
+    [tlkEcoRegion].[Description] AS [Description], 
+    [tlkEcoRegion].[DateLastModified] AS [DateLastModified], 
+    [tlkEcoRegion].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkEcoRegion] AS [tlkEcoRegion]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkGrid" EntityType="Self.tlkGrid" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkGrid].[Code] AS [Code], 
+    [tlkGrid].[Description] AS [Description], 
+    [tlkGrid].[DateLastModified] AS [DateLastModified], 
+    [tlkGrid].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkGrid] AS [tlkGrid]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkHydroUnit" EntityType="Self.tlkHydroUnit" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkHydroUnit].[Code] AS [Code], 
+    [tlkHydroUnit].[Description] AS [Description], 
+    [tlkHydroUnit].[DateLastModified] AS [DateLastModified], 
+    [tlkHydroUnit].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkHydroUnit] AS [tlkHydroUnit]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkOrganizationType" EntityType="Self.tlkOrganizationType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkOrganizationType].[Code] AS [Code], 
+    [tlkOrganizationType].[Description] AS [Description], 
+    [tlkOrganizationType].[DateLastModified] AS [DateLastModified], 
+    [tlkOrganizationType].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkOrganizationType] AS [tlkOrganizationType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkQUADI" EntityType="Self.tlkQUADI" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkQUADI].[Code] AS [Code], 
+    [tlkQUADI].[Description] AS [Description], 
+    [tlkQUADI].[DateLastModified] AS [DateLastModified], 
+    [tlkQUADI].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkQUADI] AS [tlkQUADI]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkQuarterSection" EntityType="Self.tlkQuarterSection" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkQuarterSection].[Code] AS [Code], 
+    [tlkQuarterSection].[Description] AS [Description], 
+    [tlkQuarterSection].[DateLastModified] AS [DateLastModified], 
+    [tlkQuarterSection].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkQuarterSection] AS [tlkQuarterSection]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkRange" EntityType="Self.tlkRange" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkRange].[Code] AS [Code], 
+    [tlkRange].[Description] AS [Description], 
+    [tlkRange].[DateLastModified] AS [DateLastModified], 
+    [tlkRange].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkRange] AS [tlkRange]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkregion" EntityType="Self.tlkregion" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkregion].[Code] AS [Code], 
+    [tlkregion].[Description] AS [Description], 
+    [tlkregion].[DateLastModified] AS [DateLastModified], 
+    [tlkregion].[UserLastModified] AS [UserLastModified], 
+    [tlkregion].[Valid] AS [Valid]
+    FROM [dbo].[tlkregion] AS [tlkregion]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkRiverWatchWaterShed" EntityType="Self.tlkRiverWatchWaterShed" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkRiverWatchWaterShed].[Code] AS [Code], 
+    [tlkRiverWatchWaterShed].[Description] AS [Description], 
+    [tlkRiverWatchWaterShed].[DateLastModified] AS [DateLastModified], 
+    [tlkRiverWatchWaterShed].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkRiverWatchWaterShed] AS [tlkRiverWatchWaterShed]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkSection" EntityType="Self.tlkSection" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkSection].[Code] AS [Code], 
+    [tlkSection].[Description] AS [Description], 
+    [tlkSection].[DateLastModified] AS [DateLastModified], 
+    [tlkSection].[UserLastModified] AS [UserLastModified], 
+    [tlkSection].[Valid] AS [Valid]
+    FROM [dbo].[tlkSection] AS [tlkSection]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkState" EntityType="Self.tlkState" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkState].[Code] AS [Code], 
+    [tlkState].[Description] AS [Description], 
+    [tlkState].[DateLastModified] AS [DateLastModified], 
+    [tlkState].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkState] AS [tlkState]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkStationQUAD" EntityType="Self.tlkStationQUAD" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkStationQUAD].[Code] AS [Code], 
+    [tlkStationQUAD].[Description] AS [Description], 
+    [tlkStationQUAD].[DateLastModified] AS [DateLastModified], 
+    [tlkStationQUAD].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkStationQUAD] AS [tlkStationQUAD]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkStationStatus" EntityType="Self.tlkStationStatus" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkStationStatus].[Code] AS [Code], 
+    [tlkStationStatus].[Description] AS [Description], 
+    [tlkStationStatus].[DateLastModified] AS [DateLastModified], 
+    [tlkStationStatus].[UserLastModified] AS [UserLastModified], 
+    [tlkStationStatus].[ActiveFlag] AS [ActiveFlag], 
+    [tlkStationStatus].[Valid] AS [Valid]
+    FROM [dbo].[tlkStationStatus] AS [tlkStationStatus]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkStationType" EntityType="Self.tlkStationType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkStationType].[Code] AS [Code], 
+    [tlkStationType].[Description] AS [Description], 
+    [tlkStationType].[DateLastModified] AS [DateLastModified], 
+    [tlkStationType].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkStationType] AS [tlkStationType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkTownship" EntityType="Self.tlkTownship" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkTownship].[Code] AS [Code], 
+    [tlkTownship].[Description] AS [Description], 
+    [tlkTownship].[DateLastModified] AS [DateLastModified], 
+    [tlkTownship].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkTownship] AS [tlkTownship]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkWQCCWaterShed" EntityType="Self.tlkWQCCWaterShed" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkWQCCWaterShed].[Code] AS [Code], 
+    [tlkWQCCWaterShed].[Description] AS [Description], 
+    [tlkWQCCWaterShed].[DateLastModified] AS [DateLastModified], 
+    [tlkWQCCWaterShed].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkWQCCWaterShed] AS [tlkWQCCWaterShed]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkWSG" EntityType="Self.tlkWSG" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkWSG].[Code] AS [Code], 
+    [tlkWSG].[Description] AS [Description], 
+    [tlkWSG].[DateLastModified] AS [DateLastModified], 
+    [tlkWSG].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkWSG] AS [tlkWSG]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkWSR" EntityType="Self.tlkWSR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkWSR].[Code] AS [Code], 
+    [tlkWSR].[Description] AS [Description], 
+    [tlkWSR].[DateLastModified] AS [DateLastModified], 
+    [tlkWSR].[UserLastModified] AS [UserLastModified]
+    FROM [dbo].[tlkWSR] AS [tlkWSR]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -738,7 +1271,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <EntitySet Name="tblParticipants" EntityType="RiverwatchModel.tblParticipant" />
           <EntitySet Name="tblPartInfoes" EntityType="RiverwatchModel.tblPartInfo" />
           <EntitySet Name="tblPhysHabParas" EntityType="RiverwatchModel.tblPhysHabPara" />
-          <EntitySet Name="tblProjects" EntityType="RiverwatchModel.tblProject" />
           <EntitySet Name="tblProjectStations" EntityType="RiverwatchModel.tblProjectStation" />
           <EntitySet Name="tblRegistrations" EntityType="RiverwatchModel.tblRegistration" />
           <EntitySet Name="tlkLimits" EntityType="RiverwatchModel.tlkLimit" />
@@ -746,6 +1278,31 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <EntitySet Name="NutrientBarCodes" EntityType="RiverwatchModel.NutrientBarCode" />
           <EntitySet Name="Samples" EntityType="RiverwatchModel.Sample" />
           <EntitySet Name="InboundSamples" EntityType="RiverwatchModel.InboundSample" />
+          <EntitySet Name="ProjectStations" EntityType="RiverwatchModel.ProjectStation" />
+          <EntitySet Name="Projects" EntityType="RiverwatchModel.Project" />
+          <EntitySet Name="tblUsers" EntityType="RiverwatchModel.tblUser" />
+          <EntitySet Name="tblWatercodes" EntityType="RiverwatchModel.tblWatercode" />
+          <EntitySet Name="tblWatershedGrps" EntityType="RiverwatchModel.tblWatershedGrp" />
+          <EntitySet Name="tlkHydroUnits" EntityType="RiverwatchModel.tlkHydroUnit" />
+          <EntitySet Name="tlkOrganizationTypes" EntityType="RiverwatchModel.tlkOrganizationType" />
+          <EntitySet Name="tlkQUADIs" EntityType="RiverwatchModel.tlkQUADI" />
+          <EntitySet Name="tlkRiverWatchWaterSheds" EntityType="RiverwatchModel.tlkRiverWatchWaterShed" />
+          <EntitySet Name="tlkStationQUADs" EntityType="RiverwatchModel.tlkStationQUAD" />
+          <EntitySet Name="tlkStationTypes" EntityType="RiverwatchModel.tlkStationType" />
+          <EntitySet Name="tlkTownships" EntityType="RiverwatchModel.tlkTownship" />
+          <EntitySet Name="tlkWQCCWaterSheds" EntityType="RiverwatchModel.tlkWQCCWaterShed" />
+          <EntitySet Name="tlkStates" EntityType="RiverwatchModel.tlkState" />
+          <EntitySet Name="tlkStationStatus" EntityType="RiverwatchModel.tlkStationStatu" />
+          <EntitySet Name="tlkWSGs" EntityType="RiverwatchModel.tlkWSG" />
+          <EntitySet Name="tlkWSRs" EntityType="RiverwatchModel.tlkWSR" />
+          <EntitySet Name="tblWBKeys" EntityType="RiverwatchModel.tblWBKey" />
+          <EntitySet Name="tlkCounties" EntityType="RiverwatchModel.tlkCounty" />
+          <EntitySet Name="tlkEcoRegions" EntityType="RiverwatchModel.tlkEcoRegion" />
+          <EntitySet Name="tlkGrids" EntityType="RiverwatchModel.tlkGrid" />
+          <EntitySet Name="tlkQuarterSections" EntityType="RiverwatchModel.tlkQuarterSection" />
+          <EntitySet Name="tlkRanges" EntityType="RiverwatchModel.tlkRange" />
+          <EntitySet Name="tlkSections" EntityType="RiverwatchModel.tlkSection" />
+          <EntitySet Name="tlkregions" EntityType="RiverwatchModel.tlkregion" />
         </EntityContainer>
         <EntityType Name="GearConfig">
           <Key>
@@ -855,11 +1412,11 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tblSampleID" Type="Int32" />
           <Property Name="SampleNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Event" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Event" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="WaterShed" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="River_CD" Type="Decimal" Precision="14" Scale="4" />
           <Property Name="RiverName" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
-          <Property Name="KitNumber" Type="Int32" Nullable="false" />
+          <Property Name="KitNumber" Type="Int32" />
           <Property Name="OrganizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StationNumber" Type="Int32" />
           <Property Name="TypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
@@ -921,12 +1478,15 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="MetalsComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BugsComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BenthicsComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="BadBlank" Type="Boolean" />
           <Property Name="BadDuplicate" Type="Boolean" />
           <Property Name="BadSample" Type="Boolean" />
           <Property Name="Valid" Type="Boolean" Nullable="false" />
+          <Property Name="StationID" Type="Int32" />
+          <Property Name="OrganizationID" Type="Int32" />
+          <Property Name="SampleComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ErrorLog">
           <Key>
@@ -1116,20 +1676,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="dsOrder" Type="Int32" />
         </EntityType>
-        <EntityType Name="tblProject">
-          <Key>
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ProjectName" />
-          </Key>
-          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="tblProjectStation">
           <Key>
             <PropertyRef Name="ProjectStationID" />
@@ -1318,6 +1864,281 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <Property Name="PassValStep" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="tblSampleID" Type="Int32" />
         </EntityType>
+        <EntityType Name="ProjectStation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="StationNumber" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastActivity" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblWatercode">
+          <Key>
+            <PropertyRef Name="WATERCODE" />
+          </Key>
+          <Property Name="WATERCODE" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="WATERNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="STREAM" Type="Boolean" />
+          <Property Name="ACRESMILES" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="LOCATION" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="DRAINAGE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="DRAINNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="HYDROCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="COUNTY" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="REGION" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="AWMAREA" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="STKCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="BIOLOGIST" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="AREABIO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="ADDLDATA" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="MAPCOORDIN" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ATLASPAGE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CATEGORY" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ELEVATION" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UT_ELEVATI" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="OWNERSHIP" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="WILDERNESS" Type="Boolean" />
+          <Property Name="BLMMAP" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="TOPOMAP" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="OBSOLETE" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblWatershedGrp">
+          <Key>
+            <PropertyRef Name="tvNODE" />
+          </Key>
+          <Property Name="tvNODE" Type="Int32" Nullable="false" />
+          <Property Name="tvPARENTNODE" Type="Int32" />
+          <Property Name="tvTEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tvIMAGEURL" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="tvDOCURL" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="tvSORTORDER" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tlkHydroUnit">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkOrganizationType">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkQUADI">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkRiverWatchWaterShed">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkStationQUAD">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkStationType">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkTownship">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkWQCCWaterShed">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkStationStatu">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="ActiveFlag" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ActiveFlag" Type="Boolean" Nullable="false" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tlkWSG">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkWSR">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblWBKey">
+          <Key>
+            <PropertyRef Name="WBID" />
+          </Key>
+          <Property Name="WBID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="WATERSHED" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="BASIN" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SUBBASIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="REGION" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="SEGMENT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DESIG" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="SegDesc" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="VerifyDate" Type="DateTime" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkCounty">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkEcoRegion">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkGrid">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkQuarterSection">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkRange">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkSection">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tlkregion">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1431,6 +2252,9 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
           <EntitySetMapping Name="NEWexpWaters">
             <EntityTypeMapping TypeName="RiverwatchModel.NEWexpWater">
               <MappingFragment StoreEntitySet="NEWexpWater">
+                <ScalarProperty Name="SampleComments" ColumnName="SampleComments" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
                 <ScalarProperty Name="Valid" ColumnName="Valid" />
                 <ScalarProperty Name="BadSample" ColumnName="BadSample" />
                 <ScalarProperty Name="BadDuplicate" ColumnName="BadDuplicate" />
@@ -1701,20 +2525,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblProjects">
-            <EntityTypeMapping TypeName="RiverwatchModel.tblProject">
-              <MappingFragment StoreEntitySet="tblProject">
-                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblProjectStations">
             <EntityTypeMapping TypeName="RiverwatchModel.tblProjectStation">
               <MappingFragment StoreEntitySet="tblProjectStation">
@@ -1899,6 +2709,300 @@ warning 6002: The table/view 'RiverWatch.dbo.tblRegistration' does not have a pr
                 <ScalarProperty Name="SampleID" ColumnName="SampleID" />
                 <ScalarProperty Name="StationNum" ColumnName="StationNum" />
                 <ScalarProperty Name="inbSampleID" ColumnName="inbSampleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectStations">
+            <EntityTypeMapping TypeName="RiverwatchModel.ProjectStation">
+              <MappingFragment StoreEntitySet="ProjectStation">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="RiverwatchModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="DateLastActivity" ColumnName="DateLastActivity" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWatercodes">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblWatercode">
+              <MappingFragment StoreEntitySet="tblWatercodes">
+                <ScalarProperty Name="OBSOLETE" ColumnName="OBSOLETE" />
+                <ScalarProperty Name="TOPOMAP" ColumnName="TOPOMAP" />
+                <ScalarProperty Name="BLMMAP" ColumnName="BLMMAP" />
+                <ScalarProperty Name="WILDERNESS" ColumnName="WILDERNESS" />
+                <ScalarProperty Name="OWNERSHIP" ColumnName="OWNERSHIP" />
+                <ScalarProperty Name="UT_ELEVATI" ColumnName="UT_ELEVATI" />
+                <ScalarProperty Name="ELEVATION" ColumnName="ELEVATION" />
+                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+                <ScalarProperty Name="ATLASPAGE" ColumnName="ATLASPAGE" />
+                <ScalarProperty Name="MAPCOORDIN" ColumnName="MAPCOORDIN" />
+                <ScalarProperty Name="ADDLDATA" ColumnName="ADDLDATA" />
+                <ScalarProperty Name="AREABIO" ColumnName="AREABIO" />
+                <ScalarProperty Name="BIOLOGIST" ColumnName="BIOLOGIST" />
+                <ScalarProperty Name="STKCODE" ColumnName="STKCODE" />
+                <ScalarProperty Name="AWMAREA" ColumnName="AWMAREA" />
+                <ScalarProperty Name="REGION" ColumnName="REGION" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="HYDROCODE" ColumnName="HYDROCODE" />
+                <ScalarProperty Name="DRAINNAME" ColumnName="DRAINNAME" />
+                <ScalarProperty Name="DRAINAGE" ColumnName="DRAINAGE" />
+                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+                <ScalarProperty Name="ACRESMILES" ColumnName="ACRESMILES" />
+                <ScalarProperty Name="STREAM" ColumnName="STREAM" />
+                <ScalarProperty Name="WATERNAME" ColumnName="WATERNAME" />
+                <ScalarProperty Name="WATERCODE" ColumnName="WATERCODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWatershedGrps">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblWatershedGrp">
+              <MappingFragment StoreEntitySet="tblWatershedGrp">
+                <ScalarProperty Name="tvSORTORDER" ColumnName="tvSORTORDER" />
+                <ScalarProperty Name="tvDOCURL" ColumnName="tvDOCURL" />
+                <ScalarProperty Name="tvIMAGEURL" ColumnName="tvIMAGEURL" />
+                <ScalarProperty Name="tvTEXT" ColumnName="tvTEXT" />
+                <ScalarProperty Name="tvPARENTNODE" ColumnName="tvPARENTNODE" />
+                <ScalarProperty Name="tvNODE" ColumnName="tvNODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkHydroUnits">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkHydroUnit">
+              <MappingFragment StoreEntitySet="tlkHydroUnit">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkOrganizationTypes">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkOrganizationType">
+              <MappingFragment StoreEntitySet="tlkOrganizationType">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkQUADIs">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkQUADI">
+              <MappingFragment StoreEntitySet="tlkQUADI">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkRiverWatchWaterSheds">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkRiverWatchWaterShed">
+              <MappingFragment StoreEntitySet="tlkRiverWatchWaterShed">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkStationQUADs">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkStationQUAD">
+              <MappingFragment StoreEntitySet="tlkStationQUAD">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkStationTypes">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkStationType">
+              <MappingFragment StoreEntitySet="tlkStationType">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkTownships">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkTownship">
+              <MappingFragment StoreEntitySet="tlkTownship">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkWQCCWaterSheds">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkWQCCWaterShed">
+              <MappingFragment StoreEntitySet="tlkWQCCWaterShed">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkStates">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkState">
+              <MappingFragment StoreEntitySet="tlkState">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkStationStatus">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkStationStatu">
+              <MappingFragment StoreEntitySet="tlkStationStatus">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="ActiveFlag" ColumnName="ActiveFlag" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkWSGs">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkWSG">
+              <MappingFragment StoreEntitySet="tlkWSG">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkWSRs">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkWSR">
+              <MappingFragment StoreEntitySet="tlkWSR">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWBKeys">
+            <EntityTypeMapping TypeName="RiverwatchModel.tblWBKey">
+              <MappingFragment StoreEntitySet="tblWBKey">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="VerifyDate" ColumnName="VerifyDate" />
+                <ScalarProperty Name="SegDesc" ColumnName="SegDesc" />
+                <ScalarProperty Name="DESIG" ColumnName="DESIG" />
+                <ScalarProperty Name="SEGMENT" ColumnName="SEGMENT" />
+                <ScalarProperty Name="REGION" ColumnName="REGION" />
+                <ScalarProperty Name="SUBBASIN" ColumnName="SUBBASIN" />
+                <ScalarProperty Name="BASIN" ColumnName="BASIN" />
+                <ScalarProperty Name="WATERSHED" ColumnName="WATERSHED" />
+                <ScalarProperty Name="WBID" ColumnName="WBID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkCounties">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkCounty">
+              <MappingFragment StoreEntitySet="tlkCounty">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkEcoRegions">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkEcoRegion">
+              <MappingFragment StoreEntitySet="tlkEcoRegion">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkGrids">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkGrid">
+              <MappingFragment StoreEntitySet="tlkGrid">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkQuarterSections">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkQuarterSection">
+              <MappingFragment StoreEntitySet="tlkQuarterSection">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkRanges">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkRange">
+              <MappingFragment StoreEntitySet="tlkRange">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkSections">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkSection">
+              <MappingFragment StoreEntitySet="tlkSection">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkregions">
+            <EntityTypeMapping TypeName="RiverwatchModel.tlkregion">
+              <MappingFragment StoreEntitySet="tlkregion">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

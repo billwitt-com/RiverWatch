@@ -12,15 +12,13 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tblUser
+    public partial class ProjectStation
     {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Role { get; set; }
-        public Nullable<System.DateTime> DateLastActivity { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> ProjectID { get; set; }
+        public Nullable<int> StationNumber { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public string UserCreated { get; set; }
+        public Nullable<bool> Valid { get; set; }
     }
 }

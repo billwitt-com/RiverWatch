@@ -57,9 +57,9 @@
                     <nav class="RW-nav">
                         <ul class="RW-hmenu">
                             <li>
-                                <asp:HyperLink ID="Home"  runat="server">Home</asp:HyperLink>
+                               <%-- <asp:HyperLink ID="Home"  runat="server">Home</asp:HyperLink>--%>
 
-                              <%--  <a  ID = "Home" href="<%= ResolveUrl("~/index.aspx") %>">Home</a>--%>
+                                <a   ID = "Home" href="<%= ResolveUrl("~/index.aspx") %>">Home</a>
                             </li>
                             <li>
                                 <a ID = "Samples" href="<%= ResolveUrl("~/samples/newsamples1.aspx") %>">Samples</a>
@@ -67,7 +67,7 @@
                             <li>
                                 <a  ID = "Val" href="<%= ResolveUrl("~/Validation/Validation.aspx") %>">Validate</a>
                             </li>
-                            <li>
+                            <li id="dataLink" hidden="hidden">
                                 <a href="<%= ResolveUrl("~/data/data.aspx") %>">Data</a>
                             </li>
                             <li>

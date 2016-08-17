@@ -38,7 +38,6 @@ namespace RWInbound2
         public virtual DbSet<tblParticipant> tblParticipants { get; set; }
         public virtual DbSet<tblPartInfo> tblPartInfoes { get; set; }
         public virtual DbSet<tblPhysHabPara> tblPhysHabParas { get; set; }
-        public virtual DbSet<tblProject> tblProjects { get; set; }
         public virtual DbSet<tblProjectStation> tblProjectStations { get; set; }
         public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
         public virtual DbSet<tlkLimit> tlkLimits { get; set; }
@@ -46,6 +45,31 @@ namespace RWInbound2
         public virtual DbSet<NutrientBarCode> NutrientBarCodes { get; set; }
         public virtual DbSet<Sample> Samples { get; set; }
         public virtual DbSet<InboundSample> InboundSamples { get; set; }
+        public virtual DbSet<ProjectStation> ProjectStations { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblWatercode> tblWatercodes { get; set; }
+        public virtual DbSet<tblWatershedGrp> tblWatershedGrps { get; set; }
+        public virtual DbSet<tlkHydroUnit> tlkHydroUnits { get; set; }
+        public virtual DbSet<tlkOrganizationType> tlkOrganizationTypes { get; set; }
+        public virtual DbSet<tlkQUADI> tlkQUADIs { get; set; }
+        public virtual DbSet<tlkRiverWatchWaterShed> tlkRiverWatchWaterSheds { get; set; }
+        public virtual DbSet<tlkStationQUAD> tlkStationQUADs { get; set; }
+        public virtual DbSet<tlkStationType> tlkStationTypes { get; set; }
+        public virtual DbSet<tlkTownship> tlkTownships { get; set; }
+        public virtual DbSet<tlkWQCCWaterShed> tlkWQCCWaterSheds { get; set; }
+        public virtual DbSet<tlkState> tlkStates { get; set; }
+        public virtual DbSet<tlkStationStatu> tlkStationStatus { get; set; }
+        public virtual DbSet<tlkWSG> tlkWSGs { get; set; }
+        public virtual DbSet<tlkWSR> tlkWSRs { get; set; }
+        public virtual DbSet<tblWBKey> tblWBKeys { get; set; }
+        public virtual DbSet<tlkCounty> tlkCounties { get; set; }
+        public virtual DbSet<tlkEcoRegion> tlkEcoRegions { get; set; }
+        public virtual DbSet<tlkGrid> tlkGrids { get; set; }
+        public virtual DbSet<tlkQuarterSection> tlkQuarterSections { get; set; }
+        public virtual DbSet<tlkRange> tlkRanges { get; set; }
+        public virtual DbSet<tlkSection> tlkSections { get; set; }
+        public virtual DbSet<tlkregion> tlkregions { get; set; }
     
         public virtual int UpdateLocalTablesFromIncomingICP(string user)
         {

@@ -163,9 +163,11 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Data\Data.aspx" />
     <Content Include="Data\FieldData.aspx" />
+    <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
+    <Content Include="Edit\EditStationType.aspx" />
     <Content Include="Edit\GearConfig.aspx" />
     <Content Include="Edit\GearConfigNewRow.aspx" />
     <Content Include="Images\Colorado_River_Rocky_Mountains crop 877x135.jpg" />
@@ -228,6 +230,7 @@
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Admin\Web.config" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="Samples\FormViewOrgStatus.aspx" />
     <Content Include="Samples\NewSamples.aspx" />
@@ -339,6 +342,13 @@
     <Compile Include="Data\FieldData.aspx.designer.cs">
       <DependentUpon>FieldData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Data\UploadLatchet.aspx.cs">
+      <DependentUpon>UploadLatchet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Data\UploadLatchet.aspx.designer.cs">
+      <DependentUpon>UploadLatchet.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -359,6 +369,13 @@
     </Compile>
     <Compile Include="Edit\EditOrgFormView.aspx.designer.cs">
       <DependentUpon>EditOrgFormView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditStationType.aspx.cs">
+      <DependentUpon>EditStationType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditStationType.aspx.designer.cs">
+      <DependentUpon>EditStationType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\GearConfig.aspx.cs">
       <DependentUpon>GearConfig.aspx</DependentUpon>
@@ -459,6 +476,12 @@
     <Compile Include="OrgStatu.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Project.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectStation.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -489,6 +512,9 @@
     </Compile>
     <Compile Include="Samples\NewSamples1.aspx.designer.cs">
       <DependentUpon>NewSamples1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="tblWBKey.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TimedOut.aspx.cs">
       <DependentUpon>TimedOut.aspx</DependentUpon>
@@ -534,9 +560,6 @@
     <Compile Include="tblPhysHabPara.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblProject.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="tblProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -553,16 +576,28 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="tblUser.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblVolunteer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="tblWatercode.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblWatershedGrp.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkCounty.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkEcoRegion.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkGrid.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkHydroUnit.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tlkLimit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -585,6 +620,51 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
     <Compile Include="LogErrror.cs" />
+    <Compile Include="tlkOrganizationType.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkQUADI.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkQuarterSection.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkRange.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkregion.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkRiverWatchWaterShed.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkSection.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkState.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkStationQUAD.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkStationStatu.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkStationType.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkTownship.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkWQCCWaterShed.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkWSG.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkWSR.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Validation\ValidateBlanks.aspx.cs">
       <DependentUpon>ValidateBlanks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

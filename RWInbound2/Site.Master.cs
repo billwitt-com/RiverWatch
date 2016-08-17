@@ -81,7 +81,7 @@ namespace RWInbound2
             //HL.ResolveUrl("~/index.aspx");
             //HL.NavigateUrl = "~/index.aspx";    // set link in code!
          
-            //Label1.Text = homeMenu;
+            //Label1.Text = homeMenu;6
 
         }
     }

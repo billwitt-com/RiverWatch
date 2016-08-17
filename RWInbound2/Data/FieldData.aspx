@@ -27,7 +27,7 @@
              </Table>
             
             
-            <Table >
+            <Table style="height: 55px" >
             <tr>
                 <td style="width: 209px;">Date Collected:
                     <asp:TextBox ID="tbDateCollected" runat="server" Height="20px"></asp:TextBox>
@@ -61,7 +61,15 @@
         EnableCaching="false"
         CompletionSetCount="10">
     </ajaxToolkit:AutoCompleteExtender>
+    <asp:Label ID="lblErrorMsg" runat="server" Visible="false" Text=""></asp:Label>
+    <asp:Panel ID="pnlExisting" BackColor="PeachPuff" runat="server">
+        <asp:Label ID="lblWarnExisting" runat="server" ></asp:Label>
 
+        <br />
+
+        <asp:Button ID="btnUseExisting" OnClick="btnUseExisting_Click" runat="server" Text="Update Existing Record" />
+        <asp:Button ID="btnCreateNew" OnClick="btnCreateNew_Click" runat="server" Text="Create New Record" />
+    </asp:Panel>
     <asp:Panel ID="Panel1" runat="server" >
         <table style="width: 100%">
             <tr>
@@ -355,6 +363,258 @@
                 &nbsp;
                 <%--            <asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
             </InsertItemTemplate>
+
+<%--            added new update item template using copy and paste from insert template--%>
+
+             <EditItemTemplate>
+<%--                 StationNum:
+            <asp:TextBox ID="StationNumTextBox" runat="server" Text='<%# Bind("StationNum") %>' />
+            <br />
+            SampleID:
+            <asp:TextBox ID="SampleIDTextBox" runat="server" Text='<%# Bind("SampleID") %>' />
+            <br />
+            txtSampleID:
+            <asp:TextBox ID="txtSampleIDTextBox" runat="server" Text='<%# Bind("txtSampleID") %>' />
+            <br />
+            KitNum:
+            <asp:TextBox ID="KitNumTextBox" runat="server" Text='<%# Bind("KitNum") %>' />
+            <br />--%>
+
+                <table>
+<%--                    <tr>
+                        <td>Sample Date:
+                        </td>
+                        <td>
+                            <asp:TextBox ID="DateTextBox" runat="server" Text='<%# Bind("Date") %>' />
+                         </td>
+                    </tr>
+
+                    <tr>
+                        <td>Sample Time (24 Hr HH:MM):
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TimeTextBox" runat="server" Text='<%# Bind("Time") %>' />
+                           </td>
+                    </tr>--%>
+
+                    <tr>
+                        <td>USGSFlow (CFSecond):               
+
+                        </td>
+                        <td>
+                            <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow") %>' />
+                    </tr>
+                    <tr>
+                        <td>Temp (In CENTEGRADE):
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TempCTextBox" runat="server" Text='<%# Bind("TempC") %>' />
+                            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="TempCTextBox" MaximumValue="25" MinimumValue="-10"
+                                ErrorMessage="CELCIUS - Must be between -10 and 25" Display="Dynamic" Type="Double"
+                                ForeColor="Red" SetFocusOnError="true"></asp:RangeValidator>
+                        </td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>PH:
+                        </td>
+                        <td>
+                            <asp:TextBox ID="PHTextBox" runat="server" Text='<%# Bind("PH") %>' />
+                            <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="PHTextBox" MaximumValue="14" MinimumValue="0"
+                                ErrorMessage="Must be between 0 and 14" Display="Dynamic" Type="Double"
+                                ForeColor="Red" SetFocusOnError="true"></asp:RangeValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Alkalinity mg/L:
+                        </td>
+                        <td>Phenol = 
+            <asp:TextBox ID="PhenAlkTextBox" runat="server" Text='<%# Bind("PhenAlk") %>' />
+                            Total = 
+                        <asp:TextBox ID="TotalAlkTextBox" runat="server" Text='<%# Bind("TotalAlk") %>' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TotalHard mg/L:
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TotalHardTextBox" runat="server" Text='<%# Bind("TotalHard") %>' />
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td>Dissolved Oxygen:
+                        </td>
+                        <td>mg/L = 
+            <asp:TextBox ID="DOTextBox" runat="server" Text='<%# Bind("DO") %>' />
+                            % Saturation = 
+                                    <asp:TextBox ID="DOsatTextBox" runat="server" Text='<%# Bind("DOsat") %>' />
+                        </td>
+                    </tr>
+
+                </table>
+
+
+                <%-- Tag:
+            <asp:TextBox ID="TagTextBox" runat="server" Text='<%# Bind("Tag") %>' />
+            <br />
+            Chk:
+            <asp:TextBox ID="ChkTextBox" runat="server" Text='<%# Bind("Chk") %>' />
+            <br />
+            EntryType:
+            <asp:TextBox ID="EntryTypeTextBox" runat="server" Text='<%# Bind("EntryType") %>' />
+            <br />
+            EntryStaff:
+            <asp:TextBox ID="EntryStaffTextBox" runat="server" Text='<%# Bind("EntryStaff") %>' />
+            <br />--%>
+
+                <asp:Panel ID="Panel2" runat="server" Height="40px">
+                    <asp:Label ID="Label1" runat="server" Text="Samples Collected (please select which sample types were collected)" Height="34px"></asp:Label>
+                </asp:Panel>
+                <table style="width: 100%">
+                    <tr>
+                        <td></td>
+                        <td>Metals</td>
+                        <td>Nutrients</td>
+                        <td>Invertebrates</td>
+                    </tr>
+                    <tr>
+                        <%-- row 2 --%>
+                        <td>&nbsp;</td>
+                        <td>
+                            <asp:CheckBox ID="MetalsNormalCheckBox" runat="server" Checked='<%# Bind("MetalsNormal") %>' />
+                            Normal
+                        </td>
+                        <td>
+                            <asp:CheckBox ID="NPCheckBox" runat="server" Checked='<%# Bind("NP") %>' />
+                            NP
+                        </td>
+                        <td>
+                            <asp:CheckBox ID="BugsCheckBox" runat="server" Checked='<%# Bind("Bugs") %>' />
+                            Bugs
+                        </td>
+                    </tr>
+                    <tr>
+                        <%-- row 3 --%>
+                        <td>&nbsp;</td>
+                        <td>
+                            <asp:CheckBox ID="MetalsBlnkCheckBox" runat="server" Checked='<%# Bind("MetalsBlnk") %>' />
+                            Blank
+                        </td>
+
+                        <td>
+                            <asp:CheckBox ID="CSCheckBox" runat="server" Checked='<%# Bind("CS") %>' />
+                            Standard CS
+                        </td>
+                        <td>
+                            <asp:CheckBox ID="BugsQACheckBox" runat="server" Checked='<%# Bind("BugsQA") %>' />
+                            BugsQA
+                        </td>
+                    </tr>
+                    <tr>
+                        <%-- row 4 --%>
+                        <td>&nbsp;</td>
+                        <td>
+                            <asp:CheckBox ID="MetalsDupeCheckBox" runat="server" Checked='<%# Bind("MetalsDupe") %>' />
+                            Duplicate
+                        </td>
+
+                        <td>
+                            <asp:CheckBox ID="TSSCheckBox" runat="server" Checked='<%# Bind("TSS") %>' />
+                            TSS
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <%-- row 5 --%>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <asp:CheckBox ID="NPDupeCheckBox" runat="server" Checked='<%# Bind("NPDupe") %>' />
+                            Duplicate NP
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <%-- row 6 --%>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Bind("CSDupe") %>' />
+                            Duplicate CS
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <%-- row 7 --%>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <asp:CheckBox ID="TSSDupeCheckBox" runat="server" Checked='<%# Bind("TSSDupe") %>' />
+                            Duplicate TSS
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <%-- row 8 --%>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+
+
+                <%-- FieldValid:
+            <asp:CheckBox ID="FieldValidCheckBox" runat="server" Checked='<%# Bind("FieldValid") %>' />
+            <br />
+            MetalsStat:
+            <asp:TextBox ID="MetalsStatTextBox" runat="server" Text='<%# Bind("MetalsStat") %>' />
+            <br />
+            FinalCheck:
+            <asp:CheckBox ID="FinalCheckCheckBox" runat="server" Checked='<%# Bind("FinalCheck") %>' />
+            <br />
+            Method:
+            <asp:TextBox ID="MethodTextBox" runat="server" Text='<%# Bind("Method") %>' />
+            <br />--%>
+            Comments:
+            <asp:TextBox ID="CommentsTextBox" runat="server" Text='<%# Bind("Comments") %>' TextMode="MultiLine" Width="560" Height="44" />
+
+            <%-- DateReceived:
+            <asp:TextBox ID="DateReceivedTextBox" runat="server" Text='<%# Bind("DateReceived") %>' />
+            <br />
+            DataSheetIncluded:
+            <asp:CheckBox ID="DataSheetIncludedCheckBox" runat="server" Checked='<%# Bind("DataSheetIncluded") %>' />
+            <br />
+            MissingDataSheetReqDate:
+            <asp:TextBox ID="MissingDataSheetReqDateTextBox" runat="server" Text='<%# Bind("MissingDataSheetReqDate") %>' />
+            <br />
+            ChainOfCustody:
+            <asp:CheckBox ID="ChainOfCustodyCheckBox" runat="server" Checked='<%# Bind("ChainOfCustody") %>' />
+            <br />
+            MissingDataSheetReceived:
+            <asp:CheckBox ID="MissingDataSheetReceivedCheckBox" runat="server" Checked='<%# Bind("MissingDataSheetReceived") %>' />
+            <br />
+            PassValStep:
+            <asp:TextBox ID="PassValStepTextBox" runat="server" Text='<%# Bind("PassValStep") %>' />
+            <br />
+            tblSampleID:
+            <asp:TextBox ID="tblSampleIDTextBox" runat="server" Text='<%# Bind("tblSampleID") %>' />
+            <br />--%>
+                <table>
+                    <tr>
+                        <td style="width: 240px;"></td>
+                        <td>
+                            <asp:Button ID="UpdateButton" ClientIDMode="Static"  runat="server" CausesValidation="True" CommandName="Update" Text="Update Data" />
+                        </td>
+                    </tr>
+                </table>
+
+                &nbsp;
+                            <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+            </EditItemTemplate>
 
 
         </asp:FormView>

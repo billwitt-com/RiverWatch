@@ -19,13 +19,13 @@ namespace RWInbound2.Data
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 Panel1.Visible = false;
-              Button IB =  (Button) FormView1.FindControl("InsertButton");
-              IB.Enabled = false; 
-                
-               
+                pnlExisting.Visible = false; 
+                lblErrorMsg.Visible = false;
+                Button IB = (Button)FormView1.FindControl("InsertButton");
+                IB.Enabled = false;
             }
         }
 
@@ -35,8 +35,8 @@ namespace RWInbound2.Data
             string uzr = User.Identity.Name;
             if ((uzr == null) | (uzr.Length < 3))
                 uzr = "Dev User";
-            e.Command.Parameters["@EntryStaff"].Value = uzr;    // not really necessary as most entries in table are null [PassValStep]
-            e.Command.Parameters["@PassValStep"].Value = -1;
+            e.Command.Parameters["@EntryStaff"].Value = uzr;    
+            e.Command.Parameters["@PassValStep"].Value = -1;            // not really necessary as most entries in table are null [PassValStep]
             e.Command.Parameters["@StationNum"].Value = (int)Session["STATIONNUMBER"];
             e.Command.Parameters["@SampleID"].Value = (string)Session["SAMPNUM"];
             e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
@@ -52,12 +52,29 @@ namespace RWInbound2.Data
             int kitNumber = 0;
             DateTime thisyear = DateTime.Now;
             string orgName = "";
+            DateTime dateCollected;
+            string dc = "";
 
             NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();  // create our local EF 
 
             kitNumber = -1; // no real kit number yet
             bool success = int.TryParse(tbSite.Text, out stationNumber);
             bool success2 = int.TryParse(tbKitNumber.Text, out kitNumber);
+            dc = tbDateCollected.Text.Trim();
+            bool rz = DateTime.TryParse(dc, out dateCollected);
+
+            if (!rz)
+            {
+                lblErrorMsg.Text = "Please Enter Valid Date";
+                lblErrorMsg.Visible = true;
+                lblErrorMsg.ForeColor = System.Drawing.Color.Red;
+                Panel1.Visible = false;
+                return;
+            }
+            else
+            {
+                lblErrorMsg.Visible = false; 
+            }
 
             orgName = tbOrg.Text;
             try
@@ -110,8 +127,7 @@ namespace RWInbound2.Data
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
-
-
+            
             try
             {
                 var RES = from r in NRWDE.Stations
@@ -149,7 +165,8 @@ namespace RWInbound2.Data
                 tbStationNum.Text = stationNumber.ToString();
 
                 Session["STATIONNUMBER"] = stationNumber;
-                Session["KITNUMBER"] = kitNumber; 
+                Session["KITNUMBER"] = kitNumber;
+                Session["COLLECTIONDATE"] = dateCollected; 
               
 
             }
@@ -165,6 +182,24 @@ namespace RWInbound2.Data
                 string msg = ex.Message;
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+            // test to see if there is existing record for this date, and if so, warn user. 
+            // nasty query... 
+
+            var Exists = from ex in NRWDE.InboundSamples
+                         where ex.KitNum == kitNumber & ex.StationNum == stationNumber & ex.Date.Value.Year == dateCollected.Year
+                         & ex.Date.Value.Month == dateCollected.Month & ex.Date.Value.Day == dateCollected.Day
+                         select ex; 
+
+            if(Exists.Count() > 0)  // we have same date already
+            {
+                pnlExisting.Visible = true;
+                lblWarnExisting.Text = string.Format("NOTICE: there is an existing data entry for this station on this date {0:MM/dd/yyyy} You can choose to update the existing record or create a new one", dateCollected);
+            }
+            else
+            {
+                pnlExisting.Visible = false; 
             }
             // enable the save button
             Button IB = (Button)FormView1.FindControl("InsertButton");
@@ -205,16 +240,6 @@ namespace RWInbound2.Data
             Session["SAMPNUM"] = sampnum; // save for sql update
             Session["DATE"] = newdate;
             Session["TIME"] = (hours * 100) + mins; 
-                
-                //timestr.Replace(":", ""); // drop colon if here as result field is only 4 chars wide --- 
-
-            ParameterCollection ourCol = SqlDataSourceInBoundSample.InsertParameters;
-
-            //int res = SqlDataSourceInBoundSample.Insert();
-
-            //int smoke = res; 
-
-
         }
 
 
@@ -257,6 +282,68 @@ namespace RWInbound2.Data
                 LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
                 return customers;
             }
+        }
+
+        protected void btnUseExisting_Click(object sender, EventArgs e)
+        {
+            // fill in form data with query
+          //  SqlDataSourceInBoundSample
+            int kitNumber;
+            int stationNumber;
+            DateTime colDate;
+            try
+            {
+                pnlExisting.Visible = false;
+
+                if (Session["STATIONNUMBER"] == null)
+                {
+                    Response.Redirect("TimeedOut.aspx");
+                }
+
+                if (Session["KITNUMBER"] == null)
+                {
+                    Response.Redirect("TimeedOut.aspx");
+                }
+
+                if (Session["COLLECTIONDATE"] == null)
+                {
+                    Response.Redirect("TimeedOut.aspx");
+                }
+
+                kitNumber = (int)Session["KITNUMBER"];
+                stationNumber = (int)Session["STATIONNUMBER"];
+                colDate = (DateTime)Session["COLLECTIONDATE"];
+
+                FormView1.ChangeMode(FormViewMode.Edit);
+
+                string smdStr = string.Format("SELECT * FROM [InboundSamples] where  [KitNum] = {0} AND [StationNum] = {1} and [Date] = '{2}'",
+                    kitNumber, stationNumber, colDate.Date);
+                SqlDataSourceInBoundSample.SelectCommand = smdStr;
+
+                FormView1.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Panel1.Visible = false; // clean up and then report error
+
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+
+        }
+
+        protected void btnCreateNew_Click(object sender, EventArgs e)
+        {
+            // nothing to do so just return
+            pnlExisting.Visible = false;
+            return; 
         }
 
        

@@ -12,15 +12,11 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tblProject
+    public partial class tlkStationQUAD
     {
-        public int ProjectID { get; set; }
-        public string ProjectName { get; set; }
-        public string ProjectDescription { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-        public string UserCreated { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
-        public string StoretUploaded { get; set; }
     }
 }

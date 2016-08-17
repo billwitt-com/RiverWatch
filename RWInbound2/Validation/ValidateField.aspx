@@ -34,7 +34,7 @@
         OnPageIndexChanged="FormView1_PageIndexChanged" OnDataBound="FormView1_DataBound">
         <EditItemTemplate>
         <table>
-            <tr></tr>
+            <tr>
                 StationNum:
             <asp:TextBox ID="StationNumTextBox" runat="server" Text='<%# Bind("StationNum") %>' />
             <br />
@@ -47,7 +47,7 @@
             
             KitNum:
             <asp:TextBox ID="KitNumTextBox" runat="server" Text='<%# Bind("KitNum") %>' />
-    
+    </tr>
             </table>
 
                 <table>
