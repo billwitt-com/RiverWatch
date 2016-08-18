@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RWInbound2.Edit {
+namespace RWInbound2 {
     
     
     public partial class EditStationType {
