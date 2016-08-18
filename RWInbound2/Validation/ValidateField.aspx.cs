@@ -91,19 +91,19 @@ namespace RWInbound2.Validation
                 hrsTB.Text = tmStr; 
             }
 
-
-            NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();  // create our local EF 
+          
+            RiverWatchEntities NRWDE = new RiverWatchEntities();  // create our local EF 
             try
             {
                 var RES = from r in NRWDE.Stations
-                          join o in NRWDE.Organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                          join o in NRWDE.organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
                           where r.StationNumber == stationNumber & o.KitNumber == kitNumber
                           select new
                           {
                               stnName = r.StationName,
                               orgName = o.OrganizationName,
                               riverName = r.River,
-                              orgID = o.OrganizationID
+                              orgID = o.ID
                           };
                 if (RES.Count() == 0)
                 {

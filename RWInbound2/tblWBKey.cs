@@ -24,5 +24,7 @@ namespace RWInbound2
         public string SegDesc { get; set; }
         public Nullable<System.DateTime> VerifyDate { get; set; }
         public string Comment { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

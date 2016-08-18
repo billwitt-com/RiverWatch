@@ -12,9 +12,8 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class Organization
+    public partial class organization
     {
-        public int OrganizationID { get; set; }
         public Nullable<int> KitNumber { get; set; }
         public string OrganizationName { get; set; }
         public string OrganizationType { get; set; }
@@ -35,5 +34,7 @@ namespace RWInbound2
         public string UserCreated { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

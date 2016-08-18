@@ -23,7 +23,7 @@ namespace RWInbound2.Admin
             if(!IsPostBack)
             {
                 Session["NEW"] = false; 
-                NewRiverwatchEntities NRWE = new NewRiverwatchEntities();
+                RiverWatchEntities NRWE = new RiverWatchEntities();
                 string wrkStr = "";
               // ddlStationStatus
                 List<string> l1 = (from q in NRWE.tlkStationStatus
@@ -297,7 +297,7 @@ namespace RWInbound2.Admin
                 return;
             }
 
-            NewRiverwatchEntities NRWE = new NewRiverwatchEntities();
+            RiverWatchEntities NRWE = new RiverWatchEntities();
             try
             {
                 var R = (from q in NRWE.Stations
@@ -338,7 +338,7 @@ namespace RWInbound2.Admin
                 success = int.TryParse(stn, out stnNumber);
                 if (success)
                 {
-                    NewRiverwatchEntities NRWE = new NewRiverwatchEntities();
+                    RiverWatchEntities NRWE = new RiverWatchEntities();
                     string SN = (from q in NRWE.Stations
                                  where q.StationNumber == stnNumber
                                  select q.StationName).FirstOrDefault();
@@ -378,7 +378,7 @@ namespace RWInbound2.Admin
 
         public void populateDDLs(int stnNumber)
         {
-            NewRiverwatchEntities NRWE = new NewRiverwatchEntities();
+            RiverWatchEntities NRWE = new RiverWatchEntities();
             int listCount = 0; 
            
             try
@@ -487,7 +487,7 @@ namespace RWInbound2.Admin
             }
 
             Station STN;
-            NewRiverwatchEntities NRWE = new NewRiverwatchEntities();
+            RiverWatchEntities NRWE = new RiverWatchEntities();
             try
             {
                 if (isNewStation)

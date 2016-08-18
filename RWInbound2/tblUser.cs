@@ -14,7 +14,6 @@ namespace RWInbound2
     
     public partial class tblUser
     {
-        public int UserID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
@@ -22,5 +21,7 @@ namespace RWInbound2
         public string LastName { get; set; }
         public string Role { get; set; }
         public Nullable<System.DateTime> DateLastActivity { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

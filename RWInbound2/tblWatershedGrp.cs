@@ -20,5 +20,7 @@ namespace RWInbound2
         public string tvIMAGEURL { get; set; }
         public string tvDOCURL { get; set; }
         public Nullable<int> tvSORTORDER { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

@@ -4,50 +4,67 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6c734efd613a4d5bbfcd628cc7bce78f" Name="Diagram1" ZoomLevel="100">
-        <EntityTypeShape EntityType="RiverwatchModel.GearConfig" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.InboundICPFinal" Width="1.5" PointX="3.25" PointY="0.625" />
-        <EntityTypeShape EntityType="RiverwatchModel.InboundICPOrigional" Width="1.5" PointX="5.125" PointY="0.625" />
-        <EntityTypeShape EntityType="RiverwatchModel.NEWexpWater" Width="1.5" PointX="0.5" PointY="3.875" />
-        <EntityTypeShape EntityType="RiverwatchModel.ErrorLog" Width="1.5" PointX="7" PointY="0.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.MetalBarCode" Width="1.5" PointX="3.375" PointY="10.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.OrgStatu" Width="1.5" PointX="7.125" PointY="3.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.Station" Width="1.5" PointX="5.375" PointY="10.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblParticipant" Width="1.5" PointX="9.625" PointY="10.375" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblPartInfo" Width="1.5" PointX="9.125" PointY="0.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblPhysHabPara" Width="1.5" PointX="9.5" PointY="3.625" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblProjectStation" Width="1.5" PointX="11.875" PointY="13" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblRegistration" Width="1.5" PointX="11.875" PointY="0.5" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkLimit" Width="1.5" PointX="14.25" PointY="12.875" />
-        <EntityTypeShape EntityType="RiverwatchModel.Organization" Width="1.5" PointX="8.875" PointY="16.25" />
-        <EntityTypeShape EntityType="RiverwatchModel.NutrientBarCode" Width="1.5" PointX="11.125" PointY="16.25" />
-        <EntityTypeShape EntityType="RiverwatchModel.Sample" Width="1.5" PointX="14.375" PointY="0.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.InboundSample" Width="1.5" PointX="16.375" PointY="0.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.ProjectStation" Width="1.5" PointX="12.375" PointY="8.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.Project" Width="1.5" PointX="16.375" PointY="10.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblUser" Width="1.5" PointX="13.375" PointY="16.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblWatercode" Width="1.5" PointX="16.375" PointY="14.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblWatershedGrp" Width="1.5" PointX="18.375" PointY="0.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkHydroUnit" Width="1.5" PointX="9.375" PointY="7.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkOrganizationType" Width="1.5" PointX="18.375" PointY="3.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkQUADI" Width="1.5" PointX="18.375" PointY="6.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkRiverWatchWaterShed" Width="1.5" PointX="18.375" PointY="9.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkStationQUAD" Width="1.5" PointX="18.375" PointY="12.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkStationType" Width="1.5" PointX="18.375" PointY="15.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkTownship" Width="1.5" PointX="18.375" PointY="18.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkWQCCWaterShed" Width="1.5" PointX="20.375" PointY="0.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkState" Width="1.5" PointX="0.75" PointY="20.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkStationStatu" Width="1.5" PointX="2.75" PointY="20.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkWSG" Width="1.5" PointX="20.75" PointY="3.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkWSR" Width="1.5" PointX="4.75" PointY="20.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tblWBKey" Width="1.5" PointX="20.375" PointY="6.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkCounty" Width="1.5" PointX="20.375" PointY="10.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkEcoRegion" Width="1.5" PointX="20.375" PointY="13.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkGrid" Width="1.5" PointX="13.375" PointY="20.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkQuarterSection" Width="1.5" PointX="20.375" PointY="16.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkRange" Width="1.5" PointX="20.375" PointY="19.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkSection" Width="1.5" PointX="15.375" PointY="21.75" />
-        <EntityTypeShape EntityType="RiverwatchModel.tlkregion" Width="1.5" PointX="17.375" PointY="21.75" />
+      <Diagram DiagramId="f6b1188015104c57ba5309e9b34042df" Name="Diagram1">
+        <EntityTypeShape EntityType="RiverWatchModel.ErrorLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.GearConfig" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.InboundICPFinal" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.InboundICPOrigional" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.InboundSample" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.MetalBarCode" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.NEWexpWater" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.NutrientBarCode" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.organization" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.OrgStatu" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.Project" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.ProjectStation" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.Sample" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.Station" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblParticipant" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblPartInfo" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblPhysHabPara" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblProject" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblRegistration" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblSampleXXXX" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblUser" Width="1.5" PointX="16.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblWatercode" Width="1.5" PointX="16.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblWatershedGrp" Width="1.5" PointX="16.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblWBKey" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblXSRep" Width="1.5" PointX="18.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkActivityCategory" Width="1.5" PointX="18.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkActivityType" Width="1.5" PointX="10.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkBioResultsType" Width="1.5" PointX="18.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkCommunity" Width="1.5" PointX="12.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkCounty" Width="1.5" PointX="18.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkEcoRegion" Width="1.5" PointX="18.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkEquipCategory" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkEquipItem" Width="1.5" PointX="20.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkFieldGear" Width="1.5" PointX="20.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkFieldProcedure" Width="1.5" PointX="20.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkGearConfig" Width="1.5" PointX="20.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkGrid" Width="1.5" PointX="14.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkHydroUnit" Width="1.5" PointX="16.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkLimit" Width="1.5" PointX="20.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkMetalBarCodeType" Width="1.5" PointX="2.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkNutrientBarCodeType" Width="1.5" PointX="4.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkOrganizationType" Width="1.5" PointX="10.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkQUADI" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkQuarterSection" Width="1.5" PointX="22.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkRange" Width="1.5" PointX="22.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkregion" Width="1.5" PointX="22.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkRiverWatchWaterShed" Width="1.5" PointX="22.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkSampleType" Width="1.5" PointX="22.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkSection" Width="1.5" PointX="22.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkState" Width="1.5" PointX="18.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkStationQUAD" Width="1.5" PointX="20.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkStationStatu" Width="1.5" PointX="22.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkStationType" Width="1.5" PointX="6.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkTownship" Width="1.5" PointX="12.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkWQCCWaterShed" Width="1.5" PointX="14.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkWSG" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkWSR" Width="1.5" PointX="0.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.trsChemParaMapColumn" Width="1.5" PointX="2.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblProjectStation" Width="1.5" PointX="24.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblX" Width="1.5" PointX="24.75" PointY="7.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

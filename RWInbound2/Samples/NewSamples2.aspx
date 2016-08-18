@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSamples1.aspx.cs" Inherits="RWInbound2.Samples.NewSamples1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSamples2.aspx.cs" Inherits="RWInbound2.Samples.NewSamples2" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -605,4 +605,3 @@
         </UpdateParameters>
     </asp:SqlDataSource>
 </asp:Content>
-

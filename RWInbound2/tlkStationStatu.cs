@@ -20,5 +20,6 @@ namespace RWInbound2
         public string UserLastModified { get; set; }
         public bool ActiveFlag { get; set; }
         public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

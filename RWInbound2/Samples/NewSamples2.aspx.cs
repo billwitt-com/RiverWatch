@@ -15,28 +15,20 @@ using System.Web.Providers.Entities;
 
 namespace RWInbound2.Samples
 {
-    public partial class NewSamples : System.Web.UI.Page
+    public partial class NewSamples2 : System.Web.UI.Page
     {
         dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
-        NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
+        // NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
+        RiverWatchEntities NRWDE = new RiverWatchEntities();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            int qsCount = Request.QueryString.Count;
-            if (qsCount > 0)
-            {
-                string query = Request.QueryString[0];
-            }
-
-            bool isPB = IsPostBack; 
+            DateTime currentYear;
+            DateTime thisyear = DateTime.Now;
+            string date2parse;
 
             if (!IsPostBack)
             {
-
-                // to debug why js script ends up here and not in SearchOrgs
-
-
                 Panel1.Visible = false;
                 lstSamples.Visible = false;
                 Session["NEWSAMPLE"] = null;
@@ -64,46 +56,69 @@ namespace RWInbound2.Samples
 
                 rbListSampleTypes.DataSource = types;
                 rbListSampleTypes.DataBind();
+
+                // build the current year value, from Barb, ie the year ending on June 30th.
+                // XXXX may not want to do this
+                if (thisyear.Month >= 7) // we are in new current year, so don't adjust the year date
+                {
+                    date2parse = string.Format("{0}/07/01", thisyear.Year);
+                    currentYear = DateTime.Parse(date2parse);
+                }
+                else
+                {
+                    date2parse = string.Format("{0}/07/01", thisyear.Year - 1);
+                    currentYear = DateTime.Parse(date2parse);
+                }
+
+                // XXXX but will do this:
+                date2parse = string.Format("{0}/07/01", thisyear.Year);
+                currentYear = DateTime.Parse(date2parse);
+
+                Session["CURRENTYEAR"] = currentYear;
+
+                // populate year list drop down, we won't select from samples table since we don't really know what samples are used yet
+                // go back 20 years to this year
+
+                List<int> yrsList = new List<int>();
+                int yrs = DateTime.Now.Year;
+                for (int x = 0; x < 60; x++)
+                {
+                    yrsList.Add(yrs--);
+                }
+                ddlYears.DataSource = yrsList;
+                ddlYears.DataBind();
+                ddlYears.ToolTip = "Year starting YYYY/07/01 and ending YYYY+1/06/30 and referred to as status year YYYY";
+                hideTabs(); // so user can't choose something that is not real
             }
         }
 
         // user has chosen a site number, so get detail
         // this just populates the top section of the page, above the tabs
         // 06/24 Added org select list too... 
+        // 07/25 added status year ddl 
+        // 07/27 add org status update - create new table entry if there is none, and let user fill out.
+
         protected void btnSiteNumber_Click(object sender, EventArgs e)
         {
             int stationNumber = 0;
-            int kitNumber = 0;
-            string samplenumber = "";
+            int LocaLkitNumber = 0;
+            string NumberSamplePrefix = "";
             string tmpstr = "";
             DateTime currentYear;
             DateTime thisyear = DateTime.Now;
             string date2parse = "";
             string orgName = "";
+            bool noCurrentStatus = true;
 
-            //TabPanelSample.Focus(); // put user on sample tab
-            //TabPanelSample.BackColor = System.Drawing.Color.Beige;
-            //TabPanelSample.Focus();
+            // move current year calc to page_load 
 
-            // build the current year value, from Barb, ie the year ending on June 30th.
-            if (thisyear.Month >= 7) // we are in new current year, so don't adjust the year date
-            {
-                date2parse = string.Format("{0}/07/01", thisyear.Year - 1);
-                currentYear = DateTime.Parse(date2parse);
-            }
-            else
-            {
-                date2parse = string.Format("{0}/07/01", thisyear.Year - 2);
-                currentYear = DateTime.Parse(date2parse);
-            }
-
-            kitNumber = -1; // no real kit number yet
+            LocaLkitNumber = -1; // no real kit number yet
             bool success = int.TryParse(tbSite.Text, out stationNumber);
-            bool success2 = int.TryParse(tbKitNumber.Text, out kitNumber);
+            bool success2 = int.TryParse(tbKitNumber.Text, out LocaLkitNumber);
 
-            orgName = tbOrg.Text;
+            orgName = tbOrg.Text;   // this may be empty if kit number is entered
 
-            if (!success)
+            if (!success)   // no valid station number, empty all text boxes and return
             {
                 tbSite.Text = "";
                 tbKitNumber.Text = "";
@@ -112,22 +127,40 @@ namespace RWInbound2.Samples
                 lstSamples.Visible = false;
                 return;
             }
-            if (!success2)  // first, is there a kit number in the box, if not... 
+            if (!success2)  // no or bad kit number in box
             {
-                if (orgName.Length > 2)   // there is an org name
+                try
                 {
-                    var KN = (from k in NRWDE.Organizations
-                              where k.OrganizationName == orgName
-                              select k.KitNumber).FirstOrDefault();
-
-                    if (KN != null)
+                    if (orgName.Length > 2)   // there is an org name
                     {
-                        kitNumber = KN.Value;
+                        var KN = (from k in NRWDE.organizations
+                                  where k.OrganizationName == orgName
+                                  select k.KitNumber).FirstOrDefault();
+
+                        if (KN != null)
+                        {
+                            LocaLkitNumber = KN.Value;  // we now have good kit number and org name
+                        }
                     }
+                }
+
+                catch (Exception ex)
+                {
+                    Panel1.Visible = false; // clean up and then report error
+                    lstSamples.Visible = false;
+
+                    string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    string msg = ex.Message;
+                    LogError LE = new LogError();
+                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }
             }
 
-            if (kitNumber == -1)
+            if (LocaLkitNumber == -1)
             {
                 tbSite.Text = "";
                 tbKitNumber.Text = "";
@@ -138,55 +171,125 @@ namespace RWInbound2.Samples
             }
 
             // we have good kit number, so fill in the text box, just for....
-            tbKitNumber.Text = kitNumber.ToString();
+            // this code assumes orgstatus exists. Not sure it does.
+            // in particular for the year in question
+
+            tbKitNumber.Text = LocaLkitNumber.ToString();
+
 
             try
             {
-                var RES = from r in NRWDE.Stations
-                          join o in NRWDE.Organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
-                          join ts in NRWDE.OrgStatus on o.OrganizationID equals ts.OrganizationID
-                          where r.StationNumber == stationNumber & o.KitNumber == kitNumber
-                          select new
-                          {
-                              stnName = r.StationName,
-                              orgName = o.OrganizationName,
-                              riverName = r.River,
-                              startDate = ts.ContractStartDate,
-                              endDate = ts.ContractEndDate,
-                              active = o.Active,
-                              watershed = r.RWWaterShed,
-                              stnID = r.ID,
-                              orgID = o.OrganizationID
-                          };
-                if (RES.Count() == 0)
-                {
-                    Panel1.Visible = false;
-                    lstSamples.Visible = false;
-                    tbSite.Text = "";
-                    tbKitNumber.Text = "";
-                    ddlInboundSamplePick.Items.Clear();
-                    txtDateCollected.Text = "";
-                    tbAnalyzeDate.Text = "";
-                    txtSmpNum.Text = "";
-                    txtNumSmp.Text = "";
-                    return;
-                }
-                // save some values for later use
-                Session["STNID"] = RES.FirstOrDefault().stnID;
-                Session["ORGID"] = RES.FirstOrDefault().orgID;
-                Session["CURRENTYEAR"] = currentYear;
+                // is there a status for this org for this year...
+                if (Session["CURRENTYEAR"] == null)
+                    Response.Redirect("~/timedout.aspx");
 
-                tbOrg.Text = orgName;   // to make it 'nice'
-                Panel1.Visible = true;
-                lblStationNumber.Text = string.Format("Station Number: {0}", stationNumber);
-                lblEndDate.Text = string.Format("End Date: {0:M/d/yyyy}", RES.FirstOrDefault().endDate);
-                lblOrganization.Text = string.Format("Organization: {0}", RES.FirstOrDefault().orgName);
-                lblRiver.Text = string.Format("River: {0}", RES.FirstOrDefault().riverName);
-                LblStartDate.Text = string.Format("Start Date: {0:M/d/yyyy}", RES.FirstOrDefault().startDate);
-                lblBlankForNow.Text = string.Format("Active: {0}", RES.FirstOrDefault().active.ToString());
-                lblWatershed.Text = string.Format("Watershed: {0}", RES.FirstOrDefault().watershed);
-                lblStationDescription.Text = string.Format("Description: {0}", RES.FirstOrDefault().stnName);
-                TabContainer1.Visible = true;
+                currentYear = (DateTime)Session["CURRENTYEAR"];
+
+                var os = from s in NRWDE.OrgStatus
+                         join og in NRWDE.organizations on LocaLkitNumber equals og.KitNumber
+                         where s.ContractStartDate.Value.Year == currentYear.Year
+                         select s;
+
+                if (os.Count() == 0) // there is no current status 
+                {
+                    noCurrentStatus = true;
+                    var RE = from r in NRWDE.Stations
+                             join o in NRWDE.organizations on LocaLkitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                             where r.StationNumber == stationNumber & o.KitNumber == LocaLkitNumber
+                             select new
+                             {
+                                 stnName = r.StationName,
+                                 orgName = o.OrganizationName,
+                                 riverName = r.River,
+                                 //startDate = ts.ContractStartDate,    // these are unknown at this time
+                                 //endDate = ts.ContractEndDate,
+                                 active = o.Active,
+                                 watershed = r.RWWaterShed,
+                                 stnID = r.ID,
+                                 orgID = o.ID
+                             };
+                    if (RE.Count() == 0)    // grave error, blow out of here... 
+                    {
+                        Panel1.Visible = false;
+                        lstSamples.Visible = false;
+                        tbSite.Text = "";
+                        tbKitNumber.Text = "";
+                        ddlInboundSamplePick.Items.Clear();
+                        txtDateCollected.Text = "";
+                        tbAnalyzeDate.Text = "";
+                        txtSmpNum.Text = "";
+                        txtNumSmp.Text = "";
+                        return;
+                    }
+
+
+                    tbOrg.Text = RE.FirstOrDefault().orgName; // orgName;   // to make it 'nice'
+                    Panel1.Visible = true;
+                    lblStationNumber.Text = string.Format("Station Number: {0}", stationNumber);
+                    LblStartDate.Text = "No current OrgStatus"; //string.Format("Start Date: {0:M/d/yyyy}", RES.FirstOrDefault().startDate);
+                    lblOrganization.Text = string.Format("Organization: {0}", RE.FirstOrDefault().orgName);
+                    lblRiver.Text = string.Format("River: {0}", RE.FirstOrDefault().riverName);
+                    lblEndDate.Text = "No current OrgStatus"; //string.Format("End Date: {0:M/d/yyyy}", RES.FirstOrDefault().endDate);
+                    lblBlankForNow.Text = string.Format("Active: {0}", RE.FirstOrDefault().active.ToString());
+                    lblWatershed.Text = string.Format("Watershed: {0}", RE.FirstOrDefault().watershed);
+                    lblStationDescription.Text = string.Format("Description: {0}", RE.FirstOrDefault().stnName);
+                    TabContainer1.Visible = true;
+                    // save some values for later use
+                    Session["STNID"] = RE.FirstOrDefault().stnID;
+                    Session["ORGID"] = RE.FirstOrDefault().orgID;
+                    Session["STATIONNUMBER"] = stationNumber;
+                }
+                else
+                {   // we have valid org status, so fill in the blanks
+                    //     where s.ContractSignedDate.Value.Year == currentYear.Year 
+
+                    var RES = from r in NRWDE.Stations
+                              join o in NRWDE.organizations on LocaLkitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                              join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
+                              where r.StationNumber == stationNumber & o.KitNumber == LocaLkitNumber
+                              select new
+                              {
+                                  stnName = r.StationName,
+                                  orgName = o.OrganizationName,
+                                  riverName = r.River,
+                                  startDate = ts.ContractStartDate,
+                                  endDate = ts.ContractEndDate,
+                                  active = o.Active,
+                                  watershed = r.RWWaterShed,
+                                  stnID = r.ID,
+                                  orgID = o.ID
+                              };
+                    if (RES.Count() == 0)
+                    {
+                        Panel1.Visible = false;
+                        lstSamples.Visible = false;
+                        tbSite.Text = "";
+                        tbKitNumber.Text = "";
+                        ddlInboundSamplePick.Items.Clear();
+                        txtDateCollected.Text = "";
+                        tbAnalyzeDate.Text = "";
+                        txtSmpNum.Text = "";
+                        txtNumSmp.Text = "";
+                        return;
+                    }
+
+                    tbOrg.Text = RES.FirstOrDefault().orgName; // orgName;   // to make it 'nice'
+                    Panel1.Visible = true;
+                    lblStationNumber.Text = string.Format("Station Number: {0}", stationNumber);
+                    lblEndDate.Text = string.Format("End Date: {0:M/d/yyyy}", RES.FirstOrDefault().endDate);
+                    LblStartDate.Text = string.Format("Start Date: {0:M/d/yyyy}", RES.FirstOrDefault().startDate);
+                    lblOrganization.Text = string.Format("Organization: {0}", RES.FirstOrDefault().orgName);
+                    lblRiver.Text = string.Format("River: {0}", RES.FirstOrDefault().riverName);
+
+                    lblBlankForNow.Text = string.Format("Active: {0}", RES.FirstOrDefault().active.ToString());
+                    lblWatershed.Text = string.Format("Watershed: {0}", RES.FirstOrDefault().watershed);
+                    lblStationDescription.Text = string.Format("Description: {0}", RES.FirstOrDefault().stnName);
+                    TabContainer1.Visible = true;
+                    // save some values for later use
+                    Session["STNID"] = RES.FirstOrDefault().stnID;
+                    Session["ORGID"] = RES.FirstOrDefault().orgID;
+                    Session["STATIONNUMBER"] = stationNumber;
+                }
             }
             catch (Exception ex)
             {
@@ -203,34 +306,59 @@ namespace RWInbound2.Samples
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-
             // now populate list box of samples 
-            samplenumber = string.Format("{0}.", stationNumber);
+            NumberSamplePrefix = string.Format("{0}.", stationNumber);
             List<string> samps = new List<string>();
             lstSamples.Visible = true;
 
-            populateSamplesList(samplenumber, currentYear); // populate ddl on right side of samples page            
+            // populate the ddl for status year, now that we know 
+            // XXXX calling this from ddlYear choice also
+            // current year is created one time in page load
+
+            currentYear = (DateTime)Session["CURRENTYEAR"];
+            //    private void populateSamplesList(string NumberSamplePrefix, DateTime currentYear)
+            populateSamplesList(NumberSamplePrefix, currentYear); // populate ddl on right side of samples page      
+
+            if (Session["ORGID"] == null)
+                Response.Redirect("~/timedout.aspx");
+            int locorgid = (int)Session["ORGID"];
+            DateTime locstatusdate = (DateTime)Session["CURRENTYEAR"];
+            populateOrgStatus(locorgid, locstatusdate);
 
             // get drop down list of inbound samples that have this station and kit numbers 
-
             try
             {
                 var query = from i in NRWDE.InboundSamples
-                            where i.KitNum == kitNumber & i.StationNum == stationNumber
+                            where i.KitNum == LocaLkitNumber & i.StationNum == stationNumber
                             select
-                            i.SampleID.Value;
+                            i.SampleID;
 
-                if (query != null)
+                if (query.Count() > 0)
                 {
                     List<string> ls = new List<string>();
+                    ls.Add("Choose from below");
                     string tmps = "";
                     foreach (long? val in query)
                     {
-                        if (val == null)
-                            tmps = "";
-                        else
-                            tmps = val.Value.ToString();
-                        ls.Add(tmps);
+                        if (val != null)    // real value to consider
+                        {
+
+                            var q = from s in NRWDE.Samples
+                                    where s.SampleNumber == val.Value.ToString()
+                                    select s.NumberSample;
+
+                            if (q.Count() < 1)  // not found in samples table
+                            {
+                                tmps = val.Value.ToString();
+                                ls.Add(tmps);
+                            }
+                        }
+                    }
+
+                    if (ls.Count == 1)   // there are no 'real' entries, so notify user
+                    {
+                        ls.Clear();
+                        ls.Add("No incoming samples");
                     }
                     ddlInboundSamplePick.DataSource = ls;
                     ddlInboundSamplePick.DataBind();
@@ -250,8 +378,76 @@ namespace RWInbound2.Samples
             }
         }
 
-        // common utility to update values on the samples page
+        // utility to update org status page
+        // will create new entry if one does not exist for this status year
+        private void populateOrgStatus(int orgID, DateTime statusYear)
+        {
+            // save the page number so we can get back here...
+            int page = FormView1.PageIndex;
+            // first, check to see if there is a status for this year
+            DateTime locStatusYear = statusYear;    // will be like 201X/07/01 which is start date of status year 
+            int locOrgID = orgID;
+            int newStatusID = 0;
+            DataSourceSelectArguments ARGS = new DataSourceSelectArguments();
 
+            // see if there is a status entry for this year..
+            // just compare years
+
+            var QQ = from q in NRWDE.OrgStatus
+                     where q.ContractStartDate.Value.Year == locStatusYear.Year & q.OrganizationID == locOrgID
+                     select q;
+
+            if (QQ.Count() == 0) // there are no entries
+            {
+                OrgStatu OS = new OrgStatu();   // not sure why this name lacks traling 'S' XXXX 
+
+                OS.OrganizationID = locOrgID;
+                OS.ContractStartDate = DateTime.Now.AddYears(-50); // make not believeable    //locStatusYear;
+                OS.NoteComment = "Created by Samples Update in code";
+                OS.DateCreated = DateTime.Now;
+                // load bools that cause issue with formview
+                OS.ContractSigned = false;
+                OS.SiteVisited = false;
+                OS.BugCollected = false;
+                OS.VolunteerTimeSheet1 = false;
+                OS.VolunteerTimeShee2 = false;
+                OS.VolunteerTimeSheet3 = false;
+                OS.VolunteerTimeSheet4 = false;
+                OS.DataEnteredElectronically1 = false;
+                OS.DataEnteredElectronically2 = false;
+                OS.DataEnteredElectronically3 = false;
+                OS.DataEnteredElectronically4 = false;
+                OS.SampleShipped1 = false;
+                OS.SampleShipped2 = false;
+                OS.SampleShipped3 = false;
+                OS.SampleShipped4 = false;
+                OS.Nutrient1Collected = false;
+                OS.Nutrient2Collected = false;
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                OS.UserCreated = nam;
+
+                NRWDE.OrgStatus.Add(OS);
+                NRWDE.SaveChanges();
+                newStatusID = OS.ID; // capture new id we just created
+            }
+            else
+            {
+                newStatusID = QQ.FirstOrDefault().ID;
+            }
+
+            Session["NEWSTATUSID"] = newStatusID;
+            // now, set up query for org status tab
+
+            SqlDataSourceOrgStatus.SelectCommand = string.Format("SELECT * FROM [OrgStatus] where ID = {0}", newStatusID);
+            SqlDataSourceOrgStatus.Select(ARGS);
+            //   FormView1.PageIndex = page; // restore page
+        }
+
+        // common utility to update values on the samples page
         private void updateSamplesPage(string stationSample)
         {
             Sample TS;
@@ -259,7 +455,7 @@ namespace RWInbound2.Samples
             {
                 TS = (Sample)(from r in NRWDE.Samples
                               where r.NumberSample.StartsWith(stationSample) & r.Valid == true
-                              select r).FirstOrDefault();   //LastOrDefault(); // get most recent? 
+                              select r).FirstOrDefault();   // get most recent
 
                 // populate the screen 
                 txtSmpNum.Text = TS.SampleNumber;
@@ -297,7 +493,6 @@ namespace RWInbound2.Samples
                     txtMDSR.Text = TS.MissingDataSheetReqDate.Value.ToShortDateString();
                 }
                 txtComment.Text = TS.Comment;
-
             }
             catch (Exception ex)
             {
@@ -319,7 +514,6 @@ namespace RWInbound2.Samples
             lblBarcodeUsed.Text = "";
             lblCodeInUse.Text = "";
             tbBarcode.Text = "";
-
         }
 
         // user has chosen a current sample
@@ -334,6 +528,8 @@ namespace RWInbound2.Samples
             stationSample = stationSample.Substring(0, index); // all to left of colon
             stationSample = stationSample.Trim();             // remove any spaces, etc.
             updateSamplesPage(stationSample);
+            showTabs();
+            // update org status tab too
         }
 
         // save or update - but we never overwrite so we always create with a valid flag 
@@ -348,17 +544,25 @@ namespace RWInbound2.Samples
             DateTime timecollected;
 
             int orgNumber = 0;
-            // make sure we have good basic input, like sample number, etc.  
 
-            // check to see if this is new sample or update 
+            // make sure we have good basic input, like sample number, etc.  
+            lblWarning.Visible = false;
 
             if ((txtSmpNum.Text == "") | (txtSmpNum.Text.Length < 2))
-                // do something here... XXXX
+            {
+                lblWarning.Visible = true;
+                lblWarning.Text = "Please make sure there is valid sample detail";
+                lblWarning.ForeColor = System.Drawing.Color.Red;
                 return;
+            }
 
             if ((txtNumSmp.Text == "") | (txtNumSmp.Text.Length < 2))
-                // do something here... XXXX
+            {
+                lblWarning.Visible = true;
+                lblWarning.Text = "Please make sure there is valid sample detail";
+                lblWarning.ForeColor = System.Drawing.Color.Red;
                 return;
+            }
 
             bool success = int.TryParse(tbSite.Text, out stationNumber);
             bool success2 = int.TryParse(tbKitNumber.Text, out orgNumber);
@@ -380,9 +584,7 @@ namespace RWInbound2.Samples
             }
             else
             {
-                // what to do XXXX
-                // need timedout page to jump to... 
-
+                Response.Redirect("timedout.aspx"); // send user somewhere valid to restart work
             }
 
             //  txtDateCollected.Text = TS.DateCollected.ToShortDateString();
@@ -447,9 +649,8 @@ namespace RWInbound2.Samples
                     orgTS.DateCreated = DateTime.Now;
                     NRWDE.SaveChanges(); // update all records
                 }
-
-                // XXXX fetch max sampleID and add one, so we can write the record.
                 // this is crap, but I must evaluate what happens if I create a identity column.
+                // see code at end of update -- it works
 
                 // add new record 
                 TS.StationID = stnID;
@@ -461,7 +662,17 @@ namespace RWInbound2.Samples
                 TS.Comment = txtComment.Text;
 
                 NRWDE.Samples.Add(TS);
-                NRWDE.SaveChanges(); // update all records
+                NRWDE.SaveChanges(); // update 
+                TS.SampleID = TS.ID;    // update old column, just in case
+                NRWDE.SaveChanges(); // update 
+
+                // clear fields for next sample
+                tbSite.Text = "";
+                tbKitNumber.Text = "";
+                tbOrg.Text = "";
+                Panel1.Visible = false;
+                lstSamples.Visible = false;
+                return;
             }
             catch (Exception ex)
             {
@@ -479,19 +690,25 @@ namespace RWInbound2.Samples
             if (Session["CURRENTYEAR"] != null)
             {
                 DateTime currentYear = (DateTime)Session["CURRENTYEAR"];
-                string numsample = txtNumSmp.Text.Trim();
+                string NumberSamplePrefix = txtNumSmp.Text.Trim();
 
-                int index = numsample.IndexOf(".");
+                int index = NumberSamplePrefix.IndexOf(".");
                 if (index > 0)
                 {
-                    numsample = numsample.Substring(0, index);
+                    NumberSamplePrefix = NumberSamplePrefix.Substring(0, index);
                 }
-                populateSamplesList(numsample, currentYear); // populate ddl on right side of samples page   
-                
+                populateSamplesList(NumberSamplePrefix, currentYear); // populate ddl on right side of samples page   
+                if (Session["ORGID"] == null)
+                    Response.Redirect("~/timedout.aspx");
+                int locorgid = (int)Session["ORGID"];
+                DateTime locstatusdate = (DateTime)Session["CURRENTYEAR"];
+                populateOrgStatus(locorgid, locstatusdate);
+
             }
         }
 
         // we are making a new, fresh sample set with new dates, etc.
+        // we can now enable the other tabs
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             DateTime newdate;
@@ -581,6 +798,8 @@ namespace RWInbound2.Samples
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
+
+            showTabs();
         }
 
         // from create icp data tab
@@ -590,7 +809,7 @@ namespace RWInbound2.Samples
         }
 
         // user chose an item from the list of inboundsamples that had kit and station numbers
-
+        // XXXX if we have time, change data type from long? to string. at sampNumber
         protected void ddlInboundSamplePick_SelectedIndexChanged(object sender, EventArgs e)
         {
             string sampNumber = ddlInboundSamplePick.SelectedItem.Text;
@@ -598,42 +817,13 @@ namespace RWInbound2.Samples
 
             try
             {
-                var query = from s in NRWDE.Samples
-                            where s.SampleNumber == sampNumber
-                            select s.NumberSample;
-
-
-                if (query != null)
-                {
-                    txtNumSmp.Text = (string)query.FirstOrDefault();
-                    txtSmpNum.Text = sampNumber;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
-
-            // now fill in some of the known values
-
-            try
-            {
                 InboundSample TS = (InboundSample)(from s in NRWDE.InboundSamples
                                                    where s.SampleID.Value == sNum
                                                    select s).FirstOrDefault();
 
-
                 // populate the screen 
-                //txtSmpNum.Text = TS.SampleID.Value.ToString(); 
-                //txtNumSmp.Text = TS.NumberSample;
+                txtSmpNum.Text = TS.SampleID.Value.ToString();
+                // txtNumSmp.Text = TS.NumberSample;
                 chkCOC.Checked = TS.ChainOfCustody ?? false;
                 chkDataSheet.Checked = TS.DataSheetIncluded ?? false;
                 chkBugs.Checked = TS.Bugs ?? false;
@@ -650,6 +840,17 @@ namespace RWInbound2.Samples
                 chkPhysHab.Checked = false; // TS.PhysicalHabitat;
                 chkTSS.Checked = TS.TSS ?? false;
                 chkTSSDupe.Checked = TS.TSSDupe ?? false;
+                tbComments.Text = TS.Comments;
+                txtDateCollected.Text = TS.Date.Value.ToShortDateString();
+                // now chop up time and put in correct format hh:mm 24 hour
+
+                string ds = TS.Time.Value.ToString("D4"); // assume 4 digits 
+                if (ds.Length == 4)
+                {
+                    ds = ds.Insert(2, ":");
+                    txtTimeCollected.Text = ds;
+                }
+
                 if (TS.MissingDataSheetReqDate == null)
                 {
                     txtMDSR.Text = "";
@@ -776,7 +977,7 @@ namespace RWInbound2.Samples
                         " FROM [Riverwatch].[dbo].[MetalBarCode] " +
                         " where NumberSample like '{0}'", station_Sample.Trim());
 
-           
+
             try
             {
                 using (SqlCommand cmd = new SqlCommand())
@@ -865,7 +1066,7 @@ namespace RWInbound2.Samples
                         }
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -948,7 +1149,7 @@ namespace RWInbound2.Samples
             InboundICPOrigional OR = new InboundICPOrigional();
 
             string numberSample = txtNumSmp.Text.Trim(); // really bad name, perhaps we will have time to correct           
-           
+
             decimal mult = 0.0m;
             decimal V = 0;
 
@@ -965,7 +1166,7 @@ namespace RWInbound2.Samples
             {
                 mult = 125;
             }
-            
+
             try
             {
                 int SID = (from s in NRWDE.Samples                  // get sample table id 
@@ -1008,7 +1209,7 @@ namespace RWInbound2.Samples
                 INB.CA_T = (decimal)INB.CA_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.CA_D = INB.CA_D;
-                OR.CA_T = INB.CA_T; 
+                OR.CA_T = INB.CA_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CD"
@@ -1018,7 +1219,7 @@ namespace RWInbound2.Samples
                 INB.CD_T = (decimal)INB.CD_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.CD_D = INB.CD_D;
-                OR.CD_T = INB.CD_T; 
+                OR.CD_T = INB.CD_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "CU"
@@ -1027,7 +1228,7 @@ namespace RWInbound2.Samples
                 INB.CU_T = (decimal)INB.CU_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.CU_D = INB.CU_D;
-                OR.CU_T = INB.CU_T; 
+                OR.CU_T = INB.CU_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "FE"
@@ -1036,7 +1237,7 @@ namespace RWInbound2.Samples
                 INB.FE_T = (decimal)INB.FE_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.FE_D = INB.FE_D;
-                OR.FE_T = INB.FE_T; 
+                OR.FE_T = INB.FE_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "K"
@@ -1054,7 +1255,7 @@ namespace RWInbound2.Samples
                 INB.MG_T = (decimal)INB.MG_D - (decimal)RAND.NextDouble() + .5m;
 
                 OR.MG_D = INB.MG_D;
-                OR.MG_T = INB.MG_T; 
+                OR.MG_T = INB.MG_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "MN"
@@ -1063,7 +1264,7 @@ namespace RWInbound2.Samples
                 INB.MN_T = (decimal)INB.MN_D + (decimal)RAND.NextDouble() - .5m; ;
 
                 OR.MN_D = INB.MN_D;
-                OR.MN_T = INB.MN_T; 
+                OR.MN_T = INB.MN_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "NA"
@@ -1072,7 +1273,7 @@ namespace RWInbound2.Samples
                 INB.NA_T = (decimal)INB.NA_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.NA_D = INB.NA_D;
-                OR.NA_T = INB.NA_T; 
+                OR.NA_T = INB.NA_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "PB"
@@ -1081,7 +1282,7 @@ namespace RWInbound2.Samples
                 INB.PB_T = (decimal)INB.PB_D + (decimal)RAND.NextDouble() + .5m;
 
                 OR.PB_D = INB.PB_D;
-                OR.PB_T = INB.PB_T; 
+                OR.PB_T = INB.PB_T;
 
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "SE"
@@ -1100,25 +1301,25 @@ namespace RWInbound2.Samples
                 INB.ZN_T = (decimal)INB.ZN_D - .5m;
 
                 OR.ZN_D = INB.ZN_D;
-                OR.ZN_T = INB.ZN_T; 
+                OR.ZN_T = INB.ZN_T;
 
                 INB.Comments = "Created by hand for testing";
-                OR.Comments = INB.Comments; 
+                OR.Comments = INB.Comments;
 
                 INB.ANADATE = DateTime.Now;
                 OR.ANADATE = INB.ANADATE;
 
                 newDate = DateTime.Now.AddDays(-2);
 
-                INB.DATE_SENT = newDate ;
-                OR.DATE_SENT = newDate ;
+                INB.DATE_SENT = newDate;
+                OR.DATE_SENT = newDate;
 
                 INB.CreatedBy = "Test System";
                 OR.CreatedBy = INB.CreatedBy;
 
                 newDate = DateTime.Now.AddDays(-6);
                 INB.CreatedDate = newDate.Value;
-                OR.CreatedDate = newDate.Value; 
+                OR.CreatedDate = newDate.Value;
 
                 INB.COMPLETE = true;
                 OR.COMPLETE = true;
@@ -1134,8 +1335,8 @@ namespace RWInbound2.Samples
                 NRWDE.InboundICPFinals.Add(INB);
                 NRWDE.SaveChanges(); // update
 
-                NRWDE.InboundICPOrigionals.Add(OR);             
-                NRWDE.SaveChanges(); 
+                NRWDE.InboundICPOrigionals.Add(OR);
+                NRWDE.SaveChanges();
 
                 //RWDE.tblInboundICPs.Add(INB);   // no longer used
                 //RWDE.SaveChanges();
@@ -1158,24 +1359,30 @@ namespace RWInbound2.Samples
             // FillTabPanelICPdata(txtNumSmp.Text.Trim()); 
         }
 
-     
-        private void populateSamplesList(string sampleNumber, DateTime currentYear)
+
+        private void populateSamplesList(string NumberSamplePrefix, DateTime currentYear)
         {
             string tmpstr = "";
             List<string> samps = new List<string>();
+            DateTime nextYear = currentYear.AddYears(1);
             // get drop down list of samples and numbers from DB, for this current year
             try
             {
                 var SMP = from s in NRWDE.Samples
-                          where s.NumberSample.StartsWith(sampleNumber) & s.DateCollected >= currentYear & s.Valid == true
+                          where s.NumberSample.StartsWith(NumberSamplePrefix) & s.DateCollected >= currentYear & s.DateCollected <= nextYear & s.Valid == true
                           orderby s.DateCollected descending
                           select new
                           {
                               SampNumber = s.NumberSample,
                               SampDate = s.DateCollected
                           };
-                        
-                SMP = SMP.OrderByDescending(q => q.SampNumber); 
+                if (SMP.Count() < 1)
+                {
+                    lstSamples.Items.Clear();
+                    return;
+                }
+
+                SMP = SMP.OrderByDescending(q => q.SampNumber);
                 foreach (var s in SMP)
                 {
                     tmpstr = string.Format("{0} : {1:M/d/yyyy}", s.SampNumber, s.SampDate);
@@ -1377,6 +1584,65 @@ namespace RWInbound2.Samples
                 LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
                 return customers;
             }
+        }
+
+        // user has chosen a new index year from list, so change ddl of years, events
+        protected void ddlYears_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            int CY = int.Parse(ddlYears.SelectedValue);
+
+            DateTime currentYear = new DateTime(CY, 6, 30);
+            int stationNumber = (int)Session["STATIONNUMBER"]; // from tbSite
+            string NumberSamplePrefix = stationNumber.ToString();
+
+            Session["CURRENTYEAR"] = currentYear; // save for later
+            populateSamplesList(NumberSamplePrefix, currentYear); // populate ddl on right side of samples page 
+            // now populate org status tab
+            if (Session["ORGID"] == null)
+                Response.Redirect("~/timedout.aspx");
+            int locorgid = (int)Session["ORGID"];
+            DateTime locstatusdate = (DateTime)Session["CURRENTYEAR"];
+            populateOrgStatus(locorgid, locstatusdate);
+            showTabs();
+
+        }
+
+        // user has updated org status detail and we want to return to the same but updated form
+        protected void UpdateButton_Click(object sender, EventArgs e)
+        {
+            if (Session["NEWSTATUSID"] == null)
+                Response.Redirect("~/timedout.aspx");
+            DataSourceSelectArguments ARGS = new DataSourceSelectArguments();
+            int sID = (int)Session["NEWSTATUSID"];
+            SqlDataSourceOrgStatus.SelectCommand = string.Format("SELECT * FROM [OrgStatus] where ID = {0}", sID);
+            SqlDataSourceOrgStatus.Select(ARGS);
+        }
+
+        public void showTabs()
+        {
+            // now enable tabs
+            TabICPdata.Enabled = true;
+            TabICPdata.Visible = true;
+            TabMetalsBarcode.Visible = true;
+            TabMetalsBarcode.Enabled = true;
+            TabNutrientBarcode.Enabled = true;
+            TabNutrientBarcode.Visible = true;
+            TabUpdateOrg.Visible = true;
+            TabUpdateOrg.Enabled = true;
+        }
+
+        public void hideTabs()
+        {
+            // now enable tabs
+            TabICPdata.Enabled = false;
+            TabICPdata.Visible = false;
+            TabMetalsBarcode.Visible = false;
+            TabMetalsBarcode.Enabled = false;
+            TabNutrientBarcode.Enabled = false;
+            TabNutrientBarcode.Visible = false;
+            TabUpdateOrg.Visible = false;
+            TabUpdateOrg.Enabled = false;
         }
     }
 }

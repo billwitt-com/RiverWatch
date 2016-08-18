@@ -12,12 +12,12 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkEcoRegion
+    public partial class trsChemParaMapColumn
     {
-        public string Code { get; set; }
-        public string Description { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
-        public string UserLastModified { get; set; }
+        public string TableName { get; set; }
+        public string ColName { get; set; }
+        public string RowID { get; set; }
+        public string ChemParameter { get; set; }
         public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
     }

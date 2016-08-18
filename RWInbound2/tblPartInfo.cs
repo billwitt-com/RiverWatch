@@ -18,5 +18,7 @@ namespace RWInbound2
         public Nullable<int> ptPARENTNODE { get; set; }
         public string ptTEXT { get; set; }
         public string ptDOCURL { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

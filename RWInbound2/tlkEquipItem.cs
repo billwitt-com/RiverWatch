@@ -12,10 +12,13 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkEcoRegion
+    public partial class tlkEquipItem
     {
         public string Code { get; set; }
         public string Description { get; set; }
+        public bool HasSerial { get; set; }
+        public bool HasRejuv { get; set; }
+        public string Category { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
         public Nullable<bool> Valid { get; set; }
