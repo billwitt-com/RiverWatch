@@ -12,12 +12,11 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkEcoRegion
+    public partial class tblXSRep
     {
-        public string Code { get; set; }
-        public string Description { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
-        public string UserLastModified { get; set; }
+        public int XSID { get; set; }
+        public int RepNum { get; set; }
+        public Nullable<decimal> Depth { get; set; }
         public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
     }

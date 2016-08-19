@@ -12,13 +12,13 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkEcoRegion
+    public partial class tblX
     {
-        public string Code { get; set; }
-        public string Description { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
-        public string UserLastModified { get; set; }
-        public Nullable<bool> Valid { get; set; }
-        public int ID { get; set; }
+        public int XSID { get; set; }
+        public Nullable<int> SampleID { get; set; }
+        public Nullable<int> DistanceFromWQS { get; set; }
+        public string DistUnit { get; set; }
+        public string EnterDate { get; set; }
+        public string Comments { get; set; }
     }
 }

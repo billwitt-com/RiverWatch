@@ -12,12 +12,13 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkEcoRegion
+    public partial class tlkFieldGear
     {
         public string Code { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
+        public string F5 { get; set; }
         public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
     }

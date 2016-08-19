@@ -14,7 +14,6 @@ namespace RWInbound2
     
     public partial class tblPhysHabPara
     {
-        public int PhysHabParaID { get; set; }
         public string LongParameterName { get; set; }
         public string ParameterName { get; set; }
         public string ParameterTypeI { get; set; }
@@ -24,5 +23,7 @@ namespace RWInbound2
         public string Comments { get; set; }
         public string Description { get; set; }
         public Nullable<int> dsOrder { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

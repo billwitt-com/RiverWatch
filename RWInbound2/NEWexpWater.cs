@@ -23,7 +23,7 @@ namespace RWInbound2
         public string RiverName { get; set; }
         public Nullable<int> KitNumber { get; set; }
         public string OrganizationName { get; set; }
-        public Nullable<int> StationNumber { get; set; }
+        public Nullable<int> StationID { get; set; }
         public string TypeCode { get; set; }
         public string StationName { get; set; }
         public string MetalsBarCode { get; set; }
@@ -89,8 +89,8 @@ namespace RWInbound2
         public Nullable<bool> BadDuplicate { get; set; }
         public Nullable<bool> BadSample { get; set; }
         public bool Valid { get; set; }
-        public Nullable<int> StationID { get; set; }
         public Nullable<int> OrganizationID { get; set; }
         public string SampleComments { get; set; }
+        public Nullable<int> StationNumber { get; set; }
     }
 }

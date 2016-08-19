@@ -12,7 +12,7 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkEcoRegion
+    public partial class tlkActivityType
     {
         public string Code { get; set; }
         public string Description { get; set; }

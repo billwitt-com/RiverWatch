@@ -15,7 +15,6 @@ namespace RWInbound2
     public partial class tblRegistration
     {
         public int ParticipantID { get; set; }
-        public int RegistrationID { get; set; }
         public Nullable<System.DateTime> RegistrationDate { get; set; }
         public string WorkShop { get; set; }
         public bool Paid { get; set; }
@@ -25,5 +24,7 @@ namespace RWInbound2
         public string UserCreated { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

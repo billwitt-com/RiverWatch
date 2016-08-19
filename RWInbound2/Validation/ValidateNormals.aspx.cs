@@ -33,7 +33,7 @@ namespace RWInbound2.Validation
             decimal MeasurementValue = 0;
 
             dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
-            NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
+            RiverWatchEntities NRWDE = new RiverWatchEntities();
 
 
             // count rows of not saved, valid Blanks first
@@ -531,7 +531,7 @@ namespace RWInbound2.Validation
 
         public void CommitNormal(string type)
         {
-            NewRiverwatchEntities NewRWE = new NewRiverwatchEntities(); // new database RiverWatch 
+            RiverWatchEntities NewRWE = new RiverWatchEntities(); // new database RiverWatch 
             NEWexpWater NEW = null;
             dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2(); // get access to old db for details, this is temp. XXXX
             bool existingRecord = false;

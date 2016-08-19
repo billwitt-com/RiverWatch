@@ -39,5 +39,7 @@ namespace RWInbound2
         public string BLMMAP { get; set; }
         public string TOPOMAP { get; set; }
         public Nullable<bool> OBSOLETE { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     }
 }

@@ -33,7 +33,7 @@ namespace RWInbound2.Validation
             string searchNormal = "";
             bool controlsSet;
             dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
-            NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
+            RiverWatchEntities NRWDE = new RiverWatchEntities();
 
             // count rows of not saved, valid Dups first
             SqlDataSourceDups.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '2' and valid = 1 and saved = 0";    // this is the working table
@@ -514,7 +514,7 @@ namespace RWInbound2.Validation
 
         public void updateDup(string type)
         {
-            NewRiverwatchEntities NewRWE = new NewRiverwatchEntities(); // new database RiverWatch 
+            RiverWatchEntities NewRWE = new RiverWatchEntities(); // new database RiverWatch 
             NEWexpWater NEW = null;
             dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2(); // get access to old db for details, this is temp. XXXX
             bool existingRecord = false;

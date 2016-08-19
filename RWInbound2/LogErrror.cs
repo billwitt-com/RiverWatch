@@ -14,7 +14,8 @@ namespace RWInbound2
         public void logError(string msg, string fromPage, string stackTrace, string loggedInUser, string comment)
         {
             
-            NewRiverwatchEntities NRWE = new NewRiverwatchEntities();
+         //   RiverWatchEntities NRWE = new RiverWatchEntities();
+            RiverWatchEntities NRWE = new RiverWatchEntities(); 
             ErrorLog EL = new ErrorLog();
             EL.Date = DateTime.Now;
             EL.Message = msg; 

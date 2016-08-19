@@ -87,11 +87,8 @@ namespace RWInbound2.Account
                 string msg = ex.Message;    // XXXX need to build an error log file and logging code               
             }
 
-
-            FormsAuthentication.SetAuthCookie(UZerName, false); // create user name as authenticated  
-
+            FormsAuthentication.SetAuthCookie(UZerName, false); // create user name as authenticated 
             FormsAuthentication.RedirectFromLoginPage(UZerName, false);
-
         }
 
       

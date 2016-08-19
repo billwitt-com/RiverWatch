@@ -13,12 +13,13 @@ using System.Runtime.Serialization;
 using System.IO;
 using System.Web.Providers.Entities;
 
-namespace RWInbound2.Samples
+namespace RWInbound2
 {
     public partial class NewSamples1 : System.Web.UI.Page
     {
         dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
-        NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
+       // NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
+        RiverWatchEntities NRWDE = new RiverWatchEntities(); 
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,7 +31,7 @@ namespace RWInbound2.Samples
             {
                 Panel1.Visible = false;
                 lstSamples.Visible = false;
-                Session["NEWSAMPLE"] = null;
+                Session["NEWSAMPLE"] = null;               
 
                 TabContainer1.Visible = false;
                 tbAnalyzeDate.Text = DateTime.Now.ToShortDateString();
@@ -132,7 +133,7 @@ namespace RWInbound2.Samples
                 {
                     if (orgName.Length > 2)   // there is an org name
                     {
-                        var KN = (from k in NRWDE.Organizations
+                        var KN = (from k in NRWDE.organizations
                                   where k.OrganizationName == orgName
                                   select k.KitNumber).FirstOrDefault();
 
@@ -185,7 +186,7 @@ namespace RWInbound2.Samples
                 currentYear = (DateTime)Session["CURRENTYEAR"];
 
                 var os = from s in NRWDE.OrgStatus
-                         join og in NRWDE.Organizations on LocaLkitNumber equals og.KitNumber
+                         join og in NRWDE.organizations on LocaLkitNumber equals og.KitNumber
                          where s.ContractStartDate.Value.Year == currentYear.Year
                          select s;
 
@@ -193,7 +194,7 @@ namespace RWInbound2.Samples
                 {
                     noCurrentStatus = true;
                     var RE = from r in NRWDE.Stations
-                             join o in NRWDE.Organizations on LocaLkitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                             join o in NRWDE.organizations on LocaLkitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
                              where r.StationNumber == stationNumber & o.KitNumber == LocaLkitNumber
                              select new
                              {
@@ -205,7 +206,7 @@ namespace RWInbound2.Samples
                                  active = o.Active,
                                  watershed = r.RWWaterShed,
                                  stnID = r.ID,
-                                 orgID = o.OrganizationID
+                                 orgID = o.ID
                              };
                     if (RE.Count() == 0)    // grave error, blow out of here... 
                     {
@@ -243,8 +244,8 @@ namespace RWInbound2.Samples
                     //     where s.ContractSignedDate.Value.Year == currentYear.Year 
 
                     var RES = from r in NRWDE.Stations
-                              join o in NRWDE.Organizations on LocaLkitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
-                              join ts in NRWDE.OrgStatus on o.OrganizationID equals ts.OrganizationID
+                              join o in NRWDE.organizations on LocaLkitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                              join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
                               where r.StationNumber == stationNumber & o.KitNumber == LocaLkitNumber
                               select new
                               {
@@ -256,7 +257,7 @@ namespace RWInbound2.Samples
                                   active = o.Active,
                                   watershed = r.RWWaterShed,
                                   stnID = r.ID,
-                                  orgID = o.OrganizationID
+                                  orgID = o.ID
                               };
                     if (RES.Count() == 0)
                     {

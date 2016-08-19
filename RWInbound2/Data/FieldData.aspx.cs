@@ -55,7 +55,7 @@ namespace RWInbound2.Data
             DateTime dateCollected;
             string dc = "";
 
-            NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();  // create our local EF 
+            RiverWatchEntities NRWDE = new RiverWatchEntities();  // create our local EF 
 
             kitNumber = -1; // no real kit number yet
             bool success = int.TryParse(tbSite.Text, out stationNumber);
@@ -91,7 +91,7 @@ namespace RWInbound2.Data
                 {
                     if (orgName.Length > 2)   // there is an org name
                     {
-                        var KN = (from k in NRWDE.Organizations
+                        var KN = (from k in NRWDE.organizations
                                   where k.OrganizationName == orgName
                                   select k.KitNumber).FirstOrDefault();
 
@@ -131,8 +131,8 @@ namespace RWInbound2.Data
             try
             {
                 var RES = from r in NRWDE.Stations
-                          join o in NRWDE.Organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
-                          join ts in NRWDE.OrgStatus on o.OrganizationID equals ts.OrganizationID
+                          join o in NRWDE.organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                          join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
                           where r.StationNumber == stationNumber & o.KitNumber == kitNumber
                           select new
                           {
@@ -144,7 +144,7 @@ namespace RWInbound2.Data
                               active = o.Active,
                               watershed = r.RWWaterShed,
                               stnID = r.ID,
-                              orgID = o.OrganizationID
+                              orgID = o.ID
                           };
                 if (RES.Count() == 0)
                 {

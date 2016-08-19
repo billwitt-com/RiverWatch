@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSamples1.aspx.cs" Inherits="RWInbound2.Samples.NewSamples1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewSamples2.aspx.cs" Inherits="RWInbound2.Samples.NewSamples2" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -20,13 +20,13 @@
             <td style="width: 300px">OR Org: 
                      <asp:TextBox ID="tbOrg" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="146px"></asp:TextBox>
 
-                <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
-                    TargetControlID="tbOrg"
-                    CompletionSetCount="10"
-                    ServiceMethod="SearchOrgs"
-                    MinimumPrefixLength="2"
-                    CompletionInterval="100">
-                </ajaxToolkit:AutoCompleteExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
+                TargetControlID="tbOrg"
+                CompletionSetCount="10"
+                ServiceMethod="SearchOrgs"
+                MinimumPrefixLength="2"
+                CompletionInterval="100">
+            </ajaxToolkit:AutoCompleteExtender>
 
             </td>
             <td style="width: 116px">
@@ -605,4 +605,3 @@
         </UpdateParameters>
     </asp:SqlDataSource>
 </asp:Content>
-
