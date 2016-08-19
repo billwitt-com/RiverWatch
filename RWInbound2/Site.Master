@@ -96,6 +96,7 @@
         <footer>
             <div>
                 <div>
+                   
                     <p>&copy; <%: DateTime.Now.Year %> - RIVER WATCH</p>
                    <%-- <asp:Label ID="Label1" runat="server" Text="Place Holder"></asp:Label>--%>
                 </div>

@@ -20,13 +20,13 @@
             <td style="width: 300px">OR Org: 
                      <asp:TextBox ID="tbOrg" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="146px"></asp:TextBox>
 
-                <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
-                    TargetControlID="tbOrg"
-                    CompletionSetCount="10"
-                    ServiceMethod="SearchOrgs"
-                    MinimumPrefixLength="2"
-                    CompletionInterval="100">
-                </ajaxToolkit:AutoCompleteExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
+                TargetControlID="tbOrg"
+                CompletionSetCount="10"
+                ServiceMethod="SearchOrgs"
+                MinimumPrefixLength="2"
+                CompletionInterval="100">
+            </ajaxToolkit:AutoCompleteExtender>
 
             </td>
             <td style="width: 116px">

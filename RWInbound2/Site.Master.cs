@@ -65,8 +65,16 @@ namespace RWInbound2
             }
         }
 
+        // see if sometime I can find the code to get date from a compiled file
         protected void Page_Load(object sender, EventArgs e)
         {
+            // get date and time from RWInbound2.dll 
+           // string filename = "RWInbound2.dll";
+           // string locDir = System.IO.Directory.GetCurrentDirectory();
+           // string fullDir = locDir + "\\bin\\" + filename;
+
+           //DateTime writeTime =  System.IO.Directory.GetLastAccessTime(fullDir);
+
           
         }
         // this works to control menu items, so can be used to hide or deactivate menu items depending on user permissions 
