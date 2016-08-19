@@ -232,6 +232,8 @@
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
     <Content Include="Admin\Web.config" />
+    <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="Samples\FormViewOrgStatus.aspx" />
     <Content Include="Samples\NewSamples.aspx" />
@@ -240,6 +242,7 @@
     <Content Include="Samples\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\RiverWatch_Staging.pubxml" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6dc07ba496c34d62bdf0d02b1359779a" Name="Diagram1" ZoomLevel="52">
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblActivity" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblChemValue" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblInboundICP" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblInboundSample" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblMetalBarCode" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblOrganization" Width="1.5" PointX="3.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblParticipant" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblStatu" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblStatusStation" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblUser" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblVolunteer" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblWatercode" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblWatershedGrp" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="dbRiverwatchWaterDataModel.tblOrganization_tblStatus_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="dbRiverwatchWaterDataModel.tblStatus_tblStatusStation_FK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tlkMetalBarCodeType" Width="1.5" PointX="10.5" PointY="19" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tlkNutrientBarCodeType" Width="1.5" PointX="13.375" PointY="13.75" />
+        <AssociationConnector Association="dbRiverwatchWaterDataModel.tlkMetalBarCodeType_tblMetalBarCode_FK" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.expStnMetal" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tlkLimit" Width="1.5" PointX="15.375" PointY="10.75" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblSample" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="dbRiverwatchWaterDataModel.tblStation" Width="1.5" PointX="3.375" PointY="1.25" />
+        <AssociationConnector Association="dbRiverwatchWaterDataModel.tblStation_tblStatusStation_FK" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
