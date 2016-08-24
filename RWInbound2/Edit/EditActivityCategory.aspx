@@ -6,19 +6,42 @@
             <hgroup>
                 <h3><%: Page.Title %></h3>
             </hgroup>
+
+            <div class="label-placement">
+                <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
+            </div>
+            <div class="label-placement">
+                 <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
+            </div>
+            <br />            
         </div>
         <asp:GridView ID="ActivityCategoryGridView" runat="server"
             DataKeyNames="ID"
             ItemType="RWInbound2.tlkActivityCategory" 
             SelectMethod="GetActivityCategories"
-            UpdateMethod="UpdateActivityCategory"
-            InsertMethod="AddNewActivityCategory"
+            UpdateMethod="UpdateActivityCategory" 
+            DeleteMethod="DeleteActivityCategory" 
+            InsertItemPosition="LastItem"  
+            ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
             GridLines="None" ForeColor="#333333" Height="238px">
             <AlternatingRowStyle BackColor="White" />            
-            <Columns>                
-                <asp:CommandField NewText="New" ShowDeleteButton="True" ShowEditButton="True" ButtonType="Button" />
+            <Columns>  
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />
+                        <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" />
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
+                        <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
+                    </EditItemTemplate>
+                    <FooterTemplate>
+                        <asp:Button ID="btnAdd" runat="server" Text="Add"
+                                    OnClick = "AddNewActivityCategory" />
+                    </FooterTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
                 <asp:TemplateField HeaderText="Code" SortExpression="Code">
                     <EditItemTemplate>
@@ -28,7 +51,7 @@
                         <asp:Label ID="lblCode" runat="server" Text='<%# Bind("Code") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:TextBox ID="txtCode" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="NewCode" runat="server"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Description" SortExpression="Description">
@@ -39,17 +62,12 @@
                         <asp:Label ID="lblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:TextBox ID="txtDescription" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>
-                <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />
-                <asp:TemplateField>                
-                    <FooterTemplate>
-                        <asp:Button runat="server" Text="Add New" CommandName="Insert" />
-                    </FooterTemplate>
-                </asp:TemplateField>
+                <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
-        </asp:GridView>        
+        </asp:GridView>       
     </section>
 </asp:Content>
