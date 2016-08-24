@@ -80,7 +80,7 @@
         </ItemTemplate>
     </asp:FormView>
 
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchWaterDEV%>"
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString%>"
         OnUpdating="SqlDataSource1_Updating"
         OnInserting="SqlDataSource1_Inserting"
         OnDeleting="SqlDataSource1_Deleting"

@@ -15,15 +15,15 @@ namespace RWInbound2
     
     public partial class dbRiverwatchWaterDataEntities2 : DbContext
     {
-        public dbRiverwatchWaterDataEntities2()
-            : base("name=dbRiverwatchWaterDataEntities2")
-        {
-        }
+        //public dbRiverwatchWaterDataEntities2()
+        //    : base("name=dbRiverwatchWaterDataEntities2")
+        //{
+        //}
     
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    throw new UnintentionalCodeFirstException();
+        //}
     
         public DbSet<tblActivity> tblActivities { get; set; }
         public DbSet<tblChemValue> tblChemValues { get; set; }

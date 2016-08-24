@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 // main page holding all editing options
 namespace RWInbound2
 {
-    public partial class Edit : System.Web.UI.Page
+    public partial class Edit : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,6 +42,11 @@ namespace RWInbound2
         protected void btnGear_Click(object sender, EventArgs e)
         {
             Response.Redirect("GearConfig.aspx");
+        }
+
+        protected void btnActivityCategories_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditActivityCategory.aspx");
         }
     }
 }

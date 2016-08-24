@@ -1300,3 +1300,10 @@ fieldset {
     font-weight: 600;
     color: #808080;
 }
+/*Option on Edit Page*/
+.grid-columns-center{
+    text-align:center;
+}
+.grid-columns-center input[type="text"]{
+    text-align:center;      
+}

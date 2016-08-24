@@ -87,7 +87,7 @@
                 &nbsp;<asp:LinkButton ID="NewButton"  OnClick="NewButton_Click" runat="server" CausesValidation="False" CommandName="New" Text="New" />
             </ItemTemplate>
         </asp:FormView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Riverwatch %>" 
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>" 
             OnUpdating="SqlDataSource1_Updating" 
              OnInserting="SqlDataSource1_Inserting"
              OnInserted="SqlDataSource1_Inserted"
