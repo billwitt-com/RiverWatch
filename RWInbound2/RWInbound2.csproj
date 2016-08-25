@@ -168,6 +168,9 @@
     <Content Include="Edit\Edit.aspx" />
     <Content Include="Edit\EditActivityCategory.aspx" />
     <Content Include="Edit\EditActivityType.aspx" />
+    <Content Include="Edit\EditBioResultsType.aspx" />
+    <Content Include="Edit\EditCommunities.aspx" />
+    <Content Include="Edit\EditCounty.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
     <Content Include="Edit\EditStationType.aspx" />
@@ -374,6 +377,27 @@
     </Compile>
     <Compile Include="Edit\EditActivityType.aspx.designer.cs">
       <DependentUpon>EditActivityType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditBioResultsType.aspx.cs">
+      <DependentUpon>EditBioResultsType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditBioResultsType.aspx.designer.cs">
+      <DependentUpon>EditBioResultsType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditCommunities.aspx.cs">
+      <DependentUpon>EditCommunities.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditCommunities.aspx.designer.cs">
+      <DependentUpon>EditCommunities.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditCounty.aspx.cs">
+      <DependentUpon>EditCounty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditCounty.aspx.designer.cs">
+      <DependentUpon>EditCounty.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>

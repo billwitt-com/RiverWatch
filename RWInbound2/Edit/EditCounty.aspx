@@ -1,5 +1,4 @@
-﻿<%@ Page Title="Activity Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
-         CodeBehind="EditActivityCategory.aspx.cs" Inherits="RWInbound2.Edit.EditActivityCategory" %>
+﻿<%@ Page Title="County" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditCounty.aspx.cs" Inherits="RWInbound2.Edit.EditCounty" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -15,18 +14,19 @@
             </div>
             <br />            
         </div>
-        <asp:GridView ID="ActivityCategoryGridView" runat="server"
+        <asp:GridView ID="CountyGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkActivityCategory" 
-            SelectMethod="GetActivityCategories"
-            UpdateMethod="UpdateActivityCategory"
-            DeleteMethod="DeleteActivityCategory" 
+            ItemType="RWInbound2.tlkCounty" 
+            SelectMethod="GetCounties"
+            UpdateMethod="UpdateCounty"
+            DeleteMethod="DeleteCounty" 
             InsertItemPosition="LastItem"  
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
-            GridLines="None" ForeColor="#333333" Height="238px">
-            <AlternatingRowStyle BackColor="White" />            
+            GridLines="None" ForeColor="#333333" Height="238px"
+            AllowPaging="true" Pagesize="15">
+            <AlternatingRowStyle BackColor="White" />    
             <Columns>  
                 <asp:TemplateField>
                     <ItemTemplate>
@@ -40,7 +40,7 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewActivityCategory" />
+                                    OnClick = "AddNewCounty" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
@@ -73,3 +73,4 @@
         </asp:GridView>       
     </section>
 </asp:Content>
+

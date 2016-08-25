@@ -87,7 +87,7 @@
             &nbsp;<asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
         </ItemTemplate>
     </asp:FormView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>" DeleteCommand="DELETE FROM [tblUser] WHERE [UserID] = @UserID" InsertCommand="INSERT INTO [tblUser] ([UserName], [Password], [Email], [FirstName], [LastName], [Role], [DateLastActivity]) VALUES (@UserName, @Password, @Email, @FirstName, @LastName, @Role, @DateLastActivity)" SelectCommand="SELECT * FROM [tblUser]" UpdateCommand="UPDATE [tblUser] SET [UserName] = @UserName, [Password] = @Password, [Email] = @Email, [FirstName] = @FirstName, [LastName] = @LastName, [Role] = @Role, [DateLastActivity] = @DateLastActivity WHERE [UserID] = @UserID">
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>" DeleteCommand="DELETE FROM [tblUser] WHERE [UserID] = @UserID" InsertCommand="INSERT INTO [tblUser] ([UserName], [Password], [Email], [FirstName], [LastName], [Role], [DateLastActivity]) VALUES (@UserName, @Password, @Email, @FirstName, @LastName, @Role, @DateLastActivity)" SelectCommand="SELECT * FROM [tblUser]" UpdateCommand="UPDATE [tblUser] SET [UserName] = @UserName, [Password] = @Password, [Email] = @Email, [FirstName] = @FirstName, [LastName] = @LastName, [Role] = @Role, [DateLastActivity] = @DateLastActivity WHERE [UserID] = @UserID">
         <DeleteParameters>
             <asp:Parameter Name="UserID" Type="Int32" />
         </DeleteParameters>

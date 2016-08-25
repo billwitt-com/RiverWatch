@@ -985,7 +985,7 @@ namespace RWInbound2.Samples
                 {
                     using (SqlConnection con = new SqlConnection())
                     {
-                        con.ConnectionString = GlobalSite.RiverWatchConnectionString;
+                        con.ConnectionString = GlobalSite.RiverWatchDev;
                         cmd.CommandText = queryString;
                         cmd.Connection = con;
                         cmd.CommandType = System.Data.CommandType.Text;
@@ -1047,7 +1047,7 @@ namespace RWInbound2.Samples
                 {
                     using (SqlConnection con = new SqlConnection())
                     {
-                        con.ConnectionString = GlobalSite.RiverWatchConnectionString;
+                        con.ConnectionString = GlobalSite.RiverWatchDev;
                         cmd.CommandText = queryString;
                         cmd.Connection = con;
                         cmd.CommandType = System.Data.CommandType.Text;
@@ -1557,7 +1557,7 @@ namespace RWInbound2.Samples
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";

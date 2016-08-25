@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 
-namespace RWInbound2
+namespace RWInbound2.Edit
 {
     public partial class EditActivityType : System.Web.UI.Page
     {
@@ -42,25 +42,33 @@ namespace RWInbound2
                 {
                     var activityTypeToUpdate = _db.tlkActivityTypes.Find(model.ID);
 
-                    activityTypeToUpdate.Code = model.Code;
-                    activityTypeToUpdate.Description = model.Description;
-                    //activityCategoryToUpdate.Valid = 
-                    if (this.User != null && this.User.Identity.IsAuthenticated)
+                    if (string.IsNullOrEmpty(model.Code))
                     {
-                        activityTypeToUpdate.UserLastModified
-                            = HttpContext.Current.User.Identity.Name;
+                        SuccessLabel.Text = "";
+                        ErrorLabel.Text = "Code field is required.";
                     }
                     else
                     {
-                        activityTypeToUpdate.UserLastModified = "Unknown";
+                        activityTypeToUpdate.Code = model.Code;
+                        activityTypeToUpdate.Description = model.Description;
+                        //activityCategoryToUpdate.Valid = 
+                        if (this.User != null && this.User.Identity.IsAuthenticated)
+                        {
+                            activityTypeToUpdate.UserLastModified
+                                = HttpContext.Current.User.Identity.Name;
+                        }
+                        else
+                        {
+                            activityTypeToUpdate.UserLastModified = "Unknown";
+                        }
+
+                        activityTypeToUpdate.DateLastModified = DateTime.Now;
+                        _db.SaveChanges();
                     }
 
-                    activityTypeToUpdate.DateLastModified = DateTime.Now;
-                    _db.SaveChanges();
-                }
-
-                ErrorLabel.Text = "";
-                SuccessLabel.Text = "Activity Type Updated";
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "Activity Type Updated";
+                }                        
             }
             catch (Exception ex)
             {
@@ -97,12 +105,7 @@ namespace RWInbound2
                 if (string.IsNullOrEmpty(code)) {
                     SuccessLabel.Text = "";
                     ErrorLabel.Text = "Code field is required.";
-                }
-                else if (string.IsNullOrEmpty(description))
-                {
-                    SuccessLabel.Text = "";
-                    ErrorLabel.Text = "Description field is required.";
-                }
+                }               
                 else
                 {
                     var newActivityType = new tlkActivityType()

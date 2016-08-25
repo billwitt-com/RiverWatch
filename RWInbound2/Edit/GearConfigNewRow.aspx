@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="GearConfigNewRow.aspx.cs" Inherits="RWInbound2.GearConfigNewRow" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="GearConfigNewRow.aspx.cs" Inherits="RWInbound2.Edit.GearConfigNewRow" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p class="site-title">
         GearConfig Add New Item</p>
@@ -87,7 +87,7 @@
                 &nbsp;<asp:LinkButton ID="NewButton"  OnClick="NewButton_Click" runat="server" CausesValidation="False" CommandName="New" Text="New" />
             </ItemTemplate>
         </asp:FormView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>" 
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>" 
             OnUpdating="SqlDataSource1_Updating" 
              OnInserting="SqlDataSource1_Inserting"
              OnInserted="SqlDataSource1_Inserted"

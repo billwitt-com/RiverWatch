@@ -104,7 +104,7 @@ namespace RWInbound2.Validation
                     // changed this to use tlkLimits as they seem to correspond to Barb's note. 
                     using (SqlConnection conn = new SqlConnection())
                     {
-                        conn.ConnectionString = GlobalSite.RiverWatchConnectionString;
+                        conn.ConnectionString = GlobalSite.RiverWatchDev;
                         using (SqlCommand cmd = new SqlCommand())
                         {
                             cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkLimits]");
@@ -1003,7 +1003,7 @@ namespace RWInbound2.Validation
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from tblOrganization where OrganizationName like @SearchText + '%'";

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditOrgFormView.aspx.cs" Inherits="RWInbound2.EditOrgFormView" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditOrgFormView.aspx.cs" Inherits="RWInbound2.Edit.EditOrgFormView" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p class="site-title">
@@ -226,7 +226,7 @@
         </asp:FormView>
         <ajaxToolkit:RoundedCornersExtender ID="FormView1_RoundedCornersExtender" runat="server" BehaviorID="FormView1_RoundedCornersExtender" TargetControlID="FormView1">
         </ajaxToolkit:RoundedCornersExtender>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>" 
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>" 
             DeleteCommand="DELETE FROM [organization] WHERE [ID] = @ID" 
             InsertCommand="INSERT INTO [organization] ([KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [State], [Zip], [Phone], [Fax], [YearStarted], [WaterShed], [WaterShedGathering], [Password], [Active], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified]) VALUES (@KitNumber, @OrganizationName, @OrganizationType, @Email, @MailingAddress, @ShippingAddress, @City, @State, @Zip, @Phone, @Fax, @YearStarted, @WaterShed, @WaterShedGathering, @Password, @Active, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified)" 
             SelectCommand="SELECT * FROM [organization]" 

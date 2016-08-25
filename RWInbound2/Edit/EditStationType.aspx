@@ -53,7 +53,7 @@
 
             </ItemTemplate>
         </asp:FormView>
-        <asp:SqlDataSource ID="SqlDataSource1"   runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>" 
+        <asp:SqlDataSource ID="SqlDataSource1"   runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>" 
             SelectCommand="SELECT * FROM [tlkStationType]"></asp:SqlDataSource>
         <br />
     </p>

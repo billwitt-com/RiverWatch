@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using RWInbound2.App_Code;
 
-namespace RWInbound2
+namespace RWInbound2.Edit
 {
     public partial class EditOrgFormView : System.Web.UI.Page
     {
@@ -41,7 +41,7 @@ namespace RWInbound2
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";

@@ -14,17 +14,17 @@ namespace RWInbound2.App_Code
         /// <summary>
         /// ConnectionString directly to SQL
         /// </summary>
-        static public string RiverWatchConnectionString { get; set; }
+        static public string RiverWatchDev { get; set; }
 
         /// <summary>
         /// ConnectionString for Entity Framework dbcontext
         /// </summary>
-        static public string RiverWatchEntitiesDbContext { get; set; }        
+        static public string RiverWatchEntitiesDbContext { get; set; }
 
         static GlobalSite()
         {
             // Cache all these values in static properties.            
-            RiverWatchConnectionString = WebConfigurationManager.AppSettings["RiverWatchConnectionString"];
+            RiverWatchDev = WebConfigurationManager.AppSettings["RiverWatchDev"];
             RiverWatchEntitiesDbContext = WebConfigurationManager.AppSettings["RiverWatchEntitiesDbContext"];
         }
     }

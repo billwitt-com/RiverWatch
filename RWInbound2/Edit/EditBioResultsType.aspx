@@ -1,5 +1,4 @@
-﻿<%@ Page Title="Activity Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
-         CodeBehind="EditActivityCategory.aspx.cs" Inherits="RWInbound2.Edit.EditActivityCategory" %>
+﻿<%@ Page Title="BioResults Type" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditBioResultsType.aspx.cs" Inherits="RWInbound2.Edit.EditBioResultsType" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -15,12 +14,12 @@
             </div>
             <br />            
         </div>
-        <asp:GridView ID="ActivityCategoryGridView" runat="server"
+        <asp:GridView ID="BioResultsTypeGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkActivityCategory" 
-            SelectMethod="GetActivityCategories"
-            UpdateMethod="UpdateActivityCategory"
-            DeleteMethod="DeleteActivityCategory" 
+            ItemType="RWInbound2.tlkBioResultsType" 
+            SelectMethod="GetBioResultsTypes"
+            UpdateMethod="UpdateBioResultsType" 
+            DeleteMethod="DeleteBioResultsType" 
             InsertItemPosition="LastItem"  
             ShowFooter="true"
             CellPadding="4"
@@ -40,7 +39,7 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewActivityCategory" />
+                                    OnClick = "AddNewBioResultsType" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />

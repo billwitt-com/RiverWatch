@@ -378,7 +378,7 @@
             </td>
         </tr>
     </table>
-    <asp:SqlDataSource ID="SqlDataSourceNormals" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>"  
+    <asp:SqlDataSource ID="SqlDataSourceNormals" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"  
         OnUpdated="SqlDataSourceNormals_Updated" OnUpdating="SqlDataSourceNormals_Updating"
          
         UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [tblSampleID] = @tblSampleID, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, 
@@ -431,7 +431,7 @@
         </UpdateParameters>
     </asp:SqlDataSource>
 
-    <asp:SqlDataSource ID="SqlDataSourceDups" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>"
+    <asp:SqlDataSource ID="SqlDataSourceDups" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
         DeleteCommand="DELETE FROM [tblInboundICP] WHERE [inbICPID] = @inbICPID"
         InsertCommand="INSERT INTO [tblInboundICP] ([CODE], [DUPLICATE], [AL_D], [AL_T], [AS_D], [AS_T], [CA_D], [CA_T], [CD_D], [CD_T], [CU_D], [CU_T], [FE_D], [FE_T], [PB_D], [PB_T], [MG_D], [MG_T], [MN_D], [MN_T], [SE_D], [SE_T], [ZN_D], [ZN_T], [NA_D], [NA_T], [K_D], [K_T], [ANADATE], [COMPLETE], [DATE_SENT], [Comments], [PassValStep], [Reviewed], [FailedChems], [tblSampleID]) VALUES (@CODE, @DUPLICATE, @AL_D, @AL_T, @AS_D, @AS_T, @CA_D, @CA_T, @CD_D, @CD_T, @CU_D, @CU_T, @FE_D, @FE_T, @PB_D, @PB_T, @MG_D, @MG_T, @MN_D, @MN_T, @SE_D, @SE_T, @ZN_D, @ZN_T, @NA_D, @NA_T, @K_D, @K_T, @ANADATE, @COMPLETE, @DATE_SENT, @Comments, @PassValStep, @Reviewed, @FailedChems, @tblSampleID)"
         UpdateCommand="UPDATE [tblInboundICP] SET [CODE] = @CODE, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, [NA_D] = @NA_D, [NA_T] = @NA_T, [K_D] = @K_D, [K_T] = @K_T, [ANADATE] = @ANADATE, [COMPLETE] = @COMPLETE, [DATE_SENT] = @DATE_SENT, [Comments] = @Comments, [PassValStep] = @PassValStep, [Reviewed] = @Reviewed, [FailedChems] = @FailedChems, [tblSampleID] = @tblSampleID WHERE [inbICPID] = @inbICPID">

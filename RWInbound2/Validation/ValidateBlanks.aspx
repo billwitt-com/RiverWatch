@@ -542,7 +542,7 @@
         </tr>
     </table>
 
-    <asp:SqlDataSource ID="SqlDataSourceNormals" OnUpdating="SqlDataSourceNormals_Updating"  OnUpdated="SqlDataSourceNormals_Updated" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>" 
+    <asp:SqlDataSource ID="SqlDataSourceNormals" OnUpdating="SqlDataSourceNormals_Updating"  OnUpdated="SqlDataSourceNormals_Updated" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>" 
          
         UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [tblSampleID] = @tblSampleID, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, 
         [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, 
@@ -597,7 +597,7 @@
 
 
 <%--    we really don't care about this since we manage in code... --%>
-    <asp:SqlDataSource ID="SqlDataSourceBlanks" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>"
+    <asp:SqlDataSource ID="SqlDataSourceBlanks" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
 
         UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, 
         [FE_T] = @FE_T, [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, 
@@ -644,7 +644,7 @@
         </UpdateParameters>
     </asp:SqlDataSource>
 
-      <asp:SqlDataSource ID="SqlDataSourceDups" runat="server" OnUpdating="SqlDataSourceDups_Updating"  OnUpdated="SqlDataSourceDups_Updated" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>" 
+      <asp:SqlDataSource ID="SqlDataSourceDups" runat="server" OnUpdating="SqlDataSourceDups_Updating"  OnUpdated="SqlDataSourceDups_Updated" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>" 
           UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [tblSampleID] = @tblSampleID, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, 
         [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, 
         [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, 

@@ -30,7 +30,7 @@ namespace RWInbound2.Account
             {
                 using (SqlConnection conn = new SqlConnection())
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = string.Format("select FirstName, LastName from tbluser where UserName like '{0}' and Password like '{1}'", UZerName, Password);
@@ -70,7 +70,7 @@ namespace RWInbound2.Account
             {
                 using (SqlConnection conn = new SqlConnection())
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = string.Format("update tbluser set [DateLastActivity] = '{2}' where UserName like '{0}' and Password like '{1}'", UZerName, Password, DateTime.Now.ToString());

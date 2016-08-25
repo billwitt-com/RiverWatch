@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Activity Type" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditActivityType.aspx.cs" Inherits="RWInbound2.EditActivityType" %>
+﻿<%@ Page Title="Activity Type" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditActivityType.aspx.cs" Inherits="RWInbound2.Edit.EditActivityType" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -30,7 +30,8 @@
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />
-                        <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" />
+                        <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
+                                    OnClientClick="return confirm('Are you certain you want to delete this?');"/>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />

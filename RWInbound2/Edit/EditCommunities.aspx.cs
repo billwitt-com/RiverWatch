@@ -1,97 +1,100 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditActivityCategory : System.Web.UI.Page
+    public partial class EditCommunities : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {                
+            {
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
             }
         }
-        public IQueryable<tlkActivityCategory> GetActivityCategories()
+
+        public IQueryable<tlkCommunity> GetCommunities()
         {
             try
             {
                 RiverWatchEntities _db = new RiverWatchEntities();
 
-                IQueryable<tlkActivityCategory> activityCategories = _db.tlkActivityCategories;
+                IQueryable<tlkCommunity> community = _db.tlkCommunities;
 
-                return activityCategories;
+                return community;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetActivityCategories", "", "");
+                HandleErrors(ex, ex.Message, "GetCommunities", "", "");
                 return null;
-            }            
+            }
         }
 
-        public void UpdateActivityCategory(tlkActivityCategory model)
+        public void UpdateCommunity(tlkCommunity model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var activityCategoryToUpdate = _db.tlkActivityCategories.Find(model.ID);
+                    var communityToUpdate = _db.tlkCommunities.Find(model.ID);
 
-                    activityCategoryToUpdate.Code = model.Code;
-                    activityCategoryToUpdate.Description = model.Description;
-                    //activityCategoryToUpdate.Valid = 
+                    communityToUpdate.Code = model.Code;
+                    communityToUpdate.Description = model.Description;
+
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        activityCategoryToUpdate.UserLastModified
+                        communityToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        activityCategoryToUpdate.UserLastModified = "Unknown";
+                        communityToUpdate.UserLastModified = "Unknown";
                     }
 
-                    activityCategoryToUpdate.DateLastModified = DateTime.Now;
+                    communityToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Activity Category Updated";
-                }                        
+                    SuccessLabel.Text = "Community Updated";
+                }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateActivityCategory", "", "");               
-            }                   
+                HandleErrors(ex, ex.Message, "UpdateCommunity", "", "");
+            }
         }
 
-        public void DeleteActivityCategory(tlkActivityCategory model)
-        {  
+        public void DeleteCommunity(tlkCommunity model)
+        {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var activityCategoryToDelete = _db.tlkActivityCategories.Find(model.ID);
-                    _db.tlkActivityCategories.Remove(activityCategoryToDelete);
+                    var communityToDelete = _db.tlkCommunities.Find(model.ID);
+                    _db.tlkCommunities.Remove(communityToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Activity Category Deleted";
+                    SuccessLabel.Text = "Community Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteActivityCategory", "", "");                   
+                    HandleErrors(ex, ex.Message, "DeleteCommunity", "", "");
                 }
             }
         }
 
-        public void AddNewActivityCategory(object sender, EventArgs e)
-        {   
+        public void AddNewCommunity(object sender, EventArgs e)
+        {
             try
             {
-                string strCode = ((TextBox)ActivityCategoryGridView.FooterRow.FindControl("NewCode")).Text;                
-                string description = ((TextBox)ActivityCategoryGridView.FooterRow.FindControl("NewDescription")).Text;
+                string strCode = ((TextBox)CommunitiesGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)CommunitiesGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(strCode))
                 {
@@ -109,7 +112,7 @@ namespace RWInbound2.Edit
                     }
                     else
                     {
-                        var newActivityCategory = new tlkActivityCategory()
+                        var newCommunity = new tlkCommunity()
                         {
                             Code = code,
                             Description = description,
@@ -119,34 +122,34 @@ namespace RWInbound2.Edit
 
                         if (this.User != null && this.User.Identity.IsAuthenticated)
                         {
-                            newActivityCategory.UserLastModified
+                            newCommunity.UserLastModified
                                 = HttpContext.Current.User.Identity.Name;
                         }
                         else
                         {
-                            newActivityCategory.UserLastModified = "Unknown";
+                            newCommunity.UserLastModified = "Unknown";
                         }
 
                         using (RiverWatchEntities _db = new RiverWatchEntities())
                         {
-                            _db.tlkActivityCategories.Add(newActivityCategory);
-                            _db.SaveChanges();                            
+                            _db.tlkCommunities.Add(newCommunity);
+                            _db.SaveChanges();
                             ErrorLabel.Text = "";
-                            SuccessLabel.Text = "New Activity Category Added";
-                            Response.Redirect("EditActivityCategory.aspx", false);
+                            SuccessLabel.Text = "New Community Type Added";
+                            Response.Redirect("EditCommunities.aspx", false);
                         }
-                    }                   
-                }                    
+                    }
+                }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewActivityCategory", "", "");                
+                HandleErrors(ex, ex.Message, "AddNewCommunity", "", "");
             }
         }
 
-        private void HandleErrors(Exception ex, string msg, string fromPage, 
+        private void HandleErrors(Exception ex, string msg, string fromPage,
                                                 string nam, string comment)
-        {            
+        {
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 

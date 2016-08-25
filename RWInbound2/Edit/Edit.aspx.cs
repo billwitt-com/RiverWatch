@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 // main page holding all editing options
-namespace RWInbound2
+namespace RWInbound2.Edit
 {
     public partial class Edit : Page
     {
@@ -52,6 +52,21 @@ namespace RWInbound2
         protected void btnActivityTypes_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditActivityType.aspx");
+        }
+
+        protected void btnBioResultsTypes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditBioResultsType.aspx");
+        }
+
+        protected void btnCommunities_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditCommunities.aspx");
+        }
+
+        protected void btnCounties_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditCounty.aspx");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="GearConfig.aspx.cs" Inherits="RWInbound2.GearConfig" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="GearConfig.aspx.cs" Inherits="RWInbound2.Edit.GearConfig" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
    <span class="site-title">Configure Field Gear
 
@@ -32,7 +32,7 @@
     </asp:GridView>
     <asp:Button ID="btnNew" runat="server" OnClick="btnNew_Click" Text="NEW" />
     <br />
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchConnectionString %>" 
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>" 
          OnUpdating="SqlDataSource1_Updating"
 
         DeleteCommand="DELETE FROM [GearConfig] WHERE [ID] = @ID" 
