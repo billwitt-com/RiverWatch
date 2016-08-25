@@ -18,11 +18,20 @@ namespace RWInbound2
         }
         public IQueryable<tlkActivityCategory> GetActivityCategories()
         {
-            RiverWatchEntities _db = new RiverWatchEntities();
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
 
-            IQueryable<tlkActivityCategory> activityCategories = _db.tlkActivityCategories;           
+                IQueryable<tlkActivityCategory> activityCategories = _db.tlkActivityCategories;
 
-            return activityCategories;
+                return activityCategories;
+            }
+            catch (Exception exp)
+            {
+                SuccessLabel.Text = "";
+                ErrorLabel.Text = exp.Message;
+                return null;
+            }            
         }
 
         public void UpdateActivityCategory(tlkActivityCategory model)
