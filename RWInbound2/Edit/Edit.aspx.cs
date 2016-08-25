@@ -48,5 +48,10 @@ namespace RWInbound2
         {
             Response.Redirect("EditActivityCategory.aspx");
         }
+
+        protected void btnActivityTypes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditActivityType.aspx");
+        }
     }
 }

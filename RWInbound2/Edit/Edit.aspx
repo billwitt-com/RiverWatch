@@ -17,4 +17,7 @@
     <p>
         <asp:Button ID="btnActivityCategories" runat="server" OnClick="btnActivityCategories_Click" Text="Activity Categories" />
 </p>
+    <p>
+        <asp:Button ID="btnActivityTypes" runat="server" OnClick="btnActivityTypes_Click" Text="Activity Types" />
+</p>
 </asp:Content>

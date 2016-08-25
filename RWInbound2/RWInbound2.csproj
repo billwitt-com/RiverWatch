@@ -167,6 +167,7 @@
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
     <Content Include="Edit\EditActivityCategory.aspx" />
+    <Content Include="Edit\EditActivityType.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
     <Content Include="Edit\EditStationType.aspx" />
@@ -366,6 +367,13 @@
     </Compile>
     <Compile Include="Edit\EditActivityCategory.aspx.designer.cs">
       <DependentUpon>EditActivityCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditActivityType.aspx.cs">
+      <DependentUpon>EditActivityType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditActivityType.aspx.designer.cs">
+      <DependentUpon>EditActivityType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>

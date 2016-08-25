@@ -26,10 +26,9 @@ namespace RWInbound2
 
                 return activityCategories;
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = exp.Message;
+                HandleErrors(ex, ex.Message, "GetActivityCategories", "", "");
                 return null;
             }            
         }
@@ -62,10 +61,9 @@ namespace RWInbound2
                 ErrorLabel.Text = "";
                 SuccessLabel.Text = "Activity Category Updated";
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = exp.Message;
+                HandleErrors(ex, ex.Message, "UpdateActivityCategory", "", "");               
             }                   
         }
 
@@ -81,10 +79,9 @@ namespace RWInbound2
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "Activity Category Deleted";
                 }
-                catch (Exception exp)
+                catch (Exception ex)
                 {
-                    SuccessLabel.Text = "";
-                    ErrorLabel.Text = exp.Message;
+                    HandleErrors(ex, ex.Message, "DeleteActivityCategory", "", "");                   
                 }
             }
         }
@@ -93,42 +90,73 @@ namespace RWInbound2
         {   
             try
             {
-                string strCode = ((TextBox)ActivityCategoryGridView.FooterRow.FindControl("NewCode")).Text;
-                int code = Convert.ToInt32(strCode);
+                string strCode = ((TextBox)ActivityCategoryGridView.FooterRow.FindControl("NewCode")).Text;                
                 string description = ((TextBox)ActivityCategoryGridView.FooterRow.FindControl("NewDescription")).Text;
 
-                var newActivityCategory = new tlkActivityCategory()
+                if (string.IsNullOrEmpty(strCode))
                 {
-                    Code = code,
-                    Description = description,
-                    Valid = true,
-                    DateLastModified = DateTime.Now
-                };
-
-                if (this.User != null && this.User.Identity.IsAuthenticated)
+                    SuccessLabel.Text = "";
+                    ErrorLabel.Text = "Code field is required.";
+                }
+                else if (string.IsNullOrEmpty(description))
                 {
-                    newActivityCategory.UserLastModified
-                        = HttpContext.Current.User.Identity.Name;
+                    SuccessLabel.Text = "";
+                    ErrorLabel.Text = "Description field is required.";
                 }
                 else
                 {
-                    newActivityCategory.UserLastModified = "Unknown";
-                }
+                    int code;
+                    bool convertToInt = int.TryParse(strCode, out code);
+                    if (!convertToInt)
+                    {
+                        SuccessLabel.Text = "";
+                        ErrorLabel.Text = "Code field must be a whole number.";
+                    }
+                    else
+                    {
+                        var newActivityCategory = new tlkActivityCategory()
+                        {
+                            Code = code,
+                            Description = description,
+                            Valid = true,
+                            DateLastModified = DateTime.Now
+                        };
 
-                using (RiverWatchEntities _db = new RiverWatchEntities())
-                {
-                    _db.tlkActivityCategories.Add(newActivityCategory);
-                    _db.SaveChanges();
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "New Activity Category Added";                    
-                }
-                Response.Redirect("EditActivityCategory.aspx");
+                        if (this.User != null && this.User.Identity.IsAuthenticated)
+                        {
+                            newActivityCategory.UserLastModified
+                                = HttpContext.Current.User.Identity.Name;
+                        }
+                        else
+                        {
+                            newActivityCategory.UserLastModified = "Unknown";
+                        }
+
+                        using (RiverWatchEntities _db = new RiverWatchEntities())
+                        {
+                            _db.tlkActivityCategories.Add(newActivityCategory);
+                            _db.SaveChanges();
+                            Response.Redirect("EditActivityCategory.aspx", false);
+                            ErrorLabel.Text = "";
+                            SuccessLabel.Text = "New Activity Category Added";
+                        }
+                    }                   
+                }                    
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = exp.Message;
+                HandleErrors(ex, ex.Message, "AddNewActivityCategory", "", "");                
             }
+        }
+
+        private void HandleErrors(Exception ex, string msg, string fromPage, 
+                                                string nam, string comment)
+        {            
+            LogError LE = new LogError();
+            LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
+
+            SuccessLabel.Text = "";
+            ErrorLabel.Text = ex.Message;
         }
     }
 }

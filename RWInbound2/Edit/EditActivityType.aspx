@@ -1,5 +1,4 @@
-﻿<%@ Page Title="Activity Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
-         CodeBehind="EditActivityCategory.aspx.cs" Inherits="RWInbound2.EditActivityCategory" %>
+﻿<%@ Page Title="Activity Type" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditActivityType.aspx.cs" Inherits="RWInbound2.EditActivityType" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -15,12 +14,12 @@
             </div>
             <br />            
         </div>
-        <asp:GridView ID="ActivityCategoryGridView" runat="server"
+        <asp:GridView ID="ActivityTypeGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkActivityCategory" 
-            SelectMethod="GetActivityCategories"
-            UpdateMethod="UpdateActivityCategory" 
-            DeleteMethod="DeleteActivityCategory" 
+            ItemType="RWInbound2.tlkActivityType" 
+            SelectMethod="GetActivityTypes"
+            UpdateMethod="UpdateActivityType" 
+            DeleteMethod="DeleteActivityType" 
             InsertItemPosition="LastItem"  
             ShowFooter="true"
             CellPadding="4"
@@ -39,7 +38,7 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewActivityCategory" />
+                                    OnClick = "AddNewActivityType" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
