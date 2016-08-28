@@ -430,16 +430,16 @@ namespace RWInbound2.Validation
                 if ((Disolved - Total) >= D2Tlimit)
                 {
                     tbD.BackColor = Color.PowderBlue;
-                    tbD.ToolTip = string.Format("Disolved_Dups - Total_Dups is greater than limit of {0}", D2Tlimit); 
+                    tbD.ToolTip = string.Format("Disolved - Total is greater than limit of {0}", D2Tlimit); 
                     tbT.BackColor = Color.PowderBlue;
-                    tbT.ToolTip = string.Format("Disolved_Dups - Total_Dups is greater than limit of {0}", D2Tlimit); 
+                    tbT.ToolTip = string.Format("Disolved - Total is greater than limit of {0}", D2Tlimit); 
                 }
                 else
                 {
                     tbD.BackColor = Color.White;
                     tbT.BackColor = Color.White;
-                    tbD.ToolTip = string.Format("Disolved_Dups - Total_Dups is less than limit of {0}", D2Tlimit); 
-                    tbT.ToolTip = string.Format("Disolved_Dups - Total_Dups is less than limit of {0}", D2Tlimit); 
+                    tbD.ToolTip = string.Format("Disolved - Total is less than limit of {0}", D2Tlimit); 
+                    tbT.ToolTip = string.Format("Disolved - Total is less than limit of {0}", D2Tlimit); 
                 }
 
                 // now see if this is a blank, then test for out of range
