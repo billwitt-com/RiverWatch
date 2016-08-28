@@ -166,6 +166,11 @@
     <Content Include="Data\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
+    <Content Include="Edit\EditActivityCategory.aspx" />
+    <Content Include="Edit\EditActivityType.aspx" />
+    <Content Include="Edit\EditBioResultsType.aspx" />
+    <Content Include="Edit\EditCommunities.aspx" />
+    <Content Include="Edit\EditCounty.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
     <Content Include="Edit\EditStationType.aspx" />
@@ -253,7 +258,9 @@
     <Content Include="Validation\ValidateNormals.aspx" />
     <Content Include="Validation\Validation.aspx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.config.ajaxissue">
       <SubType>Designer</SubType>
     </None>
@@ -305,6 +312,7 @@
     <Compile Include="Applications\Applications.aspx.designer.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Code\GlobalSite.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -356,6 +364,41 @@
     <Compile Include="Edit\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditActivityCategory.aspx.cs">
+      <DependentUpon>EditActivityCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditActivityCategory.aspx.designer.cs">
+      <DependentUpon>EditActivityCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditActivityType.aspx.cs">
+      <DependentUpon>EditActivityType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditActivityType.aspx.designer.cs">
+      <DependentUpon>EditActivityType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditBioResultsType.aspx.cs">
+      <DependentUpon>EditBioResultsType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditBioResultsType.aspx.designer.cs">
+      <DependentUpon>EditBioResultsType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditCommunities.aspx.cs">
+      <DependentUpon>EditCommunities.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditCommunities.aspx.designer.cs">
+      <DependentUpon>EditCommunities.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditCounty.aspx.cs">
+      <DependentUpon>EditCounty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditCounty.aspx.designer.cs">
+      <DependentUpon>EditCounty.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -399,7 +442,6 @@
     </Compile>
     <Compile Include="GearConfig.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="InboundICPFinal.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>

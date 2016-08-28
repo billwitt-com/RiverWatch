@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditLimits.aspx.cs" Inherits="RWInbound2.EditLimits" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditLimits.aspx.cs" Inherits="RWInbound2.Edit.EditLimits" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <asp:Label runat="server" Text="Validation Limits Editor   "></asp:Label>
@@ -80,15 +80,15 @@
         </ItemTemplate>
     </asp:FormView>
 
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchWaterDEV%>"
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev%>"
         OnUpdating="SqlDataSource1_Updating"
         OnInserting="SqlDataSource1_Inserting"
         OnDeleting="SqlDataSource1_Deleting"
       
-        InsertCommand="INSERT INTO [ValidationLimits] ([Name], [Value], [Note], [CreatedBy], [CreatedDate], [Valid]) VALUES (@Name, @Value, @Note, @CreatedBy, @CreatedDate, @Valid)"
-        UpdateCommand="UPDATE [dbRiverwatchWaterData].[dbo].[ValidationLimits] SET [Valid] = 0 WHERE [ID] = @ID  INSERT INTO [ValidationLimits] ([Name], [Value], [Note], [CreatedBy], [CreatedDate], [Valid]) VALUES (@Name, @Value, @Note, @CreatedBy, @CreatedDate, @Valid) "
-        SelectCommand="SELECT * FROM [ValidationLimits] where [valid] = 1 order by name"
-        DeleteCommand="Delete from [ValidationLimits] where [ID] = @ID"
+        InsertCommand="INSERT INTO [tlkLimits] ([Name], [Value], [Note], [CreatedBy], [CreatedDate], [Valid]) VALUES (@Name, @Value, @Note, @CreatedBy, @CreatedDate, @Valid)"
+        UpdateCommand="UPDATE [tlkLimits] SET [Valid] = 0 WHERE [ID] = @ID  INSERT INTO [tlkLimits] ([Name], [Value], [Note], [CreatedBy], [CreatedDate], [Valid]) VALUES (@Name, @Value, @Note, @CreatedBy, @CreatedDate, @Valid) "
+        SelectCommand="SELECT * FROM [tlkLimits] where [valid] = 1 order by name"
+        DeleteCommand="Delete from [tlkLimits] where [ID] = @ID"
         >   
         
         <DeleteParameters>

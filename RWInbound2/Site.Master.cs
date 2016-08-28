@@ -69,11 +69,23 @@ namespace RWInbound2
         protected void Page_Load(object sender, EventArgs e)
         {
             // get date and time from RWInbound2.dll 
-           // string filename = "RWInbound2.dll";
-           // string locDir = System.IO.Directory.GetCurrentDirectory();
-           // string fullDir = locDir + "\\bin\\" + filename;
+            //string filename = "RWInbound2.dll";
+            //string locDir = System.IO.Directory.GetCurrentDirectory();
+            //string fullDir = locDir + "\\bin\\" + filename;
 
-           //DateTime writeTime =  System.IO.Directory.GetLastAccessTime(fullDir);
+            //DateTime writeTime = System.IO.Directory.GetLastAccessTime(fullDir);
+
+            string filepath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+            const string URIPrefx = "file:///";
+            if (filepath.StartsWith(URIPrefx)) filepath = filepath.Substring(URIPrefx.Length);
+
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(filepath);
+            string VerMsg = fileInfo.LastWriteTime.ToString("yyyy-MM-dd");
+
+            lblVersion.Text = "  " + fileInfo.LastWriteTime.ToString("yyyy") + "               VER: " + VerMsg;  
+
+       //     setMsg(Properties.Settings.Default.version + "\r\n compiled " + fileInfo.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss"));
+
 
           
         }

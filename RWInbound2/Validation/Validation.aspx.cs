@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RWInbound2.App_Code;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -56,7 +57,7 @@ namespace RWInbound2.Validation
                 using (SqlDataSource S = new SqlDataSource())
                 {
                     DataSourceSelectArguments args = new DataSourceSelectArguments();
-                    S.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                    S.ConnectionString = GlobalSite.RiverWatchDev;
                     S.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";
                     System.Data.DataView result = (DataView)S.Select(args);
                     blankCount = result.Table.Rows.Count;

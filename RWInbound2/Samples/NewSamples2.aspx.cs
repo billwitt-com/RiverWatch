@@ -12,12 +12,13 @@ using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Web.Providers.Entities;
+using RWInbound2.App_Code;
 
 namespace RWInbound2.Samples
 {
     public partial class NewSamples2 : System.Web.UI.Page
     {
-        dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
+        //dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
         // NewRiverwatchEntities NRWDE = new NewRiverwatchEntities();
         RiverWatchEntities NRWDE = new RiverWatchEntities();
 
@@ -984,7 +985,7 @@ namespace RWInbound2.Samples
                 {
                     using (SqlConnection con = new SqlConnection())
                     {
-                        con.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                        con.ConnectionString = GlobalSite.RiverWatchDev;
                         cmd.CommandText = queryString;
                         cmd.Connection = con;
                         cmd.CommandType = System.Data.CommandType.Text;
@@ -1046,7 +1047,7 @@ namespace RWInbound2.Samples
                 {
                     using (SqlConnection con = new SqlConnection())
                     {
-                        con.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                        con.ConnectionString = GlobalSite.RiverWatchDev;
                         cmd.CommandText = queryString;
                         cmd.Connection = con;
                         cmd.CommandType = System.Data.CommandType.Text;
@@ -1556,7 +1557,7 @@ namespace RWInbound2.Samples
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";

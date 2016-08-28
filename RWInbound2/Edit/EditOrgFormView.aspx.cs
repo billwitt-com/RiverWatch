@@ -6,8 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using RWInbound2.App_Code;
 
-namespace RWInbound2
+namespace RWInbound2.Edit
 {
     public partial class EditOrgFormView : System.Web.UI.Page
     {
@@ -40,7 +41,7 @@ namespace RWInbound2
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";
@@ -86,7 +87,7 @@ namespace RWInbound2
             searchterm.Replace("%", " ");
             Session["SEARCHTERM"] = searchterm;     // save for later 
 
-            SqlDataSource1.SelectCommand = string.Format("select * from tblOrganization where OrganizationName like '{0}'", searchterm);
+            SqlDataSource1.SelectCommand = string.Format("select * from organization where OrganizationName like '{0}'", searchterm);
             FormView1.DataBind();
 
             string uniqueID = FormView1.Controls[0].Parent.UniqueID; 
@@ -112,7 +113,7 @@ namespace RWInbound2
                     return;
                 // XXXX dont forget to check valid flag when table is updated to have that field
 
-                SqlDataSource1.SelectCommand = string.Format("select * from tblOrganization where OrganizationName like '{0}'", searchterm);
+                SqlDataSource1.SelectCommand = string.Format("select * from organization where OrganizationName like '{0}'", searchterm);
                 FormView1.DataBind();
                 FormView1.ChangeMode(FormViewMode.Edit);    // put in edit mode
                 tbSearch.Text = "";

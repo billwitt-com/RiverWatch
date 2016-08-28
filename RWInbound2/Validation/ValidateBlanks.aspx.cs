@@ -11,6 +11,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Sql;
 using System.Web.Providers.Entities;
+using RWInbound2.App_Code;
 
 
 // XXXX need graceful exit if sesson expires - return user to session expired page
@@ -22,7 +23,7 @@ namespace RWInbound2.Validation
     {
         Dictionary<string, decimal> D2TLimits = new Dictionary<string, decimal>();   // holds symbol and D2Tlimit values
         Dictionary<string, decimal> MeasurementLimits = new Dictionary<string, decimal>();   // holds symbol and D2Tlimit values
-
+        RiverWatchEntities NRWDE = new RiverWatchEntities();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,8 +36,8 @@ namespace RWInbound2.Validation
             decimal MeasurementValue = 0;
             string searchDup = "";
             bool controlsSet;
-            dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
-            RiverWatchEntities NRWDE = new RiverWatchEntities();
+            //dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
+            //RiverWatchEntities NRWDE = new RiverWatchEntities();
             int rowsAffected;
 
             // count rows of not saved, valid Blanks first
@@ -103,7 +104,7 @@ namespace RWInbound2.Validation
                     // changed this to use tlkLimits as they seem to correspond to Barb's note. 
                     using (SqlConnection conn = new SqlConnection())
                     {
-                        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                        conn.ConnectionString = GlobalSite.RiverWatchDev;
                         using (SqlCommand cmd = new SqlCommand())
                         {
                             cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkLimits]");
@@ -585,7 +586,7 @@ namespace RWInbound2.Validation
         {
             RiverWatchEntities NewRWE = new RiverWatchEntities(); // new database RiverWatch 
             NEWexpWater NEW = null;
-            dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2(); // get access to old db for details, this is temp. XXXX
+            //dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2(); // get access to old db for details, this is temp. XXXX
             bool existingRecord = false;
             decimal Total;
             decimal Disolved;
@@ -720,8 +721,8 @@ namespace RWInbound2.Validation
 
                         NEW.SampleNumber = ts.SampleNumber; // this is the big string of station id + date time - build at sample entry
                         // tblSample has station id 
-                        var STN = (from s in RWDE.tblStations
-                                   where s.StationID == ts.StationID
+                        var STN = (from s in NRWDE.Stations
+                                   where s.ID == ts.StationID
                                    select s).FirstOrDefault();
 
                         //   ts.StationID
@@ -1002,7 +1003,7 @@ namespace RWInbound2.Validation
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from tblOrganization where OrganizationName like @SearchText + '%'";

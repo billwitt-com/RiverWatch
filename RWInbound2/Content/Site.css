@@ -1300,3 +1300,24 @@ fieldset {
     font-weight: 600;
     color: #808080;
 }
+/*Option on Edit Page*/
+.grid-columns-center{
+    text-align:center;
+    width: 800px;
+    height:238px;
+}
+.grid-columns-center input[type="text"]{
+    text-align:center;      
+}
+
+.label-error{
+    color:red;
+}
+
+.label-success{
+    color:green;
+}
+
+.label-placement{
+    text-align:center;
+}

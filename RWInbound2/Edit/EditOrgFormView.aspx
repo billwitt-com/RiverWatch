@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditOrgFormView.aspx.cs" Inherits="RWInbound2.EditOrgFormView" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditOrgFormView.aspx.cs" Inherits="RWInbound2.Edit.EditOrgFormView" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p class="site-title">
@@ -19,10 +19,10 @@
     </p>
     <p>
        <%-- this was built by VS and only required adding a sql data source. --%>
-        <asp:FormView ID="FormView1"   runat="server" AllowPaging="True" DataKeyNames="OrganizationID" DataSourceID="SqlDataSource1" OnItemUpdating="FormView1_ItemUpdating">
+        <asp:FormView ID="FormView1"   runat="server" AllowPaging="True" DataKeyNames="ID" DataSourceID="SqlDataSource1" OnItemUpdating="FormView1_ItemUpdating">
             <EditItemTemplate>
-                OrganizationID:
-                <asp:Label ID="OrganizationIDLabel1" runat="server" Text='<%# Eval("OrganizationID") %>' />
+                ID:
+                <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
                 <br />
                 KitNumber:
                 <asp:TextBox ID="KitNumberTextBox" runat="server" Text='<%# Bind("KitNumber") %>' />
@@ -155,8 +155,8 @@
                 &nbsp;<asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
             </InsertItemTemplate>
             <ItemTemplate>
-                OrganizationID:
-                <asp:Label ID="OrganizationIDLabel" runat="server" Text='<%# Eval("OrganizationID") %>' />
+                ID:
+                <asp:Label ID="IDLabel" runat="server" Text='<%# Eval("ID") %>' />
                 <br />
                 KitNumber:
                 <asp:Label ID="KitNumberLabel" runat="server" Text='<%# Bind("KitNumber") %>' />
@@ -226,13 +226,13 @@
         </asp:FormView>
         <ajaxToolkit:RoundedCornersExtender ID="FormView1_RoundedCornersExtender" runat="server" BehaviorID="FormView1_RoundedCornersExtender" TargetControlID="FormView1">
         </ajaxToolkit:RoundedCornersExtender>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchWaterDEV %>" 
-            DeleteCommand="DELETE FROM [tblOrganization] WHERE [OrganizationID] = @OrganizationID" 
-            InsertCommand="INSERT INTO [tblOrganization] ([KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [State], [Zip], [Phone], [Fax], [YearStarted], [WaterShed], [WaterShedGathering], [Password], [Active], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified]) VALUES (@KitNumber, @OrganizationName, @OrganizationType, @Email, @MailingAddress, @ShippingAddress, @City, @State, @Zip, @Phone, @Fax, @YearStarted, @WaterShed, @WaterShedGathering, @Password, @Active, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified)" 
-            SelectCommand="SELECT * FROM [tblOrganization]" 
-            UpdateCommand="UPDATE [tblOrganization] SET [KitNumber] = @KitNumber, [OrganizationName] = @OrganizationName, [OrganizationType] = @OrganizationType, [Email] = @Email, [MailingAddress] = @MailingAddress, [ShippingAddress] = @ShippingAddress, [City] = @City, [State] = @State, [Zip] = @Zip, [Phone] = @Phone, [Fax] = @Fax, [YearStarted] = @YearStarted, [WaterShed] = @WaterShed, [WaterShedGathering] = @WaterShedGathering, [Password] = @Password, [Active] = @Active, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified WHERE [OrganizationID] = @OrganizationID">
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>" 
+            DeleteCommand="DELETE FROM [organization] WHERE [ID] = @ID" 
+            InsertCommand="INSERT INTO [organization] ([KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [State], [Zip], [Phone], [Fax], [YearStarted], [WaterShed], [WaterShedGathering], [Password], [Active], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified]) VALUES (@KitNumber, @OrganizationName, @OrganizationType, @Email, @MailingAddress, @ShippingAddress, @City, @State, @Zip, @Phone, @Fax, @YearStarted, @WaterShed, @WaterShedGathering, @Password, @Active, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified)" 
+            SelectCommand="SELECT * FROM [organization]" 
+            UpdateCommand="UPDATE [organization] SET [KitNumber] = @KitNumber, [OrganizationName] = @OrganizationName, [OrganizationType] = @OrganizationType, [Email] = @Email, [MailingAddress] = @MailingAddress, [ShippingAddress] = @ShippingAddress, [City] = @City, [State] = @State, [Zip] = @Zip, [Phone] = @Phone, [Fax] = @Fax, [YearStarted] = @YearStarted, [WaterShed] = @WaterShed, [WaterShedGathering] = @WaterShedGathering, [Password] = @Password, [Active] = @Active, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified WHERE [ID] = @ID">
             <DeleteParameters>
-                <asp:Parameter Name="OrganizationID" Type="Int32" />
+                <asp:Parameter Name="ID" Type="Int32" />
             </DeleteParameters>
             <InsertParameters>
                 <asp:Parameter Name="KitNumber" Type="Int32" />
@@ -277,7 +277,7 @@
                 <asp:Parameter Name="UserCreated" Type="String" />
                 <asp:Parameter Name="DateLastModified" Type="DateTime" />
                 <asp:Parameter Name="UserLastModified" Type="String" />
-                <asp:Parameter Name="OrganizationID" Type="Int32" />
+                <asp:Parameter Name="ID" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
     </p>

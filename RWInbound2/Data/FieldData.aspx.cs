@@ -12,6 +12,7 @@ using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Web.Providers.Entities;
+using RWInbound2.App_Code;
 
 namespace RWInbound2.Data
 {
@@ -254,7 +255,7 @@ namespace RWInbound2.Data
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverwatchDEV"].ConnectionString;
+                    conn.ConnectionString = GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";
