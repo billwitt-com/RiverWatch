@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
+using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditCounty : System.Web.UI.Page
+    public partial class EditNutrientBarCodeType : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,8 +19,8 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkCounty> GetCounties([QueryString]string descriptionSearchTerm = "",
-                                                 [QueryString]string successLabelMessage = "")
+        public IQueryable<tlkNutrientBarCodeType> GetNutrientBarCodeTypes([QueryString]string descriptionSearchTerm = "",
+                                                      [QueryString]string successLabelMessage = "")
         {
             try
             {
@@ -33,27 +33,27 @@ namespace RWInbound2.Edit
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
-                {                    
-                    return _db.tlkCounties.Where(c => c.Description.Equals(descriptionSearchTerm))
+                {
+                    return _db.tlkNutrientBarCodeTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkCounty> counties = _db.tlkCounties
-                                                     .OrderBy(c => c.Code);
-                return counties;
+                IQueryable<tlkNutrientBarCodeType> nutrientBarCodeTypes = _db.tlkNutrientBarCodeTypes
+                                               .OrderBy(c => c.Code);
+                return nutrientBarCodeTypes;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetCounties", "", "");
+                HandleErrors(ex, ex.Message, "GetNutrientBarCodeTypes", "", "");
                 return null;
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
-        {            
+        {
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditCounty.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditNutrientBarCodeType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -67,7 +67,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditCounty.aspx", false);
+                Response.Redirect("EditNutrientBarCodeType.aspx", false);
             }
             catch (Exception ex)
             {
@@ -77,88 +77,88 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForCountiesDescription(string prefixText, int count)
+        public static List<string> SearchForNutrientBarCodeTypesDescription(string prefixText, int count)
         {
-            List<string> countiesDescriptions = new List<string>();
+            List<string> nutrientBarCodeTypesDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    countiesDescriptions = _db.tlkCounties
+                    nutrientBarCodeTypesDescriptions = _db.tlkNutrientBarCodeTypes
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return countiesDescriptions;
+                    return nutrientBarCodeTypesDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditCounty editCounty = new EditCounty();
-                editCounty.HandleErrors(ex, ex.Message, "SearchForCountiesDescription", "", "");
-                return countiesDescriptions;
+                EditNutrientBarCodeType editNutrientBarCodeType = new EditNutrientBarCodeType();
+                editNutrientBarCodeType.HandleErrors(ex, ex.Message, "SearchForNutrientBarCodeTypesDescription", "", "");
+                return nutrientBarCodeTypesDescriptions;
             }
         }
 
-        public void UpdateCounty(tlkCounty model)
+        public void UpdateNutrientBarCodeType(tlkNutrientBarCodeType model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var countyToUpdate = _db.tlkCounties.Find(model.ID);
+                    var nutrientBarCodeTypeToUpdate = _db.tlkNutrientBarCodeTypes.Find(model.ID);
 
-                    countyToUpdate.Code = model.Code;
-                    countyToUpdate.Description = model.Description;
-                    //activityCategoryToUpdate.Valid = 
+                    nutrientBarCodeTypeToUpdate.Code = model.Code;
+                    nutrientBarCodeTypeToUpdate.Description = model.Description;
+
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        countyToUpdate.UserLastModified
+                        nutrientBarCodeTypeToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        countyToUpdate.UserLastModified = "Unknown";
+                        nutrientBarCodeTypeToUpdate.UserLastModified = "Unknown";
                     }
 
-                    countyToUpdate.DateLastModified = DateTime.Now;
+                    nutrientBarCodeTypeToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "County Updated";
+                    SuccessLabel.Text = "Nutrient Bar Code Type Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateCounty", "", "");
+                HandleErrors(ex, ex.Message, "UpdateNutrientBarCodeType", "", "");
             }
         }
 
-        public void DeleteCounty(tlkCounty model)
+        public void DeleteNutrientBarCodeType(tlkNutrientBarCodeType model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var countyToDelete = _db.tlkCounties.Find(model.ID);
-                    _db.tlkCounties.Remove(countyToDelete);
+                    var nutrientBarCodeTypeToDelete = _db.tlkNutrientBarCodeTypes.Find(model.ID);
+                    _db.tlkNutrientBarCodeTypes.Remove(nutrientBarCodeTypeToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "County Deleted";
+                    SuccessLabel.Text = "Nutrient Bar Code Type Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteCounty", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteNutrientBarCodeType", "", "");
                 }
             }
         }
 
-        public void AddNewCounty(object sender, EventArgs e)
+        public void AddNewNutrientBarCodeType(object sender, EventArgs e)
         {
             try
             {
-                string code = ((TextBox)CountyGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)CountyGridView.FooterRow.FindControl("NewDescription")).Text;
+                string code = ((TextBox)NutrientBarCodeTypesGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)NutrientBarCodeTypesGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
@@ -167,7 +167,7 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    var newCounty = new tlkCounty()
+                    var newNutrientBarCodeType = new tlkNutrientBarCodeType()
                     {
                         Code = code,
                         Description = description,
@@ -177,22 +177,22 @@ namespace RWInbound2.Edit
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        newCounty.UserLastModified
+                        newNutrientBarCodeType.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        newCounty.UserLastModified = "Unknown";
+                        newNutrientBarCodeType.UserLastModified = "Unknown";
                     }
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.tlkCounties.Add(newCounty);
+                        _db.tlkNutrientBarCodeTypes.Add(newNutrientBarCodeType);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New County Added: " + newCounty.Description;
-                        string redirect = "EditCounty.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New Nutrient Bar Code Type Added: " + newNutrientBarCodeType.Description;
+                        string redirect = "EditNutrientBarCodeType.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);
                     }
@@ -200,7 +200,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewCounty", "", "");
+                HandleErrors(ex, ex.Message, "AddNewNutrientBarCodeType", "", "");
             }
         }
 

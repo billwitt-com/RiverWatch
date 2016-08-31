@@ -14,18 +14,40 @@
             </div>
             <br />            
         </div>
+        <p>
+        Search By Description:
+        <asp:TextBox ID="descriptionSearch" 
+            AutoPostBack="true"
+            runat="server"></asp:TextBox>
+        <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
+        <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
+        <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
+        <ajaxToolkit:AutoCompleteExtender 
+            ID="tbSearch_AutoCompleteExtender" 
+            runat="server" 
+            BehaviorID="tbSearch_AutoCompleteExtender" 
+            DelimiterCharacters=""  
+            ServiceMethod="SearchForCommunitiesDescription"             
+            TargetControlID="descriptionSearch"
+            MinimumPrefixLength="2"
+            CompletionInterval="100" 
+            EnableCaching="false" 
+            CompletionSetCount="10">
+        </ajaxToolkit:AutoCompleteExtender> 
+    </p>
         <asp:GridView ID="CommunitiesGridView" runat="server"
             DataKeyNames="ID"
             ItemType="RWInbound2.tlkCommunity" 
             SelectMethod="GetCommunities"
-            UpdateMethod="UpdateCommunity" 
+            UpdateMethod="UpdateCommunity"
             DeleteMethod="DeleteCommunity" 
             InsertItemPosition="LastItem"  
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
-            GridLines="None" ForeColor="#333333" Height="238px">
-            <AlternatingRowStyle BackColor="White" />            
+            GridLines="None" ForeColor="#333333" Height="238px"
+            AllowPaging="true" Pagesize="15">
+            <AlternatingRowStyle BackColor="White" />    
             <Columns>  
                 <asp:TemplateField>
                     <ItemTemplate>

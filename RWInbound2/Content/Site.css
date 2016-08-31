@@ -26,14 +26,13 @@ tr
     margin-top:12px;
 }
 
-
 body { /*works for table including fonts of labels but not text boxes see below*/
     background-color: aliceblue;
     border-top: solid 6px #000;
     color: #324253;
     font-size: .85em;
     font-family: Consolas; /* choose as this is fixed width for tables*/
-    width: 1006px;  /* choose as this is width for page*/
+    width: 1080px;  /* choose as this is width for page*/
 }
 
 form {
@@ -1300,6 +1299,7 @@ fieldset {
     font-weight: 600;
     color: #808080;
 }
+
 /*Option on Edit Page*/
 .grid-columns-center{
     text-align:center;
@@ -1308,6 +1308,16 @@ fieldset {
 }
 .grid-columns-center input[type="text"]{
     text-align:center;      
+}
+
+.grid-larger-editor-columns-center{
+    text-align:center;
+    width: 1000px;
+    height:238px;
+}
+
+.grid-larger-editor-columns-center input[type="text"]{
+    text-align:center; 
 }
 
 .label-error{
@@ -1321,3 +1331,20 @@ fieldset {
 .label-placement{
     text-align:center;
 }
+
+table#MainContent_Table1.edit-table{
+    border-collapse:collapse;
+    /*border:1px solid #000;*/
+}
+
+td.edit-table-cell{
+    /*border:1px solid #000;*/
+    border-top:1px solid #000;
+    border-bottom:1px solid #000;
+    text-align:center;
+    padding: 10px;
+}
+
+tr.edit-table-row{
+    text-align:left;
+} 

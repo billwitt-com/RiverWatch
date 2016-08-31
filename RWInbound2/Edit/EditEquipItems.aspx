@@ -1,5 +1,4 @@
-﻿<%@ Page Title="Activity Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
-         CodeBehind="EditActivityCategory.aspx.cs" Inherits="RWInbound2.Edit.EditActivityCategory" %>
+﻿<%@ Page Title="Equipment Items" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditEquipItems.aspx.cs" Inherits="RWInbound2.Edit.EditEquipItems" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -28,7 +27,7 @@
             runat="server" 
             BehaviorID="tbSearch_AutoCompleteExtender" 
             DelimiterCharacters=""  
-            ServiceMethod="SearchForActivityCategoriesDescription"             
+            ServiceMethod="SearchForEquipItemsDescription"             
             TargetControlID="descriptionSearch"
             MinimumPrefixLength="2"
             CompletionInterval="100" 
@@ -36,18 +35,18 @@
             CompletionSetCount="10">
         </ajaxToolkit:AutoCompleteExtender> 
     </p>
-        <asp:GridView ID="ActivityCategoriesGridView" runat="server"
+        <asp:GridView ID="EquipItemsGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkActivityCategory" 
-            SelectMethod="GetActivityCategories"
-            UpdateMethod="UpdateActivityCategory"
-            DeleteMethod="DeleteActivityCategory" 
+            ItemType="RWInbound2.tlkEquipItem" 
+            SelectMethod="GetEquipItems"
+            UpdateMethod="UpdateEquipItem"
+            DeleteMethod="DeleteEquipItem" 
             InsertItemPosition="LastItem"  
-            ShowFooter="true"
+            ShowFooter="True"
             CellPadding="4"
-            AutoGenerateColumns="False" CssClass="grid-columns-center"
+            AutoGenerateColumns="False" CssClass="grid-larger-editor-columns-center"
             GridLines="None" ForeColor="#333333" Height="238px"
-            AllowPaging="true" Pagesize="15">
+            AllowPaging="True" Pagesize="15">
             <AlternatingRowStyle BackColor="White" />    
             <Columns>  
                 <asp:TemplateField>
@@ -62,7 +61,7 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewActivityCategory" />
+                                    OnClick = "AddNewEquipItem" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
@@ -88,11 +87,44 @@
                     <FooterTemplate>
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
+                </asp:TemplateField>               
+                <asp:TemplateField HeaderText="Has Serial" SortExpression="HasSerial">
+                    <EditItemTemplate>
+                        <asp:CheckBox ID="checkBoxHasSerial" runat="server" Checked='<%# Bind("HasSerial") %>' />
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="checkBoxHasSerial" runat="server" Checked='<%# Bind("HasSerial") %>' Enabled="false" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                       <asp:CheckBox ID="NewHasSerial" runat="server" />
+                    </FooterTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="Has Rejuv" SortExpression="HasRejuv">
+                    <EditItemTemplate>
+                        <asp:CheckBox ID="checkBoxHasRejuv" runat="server" Checked='<%# Bind("HasRejuv") %>' />
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="checkBoxHasRejuv" runat="server" Checked='<%# Bind("HasRejuv") %>' Enabled="false" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                       <asp:CheckBox ID="NewHasRejuv" runat="server" />
+                    </FooterTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Category" SortExpression="Category">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtCategory" runat="server" Width="250px" 
+                                     contenteditable="true" Text='<%# Bind("Category") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblCategory" runat="server" Text='<%# Bind("Category") %>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:TextBox ID="NewCategory" runat="server"></asp:TextBox>
+                    </FooterTemplate>
+                </asp:TemplateField> 
                 <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       
     </section>
 </asp:Content>
-

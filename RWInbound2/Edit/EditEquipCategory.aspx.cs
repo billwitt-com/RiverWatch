@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditCounty : System.Web.UI.Page
+    public partial class EditEquipCategory : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,8 +20,8 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkCounty> GetCounties([QueryString]string descriptionSearchTerm = "",
-                                                 [QueryString]string successLabelMessage = "")
+        public IQueryable<tlkEquipCategory> GetEquipCategories([QueryString]string descriptionSearchTerm = "",
+                                                              [QueryString]string successLabelMessage = "")
         {
             try
             {
@@ -33,27 +34,27 @@ namespace RWInbound2.Edit
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
-                {                    
-                    return _db.tlkCounties.Where(c => c.Description.Equals(descriptionSearchTerm))
-                                       .OrderBy(c => c.Code);
+                {
+                    return _db.tlkEquipCategories.Where(c => c.Description.Equals(descriptionSearchTerm))
+                                                 .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkCounty> counties = _db.tlkCounties
+                IQueryable<tlkEquipCategory> equipCategories = _db.tlkEquipCategories
                                                      .OrderBy(c => c.Code);
-                return counties;
+                return equipCategories;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetCounties", "", "");
+                HandleErrors(ex, ex.Message, "GetEquipCategories", "", "");
                 return null;
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
-        {            
+        {
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditCounty.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditEquipCategory.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -67,7 +68,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditCounty.aspx", false);
+                Response.Redirect("EditEquipCategory.aspx", false);
             }
             catch (Exception ex)
             {
@@ -77,88 +78,88 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForCountiesDescription(string prefixText, int count)
+        public static List<string> SearchForEquipCategoriesDescription(string prefixText, int count)
         {
-            List<string> countiesDescriptions = new List<string>();
+            List<string> equipCategoriesDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    countiesDescriptions = _db.tlkCounties
+                    equipCategoriesDescriptions = _db.tlkEquipCategories
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return countiesDescriptions;
+                    return equipCategoriesDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditCounty editCounty = new EditCounty();
-                editCounty.HandleErrors(ex, ex.Message, "SearchForCountiesDescription", "", "");
-                return countiesDescriptions;
+                EditEquipCategory editEquipCategory = new EditEquipCategory();
+                editEquipCategory.HandleErrors(ex, ex.Message, "SearchForEquipCategoriesDescription", "", "");
+                return equipCategoriesDescriptions;
             }
         }
 
-        public void UpdateCounty(tlkCounty model)
+        public void UpdateEquipCategory(tlkEquipCategory model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var countyToUpdate = _db.tlkCounties.Find(model.ID);
+                    var equipCategoryToUpdate = _db.tlkEquipCategories.Find(model.ID);
 
-                    countyToUpdate.Code = model.Code;
-                    countyToUpdate.Description = model.Description;
-                    //activityCategoryToUpdate.Valid = 
+                    equipCategoryToUpdate.Code = model.Code;
+                    equipCategoryToUpdate.Description = model.Description;
+
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        countyToUpdate.UserLastModified
+                        equipCategoryToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        countyToUpdate.UserLastModified = "Unknown";
+                        equipCategoryToUpdate.UserLastModified = "Unknown";
                     }
 
-                    countyToUpdate.DateLastModified = DateTime.Now;
+                    equipCategoryToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "County Updated";
+                    SuccessLabel.Text = "Equipment Category Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateCounty", "", "");
+                HandleErrors(ex, ex.Message, "UpdateEquipCategory", "", "");
             }
         }
 
-        public void DeleteCounty(tlkCounty model)
+        public void DeleteEquipCategory(tlkEquipCategory model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var countyToDelete = _db.tlkCounties.Find(model.ID);
-                    _db.tlkCounties.Remove(countyToDelete);
+                    var equipCategoryToDelete = _db.tlkEquipCategories.Find(model.ID);
+                    _db.tlkEquipCategories.Remove(equipCategoryToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "County Deleted";
+                    SuccessLabel.Text = "Equipment Category Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteCounty", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteEquipCategory", "", "");
                 }
             }
         }
 
-        public void AddNewCounty(object sender, EventArgs e)
+        public void AddNewEquipCategory(object sender, EventArgs e)
         {
             try
             {
-                string code = ((TextBox)CountyGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)CountyGridView.FooterRow.FindControl("NewDescription")).Text;
+                string code = ((TextBox)EquipCategoriesGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)EquipCategoriesGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
@@ -167,7 +168,7 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    var newCounty = new tlkCounty()
+                    var newEquipCategory = new tlkEquipCategory()
                     {
                         Code = code,
                         Description = description,
@@ -177,22 +178,22 @@ namespace RWInbound2.Edit
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        newCounty.UserLastModified
+                        newEquipCategory.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        newCounty.UserLastModified = "Unknown";
+                        newEquipCategory.UserLastModified = "Unknown";
                     }
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.tlkCounties.Add(newCounty);
+                        _db.tlkEquipCategories.Add(newEquipCategory);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New County Added: " + newCounty.Description;
-                        string redirect = "EditCounty.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New Equipment Category Added: " + newEquipCategory.Description;
+                        string redirect = "EditEquipCategory.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);
                     }
@@ -200,7 +201,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewCounty", "", "");
+                HandleErrors(ex, ex.Message, "AddNewEquipCategory", "", "");
             }
         }
 

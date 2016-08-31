@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditBioResultsType : System.Web.UI.Page
+    public partial class EditFieldProcedure : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {           
             if (!IsPostBack)
             {
-                // Validate initially to force asterisks
+             // Validate initially to force asterisks
                 // to appear before the first roundtrip.
-                Validate();
+                Validate();                
             }
         }
 
-        public IQueryable<tlkBioResultsType> GetBioResultsTypes([QueryString]string descriptionSearchTerm = "",
-                                                       [QueryString]string successLabelMessage = "")
+        public IQueryable<tlkFieldProcedure> GetFieldProcedures([QueryString]string descriptionSearchTerm = "",
+                                                                     [QueryString]string successLabelMessage = "")
         {
             try
             {
@@ -34,16 +35,16 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
                 {
-                    return _db.tlkBioResultsTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
+                    return _db.tlkFieldProcedures.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkBioResultsType> bioResultsTypes = _db.tlkBioResultsTypes
+                IQueryable<tlkFieldProcedure> fieldProcedures = _db.tlkFieldProcedures
                                                      .OrderBy(c => c.Code);
-                return bioResultsTypes;
+                return fieldProcedures;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetBioResultsTypes", "", "");
+                HandleErrors(ex, ex.Message, "GetFieldProcedures", "", "");
                 return null;
             }
         }
@@ -53,7 +54,7 @@ namespace RWInbound2.Edit
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditBioResultsType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditFieldProcedure.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -67,7 +68,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditBioResultsType.aspx", false);
+                Response.Redirect("EditFieldProcedure.aspx", false);
             }
             catch (Exception ex)
             {
@@ -77,88 +78,88 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForBioResultsTypesDescription(string prefixText, int count)
+        public static List<string> SearchForFieldProceduresDescription(string prefixText, int count)
         {
-            List<string> bioResultsTypesDescriptions = new List<string>();
+            List<string> fieldProceduresDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    bioResultsTypesDescriptions = _db.tlkBioResultsTypes
+                    fieldProceduresDescriptions = _db.tlkFieldProcedures
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return bioResultsTypesDescriptions;
+                    return fieldProceduresDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditBioResultsType editBioResultsType = new EditBioResultsType();
-                editBioResultsType.HandleErrors(ex, ex.Message, "SearchForBioResultsTypesDescription", "", "");
-                return bioResultsTypesDescriptions;
+                EditFieldProcedure editFieldProcedure = new EditFieldProcedure();
+                editFieldProcedure.HandleErrors(ex, ex.Message, "SearchForFieldProceduresDescription", "", "");
+                return fieldProceduresDescriptions;
             }
         }
 
-        public void UpdateBioResultsType(tlkBioResultsType model)
+        public void UpdateFieldProcedure(tlkFieldProcedure model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var bioResultsTypeToUpdate = _db.tlkBioResultsTypes.Find(model.ID);
+                    var fieldProcedureToUpdate = _db.tlkFieldProcedures.Find(model.ID);
 
-                    bioResultsTypeToUpdate.Code = model.Code;
-                    bioResultsTypeToUpdate.Description = model.Description;
+                    fieldProcedureToUpdate.Code = model.Code;
+                    fieldProcedureToUpdate.Description = model.Description;
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        bioResultsTypeToUpdate.UserLastModified
+                        fieldProcedureToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        bioResultsTypeToUpdate.UserLastModified = "Unknown";
+                        fieldProcedureToUpdate.UserLastModified = "Unknown";
                     }
 
-                    bioResultsTypeToUpdate.DateLastModified = DateTime.Now;
+                    fieldProcedureToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Eco Region Updated";
+                    ErrorLabel.Text = "";                   
+                    SuccessLabel.Text = "Field Procedure Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateBioResultsType", "", "");
+                HandleErrors(ex, ex.Message, "UpdateFieldProcedure", "", "");
             }
         }
 
-        public void DeleteBioResultsType(tlkBioResultsType model)
+        public void DeleteFieldProcedure(tlkFieldProcedure model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var bioResultsTypeToDelete = _db.tlkBioResultsTypes.Find(model.ID);
-                    _db.tlkBioResultsTypes.Remove(bioResultsTypeToDelete);
+                    var fieldProcedureToDelete = _db.tlkFieldProcedures.Find(model.ID);
+                    _db.tlkFieldProcedures.Remove(fieldProcedureToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Eco Region Deleted";
+                    SuccessLabel.Text = "Field Procedure Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteBioResultsType", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteFieldProcedure", "", "");
                 }
             }
         }
 
-        public void AddNewBioResultsType(object sender, EventArgs e)
+        public void AddNewFieldProcedure(object sender, EventArgs e)
         {
             try
             {
-                string strCode = ((TextBox)BioResultsTypeGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)BioResultsTypeGridView.FooterRow.FindControl("NewDescription")).Text;
+                string strCode = ((TextBox)FieldProceduresGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)FieldProceduresGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(strCode))
                 {
@@ -176,7 +177,7 @@ namespace RWInbound2.Edit
                     }
                     else
                     {
-                        var newBioResultsType = new tlkBioResultsType()
+                        var newFieldProcedure = new tlkFieldProcedure()
                         {
                             Code = code,
                             Description = description,
@@ -186,31 +187,31 @@ namespace RWInbound2.Edit
 
                         if (this.User != null && this.User.Identity.IsAuthenticated)
                         {
-                            newBioResultsType.UserLastModified
+                            newFieldProcedure.UserLastModified
                                 = HttpContext.Current.User.Identity.Name;
                         }
                         else
                         {
-                            newBioResultsType.UserLastModified = "Unknown";
+                            newFieldProcedure.UserLastModified = "Unknown";
                         }
 
                         using (RiverWatchEntities _db = new RiverWatchEntities())
                         {
-                            _db.tlkBioResultsTypes.Add(newBioResultsType);
+                            _db.tlkFieldProcedures.Add(newFieldProcedure);
                             _db.SaveChanges();
                             ErrorLabel.Text = "";
 
-                            string successLabelText = "New Bio Results Type Added: " + newBioResultsType.Description;
-                            string redirect = "EditBioResultsType.aspx?successLabelMessage=" + successLabelText;
+                            string successLabelText = "New Field Procedure Added: " + newFieldProcedure.Description;
+                            string redirect = "EditFieldProcedure.aspx?successLabelMessage=" + successLabelText;
 
                             Response.Redirect(redirect, false);
                         }
-                    }                       
+                    }
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewBioResultsType", "", "");
+                HandleErrors(ex, ex.Message, "AddNewFieldProcedure", "", "");
             }
         }
 

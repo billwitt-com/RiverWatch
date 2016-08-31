@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Web.ModelBinding;
+using System.Collections.Generic;
 
 namespace RWInbound2.Edit
 {
@@ -10,27 +12,92 @@ namespace RWInbound2.Edit
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {                
+            {
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
             }
         }
-        public IQueryable<tlkActivityCategory> GetActivityCategories()
+
+        public IQueryable<tlkActivityCategory> GetActivityCategories([QueryString]string descriptionSearchTerm = "",
+                                                                     [QueryString]string successLabelMessage = "")
         {
             try
             {
                 RiverWatchEntities _db = new RiverWatchEntities();
 
-                IQueryable<tlkActivityCategory> activityCategories = _db.tlkActivityCategories;
+                if (!string.IsNullOrEmpty(successLabelMessage))
+                {
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = successLabelMessage;
+                }
 
+                if (!string.IsNullOrEmpty(descriptionSearchTerm))
+                {
+                    return _db.tlkActivityCategories.Where(c => c.Description.Equals(descriptionSearchTerm))
+                                       .OrderBy(c => c.Code);
+                }
+                IQueryable<tlkActivityCategory> activityCategories = _db.tlkActivityCategories
+                                                     .OrderBy(c => c.Code);
                 return activityCategories;
             }
             catch (Exception ex)
             {
                 HandleErrors(ex, ex.Message, "GetActivityCategories", "", "");
                 return null;
-            }            
+            }
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string descriptionSearchTerm = descriptionSearch.Text;
+                string redirect = "EditActivityCategory.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+
+                Response.Redirect(redirect, false);
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "btnSearch_Click", "", "");
+            }
+        }
+
+        protected void btnSearchRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Response.Redirect("EditActivityCategory.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "btnSearchRefresh_Click", "", "");
+            }
+        }
+
+        [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod]
+        public static List<string> SearchForActivityCategoriesDescription(string prefixText, int count)
+        {
+            List<string> activityCategoriesDescriptions = new List<string>();
+
+            try
+            {
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    activityCategoriesDescriptions = _db.tlkActivityCategories
+                                             .Where(c => c.Description.Contains(prefixText))
+                                             .Select(c => c.Description).ToList();
+
+                    return activityCategoriesDescriptions;
+                }
+            }
+            catch (Exception ex)
+            {
+                EditActivityCategory editActivityCategory = new EditActivityCategory();
+                editActivityCategory.HandleErrors(ex, ex.Message, "SearchForActivityCategoriesDescription", "", "");
+                return activityCategoriesDescriptions;
+            }
         }
 
         public void UpdateActivityCategory(tlkActivityCategory model)
@@ -43,7 +110,7 @@ namespace RWInbound2.Edit
 
                     activityCategoryToUpdate.Code = model.Code;
                     activityCategoryToUpdate.Description = model.Description;
-                    //activityCategoryToUpdate.Valid = 
+
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
                         activityCategoryToUpdate.UserLastModified
@@ -59,16 +126,16 @@ namespace RWInbound2.Edit
 
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "Activity Category Updated";
-                }                        
+                }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateActivityCategory", "", "");               
-            }                   
+                HandleErrors(ex, ex.Message, "UpdateActivityCategory", "", "");
+            }
         }
 
         public void DeleteActivityCategory(tlkActivityCategory model)
-        {  
+        {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
@@ -81,17 +148,17 @@ namespace RWInbound2.Edit
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteActivityCategory", "", "");                   
+                    HandleErrors(ex, ex.Message, "DeleteActivityCategory", "", "");
                 }
             }
         }
 
         public void AddNewActivityCategory(object sender, EventArgs e)
-        {   
+        {
             try
             {
-                string strCode = ((TextBox)ActivityCategoryGridView.FooterRow.FindControl("NewCode")).Text;                
-                string description = ((TextBox)ActivityCategoryGridView.FooterRow.FindControl("NewDescription")).Text;
+                string strCode = ((TextBox)ActivityCategoriesGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)ActivityCategoriesGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(strCode))
                 {
@@ -130,23 +197,26 @@ namespace RWInbound2.Edit
                         using (RiverWatchEntities _db = new RiverWatchEntities())
                         {
                             _db.tlkActivityCategories.Add(newActivityCategory);
-                            _db.SaveChanges();                            
+                            _db.SaveChanges();
                             ErrorLabel.Text = "";
-                            SuccessLabel.Text = "New Activity Category Added";
-                            Response.Redirect("EditActivityCategory.aspx", false);
+
+                            string successLabelText = "New Activity Category Added: " + newActivityCategory.Description;
+                            string redirect = "EditActivityCategory.aspx?successLabelMessage=" + successLabelText;
+
+                            Response.Redirect(redirect, false);
                         }
-                    }                   
-                }                    
+                    }
+                }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewActivityCategory", "", "");                
+                HandleErrors(ex, ex.Message, "AddNewActivityCategory", "", "");
             }
         }
 
-        private void HandleErrors(Exception ex, string msg, string fromPage, 
+        private void HandleErrors(Exception ex, string msg, string fromPage,
                                                 string nam, string comment)
-        {            
+        {
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 

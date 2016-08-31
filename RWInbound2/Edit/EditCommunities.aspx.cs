@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
+using System.Web.ModelBinding;
 using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
@@ -19,20 +19,84 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkCommunity> GetCommunities()
+        public IQueryable<tlkCommunity> GetCommunities([QueryString]string descriptionSearchTerm = "",
+                                                                     [QueryString]string successLabelMessage = "")
         {
             try
             {
                 RiverWatchEntities _db = new RiverWatchEntities();
 
-                IQueryable<tlkCommunity> community = _db.tlkCommunities;
+                if (!string.IsNullOrEmpty(successLabelMessage))
+                {
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = successLabelMessage;
+                }
 
-                return community;
+                if (!string.IsNullOrEmpty(descriptionSearchTerm))
+                {
+                    return _db.tlkCommunities.Where(c => c.Description.Equals(descriptionSearchTerm))
+                                       .OrderBy(c => c.Code);
+                }
+                IQueryable<tlkCommunity> communities = _db.tlkCommunities
+                                                     .OrderBy(c => c.Code);
+                return communities;
             }
             catch (Exception ex)
             {
                 HandleErrors(ex, ex.Message, "GetCommunities", "", "");
                 return null;
+            }
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string descriptionSearchTerm = descriptionSearch.Text;
+                string redirect = "EditCommunities.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+
+                Response.Redirect(redirect, false);
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "btnSearch_Click", "", "");
+            }
+        }
+
+        protected void btnSearchRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Response.Redirect("EditCommunities.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "btnSearchRefresh_Click", "", "");
+            }
+        }
+
+        [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod]
+        public static List<string> SearchForCommunitiesDescription(string prefixText, int count)
+        {
+            List<string> communitiesDescriptions = new List<string>();
+
+            try
+            {
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    communitiesDescriptions = _db.tlkCommunities
+                                             .Where(c => c.Description.Contains(prefixText))
+                                             .Select(c => c.Description).ToList();
+
+                    return communitiesDescriptions;
+                }
+            }
+            catch (Exception ex)
+            {
+                EditCommunities editCommunity = new EditCommunities();
+                editCommunity.HandleErrors(ex, ex.Message, "SearchForCommunitiesDescription", "", "");
+                return communitiesDescriptions;
             }
         }
 
@@ -135,8 +199,11 @@ namespace RWInbound2.Edit
                             _db.tlkCommunities.Add(newCommunity);
                             _db.SaveChanges();
                             ErrorLabel.Text = "";
-                            SuccessLabel.Text = "New Community Type Added";
-                            Response.Redirect("EditCommunities.aspx", false);
+
+                            string successLabelText = "New Community Added: " + newCommunity.Description;
+                            string redirect = "EditCommunities.aspx?successLabelMessage=" + successLabelText;
+
+                            Response.Redirect(redirect, false);
                         }
                     }
                 }

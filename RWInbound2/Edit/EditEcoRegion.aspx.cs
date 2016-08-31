@@ -7,7 +7,7 @@ using System.Web.ModelBinding;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditBioResultsType : System.Web.UI.Page
+    public partial class EditEcoRegion : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,7 +19,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkBioResultsType> GetBioResultsTypes([QueryString]string descriptionSearchTerm = "",
+        public IQueryable<tlkEcoRegion> GetEcoRegions([QueryString]string descriptionSearchTerm = "",
                                                        [QueryString]string successLabelMessage = "")
         {
             try
@@ -34,16 +34,16 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
                 {
-                    return _db.tlkBioResultsTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
+                    return _db.tlkEcoRegions.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkBioResultsType> bioResultsTypes = _db.tlkBioResultsTypes
+                IQueryable<tlkEcoRegion> ecoRegions = _db.tlkEcoRegions
                                                      .OrderBy(c => c.Code);
-                return bioResultsTypes;
+                return ecoRegions;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetBioResultsTypes", "", "");
+                HandleErrors(ex, ex.Message, "GetEcoRegions", "", "");
                 return null;
             }
         }
@@ -53,7 +53,7 @@ namespace RWInbound2.Edit
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditBioResultsType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditEcoRegion.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -67,7 +67,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditBioResultsType.aspx", false);
+                Response.Redirect("EditEcoRegion.aspx", false);
             }
             catch (Exception ex)
             {
@@ -77,51 +77,51 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForBioResultsTypesDescription(string prefixText, int count)
+        public static List<string> SearchForEcoRegionsDescription(string prefixText, int count)
         {
-            List<string> bioResultsTypesDescriptions = new List<string>();
+            List<string> ecoRegionsDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    bioResultsTypesDescriptions = _db.tlkBioResultsTypes
+                    ecoRegionsDescriptions = _db.tlkEcoRegions
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return bioResultsTypesDescriptions;
+                    return ecoRegionsDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditBioResultsType editBioResultsType = new EditBioResultsType();
-                editBioResultsType.HandleErrors(ex, ex.Message, "SearchForBioResultsTypesDescription", "", "");
-                return bioResultsTypesDescriptions;
+                EditEcoRegion editEcoRegion = new EditEcoRegion();
+                editEcoRegion.HandleErrors(ex, ex.Message, "SearchForEcoRegionsDescription", "", "");
+                return ecoRegionsDescriptions;
             }
         }
 
-        public void UpdateBioResultsType(tlkBioResultsType model)
+        public void UpdateEcoRegion(tlkEcoRegion model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var bioResultsTypeToUpdate = _db.tlkBioResultsTypes.Find(model.ID);
+                    var ecoRegionToUpdate = _db.tlkEcoRegions.Find(model.ID);
 
-                    bioResultsTypeToUpdate.Code = model.Code;
-                    bioResultsTypeToUpdate.Description = model.Description;
+                    ecoRegionToUpdate.Code = model.Code;
+                    ecoRegionToUpdate.Description = model.Description;
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        bioResultsTypeToUpdate.UserLastModified
+                        ecoRegionToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        bioResultsTypeToUpdate.UserLastModified = "Unknown";
+                        ecoRegionToUpdate.UserLastModified = "Unknown";
                     }
 
-                    bioResultsTypeToUpdate.DateLastModified = DateTime.Now;
+                    ecoRegionToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
@@ -130,87 +130,77 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateBioResultsType", "", "");
+                HandleErrors(ex, ex.Message, "UpdateEcoRegion", "", "");
             }
         }
 
-        public void DeleteBioResultsType(tlkBioResultsType model)
+        public void DeleteEcoRegion(tlkEcoRegion model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var bioResultsTypeToDelete = _db.tlkBioResultsTypes.Find(model.ID);
-                    _db.tlkBioResultsTypes.Remove(bioResultsTypeToDelete);
+                    var ecoRegionToDelete = _db.tlkEcoRegions.Find(model.ID);
+                    _db.tlkEcoRegions.Remove(ecoRegionToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "Eco Region Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteBioResultsType", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteEcoRegion", "", "");
                 }
             }
         }
 
-        public void AddNewBioResultsType(object sender, EventArgs e)
+        public void AddNewEcoRegion(object sender, EventArgs e)
         {
             try
             {
-                string strCode = ((TextBox)BioResultsTypeGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)BioResultsTypeGridView.FooterRow.FindControl("NewDescription")).Text;
+                string code = ((TextBox)EcoRegionGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)EcoRegionGridView.FooterRow.FindControl("NewDescription")).Text;
 
-                if (string.IsNullOrEmpty(strCode))
+                if (string.IsNullOrEmpty(code))
                 {
                     SuccessLabel.Text = "";
                     ErrorLabel.Text = "Code field is required.";
                 }
                 else
                 {
-                    int code;
-                    bool convertToInt = int.TryParse(strCode, out code);
-                    if (!convertToInt)
+                    var newEcoRegion = new tlkEcoRegion()
                     {
-                        SuccessLabel.Text = "";
-                        ErrorLabel.Text = "Code field must be an integer number.";
+                        Code = code,
+                        Description = description,
+                        Valid = true,
+                        DateLastModified = DateTime.Now
+                    };
+
+                    if (this.User != null && this.User.Identity.IsAuthenticated)
+                    {
+                        newEcoRegion.UserLastModified
+                            = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        var newBioResultsType = new tlkBioResultsType()
-                        {
-                            Code = code,
-                            Description = description,
-                            Valid = true,
-                            DateLastModified = DateTime.Now
-                        };
+                        newEcoRegion.UserLastModified = "Unknown";
+                    }
 
-                        if (this.User != null && this.User.Identity.IsAuthenticated)
-                        {
-                            newBioResultsType.UserLastModified
-                                = HttpContext.Current.User.Identity.Name;
-                        }
-                        else
-                        {
-                            newBioResultsType.UserLastModified = "Unknown";
-                        }
+                    using (RiverWatchEntities _db = new RiverWatchEntities())
+                    {
+                        _db.tlkEcoRegions.Add(newEcoRegion);
+                        _db.SaveChanges();
+                        ErrorLabel.Text = "";
 
-                        using (RiverWatchEntities _db = new RiverWatchEntities())
-                        {
-                            _db.tlkBioResultsTypes.Add(newBioResultsType);
-                            _db.SaveChanges();
-                            ErrorLabel.Text = "";
+                        string successLabelText = "New Eco Region Added: " + newEcoRegion.Description;
+                        string redirect = "EditEcoRegion.aspx?successLabelMessage=" + successLabelText;
 
-                            string successLabelText = "New Bio Results Type Added: " + newBioResultsType.Description;
-                            string redirect = "EditBioResultsType.aspx?successLabelMessage=" + successLabelText;
-
-                            Response.Redirect(redirect, false);
-                        }
-                    }                       
+                        Response.Redirect(redirect, false);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewBioResultsType", "", "");
+                HandleErrors(ex, ex.Message, "AddNewEcoRegion", "", "");
             }
         }
 

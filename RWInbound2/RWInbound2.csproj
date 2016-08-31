@@ -171,8 +171,22 @@
     <Content Include="Edit\EditBioResultsType.aspx" />
     <Content Include="Edit\EditCommunities.aspx" />
     <Content Include="Edit\EditCounty.aspx" />
+    <Content Include="Edit\EditEcoRegion.aspx" />
+    <Content Include="Edit\EditEquipCategory.aspx" />
+    <Content Include="Edit\EditEquipItems.aspx" />
+    <Content Include="Edit\EditFieldGear.aspx" />
+    <Content Include="Edit\EditFieldProcedure.aspx" />
+    <Content Include="Edit\EditGrid.aspx" />
+    <Content Include="Edit\EditHydroUnit.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
+    <Content Include="Edit\EditMetalBarCodeType.aspx" />
+    <Content Include="Edit\EditNutrientBarCodeType.aspx" />
+    <Content Include="Edit\EditOrganizationType.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
+    <Content Include="Edit\EditQUADI.aspx" />
+    <Content Include="Edit\EditQuarterSection.aspx" />
+    <Content Include="Edit\EditRange.aspx" />
+    <Content Include="Edit\EditRegion.aspx" />
     <Content Include="Edit\EditStationType.aspx" />
     <Content Include="Edit\GearConfig.aspx" />
     <Content Include="Edit\GearConfigNewRow.aspx" />
@@ -399,6 +413,55 @@
     <Compile Include="Edit\EditCounty.aspx.designer.cs">
       <DependentUpon>EditCounty.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditEcoRegion.aspx.cs">
+      <DependentUpon>EditEcoRegion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditEcoRegion.aspx.designer.cs">
+      <DependentUpon>EditEcoRegion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEquipCategory.aspx.cs">
+      <DependentUpon>EditEquipCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditEquipCategory.aspx.designer.cs">
+      <DependentUpon>EditEquipCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEquipItems.aspx.cs">
+      <DependentUpon>EditEquipItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditEquipItems.aspx.designer.cs">
+      <DependentUpon>EditEquipItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditFieldGear.aspx.cs">
+      <DependentUpon>EditFieldGear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditFieldGear.aspx.designer.cs">
+      <DependentUpon>EditFieldGear.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditFieldProcedure.aspx.cs">
+      <DependentUpon>EditFieldProcedure.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditFieldProcedure.aspx.designer.cs">
+      <DependentUpon>EditFieldProcedure.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditGrid.aspx.cs">
+      <DependentUpon>EditGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditGrid.aspx.designer.cs">
+      <DependentUpon>EditGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditHydroUnit.aspx.cs">
+      <DependentUpon>EditHydroUnit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditHydroUnit.aspx.designer.cs">
+      <DependentUpon>EditHydroUnit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -406,12 +469,61 @@
     <Compile Include="Edit\EditLimits.aspx.designer.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditMetalBarCodeType.aspx.cs">
+      <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditMetalBarCodeType.aspx.designer.cs">
+      <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditNutrientBarCodeType.aspx.cs">
+      <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditNutrientBarCodeType.aspx.designer.cs">
+      <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditOrganizationType.aspx.cs">
+      <DependentUpon>EditOrganizationType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditOrganizationType.aspx.designer.cs">
+      <DependentUpon>EditOrganizationType.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditOrgFormView.aspx.cs">
       <DependentUpon>EditOrgFormView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditOrgFormView.aspx.designer.cs">
       <DependentUpon>EditOrgFormView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditQUADI.aspx.cs">
+      <DependentUpon>EditQUADI.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditQUADI.aspx.designer.cs">
+      <DependentUpon>EditQUADI.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditQuarterSection.aspx.cs">
+      <DependentUpon>EditQuarterSection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditQuarterSection.aspx.designer.cs">
+      <DependentUpon>EditQuarterSection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditRange.aspx.cs">
+      <DependentUpon>EditRange.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditRange.aspx.designer.cs">
+      <DependentUpon>EditRange.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditRegion.aspx.cs">
+      <DependentUpon>EditRegion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditRegion.aspx.designer.cs">
+      <DependentUpon>EditRegion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditStationType.aspx.cs">
       <DependentUpon>EditStationType.aspx</DependentUpon>

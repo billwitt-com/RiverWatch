@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditCounty : System.Web.UI.Page
+    public partial class EditOrganizationType : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,8 +20,8 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkCounty> GetCounties([QueryString]string descriptionSearchTerm = "",
-                                                 [QueryString]string successLabelMessage = "")
+        public IQueryable<tlkOrganizationType> GetOrganizationTypes([QueryString]string descriptionSearchTerm = "",
+                                                      [QueryString]string successLabelMessage = "")
         {
             try
             {
@@ -33,27 +34,27 @@ namespace RWInbound2.Edit
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
-                {                    
-                    return _db.tlkCounties.Where(c => c.Description.Equals(descriptionSearchTerm))
+                {
+                    return _db.tlkOrganizationTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkCounty> counties = _db.tlkCounties
-                                                     .OrderBy(c => c.Code);
-                return counties;
+                IQueryable<tlkOrganizationType> organizationTypes = _db.tlkOrganizationTypes
+                                               .OrderBy(c => c.Code);
+                return organizationTypes;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetCounties", "", "");
+                HandleErrors(ex, ex.Message, "GetOrganizationTypes", "", "");
                 return null;
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
-        {            
+        {
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditCounty.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditOrganizationType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -67,7 +68,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditCounty.aspx", false);
+                Response.Redirect("EditOrganizationType.aspx", false);
             }
             catch (Exception ex)
             {
@@ -77,88 +78,88 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForCountiesDescription(string prefixText, int count)
+        public static List<string> SearchForOrganizationTypesDescription(string prefixText, int count)
         {
-            List<string> countiesDescriptions = new List<string>();
+            List<string> organizationTypesDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    countiesDescriptions = _db.tlkCounties
+                    organizationTypesDescriptions = _db.tlkOrganizationTypes
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return countiesDescriptions;
+                    return organizationTypesDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditCounty editCounty = new EditCounty();
-                editCounty.HandleErrors(ex, ex.Message, "SearchForCountiesDescription", "", "");
-                return countiesDescriptions;
+                EditOrganizationType editOrganizationType = new EditOrganizationType();
+                editOrganizationType.HandleErrors(ex, ex.Message, "SearchForOrganizationTypesDescription", "", "");
+                return organizationTypesDescriptions;
             }
         }
 
-        public void UpdateCounty(tlkCounty model)
+        public void UpdateOrganizationType(tlkOrganizationType model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var countyToUpdate = _db.tlkCounties.Find(model.ID);
+                    var organizationTypeToUpdate = _db.tlkOrganizationTypes.Find(model.ID);
 
-                    countyToUpdate.Code = model.Code;
-                    countyToUpdate.Description = model.Description;
-                    //activityCategoryToUpdate.Valid = 
+                    organizationTypeToUpdate.Code = model.Code;
+                    organizationTypeToUpdate.Description = model.Description;
+
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        countyToUpdate.UserLastModified
+                        organizationTypeToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        countyToUpdate.UserLastModified = "Unknown";
+                        organizationTypeToUpdate.UserLastModified = "Unknown";
                     }
 
-                    countyToUpdate.DateLastModified = DateTime.Now;
+                    organizationTypeToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "County Updated";
+                    SuccessLabel.Text = "Organization Type Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateCounty", "", "");
+                HandleErrors(ex, ex.Message, "UpdateOrganizationType", "", "");
             }
         }
 
-        public void DeleteCounty(tlkCounty model)
+        public void DeleteOrganizationType(tlkOrganizationType model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var countyToDelete = _db.tlkCounties.Find(model.ID);
-                    _db.tlkCounties.Remove(countyToDelete);
+                    var organizationTypeToDelete = _db.tlkOrganizationTypes.Find(model.ID);
+                    _db.tlkOrganizationTypes.Remove(organizationTypeToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "County Deleted";
+                    SuccessLabel.Text = " Organization Type Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteCounty", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteOrganizationType", "", "");
                 }
             }
         }
 
-        public void AddNewCounty(object sender, EventArgs e)
+        public void AddNewOrganizationType(object sender, EventArgs e)
         {
             try
             {
-                string code = ((TextBox)CountyGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)CountyGridView.FooterRow.FindControl("NewDescription")).Text;
+                string code = ((TextBox)OrganizationTypesGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)OrganizationTypesGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
@@ -167,7 +168,7 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    var newCounty = new tlkCounty()
+                    var newOrganizationType = new tlkOrganizationType()
                     {
                         Code = code,
                         Description = description,
@@ -177,22 +178,22 @@ namespace RWInbound2.Edit
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        newCounty.UserLastModified
+                        newOrganizationType.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        newCounty.UserLastModified = "Unknown";
+                        newOrganizationType.UserLastModified = "Unknown";
                     }
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.tlkCounties.Add(newCounty);
+                        _db.tlkOrganizationTypes.Add(newOrganizationType);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New County Added: " + newCounty.Description;
-                        string redirect = "EditCounty.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New Organization Type Added: " + newOrganizationType.Description;
+                        string redirect = "EditOrganizationType.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);
                     }
@@ -200,7 +201,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewCounty", "", "");
+                HandleErrors(ex, ex.Message, "AddNewOrganizationType", "", "");
             }
         }
 
