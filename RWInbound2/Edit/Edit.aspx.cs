@@ -68,5 +68,75 @@ namespace RWInbound2.Edit
         {
             Response.Redirect("EditCounty.aspx");
         }
+
+        protected void btnEcoRegions_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditEcoRegion.aspx");
+        }
+
+        protected void btnEquipCategories_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditEquipCategory.aspx");
+        }
+
+        protected void btnEquipItems_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditEquipItems.aspx");
+        }
+
+        protected void btnFieldGear_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditFieldGear.aspx");
+        }
+
+        protected void btnFieldProcedure_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditFieldProcedure.aspx");
+        }
+        
+        protected void btnGrid_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditGrid.aspx");
+        }
+
+        protected void btnHydroUnit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditHydroUnit.aspx");
+        }
+
+        protected void btnMetalBarCodeType_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditMetalBarCodeType.aspx");
+        }
+
+        protected void btnNutrientBarCodeType_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditNutrientBarCodeType.aspx");
+        }
+
+        protected void btnOrganizationType_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditOrganizationType.aspx");
+        }
+
+        protected void btnQUADI_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditQUADI.aspx");
+        }
+
+        protected void btnQuarterSection_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditQuarterSection.aspx");
+        }
+
+        protected void btnRange_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditRange.aspx");
+        }
+
+        protected void btnRegion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditRegion.aspx");
+        }
     }
 }

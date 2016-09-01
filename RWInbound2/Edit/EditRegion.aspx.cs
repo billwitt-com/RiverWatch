@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditCounty : System.Web.UI.Page
+    public partial class EditRegion : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,8 +20,8 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkCounty> GetCounties([QueryString]string descriptionSearchTerm = "",
-                                                 [QueryString]string successLabelMessage = "")
+        public IQueryable<tlkregion> GetRegions([QueryString]string descriptionSearchTerm = "",
+                                                      [QueryString]string successLabelMessage = "")
         {
             try
             {
@@ -33,27 +34,27 @@ namespace RWInbound2.Edit
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
-                {                    
-                    return _db.tlkCounties.Where(c => c.Description.Equals(descriptionSearchTerm))
+                {
+                    return _db.tlkregions.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkCounty> counties = _db.tlkCounties
-                                                     .OrderBy(c => c.Code);
-                return counties;
+                IQueryable<tlkregion> regions = _db.tlkregions
+                                               .OrderBy(c => c.Code);
+                return regions;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetCounties", "", "");
+                HandleErrors(ex, ex.Message, "GetRegions", "", "");
                 return null;
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
-        {            
+        {
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditCounty.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditRegion.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -67,7 +68,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditCounty.aspx", false);
+                Response.Redirect("EditRegion.aspx", false);
             }
             catch (Exception ex)
             {
@@ -77,88 +78,88 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForCountiesDescription(string prefixText, int count)
+        public static List<string> SearchForRegionsDescription(string prefixText, int count)
         {
-            List<string> countiesDescriptions = new List<string>();
+            List<string> regionsDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    countiesDescriptions = _db.tlkCounties
+                    regionsDescriptions = _db.tlkregions
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return countiesDescriptions;
+                    return regionsDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditCounty editCounty = new EditCounty();
-                editCounty.HandleErrors(ex, ex.Message, "SearchForCountiesDescription", "", "");
-                return countiesDescriptions;
+                EditRegion editregion = new EditRegion();
+                editregion.HandleErrors(ex, ex.Message, "SearchForRegionsDescription", "", "");
+                return regionsDescriptions;
             }
         }
 
-        public void UpdateCounty(tlkCounty model)
+        public void UpdateRegion(tlkregion model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var countyToUpdate = _db.tlkCounties.Find(model.ID);
+                    var regionToUpdate = _db.tlkregions.Find(model.ID);
 
-                    countyToUpdate.Code = model.Code;
-                    countyToUpdate.Description = model.Description;
-                    //activityCategoryToUpdate.Valid = 
+                    regionToUpdate.Code = model.Code;
+                    regionToUpdate.Description = model.Description;
+
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        countyToUpdate.UserLastModified
+                        regionToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        countyToUpdate.UserLastModified = "Unknown";
+                        regionToUpdate.UserLastModified = "Unknown";
                     }
 
-                    countyToUpdate.DateLastModified = DateTime.Now;
+                    regionToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "County Updated";
+                    SuccessLabel.Text = "Region Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateCounty", "", "");
+                HandleErrors(ex, ex.Message, "UpdateRegion", "", "");
             }
         }
 
-        public void DeleteCounty(tlkCounty model)
+        public void DeleteRegion(tlkregion model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var countyToDelete = _db.tlkCounties.Find(model.ID);
-                    _db.tlkCounties.Remove(countyToDelete);
+                    var regionToDelete = _db.tlkregions.Find(model.ID);
+                    _db.tlkregions.Remove(regionToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "County Deleted";
+                    SuccessLabel.Text = "Region Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteCounty", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteRegion", "", "");
                 }
             }
         }
 
-        public void AddNewCounty(object sender, EventArgs e)
+        public void AddNewRegion(object sender, EventArgs e)
         {
             try
             {
-                string code = ((TextBox)CountyGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)CountyGridView.FooterRow.FindControl("NewDescription")).Text;
+                string code = ((TextBox)RegionsGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)RegionsGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
@@ -167,7 +168,7 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    var newCounty = new tlkCounty()
+                    var newregion = new tlkregion()
                     {
                         Code = code,
                         Description = description,
@@ -177,22 +178,22 @@ namespace RWInbound2.Edit
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        newCounty.UserLastModified
+                        newregion.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        newCounty.UserLastModified = "Unknown";
+                        newregion.UserLastModified = "Unknown";
                     }
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.tlkCounties.Add(newCounty);
+                        _db.tlkregions.Add(newregion);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New County Added: " + newCounty.Description;
-                        string redirect = "EditCounty.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New Region Added: " + newregion.Description;
+                        string redirect = "EditRegion.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);
                     }
@@ -200,7 +201,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewCounty", "", "");
+                HandleErrors(ex, ex.Message, "AddNewRegion", "", "");
             }
         }
 

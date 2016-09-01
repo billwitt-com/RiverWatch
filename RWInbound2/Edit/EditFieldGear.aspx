@@ -1,5 +1,4 @@
-﻿<%@ Page Title="Activity Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
-         CodeBehind="EditActivityCategory.aspx.cs" Inherits="RWInbound2.Edit.EditActivityCategory" %>
+﻿<%@ Page Title="Field Gear" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditFieldGear.aspx.cs" Inherits="RWInbound2.Edit.EditFieldGear" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -28,7 +27,7 @@
             runat="server" 
             BehaviorID="tbSearch_AutoCompleteExtender" 
             DelimiterCharacters=""  
-            ServiceMethod="SearchForActivityCategoriesDescription"             
+            ServiceMethod="SearchForFieldGearDescription"             
             TargetControlID="descriptionSearch"
             MinimumPrefixLength="2"
             CompletionInterval="100" 
@@ -36,12 +35,12 @@
             CompletionSetCount="10">
         </ajaxToolkit:AutoCompleteExtender> 
     </p>
-        <asp:GridView ID="ActivityCategoriesGridView" runat="server"
+        <asp:GridView ID="FieldGearGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkActivityCategory" 
-            SelectMethod="GetActivityCategories"
-            UpdateMethod="UpdateActivityCategory"
-            DeleteMethod="DeleteActivityCategory" 
+            ItemType="RWInbound2.tlkFieldGear" 
+            SelectMethod="GetFieldGear"
+            UpdateMethod="UpdateFieldGear"
+            DeleteMethod="DeleteFieldGear" 
             InsertItemPosition="LastItem"  
             ShowFooter="true"
             CellPadding="4"
@@ -62,7 +61,7 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewActivityCategory" />
+                                    OnClick = "AddNewFieldGear" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
@@ -89,10 +88,21 @@
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="F5" SortExpression="F5">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtF5" runat="server"
+                                     contenteditable="true" Text='<%# Bind("F5") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblF5" runat="server" Text='<%# Bind("F5") %>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:TextBox ID="NewF5" runat="server"></asp:TextBox>
+                    </FooterTemplate>
+                </asp:TemplateField>
                 <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       
     </section>
 </asp:Content>
-

@@ -89,8 +89,7 @@ namespace RWInbound2
             {
                 Samples.Visible = false;
                 Validation.Visible = false;
-                Applications.Visible = false;
-               
+                Applications.Visible = false;                
             }
 
           

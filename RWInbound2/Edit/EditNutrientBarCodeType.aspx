@@ -1,5 +1,4 @@
-﻿<%@ Page Title="Activity Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
-         CodeBehind="EditActivityCategory.aspx.cs" Inherits="RWInbound2.Edit.EditActivityCategory" %>
+﻿<%@ Page Title="Nutrient Bar Code Type" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditNutrientBarCodeType.aspx.cs" Inherits="RWInbound2.Edit.EditNutrientBarCodeType" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -28,7 +27,7 @@
             runat="server" 
             BehaviorID="tbSearch_AutoCompleteExtender" 
             DelimiterCharacters=""  
-            ServiceMethod="SearchForActivityCategoriesDescription"             
+            ServiceMethod="SearchForNutrientBarCodeTypesDescription"             
             TargetControlID="descriptionSearch"
             MinimumPrefixLength="2"
             CompletionInterval="100" 
@@ -36,12 +35,12 @@
             CompletionSetCount="10">
         </ajaxToolkit:AutoCompleteExtender> 
     </p>
-        <asp:GridView ID="ActivityCategoriesGridView" runat="server"
+        <asp:GridView ID="NutrientBarCodeTypesGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkActivityCategory" 
-            SelectMethod="GetActivityCategories"
-            UpdateMethod="UpdateActivityCategory"
-            DeleteMethod="DeleteActivityCategory" 
+            ItemType="RWInbound2.tlkNutrientBarCodeType" 
+            SelectMethod="GetNutrientBarCodeTypes"
+            UpdateMethod="UpdateNutrientBarCodeType"
+            DeleteMethod="DeleteNutrientBarCodeType" 
             InsertItemPosition="LastItem"  
             ShowFooter="true"
             CellPadding="4"
@@ -62,7 +61,7 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewActivityCategory" />
+                                    OnClick = "AddNewNutrientBarCodeType" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
@@ -95,4 +94,3 @@
         </asp:GridView>       
     </section>
 </asp:Content>
-

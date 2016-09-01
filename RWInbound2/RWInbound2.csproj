@@ -349,6 +349,9 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ControlPermission.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Data.aspx.cs">
       <DependentUpon>Data.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -562,6 +565,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -601,6 +607,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblSampleXXXX.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTrainee.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblUser.cs">

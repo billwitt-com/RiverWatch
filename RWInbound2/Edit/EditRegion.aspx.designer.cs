@@ -10,7 +10,7 @@
 namespace RWInbound2.Edit {
     
     
-    public partial class EditActivityType {
+    public partial class EditRegion {
         
         /// <summary>
         /// ErrorLabel control.
@@ -67,12 +67,12 @@ namespace RWInbound2.Edit {
         protected global::AjaxControlToolkit.AutoCompleteExtender tbSearch_AutoCompleteExtender;
         
         /// <summary>
-        /// ActivityTypeGridView control.
+        /// RegionsGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView ActivityTypeGridView;
+        protected global::System.Web.UI.WebControls.GridView RegionsGridView;
     }
 }
