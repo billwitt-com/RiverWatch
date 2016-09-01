@@ -63,6 +63,7 @@
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net40\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -103,6 +104,7 @@
       <HintPath>..\packages\SystemWebPackage.1.0.0\lib\System.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
@@ -163,7 +165,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Data\Data.aspx" />
-    <Content Include="Data\FieldData.aspx" />
+    <Content Include="Public\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
     <Content Include="Edit\EditActivityCategory.aspx" />
@@ -171,28 +173,12 @@
     <Content Include="Edit\EditBioResultsType.aspx" />
     <Content Include="Edit\EditCommunities.aspx" />
     <Content Include="Edit\EditCounty.aspx" />
-    <Content Include="Edit\EditEcoRegion.aspx" />
-    <Content Include="Edit\EditEquipCategory.aspx" />
-    <Content Include="Edit\EditEquipItems.aspx" />
-    <Content Include="Edit\EditFieldGear.aspx" />
-    <Content Include="Edit\EditFieldProcedure.aspx" />
-    <Content Include="Edit\EditGrid.aspx" />
-    <Content Include="Edit\EditHydroUnit.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
-    <Content Include="Edit\EditMetalBarCodeType.aspx" />
-    <Content Include="Edit\EditNutrientBarCodeType.aspx" />
-    <Content Include="Edit\EditOrganizationType.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
     <Content Include="Edit\EditQUADI.aspx" />
     <Content Include="Edit\EditQuarterSection.aspx" />
     <Content Include="Edit\EditRange.aspx" />
     <Content Include="Edit\EditRegion.aspx" />
-    <Content Include="Edit\EditRiverWatchWaterShed.aspx" />
-    <Content Include="Edit\EditSampleType.aspx" />
-    <Content Include="Edit\EditSection.aspx" />
-    <Content Include="Edit\EditState.aspx" />
-    <Content Include="Edit\EditStationQUAD.aspx" />
-    <Content Include="Edit\EditStationStatus.aspx" />
     <Content Include="Edit\EditStationType.aspx" />
     <Content Include="Edit\EditTownship.aspx" />
     <Content Include="Edit\EditWQCCWaterShed.aspx" />
@@ -263,11 +249,23 @@
     </Content>
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
-    <Content Include="Samples\FormViewOrgStatus.aspx" />
+    <Content Include="FormViewOrgStatus.aspx" />
+    <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
     <Content Include="TimedOut.aspx" />
     <Content Include="Samples\Web.config">
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="RiverWatchDataSet.xsc">
+      <DependentUpon>RiverWatchDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchDataSet.xss">
+      <DependentUpon>RiverWatchDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
@@ -337,7 +335,6 @@
     <Compile Include="Applications\Applications.aspx.designer.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\GlobalSite.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -361,6 +358,9 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ControlPermission.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Data.aspx.cs">
       <DependentUpon>Data.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -368,11 +368,11 @@
     <Compile Include="Data\Data.aspx.designer.cs">
       <DependentUpon>Data.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Data\FieldData.aspx.cs">
+    <Compile Include="Public\FieldData.aspx.cs">
       <DependentUpon>FieldData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Data\FieldData.aspx.designer.cs">
+    <Compile Include="Public\FieldData.aspx.designer.cs">
       <DependentUpon>FieldData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Data\UploadLatchet.aspx.cs">
@@ -424,82 +424,12 @@
     <Compile Include="Edit\EditCounty.aspx.designer.cs">
       <DependentUpon>EditCounty.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Edit\EditEcoRegion.aspx.cs">
-      <DependentUpon>EditEcoRegion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditEcoRegion.aspx.designer.cs">
-      <DependentUpon>EditEcoRegion.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditEquipCategory.aspx.cs">
-      <DependentUpon>EditEquipCategory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditEquipCategory.aspx.designer.cs">
-      <DependentUpon>EditEquipCategory.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditEquipItems.aspx.cs">
-      <DependentUpon>EditEquipItems.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditEquipItems.aspx.designer.cs">
-      <DependentUpon>EditEquipItems.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditFieldGear.aspx.cs">
-      <DependentUpon>EditFieldGear.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditFieldGear.aspx.designer.cs">
-      <DependentUpon>EditFieldGear.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditFieldProcedure.aspx.cs">
-      <DependentUpon>EditFieldProcedure.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditFieldProcedure.aspx.designer.cs">
-      <DependentUpon>EditFieldProcedure.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditGrid.aspx.cs">
-      <DependentUpon>EditGrid.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditGrid.aspx.designer.cs">
-      <DependentUpon>EditGrid.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditHydroUnit.aspx.cs">
-      <DependentUpon>EditHydroUnit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditHydroUnit.aspx.designer.cs">
-      <DependentUpon>EditHydroUnit.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Edit\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditLimits.aspx.designer.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditMetalBarCodeType.aspx.cs">
-      <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditMetalBarCodeType.aspx.designer.cs">
-      <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditNutrientBarCodeType.aspx.cs">
-      <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditNutrientBarCodeType.aspx.designer.cs">
-      <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditOrganizationType.aspx.cs">
-      <DependentUpon>EditOrganizationType.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditOrganizationType.aspx.designer.cs">
-      <DependentUpon>EditOrganizationType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditOrgFormView.aspx.cs">
       <DependentUpon>EditOrgFormView.aspx</DependentUpon>
@@ -535,48 +465,6 @@
     </Compile>
     <Compile Include="Edit\EditRegion.aspx.designer.cs">
       <DependentUpon>EditRegion.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditRiverWatchWaterShed.aspx.cs">
-      <DependentUpon>EditRiverWatchWaterShed.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditRiverWatchWaterShed.aspx.designer.cs">
-      <DependentUpon>EditRiverWatchWaterShed.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditSampleType.aspx.cs">
-      <DependentUpon>EditSampleType.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditSampleType.aspx.designer.cs">
-      <DependentUpon>EditSampleType.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditSection.aspx.cs">
-      <DependentUpon>EditSection.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditSection.aspx.designer.cs">
-      <DependentUpon>EditSection.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditState.aspx.cs">
-      <DependentUpon>EditState.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditState.aspx.designer.cs">
-      <DependentUpon>EditState.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditStationQUAD.aspx.cs">
-      <DependentUpon>EditStationQUAD.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditStationQUAD.aspx.designer.cs">
-      <DependentUpon>EditStationQUAD.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditStationStatus.aspx.cs">
-      <DependentUpon>EditStationStatus.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditStationStatus.aspx.designer.cs">
-      <DependentUpon>EditStationStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditStationType.aspx.cs">
       <DependentUpon>EditStationType.aspx</DependentUpon>
@@ -633,6 +521,9 @@
     <Compile Include="expStnMetal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="FileStorage.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GearConfig.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -651,6 +542,9 @@
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Lachat.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MetalBarCode.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -724,14 +618,29 @@
     <Compile Include="Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ViewErrorLog.aspx.cs">
+      <DependentUpon>ViewErrorLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ViewErrorLog.aspx.designer.cs">
+      <DependentUpon>ViewErrorLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Samples\FormViewOrgStatus.aspx.cs">
+    <Compile Include="FormViewOrgStatus.aspx.cs">
       <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Samples\FormViewOrgStatus.aspx.designer.cs">
+    <Compile Include="FormViewOrgStatus.aspx.designer.cs">
       <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Samples\NewSamples2.aspx.cs">
@@ -763,6 +672,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblSampleXXXX.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTrainee.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblUser.cs">
@@ -982,8 +894,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
@@ -991,6 +903,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\Report1.rdlc" />
+    <EmbeddedResource Include="Reports\Report2.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

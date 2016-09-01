@@ -59,7 +59,7 @@
                             <li>
                                <%-- <asp:HyperLink ID="Home"  runat="server">Home</asp:HyperLink>--%>
 
-                                <a   ID = "Home" runat="server" href="~/index.aspx">Home</a>
+                                <a   ID = "Home" runat="server" href="~/index.aspx">Home</a> 
                             </li>
                             <li>
                                 <a ID = "Samples" runat="server" href="~/Samples/NewSamples2.aspx">Samples </a>

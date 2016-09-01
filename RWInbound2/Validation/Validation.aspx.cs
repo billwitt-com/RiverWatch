@@ -1,4 +1,4 @@
-﻿using RWInbound2.App_Code;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -57,7 +57,7 @@ namespace RWInbound2.Validation
                 using (SqlDataSource S = new SqlDataSource())
                 {
                     DataSourceSelectArguments args = new DataSourceSelectArguments();
-                    S.ConnectionString = GlobalSite.RiverWatchDev;
+                    S.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  //GlobalSite.RiverWatchDev;
                     S.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";
                     System.Data.DataView result = (DataView)S.Select(args);
                     blankCount = result.Table.Rows.Count;
@@ -109,6 +109,12 @@ namespace RWInbound2.Validation
                         btnICPSamples.Enabled = true;
                         btnICPSamples.BackColor = System.Drawing.Color.LightCyan;
                     }
+
+                    // now count Lachat samples 
+
+                    S.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";
+                    result = (DataView)S.Select(args);
+                    normalCount = result.Table.Rows.Count;
                 }
             }
 

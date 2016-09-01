@@ -1,5 +1,4 @@
-﻿using RWInbound2.App_Code;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -24,16 +23,17 @@ namespace RWInbound2.Account
             string Password = tbPassword.Text.Trim();
             string FirstName = ""; 
             string LastName = "";
+            int? role = 0; 
             int success = 0;
 
             try
             {
                 using (SqlConnection conn = new SqlConnection())
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchDev;
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  //GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = string.Format("select FirstName, LastName from tbluser where UserName like '{0}' and Password like '{1}'", UZerName, Password);
+                        cmd.CommandText = string.Format("select FirstName, LastName, Role from tbluser where UserName like '{0}' and Password like '{1}'", UZerName, Password);
                         cmd.Connection = conn;
                         conn.Open();
 
@@ -45,6 +45,7 @@ namespace RWInbound2.Account
                                 {
                                     FirstName = sdr["FirstName"] as string;
                                     LastName = sdr["LastName"] as string;
+                                    role = sdr["Role"] as int?; 
                                 }
                             }
                         }
@@ -60,9 +61,9 @@ namespace RWInbound2.Account
 
             if (FirstName.Length < 1)   // login failed
             {
-                lblFailureText.Text = "Login Failed"; 
+                lblFailureText.Text = "Login Failed";
+                return; 
             }     
-
 
         // update user profile 
 
@@ -70,7 +71,7 @@ namespace RWInbound2.Account
             {
                 using (SqlConnection conn = new SqlConnection())
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchDev;
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = string.Format("update tbluser set [DateLastActivity] = '{2}' where UserName like '{0}' and Password like '{1}'", UZerName, Password, DateTime.Now.ToString());
@@ -82,16 +83,24 @@ namespace RWInbound2.Account
                     }
                 }
             }
-
             catch (Exception ex)
             {
-                string msg = ex.Message;    // XXXX need to build an error log file and logging code               
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
             FormsAuthentication.SetAuthCookie(UZerName, false); // create user name as authenticated 
             FormsAuthentication.RedirectFromLoginPage(UZerName, false);
+            if(role.Value > 0)
+            {
+                Session["Role"] = role.Value; 
+            }
         }
-
-      
     }
 } 
