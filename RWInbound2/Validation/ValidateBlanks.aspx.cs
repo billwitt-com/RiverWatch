@@ -11,11 +11,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Sql;
 using System.Web.Providers.Entities;
-using RWInbound2.App_Code;
-
-
-// XXXX need graceful exit if sesson expires - return user to session expired page
-//
 
 namespace RWInbound2.Validation
 {
@@ -104,7 +99,7 @@ namespace RWInbound2.Validation
                     // changed this to use tlkLimits as they seem to correspond to Barb's note. 
                     using (SqlConnection conn = new SqlConnection())
                     {
-                        conn.ConnectionString = GlobalSite.RiverWatchDev;
+                        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
                         using (SqlCommand cmd = new SqlCommand())
                         {
                             cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkLimits]");
@@ -1003,7 +998,7 @@ namespace RWInbound2.Validation
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchDev;
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; // GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from tblOrganization where OrganizationName like @SearchText + '%'";

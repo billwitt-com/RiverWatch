@@ -1321,3 +1321,8 @@ fieldset {
 .label-placement{
     text-align:center;
 }
+.site-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bolder;
+}

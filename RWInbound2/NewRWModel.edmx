@@ -4,7 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiverWatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiverWatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ControlPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="PageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ControlID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleValue" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="250" />
+          <Property Name="Valid" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ErrorLog">
           <Key>
             <PropertyRef Name="ID" />
@@ -17,6 +31,18 @@
           <Property Name="LoggedInUser" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="FileStorage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Valid" Type="bit" Nullable="false" />
+          <Property Name="Content" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="GearConfig">
           <Key>
@@ -165,6 +191,31 @@
           <Property Name="MissingDataSheetReceived" Type="bit" />
           <Property Name="PassValStep" Type="numeric" Precision="5" Scale="2" />
           <Property Name="tblSampleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Lachat">
+          <Key>
+            <PropertyRef Name="inbLachatID" />
+          </Key>
+          <Property Name="inbLachatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Batch" Type="varchar" MaxLength="30" />
+          <Property Name="SampleType" Type="varchar" MaxLength="30" />
+          <Property Name="SampleDescription" Type="varchar" MaxLength="30" />
+          <Property Name="CODE" Type="varchar" MaxLength="50" />
+          <Property Name="Parameter" Type="varchar" MaxLength="30" />
+          <Property Name="Result" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="Unit" Type="varchar" MaxLength="30" />
+          <Property Name="AnalDate" Type="datetime" />
+          <Property Name="CONHI" Type="bit" />
+          <Property Name="RPDDivPctREC" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="CHANGED" Type="bit" />
+          <Property Name="NumChanged" Type="int" />
+          <Property Name="Comment" Type="varchar" MaxLength="50" />
+          <Property Name="PassValStep" Type="numeric" Precision="4" Scale="2" />
+          <Property Name="tblSampleID" Type="int" />
+          <Property Name="Valid" Type="bit" />
+          <Property Name="Validated" Type="bit" />
+          <Property Name="BlkDup" Type="bit" />
+          <Property Name="Failed" Type="bit" />
         </EntityType>
         <EntityType Name="MetalBarCode">
           <Key>
@@ -403,6 +454,17 @@
           <Property Name="UserCreated" Type="nvarchar" MaxLength="50" />
           <Property Name="Valid" Type="bit" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="250" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="Valid" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Samples">
           <Key>
             <PropertyRef Name="ID" />
@@ -573,9 +635,10 @@ warning 6002: The table/view 'RiverWatch.dbo.tblProjectStation' does not have a 
         </EntityType>
         <EntityType Name="tblRegistration">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="RegistrationID" />
           </Key>
           <Property Name="ParticipantID" Type="int" Nullable="false" />
+          <Property Name="RegistrationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RegistrationDate" Type="datetime" />
           <Property Name="WorkShop" Type="varchar" MaxLength="50" />
           <Property Name="Paid" Type="bit" Nullable="false" />
@@ -585,8 +648,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblProjectStation' does not have a 
           <Property Name="UserCreated" Type="varchar" MaxLength="25" />
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
-          <Property Name="Valid" Type="bit" />
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="tblSampleXXXX">
           <Key>
@@ -624,6 +685,29 @@ warning 6002: The table/view 'RiverWatch.dbo.tblProjectStation' does not have a 
           <Property Name="DuplicatedCS" Type="bit" />
           <Property Name="Valid" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tblTrainee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblTrainee">
+          <Key>
+            <PropertyRef Name="TraineeID" />
+            <PropertyRef Name="RegistrationID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Attend" />
+          </Key>
+          <Property Name="TraineeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationID" Type="int" Nullable="false" />
+          <Property Name="Age" Type="int" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sex" Type="char" MaxLength="1" />
+          <Property Name="Attend" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+          <Property Name="Valid" Type="bit" />
+        </EntityType>
         <EntityType Name="tblUser">
           <Key>
             <PropertyRef Name="ID" />
@@ -633,7 +717,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblProjectStation' does not have a 
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="Role" Type="varchar" MaxLength="25" />
+          <Property Name="Role" Type="int" />
           <Property Name="DateLastActivity" Type="datetime" />
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -778,16 +862,15 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tlkEcoRegion">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
+          
           <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
           <Property Name="Valid" Type="bit" />
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="tlkEquipCategory">
           <Key>
@@ -1097,11 +1180,14 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityContainer Name="RiverWatchModelStoreContainer">
+          <EntitySet Name="ControlPermissions" EntityType="Self.ControlPermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileStorage" EntityType="Self.FileStorage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GearConfig" EntityType="Self.GearConfig" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InboundICPFinal" EntityType="Self.InboundICPFinal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InboundICPOrigional" EntityType="Self.InboundICPOrigional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InboundSamples" EntityType="Self.InboundSamples" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lachat" EntityType="Self.Lachat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MetalBarCode" EntityType="Self.MetalBarCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NEWexpWater" EntityType="Self.NEWexpWater" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NutrientBarCode" EntityType="Self.NutrientBarCode" Schema="dbo" store:Type="Tables" />
@@ -1109,6 +1195,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="OrgStatus" EntityType="Self.OrgStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectStation" EntityType="Self.ProjectStation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Samples" EntityType="Self.Samples" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblParticipant" EntityType="Self.tblParticipant" Schema="dbo" store:Type="Tables" />
@@ -1127,7 +1214,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="tlkBioResultsType" EntityType="Self.tlkBioResultsType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkCommunities" EntityType="Self.tlkCommunities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkCounty" EntityType="Self.tlkCounty" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tlkEcoRegion" EntityType="Self.tlkEcoRegion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkEquipCategory" EntityType="Self.tlkEquipCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkEquipItems" EntityType="Self.tlkEquipItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkFieldGear" EntityType="Self.tlkFieldGear" Schema="dbo" store:Type="Tables" />
@@ -1166,6 +1252,22 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
     [tblProjectStation].[UserLastModified] AS [UserLastModified]
     FROM [dbo].[tblProjectStation] AS [tblProjectStation]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="tblTrainee" EntityType="Self.tblTrainee" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblTrainee].[TraineeID] AS [TraineeID], 
+    [tblTrainee].[RegistrationID] AS [RegistrationID], 
+    [tblTrainee].[Age] AS [Age], 
+    [tblTrainee].[FirstName] AS [FirstName], 
+    [tblTrainee].[LastName] AS [LastName], 
+    [tblTrainee].[Sex] AS [Sex], 
+    [tblTrainee].[Attend] AS [Attend], 
+    [tblTrainee].[DateCreated] AS [DateCreated], 
+    [tblTrainee].[UserCreated] AS [UserCreated], 
+    [tblTrainee].[DateLastModified] AS [DateLastModified], 
+    [tblTrainee].[UserLastModified] AS [UserLastModified], 
+    [tblTrainee].[Valid] AS [Valid]
+    FROM [dbo].[tblTrainee] AS [tblTrainee]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="tblXS" EntityType="Self.tblXS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tblXS].[XSID] AS [XSID], 
@@ -1175,6 +1277,15 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
     [tblXS].[EnterDate] AS [EnterDate], 
     [tblXS].[Comments] AS [Comments]
     FROM [dbo].[tblXS] AS [tblXS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tlkEcoRegion" EntityType="Self.tlkEcoRegion" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tlkEcoRegion].[Code] AS [Code], 
+    [tlkEcoRegion].[Description] AS [Description], 
+    [tlkEcoRegion].[DateLastModified] AS [DateLastModified], 
+    [tlkEcoRegion].[UserLastModified] AS [UserLastModified], 
+    [tlkEcoRegion].[Valid] AS [Valid]
+    FROM [dbo].[tlkEcoRegion] AS [tlkEcoRegion]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1734,6 +1845,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
         <EntityType Name="tblRegistration">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="RegistrationID" />
           </Key>
           <Property Name="ParticipantID" Type="Int32" Nullable="false" />
           <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
@@ -1747,6 +1859,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="tblSampleXXXX">
           <Key>
@@ -1793,7 +1906,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" />
           <Property Name="DateLastActivity" Type="DateTime" Precision="3" />
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -2329,7 +2442,95 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="trsChemParaMapColumns" EntityType="Self.trsChemParaMapColumn" />
           <EntitySet Name="tblProjectStations" EntityType="Self.tblProjectStation" />
           <EntitySet Name="tblXS" EntityType="Self.tblX" />
+          <EntitySet Name="FileStorages" EntityType="RiverWatchModel.FileStorage" />
+          <EntitySet Name="Lachats" EntityType="RiverWatchModel.Lachat" />
+          <EntitySet Name="ControlPermissions" EntityType="RiverWatchModel.ControlPermission" />
+          <EntitySet Name="Roles" EntityType="RiverWatchModel.Role" />
+          <EntitySet Name="tblTrainees" EntityType="RiverWatchModel.tblTrainee" />
         </EntityContainer>
+        <EntityType Name="FileStorage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Valid" Type="Boolean" Nullable="false" />
+          <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Lachat">
+          <Key>
+            <PropertyRef Name="inbLachatID" />
+          </Key>
+          <Property Name="inbLachatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Batch" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SampleType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SampleDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Parameter" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Result" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Unit" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AnalDate" Type="DateTime" Precision="3" />
+          <Property Name="CONHI" Type="Boolean" />
+          <Property Name="RPDDivPctREC" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="CHANGED" Type="Boolean" />
+          <Property Name="NumChanged" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PassValStep" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="tblSampleID" Type="Int32" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="Validated" Type="Boolean" />
+          <Property Name="BlkDup" Type="Boolean" />
+          <Property Name="Failed" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ControlPermission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ControlID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleValue" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Comments" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Valid" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="Valid" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTrainee">
+          <Key>
+            <PropertyRef Name="TraineeID" />
+            <PropertyRef Name="RegistrationID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Attend" />
+          </Key>
+          <Property Name="TraineeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Attend" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2907,6 +3108,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySetMapping Name="tblRegistrations">
             <EntityTypeMapping TypeName="RiverWatchModel.tblRegistration">
               <MappingFragment StoreEntitySet="tblRegistration">
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
                 <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
                 <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
                 <ScalarProperty Name="WorkShop" ColumnName="WorkShop" />
@@ -2917,9 +3119,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
                 <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
                 <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblSampleXXXXes">
@@ -3118,7 +3318,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
                 <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
                 <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3478,6 +3677,90 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
                 <ScalarProperty Name="DistUnit" ColumnName="DistUnit" />
                 <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileStorages">
+            <EntityTypeMapping TypeName="RiverWatchModel.FileStorage">
+              <MappingFragment StoreEntitySet="FileStorage">
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lachats">
+            <EntityTypeMapping TypeName="RiverWatchModel.Lachat">
+              <MappingFragment StoreEntitySet="Lachat">
+                <ScalarProperty Name="Failed" ColumnName="Failed" />
+                <ScalarProperty Name="BlkDup" ColumnName="BlkDup" />
+                <ScalarProperty Name="Validated" ColumnName="Validated" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="tblSampleID" ColumnName="tblSampleID" />
+                <ScalarProperty Name="PassValStep" ColumnName="PassValStep" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="NumChanged" ColumnName="NumChanged" />
+                <ScalarProperty Name="CHANGED" ColumnName="CHANGED" />
+                <ScalarProperty Name="RPDDivPctREC" ColumnName="RPDDivPctREC" />
+                <ScalarProperty Name="CONHI" ColumnName="CONHI" />
+                <ScalarProperty Name="AnalDate" ColumnName="AnalDate" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Parameter" ColumnName="Parameter" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="SampleDescription" ColumnName="SampleDescription" />
+                <ScalarProperty Name="SampleType" ColumnName="SampleType" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="inbLachatID" ColumnName="inbLachatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlPermissions">
+            <EntityTypeMapping TypeName="RiverWatchModel.ControlPermission">
+              <MappingFragment StoreEntitySet="ControlPermissions">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleValue" ColumnName="RoleValue" />
+                <ScalarProperty Name="ControlID" ColumnName="ControlID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="RiverWatchModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTrainees">
+            <EntityTypeMapping TypeName="RiverWatchModel.tblTrainee">
+              <MappingFragment StoreEntitySet="tblTrainee">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Attend" ColumnName="Attend" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+                <ScalarProperty Name="TraineeID" ColumnName="TraineeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

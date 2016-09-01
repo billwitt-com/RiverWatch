@@ -10,7 +10,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Sql;
-using RWInbound2.App_Code;
 
 namespace RWInbound2.Validation
 {
@@ -94,7 +93,7 @@ namespace RWInbound2.Validation
                     // changed this to use tlkLimits as they seem to correspond to Barb's note. 
                     using (SqlConnection conn = new SqlConnection())
                     {
-                        conn.ConnectionString = GlobalSite.RiverWatchDev;
+                        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
                         using (SqlCommand cmd = new SqlCommand())
                         {
                             cmd.CommandText = string.Format("select distinct Element, Reporting, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkLimits] where valid = 1");

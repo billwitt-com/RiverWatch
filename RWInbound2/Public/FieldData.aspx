@@ -7,8 +7,11 @@
     <p style="font-size: medium; text-align: center;">
         <strong>Colorado Riverwatch Volunteer Data Entry Form</strong>
     </p>
-    <asp:Panel ID="Panel3" runat="server">
-        <Table style="border-collapse: collapse; border-spacing: 0px; border-width: 0px; padding: 0px; margin: 0px; border-style: none; table-layout: fixed;">
+
+    <asp:Panel ID="pnlLogin" runat="server">
+
+        <br />
+          <Table style="border-collapse: collapse; border-spacing: 0px; border-width: 0px; padding: 0px; margin: 0px; border-style: none; table-layout: fixed;">
             <tr>
                 <td style="width: 192px;">Station Number: 
                  <asp:TextBox ID="tbSite" runat="server" Height="20px" Width="46px" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
@@ -24,7 +27,25 @@
 
                     &nbsp;</td>
             </tr>
+            <tr>
+                <td>
+                    Organizaton Password:
+                </td>
+                <td>
+                    <asp:TextBox ID="tbOrgPwd" runat="server"></asp:TextBox>
+                </td>
+                <td>
+
+                    <asp:Button ID="btnLogin"  runat="server" Text="Log In" OnClick="btnLogin_Click" />
+                </td>
+
+            </tr>
              </Table>
+
+
+    </asp:Panel>
+    <asp:Panel ID="pnlDetail" runat="server">
+      
             
             
             <Table style="height: 55px" >
@@ -397,12 +418,13 @@
                            </td>
                     </tr>--%>
 
-                    <tr>
-                        <td>USGSFlow (CFSecond):               
+                    <tr >
+                        <td style="width: 190px;">USGSFlow (CFSecond):               
 
                         </td>
-                        <td>
-                            <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow") %>' />
+                        <td style="width: 500px;">
+                            <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow","{0:0.00}") %>' Width="61px" />
+                            GUAGE DATA ONLY - Enter estimate in comments, below
                     </tr>
                     <tr>
                         <td>Temp (In CENTEGRADE):
@@ -413,7 +435,7 @@
                                 ErrorMessage="CELCIUS - Must be between -10 and 25" Display="Dynamic" Type="Double"
                                 ForeColor="Red" SetFocusOnError="true"></asp:RangeValidator>
                         </td>
-                        </td>
+     
                     </tr>
                     <tr>
                         <td>PH:
@@ -611,7 +633,6 @@
                         </td>
                     </tr>
                 </table>
-
                 &nbsp;
                             <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
             </EditItemTemplate>
@@ -621,7 +642,7 @@
 
     </asp:Panel>
 
-<asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server" OnInserting="SqlDataSourceInBoundSample_Inserting" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
+<asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server"  OnUpdated="SqlDataSourceInBoundSample_Updated" OnUpdating="SqlDataSourceInBoundSample_Updating" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
     DeleteCommand="DELETE FROM [InboundSamples] WHERE [inbSampleID] = @inbSampleID"
     InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [MetalsNormal], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @MetalsNormal, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID)"
     SelectCommand="SELECT * FROM [InboundSamples]"

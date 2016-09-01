@@ -65,6 +65,11 @@
         <EntityTypeShape EntityType="RiverWatchModel.trsChemParaMapColumn" Width="1.5" PointX="2.75" PointY="24.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblProjectStation" Width="1.5" PointX="24.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblX" Width="1.5" PointX="24.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverWatchModel.FileStorage" Width="1.5" PointX="25.375" PointY="16.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.Lachat" Width="1.5" PointX="9.375" PointY="24.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.ControlPermission" Width="1.5" PointX="25.375" PointY="10.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.Role" Width="1.5" PointX="17.375" PointY="25.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblTrainee" Width="1.5" PointX="19.375" PointY="25.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

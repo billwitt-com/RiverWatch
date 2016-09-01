@@ -12,7 +12,7 @@ using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Web.Providers.Entities;
-using RWInbound2.App_Code;
+using System.Web.Security;
 
 namespace RWInbound2.Data
 {
@@ -27,6 +27,8 @@ namespace RWInbound2.Data
                 lblErrorMsg.Visible = false;
                 Button IB = (Button)FormView1.FindControl("InsertButton");
                 IB.Enabled = false;
+                pnlDetail.Visible = false;  // hide until org validated
+                Session["TRIES"] = 0;
             }
         }
 
@@ -46,21 +48,186 @@ namespace RWInbound2.Data
             e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
         }
 
+        // we are validating the user against org and org pwd and if valid, filling in lots of stuff 
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            int stationNumber = 0;
+            int kitNumber = 0;
+            string orgName = "";
+            string pwd = tbOrgPwd.Text.Trim();
+
+            RiverWatchEntities NRWDE = new RiverWatchEntities();  // create our local EF 
+
+            kitNumber = -1; // no real kit number yet
+            bool success = int.TryParse(tbSite.Text, out stationNumber);
+            bool success2 = int.TryParse(tbKitNumber.Text, out kitNumber);           
+
+            orgName = tbOrg.Text;
+    
+                if (!success)   // no site, so erase input boxes and return, could use message
+                {
+                    tbSite.Text = "Enter Site #";
+                    tbKitNumber.Text = "";
+                    tbOrg.Text = "";
+                    Panel1.Visible = false;
+                    return;
+                }
+                if (!success2)  // first, no kit number if we get below this
+                {
+                    try
+                    {
+                        if (orgName.Length > 2)   // there is an org name
+                        {
+                            var KN = (from k in NRWDE.organizations
+                                      where k.OrganizationName == orgName
+                                      select k.KitNumber).FirstOrDefault();
+
+                            if (KN != null)
+                            {
+                                kitNumber = KN.Value;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Panel1.Visible = false; // clean up and then report error
+
+                        string nam = "";
+                        if (User.Identity.Name.Length < 3)
+                            nam = "Not logged in";
+                        else
+                            nam = User.Identity.Name;
+                        string msg = ex.Message;
+                        LogError LE = new LogError();
+                        LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                    }
+                }
+
+                if (kitNumber == -1)
+                {
+                    tbSite.Text = "";
+                    tbKitNumber.Text = "";
+                    tbOrg.Text = "";
+                    Panel1.Visible = false;
+                    return;
+                }
+
+                // we have good kit number, so fill in the text box, just for....
+                tbKitNumber.Text = kitNumber.ToString();
+
+                Session["STATIONNUMBER"] = stationNumber;
+                Session["KITNUMBER"] = kitNumber;
+
+            // if any user is logged in, we will allow them on this page, otherwise, we will test against the org pwd
+
+                if (!User.Identity.IsAuthenticated)    // we don't know who this is 
+                {
+                    // now, test the pwd against the org pwd or previous logged in user
+
+                    var VP = (from v in NRWDE.organizations
+                              where v.Password.ToUpper() == pwd.ToUpper()
+                              select v.OrganizationName).FirstOrDefault();
+
+                    if (VP != null)
+                    { 
+                        FormsAuthentication.SetAuthCookie(VP, false); // create user name as authenticated 
+                        //    FormsAuthentication.RedirectFromLoginPage(VP, false);
+                        Session["Role"] = 1;  // XXXX not sure about this yet.... 
+                    }
+                    else  // login failure
+                    {
+                        if (Session["TRIES"] != null)
+                        {
+                            int tries = (int)Session["TRIES"];
+                            tries++;
+                            Session["TRIES"] = tries;
+                            if (tries > 3)
+                            {
+                                // for now, take user to timedout page, not sure what else to do... 
+                                Response.Redirect("timedout.aspx");
+                            }
+                            else
+                            {
+                                lblErrorMsg.Visible = true;
+                                lblErrorMsg.Text = "Your loging information is incorrect, please try again";
+                                tbOrgPwd.Text = "";
+                                return;
+                            }
+                        }
+                    }
+                }
+            // we have authenticated user
+                pnlDetail.Visible = true;
+                lblErrorMsg.Visible = false;
+
+            try
+                {
+                    var RES = from r in NRWDE.Stations
+                              join o in NRWDE.organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                              join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
+                              where r.StationNumber == stationNumber & o.KitNumber == kitNumber
+                              select new
+                              {
+                                  stnName = r.StationName,
+                                  orgName = o.OrganizationName,
+                                  riverName = r.River,
+                                  startDate = ts.ContractStartDate,
+                                  endDate = ts.ContractEndDate,
+                                  active = o.Active,
+                                  watershed = r.RWWaterShed,
+                                  stnID = r.ID,
+                                  orgID = o.ID
+                              };
+                    if (RES.Count() == 0)
+                    {
+                        Panel1.Visible = false;
+                        tbSite.Text = "";
+                        tbKitNumber.Text = "";
+                        return;
+                    }
+
+                    // query good, fill in text boxes below select button
+
+                    tbOrg.Text = orgName;   // to make it 'nice'
+                    Panel1.Visible = true;
+                    tbOrgName.Text = string.Format("{0}", RES.FirstOrDefault().orgName);
+                    tbKitNum.Text = kitNumber.ToString();
+                    tbStationName.Text = string.Format("{0}", RES.FirstOrDefault().stnName);
+                    tbRiver.Text = string.Format("{0}", RES.FirstOrDefault().riverName);
+                    tbStationNum.Text = stationNumber.ToString();
+
+                    Session["STATIONNUMBER"] = stationNumber;
+                    Session["KITNUMBER"] = kitNumber;
+
+                }
+                catch (Exception ex)
+                {
+                    Panel1.Visible = false; // clean up and then report error
+
+                    string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    string msg = ex.Message;
+                    LogError LE = new LogError();
+                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                }
+            }       
+       
+        
         // top button on page, does not save, just creates form and fills in some stuff
         protected void btnSelect_Click(object sender, EventArgs e)
         {
             int stationNumber = 0;
             int kitNumber = 0;
             DateTime thisyear = DateTime.Now;
-            string orgName = "";
+   
             DateTime dateCollected;
             string dc = "";
 
             RiverWatchEntities NRWDE = new RiverWatchEntities();  // create our local EF 
 
-            kitNumber = -1; // no real kit number yet
-            bool success = int.TryParse(tbSite.Text, out stationNumber);
-            bool success2 = int.TryParse(tbKitNumber.Text, out kitNumber);
             dc = tbDateCollected.Text.Trim();
             bool rz = DateTime.TryParse(dc, out dateCollected);
 
@@ -77,113 +244,17 @@ namespace RWInbound2.Data
                 lblErrorMsg.Visible = false; 
             }
 
-            orgName = tbOrg.Text;
-            try
-            {
-                if (!success)   // no site, so erase input boxes and return, could use message
-                {
-                    tbSite.Text = "Enter Site #";
-                    tbKitNumber.Text = "";
-                    tbOrg.Text = "";
-                    Panel1.Visible = false;
-                    return;
-                }
-                if (!success2)  // first, no kit number if we get below this
-                {
-                    if (orgName.Length > 2)   // there is an org name
-                    {
-                        var KN = (from k in NRWDE.organizations
-                                  where k.OrganizationName == orgName
-                                  select k.KitNumber).FirstOrDefault();
+            Session["COLLECTIONDATE"] = dateCollected;
 
-                        if (KN != null)
-                        {
-                            kitNumber = KN.Value;
-                        }
-                    }
-                }
+            if(Session["STATIONNUMBER"] != null)
+                stationNumber = (int)Session["STATIONNUMBER"]; 
+            else
+                Response.Redirect("Timedout.aspx");
 
-                if (kitNumber == -1)
-                {
-                    tbSite.Text = "";
-                    tbKitNumber.Text = "";
-                    tbOrg.Text = "";
-                    Panel1.Visible = false;
-                    return;
-                }
-
-                // we have good kit number, so fill in the text box, just for....
-                tbKitNumber.Text = kitNumber.ToString();
-            }
-            catch (Exception ex)
-            {
-                Panel1.Visible = false; // clean up and then report error
-
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
-            
-            try
-            {
-                var RES = from r in NRWDE.Stations
-                          join o in NRWDE.organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
-                          join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
-                          where r.StationNumber == stationNumber & o.KitNumber == kitNumber
-                          select new
-                          {
-                              stnName = r.StationName,
-                              orgName = o.OrganizationName,
-                              riverName = r.River,
-                              startDate = ts.ContractStartDate,
-                              endDate = ts.ContractEndDate,
-                              active = o.Active,
-                              watershed = r.RWWaterShed,
-                              stnID = r.ID,
-                              orgID = o.ID
-                          };
-                if (RES.Count() == 0)
-                {
-                    Panel1.Visible = false;                   
-                    tbSite.Text = "";
-                    tbKitNumber.Text = "";
-                    return;
-                }
-
-                // query good, fill in text boxes below select button
-
-                tbOrg.Text = orgName;   // to make it 'nice'
-                Panel1.Visible = true;
-                tbOrgName.Text = string.Format("{0}", RES.FirstOrDefault().orgName);
-                tbKitNum.Text = kitNumber.ToString();
-                tbStationName.Text = string.Format("{0}", RES.FirstOrDefault().stnName);
-                tbRiver.Text = string.Format("{0}", RES.FirstOrDefault().riverName);
-                tbStationNum.Text = stationNumber.ToString();
-
-                Session["STATIONNUMBER"] = stationNumber;
-                Session["KITNUMBER"] = kitNumber;
-                Session["COLLECTIONDATE"] = dateCollected; 
-              
-
-            }
-            catch (Exception ex)
-            {
-                Panel1.Visible = false; // clean up and then report error
-
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
+            if (Session["KITNUMBER"] != null)
+                kitNumber = (int)Session["KITNUMBER"]; 
+            else
+                Response.Redirect("Timedout.aspx");
 
             // test to see if there is existing record for this date, and if so, warn user. 
             // nasty query... 
@@ -255,7 +326,7 @@ namespace RWInbound2.Data
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
                 {
-                    conn.ConnectionString = GlobalSite.RiverWatchDev;
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  //GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";
@@ -346,6 +417,18 @@ namespace RWInbound2.Data
             pnlExisting.Visible = false;
             return; 
         }
+
+        protected void SqlDataSourceInBoundSample_Updated(object sender, SqlDataSourceStatusEventArgs e)
+        {
+
+        }
+
+        protected void SqlDataSourceInBoundSample_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+
+        }
+
+       
 
        
         

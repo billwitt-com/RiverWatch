@@ -12,20 +12,19 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tblRegistration
+    public partial class tblTrainee
     {
-        public int ParticipantID { get; set; }
-        public Nullable<System.DateTime> RegistrationDate { get; set; }
-        public string WorkShop { get; set; }
-        public bool Paid { get; set; }
-        public bool Receipt { get; set; }
-        public Nullable<bool> Attend { get; set; }
+        public int TraineeID { get; set; }
+        public int RegistrationID { get; set; }
+        public Nullable<int> Age { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Sex { get; set; }
+        public bool Attend { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string UserCreated { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
         public Nullable<bool> Valid { get; set; }
-        public int ID { get; set; }
-        public int RegistrationID { get; set; }
     }
 }

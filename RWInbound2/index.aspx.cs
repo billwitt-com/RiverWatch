@@ -13,5 +13,10 @@ namespace RWInbound2
         {
             lblWelcome.Text = string.Format("Welcome {0}", User.Identity.Name);
         }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Account/login.aspx"); 
+        }
     }
 }

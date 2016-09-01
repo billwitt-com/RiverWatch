@@ -3,4 +3,6 @@
     <div class="site-title">
         Reports
     </div>
+    <asp:Button ID="btnErrorLogReport" runat="server" Text="Error Log" OnClick="btnErrorLogReport_Click" />
+
 </asp:Content>
