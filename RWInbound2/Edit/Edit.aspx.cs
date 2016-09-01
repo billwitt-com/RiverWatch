@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 // main page holding all editing options
 namespace RWInbound2.Edit
@@ -137,6 +134,56 @@ namespace RWInbound2.Edit
         protected void btnRegion_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditRegion.aspx");
+        }
+
+        protected void btnRiverWatchWaterShed_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditRiverWatchWaterShed.aspx");
+        }
+
+        protected void btnSampleType_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditSampleType.aspx");
+        }
+
+        protected void btnSection_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditSection.aspx");
+        }
+
+        protected void btnState_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditState.aspx");
+        }
+
+        protected void btnStationQUAD_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditStationQUAD.aspx");
+        }
+
+        protected void btnStationStatus_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditStationStatus.aspx");
+        }
+
+        protected void btnTownship_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditTownship.aspx");
+        }
+
+        protected void btnWQCCWaterShed_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditWQCCWaterShed.aspx");
+        }
+
+        protected void btnWSG_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditWSG.aspx");
+        }
+
+        protected void btnWSR_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditWSR.aspx");
         }
     }
 }
