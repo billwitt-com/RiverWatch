@@ -165,6 +165,22 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Data\Data.aspx" />
+    <Content Include="Edit\EditEcoRegion.aspx" />
+    <Content Include="Edit\EditEquipCategory.aspx" />
+    <Content Include="Edit\EditEquipItems.aspx" />
+    <Content Include="Edit\EditFieldGear.aspx" />
+    <Content Include="Edit\EditFieldProcedure.aspx" />
+    <Content Include="Edit\EditGrid.aspx" />
+    <Content Include="Edit\EditHydroUnit.aspx" />
+    <Content Include="Edit\EditMetalBarCodeType.aspx" />
+    <Content Include="Edit\EditNutrientBarCodeType.aspx" />
+    <Content Include="Edit\EditOrganizationType.aspx" />
+    <Content Include="Edit\EditRiverWatchWaterShed.aspx" />
+    <Content Include="Edit\EditSampleType.aspx" />
+    <Content Include="Edit\EditSection.aspx" />
+    <Content Include="Edit\EditState.aspx" />
+    <Content Include="Edit\EditStationQUAD.aspx" />
+    <Content Include="Edit\EditStationStatus.aspx" />
     <Content Include="Public\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
@@ -367,6 +383,102 @@
     </Compile>
     <Compile Include="Data\Data.aspx.designer.cs">
       <DependentUpon>Data.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEcoRegion.aspx.cs">
+      <DependentUpon>EditEcoRegion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEcoRegion.aspx.designer.cs">
+      <DependentUpon>EditEcoRegion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEquipCategory.aspx.cs">
+      <DependentUpon>EditEquipCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEquipCategory.aspx.designer.cs">
+      <DependentUpon>EditEquipCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEquipItems.aspx.cs">
+      <DependentUpon>EditEquipItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEquipItems.aspx.designer.cs">
+      <DependentUpon>EditEquipItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditFieldGear.aspx.cs">
+      <DependentUpon>EditFieldGear.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditFieldGear.aspx.designer.cs">
+      <DependentUpon>EditFieldGear.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditFieldProcedure.aspx.cs">
+      <DependentUpon>EditFieldProcedure.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditFieldProcedure.aspx.designer.cs">
+      <DependentUpon>EditFieldProcedure.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditGrid.aspx.cs">
+      <DependentUpon>EditGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditGrid.aspx.designer.cs">
+      <DependentUpon>EditGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditHydroUnit.aspx.cs">
+      <DependentUpon>EditHydroUnit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditHydroUnit.aspx.designer.cs">
+      <DependentUpon>EditHydroUnit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditMetalBarCodeType.aspx.cs">
+      <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditMetalBarCodeType.aspx.designer.cs">
+      <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditNutrientBarCodeType.aspx.cs">
+      <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditNutrientBarCodeType.aspx.designer.cs">
+      <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditOrganizationType.aspx.cs">
+      <DependentUpon>EditOrganizationType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditOrganizationType.aspx.designer.cs">
+      <DependentUpon>EditOrganizationType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditRiverWatchWaterShed.aspx.cs">
+      <DependentUpon>EditRiverWatchWaterShed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditRiverWatchWaterShed.aspx.designer.cs">
+      <DependentUpon>EditRiverWatchWaterShed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditSampleType.aspx.cs">
+      <DependentUpon>EditSampleType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditSampleType.aspx.designer.cs">
+      <DependentUpon>EditSampleType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditSection.aspx.cs">
+      <DependentUpon>EditSection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditSection.aspx.designer.cs">
+      <DependentUpon>EditSection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditState.aspx.cs">
+      <DependentUpon>EditState.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditState.aspx.designer.cs">
+      <DependentUpon>EditState.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditStationQUAD.aspx.cs">
+      <DependentUpon>EditStationQUAD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditStationQUAD.aspx.designer.cs">
+      <DependentUpon>EditStationQUAD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditStationStatus.aspx.cs">
+      <DependentUpon>EditStationStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditStationStatus.aspx.designer.cs">
+      <DependentUpon>EditStationStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\FieldData.aspx.cs">
       <DependentUpon>FieldData.aspx</DependentUpon>
