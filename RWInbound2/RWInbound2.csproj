@@ -20,6 +20,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -386,96 +388,112 @@
     </Compile>
     <Compile Include="Edit\EditEcoRegion.aspx.cs">
       <DependentUpon>EditEcoRegion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditEcoRegion.aspx.designer.cs">
       <DependentUpon>EditEcoRegion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditEquipCategory.aspx.cs">
       <DependentUpon>EditEquipCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditEquipCategory.aspx.designer.cs">
       <DependentUpon>EditEquipCategory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditEquipItems.aspx.cs">
       <DependentUpon>EditEquipItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditEquipItems.aspx.designer.cs">
       <DependentUpon>EditEquipItems.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditFieldGear.aspx.cs">
       <DependentUpon>EditFieldGear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditFieldGear.aspx.designer.cs">
       <DependentUpon>EditFieldGear.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditFieldProcedure.aspx.cs">
       <DependentUpon>EditFieldProcedure.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditFieldProcedure.aspx.designer.cs">
       <DependentUpon>EditFieldProcedure.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditGrid.aspx.cs">
       <DependentUpon>EditGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditGrid.aspx.designer.cs">
       <DependentUpon>EditGrid.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditHydroUnit.aspx.cs">
       <DependentUpon>EditHydroUnit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditHydroUnit.aspx.designer.cs">
       <DependentUpon>EditHydroUnit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditMetalBarCodeType.aspx.cs">
       <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditMetalBarCodeType.aspx.designer.cs">
       <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditNutrientBarCodeType.aspx.cs">
       <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditNutrientBarCodeType.aspx.designer.cs">
       <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditOrganizationType.aspx.cs">
       <DependentUpon>EditOrganizationType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditOrganizationType.aspx.designer.cs">
       <DependentUpon>EditOrganizationType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditRiverWatchWaterShed.aspx.cs">
       <DependentUpon>EditRiverWatchWaterShed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditRiverWatchWaterShed.aspx.designer.cs">
       <DependentUpon>EditRiverWatchWaterShed.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditSampleType.aspx.cs">
       <DependentUpon>EditSampleType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditSampleType.aspx.designer.cs">
       <DependentUpon>EditSampleType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditSection.aspx.cs">
       <DependentUpon>EditSection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditSection.aspx.designer.cs">
       <DependentUpon>EditSection.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditState.aspx.cs">
       <DependentUpon>EditState.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditState.aspx.designer.cs">
       <DependentUpon>EditState.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditStationQUAD.aspx.cs">
       <DependentUpon>EditStationQUAD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditStationQUAD.aspx.designer.cs">
       <DependentUpon>EditStationQUAD.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditStationStatus.aspx.cs">
       <DependentUpon>EditStationStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditStationStatus.aspx.designer.cs">
       <DependentUpon>EditStationStatus.aspx</DependentUpon>
@@ -1049,6 +1067,13 @@
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
