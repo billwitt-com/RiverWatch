@@ -19,7 +19,7 @@ namespace RWInbound2
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Role { get; set; }
+        public Nullable<int> Role { get; set; }
         public Nullable<System.DateTime> DateLastActivity { get; set; }
         public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }

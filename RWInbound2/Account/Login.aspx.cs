@@ -17,6 +17,8 @@ namespace RWInbound2.Account
             
         }
 
+        // new bwitt sept 2016
+        // allow user to login from index page, which will show no menu tabs until user is logged in and role is determined
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             string UZerName = tbUserName.Text.Trim();
@@ -56,8 +58,16 @@ namespace RWInbound2.Account
 
             catch (Exception ex)
             {
-                string msg = ex.Message;    // XXXX need to build an error log file and logging code               
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
+
 
             if (FirstName.Length < 1)   // login failed
             {
@@ -96,11 +106,13 @@ namespace RWInbound2.Account
             }
 
             FormsAuthentication.SetAuthCookie(UZerName, false); // create user name as authenticated 
-            FormsAuthentication.RedirectFromLoginPage(UZerName, false);
+           // FormsAuthentication.RedirectFromLoginPage(UZerName, false);
             if(role.Value > 0)
             {
                 Session["Role"] = role.Value; 
             }
+          
+             Response.Redirect("~/index.aspx"); 
         }
     }
 } 

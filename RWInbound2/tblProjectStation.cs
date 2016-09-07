@@ -14,7 +14,7 @@ namespace RWInbound2
     
     public partial class tblProjectStation
     {
-        public int ProjectStationID { get; set; }
+        public int ID { get; set; }
         public int ProjectID { get; set; }
         public int StationID { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }

@@ -68,7 +68,13 @@ namespace RWInbound2
         // see if sometime I can find the code to get date from a compiled file
         protected void Page_Load(object sender, EventArgs e)
         {
-            int role = 1; 
+            int role = 1;
+            RiverWatchEntities RWE = new RiverWatchEntities();
+            string con = RWE.Database.Connection.ConnectionString;
+            string ds = "Data Source"; 
+            int idx = con.IndexOf(ds);
+            string dSource = con.Substring(idx + 3 + ds.Length, 10); 
+
             string filepath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
             const string URIPrefx = "file:///";
             if (filepath.StartsWith(URIPrefx)) filepath = filepath.Substring(URIPrefx.Length);
@@ -76,25 +82,115 @@ namespace RWInbound2
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(filepath);
             string VerMsg = fileInfo.LastWriteTime.ToString("yyyy-MM-dd");
 
-            lblVersion.Text = "                                 VER: " + VerMsg;  
+            lblVersion.Text = "                                 VER: " + VerMsg + "      DS: " + dSource;  
 
-      // now manage menu items using role
+      // now manage menu items using users role and 
 
-            if(Session["Role"] != null)
+            if (Session["Role"] != null)
             {
-                role = (int)Session["Role"];
+                role = (int)Session["Role"];    // get users role
             }
-
-            if (role < 5)
-            {
-                Samples.Visible = false;
-                Validation.Visible = false;
-                Applications.Visible = false;                
-            }
+            else
+                role = 1; 
 
           
+
+            var R = from r in RWE.ControlPermissions
+                    where r.PageName.ToUpper() == "MASTER"
+                    select r;
+
+            int? Q = (from r in R
+                     where r.ControlID.ToUpper() == "SAMPLES"
+                     select r.RoleValue).FirstOrDefault();
+
+            if (Q != null)
+            {
+                if (role >= Q.Value)
+                    Samples.Visible = true;
+
+                else               
+                    Samples.Visible = false;               
+            }
+
+            int? Q1 = (from r in R
+                      where r.ControlID.ToUpper() == "VALIDATION"
+                      select r.RoleValue).FirstOrDefault();
+
+            if (Q1 != null)
+            {
+                if (role >= Q1.Value)
+                    Validation.Visible = true;
+
+                else
+                    Validation.Visible = false;
+            }
+
+            int? Q2 = (from r in R
+                       where r.ControlID.ToUpper() == "DATA"
+                       select r.RoleValue).FirstOrDefault(); 
+
+            if (Q2 != null)
+            {
+                if (role >= Q2.Value)
+                    Data.Visible = true;
+
+                else
+                    Data.Visible = false;
+            }
+
+            int? Q3 = (from r in R
+                       where r.ControlID.ToUpper() == "Reports".ToUpper()
+                       select r.RoleValue).FirstOrDefault();
+
+            if (Q3 != null)
+            {
+                if (role >= Q3.Value)
+                    Reports.Visible = true;
+
+                else
+                    Reports.Visible = false;
+            }
+
+            int? Q4 = (from r in R
+                       where r.ControlID.ToUpper() == "Applications".ToUpper()
+                       select r.RoleValue).FirstOrDefault();
+
+            if (Q4 != null)
+            {
+                if (role >= Q4.Value)
+                    Applications.Visible = true;
+
+                else
+                    Applications.Visible = false;
+            }
+
+            int? Q5 = (from r in R
+                       where r.ControlID.ToUpper() == "Edit".ToUpper()
+                       select r.RoleValue).FirstOrDefault();
+
+            if (Q5 != null)
+            {
+                if (role >= Q5.Value)
+                    Edit.Visible = true;
+
+                else
+                    Edit.Visible = false;
+            }
+
+            int? Q6 = (from r in R
+                       where r.ControlID.ToUpper() == "Admin".ToUpper()
+                       select r.RoleValue).FirstOrDefault();
+
+            if (Q6 != null)
+            {
+                if (role >= Q6.Value)
+                    Admin.Visible = true;
+
+                else
+                    Admin.Visible = false;
+            }
         }
-        // this works to control menu items, so can be used to hide or deactivate menu items depending on user permissions 
+
         protected void Page_PreRender(object sender, EventArgs e)
         {
             //string DupsUniqueID = this.Controls[0].UniqueID; 

@@ -16,6 +16,33 @@ namespace RWInbound2.Data
     {
          protected void Page_Load(object sender, EventArgs e)
         {
+            int role = 1;
+
+            if (Session["Role"] != null)
+            {
+                role = (int)Session["Role"];    // get users role
+            }
+
+            RiverWatchEntities RWE = new RiverWatchEntities();
+
+            var R = from r in RWE.ControlPermissions
+                    where r.PageName.ToUpper() == "UploadLatchet"
+                    select r;
+
+            int? Q = (from r in R
+                      where r.ControlID.ToUpper() == "Page"
+                      select r.RoleValue).FirstOrDefault();
+
+            if (Q != null)
+            {
+                if (role < Q.Value)
+                    Response.Redirect("~/timedout.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/timedout.aspx");
+            }
+
             FileUpload1.AllowMultiple = false;     
         }
 

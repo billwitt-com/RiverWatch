@@ -246,13 +246,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tblSampleID" Type="int" />
           <Property Name="SampleNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Event" Type="varchar" MaxLength="12" />
+          <Property Name="Event" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="WaterShed" Type="varchar" MaxLength="3" />
-          <Property Name="River_CD" Type="decimal" Precision="14" Scale="4" />
+          <Property Name="River_CD" Type="float" />
           <Property Name="RiverName" Type="varchar" MaxLength="17" />
           <Property Name="KitNumber" Type="int" />
           <Property Name="OrganizationName" Type="varchar" MaxLength="50" />
-          <Property Name="StationID" Type="int" />
+          <Property Name="OrganizationID" Type="int" />
+          <Property Name="StationNumber" Type="smallint" />
           <Property Name="TypeCode" Type="varchar" MaxLength="5" />
           <Property Name="StationName" Type="varchar" MaxLength="50" />
           <Property Name="MetalsBarCode" Type="varchar" MaxLength="20" />
@@ -260,53 +261,55 @@
           <Property Name="FieldBarCode" Type="varchar" MaxLength="20" />
           <Property Name="BugsBarCode" Type="varchar" MaxLength="20" />
           <Property Name="SampleDate" Type="datetime" Nullable="false" />
-          <Property Name="USGS_Flow" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="PH" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="TempC" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="PHEN_ALK" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="TOTAL_ALK" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="TOTAL_HARD" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="DO_MGL" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="DOSAT" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="AL_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="AL_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="AS_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="AS_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="CA_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="CA_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="CD_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="CD_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="CU_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="CU_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="FE_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="FE_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="MG_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="MG_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="MN_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="MN_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="PB_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="PB_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="SE_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="SE_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="ZN_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="ZN_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="NA_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="NA_T" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="K_D" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="K_T" Type="decimal" Precision="14" Scale="4" />
+          <Property Name="USGS_Flow" Type="float" />
+          <Property Name="PH" Type="float" />
+          <Property Name="TempC" Type="float" />
+          <Property Name="PHEN_ALK" Type="float" />
+          <Property Name="TOTAL_ALK" Type="float" />
+          <Property Name="TOTAL_HARD" Type="float" />
+          <Property Name="DO_MGL" Type="float" />
+          <Property Name="DOSAT" Type="smallint" />
+          <Property Name="AL_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AL_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AS_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AS_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CA_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CA_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CD_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CD_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CU_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CU_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FE_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FE_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MG_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MG_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MN_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MN_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="PB_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="PB_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="SE_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="SE_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="NA_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="NA_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="K_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="K_T" Type="decimal" Precision="28" Scale="10" />
           <Property Name="Rep" Type="int" />
-          <Property Name="Ammonia" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="Chloride" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="ChlorophyllA" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="DOC" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="NN" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="OP" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="Sulfate" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="totN" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="totP" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="TKN" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="orgN" Type="decimal" Precision="14" Scale="4" />
-          <Property Name="TSS" Type="decimal" Precision="14" Scale="4" />
+          <Property Name="Ammonia" Type="float" />
+          <Property Name="Chloride" Type="float" />
+          <Property Name="ChlorophyllA" Type="float" />
+          <Property Name="DOC" Type="float" />
+          <Property Name="NN" Type="float" />
+          <Property Name="OP" Type="float" />
+          <Property Name="Sulfate" Type="float" />
+          <Property Name="totN" Type="float" />
+          <Property Name="totP" Type="float" />
+          <Property Name="TKN" Type="float" />
+          <Property Name="orgN" Type="float" />
+          <Property Name="TSS" Type="float" />
+          <Property Name="Batch" Type="int" />
+          <Property Name="SampleComments" Type="nvarchar(max)" />
           <Property Name="FieldComment" Type="nvarchar(max)" />
           <Property Name="NutrientComment" Type="nvarchar(max)" />
           <Property Name="MetalsComment" Type="nvarchar(max)" />
@@ -318,9 +321,6 @@
           <Property Name="BadDuplicate" Type="bit" />
           <Property Name="BadSample" Type="bit" />
           <Property Name="Valid" Type="bit" Nullable="false" />
-          <Property Name="OrganizationID" Type="int" />
-          <Property Name="SampleComments" Type="nvarchar(max)" />
-          <Property Name="StationNumber" Type="int" />
         </EntityType>
         <EntityType Name="NutrientBarCode">
           <Key>
@@ -617,15 +617,11 @@
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch.dbo.tblProjectStation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblProjectStation">
           <Key>
-            <PropertyRef Name="ProjectStationID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="StationID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ProjectStationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectID" Type="int" Nullable="false" />
           <Property Name="StationID" Type="int" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
@@ -685,15 +681,9 @@ warning 6002: The table/view 'RiverWatch.dbo.tblProjectStation' does not have a 
           <Property Name="DuplicatedCS" Type="bit" />
           <Property Name="Valid" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch.dbo.tblTrainee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblTrainee">
           <Key>
             <PropertyRef Name="TraineeID" />
-            <PropertyRef Name="RegistrationID" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="LastName" />
-            <PropertyRef Name="Attend" />
           </Key>
           <Property Name="TraineeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RegistrationID" Type="int" Nullable="false" />
@@ -862,15 +852,16 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tlkEcoRegion">
-          
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
           <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
           <Property Name="Valid" Type="bit" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="tlkEquipCategory">
           <Key>
@@ -1202,8 +1193,10 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <EntitySet Name="tblPartInfo" EntityType="Self.tblPartInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPhysHabPara" EntityType="Self.tblPhysHabPara" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProject" EntityType="Self.tblProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProjectStation" EntityType="Self.tblProjectStation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRegistration" EntityType="Self.tblRegistration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSampleXXXX" EntityType="Self.tblSampleXXXX" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTrainee" EntityType="Self.tblTrainee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWatercodes" EntityType="Self.tblWatercodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWatershedGrp" EntityType="Self.tblWatershedGrp" Schema="dbo" store:Type="Tables" />
@@ -1214,6 +1207,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <EntitySet Name="tlkBioResultsType" EntityType="Self.tlkBioResultsType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkCommunities" EntityType="Self.tlkCommunities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkCounty" EntityType="Self.tlkCounty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tlkEcoRegion" EntityType="Self.tlkEcoRegion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkEquipCategory" EntityType="Self.tlkEquipCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkEquipItems" EntityType="Self.tlkEquipItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkFieldGear" EntityType="Self.tlkFieldGear" Schema="dbo" store:Type="Tables" />
@@ -1241,33 +1235,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <EntitySet Name="tlkWSG" EntityType="Self.tlkWSG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkWSR" EntityType="Self.tlkWSR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="trsChemParaMapColumns" EntityType="Self.trsChemParaMapColumns" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblProjectStation" EntityType="Self.tblProjectStation" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblProjectStation].[ProjectStationID] AS [ProjectStationID], 
-    [tblProjectStation].[ProjectID] AS [ProjectID], 
-    [tblProjectStation].[StationID] AS [StationID], 
-    [tblProjectStation].[DateCreated] AS [DateCreated], 
-    [tblProjectStation].[UserCreated] AS [UserCreated], 
-    [tblProjectStation].[DateLastModified] AS [DateLastModified], 
-    [tblProjectStation].[UserLastModified] AS [UserLastModified]
-    FROM [dbo].[tblProjectStation] AS [tblProjectStation]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tblTrainee" EntityType="Self.tblTrainee" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblTrainee].[TraineeID] AS [TraineeID], 
-    [tblTrainee].[RegistrationID] AS [RegistrationID], 
-    [tblTrainee].[Age] AS [Age], 
-    [tblTrainee].[FirstName] AS [FirstName], 
-    [tblTrainee].[LastName] AS [LastName], 
-    [tblTrainee].[Sex] AS [Sex], 
-    [tblTrainee].[Attend] AS [Attend], 
-    [tblTrainee].[DateCreated] AS [DateCreated], 
-    [tblTrainee].[UserCreated] AS [UserCreated], 
-    [tblTrainee].[DateLastModified] AS [DateLastModified], 
-    [tblTrainee].[UserLastModified] AS [UserLastModified], 
-    [tblTrainee].[Valid] AS [Valid]
-    FROM [dbo].[tblTrainee] AS [tblTrainee]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="tblXS" EntityType="Self.tblXS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tblXS].[XSID] AS [XSID], 
@@ -1277,15 +1244,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
     [tblXS].[EnterDate] AS [EnterDate], 
     [tblXS].[Comments] AS [Comments]
     FROM [dbo].[tblXS] AS [tblXS]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tlkEcoRegion" EntityType="Self.tlkEcoRegion" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tlkEcoRegion].[Code] AS [Code], 
-    [tlkEcoRegion].[Description] AS [Description], 
-    [tlkEcoRegion].[DateLastModified] AS [DateLastModified], 
-    [tlkEcoRegion].[UserLastModified] AS [UserLastModified], 
-    [tlkEcoRegion].[Valid] AS [Valid]
-    FROM [dbo].[tlkEcoRegion] AS [tlkEcoRegion]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1474,89 +1432,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="SampleID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="NEWexpWater">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tblSampleID" Type="Int32" />
-          <Property Name="SampleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Event" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="WaterShed" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="River_CD" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="RiverName" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
-          <Property Name="KitNumber" Type="Int32" />
-          <Property Name="OrganizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="StationID" Type="Int32" />
-          <Property Name="TypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="StationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MetalsBarCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NutrientBarCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FieldBarCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="BugsBarCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="SampleDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="USGS_Flow" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="PH" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="TempC" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="PHEN_ALK" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="TOTAL_ALK" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="TOTAL_HARD" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="DO_MGL" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="DOSAT" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="AL_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="AL_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="AS_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="AS_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="CA_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="CA_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="CD_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="CD_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="CU_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="CU_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="FE_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="FE_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="MG_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="MG_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="MN_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="MN_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="PB_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="PB_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="SE_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="SE_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="ZN_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="ZN_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="NA_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="NA_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="K_D" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="K_T" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="Rep" Type="Int32" />
-          <Property Name="Ammonia" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="Chloride" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="ChlorophyllA" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="DOC" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="NN" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="OP" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="Sulfate" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="totN" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="totP" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="TKN" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="orgN" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="TSS" Type="Decimal" Precision="14" Scale="4" />
-          <Property Name="FieldComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NutrientComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MetalsComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BugsComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BenthicsComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="BadBlank" Type="Boolean" />
-          <Property Name="BadDuplicate" Type="Boolean" />
-          <Property Name="BadSample" Type="Boolean" />
-          <Property Name="Valid" Type="Boolean" Nullable="false" />
-          <Property Name="OrganizationID" Type="Int32" />
-          <Property Name="SampleComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StationNumber" Type="Int32" />
         </EntityType>
         <EntityType Name="NutrientBarCode">
           <Key>
@@ -1842,25 +1717,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="tblRegistration">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="RegistrationID" />
-          </Key>
-          <Property Name="ParticipantID" Type="Int32" Nullable="false" />
-          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
-          <Property Name="WorkShop" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Paid" Type="Boolean" Nullable="false" />
-          <Property Name="Receipt" Type="Boolean" Nullable="false" />
-          <Property Name="Attend" Type="Boolean" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RegistrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="tblSampleXXXX">
           <Key>
             <PropertyRef Name="SampleID" />
@@ -1896,20 +1752,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <Property Name="BugsQA" Type="Boolean" />
           <Property Name="DuplicatedCS" Type="Boolean" />
           <Property Name="Valid" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="tblUser">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="UserName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Role" Type="String" />
-          <Property Name="DateLastActivity" Type="DateTime" Precision="3" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="tblWatercode">
           <Key>
@@ -2032,28 +1874,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="Code" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="tlkEcoRegion">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="tlkEquipCategory">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -2356,20 +2176,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="tblProjectStation">
-          <Key>
-            <PropertyRef Name="ProjectStationID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="StationID" />
-          </Key>
-          <Property Name="ProjectStationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="StationID" Type="Int32" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="tblX">
           <Key>
             <PropertyRef Name="XSID" />
@@ -2388,7 +2194,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <EntitySet Name="InboundICPOrigionals" EntityType="Self.InboundICPOrigional" />
           <EntitySet Name="InboundSamples" EntityType="Self.InboundSample" />
           <EntitySet Name="MetalBarCodes" EntityType="Self.MetalBarCode" />
-          <EntitySet Name="NEWexpWaters" EntityType="Self.NEWexpWater" />
           <EntitySet Name="NutrientBarCodes" EntityType="Self.NutrientBarCode" />
           <EntitySet Name="organizations" EntityType="Self.organization" />
           <EntitySet Name="OrgStatus" EntityType="Self.OrgStatu" />
@@ -2400,9 +2205,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <EntitySet Name="tblPartInfoes" EntityType="Self.tblPartInfo" />
           <EntitySet Name="tblPhysHabParas" EntityType="Self.tblPhysHabPara" />
           <EntitySet Name="tblProjects" EntityType="Self.tblProject" />
-          <EntitySet Name="tblRegistrations" EntityType="Self.tblRegistration" />
           <EntitySet Name="tblSampleXXXXes" EntityType="Self.tblSampleXXXX" />
-          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
           <EntitySet Name="tblWatercodes" EntityType="Self.tblWatercode" />
           <EntitySet Name="tblWatershedGrps" EntityType="Self.tblWatershedGrp" />
           <EntitySet Name="tblWBKeys" EntityType="Self.tblWBKey" />
@@ -2412,8 +2215,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <EntitySet Name="tlkBioResultsTypes" EntityType="Self.tlkBioResultsType" />
           <EntitySet Name="tlkCommunities" EntityType="Self.tlkCommunity" />
           <EntitySet Name="tlkCounties" EntityType="Self.tlkCounty" />
-          <EntitySet Name="tlkEcoRegions" EntityType="Self.tlkEcoRegion" />
-          <EntitySet Name="tlkEquipCategories" EntityType="Self.tlkEquipCategory" />
           <EntitySet Name="tlkEquipItems" EntityType="Self.tlkEquipItem" />
           <EntitySet Name="tlkFieldGears" EntityType="Self.tlkFieldGear" />
           <EntitySet Name="tlkFieldProcedures" EntityType="Self.tlkFieldProcedure" />
@@ -2440,13 +2241,18 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <EntitySet Name="tlkWSGs" EntityType="Self.tlkWSG" />
           <EntitySet Name="tlkWSRs" EntityType="Self.tlkWSR" />
           <EntitySet Name="trsChemParaMapColumns" EntityType="Self.trsChemParaMapColumn" />
-          <EntitySet Name="tblProjectStations" EntityType="Self.tblProjectStation" />
           <EntitySet Name="tblXS" EntityType="Self.tblX" />
           <EntitySet Name="FileStorages" EntityType="RiverWatchModel.FileStorage" />
           <EntitySet Name="Lachats" EntityType="RiverWatchModel.Lachat" />
           <EntitySet Name="ControlPermissions" EntityType="RiverWatchModel.ControlPermission" />
           <EntitySet Name="Roles" EntityType="RiverWatchModel.Role" />
+          <EntitySet Name="tlkEcoRegions" EntityType="RiverWatchModel.tlkEcoRegion" />
+          <EntitySet Name="tlkEquipCategories" EntityType="RiverWatchModel.tlkEquipCategory" />
+          <EntitySet Name="tblUsers" EntityType="RiverWatchModel.tblUser" />
+          <EntitySet Name="tblRegistrations" EntityType="RiverWatchModel.tblRegistration" />
           <EntitySet Name="tblTrainees" EntityType="RiverWatchModel.tblTrainee" />
+          <EntitySet Name="tblProjectStations" EntityType="RiverWatchModel.tblProjectStation" />
+          <EntitySet Name="NEWexpWaters" EntityType="RiverWatchModel.NEWexpWater" />
         </EntityContainer>
         <EntityType Name="FileStorage">
           <Key>
@@ -2510,13 +2316,61 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <Property Name="DateCreated" Type="DateTime" Precision="0" />
           <Property Name="Valid" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="tlkEcoRegion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tlkEquipCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="Int32" />
+          <Property Name="DateLastActivity" Type="DateTime" Precision="3" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tblRegistration">
+          <Key>
+            <PropertyRef Name="RegistrationID" />
+          </Key>
+          <Property Name="ParticipantID" Type="Int32" Nullable="false" />
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="WorkShop" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Paid" Type="Boolean" Nullable="false" />
+          <Property Name="Receipt" Type="Boolean" Nullable="false" />
+          <Property Name="Attend" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="tblTrainee">
           <Key>
             <PropertyRef Name="TraineeID" />
-            <PropertyRef Name="RegistrationID" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="LastName" />
-            <PropertyRef Name="Attend" />
           </Key>
           <Property Name="TraineeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RegistrationID" Type="Int32" Nullable="false" />
@@ -2530,6 +2384,101 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblProjectStation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="StationID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NEWexpWater">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tblSampleID" Type="Int32" />
+          <Property Name="SampleNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Event" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="WaterShed" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="River_CD" Type="Double" />
+          <Property Name="RiverName" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="KitNumber" Type="Int32" />
+          <Property Name="OrganizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrganizationID" Type="Int32" />
+          <Property Name="StationNumber" Type="Int16" />
+          <Property Name="TypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="StationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MetalsBarCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NutrientBarCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FieldBarCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BugsBarCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SampleDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="USGS_Flow" Type="Double" />
+          <Property Name="PH" Type="Double" />
+          <Property Name="TempC" Type="Double" />
+          <Property Name="PHEN_ALK" Type="Double" />
+          <Property Name="TOTAL_ALK" Type="Double" />
+          <Property Name="TOTAL_HARD" Type="Double" />
+          <Property Name="DO_MGL" Type="Double" />
+          <Property Name="DOSAT" Type="Int16" />
+          <Property Name="AL_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AL_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AS_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AS_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CA_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CA_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CD_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CD_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CU_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CU_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FE_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FE_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MG_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MG_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MN_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MN_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PB_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PB_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="SE_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="SE_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NA_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NA_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="K_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="K_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="Rep" Type="Int32" />
+          <Property Name="Ammonia" Type="Double" />
+          <Property Name="Chloride" Type="Double" />
+          <Property Name="ChlorophyllA" Type="Double" />
+          <Property Name="DOC" Type="Double" />
+          <Property Name="NN" Type="Double" />
+          <Property Name="OP" Type="Double" />
+          <Property Name="Sulfate" Type="Double" />
+          <Property Name="totN" Type="Double" />
+          <Property Name="totP" Type="Double" />
+          <Property Name="TKN" Type="Double" />
+          <Property Name="orgN" Type="Double" />
+          <Property Name="TSS" Type="Double" />
+          <Property Name="Batch" Type="Int32" />
+          <Property Name="SampleComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FieldComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NutrientComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetalsComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BugsComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BenthicsComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="BadBlank" Type="Boolean" />
+          <Property Name="BadDuplicate" Type="Boolean" />
+          <Property Name="BadSample" Type="Boolean" />
+          <Property Name="Valid" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2723,90 +2672,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
                 <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
                 <ScalarProperty Name="SampleID" ColumnName="SampleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NEWexpWaters">
-            <EntityTypeMapping TypeName="RiverWatchModel.NEWexpWater">
-              <MappingFragment StoreEntitySet="NEWexpWater">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="tblSampleID" ColumnName="tblSampleID" />
-                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
-                <ScalarProperty Name="Event" ColumnName="Event" />
-                <ScalarProperty Name="WaterShed" ColumnName="WaterShed" />
-                <ScalarProperty Name="River_CD" ColumnName="River_CD" />
-                <ScalarProperty Name="RiverName" ColumnName="RiverName" />
-                <ScalarProperty Name="KitNumber" ColumnName="KitNumber" />
-                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
-                <ScalarProperty Name="StationID" ColumnName="StationID" />
-                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
-                <ScalarProperty Name="StationName" ColumnName="StationName" />
-                <ScalarProperty Name="MetalsBarCode" ColumnName="MetalsBarCode" />
-                <ScalarProperty Name="NutrientBarCode" ColumnName="NutrientBarCode" />
-                <ScalarProperty Name="FieldBarCode" ColumnName="FieldBarCode" />
-                <ScalarProperty Name="BugsBarCode" ColumnName="BugsBarCode" />
-                <ScalarProperty Name="SampleDate" ColumnName="SampleDate" />
-                <ScalarProperty Name="USGS_Flow" ColumnName="USGS_Flow" />
-                <ScalarProperty Name="PH" ColumnName="PH" />
-                <ScalarProperty Name="TempC" ColumnName="TempC" />
-                <ScalarProperty Name="PHEN_ALK" ColumnName="PHEN_ALK" />
-                <ScalarProperty Name="TOTAL_ALK" ColumnName="TOTAL_ALK" />
-                <ScalarProperty Name="TOTAL_HARD" ColumnName="TOTAL_HARD" />
-                <ScalarProperty Name="DO_MGL" ColumnName="DO_MGL" />
-                <ScalarProperty Name="DOSAT" ColumnName="DOSAT" />
-                <ScalarProperty Name="AL_D" ColumnName="AL_D" />
-                <ScalarProperty Name="AL_T" ColumnName="AL_T" />
-                <ScalarProperty Name="AS_D" ColumnName="AS_D" />
-                <ScalarProperty Name="AS_T" ColumnName="AS_T" />
-                <ScalarProperty Name="CA_D" ColumnName="CA_D" />
-                <ScalarProperty Name="CA_T" ColumnName="CA_T" />
-                <ScalarProperty Name="CD_D" ColumnName="CD_D" />
-                <ScalarProperty Name="CD_T" ColumnName="CD_T" />
-                <ScalarProperty Name="CU_D" ColumnName="CU_D" />
-                <ScalarProperty Name="CU_T" ColumnName="CU_T" />
-                <ScalarProperty Name="FE_D" ColumnName="FE_D" />
-                <ScalarProperty Name="FE_T" ColumnName="FE_T" />
-                <ScalarProperty Name="MG_D" ColumnName="MG_D" />
-                <ScalarProperty Name="MG_T" ColumnName="MG_T" />
-                <ScalarProperty Name="MN_D" ColumnName="MN_D" />
-                <ScalarProperty Name="MN_T" ColumnName="MN_T" />
-                <ScalarProperty Name="PB_D" ColumnName="PB_D" />
-                <ScalarProperty Name="PB_T" ColumnName="PB_T" />
-                <ScalarProperty Name="SE_D" ColumnName="SE_D" />
-                <ScalarProperty Name="SE_T" ColumnName="SE_T" />
-                <ScalarProperty Name="ZN_D" ColumnName="ZN_D" />
-                <ScalarProperty Name="ZN_T" ColumnName="ZN_T" />
-                <ScalarProperty Name="NA_D" ColumnName="NA_D" />
-                <ScalarProperty Name="NA_T" ColumnName="NA_T" />
-                <ScalarProperty Name="K_D" ColumnName="K_D" />
-                <ScalarProperty Name="K_T" ColumnName="K_T" />
-                <ScalarProperty Name="Rep" ColumnName="Rep" />
-                <ScalarProperty Name="Ammonia" ColumnName="Ammonia" />
-                <ScalarProperty Name="Chloride" ColumnName="Chloride" />
-                <ScalarProperty Name="ChlorophyllA" ColumnName="ChlorophyllA" />
-                <ScalarProperty Name="DOC" ColumnName="DOC" />
-                <ScalarProperty Name="NN" ColumnName="NN" />
-                <ScalarProperty Name="OP" ColumnName="OP" />
-                <ScalarProperty Name="Sulfate" ColumnName="Sulfate" />
-                <ScalarProperty Name="totN" ColumnName="totN" />
-                <ScalarProperty Name="totP" ColumnName="totP" />
-                <ScalarProperty Name="TKN" ColumnName="TKN" />
-                <ScalarProperty Name="orgN" ColumnName="orgN" />
-                <ScalarProperty Name="TSS" ColumnName="TSS" />
-                <ScalarProperty Name="FieldComment" ColumnName="FieldComment" />
-                <ScalarProperty Name="NutrientComment" ColumnName="NutrientComment" />
-                <ScalarProperty Name="MetalsComment" ColumnName="MetalsComment" />
-                <ScalarProperty Name="BugsComments" ColumnName="BugsComments" />
-                <ScalarProperty Name="BenthicsComments" ColumnName="BenthicsComments" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="BadBlank" ColumnName="BadBlank" />
-                <ScalarProperty Name="BadDuplicate" ColumnName="BadDuplicate" />
-                <ScalarProperty Name="BadSample" ColumnName="BadSample" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
-                <ScalarProperty Name="SampleComments" ColumnName="SampleComments" />
-                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3105,23 +2970,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblRegistrations">
-            <EntityTypeMapping TypeName="RiverWatchModel.tblRegistration">
-              <MappingFragment StoreEntitySet="tblRegistration">
-                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
-                <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
-                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
-                <ScalarProperty Name="WorkShop" ColumnName="WorkShop" />
-                <ScalarProperty Name="Paid" ColumnName="Paid" />
-                <ScalarProperty Name="Receipt" ColumnName="Receipt" />
-                <ScalarProperty Name="Attend" ColumnName="Attend" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblSampleXXXXes">
             <EntityTypeMapping TypeName="RiverWatchModel.tblSampleXXXX">
               <MappingFragment StoreEntitySet="tblSampleXXXX">
@@ -3156,21 +3004,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
                 <ScalarProperty Name="BugsQA" ColumnName="BugsQA" />
                 <ScalarProperty Name="DuplicatedCS" ColumnName="DuplicatedCS" />
                 <ScalarProperty Name="Valid" ColumnName="Valid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblUsers">
-            <EntityTypeMapping TypeName="RiverWatchModel.tblUser">
-              <MappingFragment StoreEntitySet="tblUser">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="DateLastActivity" ColumnName="DateLastActivity" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3301,29 +3134,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
           <EntitySetMapping Name="tlkCounties">
             <EntityTypeMapping TypeName="RiverWatchModel.tlkCounty">
               <MappingFragment StoreEntitySet="tlkCounty">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tlkEcoRegions">
-            <EntityTypeMapping TypeName="RiverWatchModel.tlkEcoRegion">
-              <MappingFragment StoreEntitySet="tlkEcoRegion">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tlkEquipCategories">
-            <EntityTypeMapping TypeName="RiverWatchModel.tlkEquipCategory">
-              <MappingFragment StoreEntitySet="tlkEquipCategory">
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
@@ -3655,19 +3465,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblProjectStations">
-            <EntityTypeMapping TypeName="RiverWatchModel.tblProjectStation">
-              <MappingFragment StoreEntitySet="tblProjectStation">
-                <ScalarProperty Name="ProjectStationID" ColumnName="ProjectStationID" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="StationID" ColumnName="StationID" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblXS">
             <EntityTypeMapping TypeName="RiverWatchModel.tblX">
               <MappingFragment StoreEntitySet="tblXS">
@@ -3746,6 +3543,62 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tlkEcoRegions">
+            <EntityTypeMapping TypeName="RiverWatchModel.tlkEcoRegion">
+              <MappingFragment StoreEntitySet="tlkEcoRegion">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkEquipCategories">
+            <EntityTypeMapping TypeName="RiverWatchModel.tlkEquipCategory">
+              <MappingFragment StoreEntitySet="tlkEquipCategory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="RiverWatchModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="DateLastActivity" ColumnName="DateLastActivity" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRegistrations">
+            <EntityTypeMapping TypeName="RiverWatchModel.tblRegistration">
+              <MappingFragment StoreEntitySet="tblRegistration">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Attend" ColumnName="Attend" />
+                <ScalarProperty Name="Receipt" ColumnName="Receipt" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="WorkShop" ColumnName="WorkShop" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+                <ScalarProperty Name="ParticipantID" ColumnName="ParticipantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblTrainees">
             <EntityTypeMapping TypeName="RiverWatchModel.tblTrainee">
               <MappingFragment StoreEntitySet="tblTrainee">
@@ -3761,6 +3614,103 @@ warning 6002: The table/view 'RiverWatch.dbo.tlkEcoRegion' does not have a prima
                 <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
                 <ScalarProperty Name="TraineeID" ColumnName="TraineeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjectStations">
+            <EntityTypeMapping TypeName="RiverWatchModel.tblProjectStation">
+              <MappingFragment StoreEntitySet="tblProjectStation">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NEWexpWaters">
+            <EntityTypeMapping TypeName="RiverWatchModel.NEWexpWater">
+              <MappingFragment StoreEntitySet="NEWexpWater">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="BadSample" ColumnName="BadSample" />
+                <ScalarProperty Name="BadDuplicate" ColumnName="BadDuplicate" />
+                <ScalarProperty Name="BadBlank" ColumnName="BadBlank" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="BenthicsComments" ColumnName="BenthicsComments" />
+                <ScalarProperty Name="BugsComments" ColumnName="BugsComments" />
+                <ScalarProperty Name="MetalsComment" ColumnName="MetalsComment" />
+                <ScalarProperty Name="NutrientComment" ColumnName="NutrientComment" />
+                <ScalarProperty Name="FieldComment" ColumnName="FieldComment" />
+                <ScalarProperty Name="SampleComments" ColumnName="SampleComments" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="TSS" ColumnName="TSS" />
+                <ScalarProperty Name="orgN" ColumnName="orgN" />
+                <ScalarProperty Name="TKN" ColumnName="TKN" />
+                <ScalarProperty Name="totP" ColumnName="totP" />
+                <ScalarProperty Name="totN" ColumnName="totN" />
+                <ScalarProperty Name="Sulfate" ColumnName="Sulfate" />
+                <ScalarProperty Name="OP" ColumnName="OP" />
+                <ScalarProperty Name="NN" ColumnName="NN" />
+                <ScalarProperty Name="DOC" ColumnName="DOC" />
+                <ScalarProperty Name="ChlorophyllA" ColumnName="ChlorophyllA" />
+                <ScalarProperty Name="Chloride" ColumnName="Chloride" />
+                <ScalarProperty Name="Ammonia" ColumnName="Ammonia" />
+                <ScalarProperty Name="Rep" ColumnName="Rep" />
+                <ScalarProperty Name="K_T" ColumnName="K_T" />
+                <ScalarProperty Name="K_D" ColumnName="K_D" />
+                <ScalarProperty Name="NA_T" ColumnName="NA_T" />
+                <ScalarProperty Name="NA_D" ColumnName="NA_D" />
+                <ScalarProperty Name="ZN_T" ColumnName="ZN_T" />
+                <ScalarProperty Name="ZN_D" ColumnName="ZN_D" />
+                <ScalarProperty Name="SE_T" ColumnName="SE_T" />
+                <ScalarProperty Name="SE_D" ColumnName="SE_D" />
+                <ScalarProperty Name="PB_T" ColumnName="PB_T" />
+                <ScalarProperty Name="PB_D" ColumnName="PB_D" />
+                <ScalarProperty Name="MN_T" ColumnName="MN_T" />
+                <ScalarProperty Name="MN_D" ColumnName="MN_D" />
+                <ScalarProperty Name="MG_T" ColumnName="MG_T" />
+                <ScalarProperty Name="MG_D" ColumnName="MG_D" />
+                <ScalarProperty Name="FE_T" ColumnName="FE_T" />
+                <ScalarProperty Name="FE_D" ColumnName="FE_D" />
+                <ScalarProperty Name="CU_T" ColumnName="CU_T" />
+                <ScalarProperty Name="CU_D" ColumnName="CU_D" />
+                <ScalarProperty Name="CD_T" ColumnName="CD_T" />
+                <ScalarProperty Name="CD_D" ColumnName="CD_D" />
+                <ScalarProperty Name="CA_T" ColumnName="CA_T" />
+                <ScalarProperty Name="CA_D" ColumnName="CA_D" />
+                <ScalarProperty Name="AS_T" ColumnName="AS_T" />
+                <ScalarProperty Name="AS_D" ColumnName="AS_D" />
+                <ScalarProperty Name="AL_T" ColumnName="AL_T" />
+                <ScalarProperty Name="AL_D" ColumnName="AL_D" />
+                <ScalarProperty Name="DOSAT" ColumnName="DOSAT" />
+                <ScalarProperty Name="DO_MGL" ColumnName="DO_MGL" />
+                <ScalarProperty Name="TOTAL_HARD" ColumnName="TOTAL_HARD" />
+                <ScalarProperty Name="TOTAL_ALK" ColumnName="TOTAL_ALK" />
+                <ScalarProperty Name="PHEN_ALK" ColumnName="PHEN_ALK" />
+                <ScalarProperty Name="TempC" ColumnName="TempC" />
+                <ScalarProperty Name="PH" ColumnName="PH" />
+                <ScalarProperty Name="USGS_Flow" ColumnName="USGS_Flow" />
+                <ScalarProperty Name="SampleDate" ColumnName="SampleDate" />
+                <ScalarProperty Name="BugsBarCode" ColumnName="BugsBarCode" />
+                <ScalarProperty Name="FieldBarCode" ColumnName="FieldBarCode" />
+                <ScalarProperty Name="NutrientBarCode" ColumnName="NutrientBarCode" />
+                <ScalarProperty Name="MetalsBarCode" ColumnName="MetalsBarCode" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="KitNumber" ColumnName="KitNumber" />
+                <ScalarProperty Name="RiverName" ColumnName="RiverName" />
+                <ScalarProperty Name="River_CD" ColumnName="River_CD" />
+                <ScalarProperty Name="WaterShed" ColumnName="WaterShed" />
+                <ScalarProperty Name="Event" ColumnName="Event" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="tblSampleID" ColumnName="tblSampleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

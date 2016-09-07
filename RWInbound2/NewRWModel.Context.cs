@@ -31,7 +31,6 @@ namespace RWInbound2
         public virtual DbSet<InboundICPOrigional> InboundICPOrigionals { get; set; }
         public virtual DbSet<InboundSample> InboundSamples { get; set; }
         public virtual DbSet<MetalBarCode> MetalBarCodes { get; set; }
-        public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
         public virtual DbSet<NutrientBarCode> NutrientBarCodes { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
         public virtual DbSet<OrgStatu> OrgStatus { get; set; }
@@ -43,9 +42,7 @@ namespace RWInbound2
         public virtual DbSet<tblPartInfo> tblPartInfoes { get; set; }
         public virtual DbSet<tblPhysHabPara> tblPhysHabParas { get; set; }
         public virtual DbSet<tblProject> tblProjects { get; set; }
-        public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
         public virtual DbSet<tblSampleXXXX> tblSampleXXXXes { get; set; }
-        public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblWatercode> tblWatercodes { get; set; }
         public virtual DbSet<tblWatershedGrp> tblWatershedGrps { get; set; }
         public virtual DbSet<tblWBKey> tblWBKeys { get; set; }
@@ -55,8 +52,6 @@ namespace RWInbound2
         public virtual DbSet<tlkBioResultsType> tlkBioResultsTypes { get; set; }
         public virtual DbSet<tlkCommunity> tlkCommunities { get; set; }
         public virtual DbSet<tlkCounty> tlkCounties { get; set; }
-        public virtual DbSet<tlkEcoRegion> tlkEcoRegions { get; set; }
-        public virtual DbSet<tlkEquipCategory> tlkEquipCategories { get; set; }
         public virtual DbSet<tlkEquipItem> tlkEquipItems { get; set; }
         public virtual DbSet<tlkFieldGear> tlkFieldGears { get; set; }
         public virtual DbSet<tlkFieldProcedure> tlkFieldProcedures { get; set; }
@@ -83,12 +78,17 @@ namespace RWInbound2
         public virtual DbSet<tlkWSG> tlkWSGs { get; set; }
         public virtual DbSet<tlkWSR> tlkWSRs { get; set; }
         public virtual DbSet<trsChemParaMapColumn> trsChemParaMapColumns { get; set; }
-        public virtual DbSet<tblProjectStation> tblProjectStations { get; set; }
         public virtual DbSet<tblX> tblXS { get; set; }
         public virtual DbSet<FileStorage> FileStorages { get; set; }
         public virtual DbSet<Lachat> Lachats { get; set; }
         public virtual DbSet<ControlPermission> ControlPermissions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<tlkEcoRegion> tlkEcoRegions { get; set; }
+        public virtual DbSet<tlkEquipCategory> tlkEquipCategories { get; set; }
+        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
         public virtual DbSet<tblTrainee> tblTrainees { get; set; }
+        public virtual DbSet<tblProjectStation> tblProjectStations { get; set; }
+        public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
     }
 }
