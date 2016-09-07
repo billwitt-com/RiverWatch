@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditMetalBarCodeType : System.Web.UI.Page
+    public partial class EditWSG : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkMetalBarCodeType> GetMetalBarCodeTypes([QueryString]string descriptionSearchTerm = "",
+        public IQueryable<tlkWSG> GetWSGs([QueryString]string descriptionSearchTerm = "",
                                                       [QueryString]string successLabelMessage = "")
         {
             try
@@ -36,16 +36,16 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
                 {
-                    return _db.tlkMetalBarCodeTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
+                    return _db.tlkWSGs.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkMetalBarCodeType> metalBarCodeTypes = _db.tlkMetalBarCodeTypes
+                IQueryable<tlkWSG> wSGs = _db.tlkWSGs
                                                .OrderBy(c => c.Code);
-                return metalBarCodeTypes;
+                return wSGs;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetMetalBarCodeTypes", "", "");
+                HandleErrors(ex, ex.Message, "GetWSGs", "", "");
                 return null;
             }
         }
@@ -55,7 +55,7 @@ namespace RWInbound2.Edit
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditMetalBarCodeType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditWSG.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -69,7 +69,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditMetalBarCodeType.aspx", false);
+                Response.Redirect("EditWSG.aspx", false);
             }
             catch (Exception ex)
             {
@@ -79,88 +79,88 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForMetalBarCodeTypesDescription(string prefixText, int count)
+        public static List<string> SearchForWSGsDescription(string prefixText, int count)
         {
-            List<string> metalBarCodeTypesDescriptions = new List<string>();
+            List<string> wSGsDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    metalBarCodeTypesDescriptions = _db.tlkMetalBarCodeTypes
+                    wSGsDescriptions = _db.tlkWSGs
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return metalBarCodeTypesDescriptions;
+                    return wSGsDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditMetalBarCodeType editMetalBarCodeType = new EditMetalBarCodeType();
-                editMetalBarCodeType.HandleErrors(ex, ex.Message, "SearchForMetalBarCodeTypesDescription", "", "");
-                return metalBarCodeTypesDescriptions;
+                EditWSG editWSG = new EditWSG();
+                editWSG.HandleErrors(ex, ex.Message, "SearchForWSGsDescription", "", "");
+                return wSGsDescriptions;
             }
         }
 
-        public void UpdateMetalBarCodeType(tlkMetalBarCodeType model)
+        public void UpdateWSG(tlkWSG model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var metalBarCodeTypeToUpdate = _db.tlkMetalBarCodeTypes.Find(model.ID);
+                    var wSGToUpdate = _db.tlkWSGs.Find(model.ID);
 
-                    metalBarCodeTypeToUpdate.Code = model.Code;
-                    metalBarCodeTypeToUpdate.Description = model.Description;
+                    wSGToUpdate.Code = model.Code;
+                    wSGToUpdate.Description = model.Description;
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        metalBarCodeTypeToUpdate.UserLastModified
+                        wSGToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        metalBarCodeTypeToUpdate.UserLastModified = "Unknown";
+                        wSGToUpdate.UserLastModified = "Unknown";
                     }
 
-                    metalBarCodeTypeToUpdate.DateLastModified = DateTime.Now;
+                    wSGToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Metal Bar Code Type Updated";
+                    SuccessLabel.Text = "WSG Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateMetalBarCodeType", "", "");
+                HandleErrors(ex, ex.Message, "UpdateWSG", "", "");
             }
         }
 
-        public void DeleteMetalBarCodeType(tlkMetalBarCodeType model)
+        public void DeleteWSG(tlkWSG model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var metalBarCodeTypeToDelete = _db.tlkMetalBarCodeTypes.Find(model.ID);
-                    _db.tlkMetalBarCodeTypes.Remove(metalBarCodeTypeToDelete);
+                    var wSGToDelete = _db.tlkWSGs.Find(model.ID);
+                    _db.tlkWSGs.Remove(wSGToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Metal Bar Code Type Deleted";
+                    SuccessLabel.Text = "WSG Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteMetalBarCodeType", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteWSG", "", "");
                 }
             }
         }
 
-        public void AddNewMetalBarCodeType(object sender, EventArgs e)
+        public void AddNewWSG(object sender, EventArgs e)
         {
             try
             {
-                string code = ((TextBox)MetalBarCodeTypesGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)MetalBarCodeTypesGridView.FooterRow.FindControl("NewDescription")).Text;
+                string code = ((TextBox)WSGsGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)WSGsGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
@@ -169,7 +169,7 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    var newMetalBarCodeType = new tlkMetalBarCodeType()
+                    var newWSG = new tlkWSG()
                     {
                         Code = code,
                         Description = description,
@@ -179,22 +179,22 @@ namespace RWInbound2.Edit
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        newMetalBarCodeType.UserLastModified
+                        newWSG.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        newMetalBarCodeType.UserLastModified = "Unknown";
+                        newWSG.UserLastModified = "Unknown";
                     }
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.tlkMetalBarCodeTypes.Add(newMetalBarCodeType);
+                        _db.tlkWSGs.Add(newWSG);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New Metal Bar Code Type Added: " + newMetalBarCodeType.Description;
-                        string redirect = "EditMetalBarCodeType.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New WSG Added: " + newWSG.Description;
+                        string redirect = "EditWSG.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);
                     }
@@ -202,7 +202,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewMetalBarCodeType", "", "");
+                HandleErrors(ex, ex.Message, "AddNewWSG", "", "");
             }
         }
 

@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditMetalBarCodeType : System.Web.UI.Page
+    public partial class EditSection : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,8 +21,8 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkMetalBarCodeType> GetMetalBarCodeTypes([QueryString]string descriptionSearchTerm = "",
-                                                      [QueryString]string successLabelMessage = "")
+        public IQueryable<tlkSection> GetSections([QueryString]string descriptionSearchTerm = "",
+                                                       [QueryString]string successLabelMessage = "")
         {
             try
             {
@@ -36,16 +36,16 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
                 {
-                    return _db.tlkMetalBarCodeTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
+                    return _db.tlkSections.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkMetalBarCodeType> metalBarCodeTypes = _db.tlkMetalBarCodeTypes
-                                               .OrderBy(c => c.Code);
-                return metalBarCodeTypes;
+                IQueryable<tlkSection> sections = _db.tlkSections
+                                                     .OrderBy(c => c.Code);
+                return sections;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetMetalBarCodeTypes", "", "");
+                HandleErrors(ex, ex.Message, "GetSections", "", "");
                 return null;
             }
         }
@@ -55,7 +55,7 @@ namespace RWInbound2.Edit
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditMetalBarCodeType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditSection.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -69,7 +69,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditMetalBarCodeType.aspx", false);
+                Response.Redirect("EditSection.aspx", false);
             }
             catch (Exception ex)
             {
@@ -79,130 +79,140 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForMetalBarCodeTypesDescription(string prefixText, int count)
+        public static List<string> SearchForSectionsDescription(string prefixText, int count)
         {
-            List<string> metalBarCodeTypesDescriptions = new List<string>();
+            List<string> sectionsDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    metalBarCodeTypesDescriptions = _db.tlkMetalBarCodeTypes
+                    sectionsDescriptions = _db.tlkSections
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return metalBarCodeTypesDescriptions;
+                    return sectionsDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditMetalBarCodeType editMetalBarCodeType = new EditMetalBarCodeType();
-                editMetalBarCodeType.HandleErrors(ex, ex.Message, "SearchForMetalBarCodeTypesDescription", "", "");
-                return metalBarCodeTypesDescriptions;
+                EditSection editSection = new EditSection();
+                editSection.HandleErrors(ex, ex.Message, "SearchForSectionsDescription", "", "");
+                return sectionsDescriptions;
             }
         }
 
-        public void UpdateMetalBarCodeType(tlkMetalBarCodeType model)
+        public void UpdateSection(tlkSection model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var metalBarCodeTypeToUpdate = _db.tlkMetalBarCodeTypes.Find(model.ID);
+                    var sectionToUpdate = _db.tlkSections.Find(model.ID);
 
-                    metalBarCodeTypeToUpdate.Code = model.Code;
-                    metalBarCodeTypeToUpdate.Description = model.Description;
+                    sectionToUpdate.Code = model.Code;
+                    sectionToUpdate.Description = model.Description;
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        metalBarCodeTypeToUpdate.UserLastModified
+                        sectionToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        metalBarCodeTypeToUpdate.UserLastModified = "Unknown";
+                        sectionToUpdate.UserLastModified = "Unknown";
                     }
 
-                    metalBarCodeTypeToUpdate.DateLastModified = DateTime.Now;
+                    sectionToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Metal Bar Code Type Updated";
+                    SuccessLabel.Text = "Section Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateMetalBarCodeType", "", "");
+                HandleErrors(ex, ex.Message, "UpdateSection", "", "");
             }
         }
 
-        public void DeleteMetalBarCodeType(tlkMetalBarCodeType model)
+        public void DeleteSection(tlkSection model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var metalBarCodeTypeToDelete = _db.tlkMetalBarCodeTypes.Find(model.ID);
-                    _db.tlkMetalBarCodeTypes.Remove(metalBarCodeTypeToDelete);
+                    var sectionToDelete = _db.tlkSections.Find(model.ID);
+                    _db.tlkSections.Remove(sectionToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Metal Bar Code Type Deleted";
+                    SuccessLabel.Text = "Section Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteMetalBarCodeType", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteSection", "", "");
                 }
             }
         }
 
-        public void AddNewMetalBarCodeType(object sender, EventArgs e)
+        public void AddNewSection(object sender, EventArgs e)
         {
             try
             {
-                string code = ((TextBox)MetalBarCodeTypesGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)MetalBarCodeTypesGridView.FooterRow.FindControl("NewDescription")).Text;
+                string strCode = ((TextBox)SectionsGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)SectionsGridView.FooterRow.FindControl("NewDescription")).Text;
 
-                if (string.IsNullOrEmpty(code))
+                if (string.IsNullOrEmpty(strCode))
                 {
                     SuccessLabel.Text = "";
                     ErrorLabel.Text = "Code field is required.";
                 }
                 else
                 {
-                    var newMetalBarCodeType = new tlkMetalBarCodeType()
+                    int code;
+                    bool convertToInt = int.TryParse(strCode, out code);
+                    if (!convertToInt)
                     {
-                        Code = code,
-                        Description = description,
-                        Valid = true,
-                        DateLastModified = DateTime.Now
-                    };
-
-                    if (this.User != null && this.User.Identity.IsAuthenticated)
-                    {
-                        newMetalBarCodeType.UserLastModified
-                            = HttpContext.Current.User.Identity.Name;
+                        SuccessLabel.Text = "";
+                        ErrorLabel.Text = "Code field must be an integer number.";
                     }
                     else
                     {
-                        newMetalBarCodeType.UserLastModified = "Unknown";
-                    }
+                        var newSection = new tlkSection()
+                        {
+                            Code = code,
+                            Description = description,
+                            Valid = true,
+                            DateLastModified = DateTime.Now
+                        };
 
-                    using (RiverWatchEntities _db = new RiverWatchEntities())
-                    {
-                        _db.tlkMetalBarCodeTypes.Add(newMetalBarCodeType);
-                        _db.SaveChanges();
-                        ErrorLabel.Text = "";
+                        if (this.User != null && this.User.Identity.IsAuthenticated)
+                        {
+                            newSection.UserLastModified
+                                = HttpContext.Current.User.Identity.Name;
+                        }
+                        else
+                        {
+                            newSection.UserLastModified = "Unknown";
+                        }
 
-                        string successLabelText = "New Metal Bar Code Type Added: " + newMetalBarCodeType.Description;
-                        string redirect = "EditMetalBarCodeType.aspx?successLabelMessage=" + successLabelText;
+                        using (RiverWatchEntities _db = new RiverWatchEntities())
+                        {
+                            _db.tlkSections.Add(newSection);
+                            _db.SaveChanges();
+                            ErrorLabel.Text = "";
 
-                        Response.Redirect(redirect, false);
+                            string successLabelText = "New Section Added: " + newSection.Description;
+                            string redirect = "EditSection.aspx?successLabelMessage=" + successLabelText;
+
+                            Response.Redirect(redirect, false);
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewMetalBarCodeType", "", "");
+                HandleErrors(ex, ex.Message, "AddNewSection", "", "");
             }
         }
 

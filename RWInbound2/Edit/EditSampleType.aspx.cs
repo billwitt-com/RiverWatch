@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.ModelBinding;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditMetalBarCodeType : System.Web.UI.Page
+    public partial class EditSampleType : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +22,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkMetalBarCodeType> GetMetalBarCodeTypes([QueryString]string descriptionSearchTerm = "",
+        public IQueryable<tlkSampleType> GetSampleTypes([QueryString]string descriptionSearchTerm = "",
                                                       [QueryString]string successLabelMessage = "")
         {
             try
@@ -36,16 +37,16 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
                 {
-                    return _db.tlkMetalBarCodeTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
+                    return _db.tlkSampleTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkMetalBarCodeType> metalBarCodeTypes = _db.tlkMetalBarCodeTypes
+                IQueryable<tlkSampleType> sampleTypes = _db.tlkSampleTypes
                                                .OrderBy(c => c.Code);
-                return metalBarCodeTypes;
+                return sampleTypes;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetMetalBarCodeTypes", "", "");
+                HandleErrors(ex, ex.Message, "GetSampleTypes", "", "");
                 return null;
             }
         }
@@ -55,7 +56,7 @@ namespace RWInbound2.Edit
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditMetalBarCodeType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditSampleType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -69,7 +70,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditMetalBarCodeType.aspx", false);
+                Response.Redirect("EditSampleType.aspx", false);
             }
             catch (Exception ex)
             {
@@ -79,88 +80,88 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForMetalBarCodeTypesDescription(string prefixText, int count)
+        public static List<string> SearchForSampleTypesDescription(string prefixText, int count)
         {
-            List<string> metalBarCodeTypesDescriptions = new List<string>();
+            List<string> sampleTypesDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    metalBarCodeTypesDescriptions = _db.tlkMetalBarCodeTypes
+                    sampleTypesDescriptions = _db.tlkSampleTypes
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return metalBarCodeTypesDescriptions;
+                    return sampleTypesDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditMetalBarCodeType editMetalBarCodeType = new EditMetalBarCodeType();
-                editMetalBarCodeType.HandleErrors(ex, ex.Message, "SearchForMetalBarCodeTypesDescription", "", "");
-                return metalBarCodeTypesDescriptions;
+                EditSampleType editSampleType = new EditSampleType();
+                editSampleType.HandleErrors(ex, ex.Message, "SearchForSampleTypesDescription", "", "");
+                return sampleTypesDescriptions;
             }
         }
 
-        public void UpdateMetalBarCodeType(tlkMetalBarCodeType model)
+        public void UpdateSampleType(tlkSampleType model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var metalBarCodeTypeToUpdate = _db.tlkMetalBarCodeTypes.Find(model.ID);
+                    var sampleTypeToUpdate = _db.tlkSampleTypes.Find(model.ID);
 
-                    metalBarCodeTypeToUpdate.Code = model.Code;
-                    metalBarCodeTypeToUpdate.Description = model.Description;
+                    sampleTypeToUpdate.Code = model.Code;
+                    sampleTypeToUpdate.Description = model.Description;
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        metalBarCodeTypeToUpdate.UserLastModified
+                        sampleTypeToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        metalBarCodeTypeToUpdate.UserLastModified = "Unknown";
+                        sampleTypeToUpdate.UserLastModified = "Unknown";
                     }
 
-                    metalBarCodeTypeToUpdate.DateLastModified = DateTime.Now;
+                    sampleTypeToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Metal Bar Code Type Updated";
+                    SuccessLabel.Text = "Sample Type Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateMetalBarCodeType", "", "");
+                HandleErrors(ex, ex.Message, "UpdateSampleType", "", "");
             }
         }
 
-        public void DeleteMetalBarCodeType(tlkMetalBarCodeType model)
+        public void DeleteSampleType(tlkSampleType model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var metalBarCodeTypeToDelete = _db.tlkMetalBarCodeTypes.Find(model.ID);
-                    _db.tlkMetalBarCodeTypes.Remove(metalBarCodeTypeToDelete);
+                    var sampleTypeToDelete = _db.tlkSampleTypes.Find(model.ID);
+                    _db.tlkSampleTypes.Remove(sampleTypeToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Metal Bar Code Type Deleted";
+                    SuccessLabel.Text = "Sample Type Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteMetalBarCodeType", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteSampleType", "", "");
                 }
             }
         }
 
-        public void AddNewMetalBarCodeType(object sender, EventArgs e)
+        public void AddNewSampleType(object sender, EventArgs e)
         {
             try
             {
-                string code = ((TextBox)MetalBarCodeTypesGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)MetalBarCodeTypesGridView.FooterRow.FindControl("NewDescription")).Text;
+                string code = ((TextBox)SampleTypesGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)SampleTypesGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
@@ -169,7 +170,7 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    var newMetalBarCodeType = new tlkMetalBarCodeType()
+                    var newSampleType = new tlkSampleType()
                     {
                         Code = code,
                         Description = description,
@@ -179,22 +180,22 @@ namespace RWInbound2.Edit
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        newMetalBarCodeType.UserLastModified
+                        newSampleType.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        newMetalBarCodeType.UserLastModified = "Unknown";
+                        newSampleType.UserLastModified = "Unknown";
                     }
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.tlkMetalBarCodeTypes.Add(newMetalBarCodeType);
+                        _db.tlkSampleTypes.Add(newSampleType);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New Metal Bar Code Type Added: " + newMetalBarCodeType.Description;
-                        string redirect = "EditMetalBarCodeType.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New River Watch Water Shed Added: " + newSampleType.Description;
+                        string redirect = "EditSampleType.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);
                     }
@@ -202,7 +203,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewMetalBarCodeType", "", "");
+                HandleErrors(ex, ex.Message, "AddNewSampleType", "", "");
             }
         }
 

@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditMetalBarCodeType : System.Web.UI.Page
+    public partial class EditWQCCWaterShed : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkMetalBarCodeType> GetMetalBarCodeTypes([QueryString]string descriptionSearchTerm = "",
+        public IQueryable<tlkWQCCWaterShed> GetWQCCWaterSheds([QueryString]string descriptionSearchTerm = "",
                                                       [QueryString]string successLabelMessage = "")
         {
             try
@@ -36,16 +36,16 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
                 {
-                    return _db.tlkMetalBarCodeTypes.Where(c => c.Description.Equals(descriptionSearchTerm))
+                    return _db.tlkWQCCWaterSheds.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkMetalBarCodeType> metalBarCodeTypes = _db.tlkMetalBarCodeTypes
+                IQueryable<tlkWQCCWaterShed> wQCCWaterSheds = _db.tlkWQCCWaterSheds
                                                .OrderBy(c => c.Code);
-                return metalBarCodeTypes;
+                return wQCCWaterSheds;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetMetalBarCodeTypes", "", "");
+                HandleErrors(ex, ex.Message, "GetWQCCWaterSheds", "", "");
                 return null;
             }
         }
@@ -55,7 +55,7 @@ namespace RWInbound2.Edit
             try
             {
                 string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditMetalBarCodeType.aspx?descriptionSearchterm=" + descriptionSearchTerm;
+                string redirect = "EditWQCCWaterShed.aspx?descriptionSearchterm=" + descriptionSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -69,7 +69,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditMetalBarCodeType.aspx", false);
+                Response.Redirect("EditWQCCWaterShed.aspx", false);
             }
             catch (Exception ex)
             {
@@ -79,88 +79,88 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForMetalBarCodeTypesDescription(string prefixText, int count)
+        public static List<string> SearchForWQCCWaterShedsDescription(string prefixText, int count)
         {
-            List<string> metalBarCodeTypesDescriptions = new List<string>();
+            List<string> wQCCWaterShedsDescriptions = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    metalBarCodeTypesDescriptions = _db.tlkMetalBarCodeTypes
+                    wQCCWaterShedsDescriptions = _db.tlkWQCCWaterSheds
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
-                    return metalBarCodeTypesDescriptions;
+                    return wQCCWaterShedsDescriptions;
                 }
             }
             catch (Exception ex)
             {
-                EditMetalBarCodeType editMetalBarCodeType = new EditMetalBarCodeType();
-                editMetalBarCodeType.HandleErrors(ex, ex.Message, "SearchForMetalBarCodeTypesDescription", "", "");
-                return metalBarCodeTypesDescriptions;
+                EditWQCCWaterShed editWQCCWaterShed = new EditWQCCWaterShed();
+                editWQCCWaterShed.HandleErrors(ex, ex.Message, "SearchForWQCCWaterShedsDescription", "", "");
+                return wQCCWaterShedsDescriptions;
             }
         }
 
-        public void UpdateMetalBarCodeType(tlkMetalBarCodeType model)
+        public void UpdateWQCCWaterShed(tlkWQCCWaterShed model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var metalBarCodeTypeToUpdate = _db.tlkMetalBarCodeTypes.Find(model.ID);
+                    var wQCCWaterShedToUpdate = _db.tlkWQCCWaterSheds.Find(model.ID);
 
-                    metalBarCodeTypeToUpdate.Code = model.Code;
-                    metalBarCodeTypeToUpdate.Description = model.Description;
+                    wQCCWaterShedToUpdate.Code = model.Code;
+                    wQCCWaterShedToUpdate.Description = model.Description;
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        metalBarCodeTypeToUpdate.UserLastModified
+                        wQCCWaterShedToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        metalBarCodeTypeToUpdate.UserLastModified = "Unknown";
+                        wQCCWaterShedToUpdate.UserLastModified = "Unknown";
                     }
 
-                    metalBarCodeTypeToUpdate.DateLastModified = DateTime.Now;
+                    wQCCWaterShedToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Metal Bar Code Type Updated";
+                    SuccessLabel.Text = "WQCC Water Shed Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateMetalBarCodeType", "", "");
+                HandleErrors(ex, ex.Message, "UpdateWQCCWaterShed", "", "");
             }
         }
 
-        public void DeleteMetalBarCodeType(tlkMetalBarCodeType model)
+        public void DeleteWQCCWaterShed(tlkWQCCWaterShed model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var metalBarCodeTypeToDelete = _db.tlkMetalBarCodeTypes.Find(model.ID);
-                    _db.tlkMetalBarCodeTypes.Remove(metalBarCodeTypeToDelete);
+                    var wQCCWaterShedToDelete = _db.tlkWQCCWaterSheds.Find(model.ID);
+                    _db.tlkWQCCWaterSheds.Remove(wQCCWaterShedToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Metal Bar Code Type Deleted";
+                    SuccessLabel.Text = "WQCC Water Shed Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteMetalBarCodeType", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteWQCCWaterShed", "", "");
                 }
             }
         }
 
-        public void AddNewMetalBarCodeType(object sender, EventArgs e)
+        public void AddNewWQCCWaterShed(object sender, EventArgs e)
         {
             try
             {
-                string code = ((TextBox)MetalBarCodeTypesGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)MetalBarCodeTypesGridView.FooterRow.FindControl("NewDescription")).Text;
+                string code = ((TextBox)WQCCWaterShedsGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)WQCCWaterShedsGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
@@ -169,7 +169,7 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    var newMetalBarCodeType = new tlkMetalBarCodeType()
+                    var newWQCCWaterShed = new tlkWQCCWaterShed()
                     {
                         Code = code,
                         Description = description,
@@ -179,22 +179,22 @@ namespace RWInbound2.Edit
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        newMetalBarCodeType.UserLastModified
+                        newWQCCWaterShed.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        newMetalBarCodeType.UserLastModified = "Unknown";
+                        newWQCCWaterShed.UserLastModified = "Unknown";
                     }
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.tlkMetalBarCodeTypes.Add(newMetalBarCodeType);
+                        _db.tlkWQCCWaterSheds.Add(newWQCCWaterShed);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New Metal Bar Code Type Added: " + newMetalBarCodeType.Description;
-                        string redirect = "EditMetalBarCodeType.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New WQCC Water Shed Added: " + newWQCCWaterShed.Description;
+                        string redirect = "EditWQCCWaterShed.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);
                     }
@@ -202,7 +202,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewMetalBarCodeType", "", "");
+                HandleErrors(ex, ex.Message, "AddNewWQCCWaterShed", "", "");
             }
         }
 

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
+using System.Data.Entity.Validation;
+using System.Text;
 
 namespace RWInbound2.Edit
 {
@@ -221,7 +223,29 @@ namespace RWInbound2.Edit
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 
             SuccessLabel.Text = "";
-            ErrorLabel.Text = ex.Message;
+
+            if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
+            {
+                DbEntityValidationException efException = ex as DbEntityValidationException;
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var eve in efException.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        sb.AppendFormat("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage + Environment.NewLine);
+                    }
+                }
+                ErrorLabel.Text = sb.ToString();
+            }
+            else
+            {
+                SuccessLabel.Text = "";
+                ErrorLabel.Text = ex.Message;
+            }
         }
     }
 }

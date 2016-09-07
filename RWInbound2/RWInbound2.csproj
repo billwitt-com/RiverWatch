@@ -175,7 +175,15 @@
     <Content Include="Edit\EditCounty.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
+    <Content Include="Edit\EditQUADI.aspx" />
+    <Content Include="Edit\EditQuarterSection.aspx" />
+    <Content Include="Edit\EditRange.aspx" />
+    <Content Include="Edit\EditRegion.aspx" />
     <Content Include="Edit\EditStationType.aspx" />
+    <Content Include="Edit\EditTownship.aspx" />
+    <Content Include="Edit\EditWQCCWaterShed.aspx" />
+    <Content Include="Edit\EditWSG.aspx" />
+    <Content Include="Edit\EditWSR.aspx" />
     <Content Include="Edit\GearConfig.aspx" />
     <Content Include="Edit\GearConfigNewRow.aspx" />
     <Content Include="Images\Colorado_River_Rocky_Mountains crop 877x135.jpg" />
@@ -239,6 +247,7 @@
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
@@ -429,12 +438,68 @@
     <Compile Include="Edit\EditOrgFormView.aspx.designer.cs">
       <DependentUpon>EditOrgFormView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditQUADI.aspx.cs">
+      <DependentUpon>EditQUADI.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditQUADI.aspx.designer.cs">
+      <DependentUpon>EditQUADI.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditQuarterSection.aspx.cs">
+      <DependentUpon>EditQuarterSection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditQuarterSection.aspx.designer.cs">
+      <DependentUpon>EditQuarterSection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditRange.aspx.cs">
+      <DependentUpon>EditRange.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditRange.aspx.designer.cs">
+      <DependentUpon>EditRange.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditRegion.aspx.cs">
+      <DependentUpon>EditRegion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditRegion.aspx.designer.cs">
+      <DependentUpon>EditRegion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditStationType.aspx.cs">
       <DependentUpon>EditStationType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditStationType.aspx.designer.cs">
       <DependentUpon>EditStationType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditTownship.aspx.cs">
+      <DependentUpon>EditTownship.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditTownship.aspx.designer.cs">
+      <DependentUpon>EditTownship.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditWQCCWaterShed.aspx.cs">
+      <DependentUpon>EditWQCCWaterShed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditWQCCWaterShed.aspx.designer.cs">
+      <DependentUpon>EditWQCCWaterShed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditWSG.aspx.cs">
+      <DependentUpon>EditWSG.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditWSG.aspx.designer.cs">
+      <DependentUpon>EditWSG.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditWSR.aspx.cs">
+      <DependentUpon>EditWSR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditWSR.aspx.designer.cs">
+      <DependentUpon>EditWSR.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\GearConfig.aspx.cs">
       <DependentUpon>GearConfig.aspx</DependentUpon>
