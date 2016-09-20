@@ -5,7 +5,7 @@
     <br />
 </p>
 <rsweb:ReportViewer ID="ReportViewer1" SizeToReportContent="True"  runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="938px">
-    <LocalReport ReportPath="Reports\Report2.rdlc">
+    <LocalReport ReportPath="Reports\ErrorLog.rdlc">
         <DataSources>
             <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
         </DataSources>
@@ -14,7 +14,8 @@
 
 
 </rsweb:ReportViewer>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" SelectCommand="SELECT * FROM [ErrorLog] ORDER BY [Date] DESC"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
+        SelectCommand="SELECT * FROM [ErrorLog] ORDER BY [Date] DESC"></asp:SqlDataSource>
 <p>
 </p>
 </asp:Content>

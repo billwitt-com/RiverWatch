@@ -67,24 +67,6 @@ namespace RWInbound2.Validation {
         protected global::System.Web.UI.WebControls.Label lblICPSamples;
         
         /// <summary>
-        /// btnField control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnField;
-        
-        /// <summary>
-        /// lblFieldSamples control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFieldSamples;
-        
-        /// <summary>
         /// btnLachet control.
         /// </summary>
         /// <remarks>
@@ -101,5 +83,50 @@ namespace RWInbound2.Validation {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLachet;
+        
+        /// <summary>
+        /// btnLachatDups control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLachatDups;
+        
+        /// <summary>
+        /// lblLachatDups control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLachatDups;
+        
+        /// <summary>
+        /// lblLachatMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLachatMessage;
+        
+        /// <summary>
+        /// btnField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnField;
+        
+        /// <summary>
+        /// lblFieldSamples control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFieldSamples;
     }
 }

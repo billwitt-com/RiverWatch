@@ -141,7 +141,7 @@ namespace RWInbound2.Validation
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }     
 
-                Session["D2TLimits"] = D2TLimits;   // SAVE
+                Session["NLimits"] = D2TLimits;   // SAVE
                 Session["MEASUREMENTLIMITS"] = MeasurementLimits;
 
                 SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
@@ -343,7 +343,7 @@ namespace RWInbound2.Validation
 
 
             // get the dictionaries of limits from session state - these do not change during session
-            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>) Session["D2TLimits"];  //  Session["D2TLimits"] = D2TLimits;  
+            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>) Session["NLimits"];  //  Session["NLimits"] = NLimits;  
             Dictionary<string, decimal> MeasurementLimits = (Dictionary<string, decimal>)Session["MEASUREMENTLIMITS"];
 
             // get table we built earlier where we found no normal condition

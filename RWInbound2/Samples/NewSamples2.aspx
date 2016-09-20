@@ -307,6 +307,7 @@
                         <td style="width: 121px">Log Date:</td>
                         <td>
                             <asp:Label ID="lblLogDate" runat="server" Width="144px"></asp:Label></td>
+
                     </tr>
                     <tr>
 
@@ -362,7 +363,7 @@
                         <asp:Label ID="Label3" runat="server" Text="Samples Collected:"></asp:Label>
                         <asp:FormView ID="FormView1" runat="server"  AllowPaging="false" DataKeyNames="ID" DefaultMode="Edit" DataSourceID="SqlDataSourceOrgStatus">
                             <EditItemTemplate>
-                                OrganizationID:
+                                StatusID:
                 <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />                                
                                 <br />
                                 ContractStartDate:

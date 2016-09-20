@@ -56,5 +56,6 @@ namespace RWInbound2
         public Nullable<bool> MissingDataSheetReceived { get; set; }
         public Nullable<decimal> PassValStep { get; set; }
         public Nullable<int> tblSampleID { get; set; }
+        public Nullable<bool> Valid { get; set; }
     }
 }

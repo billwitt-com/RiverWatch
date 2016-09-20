@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Sql;
-
+ 
 namespace RWInbound2.Validation
 {
     public partial class ValidateDups : System.Web.UI.Page
@@ -137,7 +137,7 @@ namespace RWInbound2.Validation
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }
 
-                Session["D2TLimits"] = D2TLimits;   // SAVE
+                Session["NLimits"] = D2TLimits;   // SAVE
                 Session["MEASUREMENTLIMITS"] = MeasurementLimits;
                 Session["REPORTINGLIMITS"] = ReportingLimits;
 
@@ -294,7 +294,7 @@ namespace RWInbound2.Validation
                 return;
 
             // get the dictionaries of limits from session state - these do not change during session
-            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>)Session["D2TLimits"];  //  Session["D2TLimits"] = D2TLimits;  
+            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>)Session["NLimits"];  //  Session["NLimits"] = NLimits;  
             Dictionary<string, decimal> MeasurementLimits = (Dictionary<string, decimal>)Session["MEASUREMENTLIMITS"];
             Dictionary<string, decimal> ReportingLimits = (Dictionary<string, decimal>)Session["REPORTINGLIMITS"];
 

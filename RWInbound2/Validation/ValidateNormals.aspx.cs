@@ -22,15 +22,15 @@ namespace RWInbound2.Validation
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             DataSourceSelectArguments args = new DataSourceSelectArguments();
             string name = "";
             decimal D2Tvalue = 0;
             decimal MeasurementValue = 0;
+            bool allowed = false; 
 
-            //dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
-            //RiverWatchEntities NRWDE = new RiverWatchEntities();
-
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx");
 
             // count rows of not saved, valid Blanks first
             SqlDataSourceNormals.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";    // this is the working table
@@ -137,7 +137,7 @@ namespace RWInbound2.Validation
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }
 
-                Session["D2TLimits"] = D2TLimits;   // SAVE
+                Session["NLimits"] = D2TLimits;   // SAVE
                 Session["MEASUREMENTLIMITS"] = MeasurementLimits;
 
                 //SqlDataSourceNormals.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";    // this is the working table
@@ -298,7 +298,7 @@ namespace RWInbound2.Validation
 
 
             // get the dictionaries of limits from session state - these do not change during session
-            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>)Session["D2TLimits"];  //  Session["D2TLimits"] = D2TLimits;  
+            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>)Session["NLimits"];  //  Session["NLimits"] = NLimits;  
             Dictionary<string, decimal> MeasurementLimits = (Dictionary<string, decimal>)Session["MEASUREMENTLIMITS"];
 
             //// get table we built earlier where we found no normal condition
@@ -538,7 +538,7 @@ namespace RWInbound2.Validation
             string uniqueID = FormViewNormals.Controls[0].UniqueID;
 
             // XXXX another WTF moment, why is the uniqueid different here, just because we pressed a button
-            // note that the data is correct whey we have the correct string
+            // note that the data is correct when we have the correct string
             uniqueID = uniqueID.Replace("$ctl00", "");
             // scrape text box strings, which will never be null, but can be zero length
             string codeTextBoxName = uniqueID + "$" + "tbCode"; // get the text box off the page

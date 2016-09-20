@@ -7,8 +7,9 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Text; 
 
-// XXXX modified to put all samples with codes of 5, 15, 45, 55, 65 to final data base as blank / dup
+// XXXX modified to put all samples with codes of 15, 45, 55, 65 to final data base as blank / dup
 // as per Michaela, as I understood it... 
+// XXXX will change when Michaela adds date to this.
  
 namespace RWInbound2.Data
 {
@@ -16,32 +17,10 @@ namespace RWInbound2.Data
     {
          protected void Page_Load(object sender, EventArgs e)
         {
-            int role = 1;
-
-            if (Session["Role"] != null)
-            {
-                role = (int)Session["Role"];    // get users role
-            }
-
-            RiverWatchEntities RWE = new RiverWatchEntities();
-
-            var R = from r in RWE.ControlPermissions
-                    where r.PageName.ToUpper() == "UploadLatchet"
-                    select r;
-
-            int? Q = (from r in R
-                      where r.ControlID.ToUpper() == "Page"
-                      select r.RoleValue).FirstOrDefault();
-
-            if (Q != null)
-            {
-                if (role < Q.Value)
-                    Response.Redirect("~/timedout.aspx");
-            }
-            else
-            {
-                Response.Redirect("~/timedout.aspx");
-            }
+            bool allowed = false;
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx");            
 
             FileUpload1.AllowMultiple = false;     
         }
@@ -179,7 +158,7 @@ namespace RWInbound2.Data
                            
 
                             // added 08/30/2016 as the other codes do not need any validatation and thus can go right to table as blank dups 
-                            if ((LACHAT.CODE.Trim() == "15") | (LACHAT.CODE.Trim() == "25") | (LACHAT.CODE.Trim() == "35"))
+                            if ((LACHAT.CODE.Trim() == "05") | (LACHAT.CODE.Trim() == "25") | (LACHAT.CODE.Trim() == "35"))
                             {
                                 LACHAT.BlkDup = false;          //,[BlkDup]
                                 LACHAT.Validated = false;       //,[Validated]

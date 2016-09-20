@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="RiverWatchModel.GearConfig" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.InboundICPFinal" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.InboundICPOrigional" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RiverWatchModel.InboundSample" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.MetalBarCode" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.NutrientBarCode" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.organization" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
@@ -70,6 +69,8 @@
         <EntityTypeShape EntityType="RiverWatchModel.tblTrainee" Width="1.5" PointX="7.375" PointY="10.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tblProjectStation" Width="1.5" PointX="9.375" PointY="14.75" />
         <EntityTypeShape EntityType="RiverWatchModel.NEWexpWater" Width="1.5" PointX="11.375" PointY="26.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.InboundSample" Width="1.5" PointX="13.375" PointY="26.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.NutrientData" Width="1.5" PointX="27.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

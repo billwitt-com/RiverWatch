@@ -73,7 +73,7 @@
                             <li>
                                 <a id="Reports" runat="server" href= "~/reports/reports.aspx">Reports</a>
                             </li>
-
+                            
                             <li>
                                 <a id="Applications" runat="server" href="~/applications/applications.aspx"> Applications</a>
                             </li>
