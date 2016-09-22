@@ -18,7 +18,16 @@ namespace RWInbound2.Validation
             int dupCount = 0;
             int blankCount = 0;
             int normalCount = 0;
-            btnICPDups.Enabled = false;           
+            int nutrientCount = 0;
+            int nutrientDupCount = 0;
+            int lachatNotRecorded = 0;
+            btnICPDups.Enabled = false;
+            bool allowed = false;
+
+            // public static bool Test(string pageName, string controlName)
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if(!allowed)
+                Response.Redirect("~/index.aspx"); 
 
             // FIRST, move any samples from incomingICP to new tables using sproc 
             // XXXX will not need this when we change fort collins
@@ -52,9 +61,43 @@ namespace RWInbound2.Validation
             //    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             //}     
 
+            // update nutrientData table so we can count and also so we can use it later
+
             try
             {
-                using (SqlDataSource S = new SqlDataSource())
+                UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
+                RiverWatchEntities RWE = new RiverWatchEntities();
+                var C = from c in RWE.NutrientDatas
+                        where c.Valid == true & c.TypeCode.Contains("05")
+                        select c;
+                if(C.Count() > 0)
+                {
+                    nutrientCount = C.Count(); 
+                }
+
+                var C1 = from c1 in RWE.NutrientDatas
+                        where c1.Valid == true & c1.TypeCode.Contains("25")
+                        select c1;
+                if (C1.Count() > 0)
+                {
+                    nutrientDupCount = C1.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                string name = "";
+                if (User.Identity.Name.Length < 3)
+                    name = "Not logged in";
+                else
+                    name = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), name, "");
+            }
+
+            try
+            {
+                using (SqlDataSource S = new SqlDataSource()) 
                 {
                     DataSourceSelectArguments args = new DataSourceSelectArguments();
                     S.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  //GlobalSite.RiverWatchDev;
@@ -70,6 +113,14 @@ namespace RWInbound2.Validation
                     result = (DataView)S.Select(args);
                     normalCount = result.Table.Rows.Count;
 
+                    // SELECT * FROM [LachatBCnotEntered]
+
+                    S.SelectCommand = "SELECT * FROM [LachatBCnotEntered]";
+                    result = (DataView)S.Select(args);
+                    lachatNotRecorded = result.Table.Rows.Count;
+
+                    // run view to see if there are any barcodes in lachat that are not in nutrientbarcode table, ie they require attention. 
+                     
                     if (blankCount == 0)
                     {
                         lblICPBlanks.Text = "There are no Blanks to validate";
@@ -86,7 +137,6 @@ namespace RWInbound2.Validation
                     if (dupCount == 0)
                     {
                         lblICPDups.Text = "There are no Duplicates to validate";
-
                         btnICPDups.Enabled = false;
                         btnICPDups.BackColor = System.Drawing.Color.Maroon;
                     }
@@ -110,13 +160,43 @@ namespace RWInbound2.Validation
                         btnICPSamples.BackColor = System.Drawing.Color.LightCyan;
                     }
 
-                    // now count Lachat samples 
+                    // now list Lachat samples 
+                    if (nutrientCount > 0)
+                    {
+                        lblLachet.Text = string.Format("There are {0} Nutrient samples", nutrientCount);
+                        
+                    }
+                    else
+                    {
+                        lblLachet.Text = "There are no Nutrient Samples to Validate";
+                    }
 
-                    S.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";
-                    result = (DataView)S.Select(args);
-                    normalCount = result.Table.Rows.Count;
+                     // now list Lachat samples 
+                    if (nutrientDupCount > 0)
+                    {
+
+                        lblLachatDups.Text = string.Format("There are {0} Duplicate Nutrient samples", nutrientDupCount);
+                    }
+                    else
+                    {
+                        lblLachatDups.Text = "There are no Duplicate Nutrient Samples to Validate";
+                    }
+
+                    if(lachatNotRecorded > 0)
+                    {
+                        lblLachatMessage.Text = string.Format("NOTE: There are {0} unrecorded Lachat barcodes", lachatNotRecorded);
+                        lblLachatMessage.ForeColor = System.Drawing.Color.Red;
+                        lblLachatMessage.Visible = true;
+                    }
+                    else
+                    {
+                        lblLachatMessage.Text = "";
+                        lblLachatMessage.Visible = false;
+                    }
+
+
                 }
-            }
+            } 
 
             catch (Exception ex)
             {       
@@ -145,6 +225,16 @@ namespace RWInbound2.Validation
         protected void btnICPSamples_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Validation/ValidateNormals.aspx");
+        }
+
+        protected void btnLachet_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Validation/ValidateNutrients.aspx");
+        }
+
+        protected void btnLachatDups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Validation/ValidateDUPNutrients.aspx");
         }
     }
 }

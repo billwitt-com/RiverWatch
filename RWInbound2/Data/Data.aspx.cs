@@ -48,5 +48,15 @@ namespace RWInbound2.Data
         {
             Response.Redirect("~/Data/UploadLatchet.aspx"); // this is spelled wrong
         }
+
+        protected void btnOrganization_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Data/organizations.aspx");
+        }
+
+        protected void btnStation_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Data/Stations.aspx");
+        }
     }
 }

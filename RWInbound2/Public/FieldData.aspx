@@ -132,7 +132,7 @@
         </table>
 
 
-        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSourceInBoundSample" DefaultMode="Insert" DataKeyNames="inbSampleID"  Width="674px">
+        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSourceInBoundSample" DefaultMode="Insert" DataKeyNames="inbSampleID"  Width="974px">
 
             <InsertItemTemplate>
 <%--                 StationNum:
@@ -171,6 +171,10 @@
                         </td>
                         <td>
                             <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow") %>' />
+                            GUAGE DATA ONLY - Enter estimate in comments, below 
+                        </td>
+
+
                     </tr>
                     <tr>
                         <td>Temp (In CENTEGRADE):
@@ -181,7 +185,7 @@
                                 ErrorMessage="CELCIUS - Must be between -10 and 25" Display="Dynamic" Type="Double"
                                 ForeColor="Red" SetFocusOnError="true"></asp:RangeValidator>
                         </td>
-                        </td>
+                        
                     </tr>
                     <tr>
                         <td>PH:
@@ -237,11 +241,11 @@
             EntryStaff:
             <asp:TextBox ID="EntryStaffTextBox" runat="server" Text='<%# Bind("EntryStaff") %>' />
             <br />--%>
-
+                 <br />
                 <asp:Panel ID="Panel2" runat="server" Height="40px">
-                    <asp:Label ID="Label1" runat="server" Text="Samples Collected (please select which sample types were collected)" Height="34px"></asp:Label>
+                    <asp:Label ID="Label1" runat="server" Text="Samples Collected (please select which sample types were collected)" Height="34px" Font-Bold="True"></asp:Label>
                 </asp:Panel>
-                <table style="width: 100%">
+                <table style="width: 60%">
                     <tr>
                         <td></td>
                         <td>Metals</td>
@@ -419,12 +423,12 @@
                     </tr>--%>
 
                     <tr >
-                        <td style="width: 190px;">USGSFlow (CFSecond):               
+                        <td>USGSFlow (CFSecond):               
 
                         </td>
-                        <td style="width: 500px;">
-                            <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow","{0:0.00}") %>' Width="61px" />
-                            GUAGE DATA ONLY - Enter estimate in comments, below
+                        <td >
+                            <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow","{0:0.00}") %>' Width="61px" ></asp:TextBox>
+                            GUAGE DATA ONLY - Enter estimate in comments, below </td>
                     </tr>
                     <tr>
                         <td>Temp (In CENTEGRADE):
@@ -495,7 +499,7 @@
                 <asp:Panel ID="Panel2" runat="server" Height="40px">
                     <asp:Label ID="Label1" runat="server" Text="Samples Collected (please select which sample types were collected)" Height="34px"></asp:Label>
                 </asp:Panel>
-                <table style="width: 100%">
+                <table style="width: 60%">
                     <tr>
                         <td></td>
                         <td>Metals</td>
@@ -640,12 +644,117 @@
 
         </asp:FormView>
 
+
+     <%--   <asp:SqlDataSource ID="SqlDataSource1" runat="server" --%>
+
+        <asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server"  OnInserting="SqlDataSourceInBoundSample_Inserting" OnUpdating="SqlDataSourceInBoundSample_Updating"
+            ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
+            DeleteCommand="DELETE FROM [InboundSamples] WHERE [inbSampleID] = @inbSampleID" 
+            InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [MetalsNormal], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID], [Valid]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @MetalsNormal, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID, @Valid)" 
+            SelectCommand="SELECT * FROM [InboundSamples] where [Valid] = 1" 
+            UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID, [Valid] = @Valid WHERE [inbSampleID] = @inbSampleID">
+            <DeleteParameters>
+                <asp:Parameter Name="inbSampleID" Type="Int32" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="StationNum" Type="Int32" />
+                <asp:Parameter Name="SampleID" Type="Int64" />
+                <asp:Parameter Name="txtSampleID" Type="String" />
+                <asp:Parameter Name="KitNum" Type="Int32" />
+                <asp:Parameter Name="Date" Type="DateTime" />
+                <asp:Parameter Name="Time" Type="Int32" />
+                <asp:Parameter Name="USGSFlow" Type="Decimal" />
+                <asp:Parameter Name="PH" Type="Decimal" />
+                <asp:Parameter Name="TempC" Type="Decimal" />
+                <asp:Parameter Name="PhenAlk" Type="Decimal" />
+                <asp:Parameter Name="TotalAlk" Type="Decimal" />
+                <asp:Parameter Name="TotalHard" Type="Decimal" />
+                <asp:Parameter Name="DO" Type="Decimal" />
+                <asp:Parameter Name="DOsat" Type="Decimal" />
+                <asp:Parameter Name="Tag" Type="String" />
+                <asp:Parameter Name="Chk" Type="String" />
+                <asp:Parameter Name="EntryType" Type="Int32" />
+                <asp:Parameter Name="EntryStaff" Type="String" />
+                <asp:Parameter Name="MetalsNormal" Type="Boolean" />
+                <asp:Parameter Name="MetalsBlnk" Type="Boolean" />
+                <asp:Parameter Name="MetalsDupe" Type="Boolean" />
+                <asp:Parameter Name="Bugs" Type="Boolean" />
+                <asp:Parameter Name="BugsQA" Type="Boolean" />
+                <asp:Parameter Name="TSS" Type="Boolean" />
+                <asp:Parameter Name="CS" Type="Boolean" />
+                <asp:Parameter Name="NP" Type="Boolean" />
+                <asp:Parameter Name="TSSDupe" Type="Boolean" />
+                <asp:Parameter Name="CSDupe" Type="Boolean" />
+                <asp:Parameter Name="NPDupe" Type="Boolean" />
+                <asp:Parameter Name="FieldValid" Type="Boolean" />
+                <asp:Parameter Name="MetalsStat" Type="Int32" />
+                <asp:Parameter Name="FinalCheck" Type="Boolean" />
+                <asp:Parameter Name="Method" Type="Int32" />
+                <asp:Parameter Name="Comments" Type="String" />
+                <asp:Parameter Name="DateReceived" Type="DateTime" />
+                <asp:Parameter Name="DataSheetIncluded" Type="Boolean" />
+                <asp:Parameter Name="MissingDataSheetReqDate" Type="DateTime" />
+                <asp:Parameter Name="ChainOfCustody" Type="Boolean" />
+                <asp:Parameter Name="MissingDataSheetReceived" Type="Boolean" />
+                <asp:Parameter Name="PassValStep" Type="Decimal" />
+                <asp:Parameter Name="tblSampleID" Type="Int32" />
+                <asp:Parameter Name="Valid" Type="Boolean" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="StationNum" Type="Int32" />
+                <asp:Parameter Name="SampleID" Type="Int64" />
+                <asp:Parameter Name="txtSampleID" Type="String" />
+                <asp:Parameter Name="KitNum" Type="Int32" />
+                <asp:Parameter Name="Date" Type="DateTime" />
+                <asp:Parameter Name="Time" Type="Int32" />
+                <asp:Parameter Name="USGSFlow" Type="Decimal" />
+                <asp:Parameter Name="PH" Type="Decimal" />
+                <asp:Parameter Name="TempC" Type="Decimal" />
+                <asp:Parameter Name="PhenAlk" Type="Decimal" />
+                <asp:Parameter Name="TotalAlk" Type="Decimal" />
+                <asp:Parameter Name="TotalHard" Type="Decimal" />
+                <asp:Parameter Name="DO" Type="Decimal" />
+                <asp:Parameter Name="DOsat" Type="Decimal" />
+                <asp:Parameter Name="Tag" Type="String" />
+                <asp:Parameter Name="Chk" Type="String" />
+                <asp:Parameter Name="EntryType" Type="Int32" />
+                <asp:Parameter Name="EntryStaff" Type="String" />
+                <asp:Parameter Name="MetalsNormal" Type="Boolean" />
+                <asp:Parameter Name="MetalsBlnk" Type="Boolean" />
+                <asp:Parameter Name="MetalsDupe" Type="Boolean" />
+                <asp:Parameter Name="Bugs" Type="Boolean" />
+                <asp:Parameter Name="BugsQA" Type="Boolean" />
+                <asp:Parameter Name="TSS" Type="Boolean" />
+                <asp:Parameter Name="CS" Type="Boolean" />
+                <asp:Parameter Name="NP" Type="Boolean" />
+                <asp:Parameter Name="TSSDupe" Type="Boolean" />
+                <asp:Parameter Name="CSDupe" Type="Boolean" />
+                <asp:Parameter Name="NPDupe" Type="Boolean" />
+                <asp:Parameter Name="FieldValid" Type="Boolean" />
+                <asp:Parameter Name="MetalsStat" Type="Int32" />
+                <asp:Parameter Name="FinalCheck" Type="Boolean" />
+                <asp:Parameter Name="Method" Type="Int32" />
+                <asp:Parameter Name="Comments" Type="String" />
+                <asp:Parameter Name="DateReceived" Type="DateTime" />
+                <asp:Parameter Name="DataSheetIncluded" Type="Boolean" />
+                <asp:Parameter Name="MissingDataSheetReqDate" Type="DateTime" />
+                <asp:Parameter Name="ChainOfCustody" Type="Boolean" />
+                <asp:Parameter Name="MissingDataSheetReceived" Type="Boolean" />
+                <asp:Parameter Name="PassValStep" Type="Decimal" />
+                <asp:Parameter Name="tblSampleID" Type="Int32" />
+                <asp:Parameter Name="Valid" Type="Boolean" />
+                <asp:Parameter Name="inbSampleID" Type="Int32" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+
+
     </asp:Panel>
 
-<asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server"  OnUpdated="SqlDataSourceInBoundSample_Updated" OnUpdating="SqlDataSourceInBoundSample_Updating" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
+<%--<asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server"  OnInserting="SqlDataSourceInBoundSample_Inserting"
+    OnUpdating="SqlDataSourceInBoundSample_Updating" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
     DeleteCommand="DELETE FROM [InboundSamples] WHERE [inbSampleID] = @inbSampleID"
     InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [MetalsNormal], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @MetalsNormal, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID)"
-    SelectCommand="SELECT * FROM [InboundSamples]"
+    SelectCommand="SELECT * FROM [InboundSamples] where [Valid] = 1"
     UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID WHERE [inbSampleID] = @inbSampleID">
     <DeleteParameters>
         <asp:Parameter Name="inbSampleID" Type="Int32" />
@@ -739,7 +848,7 @@
         <asp:Parameter Name="inbSampleID" Type="Int32" />
     </UpdateParameters>
 
-</asp:SqlDataSource>
+</asp:SqlDataSource>--%>
 
     
 </asp:Content>

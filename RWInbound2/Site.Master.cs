@@ -60,7 +60,13 @@ namespace RWInbound2
                 if ((string)ViewState[AntiXsrfTokenKey] != _antiXsrfTokenValue
                     || (string)ViewState[AntiXsrfUserNameKey] != (Context.User.Identity.Name ?? String.Empty))
                 {
-                    throw new InvalidOperationException("Validation of Anti-XSRF token failed.");
+                    // just log this and move on, don't know why this happens now, did  not happen before 09/09/2016
+
+                    string nam = "Not Known - in method";
+                    string msg = "Validation of Anti-XSRF token failed.";
+                    LogError LE = new LogError();
+                    LE.logError(msg, "In master page, in XSRF detection code", "Viewstate user name: " + (string)ViewState[AntiXsrfUserNameKey], nam, "");
+                  //  throw new InvalidOperationException("Validation of Anti-XSRF token failed.");
                 }
             }
         }
@@ -82,7 +88,7 @@ namespace RWInbound2
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(filepath);
             string VerMsg = fileInfo.LastWriteTime.ToString("yyyy-MM-dd");
 
-            lblVersion.Text = "                                 VER: " + VerMsg + "      DS: " + dSource;  
+            lblVersion.Text = "                                 VER: " + VerMsg + "      DS: " + dSource;    
 
       // now manage menu items using users role and 
 
@@ -125,18 +131,20 @@ namespace RWInbound2
                     Validation.Visible = false;
             }
 
-            int? Q2 = (from r in R
-                       where r.ControlID.ToUpper() == "DATA"
-                       select r.RoleValue).FirstOrDefault(); 
+            // allow data tab to be seen by all
 
-            if (Q2 != null)
-            {
-                if (role >= Q2.Value)
-                    Data.Visible = true;
+            //int? Q2 = (from r in R
+            //           where r.ControlID.ToUpper() == "DATA"
+            //           select r.RoleValue).FirstOrDefault(); 
 
-                else
-                    Data.Visible = false;
-            }
+            //if (Q2 != null)
+            //{
+            //    if (role >= Q2.Value)
+            //        Data.Visible = true;
+
+            //    else
+            //        Data.Visible = false;
+            //}
 
             int? Q3 = (from r in R
                        where r.ControlID.ToUpper() == "Reports".ToUpper()

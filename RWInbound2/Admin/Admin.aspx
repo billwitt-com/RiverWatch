@@ -62,36 +62,36 @@
             <tr>
                 <td style="height: 18px"></td>
                 <td style="width: 262px; height: 18px;">        
-                    <asp:Button ID="Button6" class="adminButton" runat="server" Text="Manage Organizations" Width="176px" /></td>
+                    <asp:Button ID="Button6"  CssClass="adminButton" runat="server" Text="Manage Organizations" Width="176px" /></td>
                 <td style="height: 18px">
-                    <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />
-                </td>                
+        <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />
+                </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button7" runat="server" class="adminButton"  Text="Enter Unknown " Width="176px" />
+        <asp:Button ID="Button7" runat="server" CssClass="adminButton"  Text="Enter Unknown " Width="176px" />
                 </td>
                 <td>
-        <asp:Button ID="Button3" runat="server" class="adminButton"  Enabled="False" Text="Edit Raw Data" CssClass="adminButton" Width="176px" />
+        <asp:Button ID="Button3" runat="server" CssClass="adminButton"  Enabled="False" Text="Edit Raw Data"  Width="176px" />
                 </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button4" class="adminButton"  runat="server" Text="Manage Participants" Width="176px" />
-                </td>
-                <td style="height: 18px">
-                    <asp:Button ID="btnProjectStations" runat="server" Text="Project Stations" CssClass="adminButton" Width="176px" OnClick="btnProjectStations_Click" />
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td style="width: 262px">
-        <asp:Button ID="Button1" class="adminButton"  runat="server" Enabled="False" Text="Manage Users" CssClass="adminButton" Width="176px" />
+        <asp:Button ID="Button4" CssClass="adminButton"  runat="server" Text="Manage Participants" Width="176px" />
                 </td>
                 <td>
-        <asp:Button ID="Button2" class="adminButton"  runat="server" Enabled="False" Text="Manage Permissions" CssClass="adminButton" Width="176px" />
+                    <asp:Button ID="btnEditMetalBarcode"   CssClass="adminButton" runat="server" Text="Edit Metal Barcodes" OnClick="btnEditMetalBarcode_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td style="width: 262px">
+        <asp:Button ID="Button1" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Users"  Width="176px" />
+                </td>
+                <td>
+        <asp:Button ID="Button2" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" />
 
 
                 </td>

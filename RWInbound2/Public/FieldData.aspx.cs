@@ -45,6 +45,39 @@ namespace RWInbound2.Data
             e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
             e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
             e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
+            e.Command.Parameters["@Valid"].Value = true; 
+            e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
+        }
+
+        protected void SqlDataSourceInBoundSample_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+          //  string sampNum = (string)Session["SAMPNUM"];
+            // calc date and time as we do not save parms below
+            string dateStr = tbDateCollected.Text;
+            bool success = false;
+            DateTime newdate;
+            int hours = 0;
+            int mins = 0;
+
+            success = DateTime.TryParse(dateStr, out newdate);
+            string timestr = tbTimeCollected.Text;
+            success = int.TryParse(timestr.Substring(0, 2), out hours);
+            success = int.TryParse(timestr.Substring(3, 2), out mins);
+
+            Session["DATE"] = newdate;
+            Session["TIME"] = (hours * 100) + mins; 
+             
+            string uzr = User.Identity.Name;
+            if ((uzr == null) | (uzr.Length < 3))
+                uzr = "Dev User";
+            e.Command.Parameters["@EntryStaff"].Value = uzr;
+            e.Command.Parameters["@PassValStep"].Value = -1;            // not really necessary as most entries in table are null [PassValStep]
+            e.Command.Parameters["@StationNum"].Value = (int)Session["STATIONNUMBER"];
+            e.Command.Parameters["@SampleID"].Value = (string)Session["SAMPNUM"];
+            e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
+            e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
+            e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
+            e.Command.Parameters["@Valid"].Value = true; 
             e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
         }
 
@@ -261,7 +294,7 @@ namespace RWInbound2.Data
 
             var Exists = from ex in NRWDE.InboundSamples
                          where ex.KitNum == kitNumber & ex.StationNum == stationNumber & ex.Date.Value.Year == dateCollected.Year
-                         & ex.Date.Value.Month == dateCollected.Month & ex.Date.Value.Day == dateCollected.Day
+                         & ex.Date.Value.Month == dateCollected.Month & ex.Date.Value.Day == dateCollected.Day & ex.Valid == true
                          select ex; 
 
             if(Exists.Count() > 0)  // we have same date already
@@ -279,6 +312,7 @@ namespace RWInbound2.Data
         }
       
         // user has chosen to save data 
+        // we are capturing this prior to sql insert
         protected void InsertButton_Click(object sender, EventArgs e)
         {
             DateTime newdate;
@@ -386,12 +420,14 @@ namespace RWInbound2.Data
                 stationNumber = (int)Session["STATIONNUMBER"];
                 colDate = (DateTime)Session["COLLECTIONDATE"];
 
+                Button IB = (Button)FormView1.FindControl("InsertButton");
+                IB.Enabled = true; 
+
                 FormView1.ChangeMode(FormViewMode.Edit);
 
                 string smdStr = string.Format("SELECT * FROM [InboundSamples] where  [KitNum] = {0} AND [StationNum] = {1} and [Date] = '{2}'",
                     kitNumber, stationNumber, colDate.Date);
                 SqlDataSourceInBoundSample.SelectCommand = smdStr;
-
                 FormView1.DataBind();
             }
             catch (Exception ex)
@@ -416,21 +452,6 @@ namespace RWInbound2.Data
             // nothing to do so just return
             pnlExisting.Visible = false;
             return; 
-        }
-
-        protected void SqlDataSourceInBoundSample_Updated(object sender, SqlDataSourceStatusEventArgs e)
-        {
-
-        }
-
-        protected void SqlDataSourceInBoundSample_Updating(object sender, SqlDataSourceCommandEventArgs e)
-        {
-
-        }
-
-       
-
-       
-        
+        }      
     }
 }

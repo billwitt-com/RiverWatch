@@ -13,16 +13,8 @@ namespace RWInbound2.Edit
             if (iid.Length < 3)
                 iid = "Unknown";
 
-
-            lblWelcome.Text = string.Format("Welcome {0}", User.Identity.Name);
-            if (HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                lblWelcome.Text += " You are authenticated";
-            }
-            else
-            {
-                lblWelcome.Text += " You are NOT authenticated";
-            }
+            lblWelcome.Text = string.Format("Welcome {0}", iid);
+           
         }
 
         // add redirects to each page 

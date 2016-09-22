@@ -29,7 +29,6 @@ namespace RWInbound2
         public virtual DbSet<GearConfig> GearConfigs { get; set; }
         public virtual DbSet<InboundICPFinal> InboundICPFinals { get; set; }
         public virtual DbSet<InboundICPOrigional> InboundICPOrigionals { get; set; }
-        public virtual DbSet<InboundSample> InboundSamples { get; set; }
         public virtual DbSet<MetalBarCode> MetalBarCodes { get; set; }
         public virtual DbSet<NutrientBarCode> NutrientBarCodes { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
@@ -90,5 +89,8 @@ namespace RWInbound2
         public virtual DbSet<tblTrainee> tblTrainees { get; set; }
         public virtual DbSet<tblProjectStation> tblProjectStations { get; set; }
         public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
+        public virtual DbSet<InboundSample> InboundSamples { get; set; }
+        public virtual DbSet<NutrientData> NutrientDatas { get; set; }
+        public virtual DbSet<NutrientLimit> NutrientLimits { get; set; }
     }
 }

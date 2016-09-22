@@ -3,119 +3,106 @@
 
     <asp:Label runat="server" Text="Validation Limits Editor   "></asp:Label>
     <asp:Label ID="lblWelcomeName" runat="server" ></asp:Label>
-    <asp:FormView ID="FormView1" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSource1"  AllowPaging=" true">       
-
+    
+    <asp:FormView ID="FormView1" runat="server" PagerSettings-Mode="NumericFirstLast"  AllowPaging="True" DefaultMode="ReadOnly" DataKeyNames="ID" DataSourceID="SqlDataSource1">
         <EditItemTemplate>
-     <%--       ID:
+            ID:
             <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
-            <br />--%>
-            Name:
-            <asp:TextBox ID="NameTextBox" runat="server" Text='<%# Bind("Name") %>' />
             <br />
-            Value:
-            <asp:TextBox ID="ValueTextBox" runat="server" Text='<%# Bind("Value") %>' />
+            Element:
+            <asp:TextBox ID="ElementTextBox" runat="server" Text='<%# Bind("Element") %>' />
             <br />
-            Note:
-            <asp:TextBox ID="NoteTextBox" runat="server" Text='<%# Bind("Note") %>' />
+            RowID:
+            <asp:TextBox ID="RowIDTextBox" runat="server" Text='<%# Bind("RowID") %>' />
             <br />
-           <%-- CreatedBy:
-            <asp:TextBox ID="CreatedByTextBox" runat="server" Text='<%# Bind("CreatedBy") %>' />
+            Reporting:
+            <asp:TextBox ID="ReportingTextBox" runat="server" Text='<%# Bind("Reporting") %>' />
             <br />
-            CreatedDate:
-            <asp:TextBox ID="CreatedDateTextBox" runat="server" Text='<%# Bind("CreatedDate") %>' />
+            MDL:
+            <asp:TextBox ID="MDLTextBox" runat="server" Text='<%# Bind("MDL") %>' />
             <br />
-            Valid:
-            <asp:TextBox ID="ValidTextBox" runat="server" Text='<%# Bind("Valid") %>' />--%>
+            DvsTDifference:
+            <asp:TextBox ID="DvsTDifferenceTextBox" runat="server" Text='<%# Bind("DvsTDifference") %>' />
             <br />
+>
             <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
             &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
         </EditItemTemplate>
         <InsertItemTemplate>
-            Name:
-            <asp:TextBox ID="NameTextBox" runat="server" Text='<%# Bind("Name") %>' />
+            Element:
+            <asp:TextBox ID="ElementTextBox" runat="server" Text='<%# Bind("Element") %>' />
             <br />
-            Value:
-            <asp:TextBox ID="ValueTextBox" runat="server" Text='<%# Bind("Value") %>' />
+            RowID:
+            <asp:TextBox ID="RowIDTextBox" runat="server" Text='<%# Bind("RowID") %>' />
             <br />
-            Note:
-            <asp:TextBox ID="NoteTextBox" runat="server" Text='<%# Bind("Note") %>' />
+            Reporting:
+            <asp:TextBox ID="ReportingTextBox" runat="server" Text='<%# Bind("Reporting") %>' />
             <br />
-           <%-- CreatedBy:
-            <asp:TextBox ID="CreatedByTextBox" runat="server" Text='<%# Bind("CreatedBy") %>' />
+            MDL:
+            <asp:TextBox ID="MDLTextBox" runat="server" Text='<%# Bind("MDL") %>' />
             <br />
-            CreatedDate:
-            <asp:TextBox ID="CreatedDateTextBox" runat="server" Text='<%# Bind("CreatedDate") %>' />
+            DvsTDifference:
+            <asp:TextBox ID="DvsTDifferenceTextBox" runat="server" Text='<%# Bind("DvsTDifference") %>' />
             <br />
-            Valid:
-            <asp:TextBox ID="ValidTextBox" runat="server" Text='<%# Bind("Valid") %>' />--%>
-            <br />
+
             <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" />
             &nbsp;<asp:LinkButton ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
         </InsertItemTemplate>
         <ItemTemplate>
-<%--            ID:
+            ID:
             <asp:Label ID="IDLabel" runat="server" Text='<%# Eval("ID") %>' />
-            <br />--%>
-            Name:
-            <asp:Label ID="NameLabel" runat="server" Text='<%# Bind("Name") %>' />
             <br />
-            Value:
-            <asp:Label ID="ValueLabel" runat="server" Text='<%# Bind("Value") %>' />
+            Element:
+            <asp:Label ID="ElementLabel" runat="server" Text='<%# Bind("Element") %>' />
             <br />
-            Note:
-            <asp:Label ID="NoteLabel" runat="server" Text='<%# Bind("Note") %>' />
+            RowID:
+            <asp:Label ID="RowIDLabel" runat="server" Text='<%# Bind("RowID") %>' />
             <br />
-            CreatedBy:
-            <asp:Label ID="CreatedByLabel" runat="server" Text='<%# Bind("CreatedBy") %>' />
+            Reporting:
+            <asp:Label ID="ReportingLabel" runat="server" Text='<%# Bind("Reporting") %>' />
             <br />
-            CreatedDate:
-            <asp:Label ID="CreatedDateLabel" runat="server" Text='<%# Bind("CreatedDate") %>' />
+            MDL:
+            <asp:Label ID="MDLLabel" runat="server" Text='<%# Bind("MDL") %>' />
             <br />
-            Valid:
-            <asp:Label ID="ValidLabel" runat="server" Text='<%# Bind("Valid") %>' />
+            DvsTDifference:
+            <asp:Label ID="DvsTDifferenceLabel" runat="server" Text='<%# Bind("DvsTDifference") %>' />
             <br />
+
             <asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
             &nbsp;<asp:LinkButton ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
             &nbsp;<asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
         </ItemTemplate>
     </asp:FormView>
-
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev%>"
-        OnUpdating="SqlDataSource1_Updating"
-        OnInserting="SqlDataSource1_Inserting"
-        OnDeleting="SqlDataSource1_Deleting"
-      
-        InsertCommand="INSERT INTO [tlkLimits] ([Name], [Value], [Note], [CreatedBy], [CreatedDate], [Valid]) VALUES (@Name, @Value, @Note, @CreatedBy, @CreatedDate, @Valid)"
-        UpdateCommand="UPDATE [tlkLimits] SET [Valid] = 0 WHERE [ID] = @ID  INSERT INTO [tlkLimits] ([Name], [Value], [Note], [CreatedBy], [CreatedDate], [Valid]) VALUES (@Name, @Value, @Note, @CreatedBy, @CreatedDate, @Valid) "
-        SelectCommand="SELECT * FROM [tlkLimits] where [valid] = 1 order by name"
-        DeleteCommand="Delete from [tlkLimits] where [ID] = @ID"
-        >   
-        
+       
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" OnInserting="SqlDataSource1_Inserting" OnUpdating="SqlDataSource1_Updating" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
+        DeleteCommand="DELETE FROM [tlkLimits] WHERE [ID] = @ID" 
+        InsertCommand="INSERT INTO [tlkLimits] ([Element], [RowID], [Reporting], [MDL], [DvsTDifference], [DateCreated], [UserCreated],[Valid] ) VALUES (@Element, @RowID, @Reporting, @MDL, @DvsTDifference,  @DateCreated,  @UserCreated, @Valid )" 
+        SelectCommand="SELECT * FROM [tlkLimits]" 
+        UpdateCommand="UPDATE [tlkLimits] SET [Element] = @Element, [RowID] = @RowID, [Reporting] = @Reporting, [MDL] = @MDL, [DvsTDifference] = @DvsTDifference, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [Valid] = @Valid WHERE [ID] = @ID">
         <DeleteParameters>
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Value" Type="Double" />
-            <asp:Parameter Name="Note" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="String" />
-            <asp:Parameter Name="CreatedDate" Type="DateTime" />
-            <asp:Parameter Name="Valid" Type="Int32" />
             <asp:Parameter Name="ID" Type="Int32" />
         </DeleteParameters>
         <InsertParameters>
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Value" Type="Double" />
-            <asp:Parameter Name="Note" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="String" />
-            <asp:Parameter Name="CreatedDate" Type="DateTime" />
-            <asp:Parameter Name="Valid" Type="Int32" />
+            <asp:Parameter Name="Element" Type="String" />
+            <asp:Parameter Name="RowID" Type="String" />
+            <asp:Parameter Name="Reporting" Type="Decimal" />
+            <asp:Parameter Name="MDL" Type="Decimal" />
+            <asp:Parameter Name="DvsTDifference" Type="Decimal" />
+            <asp:Parameter DbType="Date" Name="DateCreated" />
+            <asp:Parameter Name="UserCreated" Type="String" />
+            <asp:Parameter Name="Valid" Type="Boolean" />
         </InsertParameters>
         <UpdateParameters>
-            <asp:Parameter Name="Name" Type="String" />
-            <asp:Parameter Name="Value" Type="Double" />
-            <asp:Parameter Name="Note" Type="String" />
-            <asp:Parameter Name="CreatedBy" Type="String" />
-            <asp:Parameter Name="CreatedDate" Type="DateTime" />
-            <asp:Parameter Name="Valid" Type="Int32" />
+            <asp:Parameter Name="Element" Type="String" />
+            <asp:Parameter Name="RowID" Type="String" />
+            <asp:Parameter Name="Reporting" Type="Decimal" />
+            <asp:Parameter Name="MDL" Type="Decimal" />
+            <asp:Parameter Name="DvsTDifference" Type="Decimal" />
+            <asp:Parameter DbType="Date" Name="DateCreated" />
+            <asp:Parameter Name="UserCreated" Type="String" />
+            <asp:Parameter Name="Valid" Type="Boolean" />
             <asp:Parameter Name="ID" Type="Int32" />
         </UpdateParameters>
-      </asp:SqlDataSource>
+    </asp:SqlDataSource>
+       
 </asp:Content>
