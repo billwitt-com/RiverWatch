@@ -46,6 +46,10 @@ namespace RWInbound2.Validation
                     {
                         // get raw data from lachat table for this bar code, could be no values or could be six or more
 
+                        if(bcode.ToUpper() == "RW16-5207" )
+                        {
+                            string stophere = "stop here"; 
+                        }
                         var D = from d in RWE.Lachats
                                 where d.SampleType == bcode
                                 select d;

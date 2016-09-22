@@ -367,7 +367,7 @@ namespace RWInbound2.Validation
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
-            // public bool processTB(string workStr, string UID, out decimal Value)
+            // public bool processTB(string tbName, string UID, out decimal Value)
             // get value and compare with limits, changing background color if needed 
 
             tbName = "TotalPhosTextBox";
@@ -433,6 +433,7 @@ namespace RWInbound2.Validation
             // ChlorATextBox
         }
 
+        // don't think this is being used as we set up these parms in our code
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
         {
             // <asp:Parameter Name="Valid" Type="Boolean" />
@@ -454,7 +455,7 @@ namespace RWInbound2.Validation
         ///  pass in text box name and this will return parsed decimal value if return is true
         ///  returns false if no value was found in the text
         /// </summary>
-        /// <param name="workStr">name of text box</param>
+        /// <param name="tbName">name of text box</param>
         /// <param name="UID">the unique id of the control set from callers viewpoint</param>
         /// <param name="Value">decimal value of text box, if any</param>
         ///    /// <param name="TB">TextBox</param>
@@ -526,7 +527,7 @@ namespace RWInbound2.Validation
                 var L = from l in RWE.Lachats
                         where l.SampleType.ToUpper() == barcode.ToUpper()
                         select l;
-                if (L != null)   // should never happen
+                if (L != null)   
                 {
                     foreach (Lachat l in L)
                     {

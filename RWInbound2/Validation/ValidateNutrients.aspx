@@ -17,9 +17,6 @@
 
     <asp:FormView ID="FormView1"  PagerSettings-Position="TopAndBottom" runat="server" OnDataBound="FormView1_DataBound" AllowPaging="True" DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="389px">
         <EditItemTemplate>
-
-
-
             <table style="width: 100%">
                 <tr>
                     <td>            BARCODE:</td>

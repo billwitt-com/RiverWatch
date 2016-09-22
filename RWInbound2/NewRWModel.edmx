@@ -385,6 +385,21 @@
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="NutrientLimits">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Element" Type="nvarchar" MaxLength="40" />
+          <Property Name="RowID" Type="nvarchar" MaxLength="40" />
+          <Property Name="Reporting" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="MDL" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="DvsTDifference" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="HighLimit" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="UserCreated" Type="nvarchar" MaxLength="200" />
+          <Property Name="Valid" Type="bit" />
+        </EntityType>
         <EntityType Name="organization">
           <Key>
             <PropertyRef Name="ID" />
@@ -1218,6 +1233,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="NEWexpWater" EntityType="Self.NEWexpWater" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NutrientBarCode" EntityType="Self.NutrientBarCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NutrientData" EntityType="Self.NutrientData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NutrientLimits" EntityType="Self.NutrientLimits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="organization" EntityType="Self.organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrgStatus" EntityType="Self.OrgStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
@@ -2243,6 +2259,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="NEWexpWaters" EntityType="RiverWatchModel.NEWexpWater" />
           <EntitySet Name="InboundSamples" EntityType="RiverWatchModel.InboundSample" />
           <EntitySet Name="NutrientDatas" EntityType="RiverWatchModel.NutrientData" />
+          <EntitySet Name="NutrientLimits" EntityType="RiverWatchModel.NutrientLimit" />
         </EntityContainer>
         <EntityType Name="FileStorage">
           <Key>
@@ -2551,6 +2568,21 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Validated" Type="Boolean" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NutrientLimit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Element" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="RowID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Reporting" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="MDL" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="DvsTDifference" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="HighLimit" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="UserCreated" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Valid" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3818,6 +3850,22 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
                 <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
                 <ScalarProperty Name="Batch" ColumnName="Batch" />
                 <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NutrientLimits">
+            <EntityTypeMapping TypeName="RiverWatchModel.NutrientLimit">
+              <MappingFragment StoreEntitySet="NutrientLimits">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="HighLimit" ColumnName="HighLimit" />
+                <ScalarProperty Name="DvsTDifference" ColumnName="DvsTDifference" />
+                <ScalarProperty Name="MDL" ColumnName="MDL" />
+                <ScalarProperty Name="Reporting" ColumnName="Reporting" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Element" ColumnName="Element" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -137,7 +137,7 @@ namespace RWInbound2.Validation
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }
 
-                Session["NLimits"] = D2TLimits;   // SAVE
+                Session["HighLimit"] = D2TLimits;   // SAVE
                 Session["MEASUREMENTLIMITS"] = MeasurementLimits;
                 Session["REPORTINGLIMITS"] = ReportingLimits;
 
@@ -294,7 +294,7 @@ namespace RWInbound2.Validation
                 return;
 
             // get the dictionaries of limits from session state - these do not change during session
-            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>)Session["NLimits"];  //  Session["NLimits"] = NLimits;  
+            Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>)Session["HighLimit"];  //  Session["HighLimit"] = HighLimit;  
             Dictionary<string, decimal> MeasurementLimits = (Dictionary<string, decimal>)Session["MEASUREMENTLIMITS"];
             Dictionary<string, decimal> ReportingLimits = (Dictionary<string, decimal>)Session["REPORTINGLIMITS"];
 
@@ -438,6 +438,7 @@ namespace RWInbound2.Validation
             }
         }
 
+        // this may be junk or there is a typo that is easier to correct here
         protected void AL_DTextBox_TextChanged(object sender, EventArgs e)
         {
             setControls(); // update color schemes

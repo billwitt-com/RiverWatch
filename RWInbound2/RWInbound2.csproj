@@ -368,6 +368,7 @@
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Validation\ValidateBlanks.aspx" />
+    <Content Include="Validation\ValidateDupNutrients.aspx" />
     <Content Include="Validation\ValidateDups.aspx" />
     <Content Include="Validation\ValidateField.aspx" />
     <Content Include="Validation\ValidateNormals.aspx" />
@@ -604,6 +605,9 @@
       <DependentUpon>EditStationStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="NutrientData.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NutrientLimit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Public\FieldData.aspx.cs">
@@ -1139,6 +1143,13 @@
     </Compile>
     <Compile Include="Validation\ValidateBlanks.aspx.designer.cs">
       <DependentUpon>ValidateBlanks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\ValidateDupNutrients.aspx.cs">
+      <DependentUpon>ValidateDupNutrients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateDupNutrients.aspx.designer.cs">
+      <DependentUpon>ValidateDupNutrients.aspx</DependentUpon>
     </Compile>
     <Compile Include="Validation\ValidateDups.aspx.cs">
       <DependentUpon>ValidateDups.aspx</DependentUpon>

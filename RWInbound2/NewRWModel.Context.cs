@@ -91,5 +91,6 @@ namespace RWInbound2
         public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
         public virtual DbSet<InboundSample> InboundSamples { get; set; }
         public virtual DbSet<NutrientData> NutrientDatas { get; set; }
+        public virtual DbSet<NutrientLimit> NutrientLimits { get; set; }
     }
 }

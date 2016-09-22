@@ -71,6 +71,7 @@
         <EntityTypeShape EntityType="RiverWatchModel.NEWexpWater" Width="1.5" PointX="11.375" PointY="26.75" />
         <EntityTypeShape EntityType="RiverWatchModel.InboundSample" Width="1.5" PointX="13.375" PointY="26.75" />
         <EntityTypeShape EntityType="RiverWatchModel.NutrientData" Width="1.5" PointX="27.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.NutrientLimit" Width="1.5" PointX="7.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
