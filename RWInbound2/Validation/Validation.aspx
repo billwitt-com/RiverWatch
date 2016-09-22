@@ -12,8 +12,8 @@
         </tr>--%>
         <tr>
             <td >&nbsp;</td>
-            <td >
-    <asp:Button ID="btnICPBlanks"   runat="server" OnClick="btnICPBlanks_Click" Text="Step #1 ICP Blanks" Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
+            <td style="width: 209px" >
+    <asp:Button ID="btnICPBlanks"   runat="server" OnClick="btnICPBlanks_Click" Text="Step #1 ICP Blanks" Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
             </td>
             <td>
                 <asp:Label ID="lblICPBlanks" runat="server"></asp:Label>
@@ -21,8 +21,8 @@
         </tr>
         <tr>
             <td >&nbsp;</td>
-            <td >
-        <asp:Button ID="btnICPDups"  runat="server" Text="Step #2 ICP Duplicates" OnClick="btnICPDups_Click"  Width="170px"  Height="23px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
+            <td style="width: 209px" >
+        <asp:Button ID="btnICPDups"  runat="server" Text="Step #2 ICP Duplicates" OnClick="btnICPDups_Click"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
             </td>
             <td>
                 <asp:Label ID="lblICPDups" runat="server"></asp:Label>
@@ -30,8 +30,8 @@
         </tr>
         <tr>
             <td style="width: 27px">&nbsp;</td>
-            <td style="width: 189px">
-        <asp:Button ID="btnICPSamples"   runat="server" Text="Step #3 ICP Normals" OnClick="btnICPSamples_Click"  Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"   />
+            <td style="width: 209px">
+        <asp:Button ID="btnICPSamples"   runat="server" Text="Step #3 ICP Normals" OnClick="btnICPSamples_Click"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"   />
             </td>
             <td>
                 <asp:Label ID="lblICPSamples" runat="server"></asp:Label>
@@ -39,8 +39,8 @@
         </tr>
         <tr>
             <td style="width: 27px">&nbsp;</td>
-            <td style="width: 189px">
-                <asp:Button ID="btnLachet" runat="server"  Text="Step #1 Lachat Normals"  Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnLachet_Click"   />
+            <td style="width: 209px">
+                <asp:Button ID="btnLachet" runat="server"  Text="Step #1 Lachat Normals"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnLachet_Click"   />
             </td>
             <td>
                 <asp:Label ID="lblLachet" runat="server"></asp:Label>
@@ -50,8 +50,8 @@
 
          <tr>
             <td style="width: 27px">&nbsp;</td>
-            <td style="width: 189px">
-                <asp:Button ID="btnLachatDups" runat="server"  Text="Step #2 Lachat Dups"  Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnLachatDups_Click"   />
+            <td style="width: 209px">
+                <asp:Button ID="btnLachatDups" runat="server"  Text="Step #2 Lachat Dups"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnLachatDups_Click"   />
             </td>
             <td>
                 <asp:Label ID="lblLachatDups" runat="server"></asp:Label>
@@ -60,7 +60,7 @@
 
          <tr>
             <td style="width: 27px">&nbsp;</td>
-            <td style="width: 189px">
+            <td style="width: 209px">
                
             </td>
             <td>
@@ -68,11 +68,19 @@
             </td>
         </tr>
 
-
+         <tr>
+            <td style="width: 27px">&nbsp;</td>
+            <td style="width: 209px">
+                <asp:Button ID="btnLachatHangingDups" runat="server"  Text="Step #3 Lachat Solo Dups"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnLachatDups_Click"   />
+            </td>
+            <td>
+                <asp:Label ID="lblSoloLachatDups" runat="server"></asp:Label>
+            </td>
+        </tr>
         <tr>
             <td style="width: 27px">&nbsp;</td>
-            <td style="width: 189px">
-    <asp:Button ID="btnField" runat="server"   Text="Field"  Width="170px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
+            <td style="width: 209px">
+    <asp:Button ID="btnField" runat="server"   Text="Field"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
             </td>
             <td>
                 <asp:Label ID="lblFieldSamples" runat="server" Text="There are XX inbound samples"></asp:Label>
