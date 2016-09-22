@@ -1355,3 +1355,169 @@ td.edit-table-cell{
 tr.edit-table-row{
     text-align:left;
 } 
+
+td > textarea.edit-table-project-description-cell{
+    text-align:center;
+    height:12px;
+    width:100%;
+    font-size:medium;
+    resize:vertical;
+}
+
+td > span.edit-table-project-description-label{
+    word-wrap:normal;
+    word-break:break-all;
+}
+
+/*Options on Project Stations Page*/
+label.admin-project-station-narrow-search{
+    font-size:1.2em;
+    font-style:italic;
+    padding-left: 300px;
+}
+
+ul.admin-project-station-clear-list-style{
+    list-style:none;
+    display:flex;
+}
+
+ul.admin-project-station-clear-list-style.search{
+    padding-left:155px;
+    margin-bottom:10px;
+    margin-top:25px;
+}
+
+.admin-project-station-number-search-button{
+    height:31px;
+    margin-top: -5px;
+    margin-left: 15px;
+}
+
+div.admin-project-station-number-label{
+    padding-left: 15px;
+    display:inline-block;
+}
+
+span.admin-project-station-or-label{
+    font-size:1.3em;
+    font-weight:bold;
+    padding-left:30px;
+    padding-right:5px;
+}
+
+.admin-project-station-avaliable-label{
+    margin-left:120px;
+    font-size:1.2em;
+}
+
+.admin-project-station-assigned-label{
+    margin-left:310px;
+    font-size:1.2em;
+}
+
+.project-stations-label-placement-station-number-assigned{
+    margin-top:-20px;
+    margin-bottom:15px;
+    margin-left:470px;
+}
+
+.multiselect-stations-label{
+    float:left;
+    font-size: .9em; 
+    width:125px; 
+    text-align:center;
+    margin:-15px 10px 10px 5px;
+    padding:10px 0 0 20px;
+}
+
+.multiselect-move-arrows-div{
+    font-size:x-large;
+    float:left;
+    width:100px;
+    margin: 200px -30px 0 205px;
+    padding:10px;
+}
+
+.multiselect-locations-list{
+    width:310px;
+    height:500px;
+}
+
+section.assign-stations-section{
+    width:1080px;
+    border-width: 0;
+}
+
+div.multiselect-reset-delete-buttons{
+  display:flex;
+  width:100px;
+  padding-left:180px;  
+  padding-top:215px; 
+}
+
+input#RemoveAssigned.multiselect-remove-assigned{
+    clear:initial;
+    background-color: red;
+    color:red;    
+    display:block;
+    padding:5px;
+    font-weight: bold;
+}
+
+.project-stations-label-error{
+    color:red;
+    font-weight: bold;
+}
+
+.project-stations-label-success{
+    color:darkgreen;
+    font-weight: bold;
+}
+
+.project-stations-label-placement{
+    text-align: center;
+    font-size: 1.3em;
+    margin-top:-5px;
+    margin-bottom: -5px;
+}
+
+input#Update.multiselect-update{
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+input#Cancel.multiselect-cancel{
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+/*Progress Bar*/
+.modal
+{
+    position: fixed;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-color: Black;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    opacity: 0.8;
+}
+.center
+{
+    z-index: 1000;
+    margin: 300px auto;
+    padding: 10px;
+    width: 130px;
+    background-color: White;
+    border-radius: 10px;
+    filter: alpha(opacity=100);
+    opacity: 1;
+    opacity: 1;
+}
+.center img
+{
+    height: 128px;
+    width: 128px;
+}

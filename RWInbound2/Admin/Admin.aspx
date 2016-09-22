@@ -92,8 +92,12 @@
                 </td>
                 <td>
         <asp:Button ID="Button2" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" />
-
-
+                </td>
+            </tr>
+             <tr>
+                <td>&nbsp;</td>               
+                <td style="height: 18px">
+                    <asp:Button ID="btnProjectStations" runat="server" Text="Project Stations" CssClass="adminButton" Width="176px" OnClick="btnProjectStations_Click" />
                 </td>
             </tr>
             <tr>
