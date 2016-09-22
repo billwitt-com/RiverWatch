@@ -39,5 +39,11 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("editmetalbarcode.aspx"); 
         }
+
+        protected void btnProjectStations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminProjectStations.aspx");
+
+        }
     }
 }

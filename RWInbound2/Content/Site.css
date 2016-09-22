@@ -15,7 +15,8 @@ tr
     height:29px; /*this is a 'hand tuned' value to match right table */
 }
 /*used for menu pages like validation page*/
-.menuButton {
+.menuButton 
+{
     background-color:lightblue !important;
 
     border: 1px solid #787878; /*this works*/
@@ -23,7 +24,7 @@ tr
     font-size: 1.0em !important; /*!important over rides earler formatting*/
     font-weight: 600 !important;
     width:171px;
-    }
+ }
 
 .pnlBarcodeTab 
 {
@@ -37,7 +38,7 @@ body { /*works for table including fonts of labels but not text boxes see below*
     color: #324253;
     font-size: .85em;
     font-family: Consolas; /* choose as this is fixed width for tables*/
-    width: 1080px;  /* choose as this is width for page*/
+    width: 1100px;  /* choose as this is width for page*/
 }
 
 form {
@@ -1318,7 +1319,7 @@ fieldset {
 
 .grid-larger-editor-columns-center{
     text-align:center;
-    width: 1000px;
+    width: 1070px;
     height:238px;
 }
 
@@ -1354,4 +1355,3 @@ td.edit-table-cell{
 tr.edit-table-row{
     text-align:left;
 } 
-

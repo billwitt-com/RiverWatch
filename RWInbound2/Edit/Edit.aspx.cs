@@ -108,6 +108,11 @@ namespace RWInbound2.Edit
             Response.Redirect("EditOrganizationType.aspx");
         }
 
+        protected void btnProject_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditProject.aspx");
+        }
+
         protected void btnQUADI_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditQUADI.aspx");

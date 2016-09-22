@@ -131,6 +131,7 @@
     <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\Admin.aspx" />
+    <Content Include="Admin\AdminProjectStations.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
@@ -183,12 +184,14 @@
     <Content Include="Edit\EditMetalBarCodeType.aspx" />
     <Content Include="Edit\EditNutrientBarCodeType.aspx" />
     <Content Include="Edit\EditOrganizationType.aspx" />
+    <Content Include="Edit\EditProject.aspx" />
     <Content Include="Edit\EditRiverWatchWaterShed.aspx" />
     <Content Include="Edit\EditSampleType.aspx" />
     <Content Include="Edit\EditSection.aspx" />
     <Content Include="Edit\EditState.aspx" />
     <Content Include="Edit\EditStationQUAD.aspx" />
     <Content Include="Edit\EditStationStatus.aspx" />
+    <Content Include="Images\loader.gif" />
     <Content Include="Public\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
@@ -408,6 +411,13 @@
     <Compile Include="Admin\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\AdminProjectStations.aspx.cs">
+      <DependentUpon>AdminProjectStations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminProjectStations.aspx.designer.cs">
+      <DependentUpon>AdminProjectStations.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AdminStations.aspx.cs">
       <DependentUpon>AdminStations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -561,6 +571,13 @@
     </Compile>
     <Compile Include="Edit\EditOrganizationType.aspx.designer.cs">
       <DependentUpon>EditOrganizationType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditProject.aspx.cs">
+      <DependentUpon>EditProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditProject.aspx.designer.cs">
+      <DependentUpon>EditProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditRiverWatchWaterShed.aspx.cs">
       <DependentUpon>EditRiverWatchWaterShed.aspx</DependentUpon>
@@ -1193,6 +1210,7 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="View_Models\ProjectStationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

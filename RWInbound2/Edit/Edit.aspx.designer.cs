@@ -193,6 +193,15 @@ namespace RWInbound2.Edit {
         protected global::System.Web.UI.WebControls.Button btnOrganizationType;
         
         /// <summary>
+        /// btnProject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnProject;
+        
+        /// <summary>
         /// btnQUADI control.
         /// </summary>
         /// <remarks>
@@ -310,12 +319,12 @@ namespace RWInbound2.Edit {
         protected global::System.Web.UI.WebControls.Button btnWSG;
         
         /// <summary>
-        /// btnWSR control.
+        /// Button4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnWSR;
+        protected global::System.Web.UI.WebControls.Button Button4;
     }
 }
