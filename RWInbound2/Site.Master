@@ -26,16 +26,19 @@
             color: #FFFFFF;
         }
     </style>--%>
+   
+     
 </head>
 <body>
+     
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
                 <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="jquery.ui.combined" />
-            </Scripts>
+                <asp:ScriptReference Name="jquery.ui.combined" />                 
+            </Scripts>            
         </asp:ScriptManager>
-
+        <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
             <header>
 
                 <table class="headerTable ">
