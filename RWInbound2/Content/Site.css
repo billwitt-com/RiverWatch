@@ -1521,3 +1521,18 @@ input#Cancel.multiselect-cancel{
     height: 128px;
     width: 128px;
 }
+
+/*Control Permissions Page*/
+td > span.edit-table-control-permission-label{
+    word-wrap:normal;
+    word-break:break-all;
+    font-size:0.8em;
+}
+
+td > textarea.edit-table-control-permission-cell{
+    text-align:center;
+    height:12px;
+    width:90%;
+    font-size:medium;
+    resize:vertical;
+}

@@ -64,7 +64,7 @@
                 <td style="width: 262px; height: 18px;">        
                     <asp:Button ID="Button6"  CssClass="adminButton" runat="server" Text="Manage Organizations" Width="176px" /></td>
                 <td style="height: 18px">
-        <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />
+                <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />
                 </td>
             </tr>
             <tr>
@@ -96,8 +96,11 @@
             </tr>
              <tr>
                 <td>&nbsp;</td>               
-                <td style="height: 18px">
+                <td style="height: 262px">
                     <asp:Button ID="btnProjectStations" runat="server" Text="Project Stations" CssClass="adminButton" Width="176px" OnClick="btnProjectStations_Click" />
+                </td>
+                 <td>
+                    <asp:Button ID="btnControlPermissions" runat="server" Text="Control Permissions" CssClass="adminButton" Width="176px" OnClick="btnControlPermissions_Click" />
                 </td>
             </tr>
             <tr>

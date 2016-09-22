@@ -45,5 +45,11 @@ namespace RWInbound2.Admin
             Response.Redirect("AdminProjectStations.aspx");
 
         }
+
+        protected void btnControlPermissions_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminControlPermissions.aspx");
+
+        }
     }
 }

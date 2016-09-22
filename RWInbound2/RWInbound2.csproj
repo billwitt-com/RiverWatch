@@ -112,6 +112,7 @@
     <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\Admin.aspx" />
+    <Content Include="Admin\AdminControlPermissions.aspx" />
     <Content Include="Admin\AdminProjectStations.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
@@ -391,6 +392,13 @@
     </Compile>
     <Compile Include="Admin\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminControlPermissions.aspx.cs">
+      <DependentUpon>AdminControlPermissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminControlPermissions.aspx.designer.cs">
+      <DependentUpon>AdminControlPermissions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdminProjectStations.aspx.cs">
       <DependentUpon>AdminProjectStations.aspx</DependentUpon>

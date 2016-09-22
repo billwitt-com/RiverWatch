@@ -7,12 +7,12 @@ using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI.WebControls;
 
-namespace RWInbound2.Edit
+namespace RWInbound2.Admin
 {
-    public partial class EditProject : System.Web.UI.Page
+    public partial class AdminControlPermissions : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {           
+        {
             if (!IsPostBack)
             {
                 // Validate initially to force asterisks
@@ -21,7 +21,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<Project> GetProjects([QueryString]string projectNameSearchTerm = "",
+        public IQueryable<ControlPermission> GetControlPermissions([QueryString]string controlPermissionsPageNameSearchTerm = "",
                                                       [QueryString]string successLabelMessage = "")
         {
             try
@@ -34,18 +34,18 @@ namespace RWInbound2.Edit
                     SuccessLabel.Text = successLabelMessage;
                 }
 
-                if (!string.IsNullOrEmpty(projectNameSearchTerm))
+                if (!string.IsNullOrEmpty(controlPermissionsPageNameSearchTerm))
                 {
-                    return _db.Projects.Where(c => c.ProjectName.Equals(projectNameSearchTerm))
-                                       .OrderBy(c => c.ProjectName);
+                    return _db.ControlPermissions.Where(c => c.PageName.Equals(controlPermissionsPageNameSearchTerm))
+                                       .OrderBy(c => c.PageName);
                 }
-                IQueryable<Project> projects = _db.Projects
-                                               .OrderBy(c => c.ProjectName);
-                return projects;
+                IQueryable<ControlPermission> controlPermissions = _db.ControlPermissions
+                                               .OrderBy(c => c.PageName);
+                return controlPermissions;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetProjects", "", "");
+                HandleErrors(ex, ex.Message, "GetControlPermissions", "", "");
                 return null;
             }
         }
@@ -54,8 +54,8 @@ namespace RWInbound2.Edit
         {
             try
             {
-                string projectNameSearchTerm = projectNameSearch.Text;
-                string redirect = "EditProject.aspx?projectNameSearchterm=" + projectNameSearchTerm;
+                string controlPermissionsPageNameSearchTerm = controlPermissionsPageNameSearch.Text;
+                string redirect = "AdminControlPermissions.aspx?controlPermissionsPageNameSearchTerm=" + controlPermissionsPageNameSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -69,7 +69,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                Response.Redirect("EditProject.aspx", false);
+                Response.Redirect("AdminControlPermissions.aspx", false);
             }
             catch (Exception ex)
             {
@@ -79,122 +79,121 @@ namespace RWInbound2.Edit
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForProjectsName(string prefixText, int count)
+        public static List<string> SearchForControlPermissionsPageName(string prefixText, int count)
         {
-            List<string> projectsNames = new List<string>();
+            List<string> pageNames = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    projectsNames = _db.Projects
-                                             .Where(c => c.ProjectName.Contains(prefixText))
-                                             .Select(c => c.ProjectName).ToList();
-
-                    return projectsNames;
+                    pageNames = _db.ControlPermissions
+                                             .Where(c => c.PageName.Contains(prefixText))                                             
+                                             .Select(c => c.PageName)
+                                             .Distinct()
+                                             .ToList();
+                    return pageNames;
                 }
             }
             catch (Exception ex)
             {
-                EditProject editProject = new EditProject();
-                editProject.HandleErrors(ex, ex.Message, "SearchForProjectsName", "", "");
-                return projectsNames;
+                AdminControlPermissions adminControlPermissions = new AdminControlPermissions();
+                adminControlPermissions.HandleErrors(ex, ex.Message, "SearchForControlPermissionsPageName", "", "");
+                return pageNames;
             }
         }
 
-        public void UpdateProject(Project model)
+        public void UpdateControlPermission(ControlPermission model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var projectToUpdate = _db.Projects.Find(model.ProjectID);
+                    var controlPermissionToUpdate = _db.ControlPermissions.Find(model.ID);
 
-                    projectToUpdate.ProjectName = model.ProjectName;
-                    projectToUpdate.ProjectDescription = model.ProjectDescription;
+                    controlPermissionToUpdate.Description = model.Description;
+                    controlPermissionToUpdate.PageName = model.PageName;
+                    controlPermissionToUpdate.ControlID = model.ControlID;
+                    controlPermissionToUpdate.RoleValue = model.RoleValue;
+                    controlPermissionToUpdate.Comments = model.Comments;
 
-                    if (this.User != null && this.User.Identity.IsAuthenticated)
-                    {
-                        projectToUpdate.UserLastModified
-                            = HttpContext.Current.User.Identity.Name;
-                    }
-                    else
-                    {
-                        projectToUpdate.UserLastModified = "Unknown";
-                    }
-
-                    projectToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Project Updated";
+                    SuccessLabel.Text = "Control Permission Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateProject", "", "");
+                HandleErrors(ex, ex.Message, "UpdateControlPermission", "", "");
             }
         }
 
-        public void DeleteProject(Project model)
+        public void DeleteControlPermission(ControlPermission model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var projectToDelete = _db.Projects.Find(model.ProjectID);
-                    _db.Projects.Remove(projectToDelete);
+                    var controlPermissionToDelete = _db.ControlPermissions.Find(model.ID);
+                    _db.ControlPermissions.Remove(controlPermissionToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Project Deleted";
+                    SuccessLabel.Text = "Control Permission Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteProject", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteControlPermission", "", "");
                 }
             }
         }
 
-        public void AddNewProject(object sender, EventArgs e)
+        public void AddNewControlPermission(object sender, EventArgs e)
         {
             try
             {
-                string name = ((TextBox)ProjectsGridView.FooterRow.FindControl("NewProjectName")).Text;
-                string projectDescription = ((TextBox)ProjectsGridView.FooterRow.FindControl("NewProjectDescription")).Text;
+                string description = ((TextBox)ControlPermissionsGridView.FooterRow.FindControl("NewDescription")).Text;
+                string pageName = ((TextBox)ControlPermissionsGridView.FooterRow.FindControl("NewPageName")).Text;
+                string controlID = ((TextBox)ControlPermissionsGridView.FooterRow.FindControl("NewControlID")).Text;
+                int roleValue = Convert.ToInt32(((TextBox)ControlPermissionsGridView.FooterRow.FindControl("NewRoleValue")).Text);
+                string comments = ((TextBox)ControlPermissionsGridView.FooterRow.FindControl("NewComments")).Text;
 
-                if (string.IsNullOrEmpty(name))
+                if (string.IsNullOrEmpty(pageName))
                 {
                     SuccessLabel.Text = "";
-                    ErrorLabel.Text = "Project Name field is required.";
+                    ErrorLabel.Text = "Page Name field is required.";
                 }
                 else
                 {
-                    var newProject = new Project()
+                    var newControlPermission = new ControlPermission()
                     {
-                        ProjectName = name,
-                        ProjectDescription = projectDescription,
-                        valid = true,
-                        DateLastModified = DateTime.Now
+                        Description = description,
+                        PageName = pageName,
+                        ControlID = controlID,
+                        RoleValue = roleValue,
+                        Comments = comments,
+                        Valid = true,
+                        DateCreated = DateTime.Now
                     };
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        newProject.UserCreated
+                        newControlPermission.CreatedBy
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        newProject.UserCreated = "Unknown";
+                        newControlPermission.CreatedBy = "Unknown";
                     }
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.Projects.Add(newProject);
+                        _db.ControlPermissions.Add(newControlPermission);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New Project Added: " + newProject.ProjectName;
-                        string redirect = "EditProject.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New Control Permission Added: " + newControlPermission.Description;
+                        string redirect = "AdminControlPermissions.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);
                     }
@@ -202,7 +201,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewProject", "", "");
+                HandleErrors(ex, ex.Message, "AddControlPermission", "", "");
             }
         }
 
