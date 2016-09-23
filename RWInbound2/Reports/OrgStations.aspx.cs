@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace RWInbound2.Reports
 {
-    public partial class OrgStatus : System.Web.UI.Page
+    public partial class OrgStations : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,7 +30,7 @@ namespace RWInbound2.Reports
                 string cmdStr = string.Empty;
 
                 orgName = orgNameSearch.Text.Trim();
-                cmdStr = string.Format("SELECT * FROM OrgStatusView WHERE OrganizationName Like '{0}'", orgName);
+                cmdStr = string.Format("SELECT * FROM OrgStationsView WHERE OrganizationName Like '{0}' ORDER BY OrganizationName, StationName", orgName);
 
                 SqlDataSource1.SelectCommand = cmdStr;
                 ReportDataSource rd1 = new ReportDataSource("DataSet1", SqlDataSource1);
@@ -52,7 +52,7 @@ namespace RWInbound2.Reports
                 orgNameSearch.Text = "";
                 string cmdStr = string.Empty;
 
-                cmdStr = string.Format("SELECT * FROM OrgStatusView ORDER BY OrganizationName");
+                cmdStr = string.Format("SELECT * FROM OrgStationsView ORDER BY OrganizationName, StationName");
 
                 SqlDataSource1.SelectCommand = cmdStr;
                 ReportDataSource rd1 = new ReportDataSource("DataSet1", SqlDataSource1);
@@ -87,8 +87,8 @@ namespace RWInbound2.Reports
             }
             catch (Exception ex)
             {
-                OrgStatus adminRoles = new OrgStatus();
-                adminRoles.HandleErrors(ex, ex.Message, "SearchForOrgName", "", "");
+                OrgStations orgStations = new OrgStations();
+                orgStations.HandleErrors(ex, ex.Message, "SearchForOrgName", "", "");
                 return orgNames;
             }
         }
