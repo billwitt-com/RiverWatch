@@ -31,13 +31,22 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Label SuccessLabel;
         
         /// <summary>
-        /// descriptionSearch control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox descriptionSearch;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// nameSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox nameSearch;
         
         /// <summary>
         /// btnSearch control.
@@ -67,12 +76,12 @@ namespace RWInbound2.Admin {
         protected global::AjaxControlToolkit.AutoCompleteExtender tbSearch_AutoCompleteExtender;
         
         /// <summary>
-        /// StatesGridView control.
+        /// RolesGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView StatesGridView;
+        protected global::System.Web.UI.WebControls.GridView RolesGridView;
     }
 }

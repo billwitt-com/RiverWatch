@@ -109,7 +109,7 @@
                         <asp:TextBox ID="NewControlID" runat="server"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>    
-                <asp:TemplateField HeaderText="Role Value (Number)" SortExpression="RoleValue">
+                <asp:TemplateField HeaderText="Role Value" SortExpression="RoleValue">
                     <EditItemTemplate>
                         <asp:TextBox ID="txtRoleValue" runat="server" TextMode="Number" Text='<%# Bind("RoleValue") %>'></asp:TextBox>
                     </EditItemTemplate>

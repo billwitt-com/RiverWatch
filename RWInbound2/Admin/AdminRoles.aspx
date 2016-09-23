@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdminRoles.aspx.cs" Inherits="RWInbound2.Admin.AdminRoles" %>
+﻿<%@ Page Title="Roles" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdminRoles.aspx.cs" Inherits="RWInbound2.Admin.AdminRoles" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -15,32 +15,36 @@
             <br />            
         </div>
         <p>
-        Search By Description:
-        <asp:TextBox ID="descriptionSearch" 
-            AutoPostBack="true"
-            runat="server"></asp:TextBox>
-        <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
-        <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
-        <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
-        <ajaxToolkit:AutoCompleteExtender 
-            ID="tbSearch_AutoCompleteExtender" 
-            runat="server" 
-            BehaviorID="tbSearch_AutoCompleteExtender" 
-            DelimiterCharacters=""  
-            ServiceMethod="SearchForStatesDescription"             
-            TargetControlID="descriptionSearch"
-            MinimumPrefixLength="2"
-            CompletionInterval="100" 
-            EnableCaching="false" 
-            CompletionSetCount="10">
-        </ajaxToolkit:AutoCompleteExtender> 
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    Search By Description:
+                    <asp:TextBox ID="nameSearch" 
+                        AutoPostBack="true"
+                        runat="server"></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
+                    <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
+                    <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
+                    <ajaxToolkit:AutoCompleteExtender 
+                        ID="tbSearch_AutoCompleteExtender" 
+                        runat="server" 
+                        BehaviorID="tbSearch_AutoCompleteExtender" 
+                        DelimiterCharacters=""  
+                        ServiceMethod="SearchForRoleName"             
+                        TargetControlID="nameSearch"
+                        MinimumPrefixLength="2"
+                        CompletionInterval="100" 
+                        EnableCaching="false" 
+                        CompletionSetCount="10">
+                    </ajaxToolkit:AutoCompleteExtender>
+            </ContentTemplate>
+        </asp:UpdatePanel>         
     </p>
-        <asp:GridView ID="StatesGridView" runat="server"
+        <asp:GridView ID="RolesGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkState" 
-            SelectMethod="GetStates"
-            UpdateMethod="UpdateState"
-            DeleteMethod="DeleteState" 
+            ItemType="RWInbound2.Role" 
+            SelectMethod="GetRoles"
+            UpdateMethod="UpdateRole"
+            DeleteMethod="DeleteRole" 
             InsertItemPosition="LastItem"  
             ShowFooter="true"
             CellPadding="4"
@@ -61,34 +65,32 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewState" />
+                                    OnClick = "AddNewRole" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
-                <asp:TemplateField HeaderText="Code" SortExpression="Code">
+                <asp:TemplateField HeaderText="Name" SortExpression="Name">
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtCode" runat="server" Text='<%# Bind("Code") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtName" runat="server" Text='<%# Bind("Name") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="lblCode" runat="server" Text='<%# Bind("Code") %>'></asp:Label>
+                        <asp:Label ID="lblName" runat="server" Text='<%# Bind("Name") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:TextBox ID="NewCode" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="NewName" runat="server"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Description" SortExpression="Description">
+                <asp:TemplateField HeaderText="Level" SortExpression="Level">
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtDescription" runat="server" Width="250px" 
-                                     contenteditable="true" Text='<%# Bind("Description") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtLevel" runat="server" TextMode="Number" Text='<%# Bind("Level") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="lblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                        <asp:Label ID="lblLevel" runat="server" Text='<%# Bind("Level") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="NewLevel" TextMode="Number" runat="server"></asp:TextBox>
                     </FooterTemplate>
-                </asp:TemplateField>
-                <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
+                </asp:TemplateField>                            
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       
