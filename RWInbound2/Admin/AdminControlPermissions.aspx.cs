@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.ModelBinding;
@@ -19,6 +20,8 @@ namespace RWInbound2.Admin
                 // to appear before the first roundtrip.
                 Validate();
             }
+            ErrorLabel.Text = "";
+            SuccessLabel.Text = "";
         }
 
         public IQueryable<ControlPermission> GetControlPermissions([QueryString]string controlPermissionsPageNameSearchTerm = "",
@@ -39,8 +42,17 @@ namespace RWInbound2.Admin
                     return _db.ControlPermissions.Where(c => c.PageName.Equals(controlPermissionsPageNameSearchTerm))
                                        .OrderBy(c => c.PageName);
                 }
+
                 IQueryable<ControlPermission> controlPermissions = _db.ControlPermissions
                                                .OrderBy(c => c.PageName);
+                PropertyInfo isreadonly
+                    = typeof(System.Collections.Specialized.NameValueCollection)
+                            .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                // make collection editable
+                isreadonly.SetValue(this.Request.QueryString, false, null);
+                // remove
+                this.Request.QueryString.Clear();
+
                 return controlPermissions;
             }
             catch (Exception ex)

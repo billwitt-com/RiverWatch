@@ -54,5 +54,10 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("AdminRoles.aspx");
         }
+
+        protected void btnNutrientLimits_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminNutrientLimits.aspx");
+        }
     }
 }

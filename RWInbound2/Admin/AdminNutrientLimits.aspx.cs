@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace RWInbound2.Admin
 {
-    public partial class AdminRoles : System.Web.UI.Page
+    public partial class AdminNutrientLimits : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,8 +24,8 @@ namespace RWInbound2.Admin
             SuccessLabel.Text = "";
         }
 
-        public IQueryable<Role> GetRoles([QueryString]string roleNameSearchTerm = "",
-                                                      [QueryString]string successLabelMessage = "")
+        public IQueryable<NutrientLimit> GetNutrientLimits([QueryString]string elementSearchTerm = "",
+                                                           [QueryString]string successLabelMessage = "")
         {
             try
             {
@@ -37,26 +37,25 @@ namespace RWInbound2.Admin
                     SuccessLabel.Text = successLabelMessage;
                 }
 
-                if (!string.IsNullOrEmpty(roleNameSearchTerm))
+                if (!string.IsNullOrEmpty(elementSearchTerm))
                 {
-                    return _db.Roles.Where(c => c.Name.Equals(roleNameSearchTerm))
-                                       .OrderBy(c => c.Name);
+                    return _db.NutrientLimits.Where(c => c.Element.Equals(elementSearchTerm))
+                                       .OrderBy(c => c.Element);
                 }
-                IQueryable<Role> roles = _db.Roles
-                                            .OrderBy(c => c.Name);
-                PropertyInfo isreadonly
-                   = typeof(System.Collections.Specialized.NameValueCollection)
-                           .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                IQueryable<NutrientLimit> nutrientLimits = _db.NutrientLimits
+                                            .OrderBy(c => c.Element);
+                PropertyInfo isreadonly 
+                    = typeof(System.Collections.Specialized.NameValueCollection)
+                            .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
                 // make collection editable
                 isreadonly.SetValue(this.Request.QueryString, false, null);
                 // remove
                 this.Request.QueryString.Clear();
-
-                return roles;
+                return nutrientLimits;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetRoles", "", "");
+                HandleErrors(ex, ex.Message, "GetNutrientLimits", "", "");
                 return null;
             }
         }
@@ -65,8 +64,8 @@ namespace RWInbound2.Admin
         {
             try
             {
-                string roleNameSearchTerm = nameSearch.Text;
-                string redirect = "AdminRoles.aspx?roleNameSearchTerm=" + roleNameSearchTerm;
+                string elementSearchTerm = elementSearch.Text;
+                string redirect = "AdminNutrientLimits.aspx?elementSearchTerm=" + elementSearchTerm;
 
                 Response.Redirect(redirect, false);
             }
@@ -80,7 +79,7 @@ namespace RWInbound2.Admin
         {
             try
             {
-                Response.Redirect("AdminRoles.aspx", false);
+                Response.Redirect("AdminNutrientLimits.aspx", false);
             }
             catch (Exception ex)
             {
@@ -90,112 +89,124 @@ namespace RWInbound2.Admin
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
-        public static List<string> SearchForRoleName(string prefixText, int count)
+        public static List<string> SearchForElement(string prefixText, int count)
         {
-            List<string> roleNames = new List<string>();
+            List<string> elements = new List<string>();
 
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    roleNames = _db.Roles
-                                    .Where(c => c.Name.Contains(prefixText))
-                                    .Select(c => c.Name)
+                    elements = _db.NutrientLimits
+                                    .Where(c => c.Element.Contains(prefixText))
+                                    .Select(c => c.Element)
                                     .Distinct()
                                     .ToList();
-                    return roleNames;
+                    return elements;
                 }
             }
             catch (Exception ex)
             {
-                AdminRoles adminRoles = new AdminRoles();
-                adminRoles.HandleErrors(ex, ex.Message, "SearchForRoleName", "", "");
-                return roleNames;
+                AdminNutrientLimits adminNutrientLimits = new AdminNutrientLimits();
+                adminNutrientLimits.HandleErrors(ex, ex.Message, "SSearchForElement", "", "");
+                return elements;
             }
         }
 
-        public void UpdateRole(Role model)
+        public void UpdateNutrientLimit(NutrientLimit model)
         {
             try
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var roleToUpdate = _db.Roles.Find(model.ID);
+                    var nutrientLimitToUpdate = _db.NutrientLimits.Find(model.ID);
 
-                    roleToUpdate.Name = model.Name;
-                    roleToUpdate.Level = model.Level;
+                    nutrientLimitToUpdate.Element = model.Element;
+                    nutrientLimitToUpdate.RowID = model.RowID;
+                    nutrientLimitToUpdate.Reporting = model.Reporting;
+                    nutrientLimitToUpdate.MDL = model.MDL;
+                    nutrientLimitToUpdate.DvsTDifference = model.DvsTDifference;
+                    nutrientLimitToUpdate.HighLimit = model.HighLimit;
 
                     _db.SaveChanges();
 
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Role Updated";
+                    SuccessLabel.Text = "Nutrient Limit Updated";
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateRole", "", "");
+                HandleErrors(ex, ex.Message, "UpdateNutrientLimit", "", "");
             }
         }
 
-        public void DeleteRole(Role model)
+        public void DeleteNutrientLimit(NutrientLimit model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try
                 {
-                    var roleToDelete = _db.Roles.Find(model.ID);
-                    _db.Roles.Remove(roleToDelete);
+                    var nutrientLimitToDelete = _db.NutrientLimits.Find(model.ID);
+                    _db.NutrientLimits.Remove(nutrientLimitToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Role Deleted";
+                    SuccessLabel.Text = "Nutrient Limit Deleted";
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteRole", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteNutrientLimit", "", "");
                 }
             }
         }
 
-        public void AddNewRole(object sender, EventArgs e)
+        protected void AddNutrientLimit(object sender, EventArgs e)
         {
             try
             {
-                string name = ((TextBox)RolesGridView.FooterRow.FindControl("NewName")).Text;
-                int level = Convert.ToInt32(((TextBox)RolesGridView.FooterRow.FindControl("NewLevel")).Text);
+                string element = ((TextBox)NutrientLimitsGridView.FooterRow.FindControl("NewElement")).Text;
+                string rowID = ((TextBox)NutrientLimitsGridView.FooterRow.FindControl("NewRowId")).Text;
+                decimal? reporting = Convert.ToDecimal(((TextBox)NutrientLimitsGridView.FooterRow.FindControl("NewReporting")).Text);
+                decimal? mDL = Convert.ToDecimal(((TextBox)NutrientLimitsGridView.FooterRow.FindControl("NewMDL")).Text);
+                decimal? dvsTDifference = Convert.ToDecimal(((TextBox)NutrientLimitsGridView.FooterRow.FindControl("NewDvsTDifference")).Text);
+                decimal? highLimit = Convert.ToDecimal(((TextBox)NutrientLimitsGridView.FooterRow.FindControl("NewHighLimit")).Text);
 
-                var newRole = new Role()
+                var newNutrientLimit = new NutrientLimit()
                 {
-                    Name = name,
-                    Level = level,
+                    Element = element,
+                    RowID = rowID,
+                    Reporting = reporting,
+                    MDL = mDL,
+                    DvsTDifference = dvsTDifference,
+                    HighLimit = highLimit,
                     Valid = true,
                     DateCreated = DateTime.Now
                 };
 
                 if (this.User != null && this.User.Identity.IsAuthenticated)
                 {
-                    newRole.CreatedBy
+                    newNutrientLimit.UserCreated
                         = HttpContext.Current.User.Identity.Name;
                 }
                 else
                 {
-                    newRole.CreatedBy = "Unknown";
+                    newNutrientLimit.UserCreated = "Unknown";
                 }
 
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    _db.Roles.Add(newRole);
+                    _db.NutrientLimits.Add(newNutrientLimit);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
 
-                    string successLabelText = "New Role Added: " + newRole.Name;
-                    string redirect = "AdminRoles.aspx?successLabelMessage=" + successLabelText;
+                    string successLabelText = "New Nutrient Limit Added: " + newNutrientLimit.Element;
+                    string redirect = "AdminNutrientLimits.aspx?successLabelMessage=" + successLabelText;
 
                     Response.Redirect(redirect, false);
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddRole", "", "");
+                HandleErrors(ex, ex.Message, "AddNutrientLimit", "", "");
             }
         }
 

@@ -113,6 +113,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\Admin.aspx" />
     <Content Include="Admin\AdminControlPermissions.aspx" />
+    <Content Include="Admin\AdminNutrientLimits.aspx" />
     <Content Include="Admin\AdminProjectStations.aspx" />
     <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
@@ -400,6 +401,13 @@
     </Compile>
     <Compile Include="Admin\AdminControlPermissions.aspx.designer.cs">
       <DependentUpon>AdminControlPermissions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminNutrientLimits.aspx.cs">
+      <DependentUpon>AdminNutrientLimits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminNutrientLimits.aspx.designer.cs">
+      <DependentUpon>AdminNutrientLimits.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdminProjectStations.aspx.cs">
       <DependentUpon>AdminProjectStations.aspx</DependentUpon>

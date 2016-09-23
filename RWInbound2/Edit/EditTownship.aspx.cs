@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.ModelBinding;
@@ -19,6 +20,8 @@ namespace RWInbound2.Edit
                 // to appear before the first roundtrip.
                 Validate();
             }
+            ErrorLabel.Text = "";
+            SuccessLabel.Text = "";
         }
 
         public IQueryable<tlkTownship> GetTownships([QueryString]string descriptionSearchTerm = "",
@@ -41,6 +44,14 @@ namespace RWInbound2.Edit
                 }
                 IQueryable<tlkTownship> townships = _db.tlkTownships
                                                .OrderBy(c => c.Code);
+                PropertyInfo isreadonly
+                   = typeof(System.Collections.Specialized.NameValueCollection)
+                           .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                // make collection editable
+                isreadonly.SetValue(this.Request.QueryString, false, null);
+                // remove
+                this.Request.QueryString.Clear();
+
                 return townships;
             }
             catch (Exception ex)

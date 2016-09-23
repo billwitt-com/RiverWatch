@@ -109,6 +109,7 @@
                     <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />
                 </td>
                  <td>
+                     <asp:Button ID="btnNutrientLimits" runat="server" Text="Nutrient Limits" CssClass="adminButton" Width="176px" OnClick="btnNutrientLimits_Click" />
                 </td>
             </tr>
             <tr>
