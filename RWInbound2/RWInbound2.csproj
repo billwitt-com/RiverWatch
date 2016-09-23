@@ -238,6 +238,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
+    <Content Include="Reports\OrgStatus.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="favicon.ico" />
@@ -270,6 +271,28 @@
     </Content>
     <Content Include="RiverWatchDataViewLachatNOBC.xsc">
       <DependentUpon>RiverWatchDataViewLachatNOBC.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchDataSetOrgStatus.xsc">
+      <DependentUpon>RiverWatchDataSetOrgStatus.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchDataSetOrgStatus.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchDataSetOrgStatus.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchDataSetOrgStatus.xss">
+      <DependentUpon>RiverWatchDataSetOrgStatus.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchDataSetOrgStatusView.xsc">
+      <DependentUpon>RiverWatchDataSetOrgStatusView.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchDataSetOrgStatusView.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchDataSetOrgStatusView.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchDataSetOrgStatusView.xss">
+      <DependentUpon>RiverWatchDataSetOrgStatusView.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchDataViewLachatNOBC.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -875,6 +898,13 @@
     <Compile Include="ProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Reports\OrgStatus.aspx.cs">
+      <DependentUpon>OrgStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgStatus.aspx.designer.cs">
+      <DependentUpon>OrgStatus.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
       <DependentUpon>ReportLachatNOTINNutrientBarcode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -917,6 +947,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchDataSetOrgs.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchDataSetOrgStatus.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchDataSetOrgStatus.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchDataSetOrgStatusView.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchDataSetOrgStatusView.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchDataViewLachatNOBC.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1238,6 +1278,7 @@
     <EmbeddedResource Include="Reports\LachatNoBC.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\OrgStatus.rdlc" />
     <EmbeddedResource Include="Reports\StationsWithGauges.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
