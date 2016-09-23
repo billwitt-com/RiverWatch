@@ -114,6 +114,7 @@
     <Content Include="Admin\Admin.aspx" />
     <Content Include="Admin\AdminControlPermissions.aspx" />
     <Content Include="Admin\AdminProjectStations.aspx" />
+    <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
@@ -406,6 +407,13 @@
     </Compile>
     <Compile Include="Admin\AdminProjectStations.aspx.designer.cs">
       <DependentUpon>AdminProjectStations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminRoles.aspx.cs">
+      <DependentUpon>AdminRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminRoles.aspx.designer.cs">
+      <DependentUpon>AdminRoles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdminStations.aspx.cs">
       <DependentUpon>AdminStations.aspx</DependentUpon>

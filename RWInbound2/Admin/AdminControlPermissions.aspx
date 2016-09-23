@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Control Permissions" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdminControlPermissions.aspx.cs" Inherits="RWInbound2.Admin.AdminControlPermissions" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" ClientIDMode="Static" runat="server">
     <section spellcheck="true">
         <div>
             <hgroup>
@@ -111,13 +111,13 @@
                 </asp:TemplateField>    
                 <asp:TemplateField HeaderText="Role Value (Number)" SortExpression="RoleValue">
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtRoleValue" runat="server" FilterType="Numbers" Text='<%# Bind("RoleValue") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtRoleValue" runat="server" TextMode="Number" Text='<%# Bind("RoleValue") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label ID="lblRoleValue" runat="server" Text='<%# Bind("RoleValue") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:TextBox ID="NewRoleValue" FilterType="Numbers" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="NewRoleValue" TextMode="Number" runat="server"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField> 
                 <asp:TemplateField HeaderText="Comments" SortExpression="Comments">
