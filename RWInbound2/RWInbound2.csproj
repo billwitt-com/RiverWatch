@@ -112,6 +112,7 @@
     <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\Admin.aspx" />
+    <Content Include="Admin\AdminOrgs.aspx" />
     <Content Include="Admin\AdminProjectStations.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
@@ -357,6 +358,7 @@
     <Content Include="Validation\ValidateField.aspx" />
     <Content Include="Validation\ValidateNormals.aspx" />
     <Content Include="Validation\ValidateNutrients.aspx" />
+    <Content Include="Validation\ValidateSoloNutrients.aspx" />
     <Content Include="Validation\Validation.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -391,6 +393,13 @@
     </Compile>
     <Compile Include="Admin\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminOrgs.aspx.cs">
+      <DependentUpon>AdminOrgs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminOrgs.aspx.designer.cs">
+      <DependentUpon>AdminOrgs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdminProjectStations.aspx.cs">
       <DependentUpon>AdminProjectStations.aspx</DependentUpon>
@@ -1176,6 +1185,13 @@
     </Compile>
     <Compile Include="Validation\ValidateNutrients.aspx.designer.cs">
       <DependentUpon>ValidateNutrients.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\ValidateSoloNutrients.aspx.cs">
+      <DependentUpon>ValidateSoloNutrients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateSoloNutrients.aspx.designer.cs">
+      <DependentUpon>ValidateSoloNutrients.aspx</DependentUpon>
     </Compile>
     <Compile Include="Validation\Validation.aspx.cs">
       <DependentUpon>Validation.aspx</DependentUpon>

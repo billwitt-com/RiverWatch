@@ -12,6 +12,7 @@ using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Web.Providers.Entities;
+// 09/23 Added code to add all stations to project 1 in projectstations
 
 namespace RWInbound2.Admin
 {
@@ -568,6 +569,24 @@ namespace RWInbound2.Admin
                 STN.WaterShedRegion = ddlWSR.SelectedValue;
                 STN.StateEngineering = cbStateEngineering.Checked;
                 STN.USGS = cbUSGS.Checked;
+                if(isNewStation)
+                {
+                    NRWE.Stations.Add(STN);
+                    // add station to projects 
+                    ProjectStation PS = new ProjectStation();
+                    PS.ProjectID = 1;
+                    PS.StationNumber = STN.StationNumber;
+                    PS.DateCreated = DateTime.Now;
+                     string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    PS.UserCreated = nam;
+                    NRWE.ProjectStations.Add(PS); 
+                }
+                NRWE.SaveChanges(); 
+                
             }
 
             catch (Exception ex)

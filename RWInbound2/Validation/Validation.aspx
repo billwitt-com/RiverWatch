@@ -46,8 +46,6 @@
                 <asp:Label ID="lblLachet" runat="server"></asp:Label>
             </td>
         </tr>
-
-
          <tr>
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 209px">

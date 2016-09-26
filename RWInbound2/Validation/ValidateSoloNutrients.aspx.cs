@@ -14,10 +14,10 @@ using System.Web.Providers.Entities;
 
 namespace RWInbound2.Validation
 {
-    public partial class ValidateNutrients : System.Web.UI.Page
+    public partial class ValidateSoloNutrients : System.Web.UI.Page
     {
-        Dictionary<string, decimal> HighLimit = new Dictionary<string, decimal>(); 
-        Dictionary<string, decimal> LowLimit = new Dictionary<string, decimal>(); 
+        Dictionary<string, decimal> HighLimit = new Dictionary<string, decimal>();   // holds symbol and D2Tlimit values
+        Dictionary<string, decimal> LowLimit = new Dictionary<string, decimal>();   // holds symbol and D2Tlimit values
         RiverWatchEntities NRWDE = new RiverWatchEntities();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -26,37 +26,37 @@ namespace RWInbound2.Validation
             // mark all rows that have CODEs not in 05,25,35 as blkdup and validated
             // then get all barcodes that have sample types (barcodes) that start with 'RW' and not validated and valid 
             RiverWatchEntities RWE = new RiverWatchEntities();
-            int nutrientCount = 0;
             bool allowed = false;
+            int nutrientHangingDups = 0;
 
             allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             if (!allowed)
                 Response.Redirect("~/index.aspx");
 
-            //  where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
-
-            var C = from c in RWE.NutrientDatas
-                    where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false 
-                    select c;
-            if (C.Count() > 0)
+            // added 09/22 to count hanging type '35' which is lone dup
+            using (SqlDataSource S = new SqlDataSource())
             {
-                nutrientCount = C.Count();
+                DataSourceSelectArguments args = new DataSourceSelectArguments();
+                S.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  //GlobalSite.RiverWatchDev;
+                S.SelectCommand = "select * FROM [RiverWatch].[dbo].[NutrientData]  where typecode = '35' and SampleNumber not in  " +
+                " ( select SampleNumber FROM [RiverWatch].[dbo].[NutrientData] where typecode = '25')";
+                System.Data.DataView result = (DataView)S.Select(args);
+                nutrientHangingDups = result.Table.Rows.Count;
             }
 
-            if (nutrientCount > 0)
+            if (nutrientHangingDups > 0)
             {
-                lblNumberLeft.Text = string.Format("There are {0} 'Normal' samples left to validate", nutrientCount);
+                lblNumberLeft.Text = string.Format("There are {0} 'SOLO' samples left to validate", nutrientHangingDups);
+                FormView1.Visible = true;
+                SqlDataSource1.SelectCommand = "select * FROM [RiverWatch].[dbo].[NutrientData]  where typecode = '35' and SampleNumber not in  " +
+                " ( select SampleNumber FROM [RiverWatch].[dbo].[NutrientData] where typecode = '25')";
+                FormView1.DataBind(); 
             }
             else
             {
                 lblNumberLeft.Text = "There are NO samples left to validate";
+                FormView1.Visible = false; 
             }
-
-            if (!IsPostBack)
-            {
-                
-            }
-               
         }
         // this is the place to do metrics and change colors, etc
         // let's use green for below limits and pink for above
@@ -80,30 +80,30 @@ namespace RWInbound2.Validation
             // ChlorATextBox
 
             RiverWatchEntities RWE = new RiverWatchEntities();
- 
+
             TextBox TB;
-            double dVal = 0; 
+            double dVal = 0;
             string barcode = "";
             string sampleNumber = "";
-            bool existingRecord = false; 
+            bool existingRecord = false;
 
-            NEWexpWater NW = null ;
+            NEWexpWater NW = null;
 
             string uniqueID = FormView1.Controls[0].UniqueID;
             string tbName = uniqueID + "$" + "BARCODETextBox";  // use the key value to build the name of the text box to be processed   
 
             TB = FormView1.Controls[0].FindControl("BARCODETextBox") as TextBox;
-            if(TB != null)
+            if (TB != null)
             {
-                barcode = TB.Text.Trim().ToUpper(); 
+                barcode = TB.Text.Trim().ToUpper();
             }
 
             tbName = uniqueID + "$" + "SampleNumberTextBox";
             TB = FormView1.Controls[0].FindControl("SampleNumberTextBox") as TextBox;
-         //   TB = FormView1.Controls[0].FindControl(tbName) as TextBox;
-            if(TB != null)
+            //   TB = FormView1.Controls[0].FindControl(tbName) as TextBox;
+            if (TB != null)
             {
-                sampleNumber = TB.Text.Trim().ToUpper(); 
+                sampleNumber = TB.Text.Trim().ToUpper();
             }
             try
             {
@@ -132,13 +132,13 @@ namespace RWInbound2.Validation
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
-            
+
             TB = FormView1.Controls[0].FindControl("TotalPhosTextBox") as TextBox;
-            if(TB.Text.Length > 0)
+            if (TB.Text.Length > 0)
             {
-                if (double.TryParse(TB.Text, out dVal ))
+                if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.totP = dVal; 
+                    NW.totP = dVal;
                 }
             }
             TB = FormView1.Controls[0].FindControl("OrthoPhosTextBox") as TextBox;
@@ -226,35 +226,35 @@ namespace RWInbound2.Validation
                 namm = "Not logged in";
             else
                 namm = User.Identity.Name;
-            NW.CreatedBy = namm;  
+            NW.CreatedBy = namm;
             NW.NutrientBarCode = barcode; // we will overwrite if there is already a bar code. Should be the same if there is one. 
             NW.SampleNumber = sampleNumber; // if existing record, this will be the same... 
             if (!existingRecord) // no existing record, so we are first
             {
                 RWE.NEWexpWaters.Add(NW);
             }
-            RWE.SaveChanges(); 
+            RWE.SaveChanges();
 
             // update all rows that have this barcode in lachet table
             var L = from l in RWE.Lachats
                     where l.SampleType.ToUpper() == barcode.ToUpper()
                     select l;
-            if(L != null)   // should never happen
+            if (L != null)   // should never happen
             {
-                foreach(Lachat l in L)
+                foreach (Lachat l in L)
                 {
                     l.Validated = true;
-                    l.Valid = true; 
+                    l.Valid = true;
                 }
-                RWE.SaveChanges(); 
+                RWE.SaveChanges();
             }
 
             // I think this must happen before the sqldatasource update
             var ND = (from nd in RWE.NutrientDatas
-                     where nd.BARCODE.ToUpper() == barcode.ToUpper()
-                     select nd).FirstOrDefault();  
-            if(ND != null)
-            {       
+                      where nd.BARCODE.ToUpper() == barcode.ToUpper()
+                      select nd).FirstOrDefault();
+            if (ND != null)
+            {
                 ND.Validated = true;
                 RWE.SaveChanges();
             }
@@ -263,7 +263,7 @@ namespace RWInbound2.Validation
         // TextBox_TextChanged called by all text box changes
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            updateControls();             
+            updateControls();
         }
         public void updateControls()
         {
@@ -399,28 +399,6 @@ namespace RWInbound2.Validation
             // ChlorATextBox
         }
 
-        // don't think this is being used as we set up these parms in our code
-        protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
-        {
-            //// <asp:Parameter Name="Valid" Type="Boolean" />
-            ////<asp:Parameter Name="Validated" Type="Boolean" />
-            ////<asp:Parameter Name="DateCreated" Type="DateTime" />
-            ////<asp:Parameter Name="CreatedBy" Type="String" />
-
-            //string uzr = "Unknown";
-            //if (User.Identity.Name.Length > 3)
-            //{
-            //    uzr = User.Identity.Name;
-            //}
-            //e.Command.Parameters["@CreatedBy"].Value = uzr;
-            //e.Command.Parameters["@Valid"].Value = true;
-            //e.Command.Parameters["@Validated"].Value = true;
-            //e.Command.Parameters["@DateCreated"].Value = DateTime.Now;           
-        }
-        
-        ///  pass in text box name and this will return parsed decimal value if return is true
-        ///  returns false if no value was found in the text
-        /// </summary>
         /// <param name="tbName">name of text box</param>
         /// <param name="UID">the unique id of the control set from callers viewpoint</param>
         /// <param name="Value">decimal value of text box, if any</param>
@@ -481,6 +459,24 @@ namespace RWInbound2.Validation
 
         // we do not add this sample to nutrientbarcode, nor newExpWater
         // but do mark it as invalid and failed
+
+        protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            // <asp:Parameter Name="Valid" Type="Boolean" />
+            //<asp:Parameter Name="Validated" Type="Boolean" />
+            //<asp:Parameter Name="DateCreated" Type="DateTime" />
+            //<asp:Parameter Name="CreatedBy" Type="String" />
+
+            //string uzr = "Unknown";
+            //if (User.Identity.Name.Length > 3)
+            //{
+            //    uzr = User.Identity.Name;
+            //}
+            //e.Command.Parameters["@CreatedBy"].Value = uzr;
+            //e.Command.Parameters["@Valid"].Value = true;
+            //e.Command.Parameters["@Validated"].Value = true;
+            //e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+        }
         protected void btnBad_Click(object sender, EventArgs e)
         {
             // update all rows that have this barcode in lachet table
@@ -504,7 +500,7 @@ namespace RWInbound2.Validation
                 var L = from l in RWE.Lachats
                         where l.SampleType.ToUpper() == barcode.ToUpper()
                         select l;
-                if (L != null)   
+                if (L != null)
                 {
                     foreach (Lachat l in L)
                     {
@@ -547,10 +543,13 @@ namespace RWInbound2.Validation
             string cmdStr = "";
             batchNumber = tbBatchNumber.Text.Trim();
             // SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '05'
-            cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' and Batch like '{0}'", batchNumber);
-            
+//            cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' and Batch like '{0}'", batchNumber);
+
+
+            cmdStr = string.Format("select * FROM [RiverWatch].[dbo].[NutrientData]  where typecode = '35' and [Batch] = '{0}' and SampleNumber not in  " +
+               " ( select SampleNumber FROM [RiverWatch].[dbo].[NutrientData] where typecode = '25'", batchNumber) ;
             SqlDataSource1.SelectCommand = cmdStr;
-            FormView1.DataBind(); 
+            FormView1.DataBind();
         }
     }
 }
