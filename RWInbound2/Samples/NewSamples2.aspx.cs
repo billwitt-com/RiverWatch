@@ -1122,7 +1122,7 @@ namespace RWInbound2.Samples
             string queryString = string.Format("SELECT [LabID] ,[Code] ,[Type] ,[Filtered] ,[BoxNumber] " +
 
                         " FROM [Riverwatch].[dbo].[MetalBarCode] " +
-                        " where NumberSample like '{0.}'", station_Sample.Trim());
+                        " where NumberSample like '{0}'", station_Sample.Trim());
 
 
             try
@@ -1181,7 +1181,7 @@ namespace RWInbound2.Samples
             queryString = string.Format(
                 " SELECT LabID as [Barcode], Code as [Sample Type] " +
                 " FROM      [RiverWatch].[dbo].[MetalBarCode] AS a " +
-                " WHERE    a.NumberSample like '{0.}' " +
+                " WHERE    a.NumberSample like '{0}' " +
                 " and   NOT EXISTS (SELECT * FROM[RiverWatch].[dbo].[NEWexpWater] AS b " +
                 " WHERE b.tblSampleID = a.ID) " +
                 " and  Not Exists (Select * From [RiverWatch].[dbo].[InboundICPFinal] as c " +

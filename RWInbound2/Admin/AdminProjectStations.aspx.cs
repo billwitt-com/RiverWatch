@@ -138,8 +138,6 @@ namespace RWInbound2.Admin
                     = ((ListBox)UpdateProjectStationsForm.FindControl("AvaliableStationsListBox"));
 
                 ((TextBox)UpdateProjectStationsForm.FindControl("StationNumberSearchTextBox")).Text = "";
-                ((TextBox)UpdateProjectStationsForm.FindControl("StationNumberSearchTextBox")).Enabled = false;
-                ((Button)UpdateProjectStationsForm.FindControl("StationNumberSearchTextBoxButton")).Enabled = false;
 
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
@@ -181,7 +179,7 @@ namespace RWInbound2.Admin
                 ListBox avaliableStationsListBox
                     = ((ListBox)UpdateProjectStationsForm.FindControl("AvaliableStationsListBox"));
 
-                ((DropDownList)UpdateProjectStationsForm.FindControl("RiversDropDown")).Enabled = false;
+                ((DropDownList)UpdateProjectStationsForm.FindControl("RiversDropDown")).ClearSelection();
 
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {

@@ -43,7 +43,21 @@ namespace RWInbound2.Admin
         protected void btnProjectStations_Click(object sender, EventArgs e)
         {
             Response.Redirect("AdminProjectStations.aspx");
+        }
 
+        protected void btnControlPermissions_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminControlPermissions.aspx");
+        }
+
+        protected void btnRoles_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminRoles.aspx");
+        }
+
+        protected void btnNutrientLimits_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminNutrientLimits.aspx");
         }
     }
 }

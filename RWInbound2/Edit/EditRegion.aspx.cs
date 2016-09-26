@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
@@ -18,6 +19,8 @@ namespace RWInbound2.Edit
                 // to appear before the first roundtrip.
                 Validate();
             }
+            ErrorLabel.Text = "";
+            SuccessLabel.Text = "";
         }
 
         public IQueryable<tlkregion> GetRegions([QueryString]string descriptionSearchTerm = "",
@@ -40,6 +43,14 @@ namespace RWInbound2.Edit
                 }
                 IQueryable<tlkregion> regions = _db.tlkregions
                                                .OrderBy(c => c.Code);
+                PropertyInfo isreadonly
+                   = typeof(System.Collections.Specialized.NameValueCollection)
+                           .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                // make collection editable
+                isreadonly.SetValue(this.Request.QueryString, false, null);
+                // remove
+                this.Request.QueryString.Clear();
+
                 return regions;
             }
             catch (Exception ex)

@@ -87,5 +87,10 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("ReportLachatNOTINNutrientBarcode.aspx");
         }
+
+        protected void btnOrgStatus_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgStatus.aspx");
+        }
     }
 }

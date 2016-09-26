@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using System.Web.ModelBinding;
 using System.Data.Entity.Validation;
 using System.Text;
+using System.Reflection;
 
 namespace RWInbound2.Edit
 {
@@ -19,6 +20,8 @@ namespace RWInbound2.Edit
                 // to appear before the first roundtrip.
                 Validate();
             }
+            ErrorLabel.Text = "";
+            SuccessLabel.Text = "";
         }
 
         public IQueryable<tlkBioResultsType> GetBioResultsTypes([QueryString]string descriptionSearchTerm = "",
@@ -41,6 +44,14 @@ namespace RWInbound2.Edit
                 }
                 IQueryable<tlkBioResultsType> bioResultsTypes = _db.tlkBioResultsTypes
                                                      .OrderBy(c => c.Code);
+                PropertyInfo isreadonly
+                   = typeof(System.Collections.Specialized.NameValueCollection)
+                           .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                // make collection editable
+                isreadonly.SetValue(this.Request.QueryString, false, null);
+                // remove
+                this.Request.QueryString.Clear();
+
                 return bioResultsTypes;
             }
             catch (Exception ex)

@@ -64,7 +64,7 @@
                 <td style="width: 262px; height: 18px;">        
                     <asp:Button ID="Button6"  CssClass="adminButton" runat="server" Text="Manage Organizations" Width="176px" /></td>
                 <td style="height: 18px">
-        <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />
+                <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />
                 </td>
             </tr>
             <tr>
@@ -88,16 +88,28 @@
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button1" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Users"  Width="176px" />
+                    <asp:Button ID="Button1" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Users"  Width="176px" />
                 </td>
                 <td>
-        <asp:Button ID="Button2" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" />
+                    <asp:Button ID="Button2" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" />
                 </td>
             </tr>
              <tr>
                 <td>&nbsp;</td>               
-                <td style="height: 18px">
+                <td style="width: 262px">
                     <asp:Button ID="btnProjectStations" runat="server" Text="Project Stations" CssClass="adminButton" Width="176px" OnClick="btnProjectStations_Click" />
+                </td>
+                 <td>
+                    <asp:Button ID="btnControlPermissions" runat="server" Text="Control Permissions" CssClass="adminButton" Width="176px" OnClick="btnControlPermissions_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>               
+                <td style="width: 262px">
+                    <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />
+                </td>
+                 <td>
+                     <asp:Button ID="btnNutrientLimits" runat="server" Text="Nutrient Limits" CssClass="adminButton" Width="176px" OnClick="btnNutrientLimits_Click" />
                 </td>
             </tr>
             <tr>

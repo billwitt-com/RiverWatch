@@ -112,8 +112,10 @@
     <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\Admin.aspx" />
-    <Content Include="Admin\AdminOrgs.aspx" />
+    <Content Include="Admin\AdminControlPermissions.aspx" />
+    <Content Include="Admin\AdminNutrientLimits.aspx" />
     <Content Include="Admin\AdminProjectStations.aspx" />
+    <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
@@ -236,6 +238,8 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
+    <Content Include="Reports\OrgStations.aspx" />
+    <Content Include="Reports\OrgStatus.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="favicon.ico" />
@@ -268,6 +272,39 @@
     </Content>
     <Content Include="RiverWatchDataViewLachatNOBC.xsc">
       <DependentUpon>RiverWatchDataViewLachatNOBC.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchDataSetOrgStatus.xsc">
+      <DependentUpon>RiverWatchDataSetOrgStatus.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchDataSetOrgStations.xsc">
+      <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchDataSetOrgStations.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchDataSetOrgStations.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchDataSetOrgStations.xss">
+      <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchDataSetOrgStatus.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchDataSetOrgStatus.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchDataSetOrgStatus.xss">
+      <DependentUpon>RiverWatchDataSetOrgStatus.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchDataSetOrgStatusView.xsc">
+      <DependentUpon>RiverWatchDataSetOrgStatusView.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchDataSetOrgStatusView.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchDataSetOrgStatusView.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchDataSetOrgStatusView.xss">
+      <DependentUpon>RiverWatchDataSetOrgStatusView.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchDataViewLachatNOBC.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -358,7 +395,6 @@
     <Content Include="Validation\ValidateField.aspx" />
     <Content Include="Validation\ValidateNormals.aspx" />
     <Content Include="Validation\ValidateNutrients.aspx" />
-    <Content Include="Validation\ValidateSoloNutrients.aspx" />
     <Content Include="Validation\Validation.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -394,12 +430,19 @@
     <Compile Include="Admin\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\AdminOrgs.aspx.cs">
-      <DependentUpon>AdminOrgs.aspx</DependentUpon>
+    <Compile Include="Admin\AdminControlPermissions.aspx.cs">
+      <DependentUpon>AdminControlPermissions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\AdminOrgs.aspx.designer.cs">
-      <DependentUpon>AdminOrgs.aspx</DependentUpon>
+    <Compile Include="Admin\AdminControlPermissions.aspx.designer.cs">
+      <DependentUpon>AdminControlPermissions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminNutrientLimits.aspx.cs">
+      <DependentUpon>AdminNutrientLimits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminNutrientLimits.aspx.designer.cs">
+      <DependentUpon>AdminNutrientLimits.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdminProjectStations.aspx.cs">
       <DependentUpon>AdminProjectStations.aspx</DependentUpon>
@@ -407,6 +450,13 @@
     </Compile>
     <Compile Include="Admin\AdminProjectStations.aspx.designer.cs">
       <DependentUpon>AdminProjectStations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminRoles.aspx.cs">
+      <DependentUpon>AdminRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminRoles.aspx.designer.cs">
+      <DependentUpon>AdminRoles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdminStations.aspx.cs">
       <DependentUpon>AdminStations.aspx</DependentUpon>
@@ -860,6 +910,20 @@
     <Compile Include="ProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Reports\OrgStations.aspx.cs">
+      <DependentUpon>OrgStations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgStations.aspx.designer.cs">
+      <DependentUpon>OrgStations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OrgStatus.aspx.cs">
+      <DependentUpon>OrgStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgStatus.aspx.designer.cs">
+      <DependentUpon>OrgStatus.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
       <DependentUpon>ReportLachatNOTINNutrientBarcode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -902,6 +966,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchDataSetOrgs.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchDataSetOrgStations.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchDataSetOrgStatus.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchDataSetOrgStatus.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchDataSetOrgStatusView.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchDataSetOrgStatusView.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchDataViewLachatNOBC.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1186,13 +1265,6 @@
     <Compile Include="Validation\ValidateNutrients.aspx.designer.cs">
       <DependentUpon>ValidateNutrients.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Validation\ValidateSoloNutrients.aspx.cs">
-      <DependentUpon>ValidateSoloNutrients.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Validation\ValidateSoloNutrients.aspx.designer.cs">
-      <DependentUpon>ValidateSoloNutrients.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Validation\Validation.aspx.cs">
       <DependentUpon>Validation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1230,6 +1302,8 @@
     <EmbeddedResource Include="Reports\LachatNoBC.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\OrgStatus.rdlc" />
+    <EmbeddedResource Include="Reports\OrgStations.rdlc" />
     <EmbeddedResource Include="Reports\StationsWithGauges.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

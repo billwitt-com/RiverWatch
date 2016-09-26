@@ -10,4 +10,6 @@
     <asp:Button ID="btnOrgPerformance" runat="server" Text="OrgPerformance" />
         <br />
     <asp:Button ID="btnLachatNoBC" runat="server" Text="Lachat BC not Entered" OnClick="btnLachatNoBC_Click" />
+    <br />
+    <asp:Button ID="btnOrgStatus" runat="server" Text="OrgStatus" OnClick="btnOrgStatus_Click" />
 </asp:Content>

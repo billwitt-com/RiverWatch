@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.ModelBinding;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
@@ -20,6 +20,8 @@ namespace RWInbound2.Edit
                 // to appear before the first roundtrip.
                 Validate();
             }
+            ErrorLabel.Text = "";
+            SuccessLabel.Text = "";
         }
 
         public IQueryable<Project> GetProjects([QueryString]string projectNameSearchTerm = "",
@@ -42,6 +44,14 @@ namespace RWInbound2.Edit
                 }
                 IQueryable<Project> projects = _db.Projects
                                                .OrderBy(c => c.ProjectName);
+                PropertyInfo isreadonly
+                   = typeof(System.Collections.Specialized.NameValueCollection)
+                           .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                // make collection editable
+                isreadonly.SetValue(this.Request.QueryString, false, null);
+                // remove
+                this.Request.QueryString.Clear();
+
                 return projects;
             }
             catch (Exception ex)
@@ -203,7 +213,7 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewState", "", "");
+                HandleErrors(ex, ex.Message, "AddNewProject", "", "");
             }
         }
 
