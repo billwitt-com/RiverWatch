@@ -50,10 +50,10 @@ namespace RWInbound2.App_Code
                 if (R == null)
                     return false;               
 
-                if (role < R.RoleValue)
-                    return false;
+                if (role >=  R.RoleValue)
+                    return true;
                 else
-                    return true;   
+                    return false;   
             }
             catch (Exception ex)
             {

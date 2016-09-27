@@ -49,7 +49,7 @@
                 </td>
             </tr>
         </table>
-        <br />
+                <br />
         <table style="width: 100%">
             <tr>
                 <td style="width: 33px">&nbsp;</td>
@@ -58,7 +58,7 @@
                 </td>
                 <td>
                     <asp:TextBox ID="tbTestDate" runat="server"></asp:TextBox>
-                    <ajaxToolkit:CalendarExtender ID="tbTestDate_CalendarExtender" runat="server" TargetControlID="tbTestDate" />
+                    <ajaxToolkit:CalendarExtender ID="tbTestDate_CalendarExtender"  runat="server" TargetControlID="tbTestDate" />
                 </td>
             </tr>
             <tr>
@@ -82,8 +82,10 @@
                 <td style="width: 166px">
                     <asp:Label ID="Label6" runat="server" Text="Ph 1: "></asp:Label>
                 </td>
-                <td>
+                <td>                   
                     <asp:TextBox ID="tbpH1" runat="server"></asp:TextBox>
+                    <asp:RangeValidator ID="RangeValidator1" runat="server"  ControlToValidate="tbpH1" MinimumValue="0"  Type="Double" 
+                        ErrorMessage="Please enter a decimal value"></asp:RangeValidator>
                 </td>
             </tr>
             <tr>
@@ -93,6 +95,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="tbpH2" runat="server"></asp:TextBox>
+                    <asp:RangeValidator ID="RangeValidator2" runat="server"  ControlToValidate="tbpH2" MinimumValue="0"  Type="Double" 
+                        ErrorMessage="Please enter a decimal value"></asp:RangeValidator>
                 </td>
             </tr>
             <tr>
@@ -128,6 +132,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="tbAlk1" runat="server"></asp:TextBox>
+                    <asp:RangeValidator ID="RangeValidator3" runat="server"  ControlToValidate="tbAlk1" MinimumValue="0"  Type="Double" 
+                        ErrorMessage="Please enter a decimal value"></asp:RangeValidator>
                 </td>
             </tr>
             <tr>
@@ -137,6 +143,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="tbAlk2" runat="server"></asp:TextBox>
+                    <asp:RangeValidator ID="RangeValidator4" runat="server"  ControlToValidate="tbAlk2" MinimumValue="0"  Type="Double" 
+                        ErrorMessage="Please enter a decimal value"></asp:RangeValidator>
                 </td>
             </tr>
             <tr>
@@ -172,6 +180,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="tbHard1" runat="server"></asp:TextBox>
+                     <asp:RangeValidator ID="RangeValidator5" runat="server"  ControlToValidate="tbHard1" MinimumValue="0"  Type="Double" 
+                        ErrorMessage="Please enter a decimal value"></asp:RangeValidator>
                 </td>
             </tr>
             <tr>
@@ -181,6 +191,9 @@
                 </td>
                 <td>
                     <asp:TextBox ID="tbHard2" runat="server"></asp:TextBox>
+                     <asp:RangeValidator ID="RangeValidator6" runat="server"  ControlToValidate="tbHard2" MinimumValue="0"  Type="Double" 
+                        ErrorMessage="Please enter a decimal value"></asp:RangeValidator>
+
                 </td>
             </tr>
             <tr>
@@ -201,6 +214,8 @@
                     <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
                 </td>
                 <td>
+
+                    <asp:Label ID="lblMessage0" runat="server" Text=""></asp:Label>
 
                 </td>
             </tr>

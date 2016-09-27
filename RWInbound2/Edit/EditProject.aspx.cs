@@ -39,10 +39,10 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(projectNameSearchTerm))
                 {
-                    return _db.Projects.Where(c => c.ProjectName.Equals(projectNameSearchTerm))
+                    return _db.Project.Where(c => c.ProjectName.Equals(projectNameSearchTerm))
                                        .OrderBy(c => c.ProjectName);
                 }
-                IQueryable<Project> projects = _db.Projects
+                IQueryable<Project> projects = _db.Project
                                                .OrderBy(c => c.ProjectName);
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
@@ -98,7 +98,7 @@ namespace RWInbound2.Edit
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    projectsNames = _db.Projects
+                    projectsNames = _db.Project
                                              .Where(c => c.ProjectName.Contains(prefixText))
                                              .Select(c => c.ProjectName).ToList();
 
@@ -119,7 +119,7 @@ namespace RWInbound2.Edit
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var projectToUpdate = _db.Projects.Find(model.ProjectID);
+                    var projectToUpdate = _db.Project.Find(model.ProjectID);
 
                     projectToUpdate.ProjectName = model.ProjectName;
                     projectToUpdate.ProjectDescription = model.ProjectDescription;
@@ -153,8 +153,8 @@ namespace RWInbound2.Edit
             {
                 try
                 {
-                    var projectToDelete = _db.Projects.Find(model.ProjectID);
-                    _db.Projects.Remove(projectToDelete);
+                    var projectToDelete = _db.Project.Find(model.ProjectID);
+                    _db.Project.Remove(projectToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "Project Deleted";
@@ -184,7 +184,7 @@ namespace RWInbound2.Edit
                     {
                         ProjectName = name,
                         ProjectDescription = projectDescription,
-                        valid = true,
+                        Valid = true,
                         DateLastModified = DateTime.Now
                     };
 
@@ -200,7 +200,7 @@ namespace RWInbound2.Edit
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.Projects.Add(newProject);
+                        _db.Project.Add(newProject);
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 

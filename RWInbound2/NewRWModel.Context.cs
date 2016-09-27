@@ -33,14 +33,12 @@ namespace RWInbound2
         public virtual DbSet<NutrientBarCode> NutrientBarCodes { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
         public virtual DbSet<OrgStatu> OrgStatus { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectStation> ProjectStations { get; set; }
         public virtual DbSet<Sample> Samples { get; set; }
         public virtual DbSet<Station> Stations { get; set; }
         public virtual DbSet<tblParticipant> tblParticipants { get; set; }
         public virtual DbSet<tblPartInfo> tblPartInfoes { get; set; }
         public virtual DbSet<tblPhysHabPara> tblPhysHabParas { get; set; }
-        public virtual DbSet<tblProject> tblProjects { get; set; }
         public virtual DbSet<tblSampleXXXX> tblSampleXXXXes { get; set; }
         public virtual DbSet<tblWatercode> tblWatercodes { get; set; }
         public virtual DbSet<tblWatershedGrp> tblWatershedGrps { get; set; }
@@ -87,12 +85,16 @@ namespace RWInbound2
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
         public virtual DbSet<tblTrainee> tblTrainees { get; set; }
-        public virtual DbSet<tblProjectStation> tblProjectStations { get; set; }
         public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
         public virtual DbSet<InboundSample> InboundSamples { get; set; }
         public virtual DbSet<NutrientData> NutrientDatas { get; set; }
         public virtual DbSet<NutrientLimit> NutrientLimits { get; set; }
         public virtual DbSet<tlkNutrientLimit> tlkNutrientLimits { get; set; }
         public virtual DbSet<UnknownSample> UnknownSamples { get; set; }
+        public virtual DbSet<OrgStationsView> OrgStationsViews { get; set; }
+        public virtual DbSet<OrgStatusView> OrgStatusViews { get; set; }
+        public virtual DbSet<ParticipantswithOrgName> ParticipantswithOrgNames { get; set; }
+        public virtual DbSet<ViewSoloNutrientDup> ViewSoloNutrientDups { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
     }
 }
