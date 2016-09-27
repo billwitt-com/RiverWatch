@@ -27,11 +27,12 @@ namespace RWInbound2.Validation
             RiverWatchEntities RWE = new RiverWatchEntities();
             int DUPnutrientCount = 0;
             bool allowed = false;
-
             allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             if (!allowed)
                 Response.Redirect("~/index.aspx");
-            lblError.Visible = false; 
+            lblError.Visible = false;
+
+            Session["BATCH_CMDSTR"] = null; 
             //  where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
 
             var C = from c in RWE.NutrientDatas
@@ -60,6 +61,7 @@ namespace RWInbound2.Validation
             batchNumber = tbBatchNumber.Text.Trim();
             // SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '05'
             cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '25' and Batch like '{0}'", batchNumber);
+            Session["BATCH_CMDSTR"] = cmdStr; 
 
             SqlDataSource1.SelectCommand = cmdStr;
             FormView1.DataBind(); 
@@ -787,7 +789,14 @@ namespace RWInbound2.Validation
             FormView2.Visible = true; 
             // we have good barcode for dup, so set formview2 to this barcode. 
 
-            query = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and barcode = '{0}'", BC);
+            if (Session["BATCH_CMDSTR"] != null)
+            {
+                query = (string)Session["BATCH_CMDSTR"];
+            }
+            else
+            {
+                query = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and barcode = '{0}'", BC);
+            }
             SqlDataSource2.SelectCommand = query;
             FormView2.DataBind(); // force update from sql data source
         }

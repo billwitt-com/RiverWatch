@@ -66,9 +66,10 @@ namespace RWInbound2.Validation
             try
             {
                 UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
+                // just added & c.Validated == false to query below
                 RiverWatchEntities RWE = new RiverWatchEntities();
                 var C = from c in RWE.NutrientDatas
-                        where c.Valid == true & c.TypeCode.Contains("05")
+                        where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false
                         select c;
                 if(C.Count() > 0)
                 {
@@ -76,7 +77,7 @@ namespace RWInbound2.Validation
                 }
 
                 var C1 = from c1 in RWE.NutrientDatas
-                        where c1.Valid == true & c1.TypeCode.Contains("25")
+                         where c1.Valid == true & c1.TypeCode.Contains("25") & c1.Validated == false
                         select c1;
                 if (C1.Count() > 0)
                 {

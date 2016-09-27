@@ -20,6 +20,12 @@ namespace RWInbound2.Data
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            bool allowed = false;
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx"); 
+
             if (!IsPostBack)
             {
                 Panel1.Visible = false;

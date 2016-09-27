@@ -45,22 +45,29 @@ namespace RWInbound2.Validation
                     foreach (string bcode in BC)
                     {
                         // get raw data from lachat table for this bar code, could be no values or could be six or more
-
-                        if(bcode.ToUpper() == "RW16-5207" )
-                        {
-                            string stophere = "stop here"; 
-                        }
+  
                         var D = from d in RWE.Lachats
-                                where d.SampleType == bcode
+                                where d.SampleType.ToUpper() == bcode.ToUpper()
                                 select d;
+
+                        if(bcode.ToUpper() == "RW16-5215")
+                        {
+                            string stop = "stop"; 
+                        }
 
                         // see if this bar code exists in the nutrient data table, if not, insert it
 
+                        // I don't think we need to test for valid or validated. If the BC is there, modify it. If not, make a new one
+                        //NutrientData TEST = (NutrientData)(from nd in RWE.NutrientDatas
+                        //                                   where nd.BARCODE == bcode & nd.Valid == true & nd.Validated == false
+                        //                                   select nd).FirstOrDefault();
+
                         NutrientData TEST = (NutrientData)(from nd in RWE.NutrientDatas
-                                                           where nd.BARCODE == bcode & nd.Valid == true & nd.Validated == false
+                                                           where nd.BARCODE.ToUpper() == bcode.ToUpper()    //  & nd.Valid == true & nd.Validated == false
                                                            select nd).FirstOrDefault();
 
-                        if (TEST != null)  // there is no existing bar code, so we need to make one 
+                        // we will overwrite any existing data, which should not happen often, but perhaps in a partial update where there are addtional samples
+                        if (TEST != null)  
                         {
                             NData = TEST; // we have existing entries, so use this entity
                             existingRecord = true; // flag for later

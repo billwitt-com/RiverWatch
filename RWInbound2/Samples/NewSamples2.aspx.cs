@@ -26,64 +26,11 @@ namespace RWInbound2.Samples
             DateTime currentYear;
             DateTime thisyear = DateTime.Now;
             string date2parse;
+            bool allowed = false;
 
-            try
-            {
-                int role = 1;
-
-                if (Session["Role"] != null)
-                {
-                    role = (int)Session["Role"];    // get users role
-                }
-                string pgname = Page.ToString().Replace("ASP.", "").Replace("_", ".").ToUpper();
-                int idxEnd = pgname.IndexOf(".ASPX");
-                pgname = pgname.Remove(idxEnd);
-                int x = pgname.Length - 1;
-                int y = 0;
-                while (x != 0)
-                {
-                    if (pgname[x--] == '.')   // find a period, if it exists
-                        break;
-                }
-                if (x != 0) // a period, so take from this point to end of string
-                {
-                    x += 2; // advance beyond period
-                    y = pgname.Length - x;
-                    pgname = pgname.Substring(x, y);
-                }
-
-                RiverWatchEntities RWE = new RiverWatchEntities();
-                var R = from r in RWE.ControlPermissions
-                        where r.PageName.ToUpper() == pgname          // this is the page name and should appear in the table ControlPermissions
-                        select r;
-                if (R == null)
-                    Response.Redirect("~/index.aspx");  // there is no table entry, so don't let user use this page
-
-                int? Q = (from r in R
-                          where r.ControlID.ToUpper() == "PAGE"
-                          select r.RoleValue).FirstOrDefault();
-
-                if (Q != null)
-                {
-                    if (role < Q.Value)
-                        Response.Redirect("~/index.aspx");  // send unauthorized back to home page... 
-                }
-                else
-                {
-                    Response.Redirect("~/index.aspx");
-                }
-            }
-            catch (Exception ex)
-            {
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx");
 
             if (!IsPostBack)
             {
@@ -550,14 +497,19 @@ namespace RWInbound2.Samples
         }
 
         // common utility to update values on the samples page
-        private void updateSamplesPage(string stationSample)
+        private void updateSamplesPage(string EventNumber)
         {
             Sample TS;
-            string tstr = stationSample + "."; // we need the period so 51 is not the same as 512, etc.
+      //      string tstr = stationSample + "."; // we need the period so 51 is not the same as 512, etc.
+            string tstr = EventNumber;  // + "."; // we need the period so 51 is not the same as 512, etc.
             try
             {
+                //TS = (Sample)(from r in NRWDE.Samples
+                //              where r.NumberSample.StartsWith(tstr) & r.Valid == true
+                //              select r).FirstOrDefault();   // get most recent
+
                 TS = (Sample)(from r in NRWDE.Samples
-                              where r.NumberSample.StartsWith(tstr) & r.Valid == true
+                              where r.NumberSample == tstr & r.Valid == true
                               select r).FirstOrDefault();   // get most recent
 
                 // populate the screen 
@@ -610,8 +562,8 @@ namespace RWInbound2.Samples
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-            FillTabPanelICPdata(stationSample);
-            FillTabPanelBarcode(stationSample);
+            FillTabPanelICPdata(EventNumber);
+            FillTabPanelBarcode(EventNumber);
 
             // clean up barcode page - and nutrient page too XXXX
             lblBarcodeUsed.Text = "";
@@ -622,15 +574,15 @@ namespace RWInbound2.Samples
         // user has chosen a current sample
         protected void lstSamples_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string stationSample;
+            string EventNumber;
             int index = 0;
-            stationSample = lstSamples.SelectedItem.Value;
+            EventNumber = lstSamples.SelectedItem.Value;
             // select out the station event which is all digits to the left of the colon
 
-            index = stationSample.IndexOf(":");
-            stationSample = stationSample.Substring(0, index); // all to left of colon
-            stationSample = stationSample.Trim();             // remove any spaces, etc.
-            updateSamplesPage(stationSample);
+            index = EventNumber.IndexOf(":");
+            EventNumber = EventNumber.Substring(0, index); // all to left of colon
+            EventNumber = EventNumber.Trim();             // remove any spaces, etc.
+            updateSamplesPage(EventNumber);
             showTabs();
             // update org status tab too
         }
@@ -1116,13 +1068,13 @@ namespace RWInbound2.Samples
         }
 
         // add link button 
-        protected void FillTabPanelBarcode(string station_Sample)
+        protected void FillTabPanelBarcode(string EventNumber)
         {
 
             string queryString = string.Format("SELECT [LabID] ,[Code] ,[Type] ,[Filtered] ,[BoxNumber] " +
 
                         " FROM [Riverwatch].[dbo].[MetalBarCode] " +
-                        " where NumberSample like '{0}'", station_Sample.Trim());
+                        " where NumberSample like '{0}'", EventNumber.Trim());
 
 
             try
@@ -1168,11 +1120,12 @@ namespace RWInbound2.Samples
             }
         }
 
-        protected void FillTabPanelICPdata(string station_Sample)
+        // protected void FillTabPanelICPdata(string station_Sample)
+        protected void FillTabPanelICPdata(string EventNumber)
         {
             // quick fix:
 
-            string sid = station_Sample.Trim(); // txtNumSmp.Text.Trim(); // scrape page
+            string sid = EventNumber.Trim(); // txtNumSmp.Text.Trim(); // scrape page
             // query for barcodes that have been entered but not analyzed
             // thus are in newEXPWater (final output) nor in inboundicpfinal and NOT IN METALBARCODES      
 

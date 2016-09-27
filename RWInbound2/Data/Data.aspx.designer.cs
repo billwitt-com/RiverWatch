@@ -22,6 +22,15 @@ namespace RWInbound2.Data {
         protected global::System.Web.UI.WebControls.Button btnFieldData;
         
         /// <summary>
+        /// btnUnknownSample control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUnknownSample;
+        
+        /// <summary>
         /// btnUploadLatchat control.
         /// </summary>
         /// <remarks>
@@ -155,15 +164,6 @@ namespace RWInbound2.Data {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button4;
-        
-        /// <summary>
-        /// btnUnknownSample control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUnknownSample;
         
         /// <summary>
         /// Button11 control.

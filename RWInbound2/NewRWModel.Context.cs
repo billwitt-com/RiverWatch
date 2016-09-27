@@ -92,5 +92,7 @@ namespace RWInbound2
         public virtual DbSet<InboundSample> InboundSamples { get; set; }
         public virtual DbSet<NutrientData> NutrientDatas { get; set; }
         public virtual DbSet<NutrientLimit> NutrientLimits { get; set; }
+        public virtual DbSet<tlkNutrientLimit> tlkNutrientLimits { get; set; }
+        public virtual DbSet<UnknownSample> UnknownSamples { get; set; }
     }
 }

@@ -238,6 +238,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
+    <Content Include="Public\UnknownData.aspx" />
     <Content Include="Reports\OrgStations.aspx" />
     <Content Include="Reports\OrgStatus.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
@@ -910,6 +911,13 @@
     <Compile Include="ProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Public\UnknownData.aspx.cs">
+      <DependentUpon>UnknownData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\UnknownData.aspx.designer.cs">
+      <DependentUpon>UnknownData.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\OrgStations.aspx.cs">
       <DependentUpon>OrgStations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1171,6 +1179,9 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
     <Compile Include="LogErrror.cs" />
+    <Compile Include="tlkNutrientLimit.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tlkOrganizationType.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -1220,6 +1231,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="trsChemParaMapColumn.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnknownSample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Validation\UpdateNutrients.cs" />

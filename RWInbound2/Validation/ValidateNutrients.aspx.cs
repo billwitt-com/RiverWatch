@@ -54,7 +54,7 @@ namespace RWInbound2.Validation
 
             if (!IsPostBack)
             {
-                
+                Session["BATCH_CMDSTR"] = null; 
             }
                
         }
@@ -547,8 +547,10 @@ namespace RWInbound2.Validation
             string cmdStr = "";
             batchNumber = tbBatchNumber.Text.Trim();
             // SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '05'
-            cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' and Batch like '{0}'", batchNumber);
             
+            cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' and Batch like '{0}'", batchNumber);
+
+            Session["BATCH_CMDSTR"] = cmdStr; 
             SqlDataSource1.SelectCommand = cmdStr;
             FormView1.DataBind(); 
         }
