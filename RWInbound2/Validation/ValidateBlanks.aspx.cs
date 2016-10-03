@@ -24,7 +24,7 @@ namespace RWInbound2.Validation
         {
             int x = 0;
             int sampID = 0;
-            string sampleType = ""; // this is Duplicate in data base, for now
+            string sampleType = ""; // this is Value2 in data base, for now
             DataSourceSelectArguments args = new DataSourceSelectArguments();
             string name = "";
             decimal D2Tvalue = 0;
@@ -397,7 +397,7 @@ namespace RWInbound2.Validation
             }
             else
             {
-                lblNote.Text = "No Normal Sample";
+                lblNote.Text = "No Value1 Sample";
                 lblNote.Visible = true;
                 lblNote.ForeColor = Color.Red; 
             }

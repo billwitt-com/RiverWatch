@@ -5,18 +5,17 @@
         <table style="width: 100%">
             <tr>
                 <td style="width: 754px">
-                    <p class="site-title"> Welcome to River Watch Internal Web Site </p>
+                    <p class="pageHeader"> Welcome to River Watch Internal Web Site </p>
        
                     </td>
-                <td>&nbsp;</td>
-                <td>
+                <td style="width: 74px">
                     <asp:Button ID="btnLogin" runat="server" Text="Log In" OnClick="btnLogin_Click" /></td>
+                <td>
+                    <asp:Button ID="btnLogOut" runat="server" OnClick="btnLogOut_Click" Text="Log Out" />
+                </td>
             </tr>
         </table>
    
-    <p>
-        <asp:Label ID="lblWelcome" runat="server" Text="Welcome Default"></asp:Label>
-        </p>
     <p>
         Links to associated sites?</p>
     <p>

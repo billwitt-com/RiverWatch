@@ -70,12 +70,12 @@
         <EntityTypeShape EntityType="RiverWatchModel.NutrientData" Width="1.5" PointX="27.375" PointY="0.75" />
         <EntityTypeShape EntityType="RiverWatchModel.NutrientLimit" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkNutrientLimit" Width="1.5" PointX="7.75" PointY="18.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.UnknownSample" Width="1.5" PointX="2.75" PointY="27.75" />
         <EntityTypeShape EntityType="RiverWatchModel.OrgStationsView" Width="1.5" PointX="27.375" PointY="8.75" />
         <EntityTypeShape EntityType="RiverWatchModel.OrgStatusView" Width="1.5" PointX="27.375" PointY="11.75" />
         <EntityTypeShape EntityType="RiverWatchModel.ParticipantswithOrgName" Width="1.5" PointX="27.375" PointY="22.75" />
         <EntityTypeShape EntityType="RiverWatchModel.ViewSoloNutrientDup" Width="1.5" PointX="23.375" PointY="27.75" />
         <EntityTypeShape EntityType="RiverWatchModel.Project" Width="1.5" PointX="9.375" PointY="7.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.UnknownSample" Width="1.5" PointX="0.75" PointY="27.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

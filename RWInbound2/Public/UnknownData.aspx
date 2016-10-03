@@ -7,44 +7,46 @@
 
     <asp:Panel ID="pnlLogin" runat="server">
 
+        <asp:Label ID="lblWelcome" runat="server"></asp:Label>
+
         <br />
 
         <table style="width: 100%">
             <tr>
                 <td style="width: 36px; height: 17px;"></td>
-                <td style="width: 193px; height: 17px;"></td>
+                <td style="width: 168px; height: 17px;"></td>
                 <td style="width: 260px; height: 17px;"></td>
                 <td style="height: 17px"></td>
             </tr>
             <tr>
                 <td style="width: 36px">&nbsp;</td>
-                <td style="width: 193px">
+                <td style="width: 168px">
                     <asp:Label ID="Label2" runat="server" Text="Kit Number: "></asp:Label>
                     <asp:TextBox ID="tbKitNumber" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="46px"></asp:TextBox>
                 </td>
 
                 <td style="width: 260px">
-                    <asp:Label ID="Label3" runat="server" Text="Password: "></asp:Label>
+                    <asp:Label ID="lblPassword" runat="server" Text="Password: "></asp:Label>
                     <asp:TextBox ID="tbOrgPwd" runat="server" Height="20px" Width="144px"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click" Text="Log In" />
                 </td>
-            </tr>
+            </tr>             
 
         </table>
-
-
+        <asp:Label ID="lblErrorMsg" runat="server"></asp:Label>
     </asp:Panel>
     <br />
     <asp:Panel ID="pnlData" runat="server" >
         <table style="width: 100%">
             <tr>
                 <td style="width: 34px">&nbsp;</td>
-                <td>
+                <td style="width: 152px">
                     <asp:Label ID="lblOrgName" runat="server"></asp:Label>
                 </td>
                 <td>
+                    <asp:Label ID="Label19" runat="server" Text="Kit #: "></asp:Label>
                     <asp:Label ID="lblKitNumber" runat="server"></asp:Label>
                 </td>
             </tr>
@@ -54,11 +56,22 @@
             <tr>
                 <td style="width: 33px">&nbsp;</td>
                 <td style="width: 166px">
+                    <asp:Label ID="Label18" runat="server" Text="Sample Number: "></asp:Label>
+                </td>
+                <td>                     
+                       <asp:TextBox ID="tbSampleNumber" runat="server"></asp:TextBox>      
+                      <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"  ControlToValidate="tbSampleNumber"
+                          ErrorMessage="Please enter a sample number"></asp:RequiredFieldValidator>             
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 33px">&nbsp;</td>
+                <td style="width: 166px">
                     <asp:Label ID="Label17" runat="server" Text="Test Date: "></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="tbTestDate" runat="server"></asp:TextBox>
-                    <ajaxToolkit:CalendarExtender ID="tbTestDate_CalendarExtender"  runat="server" TargetControlID="tbTestDate" />
+                    <ajaxToolkit:CalendarExtender ID="tbTestDate_CalendarExtender"   Animated="true" runat="server" TargetControlID="tbTestDate" />
                 </td>
             </tr>
             <tr>

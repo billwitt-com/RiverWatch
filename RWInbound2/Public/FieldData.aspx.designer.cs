@@ -49,6 +49,15 @@ namespace RWInbound2.Data {
         protected global::System.Web.UI.WebControls.TextBox tbOrg;
         
         /// <summary>
+        /// lblPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPassword;
+        
+        /// <summary>
         /// tbOrgPwd control.
         /// </summary>
         /// <remarks>

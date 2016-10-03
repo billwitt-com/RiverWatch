@@ -21,6 +21,7 @@ namespace RWInbound2.Validation
             int nutrientCount = 0;
             int nutrientDupCount = 0;
             int lachatNotRecorded = 0;
+            int unknownCount = 0;
             btnICPDups.Enabled = false;
             bool allowed = false;
 
@@ -124,39 +125,39 @@ namespace RWInbound2.Validation
                      
                     if (blankCount == 0)
                     {
-                        lblICPBlanks.Text = "There are no Blanks to validate";
+                        lblICPBlanks.Text = "There are no blank metals to validate";
                         btnICPBlanks.Enabled = false;
                         btnICPBlanks.BackColor = System.Drawing.Color.Maroon;
                     }
                     else
                     {
-                        lblICPBlanks.Text = string.Format("There are {0} Blank samples", blankCount);
+                        lblICPBlanks.Text = string.Format("There are {0} blank metal samples to validate", blankCount);
                         btnICPBlanks.Enabled = true;
                         btnICPBlanks.BackColor = System.Drawing.Color.LightCyan;
                     }
 
                     if (dupCount == 0)
                     {
-                        lblICPDups.Text = "There are no Duplicates to validate";
+                        lblICPDups.Text = "There are no metal blanks to validate";
                         btnICPDups.Enabled = false;
                         btnICPDups.BackColor = System.Drawing.Color.Maroon;
                     }
                     else
                     {
-                        lblICPDups.Text = string.Format("There are {0} Duplicate samples", dupCount);
+                        lblICPDups.Text = string.Format("There are {0} metal dup samples", dupCount);
                         btnICPDups.Enabled = true;
                         btnICPDups.BackColor = System.Drawing.Color.LightCyan;
                     }
 
                     if (normalCount == 0)
                     {
-                        lblICPSamples.Text = "There are no Normals to validate";
+                        lblICPSamples.Text = "There are no metal normals to validate";
                         btnICPSamples.Enabled = false;
                         btnICPSamples.BackColor = System.Drawing.Color.Maroon;
                     }
                     else
                     {
-                        lblICPSamples.Text = string.Format("There are {0} Normal samples", normalCount);
+                        lblICPSamples.Text = string.Format("There are {0} normal samples to validate", normalCount);
                         btnICPSamples.Enabled = true;
                         btnICPSamples.BackColor = System.Drawing.Color.LightCyan;
                     }
@@ -176,16 +177,16 @@ namespace RWInbound2.Validation
                     if (nutrientDupCount > 0)
                     {
 
-                        lblLachatDups.Text = string.Format("There are {0} Duplicate Nutrient samples", nutrientDupCount);
+                        lblLachatDups.Text = string.Format("There are {0} nutrient dup samples", nutrientDupCount);
                     }
                     else
                     {
-                        lblLachatDups.Text = "There are no Duplicate Nutrient Samples to Validate";
+                        lblLachatDups.Text = "There are no nutrient dup samples to Validate";
                     }
 
                     if(lachatNotRecorded > 0)
                     {
-                        lblLachatMessage.Text = string.Format("NOTE: There are {0} unrecorded Lachat barcodes", lachatNotRecorded);
+                        lblLachatMessage.Text = string.Format("NOTE: There are {0} unrecorded Lachat barcodes - view under reports", lachatNotRecorded);
                         lblLachatMessage.ForeColor = System.Drawing.Color.Red;
                         lblLachatMessage.Visible = true;
                     }
@@ -194,6 +195,20 @@ namespace RWInbound2.Validation
                         lblLachatMessage.Text = "";
                         lblLachatMessage.Visible = false;
                     }
+
+                    RiverWatchEntities RWE = new RiverWatchEntities();
+                    var U = (from u in RWE.UnknownSample
+                             where u.Valid == true & u.Validated == false
+                             select u);
+
+                    unknownCount = U.Count();
+                    if(unknownCount > 0)
+                        lblUnknowns.Text = string.Format("There are {0} unknown samples to validate", unknownCount);
+                    else
+                        lblUnknowns.Text = string.Format("There are no unknown samples to validate");
+
+
+
 
 
                 }
@@ -236,6 +251,16 @@ namespace RWInbound2.Validation
         protected void btnLachatDups_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Validation/ValidateDUPNutrients.aspx");
+        }
+
+        protected void btnUnknown_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Validation/ValidateUnknowns .aspx");
+        }
+
+        protected void btnField_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Validation/ValidateField .aspx");
         }
     }
 }

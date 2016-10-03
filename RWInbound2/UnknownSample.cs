@@ -25,12 +25,14 @@ namespace RWInbound2
         public Nullable<decimal> TrueValue { get; set; }
         public Nullable<int> Round { get; set; }
         public string Comment { get; set; }
-        public string Valid { get; set; }
+        public string OldValidated { get; set; }
         public string Path { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string UserCreated { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
         public string BatchSampleNumber { get; set; }
+        public Nullable<bool> Valid { get; set; }
+        public Nullable<bool> Validated { get; set; }
     }
 }

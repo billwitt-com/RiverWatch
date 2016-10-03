@@ -1223,13 +1223,15 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="TrueValue" Type="numeric" Precision="9" Scale="2" />
           <Property Name="Round" Type="int" />
           <Property Name="Comment" Type="varchar" MaxLength="1000" />
-          <Property Name="Valid" Type="varchar" MaxLength="25" />
+          <Property Name="OldValidated" Type="varchar" MaxLength="25" />
           <Property Name="Path" Type="varchar" MaxLength="25" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="UserCreated" Type="varchar" MaxLength="25" />
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
           <Property Name="BatchSampleNumber" Type="varchar" MaxLength="10" />
+          <Property Name="Valid" Type="bit" />
+          <Property Name="Validated" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'RiverWatch.dbo.OrgStationsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2499,12 +2501,12 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <EntitySet Name="NutrientDatas" EntityType="RiverWatchModel.NutrientData" />
           <EntitySet Name="NutrientLimits" EntityType="RiverWatchModel.NutrientLimit" />
           <EntitySet Name="tlkNutrientLimits" EntityType="RiverWatchModel.tlkNutrientLimit" />
-          <EntitySet Name="UnknownSamples" EntityType="RiverWatchModel.UnknownSample" />
           <EntitySet Name="OrgStationsViews" EntityType="RiverWatchModel.OrgStationsView" />
           <EntitySet Name="OrgStatusViews" EntityType="RiverWatchModel.OrgStatusView" />
           <EntitySet Name="ParticipantswithOrgNames" EntityType="RiverWatchModel.ParticipantswithOrgName" />
           <EntitySet Name="ViewSoloNutrientDups" EntityType="RiverWatchModel.ViewSoloNutrientDup" />
           <EntitySet Name="Project" EntityType="RiverWatchModel.Project" />
+          <EntitySet Name="UnknownSample" EntityType="RiverWatchModel.UnknownSample" />
         </EntityContainer>
         <EntityType Name="FileStorage">
           <Key>
@@ -2831,29 +2833,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="UserCreated" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Valid" Type="Boolean" />
         </EntityType>
-        <EntityType Name="UnknownSample">
-          <Key>
-            <PropertyRef Name="UnknownSampleID" />
-          </Key>
-          <Property Name="OrganizationID" Type="Int32" Nullable="false" />
-          <Property Name="UnknownSampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SampleType" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="SampleNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DateSent" Type="DateTime" Precision="3" />
-          <Property Name="Value1" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="Value2" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="MeanValue" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="TrueValue" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="Round" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="Valid" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Path" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="BatchSampleNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="OrgStationsView">
           <Key>
             <PropertyRef Name="OrganizationName" />
@@ -2998,6 +2977,31 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UnknownSample">
+          <Key>
+            <PropertyRef Name="UnknownSampleID" />
+          </Key>
+          <Property Name="OrganizationID" Type="Int32" Nullable="false" />
+          <Property Name="UnknownSampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SampleType" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SampleNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateSent" Type="DateTime" Precision="3" />
+          <Property Name="Value1" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Value2" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="MeanValue" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="TrueValue" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Round" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="OldValidated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="BatchSampleNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="Validated" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4257,30 +4261,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UnknownSamples">
-            <EntityTypeMapping TypeName="RiverWatchModel.UnknownSample">
-              <MappingFragment StoreEntitySet="UnknownSample">
-                <ScalarProperty Name="BatchSampleNumber" ColumnName="BatchSampleNumber" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Round" ColumnName="Round" />
-                <ScalarProperty Name="TrueValue" ColumnName="TrueValue" />
-                <ScalarProperty Name="MeanValue" ColumnName="MeanValue" />
-                <ScalarProperty Name="Value2" ColumnName="Value2" />
-                <ScalarProperty Name="Value1" ColumnName="Value1" />
-                <ScalarProperty Name="DateSent" ColumnName="DateSent" />
-                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
-                <ScalarProperty Name="SampleType" ColumnName="SampleType" />
-                <ScalarProperty Name="UnknownSampleID" ColumnName="UnknownSampleID" />
-                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OrgStationsViews">
             <EntityTypeMapping TypeName="RiverWatchModel.OrgStationsView">
               <MappingFragment StoreEntitySet="OrgStationsView">
@@ -4420,6 +4400,32 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
                 <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnknownSample">
+            <EntityTypeMapping TypeName="RiverWatchModel.UnknownSample">
+              <MappingFragment StoreEntitySet="UnknownSample">
+                <ScalarProperty Name="Validated" ColumnName="Validated" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="BatchSampleNumber" ColumnName="BatchSampleNumber" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="OldValidated" ColumnName="OldValidated" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Round" ColumnName="Round" />
+                <ScalarProperty Name="TrueValue" ColumnName="TrueValue" />
+                <ScalarProperty Name="MeanValue" ColumnName="MeanValue" />
+                <ScalarProperty Name="Value2" ColumnName="Value2" />
+                <ScalarProperty Name="Value1" ColumnName="Value1" />
+                <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="SampleType" ColumnName="SampleType" />
+                <ScalarProperty Name="UnknownSampleID" ColumnName="UnknownSampleID" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

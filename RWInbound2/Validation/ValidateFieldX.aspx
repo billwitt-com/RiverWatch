@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ValidateField.aspx.cs" Inherits="RWInbound2.Validation.ValidateField" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ValidateFieldX.aspx.cs" Inherits="RWInbound2.Validation.ValidateField" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -103,17 +103,15 @@
                     <td>Temp (In CENTEGRADE):
                     </td>
                     <td>
-                        <asp:TextBox ID="TempCTextBox" runat="server"  OnTextChanged="TextBox_TextChanged" AutoPostBack="True"  Text='<%# Bind("TempC") %>' />
+                        <asp:TextBox ID="TempCTextBox" runat="server" Text='<%# Bind("TempC") %>' />
                     </td>
-                    <td>
-                        <asp:Label ID="lblTempC" runat="server" Text="Label"></asp:Label>
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>PH:
                     </td>
                     <td>
-                        <asp:TextBox ID="PHTextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("PH") %>' AutoPostBack="True" />
+                        <asp:TextBox ID="PHTextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("PH") %>' />
 
                     </td>
                     <td>
@@ -124,7 +122,7 @@
                     <td>Alkalinity mg/L: Phenol = 
                     </td>
                     <td>
-                            <asp:TextBox ID="PhenAlkTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="True"  runat="server" Text='<%# Bind("PhenAlk") %>'  />
+                            <asp:TextBox ID="PhenAlkTextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("PhenAlk") %>' />
                     </td>
                     <td>
                         <asp:Label ID="lblPhenol" Text="" runat="server" ></asp:Label>
@@ -135,7 +133,7 @@
                     <td>Alkalinity mg/L: Total = 
                     </td>
                     <td>
-                            <asp:TextBox ID="AlkTotalTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="True" runat="server" Text='<%# Bind("TotalAlk") %>' />
+                            <asp:TextBox ID="AlkTotalTextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("TotalAlk") %>' />
                     </td>
                     <td>
                         <asp:Label ID="lblAlkTotal" runat="server" Text=""></asp:Label>
@@ -145,7 +143,7 @@
                     <td>TotalHard mg/L:
                     </td>
                     <td>
-                        <asp:TextBox ID="TotalHardTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="True" runat="server" Text='<%# Bind("TotalHard") %>' />
+                        <asp:TextBox ID="TotalHardTextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("TotalHard") %>' />
                     </td>
                     <td>
                         <asp:Label ID="lblHardness" runat="server" Text=""></asp:Label>
@@ -156,7 +154,7 @@
                     <td>Dissolved Oxygen: mg/L = 
                     </td>
                     <td>
-                                <asp:TextBox ID="DOTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="True" runat="server" Text='<%# Bind("DO") %>' />
+                                <asp:TextBox ID="DOTextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("DO") %>' />
 
                     </td>
                     <td>
@@ -167,7 +165,7 @@
                     <td>Dissolved Oxygen: % Saturation =
                     </td>
                     <td> 
-                                <asp:TextBox ID="DOSatTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="True" runat="server" Text='<%# Bind("DOsat") %>' />
+                                <asp:TextBox ID="DOSatTextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("DOsat") %>' />
                     </td>
                     <td>
                         <asp:Label ID="lblDoSat" runat="server" ></asp:Label>
@@ -383,7 +381,7 @@
 
 <%--            InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [Metals], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @Metals, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID)"--%>
 
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" OnUpdating="SqlDataSource1_Updating" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
         DeleteCommand="DELETE FROM [InboundSamples] WHERE [inbSampleID] = @inbSampleID"
         SelectCommand="SELECT * FROM [InboundSamples] order by date desc"
         UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID WHERE [inbSampleID] = @inbSampleID">
@@ -437,4 +435,3 @@
     </asp:SqlDataSource>
 
 </asp:Content>
-

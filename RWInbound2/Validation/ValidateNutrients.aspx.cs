@@ -45,7 +45,7 @@ namespace RWInbound2.Validation
 
             if (nutrientCount > 0)
             {
-                lblNumberLeft.Text = string.Format("There are {0} 'Normal' samples left to validate", nutrientCount);
+                lblNumberLeft.Text = string.Format("There are {0} 'Value1' samples left to validate", nutrientCount);
             }
             else
             {

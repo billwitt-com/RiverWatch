@@ -194,7 +194,7 @@ namespace RWInbound2.Validation
 
             // now do form2, duplicates
             // add in percentage difference to just dups 
-            //  public void compareTextBoxes(string tbName, string UID1, string UID2, out decimal Normal, out decimal Duplicate)
+            //  public void compareTextBoxes(string tbName, string UID1, string UID2, out decimal Value1, out decimal Value2)
             tbName = "TotalPhosTextBox";
             parmName = "TotalPhos";
             LoLimit = LowLimit[parmName.ToUpper()];
@@ -336,8 +336,8 @@ namespace RWInbound2.Validation
         /// <param name="tbName">name of text box to scrape values</param>
         /// <param name="UID1">unique id of form1</param>
         /// <param name="UID2">inique id of form2</param>
-        /// <param name="Normal">Value from left, form1, text box</param>
-        /// <param name="Duplicate">Value from right form</param>
+        /// <param name="Value1">Value from left, form1, text box</param>
+        /// <param name="Value2">Value from right form</param>
         public void compareTextBoxes(string tbName, string UID1, string UID2)
         {
             string tbNName;

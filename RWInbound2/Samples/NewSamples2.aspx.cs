@@ -12,6 +12,8 @@ using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Web.Providers.Entities;
+// XXXX added code to turn off button create if the incoming field data has an existing sample number.
+// in that case, we just populate and do not make a new sample 
 
 namespace RWInbound2.Samples
 {
@@ -48,18 +50,18 @@ namespace RWInbound2.Samples
                 // hand coded 06/30 bwitt
 
                 List<string> types = new List<string>();
-                types.Add("00 Normal-NonFiltered");
-                types.Add("04 Normal-Filtered");
-                types.Add("03 Normal-NonFilteredOnly");
-                types.Add("01 Normal-FilteredOnly");
+                types.Add("00 Value1-NonFiltered");
+                types.Add("04 Value1-Filtered");
+                types.Add("03 Value1-NonFilteredOnly");
+                types.Add("01 Value1-FilteredOnly");
                 types.Add("10 Blank-NonFiltered");
                 types.Add("14 Blank-Filtered");
                 types.Add("13 Blank-NonFilteredOnly");
                 types.Add("11 Blank-FilteredOnly");
-                types.Add("20 Duplicate-NonFiltered");
-                types.Add("24 Duplicate-Filtered");
-                types.Add("23 Duplicate-NonFilteredOnly");
-                types.Add("21 Duplicate-FilteredOnly");
+                types.Add("20 Value2-NonFiltered");
+                types.Add("24 Value2-Filtered");
+                types.Add("23 Value2-NonFilteredOnly");
+                types.Add("21 Value2-FilteredOnly");
 
                 rbListSampleTypes.DataSource = types;
                 rbListSampleTypes.DataBind();
@@ -791,6 +793,7 @@ namespace RWInbound2.Samples
         }
 
         // we are making a new, fresh sample set with new dates, etc.
+        // or we have one already, and we just need to update 10/03 bwitt XXXX
         // we can now enable the other tabs
         protected void btnCreate_Click(object sender, EventArgs e)
         {
@@ -801,6 +804,7 @@ namespace RWInbound2.Samples
             int mins = 0;
             string newEvent = "";
 
+            // see if we have an event, if so, just show tabs
             bool success = DateTime.TryParse(txtDateCollected.Text, out newdate);
             if (!success)
             {
@@ -917,7 +921,20 @@ namespace RWInbound2.Samples
                 inBoundSampleID = TS.inbSampleID;
                 Session["INBOUNDSAMPLEID"] = inBoundSampleID; // save and as flag
                 // populate the screen 
-                txtNumSmp.Text = "Unknown";
+                // add check to see if this is already in samples table
+
+                Sample S = (Sample)from s in NRWDE.Samples
+                           where s.SampleNumber == sampNumber
+                           select s;
+
+                if (S == null)
+                    txtNumSmp.Text = "Unknown";
+                else
+                {
+                    txtNumSmp.Text = S.NumberSample;
+                }
+
+
                 txtSmpNum.Text = TS.SampleID.Value.ToString();
                 // txtNumSmp.Text = TS.NumberSample;
                 chkCOC.Checked = TS.ChainOfCustody ?? false;
@@ -972,19 +989,21 @@ namespace RWInbound2.Samples
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
-            btnCreate.Focus();
-            btnCreate.BackColor = System.Drawing.Color.Red; 
+            if (txtNumSmp.Text == "Unknown")
+            {
+                btnCreate.Focus();
+                btnCreate.Visible = true; 
+                btnCreate.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                btnCreate.Visible = false; 
+            }
         }
 
         // fill in org stat tab
         private void updateOrg()
         {
-
-
-            //    var RES = from r in NRWDE.tblStatus 
-
-
-
 
         }
         // update data table with new results OR create new sample 

@@ -5,10 +5,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <p style="font-size: medium; text-align: center;">
-        <strong>Colorado Riverwatch Volunteer Data Entry Form</strong>
+        <strong>Colorado Riverwatch Volunteer Field Data Entry Form</strong>
     </p>
-
-    <asp:Panel ID="pnlLogin" runat="server">
+   <asp:Panel ID="pnlLogin" runat="server">
 
         <br />
           <Table style="border-collapse: collapse; border-spacing: 0px; border-width: 0px; padding: 0px; margin: 0px; border-style: none; table-layout: fixed;">
@@ -28,8 +27,8 @@
                     &nbsp;</td>
             </tr>
             <tr>
-                <td>
-                    Organizaton Password:
+                <td>                   
+                    <asp:Label ID="lblPassword" runat="server" Text=" Organizaton Password: "></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="tbOrgPwd" runat="server"></asp:TextBox>
@@ -41,22 +40,21 @@
 
             </tr>
              </Table>
-
-
     </asp:Panel>
+ 
     <asp:Panel ID="pnlDetail" runat="server">
       
             
             
             <Table style="height: 55px" >
             <tr>
-                <td style="width: 209px;">Date Collected:
+                <td style="width: 239px;">Date Collected:
                     <asp:TextBox ID="tbDateCollected" runat="server" Height="20px"></asp:TextBox>
                        <ajaxToolkit:CalendarExtender ID="txtDateCollected_CalendarExtender" runat="server" BehaviorID="txtDateCollected_CalendarExtender" TargetControlID="tbDateCollected"></ajaxToolkit:CalendarExtender>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbDateCollected" ErrorMessage="Date is required"></asp:RequiredFieldValidator>
                         
                 </td>
-                <td style="width: 210px">Time Collected:
+                <td style="width: 236px">Time Collected:
                     <asp:TextBox ID="tbTimeCollected" runat="server" Height="20px"></asp:TextBox>
                      <ajaxToolkit:MaskedEditExtender ID="txtTimeCollected_MaskedEditExtender" runat="server" BehaviorID="txtTimeCollected_MaskedEditExtender" Century="2000"
                                 CultureAMPMPlaceholder="" CultureCurrencySymbolPlaceholder="" CultureDateFormat="" CultureDatePlaceholder="" CultureDecimalPlaceholder=""
@@ -104,28 +102,28 @@
                 <td style="width: 24px; height: 20px;">&nbsp;</td>
                 <td style="width: 142px">Kit Number</td>
                 <td>
-                    <asp:TextBox Width="211px" ID="tbKitNum" runat="server"></asp:TextBox>
+                    <asp:TextBox Width="211px" ID="tbKitNum"  runat="server" ReadOnly="True"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td style="width: 24px; height: 20px;"></td>
                 <td style="width: 142px">Station Number:</td>
                 <td>
-                    <asp:TextBox Width="211px" ID="tbStationNum" runat="server"></asp:TextBox>
+                    <asp:TextBox Width="211px"  ReadOnly="True" ID="tbStationNum" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td style="width: 24px; height: 20px;">&nbsp;</td>
                 <td style="width: 142px">River:</td>
                 <td>
-                    <asp:TextBox Width="211px" ID="tbRiver" runat="server"></asp:TextBox>
+                    <asp:TextBox Width="211px"  ReadOnly="True" ID="tbRiver" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td style="width: 24px; height: 20px;"></td>
                 <td>Station Name: </td>
                 <td>
-                    <asp:TextBox Style="width: 211px" ID="tbStationName" runat="server"></asp:TextBox>
+                    <asp:TextBox Style="width: 211px"  ReadOnly="True" ID="tbStationName" runat="server"></asp:TextBox>
                 </td>
             </tr>
 
@@ -171,13 +169,12 @@
                         </td>
                         <td>
                             <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow") %>' />
-                            GUAGE DATA ONLY - Enter estimate in comments, below 
+                            <asp:Label ID="Label2" runat="server"  ForeColor="Red" Font-Bold="true" Text="CHECK IF IS GUAGE DATA: "></asp:Label>                          
+                            <asp:CheckBox ID="FinalCheckCheckBox" runat="server" Checked='<%# Bind("FinalCheck") %>' />
                         </td>
-
-
                     </tr>
                     <tr>
-                        <td>Temp (In CENTEGRADE):
+                        <td>Temp (In CENTIGRADE):
                         </td>
                         <td>
                             <asp:TextBox ID="TempCTextBox" runat="server" Text='<%# Bind("TempC") %>' />
@@ -227,6 +224,8 @@
                     </tr>
 
                 </table>
+
+
 
 
                 <%-- Tag:
@@ -354,20 +353,7 @@
             Comments:
             <asp:TextBox ID="CommentsTextBox" runat="server" Text='<%# Bind("Comments") %>' TextMode="MultiLine" Width="360" Height="44" />
 
-                <%-- DateReceived:
-            <asp:TextBox ID="DateReceivedTextBox" runat="server" Text='<%# Bind("DateReceived") %>' />
-            <br />
-            DataSheetIncluded:
-            <asp:CheckBox ID="DataSheetIncludedCheckBox" runat="server" Checked='<%# Bind("DataSheetIncluded") %>' />
-            <br />
-            MissingDataSheetReqDate:
-            <asp:TextBox ID="MissingDataSheetReqDateTextBox" runat="server" Text='<%# Bind("MissingDataSheetReqDate") %>' />
-            <br />
-            ChainOfCustody:
-            <asp:CheckBox ID="ChainOfCustodyCheckBox" runat="server" Checked='<%# Bind("ChainOfCustody") %>' />
-            <br />
-            MissingDataSheetReceived:
-            <asp:CheckBox ID="MissingDataSheetReceivedCheckBox" runat="server" Checked='<%# Bind("MissingDataSheetReceived") %>' />
+                <%-- 
             <br />
             PassValStep:
             <asp:TextBox ID="PassValStepTextBox" runat="server" Text='<%# Bind("PassValStep") %>' />
@@ -376,11 +362,11 @@
             <asp:TextBox ID="tblSampleIDTextBox" runat="server" Text='<%# Bind("tblSampleID") %>' />
             <br />--%>
                 <table>
-                    <tr>
-                        <td style="width: 240px;"></td>
+                    <tr>                        
                         <td>
                             <asp:Button ID="InsertButton" ClientIDMode="Static" OnClick="InsertButton_Click" runat="server" CausesValidation="True" CommandName="Insert" Text="Save Data" />
                         </td>
+                        <td></td>
 
                     </tr>
                 </table>
@@ -427,8 +413,9 @@
 
                         </td>
                         <td >
-                            <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow","{0:0.00}") %>' Width="61px" ></asp:TextBox>
-                            GUAGE DATA ONLY - Enter estimate in comments, below </td>
+                             <asp:TextBox ID="USGSFlowTextBox" runat="server" Text='<%# Bind("USGSFlow") %>' />                                          
+                            <asp:CheckBox ID="FinalCheckCheckBox" runat="server" Checked='<%# Bind("FinalCheck") %>' /></td>
+                           <asp:Label ID="Label2" runat="server"  ForeColor="Red" Font-Bold="true" Text="CHECK IF IS GUAGE DATA: "></asp:Label>         
                     </tr>
                     <tr>
                         <td>Temp (In CENTEGRADE):
@@ -631,9 +618,11 @@
             <br />--%>
                 <table>
                     <tr>
-                        <td style="width: 240px;"></td>
+                        <td> <asp:Button ID="UpdateButton" ClientIDMode="Static"  runat="server" CausesValidation="True" CommandName="Update" Text="Update Data" />
+
+                        </td>
                         <td>
-                            <asp:Button ID="UpdateButton" ClientIDMode="Static"  runat="server" CausesValidation="True" CommandName="Update" Text="Update Data" />
+                            
                         </td>
                     </tr>
                 </table>

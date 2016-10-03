@@ -396,6 +396,7 @@
     <Content Include="Validation\ValidateField.aspx" />
     <Content Include="Validation\ValidateNormals.aspx" />
     <Content Include="Validation\ValidateNutrients.aspx" />
+    <Content Include="Validation\ValidateUnknowns.aspx" />
     <Content Include="Validation\Validation.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -1281,6 +1282,13 @@
     </Compile>
     <Compile Include="Validation\ValidateNutrients.aspx.designer.cs">
       <DependentUpon>ValidateNutrients.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\ValidateUnknowns.aspx.cs">
+      <DependentUpon>ValidateUnknowns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateUnknowns.aspx.designer.cs">
+      <DependentUpon>ValidateUnknowns.aspx</DependentUpon>
     </Compile>
     <Compile Include="Validation\Validation.aspx.cs">
       <DependentUpon>Validation.aspx</DependentUpon>

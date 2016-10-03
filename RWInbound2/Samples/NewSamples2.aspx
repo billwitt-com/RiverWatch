@@ -4,9 +4,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <br />
-    <div class="site-title">
-        Sample
-    </div>
+
+        <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Sample Entry"></asp:Label>
+
 
     <table>
         <tr>
