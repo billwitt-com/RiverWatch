@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ValidateField.aspx.cs" Inherits="RWInbound2.Validation.ValidateField" %>
+﻿<%@ Page Title="" MaintainScrollPositionOnPostback="true"  Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ValidateField.aspx.cs" Inherits="RWInbound2.Validation.ValidateField" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -38,7 +38,7 @@
         <br />
    
     <br />
-    <asp:FormView ID="FormView1" runat="server" DefaultMode="Edit" AllowPaging="True" DataKeyNames="inbSampleID" DataSourceID="SqlDataSource1"
+    <asp:FormView ID="FormView1" runat="server"  OnDataBound="FormView1_DataBound" DefaultMode="Edit" AllowPaging="True" DataKeyNames="inbSampleID" DataSourceID="SqlDataSource1"
         Width="808px">
         <EditItemTemplate>
             <table>
@@ -75,9 +75,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="TimeTextBox" runat="server" Text='<%# Bind("Time") %>' />
-                        <ajaxToolkit:MaskedEditExtender ID="txtTimeCollected_MaskedEditExtender" runat="server" BehaviorID="txtTimeCollected_MaskedEditExtender"
-                            Century="2000"
-                            TargetControlID="TimeTextBox" MaskType="Time" Mask="99:99" AcceptAMPM="false" />
+
                     </td>
                    <td>
 
@@ -106,7 +104,7 @@
                         <asp:TextBox ID="TempCTextBox" runat="server"  OnTextChanged="TextBox_TextChanged" AutoPostBack="True"  Text='<%# Bind("TempC") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="lblTempC" runat="server" Text="Label"></asp:Label>
+                        <asp:Label ID="lblTempC" runat="server" ></asp:Label>
                     </td>
                 </tr>
                 <tr>

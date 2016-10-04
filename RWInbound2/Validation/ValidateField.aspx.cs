@@ -34,13 +34,30 @@ namespace RWInbound2.Validation
                 try
                 {
                     RiverWatchEntities RWE = new RiverWatchEntities();
+                    
                     // count the number of samples that are to be validated
 
-                    var U = (from u in RWE.InboundSamples
-                             where u.KitNum == kitNumber & u.Valid == true & u.PassValStep != -1
-                             select u);
+                    //var U = (from u in RWE.InboundSamples
+                    //         join s in RWE.Samples on u.SampleID equals long.Parse(s.SampleNumber)
+                    //         where u.KitNum == kitNumber & u.Valid == true & u.PassValStep != -1 & s.SampleNumber != null
+                    //         select u);
 
-                    sampsToValidate = U.Count();
+                    //sampsToValidate = U.Count();
+
+                    string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
+                       " Samples.SampleNumber where InboundSamples.KitNum = {0}", kitNumber);
+                    using (SqlConnection conn = new SqlConnection())              
+                    {
+                        using (SqlCommand cmd = new SqlCommand())
+                        
+                        {
+                            conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; // RWE.Database.Connection.ConnectionString;
+                            cmd.Connection = conn;
+                            conn.Open(); 
+                            cmd.CommandText = cmdCount;
+                            sampsToValidate = (int)cmd.ExecuteScalar();  //cmd.ExecuteNonQuery(); 
+                        }
+                    }
 
                     if (sampsToValidate == 0)
                     {
@@ -114,26 +131,31 @@ namespace RWInbound2.Validation
 
         public void compareTextBoxes(string UID)
         {
-            string tb1Name;
-            string tb2Name;
+
             TextBox tb1;
-            TextBox tb2;
-            decimal Value1 = 0;
-            decimal Value2 = 0;
             decimal pH = 0;
+            bool ispH = false;
             decimal PhenolAlk = 0;
+            bool isPhenolAlk = false;
             decimal TotalAlk = 0;
+            bool isTotalAlk = false;
             decimal DO = 0;
+            bool isDO = false;
             decimal DOSat = 0;
+            bool isDOSat = false;
             decimal Hardness = 0;
-            decimal TempC = 0; 
+            bool isHardness = false;
+            decimal TempC = 0;
+            bool isTempC = false; 
             Label lblpH;
             Label lblPhenol;
             Label lblAlkTotal;
             Label lblHardness;
             Label lblDO;
             Label lblDoSat;
-            Label lblTempC; 
+            Label lblTempC;
+            string Pmsg1 = "";
+            string Pmsg2 = ""; 
 
             // hook up controls from formview1 what a PITA
 
@@ -165,177 +187,221 @@ namespace RWInbound2.Validation
             if (lblDoSat == null)
                 return;
 
-            tb1 = this.FindControl(UID + "$" + "TempCTextBox") as TextBox;
+            // scrape page data 
+
+            UID += "$"; // because I cut and pasted the code below
+            tb1 = this.FindControl(UID + "TempCTextBox") as TextBox;
             if (tb1 == null)
                 return;
-            if (!decimal.TryParse(tb1.Text, out TempC))  // pH         
-                return; // do nothing
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out TempC))
+                    isTempC = true;
+            }
+
+            tb1 = this.FindControl(UID + "PHTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out pH))
+                    ispH = true;
+            }
+
+            tb1 = this.FindControl(UID + "PhenAlkTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out PhenolAlk))
+                    isPhenolAlk = true;
+            }
+
+            tb1 = this.FindControl(UID + "AlkTotalTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out TotalAlk))
+                    isTotalAlk = true;
+            }
+
+            tb1 = this.FindControl(UID + "TotalHardTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out Hardness))
+                    isHardness = true;
+            }
+
+            tb1 = this.FindControl(UID + "DOSatTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out DOSat))
+                    isDOSat = true;
+            }
+
+            tb1 = this.FindControl(UID + "DOTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out DO))
+                    isDO = true;
+            }
     
-
-            tb1Name = UID + "$" + "PHTextBox";  // Value1 PH
-            tb2Name = UID + "$" + "PhenAlkTextBox";
-
-            tb1 = this.FindControl(tb1Name) as TextBox;
-            tb2 = this.FindControl(tb2Name) as TextBox;
-
-            if (tb1 == null)
-                return;
-            if (tb2 == null)
-                return;
-            if (!decimal.TryParse(tb1.Text, out Value1))  // pH         
-                return; // do nothing
-            if (!decimal.TryParse(tb2.Text, out Value2))
-                return;
-
-            pH = Value1;
-            PhenolAlk = Value2;
-
-            tb1Name = UID + "$" + "AlkTotalTextBox";  // Value1 PH
-            tb2Name = UID + "$" + "TotalHardTextBox";
-
-            tb1 = this.FindControl(tb1Name) as TextBox;
-            tb2 = this.FindControl(tb2Name) as TextBox;
-
-            if (tb1 == null)
-                return;
-            if (tb2 == null)
-                return;
-            if (!decimal.TryParse(tb1.Text, out Value1))  // pH         
-                return; // do nothing
-            if (!decimal.TryParse(tb2.Text, out Value2))
-                return;
-            TotalAlk = Value1;
-            Hardness = Value2;
-
-            tb1Name = UID + "$" + "DOTextBox";  // Value1 PH
-            tb2Name = UID + "$" + "DOSatTextBox";
-
-            tb1 = this.FindControl(tb1Name) as TextBox;
-            tb2 = this.FindControl(tb2Name) as TextBox;
-
-            if (tb1 == null)
-                return;
-            if (tb2 == null)
-                return;
-            if (!decimal.TryParse(tb1.Text, out Value1))  // pH         
-                return; // do nothing
-            if (!decimal.TryParse(tb2.Text, out Value2))
-                return;
-
-            DO = Value1;
-            DOSat = Value2;
 
 
             // rule: if pH < 8.3 AND pHAlk > 0 == warning
-            if ((PhenolAlk > 0) & (pH < 8.3M))
+            if (isPhenolAlk & ispH)
             {
-                lblPhenol.Text = "PhenAlk > 0 while pH < 8.3";
-                lblPhenol.ForeColor = System.Drawing.Color.Red; 
-            }
-            else
-            {
-                lblPhenol.Text = "";
-                lblPhenol.ForeColor = System.Drawing.Color.Black;  
+                if ((PhenolAlk > 0) & (pH < 8.3M))
+                {
+                    Pmsg1 = "PhenAlk > 0 while pH < 8.3";
+                    lblPhenol.Text = Pmsg1; 
+                    lblPhenol.ForeColor = System.Drawing.Color.Red;
+                }
+                else  // we are removing msg1 but not msg2, if it exists
+                {
+                    if (Pmsg2.Length > 5)
+                    {
+                        lblPhenol.Text = Pmsg2;                         
+                    }
+                    else
+                    {
+                        Pmsg1 = ""; 
+                        lblPhenol.Text = "";
+                        lblPhenol.ForeColor = System.Drawing.Color.Black;
+                    }
+                }
             }
 
             // rule: TotalAlk > Hardness + 10
             // rule: Hardness - TotalAlk > 10
-
-            if (Hardness - TotalAlk > 10)
+            if (isTotalAlk & isHardness)
             {
-                lblHardness.Text = "Hardness - TotalAlk > 10";
-                lblHardness.ForeColor = System.Drawing.Color.Red; 
-            }
-            else
-            {
-                lblHardness.Text = "";
-                lblHardness.ForeColor = System.Drawing.Color.Black; 
+                if (Hardness - TotalAlk > 10)
+                {
+                    lblHardness.Text = "Hardness - TotalAlk > 10";
+                    lblHardness.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    lblHardness.Text = "";
+                    lblHardness.ForeColor = System.Drawing.Color.Black;
+                }
             }
 
             // rule PhenAlk > 60
-
-            if(PhenolAlk > 60)
+            if (isPhenolAlk)
             {
-                lblPhenol.Text = "PhenolAlk > 60";
-                lblPhenol.ForeColor = System.Drawing.Color.Red; 
-            }
-            else
-            {
-                lblPhenol.Text = "";
-                lblPhenol.ForeColor = System.Drawing.Color.Black; 
+                if (PhenolAlk > 60)
+                {
+                    Pmsg2 = "PhenolAlk > 60";
+                    if (Pmsg1.Length > 2)
+                        lblPhenol.Text = Pmsg1 + Pmsg2;
+                    else
+                        lblPhenol.Text = Pmsg2; 
+                    lblPhenol.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    if (Pmsg1.Length > 2)
+                        lblPhenol.Text = Pmsg1; 
+                    else
+                    {
+                        Pmsg2 = "";
+                        lblPhenol.Text = "";
+                        lblPhenol.ForeColor = System.Drawing.Color.Black;
+                    }
+                }                
             }
 
             // pH > 9.1
-            if(pH > 9.1m)
+            if (ispH)
             {
-                lblpH.Text = "pH > 9.1";
-                lblpH.ForeColor = System.Drawing.Color.Red; 
-            }
+                if (pH > 9.1m)
+                {
+                    lblpH.Text = "pH > 9.1";
+                    lblpH.ForeColor = System.Drawing.Color.Red;
+                }
 
-            // rule pH < 4.5
-            if (pH < 4.5m)
-            {
-                lblpH.Text = "pH < 4.5";
-                lblpH.ForeColor = System.Drawing.Color.Red;
-            }
+                // rule pH < 4.5
+                if (pH < 4.5m)
+                {
+                    lblpH.Text = "pH < 4.5";
+                    lblpH.ForeColor = System.Drawing.Color.Red;
+                }
 
-            if((pH > 4.5m) & (pH < 9.1m))
-            {
-                lblpH.Text = "";
-                lblpH.ForeColor = System.Drawing.Color.Black;
+                if ((pH > 4.5m) & (pH < 9.1m))
+                {
+                    lblpH.Text = "";
+                    lblpH.ForeColor = System.Drawing.Color.Black;
+                }
             }
 
             // rule: DO > 14 = warning
             // rule: DO < 4.5
-
-            if (DO > 14m)
+            if (isDO)
             {
-                lblDO.Text = "DO > 14";
-                lblDO.ForeColor = System.Drawing.Color.Red;
-            }
+                if (DO > 14m)
+                {
+                    lblDO.Text = "DO > 14";
+                    lblDO.ForeColor = System.Drawing.Color.Red;
+                }
 
-            if (DO < 4.5m)
-            {
-                lblDO.Text = "DO < 4.5";
-                lblDO.ForeColor = System.Drawing.Color.Red;
-            }
+                if (DO < 4.5m)
+                {
+                    lblDO.Text = "DO < 4.5";
+                    lblDO.ForeColor = System.Drawing.Color.Red;
+                }
 
-            if ((DO > 4.5m) & (DO < 14.0m))
-            {
-                lblDO.Text = "";
-                lblDO.ForeColor = System.Drawing.Color.Black;
+                if ((DO > 4.5m) & (DO < 14.0m))
+                {
+                    lblDO.Text = "";
+                    lblDO.ForeColor = System.Drawing.Color.Black;
+                }
             }
 
             // rule 50 < DOSat > 110
-            if (DOSat > 110)
+            if (isDOSat)
             {
+                if (DOSat > 110)
+                {
 
-                lblDoSat.Text = "DOSat > 110";
-                lblDoSat.ForeColor = System.Drawing.Color.Red;
-            }
+                    lblDoSat.Text = "DOSat > 110";
+                    lblDoSat.ForeColor = System.Drawing.Color.Red;
+                }
 
-            if (DOSat < 50.0m)
-            {
-                lblDoSat.Text = "DOSat < 50";
-                lblDoSat.ForeColor = System.Drawing.Color.Red;
-            }
+                if (DOSat < 50.0m)
+                {
+                    lblDoSat.Text = "DOSat < 50";
+                    lblDoSat.ForeColor = System.Drawing.Color.Red;
+                }
 
-            if ((DOSat > 50) & (DOSat < 110.0m))
-            {
-                lblDoSat.Text = "";
-                lblDoSat.ForeColor = System.Drawing.Color.Black;
+                if ((DOSat > 50) & (DOSat < 110.0m))
+                {
+                    lblDoSat.Text = "";
+                    lblDoSat.ForeColor = System.Drawing.Color.Black;
+                }
             }
 
             // rule If TempC > 25
-            if(TempC > 25.0m)
+            if (isTempC)
             {
-                lblTempC.Text = "Temp C > 25";
-                lblTempC.ForeColor = System.Drawing.Color.Red;
-            }
-            else
-            {
-                lblTempC.Text = "";
-                lblTempC.ForeColor = System.Drawing.Color.Black;
+                if (TempC > 25.0m)
+                {
+                    lblTempC.Text = "Temp C > 25";
+                    lblTempC.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    lblTempC.Text = "";
+                    lblTempC.ForeColor = System.Drawing.Color.Black;
+                }
             }
         }
       
@@ -350,6 +416,7 @@ namespace RWInbound2.Validation
             bool success;
 
             RiverWatchEntities RWE = new RiverWatchEntities();
+
             LocaLkitNumber = -1; // no real kit number yet
             if (tbKitNumber.Text.Length > 0)
             {
@@ -389,8 +456,9 @@ namespace RWInbound2.Validation
                 }
 
                 orgID = C.ID;
-                kitNumber = C.KitNumber.Value;
+                LocaLkitNumber = C.KitNumber.Value;
                 Session["ORGID"] = orgID; // save for later
+                Session["KITNUMBER"] = LocaLkitNumber;
             }
 
             // ++++++++++++++++++++++++
@@ -399,11 +467,30 @@ namespace RWInbound2.Validation
 
                 // count the number of samples that are to be validated
 
-                var U = (from u in RWE.InboundSamples
-                         where u.KitNum == LocaLkitNumber & u.Valid == true & u.PassValStep == -1
-                         select u);
+                //var U = (from u in RWE.InboundSamples
+                //         where u.KitNum == LocaLkitNumber & u.Valid == true & u.PassValStep == -1
+                //         select u);
 
-                sampsToValidate = U.Count();
+                //var U = (from u in RWE.InboundSamples
+                //         join s in RWE.Samples on u.SampleID equals long.Parse(s.SampleNumber)
+                //         where u.KitNum == kitNumber & u.Valid == true & u.PassValStep != -1 & s.SampleNumber != null
+                //         select u);
+
+                string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
+                     " Samples.SampleNumber where InboundSamples.KitNum = {0}", LocaLkitNumber);
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // RWE.Database.Connection.ConnectionString;
+                        conn.Open(); 
+                        cmd.Connection = conn; 
+                        cmd.CommandText = cmdCount;
+                        sampsToValidate = (int) cmd.ExecuteScalar(); 
+                    }
+                }
+            //    sampsToValidate = U.Count();
 
                 if (sampsToValidate == 0)
                 {
@@ -490,10 +577,243 @@ namespace RWInbound2.Validation
             }
         }
 
-        // need to set pasval = 1 so it is recorded as validated
+        // need to set pasval = 1 so it is recorded as validated [PassValStep]
+        // then update NEWexpwater with this data 
+        // fieldComment
+      // ,[SampleDate]
+      //,[USGS_Flow]
+      //,[PH]
+      //,[TempC]
+      //,[PHEN_ALK]
+      //,[TOTAL_ALK]
+      //,[TOTAL_HARD]
+      //,[DO_MGL]
+      //,[DOSAT]
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
         {
+            RiverWatchEntities RWE = new RiverWatchEntities();
+            NEWexpWater NEW = new NEWexpWater(); 
 
+            bool existingRecord = false; 
+            TextBox tb1;
+            decimal pH = 0;
+            bool ispH = false;
+            decimal PhenolAlk = 0;
+            bool isPhenolAlk = false;
+            decimal TotalAlk = 0;
+            bool isTotalAlk = false;
+            decimal DO = 0;
+            bool isDO = false; 
+            decimal DOSat = 0;
+            bool isDOSat = false;
+            decimal Hardness = 0;
+            bool isHardness = false;
+            decimal TempC = 0;
+            bool isTempC = false; 
+            string FieldComments = "";
+            string SampleNumber = ""; // sampleid
+            decimal Flow = 0;
+            bool isFlow = false; 
+            long sampNumLong = 0;
+
+
+            string UID = FormView1.Controls[0].UniqueID + "$";
+
+            // scrape page data 
+            tb1 = this.FindControl(UID + "USGSFlowTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if(tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out Flow)) // pH      
+                    isFlow = true; 
+            }
+
+
+            tb1 = this.FindControl(UID +"TempCTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out TempC))
+                    isTempC = true; 
+            }
+
+            tb1 = this.FindControl(UID + "PHTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out pH))
+                    ispH = true;
+            }
+
+            tb1 = this.FindControl(UID + "PhenAlkTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out PhenolAlk))
+                    isPhenolAlk = true;
+            }
+
+            tb1 = this.FindControl(UID + "AlkTotalTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out TotalAlk))
+                    isTotalAlk = true;
+            }
+
+            tb1 = this.FindControl(UID + "TotalHardTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out Hardness))
+                    isHardness = true; 
+            }
+
+            tb1 = this.FindControl(UID + "DOSatTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out DOSat))
+                    isDOSat = true; 
+            }
+
+            tb1 = this.FindControl(UID + "DOTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (decimal.TryParse(tb1.Text, out DO))
+                    isDO = true;
+            }
+
+            tb1 = this.FindControl(UID + "CommentsTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            FieldComments = tb1.Text.Trim();
+
+            //sampleid
+
+            tb1 = this.FindControl(UID + "SampleIDTextBox") as TextBox;    // this is populated by query and binding
+            if (tb1 == null)
+                return;
+            SampleNumber = tb1.Text.Trim();
+
+              try
+            {
+                NEWexpWater TEST = (from t in RWE.NEWexpWaters
+                                    where t.Valid == true & t.SampleNumber == SampleNumber
+                                    select t).FirstOrDefault();
+                if (TEST != null)
+                {
+                    // skip these as they are not our business to insert into a row that already exists
+                    // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
+                    NEW = TEST; // keep the name common to this method
+                    existingRecord = true; // flag for later
+                }
+                else
+                {
+                    NEW = new NEWexpWater(); // create new entity as there is not one yet
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+              try
+              {
+
+                  if (!existingRecord) // Should not happen - no existing record, so we are first
+                  {
+                      NEW.SampleNumber = SampleNumber;
+                  }
+                  if(ispH)
+                    NEW.PH = (double)pH;
+                  if(isPhenolAlk)
+                    NEW.PHEN_ALK = (double)PhenolAlk;
+                  if(isFlow)
+                    NEW.USGS_Flow = (double)Flow;
+                  if(isTempC)
+                    NEW.TempC = (double)TempC;
+                  if(isTotalAlk)
+                    NEW.TOTAL_ALK = (double)TotalAlk;
+                  if(isHardness)
+                    NEW.TOTAL_HARD = (double)Hardness;
+                  if(isDO)
+                    NEW.DO_MGL = (double)DO;
+                  if(isDOSat)
+                    NEW.DOSAT = (short)DOSat;
+                  NEW.FieldComment = FieldComments;
+                  if (!existingRecord)
+                  {
+                      RWE.NEWexpWaters.Add(NEW);
+                  }
+                  RWE.SaveChanges();
+
+            // now update inbound to mark valided
+                  
+                      var IBS = from i in RWE.InboundSamples
+                                where i.SampleID == SampleNumber
+                                select i;
+                      if (IBS.Count() > 0) // will always happen... :)
+                      {
+                          foreach (var z in IBS)
+                          {
+                              z.PassValStep = 10;
+                          }
+                          RWE.SaveChanges();
+                      }
+                  
+              }
+              catch (Exception ex)
+              {
+                  string nam = "";
+                  if (User.Identity.Name.Length < 3)
+                      nam = "Not logged in";
+                  else
+                      nam = User.Identity.Name;
+                  string msg = ex.Message;
+                  LogError LE = new LogError();
+                  LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+              }
+        }
+
+        protected void FormView1_DataBound(object sender, EventArgs e)
+        {
+            // use this event to populate time string, if it is not already there 
+            // will be nice for validation.
+            FormView FV = sender as FormView;
+            string tmString = ""; 
+            TextBox T = FV.Controls[0].FindControl("TimeTextBox") as TextBox; 
+            if(T != null)
+            {
+                tmString = T.Text;
+            }
+            if (tmString.Length < 4)
+            {
+                TextBox TB = FV.Controls[0].FindControl("SampleIDTextBox") as TextBox;
+
+                //string sampHours = TB.Text.Substring(TB.Text.Length - 4, 2); // get first 2 chars of last 4 chars
+                //string sampMins = TB.Text.Substring(TB.Text.Length - 2);
+                //T.Text = string.Format("{0:D4}:{1:D2}", sampHours, sampMins);
+                string sampHours = TB.Text.Substring(TB.Text.Length - 4, 2); // get first 2 chars of last 4 chars
+                string tm = TB.Text.Substring(TB.Text.Length - 4);
+                T.Text = string.Format("{0:D4}", tm);
+            }
         }
     }
 }

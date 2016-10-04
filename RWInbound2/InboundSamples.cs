@@ -12,11 +12,11 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class InboundSample
+    public partial class InboundSamples
     {
         public int inbSampleID { get; set; }
         public Nullable<int> StationNum { get; set; }
-        public Nullable<long> SampleID { get; set; }
+        public string SampleID { get; set; }
         public string txtSampleID { get; set; }
         public Nullable<int> KitNum { get; set; }
         public Nullable<System.DateTime> Date { get; set; }

@@ -663,6 +663,9 @@
     <Compile Include="Edit\EditStationStatus.aspx.designer.cs">
       <DependentUpon>EditStationStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InboundSamples.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NutrientData.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -844,9 +847,6 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="InboundICPOrigional.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="InboundSample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">

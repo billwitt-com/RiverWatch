@@ -115,15 +115,14 @@ namespace RWInbound2.Samples
             DateTime currentYear;
             DateTime thisyear = DateTime.Now;
             string orgName = "";
-            bool noCurrentStatus = true;
             int orgID = 0; 
             int stnID = 0;
-            string riverName = "";
             bool active = false;
             DateTime? startDate = null;
             DateTime? endDate = null;
+            bool noCurrentStatus = false; 
 
-            // move current year calc to page_load 
+            // moved current year calc to page_load 
 
             LocaLkitNumber = -1; // no real kit number yet
             bool success = int.TryParse(tbSite.Text, out stationNumber);
@@ -237,6 +236,12 @@ namespace RWInbound2.Samples
                                 active = og.Active,
                                 orgID = og.ID,
                             };
+                    if(OO.Count() != 0)
+                    {
+                        orgName = OO.FirstOrDefault().orgName;
+                        orgID = OO.FirstOrDefault().orgID;
+                        active = OO.FirstOrDefault().active; 
+                    }
                 }
 
                 // get station detail
@@ -352,7 +357,7 @@ namespace RWInbound2.Samples
             }
 
             // now populate list box of samples 
-            NumberSamplePrefix = string.Format("{0}.", stationNumber);
+            NumberSamplePrefix = string.Format("{0}", stationNumber);   // removed period and put it in the method
             List<string> samps = new List<string>();
             lstSamples.Visible = true;
 
@@ -388,18 +393,18 @@ namespace RWInbound2.Samples
                     List<string> ls = new List<string>();
                     ls.Add("Choose from below");
                     string tmps = "";
-                    foreach (long? val in query)
+                    foreach (string val in query)
                     {
                         if (val != null)    // real value to consider
                         {
 
                             var q = from s in NRWDE.Samples
-                                    where s.SampleNumber == val.Value.ToString()
+                                    where s.SampleNumber == val
                                     select s.NumberSample;
 
                             if (q.Count() < 1)  // not found in samples table
                             {
-                                tmps = val.Value.ToString();
+                                tmps = val; 
                                 ls.Add(tmps);
                             }
                         }
@@ -501,7 +506,7 @@ namespace RWInbound2.Samples
         // common utility to update values on the samples page
         private void updateSamplesPage(string EventNumber)
         {
-            Sample TS;
+            //Sample TS;
       //      string tstr = stationSample + "."; // we need the period so 51 is not the same as 512, etc.
             string tstr = EventNumber;  // + "."; // we need the period so 51 is not the same as 512, etc.
             try
@@ -510,7 +515,7 @@ namespace RWInbound2.Samples
                 //              where r.NumberSample.StartsWith(tstr) & r.Valid == true
                 //              select r).FirstOrDefault();   // get most recent
 
-                TS = (Sample)(from r in NRWDE.Samples
+                var TS = (from r in NRWDE.Samples
                               where r.NumberSample == tstr & r.Valid == true
                               select r).FirstOrDefault();   // get most recent
 
@@ -766,7 +771,7 @@ namespace RWInbound2.Samples
                  int inboundSampleID = (int)Session["INBOUNDSAMPLEID"];
                  try
                  {
-                     InboundSample S = (from s in NRWDE.InboundSamples
+                     InboundSamples S = (from s in NRWDE.InboundSamples
                                         where s.inbSampleID == inboundSampleID & s.Valid == true
                                         select s).FirstOrDefault(); 
                      if(S != null)
@@ -913,8 +918,8 @@ namespace RWInbound2.Samples
 
             try
             {
-                InboundSample TS = (InboundSample)(from s in NRWDE.InboundSamples
-                                                   where s.SampleID.Value == sNum
+                InboundSamples TS = (InboundSamples)(from s in NRWDE.InboundSamples
+                                                   where s.SampleID == sampNumber
                                                    select s).FirstOrDefault();
                 if (TS == null)
                     return;
@@ -923,9 +928,9 @@ namespace RWInbound2.Samples
                 // populate the screen 
                 // add check to see if this is already in samples table
 
-                Sample S = (Sample)from s in NRWDE.Samples
+                var S = (from s in NRWDE.Samples
                            where s.SampleNumber == sampNumber
-                           select s;
+                           select s).FirstOrDefault();
 
                 if (S == null)
                     txtNumSmp.Text = "Unknown";
@@ -935,7 +940,7 @@ namespace RWInbound2.Samples
                 }
 
 
-                txtSmpNum.Text = TS.SampleID.Value.ToString();
+                txtSmpNum.Text = TS.SampleID; 
                 // txtNumSmp.Text = TS.NumberSample;
                 chkCOC.Checked = TS.ChainOfCustody ?? false;
                 chkDataSheet.Checked = TS.DataSheetIncluded ?? false;

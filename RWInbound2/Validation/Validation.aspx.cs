@@ -22,6 +22,8 @@ namespace RWInbound2.Validation
             int nutrientDupCount = 0;
             int lachatNotRecorded = 0;
             int unknownCount = 0;
+            int FieldNotRecorded = 0;
+            int FieldCount = 0;
             btnICPDups.Enabled = false;
             bool allowed = false;
 
@@ -186,7 +188,7 @@ namespace RWInbound2.Validation
 
                     if(lachatNotRecorded > 0)
                     {
-                        lblLachatMessage.Text = string.Format("NOTE: There are {0} unrecorded Lachat barcodes - view under reports", lachatNotRecorded);
+                        lblLachatMessage.Text = string.Format("NOTE: There are {0} unrecorded Lachat barcodes - view under Reports", lachatNotRecorded);
                         lblLachatMessage.ForeColor = System.Drawing.Color.Red;
                         lblLachatMessage.Visible = true;
                     }
@@ -207,9 +209,44 @@ namespace RWInbound2.Validation
                     else
                         lblUnknowns.Text = string.Format("There are no unknown samples to validate");
 
+                    // now do field data 
 
+                    string cmdCount = "select count(*) from [FieldNOTInSamples]";
+                    string totalField = "select count(*) from [FieldINSamples]";
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; // RWE.Database.Connection.ConnectionString;
+                            cmd.Connection = conn;
+                            conn.Open();
+                            cmd.CommandText = cmdCount;
+                            FieldNotRecorded = (int)cmd.ExecuteScalar();
 
+                            cmd.CommandText = totalField;
+                            FieldCount = (int)cmd.ExecuteScalar();
+                        }
+                    }
 
+                    if(FieldNotRecorded > 0)
+                    {
+                        lblFieldNotRecorded.Text = string.Format("There are {0} unrecorded Field Data Records - view under Reports", FieldNotRecorded);
+                        lblFieldNotRecorded.ForeColor = System.Drawing.Color.Red; 
+                    }
+                    else
+                    {
+                        lblFieldNotRecorded.Text = string.Format("There are NO incoming Field Data records not yet entered");
+                        lblFieldNotRecorded.ForeColor = System.Drawing.Color.Black; 
+                    }
+
+                   if(FieldCount > 0)
+                   {
+                       lblFieldSamples.Text = string.Format("There are {0} Field Data records to validate", FieldCount);
+                   }
+                   else
+                   {
+                       lblFieldSamples.Text = string.Format("There are NO Field Data records to validate");
+                   }
 
                 }
             } 
@@ -229,7 +266,6 @@ namespace RWInbound2.Validation
 
         protected void btnICPBlanks_Click(object sender, EventArgs e)
         {
-
             Response.Redirect("~/Validation/ValidateBlanks.aspx"); 
         }
 
@@ -255,12 +291,12 @@ namespace RWInbound2.Validation
 
         protected void btnUnknown_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Validation/ValidateUnknowns .aspx");
+            Response.Redirect("~/Validation/ValidateUnknowns.aspx");
         }
 
         protected void btnField_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Validation/ValidateField .aspx");
+            Response.Redirect("~/Validation/ValidateField.aspx");
         }
     }
 }
