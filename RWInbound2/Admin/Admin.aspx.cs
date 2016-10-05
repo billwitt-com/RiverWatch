@@ -11,8 +11,8 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            pnlQuickview.GroupingText = "Quick View";
-            pnlQuickview.HorizontalAlign = HorizontalAlign.Center;
+            //pnlQuickview.GroupingText = "Quick View";
+            //pnlQuickview.HorizontalAlign = HorizontalAlign.Center;
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -58,6 +58,11 @@ namespace RWInbound2.Admin
         protected void btnNutrientLimits_Click(object sender, EventArgs e)
         {
             Response.Redirect("AdminNutrientLimits.aspx");
+        }
+
+        protected void btnEditIncoming_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditInboundFieldData.aspx");
         }
     }
 }

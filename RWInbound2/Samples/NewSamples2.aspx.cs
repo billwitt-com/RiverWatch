@@ -1503,6 +1503,7 @@ namespace RWInbound2.Samples
                 if (SMP.Count() < 1)
                 {
                     lstSamples.Items.Clear();
+                    lstSamples.Visible = false; 
                     return;
                 }
 

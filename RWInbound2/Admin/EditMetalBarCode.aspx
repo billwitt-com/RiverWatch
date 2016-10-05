@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 
-    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+    <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Edit Metals Barcodes"></asp:Label>
     <br />
     <br />
     <asp:Label ID="Label2" runat="server" Text="Select Barcode: "></asp:Label>
