@@ -1,45 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditInboundFieldData.aspx.cs" Inherits="RWInbound2.Admin.EditInboundFieldData" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditInboundField.aspx.cs" Inherits="RWInbound2.Edit.EditInboundField" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Edit Inbound Field Data"></asp:Label>
 
-    <table>
-        <tr>
-            <td style="width: 387px">
-                <asp:Label ID="Label2" runat="server" Text="Select by Organization: "></asp:Label>
-                <asp:TextBox ID="tbOrgName" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="202px" runat="server"></asp:TextBox>
-                <ajaxToolkit:AutoCompleteExtender ID="tbOrgName_AutoCompleteExtender" runat="server"
-                    ServiceMethod="SearchOrgs"
-                    CompletionSetCount="2" MinimumPrefixLength="2"
-                    TargetControlID="tbOrgName">
-                </ajaxToolkit:AutoCompleteExtender>
-
-            </td>
-            <td style="width: 184px">
-                <asp:Label ID="Label4" runat="server" Text=" OR Kit Number: "></asp:Label>
-                <asp:TextBox ID="tbKitNumber" runat="server" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="46px"></asp:TextBox>
-            </td>
-            <td>
-
-                <asp:Button ID="btnSelectOrg" runat="server" Text="Select" OnClick="btnSelectOrg_Click" />
-
-            </td>
-        </tr>
-    </table>
-
-    <br />
-    <asp:Label ID="lblNumberLeft" runat="server"></asp:Label>
-<%--    AutoGenerateColumns="False"   InsertVisible="False"  --%>
-    <br />
-    <asp:Label ID="lblMsg" runat="server"></asp:Label>
-    <br />
-    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" OnRowUpdated="GridView1_RowUpdated" OnRowUpdating="GridView1_RowUpdating" OnRowDeleted="GridView1_RowDeleted"  OnRowEditing="GridView1_RowEditing"  DataKeyNames="ID" DataSourceID="SqlDataSource1">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1">
         <Columns>
-            <asp:CommandField    ButtonType="Button"  ItemStyle-Wrap="false"  ShowDeleteButton="True" ShowEditButton="True" />
-            <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" />
-            <asp:CheckBoxField DataField="Valid" HeaderText="Valid" SortExpression="Valid" />
-            <asp:BoundField DataField="PassValStep" HeaderText="PassVal" SortExpression="PassValStep" />
+            <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+            <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
             <asp:BoundField DataField="StationNum" HeaderText="StationNum" SortExpression="StationNum" />
             <asp:BoundField DataField="SampleID" HeaderText="SampleID" SortExpression="SampleID" />
             <asp:BoundField DataField="txtSampleID" HeaderText="txtSampleID" SortExpression="txtSampleID" />
@@ -76,22 +43,19 @@
             <asp:BoundField DataField="Comments" HeaderText="Comments" SortExpression="Comments" />
             <asp:BoundField DataField="DateReceived" HeaderText="DateReceived" SortExpression="DateReceived" />
             <asp:CheckBoxField DataField="DataSheetIncluded" HeaderText="DataSheetIncluded" SortExpression="DataSheetIncluded" />
-            <asp:BoundField DataField="MissingDataSheetReqDate" HeaderText="MDSRDate" SortExpression="MissingDataSheetReqDate" />
+            <asp:BoundField DataField="MissingDataSheetReqDate" HeaderText="MissingDataSheetReqDate" SortExpression="MissingDataSheetReqDate" />
             <asp:CheckBoxField DataField="ChainOfCustody" HeaderText="ChainOfCustody" SortExpression="ChainOfCustody" />
-            <asp:CheckBoxField DataField="MissingDataSheetReceived" HeaderText="MDSR" SortExpression="MissingDataSheetReceived" />
-            <asp:BoundField DataField="tblSampleID" HeaderText="tblSampleID"  ReadOnly="true" SortExpression="tblSampleID" />
-
+            <asp:CheckBoxField DataField="MissingDataSheetReceived" HeaderText="MissingDataSheetReceived" SortExpression="MissingDataSheetReceived" />
+            <asp:BoundField DataField="PassValStep" HeaderText="PassValStep" SortExpression="PassValStep" />
+            <asp:BoundField DataField="tblSampleID" HeaderText="tblSampleID" SortExpression="tblSampleID" />
+            <asp:CheckBoxField DataField="Valid" HeaderText="Valid" SortExpression="Valid" />
         </Columns>
     </asp:GridView>
 
-<%--            SelectCommand ="select * FROM [RiverWatch].[dbo].[InboundSamples] where KitNum = 126 "--%>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
-
-         SelectCommand ="select * FROM [RiverWatch].[dbo].[InboundSamples] where KitNum = 126 "
-        DeleteCommand="UPDATE [InboundSamples] SET [Valid] = 0  WHERE [ID] = @ID"  OnDeleting="SqlDataSource1_Deleting" OnUpdating="SqlDataSource1_Updating" OnUpdated="SqlDataSource1_Updated" OnDeleted ="SqlDataSource1_Deleted"
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
+        DeleteCommand="DELETE FROM [InboundSamples] WHERE [ID] = @ID" 
         InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [MetalsNormal], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID], [Valid]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @MetalsNormal, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID, @Valid)" 
-        UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID, [Valid] = @Valid WHERE [ID] = @ID">
+        SelectCommand="SELECT top 100 * FROM [InboundSamples]" UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID, [Valid] = @Valid WHERE [ID] = @ID">
         <DeleteParameters>
             <asp:Parameter Name="ID" Type="Int32" />
         </DeleteParameters>
@@ -185,4 +149,5 @@
             <asp:Parameter Name="ID" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
+
 </asp:Content>

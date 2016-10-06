@@ -38,7 +38,7 @@
         <br />
    
     <br />
-    <asp:FormView ID="FormView1" runat="server"  OnDataBound="FormView1_DataBound" DefaultMode="Edit" AllowPaging="True" DataKeyNames="inbSampleID" DataSourceID="SqlDataSource1"
+    <asp:FormView ID="FormView1" runat="server"  OnDataBound="FormView1_DataBound" DefaultMode="Edit" AllowPaging="True" DataKeyNames="ID" DataSourceID="SqlDataSource1"
         Width="808px">
         <EditItemTemplate>
             <table>

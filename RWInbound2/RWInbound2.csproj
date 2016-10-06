@@ -109,7 +109,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\Admin.aspx" />
     <Content Include="Admin\AdminControlPermissions.aspx" />
@@ -121,7 +120,6 @@
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Applications\Applications.aspx" />
-    <Content Include="Contact.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -166,6 +164,7 @@
     <Content Include="Edit\EditFieldProcedure.aspx" />
     <Content Include="Edit\EditGrid.aspx" />
     <Content Include="Edit\EditHydroUnit.aspx" />
+    <Content Include="Edit\EditInboundField.aspx" />
     <Content Include="Edit\EditMetalBarCodeType.aspx" />
     <Content Include="Edit\EditNutrientBarCodeType.aspx" />
     <Content Include="Edit\EditOrganizationType.aspx" />
@@ -498,13 +497,6 @@
     </Compile>
     <Compile Include="App_Code\Permissions.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -513,13 +505,6 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ControlPermission.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -600,6 +585,13 @@
     </Compile>
     <Compile Include="Edit\EditHydroUnit.aspx.designer.cs">
       <DependentUpon>EditHydroUnit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditInboundField.aspx.cs">
+      <DependentUpon>EditInboundField.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditInboundField.aspx.designer.cs">
+      <DependentUpon>EditInboundField.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditMetalBarCodeType.aspx.cs">
       <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>

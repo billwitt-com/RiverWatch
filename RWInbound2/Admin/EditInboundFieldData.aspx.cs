@@ -17,7 +17,59 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           // GridView1.Visible = false;
+            //if (!IsPostBack)
+            //{
+            //    string cmd = SqlDataSource1.SelectCommand;
+            //    if (Session["SELECTCOMMAND"] != null)
+            //    {
+            //        string selectcommand = (string)Session["SELECTCOMMAND"];
+            //        SqlDataSource1.SelectCommand = selectcommand;
+            //        GridView1.DataBind();
+            //    }           
+            //}
+            if( Session["KITNUMBER"] != null)
+            {
+                int LocaLkitNumber = (int)Session["KITNUMBER"];
+                int sampsToValidate = 0; 
+                try
+                {
+
+                    string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples  " +
+                         "  where InboundSamples.KitNum = {0}", LocaLkitNumber);
+
+                    using (SqlCommand cmd1 = new SqlCommand())
+                    {
+                        using (SqlConnection conn = new SqlConnection())
+                        {
+                            conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // RWE.Database.Connection.ConnectionString;
+                            conn.Open();
+                            cmd1.Connection = conn;
+                            cmd1.CommandText = cmdCount;
+                            sampsToValidate = (int)cmd1.ExecuteScalar();
+                        }
+                    }
+
+                    if (sampsToValidate == 0)
+                    {
+
+                        lblNumberLeft.Text = "There are NO records to edit";
+                        return;
+                    }
+                    else
+                        lblNumberLeft.Text = string.Format("There are {0} samples to edit", sampsToValidate);
+                }
+                catch (Exception ex)
+                {
+                    string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    string msg = ex.Message;
+                    LogError LE = new LogError();
+                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                }
+            }
         }
 
 
@@ -128,7 +180,6 @@ namespace RWInbound2.Admin
                 tbKitNumber.Text = LocaLkitNumber.ToString();
                 tbOrgName.Text = orgName; // fill in for user
                 GridView1.Visible = true;
-
                 GridView1.DataBind();
 
             }
@@ -185,11 +236,74 @@ namespace RWInbound2.Admin
 
         protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
         {
-            if(Session["SELECTCOMMAND"] != null)
+            //if(Session["SELECTCOMMAND"] != null)
+            //{
+            //    string selectcommand = (string)Session["SELECTCOMMAND"];
+            //    SqlDataSource1.SelectCommand = selectcommand;
+            //    GridView1.DataBind(); 
+            //}
+        }
+
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            if (Session["SELECTCOMMAND"] != null)
             {
                 string selectcommand = (string)Session["SELECTCOMMAND"];
-                SqlDataSource1.SelectCommand = selectcommand;
-                GridView1.DataBind(); 
+             //   SqlDataSource1.SelectCommand = selectcommand;
+              //  GridView1.DataBind();
+            }
+        } 
+
+        protected void GridView1_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        {
+            if (Session["SELECTCOMMAND"] != null)
+            {
+                //string selectcommand = (string)Session["SELECTCOMMAND"];
+                //SqlDataSource1.SelectCommand = selectcommand;
+              //  GridView1.DataBind();
+            }
+        }
+
+        protected void SqlDataSource1_Deleting(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            string delCommand = SqlDataSource1.DeleteCommand; 
+
+           
+        }
+
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            string updateCmd = SqlDataSource1.UpdateCommand;
+            string selCommand = SqlDataSource1.SelectCommand; 
+
+        }
+
+        protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            string updateCmd = SqlDataSource1.UpdateCommand;
+            string selCommand = SqlDataSource1.SelectCommand; 
+        }
+
+        protected void SqlDataSource1_Updated(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            string selCommand = SqlDataSource1.SelectCommand; 
+            if (Session["SELECTCOMMAND"] != null)
+            {
+                string selectcommand = (string)Session["SELECTCOMMAND"];
+           //     SqlDataSource1.SelectCommand = selectcommand;
+             //   GridView1.DataBind();
+            }
+        }
+
+        // this seems to work OK
+        protected void SqlDataSource1_Deleted(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            string selCommand = SqlDataSource1.SelectCommand; 
+            if (Session["SELECTCOMMAND"] != null)
+            {
+                string selectcommand = (string)Session["SELECTCOMMAND"];
+          //      SqlDataSource1.SelectCommand = selectcommand;
+              //  GridView1.DataBind();
             }
         }
     }

@@ -44,8 +44,8 @@ namespace RWInbound2.Validation
 
                     //sampsToValidate = U.Count();
 
-                    string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
-                       " Samples.SampleNumber where InboundSamples.KitNum = {0}", kitNumber);
+                    string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
+                       " Samples.SampleNumber where InboundSamples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum  {0}", kitNumber);
                     using (SqlConnection conn = new SqlConnection())              
                     {
                         using (SqlCommand cmd = new SqlCommand())
@@ -408,7 +408,6 @@ namespace RWInbound2.Validation
         protected void btnSelectOrg_Click(object sender, EventArgs e)
         {
             int orgID = 0;
-            int kitNumber = 0;
             int sampsToValidate = 0;
             string orgName = "";
             string sCommand = "";
@@ -476,8 +475,12 @@ namespace RWInbound2.Validation
                 //         where u.KitNum == kitNumber & u.Valid == true & u.PassValStep != -1 & s.SampleNumber != null
                 //         select u);
 
-                string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
-                     " Samples.SampleNumber where InboundSamples.KitNum = {0}", LocaLkitNumber);
+                string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
+   " Samples.SampleNumber where InboundSamples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum = {0}", LocaLkitNumber);
+
+
+                //string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
+                //     " Samples.SampleNumber where InboundSamples.KitNum = {0}", LocaLkitNumber);
 
                 using (SqlCommand cmd = new SqlCommand())
                 {
@@ -490,9 +493,8 @@ namespace RWInbound2.Validation
                         sampsToValidate = (int) cmd.ExecuteScalar(); 
                     }
                 }
-            //    sampsToValidate = U.Count();
 
-                if (sampsToValidate == 0)
+                if (sampsToValidate < 0)
                 {
 
                     lblNumberLeft.Text = "There are NO records to validate";
@@ -516,8 +518,13 @@ namespace RWInbound2.Validation
             // we have some samples to validate, so set up the query and bind to formview
             try
             {
-                sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[InboundSamples] " +
+                sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[InboundSamples] JOIN Samples on InboundSamples.SampleID = " +
+                       " Samples.SampleNumber " +
                     " where KitNum = {0} and valid = 1 and passValStep = -1 order by date desc ", LocaLkitNumber);
+
+                //string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
+                //   " Samples.SampleNumber where InboundSamples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum  {0}", kitNumber);
+
                 SqlDataSource1.SelectCommand = sCommand;
                 Session["COMMAND"] = sCommand;
                 tbKitNumber.Text = LocaLkitNumber.ToString();
