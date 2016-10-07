@@ -14,7 +14,7 @@ namespace RWInbound2
     
     public partial class InboundSamples
     {
-        public int inbSampleID { get; set; }
+        public int ID { get; set; }
         public Nullable<int> StationNum { get; set; }
         public string SampleID { get; set; }
         public string txtSampleID { get; set; }

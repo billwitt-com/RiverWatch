@@ -52,11 +52,11 @@ namespace RWInbound2.Admin
                     if (sampsToValidate == 0)
                     {
 
-                        lblNumberLeft.Text = "There are NO records to edit";
+                        lblNumberLeft.Text = "There are NO records to View";
                         return;
                     }
                     else
-                        lblNumberLeft.Text = string.Format("There are {0} samples to edit", sampsToValidate);
+                        lblNumberLeft.Text = string.Format("There are {0} samples to View", sampsToValidate);
                 }
                 catch (Exception ex)
                 {
@@ -150,11 +150,11 @@ namespace RWInbound2.Admin
                 if (sampsToValidate == 0)
                 {
 
-                    lblNumberLeft.Text = "There are NO records to edit";
+                    lblNumberLeft.Text = "There are NO records to View";
                     return;
                 }
                 else
-                    lblNumberLeft.Text = string.Format("There are {0} samples to edit", sampsToValidate);
+                    lblNumberLeft.Text = string.Format("There are {0} samples to View", sampsToValidate);
             }
             catch (Exception ex)
             {

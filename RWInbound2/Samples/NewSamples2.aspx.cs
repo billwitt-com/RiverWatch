@@ -772,7 +772,7 @@ namespace RWInbound2.Samples
                  try
                  {
                      InboundSamples S = (from s in NRWDE.InboundSamples
-                                        where s.inbSampleID == inboundSampleID & s.Valid == true
+                                        where s.ID == inboundSampleID & s.Valid == true
                                         select s).FirstOrDefault(); 
                      if(S != null)
                      {
@@ -923,7 +923,7 @@ namespace RWInbound2.Samples
                                                    select s).FirstOrDefault();
                 if (TS == null)
                     return;
-                inBoundSampleID = TS.inbSampleID;
+                inBoundSampleID = TS.ID;
                 Session["INBOUNDSAMPLEID"] = inBoundSampleID; // save and as flag
                 // populate the screen 
                 // add check to see if this is already in samples table
@@ -1515,6 +1515,7 @@ namespace RWInbound2.Samples
                 }
 
                 lstSamples.Items.Clear();
+                lstSamples.Visible = true; 
                 lstSamples.DataSource = samps;
                 lstSamples.DataBind();
             }

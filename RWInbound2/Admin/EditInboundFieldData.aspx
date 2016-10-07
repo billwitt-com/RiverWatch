@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Edit Inbound Field Data"></asp:Label>
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="View - Delete Inbound Field Data"></asp:Label>
 
     <table>
         <tr>
@@ -36,7 +36,7 @@
     <br />
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" OnRowUpdated="GridView1_RowUpdated" OnRowUpdating="GridView1_RowUpdating" OnRowDeleted="GridView1_RowDeleted"  OnRowEditing="GridView1_RowEditing"  DataKeyNames="ID" DataSourceID="SqlDataSource1">
         <Columns>
-            <asp:CommandField    ButtonType="Button"  ItemStyle-Wrap="false"  ShowDeleteButton="True" ShowEditButton="True" />
+            <asp:CommandField    ButtonType="Button"  ItemStyle-Wrap="false"  ShowDeleteButton="True" />
             <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" />
             <asp:CheckBoxField DataField="Valid" HeaderText="Valid" SortExpression="Valid" />
             <asp:BoundField DataField="PassValStep" HeaderText="PassVal" SortExpression="PassValStep" />
@@ -86,9 +86,7 @@
 
 <%--            SelectCommand ="select * FROM [RiverWatch].[dbo].[InboundSamples] where KitNum = 126 "--%>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
-
-         SelectCommand ="select * FROM [RiverWatch].[dbo].[InboundSamples] where KitNum = 126 "
+        ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"          
         DeleteCommand="UPDATE [InboundSamples] SET [Valid] = 0  WHERE [ID] = @ID"  OnDeleting="SqlDataSource1_Deleting" OnUpdating="SqlDataSource1_Updating" OnUpdated="SqlDataSource1_Updated" OnDeleted ="SqlDataSource1_Deleted"
         InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [MetalsNormal], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID], [Valid]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @MetalsNormal, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID, @Valid)" 
         UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID, [Valid] = @Valid WHERE [ID] = @ID">

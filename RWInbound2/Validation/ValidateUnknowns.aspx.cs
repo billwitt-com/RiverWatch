@@ -37,25 +37,9 @@ namespace RWInbound2.Validation
                 orgID = (int)Session["ORGID"];
                 if (orgID != 0)
                 {
-
-                    RiverWatchEntities RWE = new RiverWatchEntities();
-                    var U = (from u in RWE.UnknownSample
-                             where u.OrganizationID == orgID & u.Valid == true & u.Validated == true
-                             select u);
-
-                    sampsToValidate = U.Count();
-
-                    if (sampsToValidate == 0)
-                    {
-
-                        lblNumberLeft.Text = "There are NO records to validate";
-                        return;
-                    }
-                    else
-                        lblNumberLeft.Text = string.Format("There are {0} samples to validate", sampsToValidate);
+                    countSamples(orgID);                     
                 }
-            }
-            
+            }            
         }
 
         [System.Web.Script.Services.ScriptMethod()]
@@ -124,20 +108,7 @@ namespace RWInbound2.Validation
                 Session["ORGID"] = orgID; // save for later
                 // count the number of samples that are to be validated
 
-                var U = (from u in RWE.UnknownSample
-                         where u.OrganizationID == orgID & u.Valid == true & u.Validated == true
-                         select u);
-
-                sampsToValidate = U.Count();
-
-                if (sampsToValidate == 0)
-                {
-
-                    lblNumberLeft.Text = "There are NO records to validate";
-                    return;
-                }
-                else
-                    lblNumberLeft.Text = string.Format("There are {0} samples to validate", sampsToValidate);
+                countSamples(orgID);
             }
             catch (Exception ex)
             {
@@ -174,6 +145,26 @@ namespace RWInbound2.Validation
             }
         }
 
+        public void countSamples(int orgID)
+        {
+            RiverWatchEntities RWE = new RiverWatchEntities();
+            int sampsToValidate = 0; 
+            var U = (from u in RWE.UnknownSample
+                     where u.OrganizationID == orgID & u.Valid == true & u.Validated == false
+                     select u);
+
+            sampsToValidate = U.Count();
+
+            if (sampsToValidate == 0)
+            {
+
+                lblNumberLeft.Text = "There are NO records to validate";
+                return;
+            }
+            else
+                lblNumberLeft.Text = string.Format("There are {0} samples to validate", sampsToValidate);
+        }
+
         protected void btnBAD_Click(object sender, EventArgs e)
         {
             int unknownID = 0; 
@@ -190,6 +181,14 @@ namespace RWInbound2.Validation
                     SqlDataSource1.Update();
                 }
             }
+            if (Session["ORGID"] != null)
+            {
+                int orgID = (int)Session["ORGID"];
+                if (orgID != 0)
+                {
+                    countSamples(orgID);
+                }
+            }            
         }
 
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
@@ -260,6 +259,33 @@ namespace RWInbound2.Validation
         {
             string uniqueID = FormView1.Controls[0].UniqueID;
             compareTextBoxes("Value1TextBox", "Value2TextBox", uniqueID);   
+        }
+
+        protected void UpdateButton_Click(object sender, EventArgs e)
+        {
+            int unknownID = 0;
+            string unID = "";
+            string uCommand = "";
+            Label TB = FormView1.Controls[0].FindControl("UnknownSampleIDLabel1") as Label;
+            if (TB != null)
+            {
+                unID = TB.Text.Trim();
+                if (int.TryParse(unID, out unknownID))
+                {
+                    uCommand = string.Format("update [RiverWatch].[dbo].[UnknownSample]	set validated = 1, valid = 1 where [UnknownSampleID] = {0} ", unknownID);
+                    SqlDataSource1.UpdateCommand = uCommand;
+                    SqlDataSource1.Update();
+                }
+            }
+            if (Session["ORGID"] != null)
+            {
+                int orgID = (int)Session["ORGID"];
+                if (orgID != 0)
+                {
+                    countSamples(orgID);
+                }
+            }            
+
         }
     }
 }

@@ -15,7 +15,7 @@
     <asp:Button ID="btnSelectOrg" runat="server" Text="Select" OnClick="btnSelectOrg_Click"/>
 &nbsp;
     <br />
-    <asp:Label ID="lblNumberLeft" runat="server" Text="Label"></asp:Label>
+    <asp:Label ID="lblNumberLeft" runat="server" ></asp:Label>
    
         <br />
         <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
@@ -86,7 +86,7 @@
                     Validated:
                     <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' />
                     <br />
-                    <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Validate" />
+                    <asp:Button ID="UpdateButton" runat="server" CausesValidation="True"  OnClick="UpdateButton_Click" CommandName="Update" Text="Validate" />
                     &nbsp;<asp:Button ID="btnBAD" runat="server" CausesValidation="true" OnClick="btnBAD_Click" Text="BAD" />
                 </EditItemTemplate>
               

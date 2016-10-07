@@ -305,39 +305,39 @@ namespace RWInbound2.Validation
             }
             DataTable DT = (DataTable)Session["OURTABLE"];
 
-            // FormView locFV = sender as FormView;
-            int idx = FormViewBlank.PageIndex;
-            int id = (int)DT.Rows[idx]["tblSampleID"];
-            string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+            //// FormView locFV = sender as FormView;
+            //int idx = FormViewBlank.PageIndex;
+            //int id = (int)DT.Rows[idx]["tblSampleID"];
+            //string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
-            if (barcode.Length > 4)
-            {
-                // build query to get associated normal
-                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
-                SqlDataSourceNormals.SelectCommand = cmmd;
-                FormViewNormals.DataBind();
-                FormViewNormals.Visible = true;
-            }
-            else
-            {
-                FormViewNormals.Visible = false; // nothing to show as no normal sample
-            }
+            //if (barcode.Length > 4)
+            //{
+            //    // build query to get associated normal
+            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+            //    SqlDataSourceNormals.SelectCommand = cmmd;
+            //    FormViewNormals.DataBind();
+            //    FormViewNormals.Visible = true;
+            //}
+            //else
+            //{
+            //    FormViewNormals.Visible = false; // nothing to show as no normal sample
+            //}
 
             // now do for duplicate bar code
-            barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
-            if (barcode.Length > 4)
-            {
-                // build query to get associated normal
-                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
-                SqlDataSourceDups.SelectCommand = cmmd;
+            //barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
+            //if (barcode.Length > 4)
+            //{
+            //    // build query to get associated normal
+            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+            //    SqlDataSourceDups.SelectCommand = cmmd;
 
-                FormViewDuplicate.DataBind();
-                FormViewDuplicate.Visible = true;
-            }
-            else
-            {
-                FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
-            }
+            //    FormViewDuplicate.DataBind();
+            //    FormViewDuplicate.Visible = true;
+            //}
+            //else
+            //{
+            //    FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
+            //}
 
             // **** end of transplanted code
 
@@ -968,7 +968,31 @@ namespace RWInbound2.Validation
         {
             int thispage = (int)Session["THISPAGE"];
             FormViewBlank.PageIndex = thispage;
+            if (Session["OURTABLE"] == null)
+            {
+                return;
+            }
+            DataTable DT = (DataTable)Session["OURTABLE"];
 
+            // FormView locFV = sender as FormView;
+            int idx = FormViewBlank.PageIndex;
+            int id = (int)DT.Rows[idx]["tblSampleID"];
+            string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+
+            barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
+            if (barcode.Length > 4)
+            {
+                // build query to get associated normal
+                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+                SqlDataSourceDups.SelectCommand = cmmd;
+
+                FormViewDuplicate.DataBind();
+                FormViewDuplicate.Visible = true;
+            }
+            else
+            {
+                FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
+            }
             // try this:
             setControls(); 
 
@@ -976,12 +1000,35 @@ namespace RWInbound2.Validation
             //FormViewDuplicate.DataBind();
             //FormViewNormals.DataBind();
         }
-
+        // XXXX moved update back here
         protected void SqlDataSourceDups_Updated(object sender, SqlDataSourceStatusEventArgs e)
         {
             int thispage = (int)Session["THISPAGE"];
             FormViewBlank.PageIndex = thispage;
             // try this:
+            if (Session["OURTABLE"] == null)
+            {
+                return;
+            }
+            DataTable DT = (DataTable)Session["OURTABLE"];
+
+            // FormView locFV = sender as FormView;
+            int idx = FormViewBlank.PageIndex;
+            int id = (int)DT.Rows[idx]["tblSampleID"];
+            string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+
+            if (barcode.Length > 4)
+            {
+                // build query to get associated normal
+                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+                SqlDataSourceNormals.SelectCommand = cmmd;
+                FormViewNormals.DataBind();
+                FormViewNormals.Visible = true;
+            }
+            else
+            {
+                FormViewNormals.Visible = false; // nothing to show as no normal sample
+            }
             setControls(); 
 
             //FormViewDuplicate.DataBind();

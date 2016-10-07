@@ -310,8 +310,8 @@ namespace RWInbound2.Validation
                 // build query to get associated normal
                 string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
                 //           string cmmd = string.Format("SELECT * FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where Code = '{0}'", barcode);
-                SqlDataSourceNormals.SelectCommand = cmmd;
-                FormViewSample.DataBind();
+                //SqlDataSourceNormals.SelectCommand = cmmd;
+                //FormViewSample.DataBind();
                 FormViewSample.Visible = true;
             }
             else
@@ -886,6 +886,27 @@ namespace RWInbound2.Validation
             int thispage = (int)Session["THISPAGE"];
             FormViewDup.PageIndex = thispage;
            // FormViewDup.DataBind();
+            // this is where the data should be updated
+            if (Session["OURTABLE"] == null)
+                return;
+
+            int idx = FormViewDup.PageIndex;
+            DataTable DT = (DataTable)Session["OURTABLE"];
+            string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+
+            if (barcode.Length > 4)
+            {
+                // build query to get associated normal
+                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
+                //           string cmmd = string.Format("SELECT * FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where Code = '{0}'", barcode);
+                SqlDataSourceNormals.SelectCommand = cmmd;
+                FormViewSample.DataBind();
+                FormViewSample.Visible = true;
+            }
+            else
+            {
+                FormViewSample.Visible = false; // nothing to show as no normal sample
+            }
             setControls(); 
         }
 
