@@ -1537,3 +1537,70 @@ td > textarea.edit-table-control-permission-cell{
     font-size:medium;
     resize:vertical;
 }
+
+/*Exit Exp Water Page*/
+.edit-exp-water-div{
+    display:inline-block;
+    margin-top: 12px;
+    /*width:500px;*/
+}
+
+div.edit-exp-water-div > label{
+    font-size: 1em;
+    font-weight:bolder;
+}
+
+div.edit-exp-water-div > span{
+    font-size: 0.95em;
+    background-color:ActiveBorder;
+}
+
+div.edit-exp-water-div > span{
+    font-size: 0.95em;
+    background-color:ActiveBorder;
+}
+
+.edit-exp-water-hr{
+    border-style:ridge;
+    border-width:0.15em;
+}
+
+.edit-exp-water-div-h3{
+    text-align:center;
+}
+
+.edit-exp-water-comments-div{
+    display:inline-block;
+    margin-top: 12px;    
+}
+
+div.edit-exp-water-comments-div >label{
+    font-size: 1em;
+    font-weight:bolder;
+    margin-bottom: 20px;
+    vertical-align:top;
+}
+
+.edit-exp-water-td-div{
+    display:flex;
+    padding-left:5px;
+}
+
+.edit-exp-water-td-div > input{
+    margin-left:2px;
+    margin-bottom:2px;
+}
+
+.edit-exp-water-td-div > label{
+    margin-top:5px;
+    margin-left:5px;
+}
+
+.edit-exp-water-error-div > span{
+    font-size:0.9em;
+    display:block;
+}
+
+.edit-exp-water-th{
+    font-size:1.1em;
+}

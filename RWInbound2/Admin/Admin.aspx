@@ -114,7 +114,9 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td style="width: 262px">&nbsp;</td>
+                <td style="width: 262px">
+                    <asp:Button ID="btnExpWater" runat="server" Text="Edit ExpWater" CssClass="adminButton" Width="176px" OnClick="btnExpWaters_Click" />
+                </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>

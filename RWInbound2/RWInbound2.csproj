@@ -118,6 +118,7 @@
     <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
+    <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Contact.aspx" />
@@ -471,6 +472,13 @@
     </Compile>
     <Compile Include="Admin\AdminUsers.aspx.designer.cs">
       <DependentUpon>AdminUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditExpWater.aspx.cs">
+      <DependentUpon>EditExpWater.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditExpWater.aspx.designer.cs">
+      <DependentUpon>EditExpWater.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditMetalBarCode.aspx.cs">
       <DependentUpon>EditMetalBarCode.aspx</DependentUpon>

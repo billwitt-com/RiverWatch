@@ -59,5 +59,10 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("AdminNutrientLimits.aspx");
         }
+
+        protected void btnExpWaters_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditExpWater.aspx");
+        }
     }
 }
