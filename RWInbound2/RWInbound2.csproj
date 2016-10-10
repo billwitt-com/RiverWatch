@@ -280,6 +280,7 @@
     <Content Include="RiverWatchDataSetOrgStations.xsc">
       <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\RiverWatch.pubxml" />
     <None Include="RiverWatchDataSetOrgStations.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>RiverWatchDataSetOrgStations.Designer.cs</LastGenOutput>

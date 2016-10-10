@@ -17,11 +17,17 @@ namespace RWInbound2.Validation
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            int sampsToValidate = 0;
+            bool allowed = false;
+
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx"); 
+
             if (Session["COMMAND"] != null) // reset the command each time
             {
                 string sCommand = (string)Session["COMMAND"];
                 SqlDataSource1.SelectCommand = sCommand;
+                FormView1.Visible = true; 
             }
             else
             {
@@ -31,54 +37,9 @@ namespace RWInbound2.Validation
             if (Session["KITNUMBER"] != null)
             {
                 int kitNumber = (int)Session["KITNUMBER"];
-                try
-                {
-                    RiverWatchEntities RWE = new RiverWatchEntities();
-                    
-                    // count the number of samples that are to be validated
 
-                    //var U = (from u in RWE.InboundSamples
-                    //         join s in RWE.Samples on u.SampleID equals long.Parse(s.SampleNumber)
-                    //         where u.KitNum == kitNumber & u.Valid == true & u.PassValStep != -1 & s.SampleNumber != null
-                    //         select u);
-
-                    //sampsToValidate = U.Count();
-
-                    string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
-                       " Samples.SampleNumber where InboundSamples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum  {0}", kitNumber);
-                    using (SqlConnection conn = new SqlConnection())              
-                    {
-                        using (SqlCommand cmd = new SqlCommand())
-                        
-                        {
-                            conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; // RWE.Database.Connection.ConnectionString;
-                            cmd.Connection = conn;
-                            conn.Open(); 
-                            cmd.CommandText = cmdCount;
-                            sampsToValidate = (int)cmd.ExecuteScalar();  //cmd.ExecuteNonQuery(); 
-                        }
-                    }
-
-                    if (sampsToValidate == 0)
-                    {
-
-                        lblNumberLeft.Text = "There are NO records to validate";
-                        return;
-                    }
-                    else
-                        lblNumberLeft.Text = string.Format("There are {0} samples to validate", sampsToValidate);
-                }
-                catch (Exception ex)
-                {
-                    string nam = "";
-                    if (User.Identity.Name.Length < 3)
-                        nam = "Not logged in";
-                    else
-                        nam = User.Identity.Name;
-                    string msg = ex.Message;
-                    LogError LE = new LogError();
-                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-                }
+                if (!countSamples(kitNumber))
+                    return;   
             }
         }
 
@@ -118,20 +79,17 @@ namespace RWInbound2.Validation
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
-
         }
 
         // here for any value change where we need to do any checking
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            //          TextBox_TextChanged
             string uniqueID = FormView1.Controls[0].UniqueID;
             compareTextBoxes(uniqueID);
         }
 
         public void compareTextBoxes(string UID)
         {
-
             TextBox tb1;
             decimal pH = 0;
             bool ispH = false;
@@ -252,8 +210,6 @@ namespace RWInbound2.Validation
                 if (decimal.TryParse(tb1.Text, out DO))
                     isDO = true;
             }
-    
-
 
             // rule: if pH < 8.3 AND pHAlk > 0 == warning
             if (isPhenolAlk & ispH)
@@ -408,7 +364,7 @@ namespace RWInbound2.Validation
         protected void btnSelectOrg_Click(object sender, EventArgs e)
         {
             int orgID = 0;
-            int sampsToValidate = 0;
+
             string orgName = "";
             string sCommand = "";
             int LocaLkitNumber = -1;
@@ -459,68 +415,17 @@ namespace RWInbound2.Validation
                 Session["ORGID"] = orgID; // save for later
                 Session["KITNUMBER"] = LocaLkitNumber;
             }
+            // valid kit number here... 
 
-            // ++++++++++++++++++++++++
-            try
-            {
-
-                // count the number of samples that are to be validated
-
-                //var U = (from u in RWE.InboundSamples
-                //         where u.KitNum == LocaLkitNumber & u.Valid == true & u.PassValStep == -1
-                //         select u);
-
-                //var U = (from u in RWE.InboundSamples
-                //         join s in RWE.Samples on u.SampleID equals long.Parse(s.SampleNumber)
-                //         where u.KitNum == kitNumber & u.Valid == true & u.PassValStep != -1 & s.SampleNumber != null
-                //         select u);
-
-                string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
-   " Samples.SampleNumber where InboundSamples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum = {0}", LocaLkitNumber);
-
-
-                //string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
-                //     " Samples.SampleNumber where InboundSamples.KitNum = {0}", LocaLkitNumber);
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    using (SqlConnection conn = new SqlConnection())
-                    {
-                        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // RWE.Database.Connection.ConnectionString;
-                        conn.Open(); 
-                        cmd.Connection = conn; 
-                        cmd.CommandText = cmdCount;
-                        sampsToValidate = (int) cmd.ExecuteScalar(); 
-                    }
-                }
-
-                if (sampsToValidate < 0)
-                {
-
-                    lblNumberLeft.Text = "There are NO records to validate";
-                    return;
-                }
-                else
-                    lblNumberLeft.Text = string.Format("There are {0} samples to validate", sampsToValidate);
-            }
-            catch (Exception ex)
-            {
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
+            if(!countSamples(LocaLkitNumber))
+                return;           
 
             // we have some samples to validate, so set up the query and bind to formview
             try
             {
                 sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[InboundSamples] JOIN Samples on InboundSamples.SampleID = " +
                        " Samples.SampleNumber " +
-                    " where KitNum = {0} and valid = 1 and passValStep = -1 order by date desc ", LocaLkitNumber);
+                    " where KitNum = {0} and [RiverWatch].[dbo].[InboundSamples].[valid] = 1 and Samples.Valid = 1 and passValStep = -1 order by date desc ", LocaLkitNumber);
 
                 //string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
                 //   " Samples.SampleNumber where InboundSamples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum  {0}", kitNumber);
@@ -546,6 +451,7 @@ namespace RWInbound2.Validation
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
+
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
         public static List<string> SearchOrgs(string prefixText, int count)
@@ -586,23 +492,19 @@ namespace RWInbound2.Validation
 
         // need to set pasval = 1 so it is recorded as validated [PassValStep]
         // then update NEWexpwater with this data 
-        // fieldComment
-      // ,[SampleDate]
-      //,[USGS_Flow]
-      //,[PH]
-      //,[TempC]
-      //,[PHEN_ALK]
-      //,[TOTAL_ALK]
-      //,[TOTAL_HARD]
-      //,[DO_MGL]
-      //,[DOSAT]
+
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
         {
+            e.Command.Parameters["@PassValStep"].Value = 1; // mark record as validated
+            e.Command.Parameters["@Valid"].Value = true; 
+
             RiverWatchEntities RWE = new RiverWatchEntities();
-            NEWexpWater NEW = new NEWexpWater(); 
+            NEWexpWater NEW = new NEWexpWater();
 
             bool existingRecord = false; 
             TextBox tb1;
+            DateTime sampleDate = DateTime.Now;
+            bool isSampleDate = false;
             decimal pH = 0;
             bool ispH = false;
             decimal PhenolAlk = 0;
@@ -620,13 +522,23 @@ namespace RWInbound2.Validation
             string FieldComments = "";
             string SampleNumber = ""; // sampleid
             decimal Flow = 0;
-            bool isFlow = false; 
-            long sampNumLong = 0;
-
-
+            bool isFlow = false;
+            string eventID = "";
+            int tblSampleID = 0;
             string UID = FormView1.Controls[0].UniqueID + "$";
 
             // scrape page data 
+            // DateTextBox
+
+            tb1 = this.FindControl(UID + "DateTextBox") as TextBox;
+            if (tb1 == null)
+                return;
+            if (tb1.Text.Length > 0)
+            {
+                if (DateTime.TryParse(tb1.Text, out sampleDate))
+                    isSampleDate = true;                
+            }
+
             tb1 = this.FindControl(UID + "USGSFlowTextBox") as TextBox;
             if (tb1 == null)
                 return;
@@ -635,7 +547,6 @@ namespace RWInbound2.Validation
                 if (decimal.TryParse(tb1.Text, out Flow)) // pH      
                     isFlow = true; 
             }
-
 
             tb1 = this.FindControl(UID +"TempCTextBox") as TextBox;
             if (tb1 == null)
@@ -727,6 +638,13 @@ namespace RWInbound2.Validation
                 else
                 {
                     NEW = new NEWexpWater(); // create new entity as there is not one yet
+                    // now we must get eventID or numberSample from Samples table
+
+                    var Q = (from q in RWE.Samples
+                             where q.SampleNumber == SampleNumber & q.Valid == true
+                             select q).FirstOrDefault();
+                    eventID = (string)Q.NumberSample;
+                    tblSampleID = Q.ID; 
                 }
             }
             catch (Exception ex)
@@ -747,7 +665,10 @@ namespace RWInbound2.Validation
                   if (!existingRecord) // Should not happen - no existing record, so we are first
                   {
                       NEW.SampleNumber = SampleNumber;
+                      NEW.Event = eventID;
+                      NEW.tblSampleID = tblSampleID; 
                   }
+
                   if(ispH)
                     NEW.PH = (double)pH;
                   if(isPhenolAlk)
@@ -764,6 +685,8 @@ namespace RWInbound2.Validation
                     NEW.DO_MGL = (double)DO;
                   if(isDOSat)
                     NEW.DOSAT = (short)DOSat;
+                  if (isSampleDate)
+                      NEW.SampleDate = sampleDate; 
                   NEW.FieldComment = FieldComments;
                   if (!existingRecord)
                   {
@@ -774,17 +697,16 @@ namespace RWInbound2.Validation
             // now update inbound to mark valided
                   
                       var IBS = from i in RWE.InboundSamples
-                                where i.SampleID == SampleNumber
+                                where i.SampleID == SampleNumber & i.Valid == true
                                 select i;
                       if (IBS.Count() > 0) // will always happen... :)
                       {
                           foreach (var z in IBS)
                           {
-                              z.PassValStep = 10;
+                              z.PassValStep = 1;
                           }
                           RWE.SaveChanges();
-                      }
-                  
+                      }                  
               }
               catch (Exception ex)
               {
@@ -797,6 +719,14 @@ namespace RWInbound2.Validation
                   LogError LE = new LogError();
                   LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
               }
+
+              if (Session["KITNUMBER"] != null)
+              {
+                  int kitNumber = (int)Session["KITNUMBER"];
+
+                  if (!countSamples(kitNumber))
+                      return;
+              }
         }
 
         protected void FormView1_DataBound(object sender, EventArgs e)
@@ -805,22 +735,52 @@ namespace RWInbound2.Validation
             // will be nice for validation.
             FormView FV = sender as FormView;
             string tmString = ""; 
-            TextBox T = FV.Controls[0].FindControl("TimeTextBox") as TextBox; 
-            if(T != null)
+            TextBox T = FV.Controls[0].FindControl("TimeTextBox") as TextBox;
+            if (T != null)
             {
                 tmString = T.Text;
-            }
-            if (tmString.Length < 4)
-            {
-                TextBox TB = FV.Controls[0].FindControl("SampleIDTextBox") as TextBox;
 
-                //string sampHours = TB.Text.Substring(TB.Text.Length - 4, 2); // get first 2 chars of last 4 chars
-                //string sampMins = TB.Text.Substring(TB.Text.Length - 2);
-                //T.Text = string.Format("{0:D4}:{1:D2}", sampHours, sampMins);
-                string sampHours = TB.Text.Substring(TB.Text.Length - 4, 2); // get first 2 chars of last 4 chars
-                string tm = TB.Text.Substring(TB.Text.Length - 4);
-                T.Text = string.Format("{0:D4}", tm);
+                if (tmString.Length < 4)
+                {
+                    TextBox TB = FV.Controls[0].FindControl("SampleIDTextBox") as TextBox;
+
+                    //string sampHours = TB.Text.Substring(TB.Text.Length - 4, 2); // get first 2 chars of last 4 chars
+                    //string sampMins = TB.Text.Substring(TB.Text.Length - 2);
+                    //T.Text = string.Format("{0:D4}:{1:D2}", sampHours, sampMins);
+                    string sampHours = TB.Text.Substring(TB.Text.Length - 4, 2); // get first 2 chars of last 4 chars
+                    string tm = TB.Text.Substring(TB.Text.Length - 4);
+                    T.Text = string.Format("{0:D4}", tm);
+                }
             }
+        }
+        public bool countSamples(int kitNumber)
+        {
+            int sampsToValidate = 0; 
+
+            string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
+            " Samples.SampleNumber where InboundSamples.Valid = 1 and Samples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum = {0}", kitNumber);
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // RWE.Database.Connection.ConnectionString;
+                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.CommandText = cmdCount;
+                    sampsToValidate = (int)cmd.ExecuteScalar();
+                }
+            }
+
+            if (sampsToValidate < 0)
+            {
+
+                lblNumberLeft.Text = "There are NO records to validate";
+                return false; 
+            }
+            else
+                lblNumberLeft.Text = string.Format("There are {0} samples to validate", sampsToValidate);
+            return true; 
         }
     }
 }

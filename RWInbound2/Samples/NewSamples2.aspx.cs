@@ -207,7 +207,7 @@ namespace RWInbound2.Samples
                 }
 
                 // need to be careful here as there may not be any org status for this org. 
-                var O = from s in NRWDE.OrgStatus
+                var O = (from s in NRWDE.OrgStatus
                         join og in NRWDE.organizations on s.OrganizationID equals og.ID
                         where LocaLkitNumber == og.KitNumber
                         select new
@@ -217,7 +217,7 @@ namespace RWInbound2.Samples
                                 orgID = og.ID,
                                 sDate = s.ContractStartDate,
                                 eDate = s.ContractEndDate
-                            };
+                            }).OrderByDescending  (s => s.eDate) ;
                 if(O.Count() != 0)  // has org status
                 {
                     orgName = O.FirstOrDefault().orgName;

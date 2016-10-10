@@ -356,8 +356,6 @@
                     <td>&nbsp;</td>
                 </tr>
             </table>
-
-
             <%-- 
 
             FinalCheck: NOW USED AS FLAG FOR IS GUAGE FOR FLOW 
@@ -379,18 +377,17 @@
 
     </asp:FormView>
 
-<%--            InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [Metals], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @Metals, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID)"--%>
-
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" OnUpdating="SqlDataSource1_Updating" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
-        DeleteCommand="DELETE FROM [InboundSamples] WHERE [inbSampleID] = @inbSampleID"
-        SelectCommand="SELECT * FROM [InboundSamples] order by date desc"
-        UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID WHERE [inbSampleID] = @inbSampleID">
-        <DeleteParameters>
-            <asp:Parameter Name="inbSampleID" Type="Int32" />
-        </DeleteParameters>
+<%--         
+            InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [MetalsNormal], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID], [Valid]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @MetalsNormal, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID, @Valid)">
+            DeleteCommand="DELETE FROM [InboundSamples] WHERE [ID] = @ID"
+        SelectCommand="SELECT * FROM [InboundSamples]"
+  --%>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" OnUpdating="SqlDataSource1_Updating" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
+        UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID, [Valid] = @Valid WHERE [ID] = @ID" >
+      
         <UpdateParameters>
             <asp:Parameter Name="StationNum" Type="Int32" />
-            <asp:Parameter Name="SampleID" Type="Int64" />
+            <asp:Parameter Name="SampleID" Type="String" />
             <asp:Parameter Name="txtSampleID" Type="String" />
             <asp:Parameter Name="KitNum" Type="Int32" />
             <asp:Parameter Name="Date" Type="DateTime" />
@@ -430,7 +427,8 @@
             <asp:Parameter Name="MissingDataSheetReceived" Type="Boolean" />
             <asp:Parameter Name="PassValStep" Type="Decimal" />
             <asp:Parameter Name="tblSampleID" Type="Int32" />
-            <asp:Parameter Name="inbSampleID" Type="Int32" />
+            <asp:Parameter Name="Valid" Type="Boolean" />
+            <asp:Parameter Name="ID" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
 

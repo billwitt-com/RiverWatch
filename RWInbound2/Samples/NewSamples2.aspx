@@ -29,7 +29,7 @@
 
             </td>
             <td style="width: 116px">
-
+                
                 <asp:Button ID="btnSiteNumber" runat="server" Text="Select" CssClass="samplesButton" OnClick="btnSiteNumber_Click" />
             </td>
         </tr>
@@ -327,99 +327,99 @@
             <ContentTemplate>
                 <div runat="server" id="divSizer" style="border-left: 12px">
                     <asp:Label ID="Label3" runat="server" Text="Samples Collected:"></asp:Label><asp:FormView ID="FormView1" runat="server" AllowPaging="false" DataKeyNames="ID" DefaultMode="Edit" DataSourceID="SqlDataSourceOrgStatus">
-                        <EditItemTemplate>StatusID:
+                        <EditItemTemplate>Status ID:
                             <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' /><br />
-                            ContractStartDate:
+                            Contract Start Date:
                             <asp:TextBox ID="ContractStartDateTextBox" runat="server" Text='<%# Bind("ContractStartDate","{0:d}") %>' /><ajaxToolkit:CalendarExtender ID="CalendarExtender1" Animated="true" TargetControlID="ContractStartDateTextBox" runat="server" />
                             <br />
                             ContractEndDate:
                             <asp:TextBox ID="ContractEndDateTextBox" runat="server" Text='<%# Bind("ContractEndDate","{0:d}") %>' /><ajaxToolkit:CalendarExtender ID="CalendarExtender2" Animated="true" TargetControlID="ContractEndDateTextBox" runat="server" />
                             <br />
-                            ContractSigned:
+                            Contract Signed:
                             <asp:CheckBox ID="ContractSignedCheckBox" runat="server" Checked='<%# Bind("ContractSigned") %>' /><br />
-                            ContractSignedDate:
+                            Contract Signed Date:
                             <asp:TextBox ID="ContractSignedDateTextBox" runat="server" Text='<%# Bind("ContractSignedDate") %>' /><br />
-                            SiteVisited:
+                            Site Visited:
                             <asp:CheckBox ID="SiteVisitedCheckBox" runat="server" Checked='<%# Bind("SiteVisited") %>' /><br />
-                            VolunteerTimeSheet1:
+                            Volunteer TimeSheet 1:
                             <asp:CheckBox ID="VolunteerTimeSheet1CheckBox" runat="server" Checked='<%# Bind("VolunteerTimeSheet1") %>' /><br />
-                            VolunteerTimeShee2:
+                            Volunteer TimeSheet 2:
                             <asp:CheckBox ID="VolunteerTimeShee2CheckBox" runat="server" Checked='<%# Bind("VolunteerTimeShee2") %>' /><br />
-                            VolunteerTimeSheet3:
+                            Volunteer TimeSheet 3:
                             <asp:CheckBox ID="VolunteerTimeSheet3CheckBox" runat="server" Checked='<%# Bind("VolunteerTimeSheet3") %>' /><br />
-                            VolunteerTimeSheet4:
+                            Volunteer TimeSheet 4:
                             <asp:CheckBox ID="VolunteerTimeSheet4CheckBox" runat="server" Checked='<%# Bind("VolunteerTimeSheet4") %>' /><br />
-                            DataEnteredElectronically1:
+                            Data Entered Electronically1:
                             <asp:CheckBox ID="DataEnteredElectronically1CheckBox" runat="server" Checked='<%# Bind("DataEnteredElectronically1") %>' /><br />
-                            DataEnteredElectronically2:
+                            Data Entered Electronically 2:
                             <asp:CheckBox ID="DataEnteredElectronically2CheckBox" runat="server" Checked='<%# Bind("DataEnteredElectronically2") %>' /><br />
-                            DataEnteredElectronically3:
+                            Data Entered Electronically 3:
                             <asp:CheckBox ID="DataEnteredElectronically3CheckBox" runat="server" Checked='<%# Bind("DataEnteredElectronically3") %>' /><br />
-                            DataEnteredElectronically4:
+                            Data Entered Electronically 4:
                             <asp:CheckBox ID="DataEnteredElectronically4CheckBox" runat="server" Checked='<%# Bind("DataEnteredElectronically4") %>' /><br />
-                            SampleShipped1:
+                            Sample Shipped 1:
                             <asp:CheckBox ID="SampleShipped1CheckBox" runat="server" Checked='<%# Bind("SampleShipped1") %>' /><br />
-                            SampleShipped2:
+                            Sample Shipped 2:
                             <asp:CheckBox ID="SampleShipped2CheckBox" runat="server" Checked='<%# Bind("SampleShipped2") %>' /><br />
-                            SampleShipped3:
+                            Sample Shipped 3:
                             <asp:CheckBox ID="SampleShipped3CheckBox" runat="server" Checked='<%# Bind("SampleShipped3") %>' /><br />
-                            SampleShipped4:
+                            Sample Shipped 4:
                             <asp:CheckBox ID="SampleShipped4CheckBox" runat="server" Checked='<%# Bind("SampleShipped4") %>' /><br />
-                            NumberOfSamplesJan:
+                            Number Of Samples Jan:
                             <asp:TextBox ID="NumberOfSamplesJanTextBox" runat="server" Text='<%# Bind("NumberOfSamplesJan") %>' /><br />
-                            NumberOfSamplesFeb:
+                            Number Of Samples Feb:
                             <asp:TextBox ID="NumberOfSamplesFebTextBox" runat="server" Text='<%# Bind("NumberOfSamplesFeb") %>' /><br />
-                            NumberOfSamplesMar:
+                            Number Of Samples Mar:
                             <asp:TextBox ID="NumberOfSamplesMarTextBox" runat="server" Text='<%# Bind("NumberOfSamplesMar") %>' /><br />
-                            NumberOfSamplesApr:
+                            Number Of Samples Apr:
                             <asp:TextBox ID="NumberOfSamplesAprTextBox" runat="server" Text='<%# Bind("NumberOfSamplesApr") %>' /><br />
-                            NumberOfSamplesMay:
+                            Number Of Samples May:
                             <asp:TextBox ID="NumberOfSamplesMayTextBox" runat="server" Text='<%# Bind("NumberOfSamplesMay") %>' /><br />
-                            NumberOfSamplesJun:
+                            Number Of Samples Jun:
                             <asp:TextBox ID="NumberOfSamplesJunTextBox" runat="server" Text='<%# Bind("NumberOfSamplesJun") %>' /><br />
-                            NumberOfSamplesJul:
+                            Number Of Samples Jul:
                             <asp:TextBox ID="NumberOfSamplesJulTextBox" runat="server" Text='<%# Bind("NumberOfSamplesJul") %>' /><br />
-                            NumberOfSamplesAug:
+                            Number Of Samples Aug:
                             <asp:TextBox ID="NumberOfSamplesAugTextBox" runat="server" Text='<%# Bind("NumberOfSamplesAug") %>' /><br />
-                            NumberOfSamplesSep:
+                            Number Of Samples Sep:
                             <asp:TextBox ID="NumberOfSamplesSepTextBox" runat="server" Text='<%# Bind("NumberOfSamplesSep") %>' /><br />
-                            NumberOfSamplesOct:
+                            Number Of Samples Oct:
                             <asp:TextBox ID="NumberOfSamplesOctTextBox" runat="server" Text='<%# Bind("NumberOfSamplesOct") %>' /><br />
-                            NumberOfSamplesNov:
+                            Number Of Samples Nov:
                             <asp:TextBox ID="NumberOfSamplesNovTextBox" runat="server" Text='<%# Bind("NumberOfSamplesNov") %>' /><br />
-                            NumberOfSamplesDec:
+                            Number Of Samples Dec:
                             <asp:TextBox ID="NumberOfSamplesDecTextBox" runat="server" Text='<%# Bind("NumberOfSamplesDec") %>' /><br />
-                            Nutrient1Collected:
+                            Nutrient 1 Collected:
                             <asp:CheckBox ID="Nutrient1CollectedCheckBox" runat="server" Checked='<%# Bind("Nutrient1Collected") %>' /><br />
-                            Nutrient2Collected:
+                            Nutrient 2 Collected:
                             <asp:CheckBox ID="Nutrient2CollectedCheckBox" runat="server" Checked='<%# Bind("Nutrient2Collected") %>' /><br />
-                            BugCollected:
+                            Bug Collected:
                             <asp:CheckBox ID="BugCollectedCheckBox" runat="server" Checked='<%# Bind("BugCollected") %>' /><br />
-                            UnknownSpringRecordedDate:
+                            Unknown Spring Recorded Date:
                             <asp:TextBox ID="UnknownSpringRecordedDateTextBox" runat="server" Text='<%# Bind("UnknownSpringRecordedDate") %>' /><br />
-                            UnknownFallRecordedDate:
+                            Unknown Fall Recorded Date:
                             <asp:TextBox ID="UnknownFallRecordedDateTextBox" runat="server" Text='<%# Bind("UnknownFallRecordedDate") %>' /><br />
-                            NumberOfSamplesBlank:
+                            Number Of Samples Blank:
                             <asp:TextBox ID="NumberOfSamplesBlankTextBox" runat="server" Text='<%# Bind("NumberOfSamplesBlank") %>' /><br />
-                            NumberOfSamplesDuplicate:
+                            Number Of Samples Duplicate:
                             <asp:TextBox ID="NumberOfSamplesDuplicateTextBox" runat="server" Text='<%# Bind("NumberOfSamplesDuplicate") %>' /><br />
-                            TroubleComment:
+                            Trouble Comment:
                             <asp:TextBox ID="TroubleCommentTextBox" runat="server" Text='<%# Bind("TroubleComment") %>' /><br />
-                            NoteComment:
+                            Note Comment:
                             <asp:TextBox ID="NoteCommentTextBox" runat="server" Text='<%# Bind("NoteComment") %>' /><br />
-                            HardshipComment:
+                            Hardship Comment:
                             <asp:TextBox ID="HardshipCommentTextBox" runat="server" Text='<%# Bind("HardshipComment") %>' /><br />
-                            DateCreated:
+                            Date Created:
                             <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' /><br />
-                            UserCreated:
+                            User Created:
                             <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' /><br />
-                            DateLastModified:
+                            Date Last Modified:
                             <asp:TextBox ID="DateLastModifiedTextBox" runat="server" Text='<%# Bind("DateLastModified") %>' /><br />
-                            UserLastModified:
+                            User Last Modified:
                             <asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' /><br />
-                            NumberOfMetalsBlank:
+                            Number Of Metals Blank:
                             <asp:TextBox ID="NumberOfMetalsBlankTextBox" runat="server" Text='<%# Bind("NumberOfMetalsBlank") %>' /><br />
-                            NumberOfMetalsDuplicate:
+                            Number O fMetals Duplicate:
                             <asp:TextBox ID="NumberOfMetalsDuplicateTextBox" runat="server" Text='<%# Bind("NumberOfMetalsDuplicate") %>' /><br />
                             <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" CssClass="samplesButton" CommandName="Update" Text="Update" />&#160;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" /></EditItemTemplate>
                     </asp:FormView>
