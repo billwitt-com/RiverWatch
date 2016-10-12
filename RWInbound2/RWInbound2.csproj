@@ -70,7 +70,13 @@
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net40\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.Common\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -293,6 +299,17 @@
     </None>
     <Content Include="RiverWatchDataSetOrgStations.xss">
       <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchDataSetOrgStationsView.xsc">
+      <DependentUpon>RiverWatchDataSetOrgStationsView.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchDataSetOrgStationsView.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchDataSetOrgStationsView.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchDataSetOrgStationsView.xss">
+      <DependentUpon>RiverWatchDataSetOrgStationsView.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchDataSetOrgStatus.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1017,6 +1034,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchDataSetOrgStationsView.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchDataSetOrgStationsView.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchDataSetOrgStatus.Designer.cs">
       <AutoGen>True</AutoGen>
