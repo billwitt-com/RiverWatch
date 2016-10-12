@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Login.aspx" />
+    <Content Include="Admin\AddInboundICP.aspx" />
     <Content Include="Admin\Admin.aspx" />
     <Content Include="Admin\AdminControlPermissions.aspx" />
     <Content Include="Admin\AdminNutrientLimits.aspx" />
@@ -118,6 +119,7 @@
     <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
+    <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Applications\Applications.aspx" />
@@ -263,7 +265,9 @@
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Alex_Azure.pubxml" />
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
+    <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
@@ -414,6 +418,7 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -427,6 +432,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AddInboundICP.aspx.cs">
+      <DependentUpon>AddInboundICP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddInboundICP.aspx.designer.cs">
+      <DependentUpon>AddInboundICP.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Admin.aspx.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -482,6 +494,13 @@
     </Compile>
     <Compile Include="Admin\AdminUsers.aspx.designer.cs">
       <DependentUpon>AdminUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditExpWater.aspx.cs">
+      <DependentUpon>EditExpWater.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditExpWater.aspx.designer.cs">
+      <DependentUpon>EditExpWater.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditInboundFieldData.aspx.cs">
       <DependentUpon>EditInboundFieldData.aspx</DependentUpon>
@@ -671,6 +690,9 @@
     </Compile>
     <Compile Include="Edit\EditStationStatus.aspx.designer.cs">
       <DependentUpon>EditStationStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NEWexpWater.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="InboundSamples.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -885,9 +907,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="NEWexpWater.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NewRWModel.Context.cs">
       <AutoGen>True</AutoGen>

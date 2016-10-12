@@ -113,9 +113,11 @@
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-                    <asp:Button ID="btnEditIncoming" runat="server" Text="Edit Field Data" CssClass="adminButton" Width="176px" OnClick="btnEditIncoming_Click"/>
+                    <asp:Button ID="btnExpWater" runat="server" Text="Edit ExpWater" CssClass="adminButton" Width="176px" OnClick="btnExpWaters_Click" />
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:Button ID="Button5" runat="server" Text="Add InboundICP" CssClass="adminButton" Width="176px" OnClick="btnAddInboundICP_Click" />
+                </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -123,8 +125,5 @@
                 <td>&nbsp;</td>
             </tr>
         </table>
-
-
-   
   
 </asp:Content>
