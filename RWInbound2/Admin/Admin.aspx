@@ -54,7 +54,6 @@
         BehaviorID="pnlQuickview_DropShadowExtender"  TargetControlID="pnlQuickview">
     </ajaxToolkit:DropShadowExtender>
 
-
         <table style="width: 100%" >
                <tr>
                 <td>&nbsp;</td>
@@ -117,7 +116,9 @@
                 <td style="width: 262px">
                     <asp:Button ID="btnExpWater" runat="server" Text="Edit ExpWater" CssClass="adminButton" Width="176px" OnClick="btnExpWaters_Click" />
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:Button ID="Button5" runat="server" Text="Add InboundICP" CssClass="adminButton" Width="176px" OnClick="btnAddInboundICP_Click" />
+                </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -125,8 +126,5 @@
                 <td>&nbsp;</td>
             </tr>
         </table>
-
-
-   
   
 </asp:Content>

@@ -88,9 +88,9 @@ namespace RWInbound2
         public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
         public virtual DbSet<tblTrainee> tblTrainees { get; set; }
         public virtual DbSet<tblProjectStation> tblProjectStations { get; set; }
-        public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
         public virtual DbSet<InboundSample> InboundSamples { get; set; }
         public virtual DbSet<NutrientData> NutrientDatas { get; set; }
         public virtual DbSet<NutrientLimit> NutrientLimits { get; set; }
+        public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
     }
 }

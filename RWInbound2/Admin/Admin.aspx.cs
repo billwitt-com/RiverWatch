@@ -64,5 +64,10 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("EditExpWater.aspx");
         }
+
+        protected void btnAddInboundICP_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddInboundICP.aspx");
+        }
     }
 }

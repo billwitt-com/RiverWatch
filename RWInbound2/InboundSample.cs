@@ -57,5 +57,7 @@ namespace RWInbound2
         public Nullable<decimal> PassValStep { get; set; }
         public Nullable<int> tblSampleID { get; set; }
         public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
+        public Nullable<bool> Valid1 { get; set; }
     }
 }

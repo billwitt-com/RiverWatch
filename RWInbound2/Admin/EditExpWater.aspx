@@ -45,11 +45,10 @@
         ItemType="RWInbound2.NEWexpWater" 
         SelectMethod="GetExpWater"
         UpdateMethod="UpdateExpWater"
-        DefaultMode="Edit"
-        OnModeChanging="ExpWaterFormView_ModeChanging">                
+        DefaultMode="Edit">                
         <EditItemTemplate> 
             <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
-            <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
+            <button class="edit-exp-water-reset-button" type="reset" value="Reset">Reset</button>
             <br />   
             <div class="edit-exp-water-div">
                 <label>Event:</label>
@@ -77,23 +76,24 @@
             <hr class="edit-exp-water-hr" /> 
             <div class="edit-exp-water-div">
                 <label>Type Code:</label>
-                <asp:Label ID="TypeCode" runat="server" Text='<%# Bind("TypeCode") %>'></asp:Label>
-                <label>Station Name:</label>
-                <asp:Label ID="StationName" runat="server" Text='<%# Bind("StationName") %>'></asp:Label>
+                <asp:TextBox ID="TextBoxTypeCode" runat="server" Text='<%# Bind("TypeCode") %>'></asp:TextBox>  
                 <label>Metals BarCode:</label>
-                <asp:Label ID="MetalsBarCode" runat="server" Text='<%# Bind("MetalsBarCode") %>'></asp:Label>
+                <asp:TextBox ID="TextBoxBarCode" runat="server" Text='<%# Bind("MetalsBarCode") %>'></asp:TextBox>  
                 <label>Nutrient BarCode:</label>
-                <asp:Label ID="NutrientBarCode" runat="server" Text='<%# Bind("NutrientBarCode") %>'></asp:Label>
+                <asp:TextBox ID="TextBoxNutrientBarCode" runat="server" Text='<%# Bind("NutrientBarCode") %>'></asp:TextBox>                  
             </div>   
-            <hr class="edit-exp-water-hr" />      
+            <hr class="edit-exp-water-hr" />  
             <div class="edit-exp-water-div">
                 <label>Field BarCode:</label> 
-                <asp:Label ID="FieldBarCode" runat="server" Text='<%# Bind("FieldBarCode") %>'></asp:Label> 
+                <asp:TextBox ID="TextBoxFieldBarCode" runat="server" Text='<%# Bind("FieldBarCode") %>'></asp:TextBox> 
                 <label>Bugs BarCode:</label> 
-                <asp:Label ID="BugsBarCode" runat="server" Text='<%# Bind("BugsBarCode") %>'></asp:Label> 
+                <asp:TextBox ID="TextBoxBugsBarCode" runat="server" Text='<%# Bind("BugsBarCode") %>'></asp:TextBox> 
                 <label>Sample Date:</label> 
-                <asp:Label ID="SampleDate" runat="server" Text='<%# Bind("SampleDate") %>'></asp:Label>
-            </div>   
+                <asp:TextBox ID="TextBoxSampleDate" runat="server" Text='<%# Bind("SampleDate") %>'></asp:TextBox>
+                <ajaxToolkit:CalendarExtender ID="TextBoxSampleDate_CalendarExtender" runat="server" 
+                                                BehaviorID="TextBoxSampleDate_CalendarExtender" 
+                                                TargetControlID="TextBoxSampleDate"></ajaxToolkit:CalendarExtender>
+            </div>
             <hr class="edit-exp-water-hr" />  
             <br />  
             <table>
@@ -271,227 +271,6 @@
                     </td>
                 </tr> 
             </table>
-            <div class="edit-exp-water-error-div">
-                <asp:CompareValidator ControlToValidate="TextBoxUSGS_Flow" Operator="DataTypeCheck" 
-                                ID="CompareValidator1" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid USGS_Flow value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxPH" Operator="DataTypeCheck" 
-                                ID="CompareValidator2" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid PH value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxTempC" Operator="DataTypeCheck" 
-                                        ID="CompareValidator3" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid TempC value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxPHEN_ALK" Operator="DataTypeCheck" 
-                                        ID="CompareValidator4" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid PHEN_ALK value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxTOTAL_ALK" Operator="DataTypeCheck" 
-                                        ID="CompareValidator5" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid TOTAL_ALK value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxTOTAL_HARD" Operator="DataTypeCheck" 
-                                        ID="CompareValidator6" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid TOTAL_HARD value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxDO_MGL" Operator="DataTypeCheck" 
-                                        ID="CompareValidator7" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid DO_MGL value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxAL_D" Operator="DataTypeCheck" 
-                                        ID="CompareValidator8" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid AL_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxAL_T" Operator="DataTypeCheck" 
-                                        ID="CompareValidator9" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid AL_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxAS_D" Operator="DataTypeCheck" 
-                                        ID="CompareValidator10" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid AS_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxAS_T" Operator="DataTypeCheck" 
-                                        ID="CompareValidator11" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid AS_T value.">
-                </asp:CompareValidator>
-                <asp:CompareValidator ControlToValidate="TextBoxCA_D" Operator="DataTypeCheck" 
-                                        ID="CompareValidator12" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid CA_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxCA_T" Operator="DataTypeCheck" 
-                                        ID="CompareValidator13" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid CA_T value.">
-                </asp:CompareValidator>
-                <br />
-                 <asp:CompareValidator ControlToValidate="TextBoxCD_D" Operator="DataTypeCheck" 
-                                        ID="CompareValidator14" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid CD_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxCU_T" Operator="DataTypeCheck" 
-                                        ID="CompareValidator15" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid CU_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxFE_D" Operator="DataTypeCheck" 
-                                        ID="CompareValidator16" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid FE_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxFE_T" Operator="DataTypeCheck" 
-                                        ID="CompareValidator17" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid FE_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxMG_D" Operator="DataTypeCheck" 
-                                        ID="CompareValidator18" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid MG_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxCA_D" Operator="DataTypeCheck" 
-                                        ID="CompareValidator19" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid CA_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxMG_T" Operator="DataTypeCheck" 
-                                        ID="CompareValidator20" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid MG_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxMN_D" Operator="DataTypeCheck" 
-                                        ID="CompareValidator21" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid MN_D value.">
-                </asp:CompareValidator> 
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxMN_T" Operator="DataTypeCheck" 
-                                        ID="CompareValidator22" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                        Display="Dynamic" ErrorMessage="Please enter a valid MN_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxPB_D" Operator="DataTypeCheck" 
-                                ID="CompareValidator23" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid PB_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxPB_T" Operator="DataTypeCheck" 
-                                ID="CompareValidator24" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid PB_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxSE_D" Operator="DataTypeCheck" 
-                                ID="CompareValidator25" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid SE_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxSE_T" Operator="DataTypeCheck" 
-                                ID="CompareValidator26" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid SE_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxZN_D" Operator="DataTypeCheck" 
-                                ID="CompareValidator27" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid ZN_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxZN_T" Operator="DataTypeCheck" 
-                                ID="CompareValidator28" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid ZN_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxNA_D" Operator="DataTypeCheck" 
-                                ID="CompareValidator29" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid NA_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxNA_T" Operator="DataTypeCheck" 
-                                ID="CompareValidator30" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid NA_T value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxK_D" Operator="DataTypeCheck" 
-                                ID="CompareValidator31" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid K_D value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxK_T" Operator="DataTypeCheck" 
-                                ID="CompareValidator32" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid K_T value.">
-                </asp:CompareValidator> 
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxAmmonia" Operator="DataTypeCheck" 
-                                ID="CompareValidator33" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid Ammonia value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxChloride" Operator="DataTypeCheck" 
-                                ID="CompareValidator34" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid Chloride value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxChlorophyllA" Operator="DataTypeCheck" 
-                                ID="CompareValidator35" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid ChlorophyllA value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxDOC" Operator="DataTypeCheck" 
-                                ID="CompareValidator36" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid DOC value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxNN" Operator="DataTypeCheck" 
-                                ID="CompareValidator37" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid NN value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxOP" Operator="DataTypeCheck" 
-                                ID="CompareValidator38" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid OP value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxSulfate" Operator="DataTypeCheck" 
-                                ID="CompareValidator39" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid Sulfate value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxtotN" Operator="DataTypeCheck" 
-                                ID="CompareValidator40" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid totN value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxtotP" Operator="DataTypeCheck" 
-                                ID="CompareValidator41" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid totP value." ValidationGroup="">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxTKN" Operator="DataTypeCheck" 
-                                ID="CompareValidator42" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid TKN value.">
-                </asp:CompareValidator>
-                <br />
-                <asp:CompareValidator ControlToValidate="TextBoxorgN" Operator="DataTypeCheck" 
-                                ID="CompareValidator43" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid orgN value.">
-                </asp:CompareValidator>
-                <br />                
-                <asp:CompareValidator ControlToValidate="TextBoxTSS" Operator="DataTypeCheck" 
-                                ID="CompareValidator45" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
-                                Display="Dynamic" ErrorMessage="Please enter a valid TSS value.">
-                </asp:CompareValidator>  
-                <br />
-            </div>
             <div class="edit-exp-water-div-h3">
                 <h3>Comments</h3>
             </div>
@@ -511,6 +290,180 @@
                 <label>Benthics Comments:</label>
                 <asp:TextBox ID="TextBoxBenthicsComments" runat="server" TextMode="MultiLine" Text='<%# Bind("BenthicsComments") %>'></asp:TextBox> 
             </div> 
+            <div class="edit-exp-water-error-div">
+                <asp:CompareValidator ControlToValidate="TextBoxUSGS_Flow" Operator="DataTypeCheck" 
+                                ID="CompareValidator1" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid USGS_Flow value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxPH" Operator="DataTypeCheck" 
+                                ID="CompareValidator2" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid PH value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxTempC" Operator="DataTypeCheck" 
+                                        ID="CompareValidator3" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid TempC value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxPHEN_ALK" Operator="DataTypeCheck" 
+                                        ID="CompareValidator4" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid PHEN_ALK value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxTOTAL_ALK" Operator="DataTypeCheck" 
+                                        ID="CompareValidator5" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid TOTAL_ALK value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxTOTAL_HARD" Operator="DataTypeCheck" 
+                                        ID="CompareValidator6" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid TOTAL_HARD value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxDO_MGL" Operator="DataTypeCheck" 
+                                        ID="CompareValidator7" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid DO_MGL value.">
+                </asp:CompareValidator>
+                <%--<asp:CompareValidator ControlToValidate="TextBoxAL_D" Operator="DataTypeCheck" 
+                                        ID="CompareValidator8" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid AL_D value.">
+                </asp:CompareValidator>--%>
+                <asp:CompareValidator ControlToValidate="TextBoxAL_T" Operator="DataTypeCheck" 
+                                        ID="CompareValidator9" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid AL_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxAS_D" Operator="DataTypeCheck" 
+                                        ID="CompareValidator10" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid AS_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxAS_T" Operator="DataTypeCheck" 
+                                        ID="CompareValidator11" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid AS_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxCA_D" Operator="DataTypeCheck" 
+                                        ID="CompareValidator12" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid CA_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxCA_T" Operator="DataTypeCheck" 
+                                        ID="CompareValidator13" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid CA_T value.">
+                </asp:CompareValidator>
+                 <asp:CompareValidator ControlToValidate="TextBoxCD_D" Operator="DataTypeCheck" 
+                                        ID="CompareValidator14" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid CD_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxCU_T" Operator="DataTypeCheck" 
+                                        ID="CompareValidator15" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid CU_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxFE_D" Operator="DataTypeCheck" 
+                                        ID="CompareValidator16" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid FE_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxFE_T" Operator="DataTypeCheck" 
+                                        ID="CompareValidator17" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid FE_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxMG_D" Operator="DataTypeCheck" 
+                                        ID="CompareValidator18" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid MG_D value.">
+                </asp:CompareValidator>                
+                <asp:CompareValidator ControlToValidate="TextBoxMG_T" Operator="DataTypeCheck" 
+                                        ID="CompareValidator20" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid MG_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxMN_D" Operator="DataTypeCheck" 
+                                        ID="CompareValidator21" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid MN_D value.">
+                </asp:CompareValidator> 
+                <asp:CompareValidator ControlToValidate="TextBoxMN_T" Operator="DataTypeCheck" 
+                                        ID="CompareValidator22" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                        Display="Dynamic" ErrorMessage="Please enter a valid MN_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxPB_D" Operator="DataTypeCheck" 
+                                ID="CompareValidator23" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid PB_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxPB_T" Operator="DataTypeCheck" 
+                                ID="CompareValidator24" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid PB_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxSE_D" Operator="DataTypeCheck" 
+                                ID="CompareValidator25" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid SE_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxSE_T" Operator="DataTypeCheck" 
+                                ID="CompareValidator26" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid SE_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxZN_D" Operator="DataTypeCheck" 
+                                ID="CompareValidator27" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid ZN_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxZN_T" Operator="DataTypeCheck" 
+                                ID="CompareValidator28" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid ZN_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxNA_D" Operator="DataTypeCheck" 
+                                ID="CompareValidator29" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid NA_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxNA_T" Operator="DataTypeCheck" 
+                                ID="CompareValidator30" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid NA_T value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxK_D" Operator="DataTypeCheck" 
+                                ID="CompareValidator31" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid K_D value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxK_T" Operator="DataTypeCheck" 
+                                ID="CompareValidator32" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid K_T value.">
+                </asp:CompareValidator> 
+                <asp:CompareValidator ControlToValidate="TextBoxAmmonia" Operator="DataTypeCheck" 
+                                ID="CompareValidator33" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid Ammonia value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxChloride" Operator="DataTypeCheck" 
+                                ID="CompareValidator34" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid Chloride value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxChlorophyllA" Operator="DataTypeCheck" 
+                                ID="CompareValidator35" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid ChlorophyllA value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxDOC" Operator="DataTypeCheck" 
+                                ID="CompareValidator36" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid DOC value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxNN" Operator="DataTypeCheck" 
+                                ID="CompareValidator37" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid NN value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxOP" Operator="DataTypeCheck" 
+                                ID="CompareValidator38" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid OP value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxSulfate" Operator="DataTypeCheck" 
+                                ID="CompareValidator39" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid Sulfate value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxtotN" Operator="DataTypeCheck" 
+                                ID="CompareValidator40" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid totN value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxtotP" Operator="DataTypeCheck" 
+                                ID="CompareValidator41" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid totP value." ValidationGroup="">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxTKN" Operator="DataTypeCheck" 
+                                ID="CompareValidator42" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid TKN value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxorgN" Operator="DataTypeCheck" 
+                                ID="CompareValidator43" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid orgN value.">
+                </asp:CompareValidator>
+                <asp:CompareValidator ControlToValidate="TextBoxTSS" Operator="DataTypeCheck" 
+                                ID="CompareValidator45" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
+                                Display="Dynamic" ErrorMessage="Please enter a valid TSS value.">
+                </asp:CompareValidator>  
+            </div>           
             
             <asp:HiddenField id="tblSampleID" runat="server" value='<%# Bind("tblSampleID") %>' />
             <asp:HiddenField id="Rep" runat="server" value='<%# Bind("Rep") %>' />

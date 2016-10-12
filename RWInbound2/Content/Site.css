@@ -1542,17 +1542,11 @@ td > textarea.edit-table-control-permission-cell{
 .edit-exp-water-div{
     display:inline-block;
     margin-top: 12px;
-    /*width:500px;*/
 }
 
 div.edit-exp-water-div > label{
     font-size: 1em;
     font-weight:bolder;
-}
-
-div.edit-exp-water-div > span{
-    font-size: 0.95em;
-    background-color:ActiveBorder;
 }
 
 div.edit-exp-water-div > span{
@@ -1583,7 +1577,8 @@ div.edit-exp-water-comments-div >label{
 
 .edit-exp-water-td-div{
     display:flex;
-    padding-left:5px;
+    padding-left:5px;    
+    margin-bottom: 5px;
 }
 
 .edit-exp-water-td-div > input{
@@ -1601,6 +1596,47 @@ div.edit-exp-water-comments-div >label{
     display:block;
 }
 
-.edit-exp-water-th{
+.edit-exp-water-th {
     font-size:1.1em;
+}
+
+button.edit-exp-water-reset-button {
+    width:50px;
+    height:18px;
+    margin-bottom:-3px;
+    background-color:gray;
+    font-weight:normal;
+}
+
+/*Exit Exp Water Page*/
+.edit-inboundicp-div{
+    display:inline-block;
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+
+div.edit-inboundicp-div > label{
+    font-size: 1em;
+    font-weight:bolder;
+}
+
+div.edit-inboundicp-div > span{
+    font-size: 0.95em;
+    background-color:ActiveBorder;
+}
+
+.edit-inboundicp-required {
+    font-size: 0.95em;
+    background-color:ActiveBorder;
+    color:red !important;
+}
+
+.edit-inboundicp-hr{
+    border-style:ridge;
+    border-width:0.15em;
+}
+
+.edit-inboundicp-error-div > span{
+    font-size:0.9em;
+    display:block;
 }

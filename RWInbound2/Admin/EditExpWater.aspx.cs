@@ -19,11 +19,11 @@ namespace RWInbound2.Admin
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
-                ExpWaterFormView.ChangeMode(FormViewMode.Edit);
+                //ExpWaterFormView.ChangeMode(FormViewMode.Edit);
             }
             ErrorLabel.Text = "";
             SuccessLabel.Text = "";
-            ExpWaterFormView.ChangeMode(FormViewMode.Edit);
+            //ExpWaterFormView.ChangeMode(FormViewMode.Edit);
         }
 
         public NEWexpWater GetExpWater([QueryString]string sampleNumberSearchTerm = "",
@@ -49,6 +49,7 @@ namespace RWInbound2.Admin
                 var expWater = _db.NEWexpWaters
                                   .Where(e => (e.SampleNumber.Equals(searchTerm) && e.Valid == true))
                                   .FirstOrDefault();
+   
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
                            .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -104,7 +105,7 @@ namespace RWInbound2.Admin
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
                     sampleNumbers = _db.NEWexpWaters
-                                        .Where(e => e.SampleNumber.Contains(prefixText) && e.Valid == true)
+                                        .Where(e => e.SampleNumber.StartsWith(prefixText) && e.Valid == true)
                                         .Select(c => c.SampleNumber).ToList();
 
                     return sampleNumbers;
@@ -158,48 +159,7 @@ namespace RWInbound2.Admin
             {
                 HandleErrors(ex, ex.Message, "UpdateExpWater", "", "");
             }
-        }
-        protected void ExpWaterFormView_ModeChanging(object sender, FormViewModeEventArgs e)
-        {
-            try
-            {
-                // Use the NewMode property to determine the mode to which the 
-                // FormView control is transitioning.
-                switch (e.NewMode)
-                {
-                    case FormViewMode.Edit:
-                        // Hide the pager row and clear the Label control
-                        // when transitioning to edit mode.      
-                        if (e.CancelingEdit)
-                        {
-                            string sampleNumberSearchTerm = ((Label)ExpWaterFormView.FindControl("SampleNumber")).Text;
-                            string successLabelMessage = "Canceled " + sampleNumberSearchTerm + ".";
-                            string redirect = "EditExpWater.aspx?sampleNumberSearchTerm=" + sampleNumberSearchTerm +
-                                               "&successLabelMessage=" + successLabelMessage;
-
-                            ExpWaterFormView.ChangeMode(FormViewMode.Edit);
-                            Response.Redirect(redirect, false);
-                        }
-                        break;
-                    case FormViewMode.ReadOnly:
-                        // Display the pager row and confirmation message
-                        // when transitioning to edit mode.                       
-                        break;
-                    case FormViewMode.Insert:
-                        // Cancel the mode change if the FormView
-                        // control attempts to transition to insert 
-                        // mode.
-                        e.Cancel = true;
-                        break;
-                    default:
-                        break;
-                }                
-            }
-            catch (Exception ex)
-            {
-                HandleErrors(ex, ex.Message, "btnSearchRefresh_Click", "", "");
-            }
-        }
+        }        
 
         private void HandleErrors(Exception ex, string msg, string fromPage,
                                                 string nam, string comment)

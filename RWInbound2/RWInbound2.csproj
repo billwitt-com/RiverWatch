@@ -111,6 +111,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
+    <Content Include="Admin\AddInboundICP.aspx" />
     <Content Include="Admin\Admin.aspx" />
     <Content Include="Admin\AdminControlPermissions.aspx" />
     <Content Include="Admin\AdminNutrientLimits.aspx" />
@@ -262,7 +263,9 @@
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Alex_Azure.pubxml" />
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
+    <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
@@ -411,6 +414,7 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +428,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AddInboundICP.aspx.cs">
+      <DependentUpon>AddInboundICP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddInboundICP.aspx.designer.cs">
+      <DependentUpon>AddInboundICP.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Admin.aspx.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -669,6 +680,9 @@
     <Compile Include="Edit\EditStationStatus.aspx.designer.cs">
       <DependentUpon>EditStationStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NEWexpWater.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NutrientData.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -870,9 +884,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="NEWexpWater.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NewRWModel.Context.cs">
       <AutoGen>True</AutoGen>
