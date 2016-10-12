@@ -18,7 +18,6 @@ namespace RWInbound2.Validation
         protected void Page_Load(object sender, EventArgs e)
         {
             string sCommand = "";
-            int sampsToValidate = 0;
             int orgID = 0;
             if(!IsPostBack)
             {
@@ -199,6 +198,7 @@ namespace RWInbound2.Validation
           //  e.Command.Parameters["@Valid"].Value = 1;
         }
 
+        // we don't need to do this anymore
         public void compareTextBoxes(string tbName1, string tbName2, string UID)
         {
             string tbNName;
@@ -260,6 +260,16 @@ namespace RWInbound2.Validation
             string uniqueID = FormView1.Controls[0].UniqueID;
             compareTextBoxes("Value1TextBox", "Value2TextBox", uniqueID);   
         }
+
+            //        UID += "$"; // because I cut and pasted the code below
+            //tb1 = this.FindControl(UID + "TempCTextBox") as TextBox;
+            //if (tb1 == null)
+            //    return;
+            //if (tb1.Text.Length > 0)
+            //{
+            //    if (decimal.TryParse(tb1.Text, out TempC))
+            //        isTempC = true;
+            //}
 
         protected void UpdateButton_Click(object sender, EventArgs e)
         {

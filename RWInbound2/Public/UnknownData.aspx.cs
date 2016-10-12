@@ -38,6 +38,8 @@ namespace RWInbound2.Public
             }
         }
 
+        // a lot of extra stuff here because this can be public facing.. 
+
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             int kitNumber = 0;
@@ -128,7 +130,6 @@ namespace RWInbound2.Public
         protected void btnSave_Click(object sender, EventArgs e)
         {
             RiverWatchEntities RWE = new RiverWatchEntities();
-
             int kitNumber = 0;
             string kn = tbKitNumber.Text.Trim();
             string sampleNumber = ""; 
@@ -184,10 +185,9 @@ namespace RWInbound2.Public
                                 US.Value2 = val2;
                                 numSamples++;
                             }
-                            //if (US.Value2 == null)
-                            //    US.SampleType = "A";
-                            //else
-                                US.SampleType = "A";
+
+                            US.SampleType = "A";
+                            US.Path = "M"; 
 
                             // save this
                             RWE.UnknownSample.Add(US);
@@ -220,12 +220,10 @@ namespace RWInbound2.Public
                                 US.Value1 = val1;
                             if (decimal.TryParse(tbHard2.Text, out val2))
                                 US.Value2 = val2;
+                            
+                            US.SampleType = "H";
+                            US.Path = "M"; 
 
-                            if (US.Value2 == null)
-                                US.SampleType = "H";
-                            else
-                                US.SampleType = "DH";
-                            // save this
                             RWE.UnknownSample.Add(US);
                             RWE.SaveChanges();
                             recordsSaved++;
@@ -255,11 +253,9 @@ namespace RWInbound2.Public
                                 US.Value1 = val1;
                             if (decimal.TryParse(tbpH2.Text, out val2))
                                 US.Value2 = val2;
-
-                            if (US.Value2 == null)
-                                US.SampleType = "P";
-                            else
-                                US.SampleType = "DP";
+                                
+                            US.SampleType = "P";
+                            US.Path = "M"; 
 
                             // save this
                             RWE.UnknownSample.Add(US);

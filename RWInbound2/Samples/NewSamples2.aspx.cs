@@ -50,18 +50,18 @@ namespace RWInbound2.Samples
                 // hand coded 06/30 bwitt
 
                 List<string> types = new List<string>();
-                types.Add("00 Value1-NonFiltered");
-                types.Add("04 Value1-Filtered");
-                types.Add("03 Value1-NonFilteredOnly");
-                types.Add("01 Value1-FilteredOnly");
+                types.Add("00 Normal-NonFiltered");
+                types.Add("04 Normal-Filtered");
+                types.Add("03 Normal-NonFilteredOnly");
+                types.Add("01 Normal-FilteredOnly");
                 types.Add("10 Blank-NonFiltered");
                 types.Add("14 Blank-Filtered");
                 types.Add("13 Blank-NonFilteredOnly");
                 types.Add("11 Blank-FilteredOnly");
-                types.Add("20 Value2-NonFiltered");
-                types.Add("24 Value2-Filtered");
-                types.Add("23 Value2-NonFilteredOnly");
-                types.Add("21 Value2-FilteredOnly");
+                types.Add("20 Duplicate-NonFiltered");
+                types.Add("24 Duplicate-Filtered");
+                types.Add("23 Duplicate-NonFilteredOnly");
+                types.Add("21 Duplicate-FilteredOnly");
 
                 rbListSampleTypes.DataSource = types;
                 rbListSampleTypes.DataBind();

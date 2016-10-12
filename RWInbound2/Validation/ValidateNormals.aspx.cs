@@ -41,12 +41,12 @@ namespace RWInbound2.Validation
             int rowCount = result.Table.Rows.Count;
             if (rowCount == 0)
             {
-                lblCount.Text = "There are NO ICP Value1 records to validate";
+                lblCount.Text = "There are NO ICP Normal records to validate";
                 pnlHelp.Visible = false; // make sure user does not see this unless requested
                 return;
             }
             else
-                lblCount.Text = string.Format("There are {0} ICP Value1 records to validate", rowCount);
+                lblCount.Text = string.Format("There are {0} ICP Normal records to validate", rowCount);
 
             // Session["OURTABLE"] = DT; // save for later use        
 
@@ -819,7 +819,7 @@ namespace RWInbound2.Validation
                     Response.Redirect("~/Validation/Validation.aspx"); // send user to menu page
                 }
  
-                lblCount.Text = string.Format("There are {0} ICP Value1 records to validate", rows);
+                lblCount.Text = string.Format("There are {0} ICP Normal records to validate", rows);
                 SqlDataSourceNormals.DataBind(); // update the records so we see a new one                
             }
             catch (Exception ex)

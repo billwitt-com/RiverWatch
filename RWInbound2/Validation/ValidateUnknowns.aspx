@@ -24,7 +24,7 @@
    
     <br />
 
-            <asp:FormView ID="FormView1" runat="server" AllowPaging="True" DefaultMode="Edit" PagerSettings-Position="TopAndBottom" DataKeyNames="UnknownSampleID" DataSourceID="SqlDataSource1">
+            <asp:FormView ID="FormView1" runat="server" AllowPaging="True" DefaultMode="Edit" PagerSettings-Position="TopAndBottom" DataKeyNames="UnknownSampleID" DataSourceID="SqlDataSource1" Width="296px">
                 <EditItemTemplate>
 <%--                    Organization ID:
                     <asp:TextBox ID="OrganizationIDTextBox" Enabled="false" runat="server" Text='<%# Bind("OrganizationID") %>' />

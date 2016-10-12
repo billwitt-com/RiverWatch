@@ -347,7 +347,7 @@ namespace RWInbound2.Validation
             }
             else
             {
-                lblNote.Text = "No Value1 Sample";
+                lblNote.Text = "No Normal Sample";
                 lblNote.Visible = true;
                 lblNote.ForeColor = Color.Red;
             }
