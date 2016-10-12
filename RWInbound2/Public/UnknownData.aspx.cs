@@ -150,7 +150,7 @@ namespace RWInbound2.Public
 
                     if (Q != null)
                     {
-                        sampleNumber = tbSampleNumber.Text.Trim();
+                      //  sampleNumber = tbSampleNumber.Text.Trim();    we took this off the page
 
                         if (tbAlkBatchNumber.Text.Length > 1)    // we have alk info
                         {
@@ -184,10 +184,10 @@ namespace RWInbound2.Public
                                 US.Value2 = val2;
                                 numSamples++;
                             }
-                            if (US.Value2 == null)
+                            //if (US.Value2 == null)
+                            //    US.SampleType = "A";
+                            //else
                                 US.SampleType = "A";
-                            else
-                                US.SampleType = "DA";
 
                             // save this
                             RWE.UnknownSample.Add(US);

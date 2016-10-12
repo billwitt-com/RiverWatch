@@ -53,7 +53,7 @@
         </table>
                 <br />
         <table style="width: 100%">
-            <tr>
+            <%--<tr>
                 <td style="width: 33px">&nbsp;</td>
                 <td style="width: 166px">
                     <asp:Label ID="Label18" runat="server" Text="Sample Number: "></asp:Label>
@@ -63,7 +63,7 @@
                       <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"  ControlToValidate="tbSampleNumber"
                           ErrorMessage="Please enter a sample number"></asp:RequiredFieldValidator>             
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td style="width: 33px">&nbsp;</td>
                 <td style="width: 166px">
@@ -77,7 +77,9 @@
             <tr>
                 <td style="width: 33px">&nbsp;</td>
                 <td style="width: 166px">
-                    <asp:Label ID="Label5" runat="server" Text="Ph"></asp:Label>
+                    <h4>
+                        <asp:Label ID="Label5" runat="server" Text="Ph"></asp:Label>
+                    </h4>
                 </td>
                 <td>&nbsp;</td>
             </tr>
@@ -125,7 +127,9 @@
             <tr>
                 <td style="width: 33px">&nbsp;</td>
                 <td style="width: 166px">
-                    <asp:Label ID="Label8" runat="server" Text="Alkalinity"></asp:Label>
+                    <h4>
+                        <asp:Label ID="Label8" runat="server" Text="Alkalinity"></asp:Label>
+                    </h4>
                 </td>
                 <td>&nbsp;</td>
             </tr>
@@ -173,7 +177,9 @@
             <tr>
                 <td style="width: 33px">&nbsp;</td>
                 <td style="width: 166px">
-                    <asp:Label ID="Label12" runat="server" Text="Hardness"></asp:Label>
+                    <h4>
+                        <asp:Label ID="Label12" runat="server" Text="Hardness"></asp:Label>
+                    </h4>
                 </td>
                 <td>&nbsp;</td>
             </tr>
