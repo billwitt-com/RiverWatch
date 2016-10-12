@@ -60,7 +60,7 @@
             <tr>
                 <td style="height: 18px"></td>
                 <td style="width: 262px; height: 18px;">        
-                    <asp:Button ID="Button6"  CssClass="adminButton" runat="server" Text="Manage Organizations" Width="176px" /></td>
+                    <asp:Button ID="btnManageOrgs"  CssClass="adminButton" runat="server" Text="Manage Organizations" OnClick="btnManageOrgs_Click" Width="176px"  /></td>
                 <td style="height: 18px">
                 <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />
                 </td>

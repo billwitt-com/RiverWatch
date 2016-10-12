@@ -64,5 +64,12 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("EditInboundFieldData.aspx");
         }
+
+        protected void btnManageOrgs_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminOrgs.aspx");
+        }
+
+ 
     }
 }

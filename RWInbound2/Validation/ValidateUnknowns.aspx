@@ -26,31 +26,31 @@
 
             <asp:FormView ID="FormView1" runat="server" AllowPaging="True" DefaultMode="Edit" PagerSettings-Position="TopAndBottom" DataKeyNames="UnknownSampleID" DataSourceID="SqlDataSource1">
                 <EditItemTemplate>
-                    OrganizationID:
-                    <asp:TextBox ID="OrganizationIDTextBox" runat="server" Text='<%# Bind("OrganizationID") %>' />
+<%--                    Organization ID:
+                    <asp:TextBox ID="OrganizationIDTextBox" Enabled="false" runat="server" Text='<%# Bind("OrganizationID") %>' />
                     <br />
-                    UnknownSampleID:
+                    Unknown Sample ID:
                     <asp:Label ID="UnknownSampleIDLabel1" runat="server" Text='<%# Eval("UnknownSampleID") %>' />
-                    <br />
-                    SampleType:
+                    <br />--%>
+                    Sample Type:
                     <asp:TextBox ID="SampleTypeTextBox" runat="server" Text='<%# Bind("SampleType") %>' />
                     <br />
-                    SampleNumber:
+                    Sample Number:
                     <asp:TextBox ID="SampleNumberTextBox" runat="server" Text='<%# Bind("SampleNumber") %>' />
                     <br />
-                    DateSent:
+                    Date Sent:
                     <asp:TextBox ID="DateSentTextBox" runat="server" Text='<%# Bind("DateSent") %>' />
                     <br />
-                    Value1:
+                    Value 1:
                     <asp:TextBox ID="Value1TextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("Value1") %>' />
                     <br />
-                    Value2:
+                    Value 2:
                     <asp:TextBox ID="Value2TextBox" OnTextChanged="TextBox_TextChanged" runat="server" Text='<%# Bind("Value2") %>' />
                     <br />
-                    MeanValue:
+                    Mean Value:
                     <asp:TextBox ID="MeanValueTextBox" runat="server" Text='<%# Bind("MeanValue") %>' />
                     <br />
-                    TrueValue:
+                    True Value:
                     <asp:TextBox ID="TrueValueTextBox" runat="server" Text='<%# Bind("TrueValue") %>' />
                     <br />
                     Round:
@@ -59,13 +59,13 @@
                     Comment:
                     <asp:TextBox ID="CommentTextBox" runat="server" Text='<%# Bind("Comment") %>' />
                     <br />
-                    OldValidated:
+<%--                    OldValidated:
                     <asp:TextBox ID="OldValidatedTextBox" runat="server" Text='<%# Bind("OldValidated") %>' />
-                    <br />
+                    <br />--%>
                     Path:
                     <asp:TextBox ID="PathTextBox" runat="server" Text='<%# Bind("Path") %>' />
                     <br />
-                    DateCreated:
+                    Date Created:
                     <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' />
                     <br />
                     <%--UserCreated:
@@ -77,15 +77,15 @@
                     UserLastModified:
                     <asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />
                     <br />--%>
-                    BatchSampleNumber:  
+                    Batch Sample Number:  
                     <asp:TextBox ID="BatchSampleNumberTextBox" runat="server" Text='<%# Bind("BatchSampleNumber") %>' />
                     <br />
-                    Valid:
+<%--                    Valid:
                     <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' />
                     <br />
                     Validated:
                     <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' />
-                    <br />
+                    <br />--%>
                     <asp:Button ID="UpdateButton" runat="server" CausesValidation="True"  OnClick="UpdateButton_Click" CommandName="Update" Text="Validate" />
                     &nbsp;<asp:Button ID="btnBAD" runat="server" CausesValidation="true" OnClick="btnBAD_Click" Text="BAD" />
                 </EditItemTemplate>

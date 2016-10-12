@@ -7,17 +7,21 @@
     <br />
     <br />
     <asp:Label ID="Label2" runat="server" Text="Choose Org Name:  "></asp:Label>
-    <asp:TextBox ID="tbOrgName" runat="server"></asp:TextBox>
-    <ajaxToolkit:AutoCompleteExtender ID="tbOrgName_AutoCompleteExtender" runat="server" TargetControlID="tbOrgName">
+    <asp:TextBox ID="tbOrgName" runat="server" Height="19px" Width="456px"></asp:TextBox>
+    <ajaxToolkit:AutoCompleteExtender ID="tbOrgName_AutoCompleteExtender" runat="server" TargetControlID="tbOrgName"
+         ServiceMethod="SearchOrgs" CompletionSetCount="2" MinimumPrefixLength="2">
     </ajaxToolkit:AutoCompleteExtender>
-    <asp:Button ID="btnSelect" runat="server" Text="Select" />
+    <asp:Button ID="btnSelect" runat="server" OnClick="btnSelect_Click" Text="Select" CssClass="adminButton" />
+    <asp:Button ID="btnAddNew" runat="server" CssClass="adminButton" OnClick="btnAddNew_Click" Text="Add New" />
     <br />
     <br />
-    <asp:FormView ID="FormView1" runat="server" DefaultMode="Edit"  AllowPaging="true" PagerSettings-Mode="NumericFirstLast" PagerSettings-Position="Bottom" DataKeyNames="ID" DataSourceID="SqlDataSource1">
+    <asp:FormView ID="FormView1" runat="server" DefaultMode ="Edit"  AllowPaging="true" 
+        PagerSettings-Mode="NumericFirstLast"  OnDataBinding="FormView1_DataBinding" OnDataBound="FormView1_DataBound"
+        PagerSettings-Position="Bottom" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="467px">
         <EditItemTemplate>
             ID:
             <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
-            <br />
+            <br /> 
             KitNumber:
             <asp:TextBox ID="KitNumberTextBox" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
@@ -54,11 +58,32 @@
             YearStarted:
             <asp:TextBox ID="YearStartedTextBox" runat="server" Text='<%# Bind("YearStarted") %>' />
             <br />
+<%--                            SelectedValue = '<%# Bind("WaterShed") %>'--%>
             WaterShed:
-            <asp:TextBox ID="WaterShedTextBox" runat="server" Text='<%# Bind("WaterShed") %>' />
+<%--            <asp:TextBox ID="WaterShedTextBox" runat="server" Text='<%# Bind("WaterShed") %>' />--%>
+            <asp:DropDownList ID="ddlWaterShed" runat="server" 
+                OnDataBinding="PreventErrorsOn_DataBinding"
+                DataTextField = "Description"
+                DataValueField = "Code"
+                SelectedValue = '<%# Bind("WaterShed") %>'
+                DataSourceID = "SqlDataSourceWaterShed">
+            </asp:DropDownList>
+
+           
+ 
             <br />
+<%--                        SelectedValue = '<%# Bind("WaterShedGathering") %>'    --%>
             WaterShedGathering:
-            <asp:TextBox ID="WaterShedGatheringTextBox" runat="server" Text='<%# Bind("WaterShedGathering") %>' />
+<%--                        <asp:TextBox ID="WaterShedGatheringTextBox" runat="server" Text='<%# Bind("WaterShedGathering") %>' />--%>
+            <asp:DropDownList ID="ddlWaterShedGathering" runat="server" 
+                OnDataBinding="PreventErrorsOn_DataBinding"    
+                DataSourceID="SqlDataSourceWSGathering" 
+                DataTextField="Description" 
+                DataValueField="Code" 
+                SelectedValue = '<%# Bind("WaterShedGathering") %>'>
+            </asp:DropDownList >
+
+
             <br />
             Password:
             <asp:TextBox ID="PasswordTextBox" runat="server" Text='<%# Bind("Password") %>' />
@@ -83,6 +108,7 @@
             <br />
             <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
             &nbsp;<asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+             &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
         </EditItemTemplate>
         <InsertItemTemplate>
             KitNumber:
@@ -121,11 +147,28 @@
             YearStarted:
             <asp:TextBox ID="YearStartedTextBox" runat="server" Text='<%# Bind("YearStarted") %>' />
             <br />
-            WaterShed:
-            <asp:TextBox ID="WaterShedTextBox" runat="server" Text='<%# Bind("WaterShed") %>' />
+           WaterShed:
+<%--            <asp:TextBox ID="WaterShedTextBox" runat="server" Text='<%# Bind("WaterShed") %>' />--%>
+            <asp:DropDownList ID="ddlWaterShed" runat="server" 
+                OnDataBinding="PreventErrorsOn_DataBinding"
+                DataTextField = "Description"
+                DataValueField = "Code"
+                SelectedValue = '<%# Bind("WaterShed") %>'
+                DataSourceID = "SqlDataSourceWaterShed">
+            </asp:DropDownList>           
+ 
             <br />
+<%--                        SelectedValue = '<%# Bind("WaterShedGathering") %>'    --%>
             WaterShedGathering:
-            <asp:TextBox ID="WaterShedGatheringTextBox" runat="server" Text='<%# Bind("WaterShedGathering") %>' />
+<%--                        <asp:TextBox ID="WaterShedGatheringTextBox" runat="server" Text='<%# Bind("WaterShedGathering") %>' />--%>
+            <asp:DropDownList ID="ddlWaterShedGathering" runat="server" 
+                OnDataBinding="PreventErrorsOn_DataBinding"    
+                DataSourceID="SqlDataSourceWSGathering" 
+                DataTextField="Description" 
+                DataValueField="Code" 
+                SelectedValue = '<%# Bind("WaterShedGathering") %>'>
+            </asp:DropDownList >
+
             <br />
             Password:
             <asp:TextBox ID="PasswordTextBox" runat="server" Text='<%# Bind("Password") %>' />
@@ -222,12 +265,25 @@
             &nbsp;<asp:Button ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
             &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
         </ItemTemplate>
+
+<%--                SelectCommand="SELECT * FROM [organization]"--%>
+<PagerSettings Mode="NumericFirstLast"></PagerSettings>
     </asp:FormView>
+
+
+    <asp:SqlDataSource ID="SqlDataSourceWSGathering" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
+        SelectCommand="SELECT [Description], [Code] FROM [tlkWSG] where valid = 1"></asp:SqlDataSource>
+
+    <asp:SqlDataSource ID="SqlDataSourceWaterShed" runat="server"
+        ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
+        SelectCommand="SELECT [Description], [Code] FROM [tlkWQCCWaterShed] where valid = 1"></asp:SqlDataSource>
+
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
-        DeleteCommand="DELETE FROM [organization] WHERE [ID] = @ID" 
+        DeleteCommand="UPDATE [organization] SET [Valid] = 1 WHERE [ID] = @ID" 
         InsertCommand="INSERT INTO [organization] ([KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [State], [Zip], [Phone], [Fax], [YearStarted], [WaterShed], [WaterShedGathering], [Password], [Active], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [Valid]) VALUES (@KitNumber, @OrganizationName, @OrganizationType, @Email, @MailingAddress, @ShippingAddress, @City, @State, @Zip, @Phone, @Fax, @YearStarted, @WaterShed, @WaterShedGathering, @Password, @Active, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @Valid)" 
-        SelectCommand="SELECT * FROM [organization]" 
+ 
         UpdateCommand="UPDATE [organization] SET [KitNumber] = @KitNumber, [OrganizationName] = @OrganizationName, [OrganizationType] = @OrganizationType, [Email] = @Email, [MailingAddress] = @MailingAddress, [ShippingAddress] = @ShippingAddress, [City] = @City, [State] = @State, [Zip] = @Zip, [Phone] = @Phone, [Fax] = @Fax, [YearStarted] = @YearStarted, [WaterShed] = @WaterShed, [WaterShedGathering] = @WaterShedGathering, [Password] = @Password, [Active] = @Active, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified, [Valid] = @Valid WHERE [ID] = @ID">
         <DeleteParameters>
             <asp:Parameter Name="ID" Type="Int32" />
