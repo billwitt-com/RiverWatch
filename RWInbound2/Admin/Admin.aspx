@@ -121,7 +121,9 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td style="width: 262px">&nbsp;</td>
+                <td style="width: 262px">
+                    <asp:Button ID="btnEditIncoming" runat="server" Text="Edit Field Data" CssClass="adminButton" Width="176px" OnClick="btnEditIncoming_Click" />
+                </td>
                 <td>&nbsp;</td>
             </tr>
         </table>

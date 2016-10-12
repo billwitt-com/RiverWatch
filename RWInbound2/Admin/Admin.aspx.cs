@@ -11,8 +11,8 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            pnlQuickview.GroupingText = "Quick View";
-            pnlQuickview.HorizontalAlign = HorizontalAlign.Center;
+            //pnlQuickview.GroupingText = "Quick View";
+            //pnlQuickview.HorizontalAlign = HorizontalAlign.Center;
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -68,6 +68,11 @@ namespace RWInbound2.Admin
         protected void btnAddInboundICP_Click(object sender, EventArgs e)
         {
             Response.Redirect("AddInboundICP.aspx");
+        }
+
+        protected void btnEditIncoming_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditInboundFieldData.aspx");
         }
 
         protected void btnManageOrgs_Click(object sender, EventArgs e)

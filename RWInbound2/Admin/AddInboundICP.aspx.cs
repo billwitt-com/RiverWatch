@@ -84,18 +84,6 @@ namespace RWInbound2.Admin
                     newInboundICPFinal.tblSampleID = metalsBarCode.SampleID;                    
                 }
 
-                //if (!string.IsNullOrEmpty(successLabelMessage))
-                //{
-                //    ErrorLabel.Text = "";
-                //    SuccessLabel.Text = successLabelMessage;
-                //}
-                //string searchTerm = string.Empty;
-
-                //if (!string.IsNullOrEmpty(sampleNumberSearchTerm))
-                //{
-                //    searchTerm = sampleNumberSearchTerm;
-                //}              
-
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
                            .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -171,14 +159,7 @@ namespace RWInbound2.Admin
             {
                 SetMessages();
                 using (RiverWatchEntities _db = new RiverWatchEntities())
-                {
-                    //var sampleIDinSamplesTables = _db.Samples.Find(model.tblSampleID);
-                    //if(sampleIDinSamplesTables == null)
-                    //{
-                    //    string errorMsg = string.Format("Sample ID: {0} does not exist.", model.tblSampleID);
-                    //    SetMessages("Error", errorMsg);
-                    //}
-
+                {                  
                     var sampleIDinInboundICPTable
                             = _db.InboundICPFinals
                                  .Where(i => i.tblSampleID == model.tblSampleID || i.CODE.Equals(model.CODE))
@@ -247,7 +228,7 @@ namespace RWInbound2.Admin
                             CreatedDate = DateTime.Now,
                             Valid = true,
                             Saved = true,
-                            Edited = false
+                            Edited = false                            
                         };
 
                         _db.InboundICPFinals.Add(newInboundICPFinal);

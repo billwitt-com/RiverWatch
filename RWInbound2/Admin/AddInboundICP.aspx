@@ -20,8 +20,8 @@
                 <asp:TextBox ID="inboundICPMetalsBarCodeSearch" 
                     AutoPostBack="true"
                     runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" CausesValidation="False" />
-                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" CausesValidation="False"/>
+                <asp:Button ID="btnSearch" runat="server" Text="Select" Height="31px" OnClick="btnSearch_Click" CausesValidation="False" CssClass="adminButton" />
+                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" CausesValidation="False" CssClass="adminButton"/>
                     <ajaxToolkit:AutoCompleteExtender 
                         ID="tbSearch_AutoCompleteExtender" 
                         runat="server" 
@@ -33,8 +33,7 @@
                         CompletionInterval="100" 
                         EnableCaching="true" 
                         CompletionSetCount="10"
-                        UseContextKey="True"
-                         >
+                        UseContextKey="True">
                     </ajaxToolkit:AutoCompleteExtender> 
             </ContentTemplate>
         </asp:UpdatePanel>
@@ -47,8 +46,8 @@
         UpdateMethod="InsertNewInboundICPFinal"
         DefaultMode="Edit">                
         <EditItemTemplate> 
-            <asp:Button ID="InsertButton" runat="server" Text="Add" CommandName="Update" />
-            <button class="edit-exp-water-reset-button" type="reset" value="Reset">Reset</button>
+            <asp:Button ID="InsertButton" runat="server" Text="Add" CommandName="Update" CssClass="adminButton"/>
+            <button class="adminButton" type="reset" value="Reset">Reset</button>
             <br />   
             <div class="edit-inboundicp-div">
                 <label>Metals Bar Code:</label>
@@ -77,7 +76,7 @@
                                                 BehaviorID="TextBoxSDATE_SENT_CalendarExtender" 
                                                 TargetControlID="TextBoxDATE_SENT"></ajaxToolkit:CalendarExtender>
                 <label>Complete:</label> 
-                <asp:CheckBox ID="CheckBoxCOMPLETE" DataField="COMPLETE" runat="server" />
+                <asp:CheckBox ID="CheckBoxCOMPLETE" DataField="COMPLETE" runat="server" Text='<%# Bind("COMPLETE") %>'/>
             </div> 
             <hr class="edit-inboundicp-hr" />           
             <div class="edit-exp-water-comments-div">
