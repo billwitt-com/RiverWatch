@@ -20,8 +20,15 @@ namespace RWInbound2.Data
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            bool allowed = false;
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx"); 
+
             if (!IsPostBack)
             {
+                FormView1.Visible = false; 
                 Panel1.Visible = false;
                 pnlExisting.Visible = false; 
                 lblErrorMsg.Visible = false;
@@ -29,6 +36,17 @@ namespace RWInbound2.Data
                 IB.Enabled = false;
                 pnlDetail.Visible = false;  // hide until org validated
                 Session["TRIES"] = 0;
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    lblPassword.Visible = false;
+                    tbOrgPwd.Visible = false;
+                }
+                else
+                {
+                    lblPassword.Visible = true;
+                    tbOrgPwd.Visible = true;
+                }
             }
         }
 
@@ -45,7 +63,15 @@ namespace RWInbound2.Data
             e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
             e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
             e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
-            e.Command.Parameters["@Valid"].Value = true; 
+            e.Command.Parameters["@Valid"].Value = true;
+
+            // put something in these fields since we don't want nulls later for validation
+            e.Command.Parameters["@DataSheetIncluded"].Value = false;
+            e.Command.Parameters["@FieldValid"].Value = true;
+//            e.Command.Parameters["@FinalCheck"].Value = true;
+            e.Command.Parameters["@MetalsStat"].Value = 0;
+            e.Command.Parameters["@ChainOfCustody"].Value = false;
+            e.Command.Parameters["@MissingDataSheetReceived"].Value = false;
             e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
         }
 
@@ -77,7 +103,14 @@ namespace RWInbound2.Data
             e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
             e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
             e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
-            e.Command.Parameters["@Valid"].Value = true; 
+            e.Command.Parameters["@Valid"].Value = true;
+            // put something in these fields since we don't want nulls later for validation
+            e.Command.Parameters["@DataSheetIncluded"].Value = false;
+            e.Command.Parameters["@FieldValid"].Value = true;
+//            e.Command.Parameters["@FinalCheck"].Value = true;
+            e.Command.Parameters["@MetalsStat"].Value = 0;
+            e.Command.Parameters["@ChainOfCustody"].Value = false;
+            e.Command.Parameters["@MissingDataSheetReceived"].Value = false;
             e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
         }
 
@@ -193,19 +226,35 @@ namespace RWInbound2.Data
                 pnlDetail.Visible = true;
                 lblErrorMsg.Visible = false;
 
+            // changed this query since we did not use the org status yet
+                //var RES = from r in NRWDE.Stations
+                //          join o in NRWDE.organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
+                //          join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
+                //          where r.StationNumber == stationNumber & o.KitNumber == kitNumber
+                //          select new
+                //          {
+                //              stnName = r.StationName,
+                //              orgName = o.OrganizationName,
+                //              riverName = r.River,
+                //              startDate = ts.ContractStartDate,
+                //              endDate = ts.ContractEndDate,
+                //              active = o.Active,
+                //              watershed = r.RWWaterShed,
+                //              stnID = r.ID,
+                //              orgID = o.ID
+                //          };
+
             try
                 {
                     var RES = from r in NRWDE.Stations
                               join o in NRWDE.organizations on kitNumber equals o.KitNumber // s.OrganizationID equals o.OrganizationID
-                              join ts in NRWDE.OrgStatus on o.ID equals ts.OrganizationID
+                             
                               where r.StationNumber == stationNumber & o.KitNumber == kitNumber
                               select new
                               {
                                   stnName = r.StationName,
                                   orgName = o.OrganizationName,
                                   riverName = r.River,
-                                  startDate = ts.ContractStartDate,
-                                  endDate = ts.ContractEndDate,
                                   active = o.Active,
                                   watershed = r.RWWaterShed,
                                   stnID = r.ID,
@@ -291,6 +340,7 @@ namespace RWInbound2.Data
 
             // test to see if there is existing record for this date, and if so, warn user. 
             // nasty query... 
+            FormView1.Visible = true;
 
             var Exists = from ex in NRWDE.InboundSamples
                          where ex.KitNum == kitNumber & ex.StationNum == stationNumber & ex.Date.Value.Year == dateCollected.Year
@@ -308,7 +358,9 @@ namespace RWInbound2.Data
             }
             // enable the save button
             Button IB = (Button)FormView1.FindControl("InsertButton");
-            IB.Enabled = true; 
+            IB.Enabled = true;
+ 
+
         }
       
         // user has chosen to save data 

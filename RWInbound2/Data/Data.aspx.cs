@@ -58,5 +58,10 @@ namespace RWInbound2.Data
         {
             Response.Redirect("~/Data/Stations.aspx");
         }
+
+        protected void btnUnknownSample_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Public/UnknownData.aspx"); 
+        }
     }
 }

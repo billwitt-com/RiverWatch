@@ -12,6 +12,8 @@ using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Web.Providers.Entities;
+// XXXX added code to turn off button create if the incoming field data has an existing sample number.
+// in that case, we just populate and do not make a new sample 
 
 namespace RWInbound2.Samples
 {
@@ -26,64 +28,11 @@ namespace RWInbound2.Samples
             DateTime currentYear;
             DateTime thisyear = DateTime.Now;
             string date2parse;
+            bool allowed = false;
 
-            try
-            {
-                int role = 1;
-
-                if (Session["Role"] != null)
-                {
-                    role = (int)Session["Role"];    // get users role
-                }
-                string pgname = Page.ToString().Replace("ASP.", "").Replace("_", ".").ToUpper();
-                int idxEnd = pgname.IndexOf(".ASPX");
-                pgname = pgname.Remove(idxEnd);
-                int x = pgname.Length - 1;
-                int y = 0;
-                while (x != 0)
-                {
-                    if (pgname[x--] == '.')   // find a period, if it exists
-                        break;
-                }
-                if (x != 0) // a period, so take from this point to end of string
-                {
-                    x += 2; // advance beyond period
-                    y = pgname.Length - x;
-                    pgname = pgname.Substring(x, y);
-                }
-
-                RiverWatchEntities RWE = new RiverWatchEntities();
-                var R = from r in RWE.ControlPermissions
-                        where r.PageName.ToUpper() == pgname          // this is the page name and should appear in the table ControlPermissions
-                        select r;
-                if (R == null)
-                    Response.Redirect("~/index.aspx");  // there is no table entry, so don't let user use this page
-
-                int? Q = (from r in R
-                          where r.ControlID.ToUpper() == "PAGE"
-                          select r.RoleValue).FirstOrDefault();
-
-                if (Q != null)
-                {
-                    if (role < Q.Value)
-                        Response.Redirect("~/index.aspx");  // send unauthorized back to home page... 
-                }
-                else
-                {
-                    Response.Redirect("~/index.aspx");
-                }
-            }
-            catch (Exception ex)
-            {
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx");
 
             if (!IsPostBack)
             {
@@ -101,18 +50,18 @@ namespace RWInbound2.Samples
                 // hand coded 06/30 bwitt
 
                 List<string> types = new List<string>();
-                types.Add("00 Normal-NonFiltered");
-                types.Add("04 Normal-Filtered");
-                types.Add("03 Normal-NonFilteredOnly");
-                types.Add("01 Normal-FilteredOnly");
+                types.Add("00 Value1-NonFiltered");
+                types.Add("04 Value1-Filtered");
+                types.Add("03 Value1-NonFilteredOnly");
+                types.Add("01 Value1-FilteredOnly");
                 types.Add("10 Blank-NonFiltered");
                 types.Add("14 Blank-Filtered");
                 types.Add("13 Blank-NonFilteredOnly");
                 types.Add("11 Blank-FilteredOnly");
-                types.Add("20 Duplicate-NonFiltered");
-                types.Add("24 Duplicate-Filtered");
-                types.Add("23 Duplicate-NonFilteredOnly");
-                types.Add("21 Duplicate-FilteredOnly");
+                types.Add("20 Value2-NonFiltered");
+                types.Add("24 Value2-Filtered");
+                types.Add("23 Value2-NonFilteredOnly");
+                types.Add("21 Value2-FilteredOnly");
 
                 rbListSampleTypes.DataSource = types;
                 rbListSampleTypes.DataBind();
@@ -166,15 +115,14 @@ namespace RWInbound2.Samples
             DateTime currentYear;
             DateTime thisyear = DateTime.Now;
             string orgName = "";
-            bool noCurrentStatus = true;
             int orgID = 0; 
             int stnID = 0;
-            string riverName = "";
             bool active = false;
             DateTime? startDate = null;
             DateTime? endDate = null;
+            bool noCurrentStatus = false; 
 
-            // move current year calc to page_load 
+            // moved current year calc to page_load 
 
             LocaLkitNumber = -1; // no real kit number yet
             bool success = int.TryParse(tbSite.Text, out stationNumber);
@@ -259,7 +207,7 @@ namespace RWInbound2.Samples
                 }
 
                 // need to be careful here as there may not be any org status for this org. 
-                var O = from s in NRWDE.OrgStatus
+                var O = (from s in NRWDE.OrgStatus
                         join og in NRWDE.organizations on s.OrganizationID equals og.ID
                         where LocaLkitNumber == og.KitNumber
                         select new
@@ -269,7 +217,7 @@ namespace RWInbound2.Samples
                                 orgID = og.ID,
                                 sDate = s.ContractStartDate,
                                 eDate = s.ContractEndDate
-                            };
+                            }).OrderByDescending  (s => s.eDate) ;
                 if(O.Count() != 0)  // has org status
                 {
                     orgName = O.FirstOrDefault().orgName;
@@ -288,6 +236,12 @@ namespace RWInbound2.Samples
                                 active = og.Active,
                                 orgID = og.ID,
                             };
+                    if(OO.Count() != 0)
+                    {
+                        orgName = OO.FirstOrDefault().orgName;
+                        orgID = OO.FirstOrDefault().orgID;
+                        active = OO.FirstOrDefault().active; 
+                    }
                 }
 
                 // get station detail
@@ -403,7 +357,7 @@ namespace RWInbound2.Samples
             }
 
             // now populate list box of samples 
-            NumberSamplePrefix = string.Format("{0}.", stationNumber);
+            NumberSamplePrefix = string.Format("{0}", stationNumber);   // removed period and put it in the method
             List<string> samps = new List<string>();
             lstSamples.Visible = true;
 
@@ -439,18 +393,18 @@ namespace RWInbound2.Samples
                     List<string> ls = new List<string>();
                     ls.Add("Choose from below");
                     string tmps = "";
-                    foreach (long? val in query)
+                    foreach (string val in query)
                     {
                         if (val != null)    // real value to consider
                         {
 
                             var q = from s in NRWDE.Samples
-                                    where s.SampleNumber == val.Value.ToString()
+                                    where s.SampleNumber == val
                                     select s.NumberSample;
 
                             if (q.Count() < 1)  // not found in samples table
                             {
-                                tmps = val.Value.ToString();
+                                tmps = val; 
                                 ls.Add(tmps);
                             }
                         }
@@ -550,14 +504,19 @@ namespace RWInbound2.Samples
         }
 
         // common utility to update values on the samples page
-        private void updateSamplesPage(string stationSample)
+        private void updateSamplesPage(string EventNumber)
         {
-            Sample TS;
-            string tstr = stationSample + "."; // we need the period so 51 is not the same as 512, etc.
+            //Sample TS;
+      //      string tstr = stationSample + "."; // we need the period so 51 is not the same as 512, etc.
+            string tstr = EventNumber;  // + "."; // we need the period so 51 is not the same as 512, etc.
             try
             {
-                TS = (Sample)(from r in NRWDE.Samples
-                              where r.NumberSample.StartsWith(tstr) & r.Valid == true
+                //TS = (Sample)(from r in NRWDE.Samples
+                //              where r.NumberSample.StartsWith(tstr) & r.Valid == true
+                //              select r).FirstOrDefault();   // get most recent
+
+                var TS = (from r in NRWDE.Samples
+                              where r.NumberSample == tstr & r.Valid == true
                               select r).FirstOrDefault();   // get most recent
 
                 // populate the screen 
@@ -610,8 +569,8 @@ namespace RWInbound2.Samples
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-            FillTabPanelICPdata(stationSample);
-            FillTabPanelBarcode(stationSample);
+            FillTabPanelICPdata(EventNumber);
+            FillTabPanelBarcode(EventNumber);
 
             // clean up barcode page - and nutrient page too XXXX
             lblBarcodeUsed.Text = "";
@@ -622,15 +581,15 @@ namespace RWInbound2.Samples
         // user has chosen a current sample
         protected void lstSamples_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string stationSample;
+            string EventNumber;
             int index = 0;
-            stationSample = lstSamples.SelectedItem.Value;
+            EventNumber = lstSamples.SelectedItem.Value;
             // select out the station event which is all digits to the left of the colon
 
-            index = stationSample.IndexOf(":");
-            stationSample = stationSample.Substring(0, index); // all to left of colon
-            stationSample = stationSample.Trim();             // remove any spaces, etc.
-            updateSamplesPage(stationSample);
+            index = EventNumber.IndexOf(":");
+            EventNumber = EventNumber.Substring(0, index); // all to left of colon
+            EventNumber = EventNumber.Trim();             // remove any spaces, etc.
+            updateSamplesPage(EventNumber);
             showTabs();
             // update org status tab too
         }
@@ -812,8 +771,8 @@ namespace RWInbound2.Samples
                  int inboundSampleID = (int)Session["INBOUNDSAMPLEID"];
                  try
                  {
-                     InboundSample S = (from s in NRWDE.InboundSamples
-                                        where s.inbSampleID == inboundSampleID & s.Valid == true
+                     InboundSamples S = (from s in NRWDE.InboundSamples
+                                        where s.ID == inboundSampleID & s.Valid == true
                                         select s).FirstOrDefault(); 
                      if(S != null)
                      {
@@ -839,6 +798,7 @@ namespace RWInbound2.Samples
         }
 
         // we are making a new, fresh sample set with new dates, etc.
+        // or we have one already, and we just need to update 10/03 bwitt XXXX
         // we can now enable the other tabs
         protected void btnCreate_Click(object sender, EventArgs e)
         {
@@ -849,6 +809,7 @@ namespace RWInbound2.Samples
             int mins = 0;
             string newEvent = "";
 
+            // see if we have an event, if so, just show tabs
             bool success = DateTime.TryParse(txtDateCollected.Text, out newdate);
             if (!success)
             {
@@ -957,16 +918,29 @@ namespace RWInbound2.Samples
 
             try
             {
-                InboundSample TS = (InboundSample)(from s in NRWDE.InboundSamples
-                                                   where s.SampleID.Value == sNum
+                InboundSamples TS = (InboundSamples)(from s in NRWDE.InboundSamples
+                                                   where s.SampleID == sampNumber
                                                    select s).FirstOrDefault();
                 if (TS == null)
                     return;
-                inBoundSampleID = TS.inbSampleID;
+                inBoundSampleID = TS.ID;
                 Session["INBOUNDSAMPLEID"] = inBoundSampleID; // save and as flag
                 // populate the screen 
-                txtNumSmp.Text = "Unknown";
-                txtSmpNum.Text = TS.SampleID.Value.ToString();
+                // add check to see if this is already in samples table
+
+                var S = (from s in NRWDE.Samples
+                           where s.SampleNumber == sampNumber
+                           select s).FirstOrDefault();
+
+                if (S == null)
+                    txtNumSmp.Text = "Unknown";
+                else
+                {
+                    txtNumSmp.Text = S.NumberSample;
+                }
+
+
+                txtSmpNum.Text = TS.SampleID; 
                 // txtNumSmp.Text = TS.NumberSample;
                 chkCOC.Checked = TS.ChainOfCustody ?? false;
                 chkDataSheet.Checked = TS.DataSheetIncluded ?? false;
@@ -1020,19 +994,21 @@ namespace RWInbound2.Samples
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
-            btnCreate.Focus();
-            btnCreate.BackColor = System.Drawing.Color.Red; 
+            if (txtNumSmp.Text == "Unknown")
+            {
+                btnCreate.Focus();
+                btnCreate.Visible = true; 
+                btnCreate.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                btnCreate.Visible = false; 
+            }
         }
 
         // fill in org stat tab
         private void updateOrg()
         {
-
-
-            //    var RES = from r in NRWDE.tblStatus 
-
-
-
 
         }
         // update data table with new results OR create new sample 
@@ -1116,13 +1092,13 @@ namespace RWInbound2.Samples
         }
 
         // add link button 
-        protected void FillTabPanelBarcode(string station_Sample)
+        protected void FillTabPanelBarcode(string EventNumber)
         {
 
             string queryString = string.Format("SELECT [LabID] ,[Code] ,[Type] ,[Filtered] ,[BoxNumber] " +
 
                         " FROM [Riverwatch].[dbo].[MetalBarCode] " +
-                        " where NumberSample like '{0.}'", station_Sample.Trim());
+                        " where NumberSample like '{0}'", EventNumber.Trim());
 
 
             try
@@ -1168,11 +1144,12 @@ namespace RWInbound2.Samples
             }
         }
 
-        protected void FillTabPanelICPdata(string station_Sample)
+        // protected void FillTabPanelICPdata(string station_Sample)
+        protected void FillTabPanelICPdata(string EventNumber)
         {
             // quick fix:
 
-            string sid = station_Sample.Trim(); // txtNumSmp.Text.Trim(); // scrape page
+            string sid = EventNumber.Trim(); // txtNumSmp.Text.Trim(); // scrape page
             // query for barcodes that have been entered but not analyzed
             // thus are in newEXPWater (final output) nor in inboundicpfinal and NOT IN METALBARCODES      
 
@@ -1181,7 +1158,7 @@ namespace RWInbound2.Samples
             queryString = string.Format(
                 " SELECT LabID as [Barcode], Code as [Sample Type] " +
                 " FROM      [RiverWatch].[dbo].[MetalBarCode] AS a " +
-                " WHERE    a.NumberSample like '{0.}' " +
+                " WHERE    a.NumberSample like '{0}' " +
                 " and   NOT EXISTS (SELECT * FROM[RiverWatch].[dbo].[NEWexpWater] AS b " +
                 " WHERE b.tblSampleID = a.ID) " +
                 " and  Not Exists (Select * From [RiverWatch].[dbo].[InboundICPFinal] as c " +
@@ -1526,6 +1503,7 @@ namespace RWInbound2.Samples
                 if (SMP.Count() < 1)
                 {
                     lstSamples.Items.Clear();
+                    lstSamples.Visible = false; 
                     return;
                 }
 
@@ -1537,6 +1515,7 @@ namespace RWInbound2.Samples
                 }
 
                 lstSamples.Items.Clear();
+                lstSamples.Visible = true; 
                 lstSamples.DataSource = samps;
                 lstSamples.DataBind();
             }

@@ -66,7 +66,8 @@ namespace RWInbound2.Admin
             try
             {
                 RiverWatchEntities _db = new RiverWatchEntities();
-                var projects = _db.Projects.OrderBy(p => p.ProjectName).ToList<Project>();
+                
+                var projects = _db.Project.OrderBy(p => p.ProjectName).ToList<Project>();
                 var rivers = (from r in _db.Stations
                               orderby r.River
                               select new River { Value = r.River, Text = r.River }).Distinct().OrderBy(r => r.Text).ToList<River>();               

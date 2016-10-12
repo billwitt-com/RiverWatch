@@ -27,11 +27,12 @@ namespace RWInbound2.Validation
             RiverWatchEntities RWE = new RiverWatchEntities();
             int DUPnutrientCount = 0;
             bool allowed = false;
-
             allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             if (!allowed)
                 Response.Redirect("~/index.aspx");
-            lblError.Visible = false; 
+            lblError.Visible = false;
+
+            Session["BATCH_CMDSTR"] = null; 
             //  where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
 
             var C = from c in RWE.NutrientDatas
@@ -60,6 +61,7 @@ namespace RWInbound2.Validation
             batchNumber = tbBatchNumber.Text.Trim();
             // SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '05'
             cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '25' and Batch like '{0}'", batchNumber);
+            Session["BATCH_CMDSTR"] = cmdStr; 
 
             SqlDataSource1.SelectCommand = cmdStr;
             FormView1.DataBind(); 
@@ -192,7 +194,7 @@ namespace RWInbound2.Validation
 
             // now do form2, duplicates
             // add in percentage difference to just dups 
-            //  public void compareTextBoxes(string tbName, string UID1, string UID2, out decimal Normal, out decimal Duplicate)
+            //  public void compareTextBoxes(string tbName, string UID1, string UID2, out decimal Value1, out decimal Value2)
             tbName = "TotalPhosTextBox";
             parmName = "TotalPhos";
             LoLimit = LowLimit[parmName.ToUpper()];
@@ -334,8 +336,8 @@ namespace RWInbound2.Validation
         /// <param name="tbName">name of text box to scrape values</param>
         /// <param name="UID1">unique id of form1</param>
         /// <param name="UID2">inique id of form2</param>
-        /// <param name="Normal">Value from left, form1, text box</param>
-        /// <param name="Duplicate">Value from right form</param>
+        /// <param name="Value1">Value from left, form1, text box</param>
+        /// <param name="Value2">Value from right form</param>
         public void compareTextBoxes(string tbName, string UID1, string UID2)
         {
             string tbNName;
@@ -787,7 +789,14 @@ namespace RWInbound2.Validation
             FormView2.Visible = true; 
             // we have good barcode for dup, so set formview2 to this barcode. 
 
-            query = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and barcode = '{0}'", BC);
+            if (Session["BATCH_CMDSTR"] != null)
+            {
+                query = (string)Session["BATCH_CMDSTR"];
+            }
+            else
+            {
+                query = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and barcode = '{0}'", BC);
+            }
             SqlDataSource2.SelectCommand = query;
             FormView2.DataBind(); // force update from sql data source
         }

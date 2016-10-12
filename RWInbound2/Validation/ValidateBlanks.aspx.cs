@@ -24,16 +24,20 @@ namespace RWInbound2.Validation
         {
             int x = 0;
             int sampID = 0;
-            string sampleType = ""; // this is Duplicate in data base, for now
+            string sampleType = ""; // this is Value2 in data base, for now
+            string searchDup = "";
             DataSourceSelectArguments args = new DataSourceSelectArguments();
             string name = "";
             decimal D2Tvalue = 0;
             decimal MeasurementValue = 0;
-            string searchDup = "";
+            DataTable DT = null; 
+
             bool controlsSet;
-            //dbRiverwatchWaterDataEntities2 RWDE = new dbRiverwatchWaterDataEntities2();
-            //RiverWatchEntities NRWDE = new RiverWatchEntities();
-            int rowsAffected;
+            bool allowed = false;
+
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx"); 
 
             // count rows of not saved, valid Blanks first
             SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
@@ -53,6 +57,7 @@ namespace RWInbound2.Validation
             
            // Session["OURTABLE"] = DT; // save for later use        
 
+            // do this one time
             if (!IsPostBack)
             {
                 // XXXX no longer needed until production
@@ -144,90 +149,14 @@ namespace RWInbound2.Validation
                 Session["HighLimit"] = D2TLimits;   // SAVE
                 Session["MEASUREMENTLIMITS"] = MeasurementLimits;
 
-                SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
-                System.Data.DataView r = (DataView)SqlDataSourceBlanks.Select(args);
-                DataTable DT = r.Table; 
-               
-                DataColumn DC = new DataColumn();
-                DC.AllowDBNull = true;
-                DC.ColumnName = "isNormalHere";
-                DC.DataType = typeof(bool);
-                DT.Columns.Add(DC);
-
-                DataColumn DC1 = new DataColumn();
-                DC1.AllowDBNull = true;
-                DC1.ColumnName = "NormalBarCode";
-                DC1.DataType = typeof(string);
-                DT.Columns.Add(DC1);
-
-                DataColumn DC2 = new DataColumn();
-                DC2.AllowDBNull = true;
-                DC2.ColumnName = "DuplicateBarCode";
-                DC2.DataType = typeof(string);
-                DT.Columns.Add(DC2);
-
-                // now, loop through each row and see if there is a 'normal' sample associated with this blank
-                // for now, use csampID but this may change
-
-                for (x = 0; x < rowCount; x++)  // one pass for each sample in icp inbound
-                {
-                    DT.Rows[x]["isNormalHere"] = false; // set false as default
-                    DT.Rows[x]["NormalBarCode"] = ""; // make sure something is here...
-                    DT.Rows[x]["DuplicateBarCode"] = "";
-
-                    sampID = (int)DT.Rows[x]["tblSampleID"];    // get the sample id which is link to all barcodes from this sample set
-                    sampleType = (string)DT.Rows[x]["DUPLICATE"];
-                    searchDup = sampleType.Substring(1, 1); // get right most char
-                    searchDup = "0" + searchDup; // build string for related normal sample
-
-                    // now query db for this sample to see if there is a barcode
-
-                    string Q = (from q in NRWDE.InboundICPFinals
-                                where q.tblSampleID == sampID & q.DUPLICATE == searchDup & q.Saved == false & q.Valid == true
-                                select q.CODE).FirstOrDefault();
-
-                    if (Q != null)  //  associated 'normal' sample
-                    {
-                        DT.Rows[x]["isNormalHere"] = true;  // mark as existing
-                        DT.Rows[x]["NormalBarCode"] = Q;    // add normal barcode
-                    }
-                    else
-                    {
-                        DT.Rows[x]["isNormalHere"] = false;  // mark as NOT existing
-                        DT.Rows[x]["NormalBarCode"] = "";    // NO normal barcode
-                    }
-
-                    // query for related duplicate sample so we can display it, or not... 
-
-                    searchDup = sampleType.Substring(1, 1); // get right most char
-                    searchDup = "2" + searchDup; // build string for related DUPLICATE sample
-
-                    // now query db for this sample to see if there is a barcode
-
-                    string QQ = (from q in NRWDE.InboundICPFinals
-                                 where q.tblSampleID == sampID & q.DUPLICATE == searchDup & q.Saved == false & q.Valid == true
-                                 select q.CODE).FirstOrDefault();
-
-                    if (QQ != null)  //  associated 'duplicate' sample
-                    {
-                        DT.Rows[x]["DuplicateBarCode"] = QQ;    // add duplicate sample barcode
-                    }
-                    else
-                    {
-                        DT.Rows[x]["DuplicateBarCode"] = "";    // NO normal barcode
-                    }
-                }
-
-                // not sure we need to save... 
-                Session["OURTABLE"] = DT;   //save current copy for later
-
                 // now, get page we are on and get associated normal and dup if they exist
+                DT = buildDatatable(); // make a fresh copy
 
                 int idx = FormViewBlank.PageIndex;
                 int id = (int)DT.Rows[idx]["tblSampleID"];
                 string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
-                if (barcode.Length > 4)
+                if (barcode.Length > 2)
                 {
                     // build query to get associated normal
                     string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}' ", barcode);
@@ -244,7 +173,7 @@ namespace RWInbound2.Validation
 
                 barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
 
-                if (barcode.Length > 4)
+                if (barcode.Length > 2)
                 {
                     // build query to get associated normal
                     string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
@@ -277,6 +206,104 @@ namespace RWInbound2.Validation
        //     setControls(); // update color schemes
         }
 
+        public DataTable buildDatatable()
+        {
+            int x = 0;
+            int sampID = 0;
+            string sampleType = ""; // this is Value2 in data base, for now
+            string searchDup = "";
+            int rowCount = 0; 
+            DataSourceSelectArguments args = new DataSourceSelectArguments();
+
+            SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
+            System.Data.DataView r = (DataView)SqlDataSourceBlanks.Select(args);
+            DataTable DT = r.Table;
+
+            DataColumn DC = new DataColumn();
+            DC.AllowDBNull = true;
+            DC.ColumnName = "isNormalHere";
+            DC.DataType = typeof(bool);
+            DT.Columns.Add(DC);
+
+            DataColumn DC12 = new DataColumn();
+            DC12.AllowDBNull = true;
+            DC12.ColumnName = "isDuplicateHere";
+            DC12.DataType = typeof(bool);
+            DT.Columns.Add(DC12);
+
+            DataColumn DC1 = new DataColumn();
+            DC1.AllowDBNull = true;
+            DC1.ColumnName = "NormalBarCode";
+            DC1.DataType = typeof(string);
+            DT.Columns.Add(DC1);
+
+            DataColumn DC2 = new DataColumn();
+            DC2.AllowDBNull = true;
+            DC2.ColumnName = "DuplicateBarCode";
+            DC2.DataType = typeof(string);
+            DT.Columns.Add(DC2);
+
+            rowCount = DT.Rows.Count; 
+
+            // now, loop through each row and see if there is a 'normal' sample associated with this blank
+            // for now, use csampID but this may change
+
+            for (x = 0; x < rowCount; x++)  // one pass for each sample in icp inbound
+            {
+                DT.Rows[x]["isNormalHere"] = false; // set false as default 
+                DT.Rows[x]["isDuplicateHere"] = false;
+                DT.Rows[x]["NormalBarCode"] = ""; // make sure something is here...
+                DT.Rows[x]["DuplicateBarCode"] = "";
+
+                sampID = (int)DT.Rows[x]["tblSampleID"];    // get the sample id which is link to all barcodes from this sample set
+                sampleType = (string)DT.Rows[x]["DUPLICATE"];
+                searchDup = sampleType.Substring(1, 1); // get right most char
+                searchDup = "0" + searchDup; // build string for related normal sample
+
+                // now query db for this sample to see if there is a barcode
+
+                string Q = (from q in NRWDE.InboundICPFinals
+                            where q.tblSampleID == sampID & q.DUPLICATE == searchDup & q.Saved == false & q.Valid == true
+                            select q.CODE).FirstOrDefault();
+
+                if (Q != null)  //  associated 'normal' sample
+                {
+                    DT.Rows[x]["isNormalHere"] = true;  // mark as existing
+                    DT.Rows[x]["NormalBarCode"] = Q;    // add normal barcode
+                }
+                else
+                {
+                    DT.Rows[x]["isNormalHere"] = false;  // mark as NOT existing
+                    DT.Rows[x]["NormalBarCode"] = "";    // NO normal barcode
+                }
+
+                // query for related duplicate sample so we can display it, or not... 
+
+                searchDup = sampleType.Substring(1, 1); // get right most char
+                searchDup = "2" + searchDup; // build string for related DUPLICATE sample
+
+                // now query db for this sample to see if there is a barcode
+
+                string QQ = (from q in NRWDE.InboundICPFinals
+                             where q.tblSampleID == sampID & q.DUPLICATE == searchDup & q.Saved == false & q.Valid == true
+                             select q.CODE).FirstOrDefault();
+
+                if (QQ != null)  //  associated 'duplicate' sample
+                {
+                    DT.Rows[x]["DuplicateBarCode"] = QQ;    // add duplicate sample barcode
+                    DT.Rows[x]["isDuplicateHere"] = true;  // mark as existing
+                }
+                else
+                {
+                    DT.Rows[x]["DuplicateBarCode"] = "";    // NO duplicate barcode
+                    DT.Rows[x]["isDuplicateHere"] = false;
+                }
+            }
+
+            // not sure we need to save... 
+            Session["OURTABLE"] = DT;   //save current copy for later
+            return DT; 
+        }
         /// <summary>
         /// Reads each text box and does validation steps 
         /// </summary>
@@ -299,45 +326,45 @@ namespace RWInbound2.Validation
             int pageWeAreOn = 0;
 
             // **** moved from dups databind as this code was not called:
-            if (Session["OURTABLE"] == null)
-            {
-                return;
-            }
-            DataTable DT = (DataTable)Session["OURTABLE"];
+            //if (Session["OURTABLE"] == null)
+            //{
+            //    return;
+            //}
+            DataTable DT = buildDatatable();  //(DataTable)Session["OURTABLE"];
 
-            // FormView locFV = sender as FormView;
-            int idx = FormViewBlank.PageIndex;
-            int id = (int)DT.Rows[idx]["tblSampleID"];
-            string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+            //// FormView locFV = sender as FormView;
+            //int idx = FormViewBlank.PageIndex;
+            //int id = (int)DT.Rows[idx]["tblSampleID"];
+            //string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
-            if (barcode.Length > 4)
-            {
-                // build query to get associated normal
-                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
-                SqlDataSourceNormals.SelectCommand = cmmd;
-                FormViewNormals.DataBind();
-                FormViewNormals.Visible = true;
-            }
-            else
-            {
-                FormViewNormals.Visible = false; // nothing to show as no normal sample
-            }
+            //if (barcode.Length > 4)
+            //{
+            //    // build query to get associated normal
+            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+            //    SqlDataSourceNormals.SelectCommand = cmmd;
+            //    FormViewNormals.DataBind();
+            //    FormViewNormals.Visible = true;
+            //}
+            //else
+            //{
+            //    FormViewNormals.Visible = false; // nothing to show as no normal sample
+            //}
 
             // now do for duplicate bar code
-            barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
-            if (barcode.Length > 4)
-            {
-                // build query to get associated normal
-                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
-                SqlDataSourceDups.SelectCommand = cmmd;
+            //barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
+            //if (barcode.Length > 4)
+            //{
+            //    // build query to get associated normal
+            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+            //    SqlDataSourceDups.SelectCommand = cmmd;
 
-                FormViewDuplicate.DataBind();
-                FormViewDuplicate.Visible = true;
-            }
-            else
-            {
-                FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
-            }
+            //    FormViewDuplicate.DataBind();
+            //    FormViewDuplicate.Visible = true;
+            //}
+            //else
+            //{
+            //    FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
+            //}
 
             // **** end of transplanted code
 
@@ -402,6 +429,19 @@ namespace RWInbound2.Validation
                 lblNote.ForeColor = Color.Red; 
             }
 
+            bool isThereDup = (bool)DT.Rows[pageWeAreOn]["isDuplicateHere"];
+            if (isThereDup)
+            {
+                lblNote.Text = "";
+                lblNote.Visible = false;
+            }
+            else
+            {
+                lblNote.Text = "No Dup Sample";
+                lblNote.Visible = true;
+                lblNote.ForeColor = Color.Red;
+            }
+
             // process each metals data row to see if it falls out of 'specs' 
             foreach (string item in D2TLimits.Keys)
             {
@@ -448,12 +488,12 @@ namespace RWInbound2.Validation
                     if (Total > (MeasureLimit))
                     {
                         tbT.ForeColor = Color.Red;
-                        tbT.ToolTip = string.Format("Total_Dups is greater than limit of {0}", MeasureLimit); 
+                        tbT.ToolTip = string.Format("Total is greater than limit of {0}", MeasureLimit); 
                     }
                     else
                     {
                         tbT.ForeColor = Color.Black;
-                        tbT.ToolTip = string.Format("Total_Dups is under limit of {0}", MeasureLimit); 
+                        tbT.ToolTip = string.Format("Total is under limit of {0}", MeasureLimit); 
                     }
                     if (Disolved > (MeasureLimit))
                     {
@@ -491,48 +531,7 @@ namespace RWInbound2.Validation
         
         protected void FormViewBlank_DataBound(object sender, EventArgs e) 
         {
-            // moved this code to set controls, works better there
-            //if (Session["OURTABLE"] == null)
-            //{
-            //    return;
-            //}
-            //DataTable DT = (DataTable)Session["OURTABLE"];           
-
-            //// FormView locFV = sender as FormView;
-            //int idx = FormViewBlank.PageIndex; 
-            //int id = (int)DT.Rows[idx]["tblSampleID"];
-            //string barcode = (string)DT.Rows[idx]["NormalBarCode"];
-
-            //if (barcode.Length > 4)
-            //{
-            //    // build query to get associated normal
-            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
-            //    SqlDataSourceNormals.SelectCommand = cmmd;
-            //    FormViewNormals.DataBind();
-            //    FormViewNormals.Visible = true; 
-            //}       
-            //else
-            //{
-            //    FormViewNormals.Visible = false; // nothing to show as no normal sample
-            //}
-
-            //// now do for duplicate bar code
-            //barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
-            //if (barcode.Length > 4)
-            //{
-            //    // build query to get associated normal
-            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
-            //    SqlDataSourceDups.SelectCommand = cmmd;
-
-            //    FormViewDuplicate.DataBind();
-            //    FormViewDuplicate.Visible = true;
-            //}
-            //else
-            //{
-            //    FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
-            //}
-
-            setControls(); // update color schemes
+            setControls();            
         }
 
         /// <summary>
@@ -552,10 +551,9 @@ namespace RWInbound2.Validation
             btnHelp.Visible = false; 
         }
 
-        protected void FormViewBlank_PageIndexChanging(object sender, FormViewPageEventArgs e)
-        {
 
-        }
+
+
 
         // user has edited (or just accepts) the blank and now we will save it to table
         // must update page as there will one fewer blanks to process
@@ -966,30 +964,113 @@ namespace RWInbound2.Validation
 
         protected void SqlDataSourceNormals_Updated(object sender, SqlDataSourceStatusEventArgs e)
         {
-            int thispage = (int)Session["THISPAGE"];
-            FormViewBlank.PageIndex = thispage;
-
-            // try this:
+          //  updateForms(); // XXXX I don't think we want to update here, since they have not changed... 
             setControls(); 
+
+            //int thispage = (int)Session["THISPAGE"];
+            //FormViewBlank.PageIndex = thispage;
+            //if (Session["OURTABLE"] == null)
+            //{
+            //    return;
+            //}
+            //DataTable DT = (DataTable)Session["OURTABLE"];
+
+            //// FormView locFV = sender as FormView;
+            //int idx = FormViewBlank.PageIndex;
+            //int id = (int)DT.Rows[idx]["tblSampleID"];
+            //string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+
+            //barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
+            //if (barcode.Length > 4)
+            //{
+            //    // build query to get associated normal
+            //    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+            //    SqlDataSourceDups.SelectCommand = cmmd;
+
+            //    FormViewDuplicate.DataBind();
+            //    FormViewDuplicate.Visible = true;
+            //}
+            //else
+            //{
+            //    FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
+            //}
+            // try this:
+
 
            // FormViewBlank.DataBind();
             //FormViewDuplicate.DataBind();
             //FormViewNormals.DataBind();
         }
-
+        // XXXX moved update back here
         protected void SqlDataSourceDups_Updated(object sender, SqlDataSourceStatusEventArgs e)
         {
-            int thispage = (int)Session["THISPAGE"];
-            FormViewBlank.PageIndex = thispage;
-            // try this:
-            setControls(); 
-
-            //FormViewDuplicate.DataBind();
-            //FormViewNormals.DataBind();
-          //  FormViewBlank.DataBind();
+        //    updateForms(); 
+           // int thispage = (int)Session["THISPAGE"];
+            setControls();             
         }
 
-        // approved method of getting data for the autocomplete extender. Can reuse for other tables... 
+        // added this to update both forms on page change or updating individual forms...
+        // XXXX
+        public void updateForms()
+        {
+            //if (Session["THISPAGE"] != null)
+            //{
+            //    int thispage = (int)Session["THISPAGE"];
+            //    FormViewBlank.PageIndex = thispage;
+            //}
+
+
+            try
+            {
+                DataTable DT = buildDatatable();  // (DataTable)Session["OURTABLE"];
+
+                int idx = FormViewBlank.PageIndex;
+                int id = (int)DT.Rows[idx]["tblSampleID"];
+                string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+
+                barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
+                if (barcode.Length > 2)
+                {
+                    // build query to get associated normal
+                    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+                    SqlDataSourceDups.SelectCommand = cmmd;
+
+                    FormViewDuplicate.DataBind();
+                    FormViewDuplicate.Visible = true;
+                }
+                else
+                {
+                    FormViewDuplicate.Visible = false; // nothing to show as no Dup sample
+                }
+
+                barcode = (string)DT.Rows[idx]["NormalBarCode"];    // get barcode for normal sample
+
+                if (barcode.Length > 2)
+                {
+                    // build query to get associated normal
+                    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+                    SqlDataSourceNormals.SelectCommand = cmmd;
+                    FormViewNormals.DataBind();
+                    FormViewNormals.Visible = true;
+                }
+                else
+                {
+                    FormViewNormals.Visible = false; // nothing to show as no normal sample
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }     
+        }
+
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
         public static List<string> SearchOrgs(string prefixText, int count)
@@ -1029,6 +1110,38 @@ namespace RWInbound2.Validation
                 LE.logError(msg, "WebMethod searchOrgs Failed", ex.StackTrace.ToString(), nam, "");
                 return null; 
             }     
+        }
+
+        protected void FormViewBlank_ItemUpdated(object sender, FormViewUpdatedEventArgs e)
+        {
+            updateForms();
+            setControls(); 
+        }
+
+        protected void FormViewBlank_PageIndexChanging(object sender, FormViewPageEventArgs e)
+        {
+            string pagechanged = "pc";
+            //updateForms();
+            //setControls();
+
+        }
+
+        protected void FormViewBlank_PageIndexChanged(object sender, EventArgs e)
+        {
+            updateForms();
+            setControls();
+        }
+
+        protected void FormViewDuplicate_ItemUpdated(object sender, FormViewUpdatedEventArgs e)
+        {
+            updateForms();
+            setControls();
+        }
+
+        protected void FormViewNormals_ItemUpdated(object sender, FormViewUpdatedEventArgs e)
+        {
+            updateForms();
+            setControls();
         }
 
 

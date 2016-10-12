@@ -1,19 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="RWInbound2.Admin.Admin" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <p class="site-title">
-        Administration</p>
-    <p >
-    </p>
-   
+
+    <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Administration"></asp:Label>  
+  <%--  
     <asp:Panel ID="pnlQuickview"   runat="server" BackColor="#FFFFCC"  CssClass="panelgrouping"
           Width="468px" ForeColor="Black"    >
-<%--        <div  style="text-align:center">
+       <div  style="text-align:center">
        
         <asp:Label ID="Label3" runat="server" Font-Bold="True" Text="Quick View"></asp:Label>
              <br />
              </div>--%>
-        <table style="width: 90%">
+       <%-- <table style="width: 90%">
             <tr>
                 <td style="width: 145px; height: 29px;">
                     <asp:Label ID="Label1" runat="server" Text="Kit Number :"></asp:Label>
@@ -53,10 +51,11 @@
     <ajaxToolkit:DropShadowExtender ID="pnlQuickview_DropShadowExtender" runat="server" 
         BehaviorID="pnlQuickview_DropShadowExtender"  TargetControlID="pnlQuickview">
     </ajaxToolkit:DropShadowExtender>
+--%>
 
         <table style="width: 100%" >
                <tr>
-                <td>&nbsp;</td>
+                <td style="height: 13px"></td>
                    </tr>
             <tr>
                 <td style="height: 18px"></td>
@@ -81,7 +80,7 @@
         <asp:Button ID="Button4" CssClass="adminButton"  runat="server" Text="Manage Participants" Width="176px" />
                 </td>
                 <td>
-                    <asp:Button ID="btnEditMetalBarcode"   CssClass="adminButton" runat="server" Text="Edit Metal Barcodes" OnClick="btnEditMetalBarcode_Click" />
+                    <asp:Button ID="btnEditMetalBarcode"   CssClass="adminButton" Width="176px" runat="server" Text="Edit Metal Barcodes" OnClick="btnEditMetalBarcode_Click" />
                 </td>
             </tr>
             <tr>

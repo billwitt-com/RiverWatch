@@ -46,8 +46,6 @@
                 <asp:Label ID="lblLachet" runat="server"></asp:Label>
             </td>
         </tr>
-
-
          <tr>
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 209px">
@@ -80,12 +78,33 @@
         <tr>
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 209px">
-    <asp:Button ID="btnField" runat="server"   Text="Field"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px"  />
+    <asp:Button ID="btnField" runat="server"   Text="Field"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnField_Click"  />
             </td>
             <td>
-                <asp:Label ID="lblFieldSamples" runat="server" Text="There are XX inbound samples"></asp:Label>
-            &nbsp;- Example</td>
+                <asp:Label ID="lblFieldSamples" runat="server" ></asp:Label>
+           </td>
         </tr>
+
+        <tr>
+            <td style="width: 27px">&nbsp;</td>
+            <td style="width: 209px">
+    
+            </td>
+            <td>
+                 <asp:Label ID="lblFieldNotRecorded" runat="server" ></asp:Label> 
+           </td>
+        </tr>
+
+        <tr>
+            <td style="width: 27px">&nbsp;</td>
+            <td style="width: 209px">
+    <asp:Button ID="btnUnknown" runat="server"   Text="Unknowns"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnUnknown_Click"  />
+            </td>
+            <td>
+                <asp:Label ID="lblUnknowns" runat="server" Text="There are XX unknown samples"></asp:Label>         </td>
+        </tr>
+
+            
     </table>
 
         </div>

@@ -22,12 +22,12 @@ namespace RWInbound2 {
         protected global::System.Web.UI.WebControls.Button btnLogin;
         
         /// <summary>
-        /// lblWelcome control.
+        /// btnLogOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWelcome;
+        protected global::System.Web.UI.WebControls.Button btnLogOut;
     }
 }

@@ -22,6 +22,15 @@ namespace RWInbound2.Validation {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// tbOrgName control.
         /// </summary>
         /// <remarks>
@@ -31,22 +40,58 @@ namespace RWInbound2.Validation {
         protected global::System.Web.UI.WebControls.TextBox tbOrgName;
         
         /// <summary>
-        /// tbRiver control.
+        /// tbOrgName_AutoCompleteExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbRiver;
+        protected global::AjaxControlToolkit.AutoCompleteExtender tbOrgName_AutoCompleteExtender;
         
         /// <summary>
-        /// tbStationName control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbStationName;
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
+        /// tbKitNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbKitNumber;
+        
+        /// <summary>
+        /// btnSelectOrg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSelectOrg;
+        
+        /// <summary>
+        /// lblNumberLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNumberLeft;
+        
+        /// <summary>
+        /// lblMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsg;
         
         /// <summary>
         /// FormView1 control.

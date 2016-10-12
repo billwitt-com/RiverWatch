@@ -400,16 +400,10 @@
           <Property Name="UserCreated" Type="nvarchar" MaxLength="200" />
           <Property Name="Valid" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch.dbo.organization' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="organization">
           <Key>
             <PropertyRef Name="ID" />
-            
-            
-            
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KitNumber" Type="int" />
           <Property Name="OrganizationName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="OrganizationType" Type="varchar" MaxLength="50" Nullable="false" />
@@ -431,6 +425,7 @@ warning 6002: The table/view 'RiverWatch.dbo.organization' does not have a prima
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
           <Property Name="Valid" Type="bit" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="OrgStatus">
           <Key>
@@ -483,6 +478,20 @@ warning 6002: The table/view 'RiverWatch.dbo.organization' does not have a prima
           <Property Name="UserLastModified" Type="nvarchar" MaxLength="25" />
           <Property Name="NumberOfMetalsBlank" Type="int" />
           <Property Name="NumberOfMetalsDuplicate" Type="int" />
+        </EntityType>
+        <EntityType Name="project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectDescription" Type="varchar" MaxLength="250" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+          <Property Name="StoretUploaded" Type="varchar" MaxLength="25" />
+          <Property Name="Valid" Type="bit" />
         </EntityType>
         <EntityType Name="ProjectStation">
           <Key>
@@ -643,32 +652,6 @@ warning 6002: The table/view 'RiverWatch.dbo.organization' does not have a prima
           <Property Name="dsOrder" Type="int" />
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tblProject">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ProjectDescription" Type="varchar" MaxLength="250" />
-          <Property Name="DateCreated" Type="datetime" />
-          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
-          <Property Name="DateLastModified" Type="datetime" />
-          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
-          <Property Name="StoretUploaded" Type="varchar" MaxLength="25" />
-          <Property Name="Valid" Type="bit" />
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tblProjectStation">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProjectID" Type="int" Nullable="false" />
-          <Property Name="StationID" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" />
-          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
-          <Property Name="DateLastModified" Type="datetime" />
-          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="tblRegistration">
           <Key>
@@ -1023,6 +1006,20 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="tlkNutrientLimits">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Element" Type="nvarchar" MaxLength="40" />
+          <Property Name="RowID" Type="nvarchar" MaxLength="40" />
+          <Property Name="Reporting" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="MDL" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="DvsTDifference" Type="decimal" Precision="16" Scale="4" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="UserCreated" Type="nvarchar" MaxLength="200" />
+          <Property Name="Valid" Type="bit" />
+        </EntityType>
         <EntityType Name="tlkOrganizationType">
           <Key>
             <PropertyRef Name="ID" />
@@ -1211,6 +1208,170 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="UnknownSample">
+          <Key>
+            <PropertyRef Name="UnknownSampleID" />
+          </Key>
+          <Property Name="OrganizationID" Type="int" Nullable="false" />
+          <Property Name="UnknownSampleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SampleType" Type="varchar" MaxLength="25" />
+          <Property Name="SampleNumber" Type="varchar" MaxLength="10" />
+          <Property Name="DateSent" Type="datetime" />
+          <Property Name="Value1" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="Value2" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="MeanValue" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="TrueValue" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="Round" Type="int" />
+          <Property Name="Comment" Type="varchar" MaxLength="1000" />
+          <Property Name="OldValidated" Type="varchar" MaxLength="25" />
+          <Property Name="Path" Type="varchar" MaxLength="25" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="25" />
+          <Property Name="BatchSampleNumber" Type="varchar" MaxLength="10" />
+          <Property Name="Valid" Type="bit" />
+          <Property Name="Validated" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.OrgStationsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrgStationsView">
+          <Key>
+            <PropertyRef Name="OrganizationName" />
+            <PropertyRef Name="StationName" />
+          </Key>
+          <Property Name="OrganizationID" Type="int" />
+          <Property Name="OrganizationName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StationNumber" Type="int" />
+          <Property Name="StationName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="River" Type="varchar" MaxLength="17" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.OrgStatusView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrgStatusView">
+          <Key>
+            <PropertyRef Name="OrganizationName" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="OrganizationID" />
+          </Key>
+          <Property Name="OrganizationName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="OrganizationID" Type="int" Nullable="false" />
+          <Property Name="ContractStartDate" Type="datetime" />
+          <Property Name="ContractEndDate" Type="datetime" />
+          <Property Name="ContractSigned" Type="bit" />
+          <Property Name="ContractSignedDate" Type="datetime" />
+          <Property Name="SiteVisited" Type="bit" />
+          <Property Name="VolunteerTimeSheet1" Type="bit" />
+          <Property Name="VolunteerTimeShee2" Type="bit" />
+          <Property Name="VolunteerTimeSheet3" Type="bit" />
+          <Property Name="VolunteerTimeSheet4" Type="bit" />
+          <Property Name="DataEnteredElectronically1" Type="bit" />
+          <Property Name="DataEnteredElectronically2" Type="bit" />
+          <Property Name="DataEnteredElectronically3" Type="bit" />
+          <Property Name="DataEnteredElectronically4" Type="bit" />
+          <Property Name="SampleShipped1" Type="bit" />
+          <Property Name="SampleShipped2" Type="bit" />
+          <Property Name="SampleShipped3" Type="bit" />
+          <Property Name="SampleShipped4" Type="bit" />
+          <Property Name="NumberOfSamplesJan" Type="int" />
+          <Property Name="NumberOfSamplesFeb" Type="int" />
+          <Property Name="NumberOfSamplesMar" Type="int" />
+          <Property Name="NumberOfSamplesApr" Type="int" />
+          <Property Name="NumberOfSamplesMay" Type="int" />
+          <Property Name="NumberOfSamplesJun" Type="int" />
+          <Property Name="NumberOfSamplesJul" Type="int" />
+          <Property Name="NumberOfSamplesAug" Type="int" />
+          <Property Name="NumberOfSamplesSep" Type="int" />
+          <Property Name="NumberOfSamplesOct" Type="int" />
+          <Property Name="NumberOfSamplesNov" Type="int" />
+          <Property Name="NumberOfSamplesDec" Type="int" />
+          <Property Name="Nutrient1Collected" Type="bit" />
+          <Property Name="Nutrient2Collected" Type="bit" />
+          <Property Name="BugCollected" Type="bit" />
+          <Property Name="UnknownSpringRecordedDate" Type="datetime" />
+          <Property Name="UnknownFallRecordedDate" Type="datetime" />
+          <Property Name="NumberOfSamplesBlank" Type="int" />
+          <Property Name="NumberOfSamplesDuplicate" Type="int" />
+          <Property Name="TroubleComment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="NoteComment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="HardshipComment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="nvarchar" MaxLength="25" />
+          <Property Name="NumberOfMetalsBlank" Type="int" />
+          <Property Name="NumberOfMetalsDuplicate" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.ParticipantswithOrgName' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ParticipantswithOrgName">
+          <Key>
+            <PropertyRef Name="OrganizationName" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="PrimaryContact" />
+            <PropertyRef Name="Training" />
+          </Key>
+          <Property Name="OrganizationName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="KitNumber" Type="int" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" />
+          <Property Name="Title" Type="varchar" MaxLength="25" />
+          <Property Name="YearSignedOn" Type="int" />
+          <Property Name="Phone" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" />
+          <Property Name="Address2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="25" />
+          <Property Name="State" Type="varchar" MaxLength="2" />
+          <Property Name="Zip" Type="varchar" MaxLength="10" />
+          <Property Name="HomePhone" Type="varchar" MaxLength="30" />
+          <Property Name="HomeEmail" Type="varchar" MaxLength="50" />
+          <Property Name="MailPreference" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="PrimaryContact" Type="bit" Nullable="false" />
+          <Property Name="Training" Type="bit" Nullable="false" />
+          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
+          <Property Name="Valid" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewSoloNutrientDups">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="BARCODE" />
+            <PropertyRef Name="TypeCode" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BARCODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Batch" Type="varchar" MaxLength="30" />
+          <Property Name="TypeCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="SampleNumber" Type="varchar" MaxLength="50" />
+          <Property Name="TotalPhos" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="TotalPhos_CH" Type="bit" />
+          <Property Name="OrthoPhos" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="OrthoPhos_CH" Type="bit" />
+          <Property Name="TotalNitro" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="TotalNitro_CH" Type="bit" />
+          <Property Name="NitrateNitrite" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="NitrateNitrite_CH" Type="bit" />
+          <Property Name="Ammonia" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="Ammonia_CH" Type="bit" />
+          <Property Name="DOC" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="DOC_CH" Type="bit" />
+          <Property Name="Chloride" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="Chloride_CH" Type="bit" />
+          <Property Name="Sulfate" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="Sulfate_CH" Type="bit" />
+          <Property Name="TSS" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="TSS_CH" Type="bit" />
+          <Property Name="ChlorA" Type="numeric" Precision="12" Scale="6" />
+          <Property Name="ChlorA_CH" Type="bit" />
+          <Property Name="Valid" Type="bit" />
+          <Property Name="Validated" Type="bit" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityContainer Name="RiverWatchModelStoreContainer">
           <EntitySet Name="ControlPermissions" EntityType="Self.ControlPermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
@@ -1225,7 +1386,9 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="NutrientBarCode" EntityType="Self.NutrientBarCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NutrientData" EntityType="Self.NutrientData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NutrientLimits" EntityType="Self.NutrientLimits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="organization" EntityType="Self.organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrgStatus" EntityType="Self.OrgStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectStation" EntityType="Self.ProjectStation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Samples" EntityType="Self.Samples" Schema="dbo" store:Type="Tables" />
@@ -1233,8 +1396,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="tblParticipant" EntityType="Self.tblParticipant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPartInfo" EntityType="Self.tblPartInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPhysHabPara" EntityType="Self.tblPhysHabPara" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblProject" EntityType="Self.tblProject" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblProjectStation" EntityType="Self.tblProjectStation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRegistration" EntityType="Self.tblRegistration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSampleXXXX" EntityType="Self.tblSampleXXXX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTrainee" EntityType="Self.tblTrainee" Schema="dbo" store:Type="Tables" />
@@ -1259,6 +1420,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="tlkLimits" EntityType="Self.tlkLimits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkMetalBarCodeType" EntityType="Self.tlkMetalBarCodeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkNutrientBarCodeType" EntityType="Self.tlkNutrientBarCodeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tlkNutrientLimits" EntityType="Self.tlkNutrientLimits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkOrganizationType" EntityType="Self.tlkOrganizationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkQUADI" EntityType="Self.tlkQUADI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkQuarterSection" EntityType="Self.tlkQuarterSection" Schema="dbo" store:Type="Tables" />
@@ -1276,32 +1438,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="tlkWSG" EntityType="Self.tlkWSG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkWSR" EntityType="Self.tlkWSR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="trsChemParaMapColumns" EntityType="Self.trsChemParaMapColumns" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="organization" EntityType="Self.organization" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [organization].[ID] AS [ID], 
-    [organization].[KitNumber] AS [KitNumber], 
-    [organization].[OrganizationName] AS [OrganizationName], 
-    [organization].[OrganizationType] AS [OrganizationType], 
-    [organization].[Email] AS [Email], 
-    [organization].[MailingAddress] AS [MailingAddress], 
-    [organization].[ShippingAddress] AS [ShippingAddress], 
-    [organization].[City] AS [City], 
-    [organization].[State] AS [State], 
-    [organization].[Zip] AS [Zip], 
-    [organization].[Phone] AS [Phone], 
-    [organization].[Fax] AS [Fax], 
-    [organization].[YearStarted] AS [YearStarted], 
-    [organization].[WaterShed] AS [WaterShed], 
-    [organization].[WaterShedGathering] AS [WaterShedGathering], 
-    [organization].[Password] AS [Password], 
-    [organization].[Active] AS [Active], 
-    [organization].[DateCreated] AS [DateCreated], 
-    [organization].[UserCreated] AS [UserCreated], 
-    [organization].[DateLastModified] AS [DateLastModified], 
-    [organization].[UserLastModified] AS [UserLastModified], 
-    [organization].[Valid] AS [Valid]
-    FROM [dbo].[organization] AS [organization]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="UnknownSample" EntityType="Self.UnknownSample" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblXS" EntityType="Self.tblXS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tblXS].[XSID] AS [XSID], 
@@ -1311,6 +1448,125 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
     [tblXS].[EnterDate] AS [EnterDate], 
     [tblXS].[Comments] AS [Comments]
     FROM [dbo].[tblXS] AS [tblXS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OrgStationsView" EntityType="Self.OrgStationsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrgStationsView].[OrganizationID] AS [OrganizationID], 
+    [OrgStationsView].[OrganizationName] AS [OrganizationName], 
+    [OrgStationsView].[StationNumber] AS [StationNumber], 
+    [OrgStationsView].[StationName] AS [StationName], 
+    [OrgStationsView].[River] AS [River]
+    FROM [dbo].[OrgStationsView] AS [OrgStationsView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OrgStatusView" EntityType="Self.OrgStatusView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrgStatusView].[OrganizationName] AS [OrganizationName], 
+    [OrgStatusView].[ID] AS [ID], 
+    [OrgStatusView].[OrganizationID] AS [OrganizationID], 
+    [OrgStatusView].[ContractStartDate] AS [ContractStartDate], 
+    [OrgStatusView].[ContractEndDate] AS [ContractEndDate], 
+    [OrgStatusView].[ContractSigned] AS [ContractSigned], 
+    [OrgStatusView].[ContractSignedDate] AS [ContractSignedDate], 
+    [OrgStatusView].[SiteVisited] AS [SiteVisited], 
+    [OrgStatusView].[VolunteerTimeSheet1] AS [VolunteerTimeSheet1], 
+    [OrgStatusView].[VolunteerTimeShee2] AS [VolunteerTimeShee2], 
+    [OrgStatusView].[VolunteerTimeSheet3] AS [VolunteerTimeSheet3], 
+    [OrgStatusView].[VolunteerTimeSheet4] AS [VolunteerTimeSheet4], 
+    [OrgStatusView].[DataEnteredElectronically1] AS [DataEnteredElectronically1], 
+    [OrgStatusView].[DataEnteredElectronically2] AS [DataEnteredElectronically2], 
+    [OrgStatusView].[DataEnteredElectronically3] AS [DataEnteredElectronically3], 
+    [OrgStatusView].[DataEnteredElectronically4] AS [DataEnteredElectronically4], 
+    [OrgStatusView].[SampleShipped1] AS [SampleShipped1], 
+    [OrgStatusView].[SampleShipped2] AS [SampleShipped2], 
+    [OrgStatusView].[SampleShipped3] AS [SampleShipped3], 
+    [OrgStatusView].[SampleShipped4] AS [SampleShipped4], 
+    [OrgStatusView].[NumberOfSamplesJan] AS [NumberOfSamplesJan], 
+    [OrgStatusView].[NumberOfSamplesFeb] AS [NumberOfSamplesFeb], 
+    [OrgStatusView].[NumberOfSamplesMar] AS [NumberOfSamplesMar], 
+    [OrgStatusView].[NumberOfSamplesApr] AS [NumberOfSamplesApr], 
+    [OrgStatusView].[NumberOfSamplesMay] AS [NumberOfSamplesMay], 
+    [OrgStatusView].[NumberOfSamplesJun] AS [NumberOfSamplesJun], 
+    [OrgStatusView].[NumberOfSamplesJul] AS [NumberOfSamplesJul], 
+    [OrgStatusView].[NumberOfSamplesAug] AS [NumberOfSamplesAug], 
+    [OrgStatusView].[NumberOfSamplesSep] AS [NumberOfSamplesSep], 
+    [OrgStatusView].[NumberOfSamplesOct] AS [NumberOfSamplesOct], 
+    [OrgStatusView].[NumberOfSamplesNov] AS [NumberOfSamplesNov], 
+    [OrgStatusView].[NumberOfSamplesDec] AS [NumberOfSamplesDec], 
+    [OrgStatusView].[Nutrient1Collected] AS [Nutrient1Collected], 
+    [OrgStatusView].[Nutrient2Collected] AS [Nutrient2Collected], 
+    [OrgStatusView].[BugCollected] AS [BugCollected], 
+    [OrgStatusView].[UnknownSpringRecordedDate] AS [UnknownSpringRecordedDate], 
+    [OrgStatusView].[UnknownFallRecordedDate] AS [UnknownFallRecordedDate], 
+    [OrgStatusView].[NumberOfSamplesBlank] AS [NumberOfSamplesBlank], 
+    [OrgStatusView].[NumberOfSamplesDuplicate] AS [NumberOfSamplesDuplicate], 
+    [OrgStatusView].[TroubleComment] AS [TroubleComment], 
+    [OrgStatusView].[NoteComment] AS [NoteComment], 
+    [OrgStatusView].[HardshipComment] AS [HardshipComment], 
+    [OrgStatusView].[DateCreated] AS [DateCreated], 
+    [OrgStatusView].[UserCreated] AS [UserCreated], 
+    [OrgStatusView].[DateLastModified] AS [DateLastModified], 
+    [OrgStatusView].[UserLastModified] AS [UserLastModified], 
+    [OrgStatusView].[NumberOfMetalsBlank] AS [NumberOfMetalsBlank], 
+    [OrgStatusView].[NumberOfMetalsDuplicate] AS [NumberOfMetalsDuplicate]
+    FROM [dbo].[OrgStatusView] AS [OrgStatusView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ParticipantswithOrgName" EntityType="Self.ParticipantswithOrgName" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ParticipantswithOrgName].[OrganizationName] AS [OrganizationName], 
+    [ParticipantswithOrgName].[KitNumber] AS [KitNumber], 
+    [ParticipantswithOrgName].[LastName] AS [LastName], 
+    [ParticipantswithOrgName].[FirstName] AS [FirstName], 
+    [ParticipantswithOrgName].[Title] AS [Title], 
+    [ParticipantswithOrgName].[YearSignedOn] AS [YearSignedOn], 
+    [ParticipantswithOrgName].[Phone] AS [Phone], 
+    [ParticipantswithOrgName].[Email] AS [Email], 
+    [ParticipantswithOrgName].[Address1] AS [Address1], 
+    [ParticipantswithOrgName].[Address2] AS [Address2], 
+    [ParticipantswithOrgName].[City] AS [City], 
+    [ParticipantswithOrgName].[State] AS [State], 
+    [ParticipantswithOrgName].[Zip] AS [Zip], 
+    [ParticipantswithOrgName].[HomePhone] AS [HomePhone], 
+    [ParticipantswithOrgName].[HomeEmail] AS [HomeEmail], 
+    [ParticipantswithOrgName].[MailPreference] AS [MailPreference], 
+    [ParticipantswithOrgName].[Active] AS [Active], 
+    [ParticipantswithOrgName].[PrimaryContact] AS [PrimaryContact], 
+    [ParticipantswithOrgName].[Training] AS [Training], 
+    [ParticipantswithOrgName].[UserCreated] AS [UserCreated], 
+    [ParticipantswithOrgName].[Valid] AS [Valid]
+    FROM [dbo].[ParticipantswithOrgName] AS [ParticipantswithOrgName]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewSoloNutrientDups" EntityType="Self.ViewSoloNutrientDups" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewSoloNutrientDups].[ID] AS [ID], 
+    [ViewSoloNutrientDups].[BARCODE] AS [BARCODE], 
+    [ViewSoloNutrientDups].[Batch] AS [Batch], 
+    [ViewSoloNutrientDups].[TypeCode] AS [TypeCode], 
+    [ViewSoloNutrientDups].[SampleNumber] AS [SampleNumber], 
+    [ViewSoloNutrientDups].[TotalPhos] AS [TotalPhos], 
+    [ViewSoloNutrientDups].[TotalPhos_CH] AS [TotalPhos_CH], 
+    [ViewSoloNutrientDups].[OrthoPhos] AS [OrthoPhos], 
+    [ViewSoloNutrientDups].[OrthoPhos_CH] AS [OrthoPhos_CH], 
+    [ViewSoloNutrientDups].[TotalNitro] AS [TotalNitro], 
+    [ViewSoloNutrientDups].[TotalNitro_CH] AS [TotalNitro_CH], 
+    [ViewSoloNutrientDups].[NitrateNitrite] AS [NitrateNitrite], 
+    [ViewSoloNutrientDups].[NitrateNitrite_CH] AS [NitrateNitrite_CH], 
+    [ViewSoloNutrientDups].[Ammonia] AS [Ammonia], 
+    [ViewSoloNutrientDups].[Ammonia_CH] AS [Ammonia_CH], 
+    [ViewSoloNutrientDups].[DOC] AS [DOC], 
+    [ViewSoloNutrientDups].[DOC_CH] AS [DOC_CH], 
+    [ViewSoloNutrientDups].[Chloride] AS [Chloride], 
+    [ViewSoloNutrientDups].[Chloride_CH] AS [Chloride_CH], 
+    [ViewSoloNutrientDups].[Sulfate] AS [Sulfate], 
+    [ViewSoloNutrientDups].[Sulfate_CH] AS [Sulfate_CH], 
+    [ViewSoloNutrientDups].[TSS] AS [TSS], 
+    [ViewSoloNutrientDups].[TSS_CH] AS [TSS_CH], 
+    [ViewSoloNutrientDups].[ChlorA] AS [ChlorA], 
+    [ViewSoloNutrientDups].[ChlorA_CH] AS [ChlorA_CH], 
+    [ViewSoloNutrientDups].[Valid] AS [Valid], 
+    [ViewSoloNutrientDups].[Validated] AS [Validated], 
+    [ViewSoloNutrientDups].[DateCreated] AS [DateCreated], 
+    [ViewSoloNutrientDups].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[ViewSoloNutrientDups] AS [ViewSoloNutrientDups]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1560,20 +1816,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="NumberOfMetalsBlank" Type="Int32" />
           <Property Name="NumberOfMetalsDuplicate" Type="Int32" />
         </EntityType>
-        <EntityType Name="Project">
-          <Key>
-            <PropertyRef Name="ProjectID" />
-          </Key>
-          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProjectDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="valid" Type="Boolean" />
-        </EntityType>
         <EntityType Name="ProjectStation">
           <Key>
             <PropertyRef Name="ID" />
@@ -1720,20 +1962,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="dsOrder" Type="Int32" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="tblProject">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProjectDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
@@ -2216,14 +2444,12 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="NutrientBarCodes" EntityType="Self.NutrientBarCode" />
           <EntitySet Name="organizations" EntityType="Self.organization" />
           <EntitySet Name="OrgStatus" EntityType="Self.OrgStatu" />
-          <EntitySet Name="Projects" EntityType="Self.Project" />
           <EntitySet Name="ProjectStations" EntityType="Self.ProjectStation" />
           <EntitySet Name="Samples" EntityType="Self.Sample" />
           <EntitySet Name="Stations" EntityType="Self.Station" />
           <EntitySet Name="tblParticipants" EntityType="Self.tblParticipant" />
           <EntitySet Name="tblPartInfoes" EntityType="Self.tblPartInfo" />
           <EntitySet Name="tblPhysHabParas" EntityType="Self.tblPhysHabPara" />
-          <EntitySet Name="tblProjects" EntityType="Self.tblProject" />
           <EntitySet Name="tblSampleXXXXes" EntityType="Self.tblSampleXXXX" />
           <EntitySet Name="tblWatercodes" EntityType="Self.tblWatercode" />
           <EntitySet Name="tblWatershedGrps" EntityType="Self.tblWatershedGrp" />
@@ -2270,11 +2496,17 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <EntitySet Name="tblUsers" EntityType="RiverWatchModel.tblUser" />
           <EntitySet Name="tblRegistrations" EntityType="RiverWatchModel.tblRegistration" />
           <EntitySet Name="tblTrainees" EntityType="RiverWatchModel.tblTrainee" />
-          <EntitySet Name="tblProjectStations" EntityType="RiverWatchModel.tblProjectStation" />
-          <EntitySet Name="InboundSamples" EntityType="RiverWatchModel.InboundSample" />
+          <EntitySet Name="NEWexpWaters" EntityType="RiverWatchModel.NEWexpWater" />
           <EntitySet Name="NutrientDatas" EntityType="RiverWatchModel.NutrientData" />
           <EntitySet Name="NutrientLimits" EntityType="RiverWatchModel.NutrientLimit" />
-          <EntitySet Name="NEWexpWaters" EntityType="RiverWatchModel.NEWexpWater" />
+          <EntitySet Name="tlkNutrientLimits" EntityType="RiverWatchModel.tlkNutrientLimit" />
+          <EntitySet Name="OrgStationsViews" EntityType="RiverWatchModel.OrgStationsView" />
+          <EntitySet Name="OrgStatusViews" EntityType="RiverWatchModel.OrgStatusView" />
+          <EntitySet Name="ParticipantswithOrgNames" EntityType="RiverWatchModel.ParticipantswithOrgName" />
+          <EntitySet Name="ViewSoloNutrientDups" EntityType="RiverWatchModel.ViewSoloNutrientDup" />
+          <EntitySet Name="Project" EntityType="RiverWatchModel.Project" />
+          <EntitySet Name="UnknownSample" EntityType="RiverWatchModel.UnknownSample" />
+          <EntitySet Name="InboundSamples" EntityType="RiverWatchModel.InboundSamples" />
         </EntityContainer>
         <EntityType Name="FileStorage">
           <Key>
@@ -2407,118 +2639,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
         </EntityType>
-        <EntityType Name="tblProjectStation">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="StationID" Type="Int32" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="InboundSample">
-          <Key>
-            <PropertyRef Name="inbSampleID" />
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="inbSampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StationNum" Type="Int32" />
-          <Property Name="SampleID" Type="Int64" />
-          <Property Name="txtSampleID" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <Property Name="KitNum" Type="Int32" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="Time" Type="Int32" />
-          <Property Name="USGSFlow" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="PH" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="TempC" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="PhenAlk" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="TotalAlk" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="TotalHard" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="DO" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="DOsat" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="Tag" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="Chk" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="EntryType" Type="Int32" />
-          <Property Name="EntryStaff" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="MetalsNormal" Type="Boolean" />
-          <Property Name="MetalsBlnk" Type="Boolean" />
-          <Property Name="MetalsDupe" Type="Boolean" />
-          <Property Name="Bugs" Type="Boolean" />
-          <Property Name="BugsQA" Type="Boolean" />
-          <Property Name="TSS" Type="Boolean" />
-          <Property Name="CS" Type="Boolean" />
-          <Property Name="NP" Type="Boolean" />
-          <Property Name="TSSDupe" Type="Boolean" />
-          <Property Name="CSDupe" Type="Boolean" />
-          <Property Name="NPDupe" Type="Boolean" />
-          <Property Name="FieldValid" Type="Boolean" />
-          <Property Name="MetalsStat" Type="Int32" />
-          <Property Name="FinalCheck" Type="Boolean" />
-          <Property Name="Method" Type="Int32" />
-          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="DateReceived" Type="DateTime" Precision="3" />
-          <Property Name="DataSheetIncluded" Type="Boolean" />
-          <Property Name="MissingDataSheetReqDate" Type="DateTime" Precision="3" />
-          <Property Name="ChainOfCustody" Type="Boolean" />
-          <Property Name="MissingDataSheetReceived" Type="Boolean" />
-          <Property Name="PassValStep" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="tblSampleID" Type="Int32" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Valid1" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="NutrientData">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BARCODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Batch" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="TypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="SampleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TotalPhos" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="TotalPhos_CH" Type="Boolean" />
-          <Property Name="OrthoPhos" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="OrthoPhos_CH" Type="Boolean" />
-          <Property Name="TotalNitro" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="TotalNitro_CH" Type="Boolean" />
-          <Property Name="NitrateNitrite" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="NitrateNitrite_CH" Type="Boolean" />
-          <Property Name="Ammonia" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="Ammonia_CH" Type="Boolean" />
-          <Property Name="DOC" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="DOC_CH" Type="Boolean" />
-          <Property Name="Chloride" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="Chloride_CH" Type="Boolean" />
-          <Property Name="Sulfate" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="Sulfate_CH" Type="Boolean" />
-          <Property Name="TSS" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="TSS_CH" Type="Boolean" />
-          <Property Name="ChlorA" Type="Decimal" Precision="12" Scale="6" />
-          <Property Name="ChlorA_CH" Type="Boolean" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="Validated" Type="Boolean" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="NutrientLimit">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Element" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="RowID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="Reporting" Type="Decimal" Precision="16" Scale="4" />
-          <Property Name="MDL" Type="Decimal" Precision="16" Scale="4" />
-          <Property Name="DvsTDifference" Type="Decimal" Precision="16" Scale="4" />
-          <Property Name="HighLimit" Type="Decimal" Precision="16" Scale="4" />
-          <Property Name="DateCreated" Type="DateTime" Precision="0" />
-          <Property Name="UserCreated" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Valid" Type="Boolean" />
-        </EntityType>
         <EntityType Name="NEWexpWater">
           <Key>
             <PropertyRef Name="ID" />
@@ -2601,6 +2721,287 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="BadDuplicate" Type="Boolean" />
           <Property Name="BadSample" Type="Boolean" />
           <Property Name="Valid" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NutrientData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BARCODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Batch" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SampleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalPhos" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalPhos_CH" Type="Boolean" />
+          <Property Name="OrthoPhos" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="OrthoPhos_CH" Type="Boolean" />
+          <Property Name="TotalNitro" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalNitro_CH" Type="Boolean" />
+          <Property Name="NitrateNitrite" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="NitrateNitrite_CH" Type="Boolean" />
+          <Property Name="Ammonia" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Ammonia_CH" Type="Boolean" />
+          <Property Name="DOC" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="DOC_CH" Type="Boolean" />
+          <Property Name="Chloride" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Chloride_CH" Type="Boolean" />
+          <Property Name="Sulfate" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Sulfate_CH" Type="Boolean" />
+          <Property Name="TSS" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TSS_CH" Type="Boolean" />
+          <Property Name="ChlorA" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="ChlorA_CH" Type="Boolean" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="Validated" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NutrientLimit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Element" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="RowID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Reporting" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="MDL" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="DvsTDifference" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="HighLimit" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="UserCreated" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tlkNutrientLimit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Element" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="RowID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Reporting" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="MDL" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="DvsTDifference" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="UserCreated" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="OrgStationsView">
+          <Key>
+            <PropertyRef Name="OrganizationName" />
+            <PropertyRef Name="StationName" />
+          </Key>
+          <Property Name="OrganizationID" Type="Int32" />
+          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StationNumber" Type="Int32" />
+          <Property Name="StationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="River" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OrgStatusView">
+          <Key>
+            <PropertyRef Name="OrganizationName" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="OrganizationID" />
+          </Key>
+          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="OrganizationID" Type="Int32" Nullable="false" />
+          <Property Name="ContractStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ContractEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ContractSigned" Type="Boolean" />
+          <Property Name="ContractSignedDate" Type="DateTime" Precision="3" />
+          <Property Name="SiteVisited" Type="Boolean" />
+          <Property Name="VolunteerTimeSheet1" Type="Boolean" />
+          <Property Name="VolunteerTimeShee2" Type="Boolean" />
+          <Property Name="VolunteerTimeSheet3" Type="Boolean" />
+          <Property Name="VolunteerTimeSheet4" Type="Boolean" />
+          <Property Name="DataEnteredElectronically1" Type="Boolean" />
+          <Property Name="DataEnteredElectronically2" Type="Boolean" />
+          <Property Name="DataEnteredElectronically3" Type="Boolean" />
+          <Property Name="DataEnteredElectronically4" Type="Boolean" />
+          <Property Name="SampleShipped1" Type="Boolean" />
+          <Property Name="SampleShipped2" Type="Boolean" />
+          <Property Name="SampleShipped3" Type="Boolean" />
+          <Property Name="SampleShipped4" Type="Boolean" />
+          <Property Name="NumberOfSamplesJan" Type="Int32" />
+          <Property Name="NumberOfSamplesFeb" Type="Int32" />
+          <Property Name="NumberOfSamplesMar" Type="Int32" />
+          <Property Name="NumberOfSamplesApr" Type="Int32" />
+          <Property Name="NumberOfSamplesMay" Type="Int32" />
+          <Property Name="NumberOfSamplesJun" Type="Int32" />
+          <Property Name="NumberOfSamplesJul" Type="Int32" />
+          <Property Name="NumberOfSamplesAug" Type="Int32" />
+          <Property Name="NumberOfSamplesSep" Type="Int32" />
+          <Property Name="NumberOfSamplesOct" Type="Int32" />
+          <Property Name="NumberOfSamplesNov" Type="Int32" />
+          <Property Name="NumberOfSamplesDec" Type="Int32" />
+          <Property Name="Nutrient1Collected" Type="Boolean" />
+          <Property Name="Nutrient2Collected" Type="Boolean" />
+          <Property Name="BugCollected" Type="Boolean" />
+          <Property Name="UnknownSpringRecordedDate" Type="DateTime" Precision="3" />
+          <Property Name="UnknownFallRecordedDate" Type="DateTime" Precision="3" />
+          <Property Name="NumberOfSamplesBlank" Type="Int32" />
+          <Property Name="NumberOfSamplesDuplicate" Type="Int32" />
+          <Property Name="TroubleComment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NoteComment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="HardshipComment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfMetalsBlank" Type="Int32" />
+          <Property Name="NumberOfMetalsDuplicate" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ParticipantswithOrgName">
+          <Key>
+            <PropertyRef Name="OrganizationName" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="PrimaryContact" />
+            <PropertyRef Name="Training" />
+          </Key>
+          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KitNumber" Type="Int32" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="YearSignedOn" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HomePhone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HomeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MailPreference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="PrimaryContact" Type="Boolean" Nullable="false" />
+          <Property Name="Training" Type="Boolean" Nullable="false" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ViewSoloNutrientDup">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="BARCODE" />
+            <PropertyRef Name="TypeCode" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BARCODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Batch" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TypeCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SampleNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalPhos" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalPhos_CH" Type="Boolean" />
+          <Property Name="OrthoPhos" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="OrthoPhos_CH" Type="Boolean" />
+          <Property Name="TotalNitro" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalNitro_CH" Type="Boolean" />
+          <Property Name="NitrateNitrite" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="NitrateNitrite_CH" Type="Boolean" />
+          <Property Name="Ammonia" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Ammonia_CH" Type="Boolean" />
+          <Property Name="DOC" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="DOC_CH" Type="Boolean" />
+          <Property Name="Chloride" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Chloride_CH" Type="Boolean" />
+          <Property Name="Sulfate" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Sulfate_CH" Type="Boolean" />
+          <Property Name="TSS" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TSS_CH" Type="Boolean" />
+          <Property Name="ChlorA" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="ChlorA_CH" Type="Boolean" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="Validated" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UnknownSample">
+          <Key>
+            <PropertyRef Name="UnknownSampleID" />
+          </Key>
+          <Property Name="OrganizationID" Type="Int32" Nullable="false" />
+          <Property Name="UnknownSampleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SampleType" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SampleNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateSent" Type="DateTime" Precision="3" />
+          <Property Name="Value1" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Value2" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="MeanValue" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="TrueValue" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Round" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="OldValidated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="BatchSampleNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="Validated" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="InboundSamples">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StationNum" Type="Int32" />
+          <Property Name="SampleID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="txtSampleID" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="KitNum" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Time" Type="Int32" />
+          <Property Name="USGSFlow" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="PH" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TempC" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="PhenAlk" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalAlk" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="TotalHard" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="DO" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="DOsat" Type="Decimal" Precision="12" Scale="6" />
+          <Property Name="Tag" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Chk" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="EntryType" Type="Int32" />
+          <Property Name="EntryStaff" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MetalsNormal" Type="Boolean" />
+          <Property Name="MetalsBlnk" Type="Boolean" />
+          <Property Name="MetalsDupe" Type="Boolean" />
+          <Property Name="Bugs" Type="Boolean" />
+          <Property Name="BugsQA" Type="Boolean" />
+          <Property Name="TSS" Type="Boolean" />
+          <Property Name="CS" Type="Boolean" />
+          <Property Name="NP" Type="Boolean" />
+          <Property Name="TSSDupe" Type="Boolean" />
+          <Property Name="CSDupe" Type="Boolean" />
+          <Property Name="NPDupe" Type="Boolean" />
+          <Property Name="FieldValid" Type="Boolean" />
+          <Property Name="MetalsStat" Type="Int32" />
+          <Property Name="FinalCheck" Type="Boolean" />
+          <Property Name="Method" Type="Int32" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DateReceived" Type="DateTime" Precision="3" />
+          <Property Name="DataSheetIncluded" Type="Boolean" />
+          <Property Name="MissingDataSheetReqDate" Type="DateTime" Precision="3" />
+          <Property Name="ChainOfCustody" Type="Boolean" />
+          <Property Name="MissingDataSheetReceived" Type="Boolean" />
+          <Property Name="PassValStep" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="tblSampleID" Type="Int32" />
+          <Property Name="Valid" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3009,21 +3410,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="dsOrder" ColumnName="dsOrder" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblProjects">
-            <EntityTypeMapping TypeName="RiverWatchModel.tblProject">
-              <MappingFragment StoreEntitySet="tblProject">
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
                 <ScalarProperty Name="Valid" ColumnName="Valid" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -3676,119 +4062,6 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblProjectStations">
-            <EntityTypeMapping TypeName="RiverWatchModel.tblProjectStation">
-              <MappingFragment StoreEntitySet="tblProjectStation">
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="StationID" ColumnName="StationID" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="InboundSamples">
-            <EntityTypeMapping TypeName="RiverWatchModel.InboundSample">
-              <MappingFragment StoreEntitySet="InboundSamples">
-                <ScalarProperty Name="Valid1" ColumnName="Valid" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="tblSampleID" ColumnName="tblSampleID" />
-                <ScalarProperty Name="PassValStep" ColumnName="PassValStep" />
-                <ScalarProperty Name="MissingDataSheetReceived" ColumnName="MissingDataSheetReceived" />
-                <ScalarProperty Name="ChainOfCustody" ColumnName="ChainOfCustody" />
-                <ScalarProperty Name="MissingDataSheetReqDate" ColumnName="MissingDataSheetReqDate" />
-                <ScalarProperty Name="DataSheetIncluded" ColumnName="DataSheetIncluded" />
-                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-                <ScalarProperty Name="Method" ColumnName="Method" />
-                <ScalarProperty Name="FinalCheck" ColumnName="FinalCheck" />
-                <ScalarProperty Name="MetalsStat" ColumnName="MetalsStat" />
-                <ScalarProperty Name="FieldValid" ColumnName="FieldValid" />
-                <ScalarProperty Name="NPDupe" ColumnName="NPDupe" />
-                <ScalarProperty Name="CSDupe" ColumnName="CSDupe" />
-                <ScalarProperty Name="TSSDupe" ColumnName="TSSDupe" />
-                <ScalarProperty Name="NP" ColumnName="NP" />
-                <ScalarProperty Name="CS" ColumnName="CS" />
-                <ScalarProperty Name="TSS" ColumnName="TSS" />
-                <ScalarProperty Name="BugsQA" ColumnName="BugsQA" />
-                <ScalarProperty Name="Bugs" ColumnName="Bugs" />
-                <ScalarProperty Name="MetalsDupe" ColumnName="MetalsDupe" />
-                <ScalarProperty Name="MetalsBlnk" ColumnName="MetalsBlnk" />
-                <ScalarProperty Name="MetalsNormal" ColumnName="MetalsNormal" />
-                <ScalarProperty Name="EntryStaff" ColumnName="EntryStaff" />
-                <ScalarProperty Name="EntryType" ColumnName="EntryType" />
-                <ScalarProperty Name="Chk" ColumnName="Chk" />
-                <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="DOsat" ColumnName="DOsat" />
-                <ScalarProperty Name="DO" ColumnName="DO" />
-                <ScalarProperty Name="TotalHard" ColumnName="TotalHard" />
-                <ScalarProperty Name="TotalAlk" ColumnName="TotalAlk" />
-                <ScalarProperty Name="PhenAlk" ColumnName="PhenAlk" />
-                <ScalarProperty Name="TempC" ColumnName="TempC" />
-                <ScalarProperty Name="PH" ColumnName="PH" />
-                <ScalarProperty Name="USGSFlow" ColumnName="USGSFlow" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="KitNum" ColumnName="KitNum" />
-                <ScalarProperty Name="txtSampleID" ColumnName="txtSampleID" />
-                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
-                <ScalarProperty Name="StationNum" ColumnName="StationNum" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NutrientDatas">
-            <EntityTypeMapping TypeName="RiverWatchModel.NutrientData">
-              <MappingFragment StoreEntitySet="NutrientData">
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="Validated" ColumnName="Validated" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="ChlorA_CH" ColumnName="ChlorA_CH" />
-                <ScalarProperty Name="ChlorA" ColumnName="ChlorA" />
-                <ScalarProperty Name="TSS_CH" ColumnName="TSS_CH" />
-                <ScalarProperty Name="TSS" ColumnName="TSS" />
-                <ScalarProperty Name="Sulfate_CH" ColumnName="Sulfate_CH" />
-                <ScalarProperty Name="Sulfate" ColumnName="Sulfate" />
-                <ScalarProperty Name="Chloride_CH" ColumnName="Chloride_CH" />
-                <ScalarProperty Name="Chloride" ColumnName="Chloride" />
-                <ScalarProperty Name="DOC_CH" ColumnName="DOC_CH" />
-                <ScalarProperty Name="DOC" ColumnName="DOC" />
-                <ScalarProperty Name="Ammonia_CH" ColumnName="Ammonia_CH" />
-                <ScalarProperty Name="Ammonia" ColumnName="Ammonia" />
-                <ScalarProperty Name="NitrateNitrite_CH" ColumnName="NitrateNitrite_CH" />
-                <ScalarProperty Name="NitrateNitrite" ColumnName="NitrateNitrite" />
-                <ScalarProperty Name="TotalNitro_CH" ColumnName="TotalNitro_CH" />
-                <ScalarProperty Name="TotalNitro" ColumnName="TotalNitro" />
-                <ScalarProperty Name="OrthoPhos_CH" ColumnName="OrthoPhos_CH" />
-                <ScalarProperty Name="OrthoPhos" ColumnName="OrthoPhos" />
-                <ScalarProperty Name="TotalPhos_CH" ColumnName="TotalPhos_CH" />
-                <ScalarProperty Name="TotalPhos" ColumnName="TotalPhos" />
-                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
-                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
-                <ScalarProperty Name="Batch" ColumnName="Batch" />
-                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NutrientLimits">
-            <EntityTypeMapping TypeName="RiverWatchModel.NutrientLimit">
-              <MappingFragment StoreEntitySet="NutrientLimits">
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="HighLimit" ColumnName="HighLimit" />
-                <ScalarProperty Name="DvsTDifference" ColumnName="DvsTDifference" />
-                <ScalarProperty Name="MDL" ColumnName="MDL" />
-                <ScalarProperty Name="Reporting" ColumnName="Reporting" />
-                <ScalarProperty Name="RowID" ColumnName="RowID" />
-                <ScalarProperty Name="Element" ColumnName="Element" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="NEWexpWaters">
             <EntityTypeMapping TypeName="RiverWatchModel.NEWexpWater">
               <MappingFragment StoreEntitySet="NEWexpWater">
@@ -3873,6 +4146,289 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="NutrientDatas">
+            <EntityTypeMapping TypeName="RiverWatchModel.NutrientData">
+              <MappingFragment StoreEntitySet="NutrientData">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Validated" ColumnName="Validated" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="ChlorA_CH" ColumnName="ChlorA_CH" />
+                <ScalarProperty Name="ChlorA" ColumnName="ChlorA" />
+                <ScalarProperty Name="TSS_CH" ColumnName="TSS_CH" />
+                <ScalarProperty Name="TSS" ColumnName="TSS" />
+                <ScalarProperty Name="Sulfate_CH" ColumnName="Sulfate_CH" />
+                <ScalarProperty Name="Sulfate" ColumnName="Sulfate" />
+                <ScalarProperty Name="Chloride_CH" ColumnName="Chloride_CH" />
+                <ScalarProperty Name="Chloride" ColumnName="Chloride" />
+                <ScalarProperty Name="DOC_CH" ColumnName="DOC_CH" />
+                <ScalarProperty Name="DOC" ColumnName="DOC" />
+                <ScalarProperty Name="Ammonia_CH" ColumnName="Ammonia_CH" />
+                <ScalarProperty Name="Ammonia" ColumnName="Ammonia" />
+                <ScalarProperty Name="NitrateNitrite_CH" ColumnName="NitrateNitrite_CH" />
+                <ScalarProperty Name="NitrateNitrite" ColumnName="NitrateNitrite" />
+                <ScalarProperty Name="TotalNitro_CH" ColumnName="TotalNitro_CH" />
+                <ScalarProperty Name="TotalNitro" ColumnName="TotalNitro" />
+                <ScalarProperty Name="OrthoPhos_CH" ColumnName="OrthoPhos_CH" />
+                <ScalarProperty Name="OrthoPhos" ColumnName="OrthoPhos" />
+                <ScalarProperty Name="TotalPhos_CH" ColumnName="TotalPhos_CH" />
+                <ScalarProperty Name="TotalPhos" ColumnName="TotalPhos" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NutrientLimits">
+            <EntityTypeMapping TypeName="RiverWatchModel.NutrientLimit">
+              <MappingFragment StoreEntitySet="NutrientLimits">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="HighLimit" ColumnName="HighLimit" />
+                <ScalarProperty Name="DvsTDifference" ColumnName="DvsTDifference" />
+                <ScalarProperty Name="MDL" ColumnName="MDL" />
+                <ScalarProperty Name="Reporting" ColumnName="Reporting" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Element" ColumnName="Element" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkNutrientLimits">
+            <EntityTypeMapping TypeName="RiverWatchModel.tlkNutrientLimit">
+              <MappingFragment StoreEntitySet="tlkNutrientLimits">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DvsTDifference" ColumnName="DvsTDifference" />
+                <ScalarProperty Name="MDL" ColumnName="MDL" />
+                <ScalarProperty Name="Reporting" ColumnName="Reporting" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Element" ColumnName="Element" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrgStationsViews">
+            <EntityTypeMapping TypeName="RiverWatchModel.OrgStationsView">
+              <MappingFragment StoreEntitySet="OrgStationsView">
+                <ScalarProperty Name="River" ColumnName="River" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrgStatusViews">
+            <EntityTypeMapping TypeName="RiverWatchModel.OrgStatusView">
+              <MappingFragment StoreEntitySet="OrgStatusView">
+                <ScalarProperty Name="NumberOfMetalsDuplicate" ColumnName="NumberOfMetalsDuplicate" />
+                <ScalarProperty Name="NumberOfMetalsBlank" ColumnName="NumberOfMetalsBlank" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="HardshipComment" ColumnName="HardshipComment" />
+                <ScalarProperty Name="NoteComment" ColumnName="NoteComment" />
+                <ScalarProperty Name="TroubleComment" ColumnName="TroubleComment" />
+                <ScalarProperty Name="NumberOfSamplesDuplicate" ColumnName="NumberOfSamplesDuplicate" />
+                <ScalarProperty Name="NumberOfSamplesBlank" ColumnName="NumberOfSamplesBlank" />
+                <ScalarProperty Name="UnknownFallRecordedDate" ColumnName="UnknownFallRecordedDate" />
+                <ScalarProperty Name="UnknownSpringRecordedDate" ColumnName="UnknownSpringRecordedDate" />
+                <ScalarProperty Name="BugCollected" ColumnName="BugCollected" />
+                <ScalarProperty Name="Nutrient2Collected" ColumnName="Nutrient2Collected" />
+                <ScalarProperty Name="Nutrient1Collected" ColumnName="Nutrient1Collected" />
+                <ScalarProperty Name="NumberOfSamplesDec" ColumnName="NumberOfSamplesDec" />
+                <ScalarProperty Name="NumberOfSamplesNov" ColumnName="NumberOfSamplesNov" />
+                <ScalarProperty Name="NumberOfSamplesOct" ColumnName="NumberOfSamplesOct" />
+                <ScalarProperty Name="NumberOfSamplesSep" ColumnName="NumberOfSamplesSep" />
+                <ScalarProperty Name="NumberOfSamplesAug" ColumnName="NumberOfSamplesAug" />
+                <ScalarProperty Name="NumberOfSamplesJul" ColumnName="NumberOfSamplesJul" />
+                <ScalarProperty Name="NumberOfSamplesJun" ColumnName="NumberOfSamplesJun" />
+                <ScalarProperty Name="NumberOfSamplesMay" ColumnName="NumberOfSamplesMay" />
+                <ScalarProperty Name="NumberOfSamplesApr" ColumnName="NumberOfSamplesApr" />
+                <ScalarProperty Name="NumberOfSamplesMar" ColumnName="NumberOfSamplesMar" />
+                <ScalarProperty Name="NumberOfSamplesFeb" ColumnName="NumberOfSamplesFeb" />
+                <ScalarProperty Name="NumberOfSamplesJan" ColumnName="NumberOfSamplesJan" />
+                <ScalarProperty Name="SampleShipped4" ColumnName="SampleShipped4" />
+                <ScalarProperty Name="SampleShipped3" ColumnName="SampleShipped3" />
+                <ScalarProperty Name="SampleShipped2" ColumnName="SampleShipped2" />
+                <ScalarProperty Name="SampleShipped1" ColumnName="SampleShipped1" />
+                <ScalarProperty Name="DataEnteredElectronically4" ColumnName="DataEnteredElectronically4" />
+                <ScalarProperty Name="DataEnteredElectronically3" ColumnName="DataEnteredElectronically3" />
+                <ScalarProperty Name="DataEnteredElectronically2" ColumnName="DataEnteredElectronically2" />
+                <ScalarProperty Name="DataEnteredElectronically1" ColumnName="DataEnteredElectronically1" />
+                <ScalarProperty Name="VolunteerTimeSheet4" ColumnName="VolunteerTimeSheet4" />
+                <ScalarProperty Name="VolunteerTimeSheet3" ColumnName="VolunteerTimeSheet3" />
+                <ScalarProperty Name="VolunteerTimeShee2" ColumnName="VolunteerTimeShee2" />
+                <ScalarProperty Name="VolunteerTimeSheet1" ColumnName="VolunteerTimeSheet1" />
+                <ScalarProperty Name="SiteVisited" ColumnName="SiteVisited" />
+                <ScalarProperty Name="ContractSignedDate" ColumnName="ContractSignedDate" />
+                <ScalarProperty Name="ContractSigned" ColumnName="ContractSigned" />
+                <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
+                <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParticipantswithOrgNames">
+            <EntityTypeMapping TypeName="RiverWatchModel.ParticipantswithOrgName">
+              <MappingFragment StoreEntitySet="ParticipantswithOrgName">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="Training" ColumnName="Training" />
+                <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MailPreference" ColumnName="MailPreference" />
+                <ScalarProperty Name="HomeEmail" ColumnName="HomeEmail" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="YearSignedOn" ColumnName="YearSignedOn" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="KitNumber" ColumnName="KitNumber" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewSoloNutrientDups">
+            <EntityTypeMapping TypeName="RiverWatchModel.ViewSoloNutrientDup">
+              <MappingFragment StoreEntitySet="ViewSoloNutrientDups">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Validated" ColumnName="Validated" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="ChlorA_CH" ColumnName="ChlorA_CH" />
+                <ScalarProperty Name="ChlorA" ColumnName="ChlorA" />
+                <ScalarProperty Name="TSS_CH" ColumnName="TSS_CH" />
+                <ScalarProperty Name="TSS" ColumnName="TSS" />
+                <ScalarProperty Name="Sulfate_CH" ColumnName="Sulfate_CH" />
+                <ScalarProperty Name="Sulfate" ColumnName="Sulfate" />
+                <ScalarProperty Name="Chloride_CH" ColumnName="Chloride_CH" />
+                <ScalarProperty Name="Chloride" ColumnName="Chloride" />
+                <ScalarProperty Name="DOC_CH" ColumnName="DOC_CH" />
+                <ScalarProperty Name="DOC" ColumnName="DOC" />
+                <ScalarProperty Name="Ammonia_CH" ColumnName="Ammonia_CH" />
+                <ScalarProperty Name="Ammonia" ColumnName="Ammonia" />
+                <ScalarProperty Name="NitrateNitrite_CH" ColumnName="NitrateNitrite_CH" />
+                <ScalarProperty Name="NitrateNitrite" ColumnName="NitrateNitrite" />
+                <ScalarProperty Name="TotalNitro_CH" ColumnName="TotalNitro_CH" />
+                <ScalarProperty Name="TotalNitro" ColumnName="TotalNitro" />
+                <ScalarProperty Name="OrthoPhos_CH" ColumnName="OrthoPhos_CH" />
+                <ScalarProperty Name="OrthoPhos" ColumnName="OrthoPhos" />
+                <ScalarProperty Name="TotalPhos_CH" ColumnName="TotalPhos_CH" />
+                <ScalarProperty Name="TotalPhos" ColumnName="TotalPhos" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="RiverWatchModel.Project">
+              <MappingFragment StoreEntitySet="project">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnknownSample">
+            <EntityTypeMapping TypeName="RiverWatchModel.UnknownSample">
+              <MappingFragment StoreEntitySet="UnknownSample">
+                <ScalarProperty Name="Validated" ColumnName="Validated" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="BatchSampleNumber" ColumnName="BatchSampleNumber" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="OldValidated" ColumnName="OldValidated" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Round" ColumnName="Round" />
+                <ScalarProperty Name="TrueValue" ColumnName="TrueValue" />
+                <ScalarProperty Name="MeanValue" ColumnName="MeanValue" />
+                <ScalarProperty Name="Value2" ColumnName="Value2" />
+                <ScalarProperty Name="Value1" ColumnName="Value1" />
+                <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="SampleType" ColumnName="SampleType" />
+                <ScalarProperty Name="UnknownSampleID" ColumnName="UnknownSampleID" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundSamples">
+            <EntityTypeMapping TypeName="RiverWatchModel.InboundSamples">
+              <MappingFragment StoreEntitySet="InboundSamples">
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="tblSampleID" ColumnName="tblSampleID" />
+                <ScalarProperty Name="PassValStep" ColumnName="PassValStep" />
+                <ScalarProperty Name="MissingDataSheetReceived" ColumnName="MissingDataSheetReceived" />
+                <ScalarProperty Name="ChainOfCustody" ColumnName="ChainOfCustody" />
+                <ScalarProperty Name="MissingDataSheetReqDate" ColumnName="MissingDataSheetReqDate" />
+                <ScalarProperty Name="DataSheetIncluded" ColumnName="DataSheetIncluded" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+                <ScalarProperty Name="FinalCheck" ColumnName="FinalCheck" />
+                <ScalarProperty Name="MetalsStat" ColumnName="MetalsStat" />
+                <ScalarProperty Name="FieldValid" ColumnName="FieldValid" />
+                <ScalarProperty Name="NPDupe" ColumnName="NPDupe" />
+                <ScalarProperty Name="CSDupe" ColumnName="CSDupe" />
+                <ScalarProperty Name="TSSDupe" ColumnName="TSSDupe" />
+                <ScalarProperty Name="NP" ColumnName="NP" />
+                <ScalarProperty Name="CS" ColumnName="CS" />
+                <ScalarProperty Name="TSS" ColumnName="TSS" />
+                <ScalarProperty Name="BugsQA" ColumnName="BugsQA" />
+                <ScalarProperty Name="Bugs" ColumnName="Bugs" />
+                <ScalarProperty Name="MetalsDupe" ColumnName="MetalsDupe" />
+                <ScalarProperty Name="MetalsBlnk" ColumnName="MetalsBlnk" />
+                <ScalarProperty Name="MetalsNormal" ColumnName="MetalsNormal" />
+                <ScalarProperty Name="EntryStaff" ColumnName="EntryStaff" />
+                <ScalarProperty Name="EntryType" ColumnName="EntryType" />
+                <ScalarProperty Name="Chk" ColumnName="Chk" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="DOsat" ColumnName="DOsat" />
+                <ScalarProperty Name="DO" ColumnName="DO" />
+                <ScalarProperty Name="TotalHard" ColumnName="TotalHard" />
+                <ScalarProperty Name="TotalAlk" ColumnName="TotalAlk" />
+                <ScalarProperty Name="PhenAlk" ColumnName="PhenAlk" />
+                <ScalarProperty Name="TempC" ColumnName="TempC" />
+                <ScalarProperty Name="PH" ColumnName="PH" />
+                <ScalarProperty Name="USGSFlow" ColumnName="USGSFlow" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="KitNum" ColumnName="KitNum" />
+                <ScalarProperty Name="txtSampleID" ColumnName="txtSampleID" />
+                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
+                <ScalarProperty Name="StationNum" ColumnName="StationNum" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3887,7 +4443,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

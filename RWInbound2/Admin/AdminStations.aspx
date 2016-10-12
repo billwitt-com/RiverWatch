@@ -38,33 +38,38 @@
         </tr>       
        
     </table>
-        </asp:Panel>
+    </asp:Panel>
     <br />
-	<TABLE id="Table1" style="WIDTH: 584px" 
-					border="0">
-					<tr>
-						<td style="WIDTH: 14px">Station</td>
-						<td colSpan="2"></td>
-					</tr>
-					<tr>
-						<td style="WIDTH: 14px"></td>
-						<td colSpan="2"><asp:label id="lblStatus" runat="server" BackColor="White" ForeColor="Red" Font-Bold="true"
-								Visible="False">Station Saved</asp:label></td>
-					</tr>
-					<tr>
-						<td style="WIDTH: 14px"></td>
-						<td>Station Name: *</td>
-						<td><asp:textbox id="txtStationName" runat="server">
-						    </asp:textbox>
-                            
-                          <%--  <asp:requiredfieldvalidator id="valName" runat="server" 
+    <table id="Table1" style="width: 584px"
+        border="0">
+        <tr>
+            <td style="width: 14px">Station</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td style="width: 14px"></td>
+            <td colspan="2">
+                <asp:Label ID="lblStatus" runat="server" BackColor="White" ForeColor="Red" Font-Bold="true"
+                    Visible="False">
+
+                </asp:Label></td>
+        </tr>
+        <tr>
+            <td style="width: 14px"></td>
+            <td>Station Name: *</td>
+            <td>
+                <asp:TextBox ID="txtStationName" runat="server">
+                </asp:TextBox>
+
+                <%--  <asp:requiredfieldvalidator id="valName" runat="server" 
                                 ErrorMessage="Name is required." CssClass="errMsg" ControlToValidate="txtStationName"></asp:requiredfieldvalidator></td>--%>
-					</tr>
-					<tr>
-						<td style="WIDTH: 14px"></td>
-						<td>Station Number: *</td>
-						<td><asp:textbox id="txtStationNumber" runat="server" Width="72px">
-						    </asp:textbox>
+        </tr>
+        <tr>
+            <td style="width: 14px"></td>
+            <td>Station Number: *</td>
+            <td>
+                <asp:TextBox ID="txtStationNumber" runat="server" Width="72px">
+                </asp:TextBox>
 <%--                            <asp:requiredfieldvalidator id="vaStnNum" runat="server" ErrorMessage="Station Number is required." CssClass="errMsg"
 								ControlToValidate="txtStationNumber"></asp:requiredfieldvalidator></td>--%>
 

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f6b1188015104c57ba5309e9b34042df" Name="Diagram1" ZoomLevel="39">
+      <Diagram DiagramId="f6b1188015104c57ba5309e9b34042df" Name="Diagram1" ZoomLevel="49">
         <EntityTypeShape EntityType="RiverWatchModel.ErrorLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.GearConfig" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.InboundICPFinal" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -13,14 +13,12 @@
         <EntityTypeShape EntityType="RiverWatchModel.NutrientBarCode" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.organization" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.OrgStatu" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RiverWatchModel.Project" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.ProjectStation" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.Sample" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.Station" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblParticipant" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblPartInfo" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblPhysHabPara" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblProject" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblSampleXXXX" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblWatercode" Width="1.5" PointX="16.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblWatershedGrp" Width="1.5" PointX="16.75" PointY="16.75" IsExpanded="true" />
@@ -67,11 +65,17 @@
         <EntityTypeShape EntityType="RiverWatchModel.tblUser" Width="1.5" PointX="25.375" PointY="23.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tblRegistration" Width="1.5" PointX="5.375" PointY="26.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tblTrainee" Width="1.5" PointX="7.375" PointY="10.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblProjectStation" Width="1.5" PointX="9.375" PointY="14.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.InboundSample" Width="1.5" PointX="13.375" PointY="26.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.NEWexpWater" Width="1.5" PointX="11.375" PointY="26.75" />
         <EntityTypeShape EntityType="RiverWatchModel.NutrientData" Width="1.5" PointX="27.375" PointY="0.75" />
         <EntityTypeShape EntityType="RiverWatchModel.NutrientLimit" Width="1.5" PointX="7.375" PointY="6.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.NEWexpWater" Width="1.5" PointX="0.75" PointY="27.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkNutrientLimit" Width="1.5" PointX="7.75" PointY="18.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.OrgStationsView" Width="1.5" PointX="27.375" PointY="8.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.OrgStatusView" Width="1.5" PointX="27.375" PointY="11.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.ParticipantswithOrgName" Width="1.5" PointX="27.375" PointY="22.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.ViewSoloNutrientDup" Width="1.5" PointX="23.375" PointY="27.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.Project" Width="1.5" PointX="9.375" PointY="7.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.UnknownSample" Width="1.5" PointX="0.75" PointY="27.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.InboundSamples" Width="1.5" PointX="13.375" PointY="26.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

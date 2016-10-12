@@ -12,6 +12,7 @@ using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Web.Providers.Entities;
+// 09/23 Added code to add all stations to project 1 in projectstations
 
 namespace RWInbound2.Admin
 {
@@ -120,8 +121,8 @@ namespace RWInbound2.Admin
                 // ddlRWWaterShed
 
                 List<string> l10 = (from q in NRWE.tlkRiverWatchWaterSheds
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
+                                    orderby q.Code
+                                    select q.Code).ToList<string>();
                 ddlRWWaterShed.DataSource = l10;
                 ddlRWWaterShed.DataBind(); 
 
@@ -130,16 +131,16 @@ namespace RWInbound2.Admin
                                     orderby q.Description
                                     select q.Description).ToList<string>();
                 ddlWQCCWaterShed.DataSource = l11;
-                ddlWQCCWaterShed.DataBind(); 
+                ddlWQCCWaterShed.DataBind();
 
-                //ddlState
+                //ddlState    
                 List<string> l12 = (from q in NRWE.tlkStates
                                     where q.Description != "Colorado"
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
+                                    orderby q.Code
+                                    select q.Code).ToList<string>();
                 ddlState.DataSource = l12;
                 ddlState.DataBind();
-                ddlState.Items.Insert(0, "Colorado"); 
+                ddlState.Items.Insert(0, "CO");  
 
                 //ddlHydroUnit
                 List<string> l13 = (from q in NRWE.tlkHydroUnits
@@ -293,6 +294,7 @@ namespace RWInbound2.Admin
             if(stationName.Length < 2)
             {
                 lblStatus.Text = "Please select a valid station name";
+                lblStatus.Visible = true;
                 tbStationName.Text = "";
                 return;
             }
@@ -306,6 +308,7 @@ namespace RWInbound2.Admin
                 if(R == null)
                 {
                     lblStatus.Text = string.Format("Station Name {0} not found", stationName);
+                    lblStatus.Visible = true;
                     tbStationName.Text = "";
                     tbStnNumber.Text = "";
                     return;      
@@ -352,6 +355,7 @@ namespace RWInbound2.Admin
                 {
                     tbStnNumber.Text = "";
                     lblStatus.Text = "Please select a valid station number";
+                    lblStatus.Visible = true;
                     return;
                 }
                 populateDDLs(stnNumber);
@@ -456,9 +460,10 @@ namespace RWInbound2.Admin
 
         protected void cmdUpdate_Click(object sender, EventArgs e)
         {
-
+            string stationName = "";
             if (Session["NEW"] == null)
                 Response.Redirect("~/timedout.aspx");
+            lblStatus.Visible = false; 
 
             bool isNewStation = false;
             bool success = false;
@@ -474,7 +479,9 @@ namespace RWInbound2.Admin
             if (!success)
             {
                 tbStnNumber.Text = "";
+                lblStatus.Visible = true;
                 lblStatus.Text = "Please select a valid station number";
+                return;
             }
 
             // do some validation here.. .
@@ -482,9 +489,29 @@ namespace RWInbound2.Admin
             if(tmpString.Length < 4)
             {
                 lblStatus.Text = "Please enter a valid Latitude";
+                lblStatus.Visible = true;
                 tbLatitude.Focus();
                 return; 
             }
+
+            tmpString = tbLongtitude.Text;
+            if (tmpString.Length < 4)
+            {
+                lblStatus.Text = "Please enter a valid Longtitude";
+                lblStatus.Visible = true;
+                tbLatitude.Focus();
+                return;
+            }
+
+            tmpString = txtStationName.Text;                 //tbStationName.Text;
+            if (tmpString.Length < 4)
+            {
+                lblStatus.Text = "Please enter a valid StationName";
+                lblStatus.Visible = true;
+                tbLatitude.Focus();
+                return;
+            }
+            stationName = tmpString; 
 
             Station STN;
             RiverWatchEntities NRWE = new RiverWatchEntities();
@@ -501,6 +528,7 @@ namespace RWInbound2.Admin
                     {
                         tbStnNumber.Text = "";
                         lblStatus.Text = string.Format("Station Number {0} is used!", stnNumber);
+                        lblStatus.Visible = true; 
                         return;
                     }
                     // good to go here 
@@ -519,7 +547,7 @@ namespace RWInbound2.Admin
                    STN.StationNumber = stnNumber;
                 }
 
-                STN.StationName = txtStationName.Text;
+                STN.StationName = stationName;  //txtStationName.Text;
                 STN.River = txtriver.Text;
                 STN.County = ddlCounty.SelectedValue;
                 STN.EcoRegion = ddlEcoRegion.SelectedValue;
@@ -530,12 +558,14 @@ namespace RWInbound2.Admin
                 STN.Range = ddlRange.SelectedValue ;
                 STN.Region = ddlRegion.SelectedValue ;
                 STN.River = ddlRiver.SelectedValue;
+                
+                
                 STN.RWWaterShed = ddlRWWaterShed.SelectedValue ;
 
                 if (int.TryParse(ddlSection.SelectedValue, out tempInt))    // XXXX should change this in the data base to string
                     STN.Section = tempInt;
 
-                STN.State = ddlState.SelectedValue;
+                STN.State = ddlState.SelectedValue.Trim().Substring(0,2);
                 STN.StationQUAD = ddlStationQUAD.SelectedValue;
                 STN.StationStatus = ddlStationStatus.SelectedValue;
                 STN.StationType = ddlStationType.SelectedValue;
@@ -547,7 +577,7 @@ namespace RWInbound2.Admin
                 idx = tmpString.IndexOf(":"); 
                 if(idx != 0)
                 {
-                    tmpString = tmpString.Substring(0, idx - 1); 
+                    tmpString = tmpString.Substring(0, idx -1 ); 
                 }
                 STN.WaterBodyID = tmpString.Trim(); // ddlWaterBodyID.SelectedValue;
 
@@ -560,7 +590,7 @@ namespace RWInbound2.Admin
                 idx = tmpString.IndexOf(":");
                 if (idx != 0)
                 {
-                    tmpString = tmpString.Substring(idx + 1, len);
+                    tmpString = tmpString.Substring(idx + 1);              //(idx + 1, len - idx);
                     STN.WaterCode = tmpString.Trim(); // ddlWaterCode.SelectedValue;
                 }
 
@@ -568,6 +598,32 @@ namespace RWInbound2.Admin
                 STN.WaterShedRegion = ddlWSR.SelectedValue;
                 STN.StateEngineering = cbStateEngineering.Checked;
                 STN.USGS = cbUSGS.Checked;
+
+                string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    
+                STN.UserCreated = nam;
+                STN.DateCreated = DateTime.Now;
+                NRWE.SaveChanges();
+
+                if(isNewStation)
+                {
+                    NRWE.Stations.Add(STN);
+                    // add station to projects 
+                    ProjectStation PS = new ProjectStation();
+                    PS.ProjectID = 1;
+                    PS.StationNumber = STN.StationNumber;
+                    PS.DateCreated = DateTime.Now;                     
+                    PS.UserCreated = nam;
+                    PS.Valid = true; 
+                    NRWE.ProjectStations.Add(PS);                 
+                    NRWE.SaveChanges();
+                }
+
+                lblStatus.Text = string.Format("Station {0} saved", stationName);                
             }
 
             catch (Exception ex)
@@ -580,6 +636,9 @@ namespace RWInbound2.Admin
                 string msg = ex.Message;
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Admin Stations");
+                lblStatus.Text = string.Format("Data Not Saved");
+                lblStatus.Visible = true;
+                return;
             }
         }
 

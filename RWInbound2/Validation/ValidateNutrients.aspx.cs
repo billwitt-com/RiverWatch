@@ -16,8 +16,8 @@ namespace RWInbound2.Validation
 {
     public partial class ValidateNutrients : System.Web.UI.Page
     {
-        Dictionary<string, decimal> NLimits = new Dictionary<string, decimal>();   // holds symbol and D2Tlimit values
-        Dictionary<string, decimal> MeasurementLimits = new Dictionary<string, decimal>();   // holds symbol and D2Tlimit values
+        Dictionary<string, decimal> HighLimit = new Dictionary<string, decimal>(); 
+        Dictionary<string, decimal> LowLimit = new Dictionary<string, decimal>(); 
         RiverWatchEntities NRWDE = new RiverWatchEntities();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace RWInbound2.Validation
 
             if (nutrientCount > 0)
             {
-                lblNumberLeft.Text = string.Format("There are {0} 'Normal' samples left to validate", nutrientCount);
+                lblNumberLeft.Text = string.Format("There are {0} 'Value1' samples left to validate", nutrientCount);
             }
             else
             {
@@ -54,54 +54,7 @@ namespace RWInbound2.Validation
 
             if (!IsPostBack)
             {
-                DataSourceSelectArguments args = new DataSourceSelectArguments();
-                string name = "";
-                decimal D2Tvalue = 0;
-                decimal MeasurementValue = 0;               
-                try
-                {
-                    using (SqlConnection conn = new SqlConnection())
-                    {
-                        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
-                        using (SqlCommand cmd = new SqlCommand())
-                        {
-                            cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkNutrientLimits]");
-                            cmd.Connection = conn;
-                            conn.Open();
-
-                            using (SqlDataReader sdr = cmd.ExecuteReader())
-                            {
-                                if (sdr.HasRows)
-                                {
-                                    while (sdr.Read())
-                                    {
-                                        if (sdr["RowID"].GetType() != typeof(System.DBNull))      // is this crap or what???
-                                        {
-                                            name = ((string)sdr["[RowID]"]).ToUpper();  // make upper case to be sure
-                                            D2Tvalue = (decimal)sdr["DvsTDifference"];
-                                            MeasurementValue = (decimal)sdr["MDL"];
-                                            NLimits.Add(name, D2Tvalue);
-                                            MeasurementLimits.Add(name, MeasurementValue);
-                                        }
-                                    }
-                                }
-                            }
-                            conn.Close();                        
-                        }
-                    }
-                }
-
-                catch (Exception ex)
-                {
-                    string nam = "";
-                    if (User.Identity.Name.Length < 3)
-                        nam = "Not logged in";
-                    else
-                        nam = User.Identity.Name;
-                    string msg = ex.Message;
-                    LogError LE = new LogError();
-                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-                }
+                Session["BATCH_CMDSTR"] = null; 
             }
                
         }
@@ -314,12 +267,14 @@ namespace RWInbound2.Validation
         }
         public void updateControls()
         {
-            string uniqueID = FormView1.Controls[0].UniqueID;           
-            decimal Limit = 0;
+            string uniqueID = FormView1.Controls[0].UniqueID;
+
+            decimal LoLimit = 0;
+            decimal HiLimit = 0;
             bool rezult = false;
             string name = "";
-            decimal D2Tvalue = 0;
-            decimal MeasurementValue = 0;
+            decimal HighValue = 0;
+            decimal LowValue = 0;
             string tbName = "";
             string parmName = "";
 
@@ -330,7 +285,7 @@ namespace RWInbound2.Validation
                     conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkNutrientLimits]");
+                        cmd.CommandText = string.Format("select distinct Element, HighLimit, Reporting from  [Riverwatch].[dbo].[NutrientLimits]");
                         cmd.Connection = conn;
                         conn.Open();
 
@@ -343,10 +298,11 @@ namespace RWInbound2.Validation
                                     if (sdr["Element"].GetType() != typeof(System.DBNull))      // is this crap or what???
                                     {
                                         name = ((string)sdr["Element"]).ToUpper();  // make upper case to be sure
-                                        D2Tvalue = (decimal)sdr["DvsTDifference"];
-                                        MeasurementValue = (decimal)sdr["MDL"];
-                                        NLimits.Add(name, D2Tvalue);    // not using this now, but... 
-                                        MeasurementLimits.Add(name, MeasurementValue);
+                                        HighValue = (decimal)sdr["HighLimit"];
+                                        //    LowValue = (decimal)sdr["MDL"];
+                                        LowValue = (decimal)sdr["Reporting"];
+                                        HighLimit.Add(name, HighValue);    // not using this now, but... 
+                                        LowLimit.Add(name, LowValue);
                                     }
                                 }
                             }
@@ -372,53 +328,63 @@ namespace RWInbound2.Validation
 
             tbName = "TotalPhosTextBox";
             parmName = "TotalPhos";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "OrthoPhosTextBox";
             parmName = "OrthoPhos";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "TotalNitroTextBox";
             parmName = "TotalNitro";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "NitrateNitriteTextBox";
             parmName = "NitrateNitrite";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "AmmoniaTextBox";
             parmName = "Ammonia";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "DOCTextBox";
             parmName = "DOC";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "ChlorideTextBox";
             parmName = "Chloride";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "SulfateTextBox";
             parmName = "Sulfate";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "TSSTextBox";
             parmName = "TSS";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName);
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             tbName = "ChlorATextBox";
             parmName = "ChlorA";
-            Limit = MeasurementLimits[parmName.ToUpper()];
-            rezult = processTB(tbName, uniqueID, Limit, parmName); 
+            LoLimit = LowLimit[parmName.ToUpper()];
+            HiLimit = HighLimit[parmName.ToUpper()];
+            rezult = processTB(tbName, uniqueID, LoLimit, HiLimit, parmName);
 
             // compare with min value from list
             // TotalPhosTextBox
@@ -436,22 +402,22 @@ namespace RWInbound2.Validation
         // don't think this is being used as we set up these parms in our code
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
         {
-            // <asp:Parameter Name="Valid" Type="Boolean" />
-            //<asp:Parameter Name="Validated" Type="Boolean" />
-            //<asp:Parameter Name="DateCreated" Type="DateTime" />
-            //<asp:Parameter Name="CreatedBy" Type="String" />
+            //// <asp:Parameter Name="Valid" Type="Boolean" />
+            ////<asp:Parameter Name="Validated" Type="Boolean" />
+            ////<asp:Parameter Name="DateCreated" Type="DateTime" />
+            ////<asp:Parameter Name="CreatedBy" Type="String" />
 
-            string uzr = "Unknown";
-            if (User.Identity.Name.Length > 3)
-            {
-                uzr = User.Identity.Name;
-            }
-            e.Command.Parameters["@CreatedBy"].Value = uzr;
-            e.Command.Parameters["@Valid"].Value = true;
-            e.Command.Parameters["@Validated"].Value = true;
-            e.Command.Parameters["@DateCreated"].Value = DateTime.Now;           
+            //string uzr = "Unknown";
+            //if (User.Identity.Name.Length > 3)
+            //{
+            //    uzr = User.Identity.Name;
+            //}
+            //e.Command.Parameters["@CreatedBy"].Value = uzr;
+            //e.Command.Parameters["@Valid"].Value = true;
+            //e.Command.Parameters["@Validated"].Value = true;
+            //e.Command.Parameters["@DateCreated"].Value = DateTime.Now;           
         }
-        /// <summary>
+        
         ///  pass in text box name and this will return parsed decimal value if return is true
         ///  returns false if no value was found in the text
         /// </summary>
@@ -460,46 +426,57 @@ namespace RWInbound2.Validation
         /// <param name="Value">decimal value of text box, if any</param>
         ///    /// <param name="TB">TextBox</param>
         /// <returns>true if value could be parsed, false for empty string or unknown textbox</returns>
-        public bool processTB(string workStr, string UID, decimal Limit, string parmName)
+        /// changed to add high limit 
+        public bool processTB(string tbName, string UID, decimal LowLimit, decimal HiLimit, string parmName)
         {
-            string workString = "";
             string uniqueID;
-            string tbName;
+            string tbnam;
             TextBox TB;
-            decimal Value = 0; 
+            decimal Value = 0;
 
-            workString = workStr;
             uniqueID = UID; // FormViewBlank.Controls[0].UniqueID;  
-            tbName = uniqueID + "$" + workString ;  // use the key value to build the name of the text box to be processed   
-            Value = 0; 
-            TB = this.FindControl(tbName) as TextBox;
-            if(TB == null)
+            tbnam = uniqueID + "$" + tbName;  // use the key value to build the name of the text box to be processed   
+            Value = 0;
+            TB = this.FindControl(tbnam) as TextBox;
+            if (TB == null)
             {
-                return false; 
+                return false;
             }
 
             if (TB.Text.Length < 1)
             {
+                TB.BackColor = System.Drawing.Color.White; // nothing there, so color white and return
                 return false;
             }
 
             if (!decimal.TryParse(TB.Text, out Value))  // failed to get proper decimal value 
             {
-                return false; 
+                TB.Text = ""; // bad decimal value, so remove... 
+                TB.BackColor = System.Drawing.Color.White; // nothing there, so color white and return
+                return false;
             }
-            
-            if (Value < Limit)
+
+            if (Value < LowLimit)
             {
-                TB.BackColor = System.Drawing.Color.Pink;
-                TB.ToolTip = string.Format("{0} is under the limit of {1}", parmName, Limit);
+                TB.BackColor = System.Drawing.Color.LightBlue;
+                TB.ToolTip = string.Format("{0} is under the limit of {1}", parmName, LowLimit);
             }
             else
             {
                 TB.BackColor = System.Drawing.Color.White;
-                TB.ToolTip = string.Format("{0} is above the limit of {1}", parmName, Limit);
+                TB.ToolTip = string.Format("{0} is above the limit of {1}", parmName, LowLimit);
             }
-
-            return true;         
+            if (Value > HiLimit)
+            {
+                TB.ForeColor = System.Drawing.Color.Red;
+                TB.ToolTip = string.Format("{0} is above the limit of {1}", parmName, HiLimit);
+            }
+            else
+            {
+                TB.ForeColor = System.Drawing.Color.Black;
+                TB.ToolTip = string.Format("{0} is below the limit of {1}", parmName, HiLimit);
+            }
+            return true;
         }
 
         // we do not add this sample to nutrientbarcode, nor newExpWater
@@ -570,8 +547,10 @@ namespace RWInbound2.Validation
             string cmdStr = "";
             batchNumber = tbBatchNumber.Text.Trim();
             // SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '05'
-            cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' and Batch like '{0}'", batchNumber);
             
+            cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' and Batch like '{0}'", batchNumber);
+
+            Session["BATCH_CMDSTR"] = cmdStr; 
             SqlDataSource1.SelectCommand = cmdStr;
             FormView1.DataBind(); 
         }

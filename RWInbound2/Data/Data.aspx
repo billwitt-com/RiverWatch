@@ -5,7 +5,9 @@
 
     <asp:Button ID="btnFieldData" runat="server" Text="Enter Field Data" OnClick="btnFieldData_Click" />
 
-    <br />
+    <br /> 
+        <asp:Button ID="btnUnknownSample" runat="server" Text="Enter Unknown Sample"  OnClick="btnUnknownSample_Click" />
+
     <br />
 
     <asp:Button ID="btnUploadLatchat" runat="server" Text="Upload Latchat" OnClick="btnUploadLatchat_Click" />
@@ -61,7 +63,7 @@
             </tr>
            <tr>
                 <td>
-                    <asp:Button ID="btnUnknownSample" runat="server" Text="UnknownSamples" />
+                    
                 </td>
                 <td>
                     <asp:Button ID="Button11" runat="server" Text="Button" />

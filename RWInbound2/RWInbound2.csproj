@@ -109,7 +109,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Admin\AddInboundICP.aspx" />
     <Content Include="Admin\Admin.aspx" />
@@ -120,9 +119,9 @@
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
+    <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Applications\Applications.aspx" />
-    <Content Include="Contact.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -167,6 +166,7 @@
     <Content Include="Edit\EditFieldProcedure.aspx" />
     <Content Include="Edit\EditGrid.aspx" />
     <Content Include="Edit\EditHydroUnit.aspx" />
+    <Content Include="Edit\EditInboundField.aspx" />
     <Content Include="Edit\EditMetalBarCodeType.aspx" />
     <Content Include="Edit\EditNutrientBarCodeType.aspx" />
     <Content Include="Edit\EditOrganizationType.aspx" />
@@ -240,6 +240,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
+    <Content Include="Public\UnknownData.aspx" />
     <Content Include="Reports\OrgStations.aspx" />
     <Content Include="Reports\OrgStatus.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
@@ -283,6 +284,7 @@
     <Content Include="RiverWatchDataSetOrgStations.xsc">
       <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\RiverWatch.pubxml" />
     <None Include="RiverWatchDataSetOrgStations.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>RiverWatchDataSetOrgStations.Designer.cs</LastGenOutput>
@@ -399,6 +401,7 @@
     <Content Include="Validation\ValidateField.aspx" />
     <Content Include="Validation\ValidateNormals.aspx" />
     <Content Include="Validation\ValidateNutrients.aspx" />
+    <Content Include="Validation\ValidateUnknowns.aspx" />
     <Content Include="Validation\Validation.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -491,6 +494,13 @@
     <Compile Include="Admin\EditExpWater.aspx.designer.cs">
       <DependentUpon>EditExpWater.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\EditInboundFieldData.aspx.cs">
+      <DependentUpon>EditInboundFieldData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditInboundFieldData.aspx.designer.cs">
+      <DependentUpon>EditInboundFieldData.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\EditMetalBarCode.aspx.cs">
       <DependentUpon>EditMetalBarCode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -507,13 +517,6 @@
     </Compile>
     <Compile Include="App_Code\Permissions.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -522,13 +525,6 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ControlPermission.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -610,6 +606,13 @@
     <Compile Include="Edit\EditHydroUnit.aspx.designer.cs">
       <DependentUpon>EditHydroUnit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditInboundField.aspx.cs">
+      <DependentUpon>EditInboundField.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditInboundField.aspx.designer.cs">
+      <DependentUpon>EditInboundField.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditMetalBarCodeType.aspx.cs">
       <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -683,10 +686,25 @@
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="InboundSamples.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NutrientData.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NutrientLimit.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgStationsView.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgStatusView.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ParticipantswithOrgName.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Public\FieldData.aspx.cs">
@@ -854,9 +872,6 @@
     <Compile Include="InboundICPOrigional.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="InboundSample.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -923,11 +938,15 @@
     <Compile Include="OrgStatu.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Project.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Public\UnknownData.aspx.cs">
+      <DependentUpon>UnknownData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\UnknownData.aspx.designer.cs">
+      <DependentUpon>UnknownData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\OrgStations.aspx.cs">
       <DependentUpon>OrgStations.aspx</DependentUpon>
@@ -1051,12 +1070,6 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblPhysHabPara.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblProject.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblRegistration.cs">
@@ -1190,6 +1203,9 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
     <Compile Include="LogErrror.cs" />
+    <Compile Include="tlkNutrientLimit.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tlkOrganizationType.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -1241,6 +1257,9 @@
     <Compile Include="trsChemParaMapColumn.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UnknownSample.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Validation\UpdateNutrients.cs" />
     <Compile Include="Validation\ValidateBlanks.aspx.cs">
       <DependentUpon>ValidateBlanks.aspx</DependentUpon>
@@ -1284,12 +1303,22 @@
     <Compile Include="Validation\ValidateNutrients.aspx.designer.cs">
       <DependentUpon>ValidateNutrients.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Validation\ValidateUnknowns.aspx.cs">
+      <DependentUpon>ValidateUnknowns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateUnknowns.aspx.designer.cs">
+      <DependentUpon>ValidateUnknowns.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Validation\Validation.aspx.cs">
       <DependentUpon>Validation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Validation\Validation.aspx.designer.cs">
       <DependentUpon>Validation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSoloNutrientDup.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

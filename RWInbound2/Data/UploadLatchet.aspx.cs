@@ -32,7 +32,9 @@ namespace RWInbound2.Data
             int Startindex = 0;
             int Endindex = 0;
             string tstr = "";
-            string line = ""; 
+            string line = "";
+            int lineNumber = 0;
+            int linesProcessed = 0; 
 
             if (FileUpload1.HasFile)
             {
@@ -44,7 +46,7 @@ namespace RWInbound2.Data
                         {
                             FileName = Path.GetFileName(FileUpload1.FileName);
                             lblStatus.Text = "Upload status: File uploaded!";
-                            lblUploadComplete.Text = string.Format("Would you like to process file {0} now?", FileName);
+                      //      lblUploadComplete.Text = string.Format("Would you like to process file {0} now?", FileName);
                         }
                         else
                             lblStatus.Text = "Upload status: The file has to be less than 900 kb!";
@@ -79,6 +81,13 @@ namespace RWInbound2.Data
                         {
                             Lachat LACHAT = new Lachat();
                             line = SR.ReadLine();
+                            lineNumber++; 
+                            if(line.Length < 26)    // just a guess, but there seem to be some lines with no data, but I don't see them 
+                            {
+                                continue; // skip if no real data 
+                            }
+                            linesProcessed++; 
+
                             Startindex = 0; // line.IndexOf(",", Startindex) + 1; // find position of first comma and skip past it
                             Endindex = line.IndexOf(",", Startindex + 1);
                             tstr = line.Substring(Startindex, Endindex - Startindex); // ,[Batch]
@@ -176,6 +185,7 @@ namespace RWInbound2.Data
                     }
                     catch (Exception ex)
                     {
+                        lblStatus.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
                         string nam = "";
                         if (User.Identity.Name.Length < 3)
                             nam = "Not logged in";
@@ -187,6 +197,8 @@ namespace RWInbound2.Data
                     }
 
                     int result = RWE.SaveChanges();
+
+                    lblStatus.Text = string.Format("{0} lines processed from file {1}", linesProcessed, FileName); 
                     
                     // now save the data in the File table
 

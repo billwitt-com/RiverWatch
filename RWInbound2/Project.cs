@@ -22,6 +22,6 @@ namespace RWInbound2
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
         public string StoretUploaded { get; set; }
-        public Nullable<bool> valid { get; set; }
+        public Nullable<bool> Valid { get; set; }
     }
 }

@@ -33,9 +33,9 @@
         <tr >   <%--single row to hold all content   --%>         
             <td >       <%-- start of left column in major table for Blanks --%>  
 
-                <asp:FormView ID="FormViewBlank" runat ="server"  OnDataBound ="FormViewBlank_DataBound"  AllowPaging="true" 
+                <asp:FormView ID="FormViewBlank" runat ="server"  OnDataBound ="FormViewBlank_DataBound"  OnItemUpdated="FormViewBlank_ItemUpdated" AllowPaging="true" 
                     DefaultMode="Edit" DataKeyNames ="ID" DataSourceID ="SqlDataSourceBlanks"  
-                    OnPageIndexChanging = "FormViewBlank_PageIndexChanging" >
+                    OnPageIndexChanging = "FormViewBlank_PageIndexChanging"  OnPageIndexChanged="FormViewBlank_PageIndexChanged">
                    
                      <EditItemTemplate>    
 
@@ -225,7 +225,7 @@
             <td>    <%-- start of middle column in major table for dups if they exist--%>
 
                 <asp:FormView ID="FormViewDuplicate" DefaultMode ="Edit" runat="server" DataKeyNames="ID" DataSourceID="SqlDataSourceDups" BorderStyle="None" 
-                    BorderWidth="0px" >
+                    BorderWidth="0px" OnItemUpdated="FormViewDuplicate_ItemUpdated" >
                     <EditItemTemplate>
                                                
                         <table id="topTable" class="headerTable"  runat="server">
@@ -386,8 +386,8 @@
             </td>
             <%-- start of right column in major table for samples --%>
             <td >
-                <asp:FormView ID="FormViewNormals" runat="server" DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSourceNormals"  
-                    GridLines="Horizontal" BorderStyle="None" BorderWidth="0px">
+                <asp:FormView ID="FormViewNormals" runat="server"  DefaultMode="Edit" DataKeyNames="ID" DataSourceID="SqlDataSourceNormals"  
+                   BorderStyle="None" BorderWidth="0px" OnItemUpdated="FormViewNormals_ItemUpdated" >
                      <EditItemTemplate>                           
                         <table id="topTable" class="headerTable"  runat="server">
                            <tr>
