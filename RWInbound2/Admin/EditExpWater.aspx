@@ -11,7 +11,7 @@
             <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
         </div>
         <div class="label-placement">
-                <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
+             <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
         </div>
         <br />            
     </div> 
@@ -22,9 +22,9 @@
                     <asp:TextBox ID="sampleNumberSearch" 
                         AutoPostBack="true"
                         runat="server"></asp:TextBox>
-                    <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
+                    <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" CssClass="adminButton"/>
                     <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" 
-                                OnClick="btnSearchRefresh_Click" />
+                                OnClick="btnSearchRefresh_Click" CssClass="adminButton" />
                     <ajaxToolkit:AutoCompleteExtender 
                         ID="tbSearch_AutoCompleteExtender" 
                         runat="server" 
@@ -47,8 +47,8 @@
         UpdateMethod="UpdateExpWater"
         DefaultMode="Edit">                
         <EditItemTemplate> 
-            <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
-            <button class="edit-exp-water-reset-button" type="reset" value="Reset">Reset</button>
+            <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" CssClass="adminButton" />
+            <button class="adminButton" type="reset" value="Reset">Reset</button>
             <br />   
             <div class="edit-exp-water-div">
                 <label>Event:</label>

@@ -22,8 +22,8 @@
                 <asp:TextBox ID="orgNameSearch" 
                     AutoPostBack="true"
                     runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
-                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
+                <asp:Button ID="btnSearch" runat="server" Text="Select" Height="31px" OnClick="btnSearch_Click" CssClass="adminButton" />
+                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" CssClass="adminButton" />
                 <ajaxToolkit:AutoCompleteExtender 
                     ID="tbSearch_AutoCompleteExtender" 
                     runat="server" 
@@ -50,5 +50,5 @@
 <asp:SqlDataSource ID="SqlDataSource1" 
                     runat="server" 
                     ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
-                    SelectCommand="SELECT [OrganizationName], [StationNumber], [StationName], [River] FROM [OrgStationsView] ORDER BY [OrganizationName], [StationName]"></asp:SqlDataSource>
+                    SelectCommand="SELECT [Organization], [StationName], [Number], [WaterCode], [WBID], [Description], [River], [StateEngineering], [USGS], [NearCity], [County], [Lat], [Long] FROM [OrgStationsView] ORDER BY [Organization], [StationName]"></asp:SqlDataSource>
 </asp:Content>

@@ -132,6 +132,7 @@ input, textarea { /*this has effect on table input*/
     color: #333;
     font-size: .9em; /*1em; /*table cells font size*/
     margin: 3px 0 1px 0;
+    border-radius: 10%;
     }
 
 
@@ -1600,13 +1601,13 @@ div.edit-exp-water-comments-div >label{
     font-size:1.1em;
 }
 
-button.edit-exp-water-reset-button {
+/*button.edit-exp-water-reset-button {
     width:50px;
     height:18px;
     margin-bottom:-3px;
     background-color:gray;
     font-weight:normal;
-}
+}*/
 
 /*Exit Exp Water Page*/
 .edit-inboundicp-div{

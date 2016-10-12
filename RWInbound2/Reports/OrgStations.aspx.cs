@@ -30,7 +30,7 @@ namespace RWInbound2.Reports
                 string cmdStr = string.Empty;
 
                 orgName = orgNameSearch.Text.Trim();
-                cmdStr = string.Format("SELECT * FROM OrgStationsView WHERE OrganizationName Like '{0}' ORDER BY OrganizationName, StationName", orgName);
+                cmdStr = string.Format("SELECT * FROM OrgStationsView WHERE Organization Like '{0}' ORDER BY Organization, StationName", orgName);
 
                 SqlDataSource1.SelectCommand = cmdStr;
                 ReportDataSource rd1 = new ReportDataSource("DataSet1", SqlDataSource1);

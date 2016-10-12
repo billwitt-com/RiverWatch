@@ -92,5 +92,10 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("OrgStatus.aspx");
         }
+
+        protected void btnOrgStations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgStations.aspx");
+        }
     }
 }
