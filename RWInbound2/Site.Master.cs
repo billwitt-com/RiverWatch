@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web;
 
 namespace RWInbound2
 {
@@ -76,126 +77,152 @@ namespace RWInbound2
         {
             int role = 1;
             RiverWatchEntities RWE = new RiverWatchEntities();
-            string con = RWE.Database.Connection.ConnectionString;
-            string ds = "Data Source"; 
-            int idx = con.IndexOf(ds);
-            string dSource = con.Substring(idx + 3 + ds.Length, 10); 
+            try
+            {
+                string con = RWE.Database.Connection.ConnectionString;
+                string ds = "Data Source";
+                int idx = con.IndexOf(ds);
+                string dSource = con.Substring(idx + 3 + ds.Length, 10);
 
-            string filepath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
-            const string URIPrefx = "file:///";
-            if (filepath.StartsWith(URIPrefx)) filepath = filepath.Substring(URIPrefx.Length);
+                string filepath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+                const string URIPrefx = "file:///";
+                if (filepath.StartsWith(URIPrefx)) filepath = filepath.Substring(URIPrefx.Length);
 
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(filepath);
-            string VerMsg = fileInfo.LastWriteTime.ToString("yyyy-MM-dd");
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(filepath);
+                string VerMsg = fileInfo.LastWriteTime.ToString("yyyy-MM-dd");
 
-            lblVersion.Text = "                                 VER: " + VerMsg + "      DS: " + dSource;    
-
-      // now manage menu items using users role and 
-
+                lblVersion.Text = "                                 VER: " + VerMsg + "      DS: " + dSource;
+            }
+                
+            catch (Exception ex)
+            {
+                string nam = "Master page";
+                //if (User.Identity.Name.Length < 3)
+                //    nam = "Not logged in";
+                //else
+                //    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+      
+            // now manage menu items using users role and 
             if (Session["Role"] != null)
             {
                 role = (int)Session["Role"];    // get users role
             }
             else
-                role = 1; 
+                role = 1;
 
-          
-
-            var R = from r in RWE.ControlPermissions
-                    where r.PageName.ToUpper() == "MASTER"
-                    select r;
-
-            int? Q = (from r in R
-                     where r.ControlID.ToUpper() == "SAMPLES"
-                     select r.RoleValue).FirstOrDefault();
-
-            if (Q != null)
+            try
             {
-                if (role >= Q.Value)
-                    Samples.Visible = true;
+                var R = from r in RWE.ControlPermissions
+                        where r.PageName.ToUpper() == "MASTER"
+                        select r;
 
-                else               
-                    Samples.Visible = false;               
+                int? Q = (from r in R
+                          where r.ControlID.ToUpper() == "SAMPLES"
+                          select r.RoleValue).FirstOrDefault();
+
+                if (Q != null)
+                {
+                    if (role >= Q.Value)
+                        Samples.Visible = true;
+
+                    else
+                        Samples.Visible = false;
+                }
+
+                int? Q1 = (from r in R
+                           where r.ControlID.ToUpper() == "VALIDATION"
+                           select r.RoleValue).FirstOrDefault();
+
+                if (Q1 != null)
+                {
+                    if (role >= Q1.Value)
+                        Validation.Visible = true;
+
+                    else
+                        Validation.Visible = false;
+                }
+
+                // allow data tab to be seen by all
+
+                //int? Q2 = (from r in R
+                //           where r.ControlID.ToUpper() == "DATA"
+                //           select r.RoleValue).FirstOrDefault(); 
+
+                //if (Q2 != null)
+                //{
+                //    if (role >= Q2.Value)
+                //        Data.Visible = true;
+
+                //    else
+                //        Data.Visible = false;
+                //}
+
+                int? Q3 = (from r in R
+                           where r.ControlID.ToUpper() == "Reports".ToUpper()
+                           select r.RoleValue).FirstOrDefault();
+
+                if (Q3 != null)
+                {
+                    if (role >= Q3.Value)
+                        Reports.Visible = true;
+
+                    else
+                        Reports.Visible = false;
+                }
+
+                int? Q4 = (from r in R
+                           where r.ControlID.ToUpper() == "Applications".ToUpper()
+                           select r.RoleValue).FirstOrDefault();
+
+                if (Q4 != null)
+                {
+                    if (role >= Q4.Value)
+                        Applications.Visible = true;
+
+                    else
+                        Applications.Visible = false;
+                }
+
+                int? Q5 = (from r in R
+                           where r.ControlID.ToUpper() == "Edit".ToUpper()
+                           select r.RoleValue).FirstOrDefault();
+
+                if (Q5 != null)
+                {
+                    if (role >= Q5.Value)
+                        Edit.Visible = true;
+
+                    else
+                        Edit.Visible = false;
+                }
+
+                int? Q6 = (from r in R
+                           where r.ControlID.ToUpper() == "Admin".ToUpper()
+                           select r.RoleValue).FirstOrDefault();
+
+                if (Q6 != null)
+                {
+                    if (role >= Q6.Value)
+                        Admin.Visible = true;
+
+                    else
+                        Admin.Visible = false;
+                }
             }
-
-            int? Q1 = (from r in R
-                      where r.ControlID.ToUpper() == "VALIDATION"
-                      select r.RoleValue).FirstOrDefault();
-
-            if (Q1 != null)
+            catch (Exception ex)
             {
-                if (role >= Q1.Value)
-                    Validation.Visible = true;
-
-                else
-                    Validation.Visible = false;
-            }
-
-            // allow data tab to be seen by all
-
-            //int? Q2 = (from r in R
-            //           where r.ControlID.ToUpper() == "DATA"
-            //           select r.RoleValue).FirstOrDefault(); 
-
-            //if (Q2 != null)
-            //{
-            //    if (role >= Q2.Value)
-            //        Data.Visible = true;
-
-            //    else
-            //        Data.Visible = false;
-            //}
-
-            int? Q3 = (from r in R
-                       where r.ControlID.ToUpper() == "Reports".ToUpper()
-                       select r.RoleValue).FirstOrDefault();
-
-            if (Q3 != null)
-            {
-                if (role >= Q3.Value)
-                    Reports.Visible = true;
-
-                else
-                    Reports.Visible = false;
-            }
-
-            int? Q4 = (from r in R
-                       where r.ControlID.ToUpper() == "Applications".ToUpper()
-                       select r.RoleValue).FirstOrDefault();
-
-            if (Q4 != null)
-            {
-                if (role >= Q4.Value)
-                    Applications.Visible = true;
-
-                else
-                    Applications.Visible = false;
-            }
-
-            int? Q5 = (from r in R
-                       where r.ControlID.ToUpper() == "Edit".ToUpper()
-                       select r.RoleValue).FirstOrDefault();
-
-            if (Q5 != null)
-            {
-                if (role >= Q5.Value)
-                    Edit.Visible = true;
-
-                else
-                    Edit.Visible = false;
-            }
-
-            int? Q6 = (from r in R
-                       where r.ControlID.ToUpper() == "Admin".ToUpper()
-                       select r.RoleValue).FirstOrDefault();
-
-            if (Q6 != null)
-            {
-                if (role >= Q6.Value)
-                    Admin.Visible = true;
-
-                else
-                    Admin.Visible = false;
+                string nam = "Master page";
+                //if (User.Identity.Name.Length < 3)
+                //    nam = "Not logged in";
+                //else
+                //    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
 

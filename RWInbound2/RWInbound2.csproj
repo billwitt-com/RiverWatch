@@ -128,6 +128,7 @@
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
+    <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -533,6 +534,13 @@
     </Compile>
     <Compile Include="Admin\EditMetalBarCode.aspx.designer.cs">
       <DependentUpon>EditMetalBarCode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditUnknowns.aspx.cs">
+      <DependentUpon>EditUnknowns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditUnknowns.aspx.designer.cs">
+      <DependentUpon>EditUnknowns.aspx</DependentUpon>
     </Compile>
     <Compile Include="Applications\Applications.aspx.cs">
       <DependentUpon>Applications.aspx</DependentUpon>

@@ -29,7 +29,7 @@ namespace RWInbound2.Validation
                 SqlDataSource1.SelectCommand = sCommand;
             }
             string uniqueID = FormView1.Controls[0].UniqueID;
-            compareTextBoxes("Value1TextBox", "Value2TextBox", uniqueID);
+         //   compareTextBoxes("Value1TextBox", "Value2TextBox", uniqueID);
 
             if (Session["ORGID"] != null)
             {
@@ -84,11 +84,11 @@ namespace RWInbound2.Validation
             int orgID = 0;
             int sampsToValidate = 0;
             string orgName = tbOrgName.Text.Trim().ToUpper();
-            string sCommand = ""; 
-            if(orgName.Length < 3)
+            string sCommand = "";
+            if (orgName.Length < 3)
             {
-                lblMsg.Text = "Please choose an organization"; 
-                return; 
+                lblMsg.Text = "Please choose an organization";
+                return;
             }
             try
             {
@@ -257,8 +257,8 @@ namespace RWInbound2.Validation
         // only called when one of the two text boxes for values change
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            string uniqueID = FormView1.Controls[0].UniqueID;
-            compareTextBoxes("Value1TextBox", "Value2TextBox", uniqueID);   
+            //string uniqueID = FormView1.Controls[0].UniqueID;
+            //compareTextBoxes("Value1TextBox", "Value2TextBox", uniqueID);   
         }
 
             //        UID += "$"; // because I cut and pasted the code below
@@ -294,8 +294,7 @@ namespace RWInbound2.Validation
                 {
                     countSamples(orgID);
                 }
-            }            
-
-        }
+            } 
+        }        
     }
 }
