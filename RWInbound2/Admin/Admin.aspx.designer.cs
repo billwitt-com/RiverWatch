@@ -40,13 +40,13 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Button btnManageStations;
         
         /// <summary>
-        /// Button7 control.
+        /// btnEditUnknowns control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button7;
+        protected global::System.Web.UI.WebControls.Button btnEditUnknowns;
         
         /// <summary>
         /// Button3 control.

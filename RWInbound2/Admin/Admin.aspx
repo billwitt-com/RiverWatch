@@ -68,7 +68,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button7" runat="server" CssClass="adminButton"  Text="Enter Unknown " Width="176px" />
+        <asp:Button ID="btnEditUnknowns" runat="server" CssClass="adminButton"  Text="Edit Unknowns" Width="176px" OnClick="Button7_Click" />
                 </td>
                 <td>
         <asp:Button ID="Button3" runat="server" CssClass="adminButton"  Enabled="False" Text="Edit Raw Data"  Width="176px" />
