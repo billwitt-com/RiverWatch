@@ -14,4 +14,8 @@
     <asp:Button ID="btnOrgStatus" runat="server" Text="OrgStatus" OnClick="btnOrgStatus_Click" />
     <br />
     <asp:Button ID="btnOrgStations" runat="server" Text="OrgStations" OnClick="btnOrgStations_Click" />
+    <br />
+    <asp:Button ID="btnOrganizations" runat="server" Text="All Organizations" OnClick="btnOrganizations_Click" />
+    <br />
+    <asp:Button ID="btnParticipants" runat="server" Text="All Participants" OnClick="btnParticipants_Click" />
 </asp:Content>
