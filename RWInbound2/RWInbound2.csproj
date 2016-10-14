@@ -1366,6 +1366,7 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="View_Models\ParticipantsViewModel.cs" />
     <Compile Include="View_Models\ProjectStationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

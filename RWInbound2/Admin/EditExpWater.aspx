@@ -319,10 +319,10 @@
                                         ID="CompareValidator7" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
                                         Display="Dynamic" ErrorMessage="Please enter a valid DO_MGL value.">
                 </asp:CompareValidator>
-                <%--<asp:CompareValidator ControlToValidate="TextBoxAL_D" Operator="DataTypeCheck" 
+                <asp:CompareValidator ControlToValidate="TextBoxAL_D" Operator="DataTypeCheck" 
                                         ID="CompareValidator8" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
                                         Display="Dynamic" ErrorMessage="Please enter a valid AL_D value.">
-                </asp:CompareValidator>--%>
+                </asp:CompareValidator>
                 <asp:CompareValidator ControlToValidate="TextBoxAL_T" Operator="DataTypeCheck" 
                                         ID="CompareValidator9" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
                                         Display="Dynamic" ErrorMessage="Please enter a valid AL_T value.">
