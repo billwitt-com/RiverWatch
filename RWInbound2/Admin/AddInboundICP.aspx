@@ -53,15 +53,7 @@
                 <label>Metals Bar Code:</label>
                 <asp:Label ID="TextBoxCODE" runat="server" Text='<%# Bind("CODE") %>' ReadOnly="true"></asp:Label>              
                 <label>Sample ID:</label>
-                <asp:Label ID="TextBoxtblSampleID" runat="server" Text='<%# Bind("tblSampleID") %>' ReadOnly="true"></asp:Label> 
-                <label>Duplicate:</label>
-                <asp:TextBox ID="TextBoxDUPLICATE" MaxLength="2" runat="server" Text='<%# Bind("DUPLICATE") %>'></asp:TextBox>                     
-                <asp:RequiredFieldValidator 
-                        id="RequiredFieldValidator3" runat="server" 
-                        CssClass="edit-inboundicp-required"
-                        ErrorMessage="Required!" 
-                        ControlToValidate="TextBoxDUPLICATE">
-                </asp:RequiredFieldValidator>                     
+                <asp:Label ID="TextBoxtblSampleID" runat="server" Text='<%# Bind("tblSampleID") %>' ReadOnly="true"></asp:Label>                              
             </div>   
             <hr class="edit-inboundicp-hr" />  
             <div class="edit-inboundicp-div">
@@ -78,10 +70,16 @@
                 <label>Complete:</label> 
                 <asp:CheckBox ID="CheckBoxCOMPLETE" DataField="COMPLETE" runat="server" Text='<%# Bind("COMPLETE") %>'/>
             </div> 
-            <hr class="edit-inboundicp-hr" />           
-            <div class="edit-exp-water-comments-div">
-                <label>Comments:</label>
-                <asp:TextBox ID="TextBoxComments" runat="server" TextMode="MultiLine" Text='<%# Bind("Comments") %>'></asp:TextBox>
+            <hr class="edit-inboundicp-hr" />    
+            <div class="edit-inboundicp-div">
+                <label>Duplicate:</label>
+                <asp:TextBox ID="TextBoxDUPLICATE" MaxLength="2" runat="server" Text='<%# Bind("DUPLICATE") %>'></asp:TextBox>                     
+                <asp:RequiredFieldValidator 
+                        id="RequiredFieldValidator3" runat="server" 
+                        CssClass="edit-inboundicp-required"
+                        ErrorMessage="Required!" 
+                        ControlToValidate="TextBoxDUPLICATE">
+                </asp:RequiredFieldValidator>        
             </div>
             <hr class="edit-inboundicp-hr" />  
             <br />  
@@ -185,71 +183,127 @@
             </div>  
             <table>                
                 <tr>                   
-                    <td >
+                    <td>
                         <div class="edit-inboundicp-div">
                             <label>AL_D:</label>
                             <asp:TextBox ID="TextBoxAL_D" runat="server" Text='<%# Bind("AL_D") %>'></asp:TextBox>                            
                             <label>AL_T:</label>
                             <asp:TextBox ID="TextBoxAL_T" runat="server" Text='<%# Bind("AL_T") %>'></asp:TextBox> 
+                        </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>                          
+                        <div class="edit-inboundicp-div">
                             <label>AS_D:</label>
                             <asp:TextBox ID="TextBoxAS_D" runat="server" Text='<%# Bind("AS_D") %>'></asp:TextBox>                           
-                        </div>                       
-                        <div class="edit-inboundicp-div">
                             <label>AS_T:</label>
                             <asp:TextBox ID="TextBoxAS_T" runat="server" Text='<%# Bind("AS_T") %>'></asp:TextBox>                            
+                        </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
+                        <div class="edit-inboundicp-div">
                             <label>CA_D:</label>
                             <asp:TextBox ID="TextBoxCA_D" runat="server" Text='<%# Bind("CA_D") %>'></asp:TextBox>                            
                             <label>CA_T:</label>
                             <asp:TextBox ID="TextBoxCA_T" runat="server" Text='<%# Bind("CA_T") %>'></asp:TextBox>   
                         </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
                         <div class="edit-inboundicp-div">
                             <label>CD_D:</label>
                             <asp:TextBox ID="TextBoxCD_D" runat="server" Text='<%# Bind("CD_D") %>'></asp:TextBox>                           
                             <label>CD_T:</label>
                             <asp:TextBox ID="TextBoxCD_T" runat="server" Text='<%# Bind("CD_T") %>'></asp:TextBox>                             
+                        </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
+                        <div class="edit-inboundicp-div">
                             <label>CU_D:</label>
                             <asp:TextBox ID="TextBoxCU_D" runat="server" Text='<%# Bind("CU_D") %>'></asp:TextBox> 
-                        </div>
-                        <div class="edit-inboundicp-div">
                             <label>CU_T:</label>
                             <asp:TextBox ID="TextBoxCU_T" runat="server" Text='<%# Bind("CU_T") %>'></asp:TextBox> 
+                        </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
+                        <div class="edit-inboundicp-div">                        
                             <label>FE_D:</label>
                             <asp:TextBox ID="TextBoxFE_D" runat="server" Text='<%# Bind("FE_D") %>'></asp:TextBox>                           
                             <label>FE_T:</label>
                             <asp:TextBox ID="TextBoxFE_T" runat="server" Text='<%# Bind("FE_T") %>'></asp:TextBox>                    
                         </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
                         <div class="edit-inboundicp-div">
                             <label>PB_D:</label>
                             <asp:TextBox ID="TextBoxPB_D" runat="server" Text='<%# Bind("PB_D") %>'></asp:TextBox> 
                             <label>PB_T:</label>
                             <asp:TextBox ID="TextBoxPB_T" runat="server" Text='<%# Bind("PB_T") %>'></asp:TextBox>                             
+                        </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
+                        <div class="edit-inboundicp-div">
                             <label>MG_D:</label>
                             <asp:TextBox ID="TextBoxMG_D" runat="server" Text='<%# Bind("MG_D") %>'></asp:TextBox>                            
-                        </div>
-                        <div class="edit-inboundicp-div">                        
                             <label>MG_T:</label>
                             <asp:TextBox ID="TextBoxMG_T" runat="server" Text='<%# Bind("MG_T") %>'></asp:TextBox>                            
+                        </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
+                        <div class="edit-inboundicp-div">
                             <label>MN_D:</label>
                             <asp:TextBox ID="TextBoxMN_D" runat="server" Text='<%# Bind("MN_D") %>'></asp:TextBox>                           
                             <label>MN_T:</label>
                             <asp:TextBox ID="TextBoxMN_T" runat="server" Text='<%# Bind("MN_T") %>'></asp:TextBox>   
                         </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
                         <div class="edit-inboundicp-div">
                             <label>SE_D:</label>
                             <asp:TextBox ID="TextBoxSE_D" runat="server" Text='<%# Bind("SE_D") %>'></asp:TextBox>                            
                             <label>SE_T:</label>
                             <asp:TextBox ID="TextBoxSE_T" runat="server" Text='<%# Bind("SE_T") %>'></asp:TextBox>                            
+                        </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>
+                        <div class="edit-inboundicp-div">
                             <label>ZN_D:</label>
                             <asp:TextBox ID="TextBoxZN_D" runat="server" Text='<%# Bind("ZN_D") %>'></asp:TextBox>                            
-                        </div>                       
-                        <div class="edit-inboundicp-div">
                             <label>ZN_T:</label>
                             <asp:TextBox ID="TextBoxZN_T" runat="server" Text='<%# Bind("ZN_T") %>'></asp:TextBox>  
+                        </div>
+                    </td>
+                </tr>
+                <tr>                   
+                    <td>                       
+                        <div class="edit-inboundicp-div">
                             <label>NA_D:</label>
                             <asp:TextBox ID="TextBoxNA_D" runat="server" Text='<%# Bind("NA_D") %>'></asp:TextBox>                            
                             <label>NA_T:</label>
                             <asp:TextBox ID="TextBoxNA_T" runat="server" Text='<%# Bind("NA_T") %>'></asp:TextBox>                            
-                        </div>                                             
+                        </div> 
+                  </td>
+                </tr>
+                 <tr>                   
+                    <td>                                             
                         <div class="edit-inboundicp-div">
                             <label>K_D:</label>
                             <asp:TextBox ID="TextBoxK_D" runat="server" Text='<%# Bind("K_D") %>'></asp:TextBox>                            
@@ -259,6 +313,10 @@
                     </td>                   
                 </tr> 
             </table> 
+            <div class="edit-exp-water-comments-div">
+                <label>Comments:</label>
+                <asp:TextBox ID="TextBoxComments" runat="server" TextMode="MultiLine" Text='<%# Bind("Comments") %>'></asp:TextBox>
+            </div>
         </EditItemTemplate>            
     </asp:FormView>
 </asp:Content>
