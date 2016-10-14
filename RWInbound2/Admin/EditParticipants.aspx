@@ -42,10 +42,10 @@
     </div> 
     <div>
        <label>
-           <asp:Label ID="OrganizationLabel" runat="server" Text="Organization Name:" Visible="false" CssClass="organization-label"/>
+           <asp:Label ID="OrganizationLabel" runat="server" Text="Organization Name:" CssClass="organization-label"/>
        </label>
-        <asp:Label ID="OrganizationName" runat="server"  Visible="false" />
-       <asp:Label ID="OrgID" runat="server"  Visible="false" />
+        <asp:Label ID="OrganizationName" runat="server" />
+       <asp:Label ID="OrgID" runat="server" Visible="false" />
     </div> 
     <asp:FormView ID="ExpWaterFormView" runat="server"
             DataKeyNames="ID"
@@ -59,14 +59,10 @@
             AutoGenerateColumns="False" 
             GridLines="None" ForeColor="#333333" 
             AllowPaging="true" Pagesize="15"
-            OnItemCommand="ExpWaterFormView_ItemCommand"
-          OnModeChanged="ExpWaterFormView_ModeChanged"
-         OnModeChanging="ExpWaterFormView_ModeChanging"> 
+            OnItemDeleted="ExpWaterFormView_ItemDeleted"> 
             
             <ItemTemplate>
                 <asp:Panel ID="ItemTemplatePanel" runat="server">
-                    <label>Organization Name:</label>
-                    <asp:Label ID="lblOrganizationName" runat="server" Text='<%# Bind("OrganizationName") %>'></asp:Label>
                     <br />
                     <label>First Name:</label>
                     <asp:Label ID="lblFirstName" runat="server" Text='<%# Bind("FirstName") %>'></asp:Label>
@@ -125,8 +121,6 @@
             </ItemTemplate>
 
             <EditItemTemplate>
-                <label>Organization Name:</label>
-                <asp:Label ID="lblOrganizationName" runat="server" Text='<%# Bind("OrganizationName") %>'></asp:Label>
                 <br />
                 <label>First Name:</label>
                 <asp:TextBox ID="txtFirstName" runat="server" Text='<%# Bind("FirstName") %>'></asp:TextBox>
@@ -184,8 +178,6 @@
             </EditItemTemplate>
 
             <InsertItemTemplate>
-                <%--<label>Organization Name:</label>
-                <asp:Label ID="lblOrganizationName" runat="server" Text='<%# Bind("OrganizationName") %>'></asp:Label>--%>
                <%-- <br />--%>
                 <label>First Name:</label>
                 <asp:TextBox ID="newFirstName" runat="server" Text='<%# Bind("FirstName") %>'></asp:TextBox>

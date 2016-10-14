@@ -24,7 +24,6 @@ namespace RWInbound2.Admin
             }
             try
             {
-                //var editButton = ((Button)ExpWaterFormView.FindControl("EditButton"));
                 var itemTemplatePanel = ((Panel)ExpWaterFormView.FindControl("ItemTemplatePanel"));
 
                 int id = 0;
@@ -36,14 +35,12 @@ namespace RWInbound2.Admin
                 if(itemTemplatePanel != null && id > 0)
                 {
                     itemTemplatePanel.Visible = true;
-                    OrganizationLabel.Visible = false;
-                    OrganizationName.Visible = false;
+                    ExpWaterFormView.AllowPaging = false;
                 }
                 else if (itemTemplatePanel != null)
                 {
                     itemTemplatePanel.Visible = false;
-                    OrganizationLabel.Visible = true;
-                    OrganizationName.Visible = true;
+                    ExpWaterFormView.AllowPaging = true;
                 }                
             }
             catch (Exception ex)
@@ -86,20 +83,15 @@ namespace RWInbound2.Admin
             {
                 RiverWatchEntities _db = new RiverWatchEntities();
 
-                var newButton = ((Button)ExpWaterFormView.FindControl("NewButton"));
+                PropertyInfo isreadonly
+                            = typeof(System.Collections.Specialized.NameValueCollection)
+                                    .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                // make collection editable
+                isreadonly.SetValue(this.Request.QueryString, false, null);
 
                 if (!string.IsNullOrEmpty(successLabelMessage))
                 {
                     SetMessages("Success", successLabelMessage);
-
-                    PropertyInfo isreadonly
-                    = typeof(System.Collections.Specialized.NameValueCollection)
-                            .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-                    // make collection editable
-                    isreadonly.SetValue(this.Request.QueryString, false, null);
-                    // remove
-                    //this.Request.QueryString.Clear();
-                    this.Request.QueryString.Remove("successLabelMessage");
                 }
                 
                 if (!string.IsNullOrEmpty(organizationSearchTerm))
@@ -161,6 +153,7 @@ namespace RWInbound2.Admin
                         if (participants.Count() > 0)
                         {
                             ExpWaterFormView.Visible = true;
+
                             return participants;
                         }
                         else
@@ -172,7 +165,7 @@ namespace RWInbound2.Admin
                                 OrganizationLabel.Visible = true;
                                 OrganizationName.Visible = true;
                             }
-
+                            
                             return organization;
                         }
                     }   
@@ -210,7 +203,11 @@ namespace RWInbound2.Admin
                                             UserLastModified = p.UserLastModified,
                                             Valid = p.Valid,
                                             ID = p.ID
-                                        }).OrderBy(p => p.FirstName);               
+                                        }).OrderBy(p => p.FirstName);
+
+                // remove
+                //this.Request.QueryString.Clear();
+                //this.Request.QueryString.Remove("successLabelMessage");
 
                 return allParticipants;
             }
@@ -273,37 +270,6 @@ namespace RWInbound2.Admin
             }
         }
 
-        private void HandleErrors(Exception ex, string msg, string fromPage,
-                                                string nam, string comment)
-        {
-            LogError LE = new LogError();
-            LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
-
-            SetMessages();
-
-            if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
-            {
-                DbEntityValidationException efException = ex as DbEntityValidationException;
-                StringBuilder sb = new StringBuilder();
-
-                foreach (var eve in efException.EntityValidationErrors)
-                {
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        sb.AppendFormat("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage + Environment.NewLine);
-                    }
-                }
-                SetMessages("Error", sb.ToString());
-            }
-            else
-            {
-                SetMessages("Error", ex.Message);
-            }
-        }
-
         public void UpdateParticipant(ParticipantsViewModel model)
         {
             try
@@ -361,15 +327,6 @@ namespace RWInbound2.Admin
                     var participantToDelete = _db.tblParticipants.Find(model.ID);
                     _db.tblParticipants.Remove(participantToDelete);
                     _db.SaveChanges();
-
-                    OrgID.Text = string.Empty;
-                    OrganizationName.Text = string.Empty;
-
-                    string successLabelText = string.Format("Participant Deleted: {0} {1} ", model.FirstName, model.LastName);
-                    string redirect = string.Format("EditParticipants.aspx?organizationSearchTerm={0}&successLabelMessage={1}", model.OrganizationName, successLabelText);
-                    //string redirect = string.Format("EditParticipants.aspx?organizationSearchTerm={0}", model.OrganizationName);
-
-                    Response.Redirect(redirect, false);
                 }
                 catch (Exception ex)
                 {
@@ -423,12 +380,9 @@ namespace RWInbound2.Admin
                     _db.tblParticipants.Add(newParticipant);
                     _db.SaveChanges();
 
-                    //SetMessages("Success", "New Participant Added");
-
                     string successLabelText = string.Format("New Participant Added: {0} {1} ", model.FirstName, model.LastName);
                     string redirect = string.Format("EditParticipants.aspx?organizationSearchTerm={0}&successLabelMessage={1}", organizationName, successLabelText);
-                    //string redirect = string.Format("EditParticipants.aspx?organizationSearchTerm={0}", organizationName);
-
+                   
                     Response.Redirect(redirect, false);
                 }
             }
@@ -440,12 +394,7 @@ namespace RWInbound2.Admin
 
         protected void ExpWaterFormView_ItemCommand(object sender, FormViewCommandEventArgs e)
         {
-            if (e.CommandName.Equals("New"))
-            {
-                OrganizationLabel.Visible = true;
-                OrganizationName.Visible = true;
-            }
-            else if (e.CommandName.Equals("Cancel"))
+            if (e.CommandName.Equals("Cancel"))
             {               
                 if (ExpWaterFormView != null && ExpWaterFormView.DataKey.Value == null)
                 {
@@ -454,32 +403,50 @@ namespace RWInbound2.Admin
 
                     Response.Redirect(redirect, false);
                 }
-            }
-            else if (e.CommandName.Equals("Delete"))
-            {
-                if (ExpWaterFormView != null && ExpWaterFormView.DataKey.Value == null)
-                {
-                    string organizationName = OrganizationName.Text;
-                    string redirect = string.Format("EditParticipants.aspx?organizationSearchTerm={0}", organizationName);
+            }           
+        }
 
-                    Response.Redirect(redirect, false);
+        private void HandleErrors(Exception ex, string msg, string fromPage,
+                                                string nam, string comment)
+        {
+            LogError LE = new LogError();
+            LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
+
+            SetMessages();
+
+            if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
+            {
+                DbEntityValidationException efException = ex as DbEntityValidationException;
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var eve in efException.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        sb.AppendFormat("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage + Environment.NewLine);
+                    }
                 }
+                SetMessages("Error", sb.ToString());
             }
             else
             {
-                OrganizationLabel.Visible = false;
-                OrganizationName.Visible = false;
+                SetMessages("Error", ex.Message);
             }
         }
 
-        protected void ExpWaterFormView_ModeChanged(object sender, EventArgs e)
+        protected void ExpWaterFormView_ItemDeleted(object sender, FormViewDeletedEventArgs e)
         {
-            var test = e;
-        }
+            string organizationName = OrganizationName.Text;
+            string successLabelText = "Participant Deleted.";
 
-        protected void ExpWaterFormView_ModeChanging(object sender, FormViewModeEventArgs e)
-        {
-            var test = e;
+            SetMessages("Success", successLabelText);
+
+            string redirect = string.Format("EditParticipants.aspx?organizationSearchTerm={0}", organizationName);
+
+            Response.Redirect(redirect, false);
         }
     }
 }
