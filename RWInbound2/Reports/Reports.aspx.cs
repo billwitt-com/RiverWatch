@@ -112,5 +112,10 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("Stations.aspx");
         }
+
+        protected void btnSamples_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Samples.aspx");
+        }
     }
 }
