@@ -70,9 +70,9 @@
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net40\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.Common\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.Common.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.ProcessingObjectModel\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -129,6 +129,7 @@
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditUnknowns.aspx" />
+    <Content Include="Admin\EditParticipants.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -534,6 +535,13 @@
     </Compile>
     <Compile Include="Admin\EditMetalBarCode.aspx.designer.cs">
       <DependentUpon>EditMetalBarCode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditParticipants.aspx.cs">
+      <DependentUpon>EditParticipants.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditParticipants.aspx.designer.cs">
+      <DependentUpon>EditParticipants.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditUnknowns.aspx.cs">
       <DependentUpon>EditUnknowns.aspx</DependentUpon>
@@ -1366,6 +1374,7 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="View_Models\ParticipantsViewModel.cs" />
     <Compile Include="View_Models\ProjectStationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1382,18 +1391,20 @@
     <EmbeddedResource Include="Data\Org.rdlc" />
     <EmbeddedResource Include="Data\Participants.rdlc" />
     <EmbeddedResource Include="Data\Stations.rdlc" />
-    <EmbeddedResource Include="Reports\Report1.rdlc">
+    <Content Include="Reports\Report1.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\ErrorLog.rdlc" />
-    <EmbeddedResource Include="Reports\LachatNoBC.rdlc">
+    </Content>
+    <Content Include="Reports\ErrorLog.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\LachatNoBC.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <EmbeddedResource Include="Reports\OrgStatus.rdlc" />
     <EmbeddedResource Include="Reports\OrgStations.rdlc" />
-    <EmbeddedResource Include="Reports\StationsWithGauges.rdlc">
+    <Content Include="Reports\StationsWithGauges.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
