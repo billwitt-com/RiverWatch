@@ -250,8 +250,11 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
     <Content Include="Public\UnknownData.aspx" />
+    <Content Include="Reports\MetalBarCodes.aspx" />
+    <Content Include="Reports\Organizations.aspx" />
     <Content Include="Reports\OrgStations.aspx" />
     <Content Include="Reports\OrgStatus.aspx" />
+    <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="favicon.ico" />
@@ -278,6 +281,8 @@
     <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
+    <Content Include="Reports\Samples.aspx" />
+    <Content Include="Reports\Stations.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Reports\ViewStationsWithGauges.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
@@ -340,6 +345,61 @@
     </None>
     <Content Include="RiverWatchDataViewLachatNOBC.xss">
       <DependentUpon>RiverWatchDataViewLachatNOBC.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchOrganizationsDataSet.xsc">
+      <DependentUpon>RiverWatchOrganizationsDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchMetalBarCodesDataSet.xsc">
+      <DependentUpon>RiverWatchMetalBarCodesDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchMetalBarCodesDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchMetalBarCodesDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchMetalBarCodesDataSet.xss">
+      <DependentUpon>RiverWatchMetalBarCodesDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchOrganizationsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchOrganizationsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchOrganizationsDataSet.xss">
+      <DependentUpon>RiverWatchOrganizationsDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchParticipantsDataSet.xsc">
+      <DependentUpon>RiverWatchParticipantsDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchParticipantsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchParticipantsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchParticipantsDataSet.xss">
+      <DependentUpon>RiverWatchParticipantsDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchStationsDataSet.xsc">
+      <DependentUpon>RiverWatchStationsDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchSamplesDataSet.xsc">
+      <DependentUpon>RiverWatchSamplesDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchSamplesDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchSamplesDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchSamplesDataSet.xss">
+      <DependentUpon>RiverWatchSamplesDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchStationsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchStationsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchStationsDataSet.xss">
+      <DependentUpon>RiverWatchStationsDataSet.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchStationsWithGauges.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -990,6 +1050,20 @@
     <Compile Include="Public\UnknownData.aspx.designer.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\MetalBarCodes.aspx.cs">
+      <DependentUpon>MetalBarCodes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
+      <DependentUpon>MetalBarCodes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Organizations.aspx.cs">
+      <DependentUpon>Organizations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Organizations.aspx.designer.cs">
+      <DependentUpon>Organizations.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\OrgStations.aspx.cs">
       <DependentUpon>OrgStations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1004,6 +1078,13 @@
     <Compile Include="Reports\OrgStatus.aspx.designer.cs">
       <DependentUpon>OrgStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Participants.aspx.cs">
+      <DependentUpon>Participants.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Participants.aspx.designer.cs">
+      <DependentUpon>Participants.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
       <DependentUpon>ReportLachatNOTINNutrientBarcode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1017,6 +1098,20 @@
     </Compile>
     <Compile Include="Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Samples.aspx.cs">
+      <DependentUpon>Samples.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Samples.aspx.designer.cs">
+      <DependentUpon>Samples.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Stations.aspx.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Stations.aspx.designer.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
@@ -1072,15 +1167,40 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchDataViewLachatNOBC.xsd</DependentUpon>
     </Compile>
+    <Compile Include="RiverWatchMetalBarCodesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchMetalBarCodesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchOrganizationsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchOrganizationsDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="RiverWatchParticipants.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchParticipants.xsd</DependentUpon>
     </Compile>
+    <Compile Include="RiverWatchParticipantsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchParticipantsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchSamplesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchSamplesDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="RiverWatchStations1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchStations1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchStationsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchStationsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchStationsWithGauges.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1405,6 +1525,11 @@
     <Content Include="Reports\StationsWithGauges.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Reports\OrganizationsAll.rdlc" />
+    <EmbeddedResource Include="Reports\Participants.rdlc" />
+    <EmbeddedResource Include="Reports\MetalBarCodes.rdlc" />
+    <EmbeddedResource Include="Reports\Samples.rdlc" />
+    <EmbeddedResource Include="Reports\Stations.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

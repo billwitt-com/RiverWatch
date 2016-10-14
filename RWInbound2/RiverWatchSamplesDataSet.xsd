@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="RiverWatchSamplesDataSet" targetNamespace="http://tempuri.org/RiverWatchSamplesDataSet.xsd" xmlns:mstns="http://tempuri.org/RiverWatchSamplesDataSet.xsd" xmlns="http://tempuri.org/RiverWatchSamplesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="RiverWatchDEV" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RiverWatchDEV (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.RiverWatchDEV.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SamplesViewTableAdapter" GeneratorDataComponentClassName="SamplesViewTableAdapter" Name="SamplesView" UserDataComponentName="SamplesViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="RiverWatchDEV (Web.config)" DbObjectName="RiverWatch.dbo.SamplesView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, SampleID, StationID, StationName, OrganizationID, OrganizationName, SampleNumber, NumberSample, DateCollected, TimeCollected, DateReceived, DataSheetIncluded, MissingDataSheetReqDate, ChainOfCustody, MissingDataSheetReceived, NoMetals, PhysicalHabitat, Bug, NoNutrient, TotalSuspendedSolids, NitratePhosphorus, DuplicatedTSS, DuplicatedNP, Comment, DateCreated, UserCreated, DateLastModified, UserLastModified, ChlorideSulfate, BlankMetals, DuplicatedMetals, BugsQA, DuplicatedCS, Valid FROM dbo.SamplesView</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="SampleID" DataSetColumn="SampleID" />
+              <Mapping SourceColumn="StationID" DataSetColumn="StationID" />
+              <Mapping SourceColumn="StationName" DataSetColumn="StationName" />
+              <Mapping SourceColumn="OrganizationID" DataSetColumn="OrganizationID" />
+              <Mapping SourceColumn="OrganizationName" DataSetColumn="OrganizationName" />
+              <Mapping SourceColumn="SampleNumber" DataSetColumn="SampleNumber" />
+              <Mapping SourceColumn="NumberSample" DataSetColumn="NumberSample" />
+              <Mapping SourceColumn="DateCollected" DataSetColumn="DateCollected" />
+              <Mapping SourceColumn="TimeCollected" DataSetColumn="TimeCollected" />
+              <Mapping SourceColumn="DateReceived" DataSetColumn="DateReceived" />
+              <Mapping SourceColumn="DataSheetIncluded" DataSetColumn="DataSheetIncluded" />
+              <Mapping SourceColumn="MissingDataSheetReqDate" DataSetColumn="MissingDataSheetReqDate" />
+              <Mapping SourceColumn="ChainOfCustody" DataSetColumn="ChainOfCustody" />
+              <Mapping SourceColumn="MissingDataSheetReceived" DataSetColumn="MissingDataSheetReceived" />
+              <Mapping SourceColumn="NoMetals" DataSetColumn="NoMetals" />
+              <Mapping SourceColumn="PhysicalHabitat" DataSetColumn="PhysicalHabitat" />
+              <Mapping SourceColumn="Bug" DataSetColumn="Bug" />
+              <Mapping SourceColumn="NoNutrient" DataSetColumn="NoNutrient" />
+              <Mapping SourceColumn="TotalSuspendedSolids" DataSetColumn="TotalSuspendedSolids" />
+              <Mapping SourceColumn="NitratePhosphorus" DataSetColumn="NitratePhosphorus" />
+              <Mapping SourceColumn="DuplicatedTSS" DataSetColumn="DuplicatedTSS" />
+              <Mapping SourceColumn="DuplicatedNP" DataSetColumn="DuplicatedNP" />
+              <Mapping SourceColumn="Comment" DataSetColumn="Comment" />
+              <Mapping SourceColumn="DateCreated" DataSetColumn="DateCreated" />
+              <Mapping SourceColumn="UserCreated" DataSetColumn="UserCreated" />
+              <Mapping SourceColumn="DateLastModified" DataSetColumn="DateLastModified" />
+              <Mapping SourceColumn="UserLastModified" DataSetColumn="UserLastModified" />
+              <Mapping SourceColumn="ChlorideSulfate" DataSetColumn="ChlorideSulfate" />
+              <Mapping SourceColumn="BlankMetals" DataSetColumn="BlankMetals" />
+              <Mapping SourceColumn="DuplicatedMetals" DataSetColumn="DuplicatedMetals" />
+              <Mapping SourceColumn="BugsQA" DataSetColumn="BugsQA" />
+              <Mapping SourceColumn="DuplicatedCS" DataSetColumn="DuplicatedCS" />
+              <Mapping SourceColumn="Valid" DataSetColumn="Valid" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="RiverWatchSamplesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="RiverWatchSamplesDataSet" msprop:Generator_UserDSName="RiverWatchSamplesDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SamplesView" msprop:Generator_TableClassName="SamplesViewDataTable" msprop:Generator_TableVarName="tableSamplesView" msprop:Generator_TablePropName="SamplesView" msprop:Generator_RowDeletingName="SamplesViewRowDeleting" msprop:Generator_RowChangingName="SamplesViewRowChanging" msprop:Generator_RowEvHandlerName="SamplesViewRowChangeEventHandler" msprop:Generator_RowDeletedName="SamplesViewRowDeleted" msprop:Generator_UserTableName="SamplesView" msprop:Generator_RowChangedName="SamplesViewRowChanged" msprop:Generator_RowEvArgName="SamplesViewRowChangeEvent" msprop:Generator_RowClassName="SamplesViewRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="SampleID" msprop:Generator_ColumnVarNameInTable="columnSampleID" msprop:Generator_ColumnPropNameInRow="SampleID" msprop:Generator_ColumnPropNameInTable="SampleIDColumn" msprop:Generator_UserColumnName="SampleID" type="xs:int" />
+              <xs:element name="StationID" msprop:Generator_ColumnVarNameInTable="columnStationID" msprop:Generator_ColumnPropNameInRow="StationID" msprop:Generator_ColumnPropNameInTable="StationIDColumn" msprop:Generator_UserColumnName="StationID" type="xs:int" />
+              <xs:element name="StationName" msprop:Generator_ColumnVarNameInTable="columnStationName" msprop:Generator_ColumnPropNameInRow="StationName" msprop:Generator_ColumnPropNameInTable="StationNameColumn" msprop:Generator_UserColumnName="StationName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OrganizationID" msprop:Generator_ColumnVarNameInTable="columnOrganizationID" msprop:Generator_ColumnPropNameInRow="OrganizationID" msprop:Generator_ColumnPropNameInTable="OrganizationIDColumn" msprop:Generator_UserColumnName="OrganizationID" type="xs:int" minOccurs="0" />
+              <xs:element name="OrganizationName" msprop:Generator_ColumnVarNameInTable="columnOrganizationName" msprop:Generator_ColumnPropNameInRow="OrganizationName" msprop:Generator_ColumnPropNameInTable="OrganizationNameColumn" msprop:Generator_UserColumnName="OrganizationName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SampleNumber" msprop:Generator_ColumnVarNameInTable="columnSampleNumber" msprop:Generator_ColumnPropNameInRow="SampleNumber" msprop:Generator_ColumnPropNameInTable="SampleNumberColumn" msprop:Generator_UserColumnName="SampleNumber">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NumberSample" msprop:Generator_ColumnVarNameInTable="columnNumberSample" msprop:Generator_ColumnPropNameInRow="NumberSample" msprop:Generator_ColumnPropNameInTable="NumberSampleColumn" msprop:Generator_UserColumnName="NumberSample" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateCollected" msprop:Generator_ColumnVarNameInTable="columnDateCollected" msprop:Generator_ColumnPropNameInRow="DateCollected" msprop:Generator_ColumnPropNameInTable="DateCollectedColumn" msprop:Generator_UserColumnName="DateCollected" type="xs:dateTime" />
+              <xs:element name="TimeCollected" msprop:Generator_ColumnVarNameInTable="columnTimeCollected" msprop:Generator_ColumnPropNameInRow="TimeCollected" msprop:Generator_ColumnPropNameInTable="TimeCollectedColumn" msprop:Generator_UserColumnName="TimeCollected" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DateReceived" msprop:Generator_ColumnVarNameInTable="columnDateReceived" msprop:Generator_ColumnPropNameInRow="DateReceived" msprop:Generator_ColumnPropNameInTable="DateReceivedColumn" msprop:Generator_UserColumnName="DateReceived" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DataSheetIncluded" msprop:Generator_ColumnVarNameInTable="columnDataSheetIncluded" msprop:Generator_ColumnPropNameInRow="DataSheetIncluded" msprop:Generator_ColumnPropNameInTable="DataSheetIncludedColumn" msprop:Generator_UserColumnName="DataSheetIncluded" type="xs:boolean" />
+              <xs:element name="MissingDataSheetReqDate" msprop:Generator_ColumnVarNameInTable="columnMissingDataSheetReqDate" msprop:Generator_ColumnPropNameInRow="MissingDataSheetReqDate" msprop:Generator_ColumnPropNameInTable="MissingDataSheetReqDateColumn" msprop:Generator_UserColumnName="MissingDataSheetReqDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ChainOfCustody" msprop:Generator_ColumnVarNameInTable="columnChainOfCustody" msprop:Generator_ColumnPropNameInRow="ChainOfCustody" msprop:Generator_ColumnPropNameInTable="ChainOfCustodyColumn" msprop:Generator_UserColumnName="ChainOfCustody" type="xs:boolean" />
+              <xs:element name="MissingDataSheetReceived" msprop:Generator_ColumnVarNameInTable="columnMissingDataSheetReceived" msprop:Generator_ColumnPropNameInRow="MissingDataSheetReceived" msprop:Generator_ColumnPropNameInTable="MissingDataSheetReceivedColumn" msprop:Generator_UserColumnName="MissingDataSheetReceived" type="xs:boolean" />
+              <xs:element name="NoMetals" msprop:Generator_ColumnVarNameInTable="columnNoMetals" msprop:Generator_ColumnPropNameInRow="NoMetals" msprop:Generator_ColumnPropNameInTable="NoMetalsColumn" msprop:Generator_UserColumnName="NoMetals" type="xs:boolean" />
+              <xs:element name="PhysicalHabitat" msprop:Generator_ColumnVarNameInTable="columnPhysicalHabitat" msprop:Generator_ColumnPropNameInRow="PhysicalHabitat" msprop:Generator_ColumnPropNameInTable="PhysicalHabitatColumn" msprop:Generator_UserColumnName="PhysicalHabitat" type="xs:boolean" />
+              <xs:element name="Bug" msprop:Generator_ColumnVarNameInTable="columnBug" msprop:Generator_ColumnPropNameInRow="Bug" msprop:Generator_ColumnPropNameInTable="BugColumn" msprop:Generator_UserColumnName="Bug" type="xs:boolean" />
+              <xs:element name="NoNutrient" msprop:Generator_ColumnVarNameInTable="columnNoNutrient" msprop:Generator_ColumnPropNameInRow="NoNutrient" msprop:Generator_ColumnPropNameInTable="NoNutrientColumn" msprop:Generator_UserColumnName="NoNutrient" type="xs:boolean" />
+              <xs:element name="TotalSuspendedSolids" msprop:Generator_ColumnVarNameInTable="columnTotalSuspendedSolids" msprop:Generator_ColumnPropNameInRow="TotalSuspendedSolids" msprop:Generator_ColumnPropNameInTable="TotalSuspendedSolidsColumn" msprop:Generator_UserColumnName="TotalSuspendedSolids" type="xs:boolean" />
+              <xs:element name="NitratePhosphorus" msprop:Generator_ColumnVarNameInTable="columnNitratePhosphorus" msprop:Generator_ColumnPropNameInRow="NitratePhosphorus" msprop:Generator_ColumnPropNameInTable="NitratePhosphorusColumn" msprop:Generator_UserColumnName="NitratePhosphorus" type="xs:boolean" />
+              <xs:element name="DuplicatedTSS" msprop:Generator_ColumnVarNameInTable="columnDuplicatedTSS" msprop:Generator_ColumnPropNameInRow="DuplicatedTSS" msprop:Generator_ColumnPropNameInTable="DuplicatedTSSColumn" msprop:Generator_UserColumnName="DuplicatedTSS" type="xs:boolean" />
+              <xs:element name="DuplicatedNP" msprop:Generator_ColumnVarNameInTable="columnDuplicatedNP" msprop:Generator_ColumnPropNameInRow="DuplicatedNP" msprop:Generator_ColumnPropNameInTable="DuplicatedNPColumn" msprop:Generator_UserColumnName="DuplicatedNP" type="xs:boolean" />
+              <xs:element name="Comment" msprop:Generator_ColumnVarNameInTable="columnComment" msprop:Generator_ColumnPropNameInRow="Comment" msprop:Generator_ColumnPropNameInTable="CommentColumn" msprop:Generator_UserColumnName="Comment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateCreated" msprop:Generator_ColumnVarNameInTable="columnDateCreated" msprop:Generator_ColumnPropNameInRow="DateCreated" msprop:Generator_ColumnPropNameInTable="DateCreatedColumn" msprop:Generator_UserColumnName="DateCreated" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UserCreated" msprop:Generator_ColumnVarNameInTable="columnUserCreated" msprop:Generator_ColumnPropNameInRow="UserCreated" msprop:Generator_ColumnPropNameInTable="UserCreatedColumn" msprop:Generator_UserColumnName="UserCreated" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateLastModified" msprop:Generator_ColumnVarNameInTable="columnDateLastModified" msprop:Generator_ColumnPropNameInRow="DateLastModified" msprop:Generator_ColumnPropNameInTable="DateLastModifiedColumn" msprop:Generator_UserColumnName="DateLastModified" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UserLastModified" msprop:Generator_ColumnVarNameInTable="columnUserLastModified" msprop:Generator_ColumnPropNameInRow="UserLastModified" msprop:Generator_ColumnPropNameInTable="UserLastModifiedColumn" msprop:Generator_UserColumnName="UserLastModified" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ChlorideSulfate" msprop:Generator_ColumnVarNameInTable="columnChlorideSulfate" msprop:Generator_ColumnPropNameInRow="ChlorideSulfate" msprop:Generator_ColumnPropNameInTable="ChlorideSulfateColumn" msprop:Generator_UserColumnName="ChlorideSulfate" type="xs:boolean" minOccurs="0" />
+              <xs:element name="BlankMetals" msprop:Generator_ColumnVarNameInTable="columnBlankMetals" msprop:Generator_ColumnPropNameInRow="BlankMetals" msprop:Generator_ColumnPropNameInTable="BlankMetalsColumn" msprop:Generator_UserColumnName="BlankMetals" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DuplicatedMetals" msprop:Generator_ColumnVarNameInTable="columnDuplicatedMetals" msprop:Generator_ColumnPropNameInRow="DuplicatedMetals" msprop:Generator_ColumnPropNameInTable="DuplicatedMetalsColumn" msprop:Generator_UserColumnName="DuplicatedMetals" type="xs:boolean" minOccurs="0" />
+              <xs:element name="BugsQA" msprop:Generator_ColumnVarNameInTable="columnBugsQA" msprop:Generator_ColumnPropNameInRow="BugsQA" msprop:Generator_ColumnPropNameInTable="BugsQAColumn" msprop:Generator_UserColumnName="BugsQA" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DuplicatedCS" msprop:Generator_ColumnVarNameInTable="columnDuplicatedCS" msprop:Generator_ColumnPropNameInRow="DuplicatedCS" msprop:Generator_ColumnPropNameInTable="DuplicatedCSColumn" msprop:Generator_UserColumnName="DuplicatedCS" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Valid" msprop:Generator_ColumnVarNameInTable="columnValid" msprop:Generator_ColumnPropNameInRow="Valid" msprop:Generator_ColumnPropNameInTable="ValidColumn" msprop:Generator_UserColumnName="Valid" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:SamplesView" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

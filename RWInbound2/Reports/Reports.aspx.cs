@@ -97,5 +97,30 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("OrgStations.aspx");
         }
+
+        protected void btnOrganizations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Organizations.aspx");
+        }
+
+        protected void btnParticipants_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Participants.aspx");
+        }
+
+        protected void btnStations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Stations.aspx");
+        }
+
+        protected void btnSamples_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Samples.aspx");
+        }
+
+        protected void btnMetalBarCodes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MetalBarCodes.aspx");
+        }
     }
 }
