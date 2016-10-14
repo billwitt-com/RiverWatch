@@ -107,5 +107,10 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("Participants.aspx");
         }
+
+        protected void btnStations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Stations.aspx");
+        }
     }
 }

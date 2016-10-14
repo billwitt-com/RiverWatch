@@ -280,6 +280,7 @@
     <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
+    <Content Include="Reports\Stations.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Reports\ViewStationsWithGauges.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
@@ -364,6 +365,17 @@
     </None>
     <Content Include="RiverWatchParticipantsDataSet.xss">
       <DependentUpon>RiverWatchParticipantsDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchStationsDataSet.xsc">
+      <DependentUpon>RiverWatchStationsDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchStationsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchStationsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchStationsDataSet.xss">
+      <DependentUpon>RiverWatchStationsDataSet.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchStationsWithGauges.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1056,6 +1068,13 @@
     <Compile Include="Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Stations.aspx.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Stations.aspx.designer.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1129,6 +1148,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchStations1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchStationsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchStationsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchStationsWithGauges.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1455,6 +1479,7 @@
     </Content>
     <EmbeddedResource Include="Reports\OrganizationsAll.rdlc" />
     <EmbeddedResource Include="Reports\Participants.rdlc" />
+    <EmbeddedResource Include="Reports\Stations.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
