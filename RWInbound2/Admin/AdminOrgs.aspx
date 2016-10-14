@@ -7,16 +7,21 @@
     <br />
     <br />
     <asp:Label ID="Label2" runat="server" Text="Choose Org Name:  "></asp:Label>
-    <asp:TextBox ID="tbOrgName" runat="server" Height="19px" Width="456px"></asp:TextBox>
+    <asp:TextBox ID="tbOrgName" runat="server" Height="19px" Width="415px"></asp:TextBox>
     <ajaxToolkit:AutoCompleteExtender ID="tbOrgName_AutoCompleteExtender" runat="server" TargetControlID="tbOrgName"
          ServiceMethod="SearchOrgs" CompletionSetCount="2" MinimumPrefixLength="2">
     </ajaxToolkit:AutoCompleteExtender>
     <asp:Button ID="btnSelect" runat="server" OnClick="btnSelect_Click" Text="Select" CssClass="adminButton" />
     <asp:Button ID="btnAddNew" runat="server" CssClass="adminButton" OnClick="btnAddNew_Click" Text="Add New" />
     <br />
+    <asp:CheckBox ID="chbStatusAdd" runat="server" Text="Add New Status " />
     <br />
-    <asp:FormView ID="FormView1" runat="server" DefaultMode ="Edit"  AllowPaging="true" 
-        PagerSettings-Mode="NumericFirstLast"  OnDataBinding="FormView1_DataBinding" OnDataBound="FormView1_DataBound"
+    <asp:Label ID="lblMsg" runat="server" ></asp:Label>
+    <br />
+    <asp:Label ID="lblLastUsedText" runat="server" Text="Last Used Kit Number:  "></asp:Label>
+    <asp:Label ID="lblKitNumber" runat="server" Font-Bold="True" Font-Size="11pt" ForeColor="#0066FF"></asp:Label>
+    <asp:FormView ID="FormView1" runat="server" DefaultMode ="ReadOnly"  AllowPaging="true" 
+        PagerSettings-Mode="NumericFirstLast"  
         PagerSettings-Position="Bottom" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="467px">
         <EditItemTemplate>
             ID:
@@ -106,11 +111,14 @@
             Valid:
             <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' />
             <br />
-            <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
-            &nbsp;<asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
-             &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
+            <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click" CommandName="Update" Text="Update" />
+            &nbsp;<asp:Button ID="UpdateCancelButton" OnClick="UpdateCancelButton_Click" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+<%--             &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />--%>
         </EditItemTemplate>
         <InsertItemTemplate>
+            ID:
+            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
+            <br /> 
             KitNumber:
             <asp:TextBox ID="KitNumberTextBox" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
@@ -181,23 +189,23 @@
             <br />
             UserCreated:
             <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
-            <br />
+<%--            <br />
             DateLastModified:
             <asp:TextBox ID="DateLastModifiedTextBox" runat="server" Text='<%# Bind("DateLastModified") %>' />
             <br />
             UserLastModified:
-            <asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />
+            <asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />--%>
             <br />
             Valid:
             <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' />
             <br />
             <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" />
-            &nbsp;<asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+            &nbsp;<asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" OnClick="InsertCancelButton_Click" CommandName="Cancel" Text="Cancel" />
         </InsertItemTemplate>
         <ItemTemplate>
-            ID:
+<%--            ID:
             <asp:Label ID="IDLabel" runat="server" Text='<%# Eval("ID") %>' />
-            <br />
+            <br />--%>
             KitNumber:
             <asp:Label ID="KitNumberLabel" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
@@ -252,18 +260,19 @@
             UserCreated:
             <asp:Label ID="UserCreatedLabel" runat="server" Text='<%# Bind("UserCreated") %>' />
             <br />
-            DateLastModified:
+<%--            DateLastModified:
             <asp:Label ID="DateLastModifiedLabel" runat="server" Text='<%# Bind("DateLastModified") %>' />
             <br />
             UserLastModified:
             <asp:Label ID="UserLastModifiedLabel" runat="server" Text='<%# Bind("UserLastModified") %>' />
-            <br />
+            <br />--%>
             Valid:
             <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' Enabled="false" />
             <br />
             <asp:Button ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
-            &nbsp;<asp:Button ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
-            &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
+            &nbsp;
+            <asp:Button ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
+<%--            &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />--%>
         </ItemTemplate>
 
 <%--                SelectCommand="SELECT * FROM [organization]"--%>
@@ -279,7 +288,7 @@
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
         SelectCommand="SELECT [Description], [Code] FROM [tlkWQCCWaterShed] where valid = 1"></asp:SqlDataSource>
 
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server"  OnInserted="SqlDataSource1_Inserted" 
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
         DeleteCommand="UPDATE [organization] SET [Valid] = 1 WHERE [ID] = @ID" 
         InsertCommand="INSERT INTO [organization] ([KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [State], [Zip], [Phone], [Fax], [YearStarted], [WaterShed], [WaterShedGathering], [Password], [Active], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [Valid]) VALUES (@KitNumber, @OrganizationName, @OrganizationType, @Email, @MailingAddress, @ShippingAddress, @City, @State, @Zip, @Phone, @Fax, @YearStarted, @WaterShed, @WaterShedGathering, @Password, @Active, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @Valid)" 

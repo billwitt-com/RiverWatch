@@ -19,13 +19,30 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            string sCommand = "";
+            //if (!IsPostBack)
             {
-                btnAddNew.Visible = false; 
-               // FormView1.DataBind();
-              //  FormView1.Visible = true;
+                FormView1.Visible = false;
+                lblKitNumber.Visible = false;
+                lblLastUsedText.Visible = false;
+                chbStatusAdd.Visible = false;
             }
-        }
+            if (Session["COMMAND"] != null) // reset the command each time
+            {
+                sCommand = (string)Session["COMMAND"];
+                SqlDataSource1.SelectCommand = sCommand;
+            }
+            if(Session["NEW"] != null)
+            {
+                bool isnew = (bool) Session["NEW"];
+                if (isnew)
+                    chbStatusAdd.Visible = true;
+                else
+                    chbStatusAdd.Visible = false; 
+            }
+            else
+                chbStatusAdd.Visible = false;
+        }       
 
         [System.Web.Script.Services.ScriptMethod]
         [System.Web.Services.WebMethod]
@@ -69,18 +86,54 @@ namespace RWInbound2.Admin
 
         protected void btnSelect_Click(object sender, EventArgs e)
         {
-            string orgName = "";
-            string sqlCmd = ""; 
-            orgName = tbOrgName.Text.Trim();
-            FormView1.ChangeMode(FormViewMode.Edit); 
-            if (orgName.Length > 2)
+            int orgID = 0;
+
+            string orgName = tbOrgName.Text.Trim().ToUpper();
+            string sCommand = "";
+            if (orgName.Length < 3)
             {
-                sqlCmd = string.Format("SELECT * FROM [organization] where OrganizationName like '{0}'", orgName);
-                SqlDataSource1.SelectCommand = sqlCmd;
-                FormView1.DataBind();
-                FormView1.Visible = true;
+                lblMsg.Text = "Please choose an organization";
+                return;
             }
-            btnAddNew.Visible = true; 
+            try
+            {
+                RiverWatchEntities RWE = new RiverWatchEntities();
+                // get the org id and then set up a count of unknowns to work with
+                var C = (from c in RWE.organizations
+                         where c.OrganizationName.ToUpper() == orgName.ToUpper()
+                         select c).FirstOrDefault();
+                if (C == null)
+                {
+                    lblMsg.Text = "Please choose a valid organization";
+                    return;
+                }
+                lblMsg.Text = "";
+                orgID = C.ID;
+
+                // first, check to see if there are any 
+                //sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[UnknownSample] " +
+                //    " where validated = 0 and OrganizationID = {0} and valid = 1 order by datesent desc ", orgID);
+                sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[Organization] " +
+                    " where OrganizationName = '{0}' ", orgName);
+                SqlDataSource1.SelectCommand = sCommand;
+                Session["COMMAND"] = sCommand;
+                FormView1.Visible = true;
+                FormView1.DataBind();
+            }
+
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+            btnAddNew.Visible = false; // turn off is org chosen
+            lblKitNumber.Visible = false; 
         }
       
         private string selectedValue;
@@ -103,64 +156,126 @@ namespace RWInbound2.Admin
             }
         }
 
+        // this is our button
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
-         //   FormView1.DefaultMode = FormViewMode.Insert;
-            FormView1.ChangeMode(FormViewMode.Insert); 
+            Session["NEW"] = true;
+            FormView1.ChangeMode(FormViewMode.Insert);  // force into insert mode
+            FormView1.Visible = true;
+            btnSelect.Visible = false;  // hide so we don't have any errors
+            tbOrgName.Visible = false;
+            btnAddNew.Visible = false; 
 
-            //DropDownList DDL1;
-            //DropDownList DDL2; 
-            //tbOrgName.Text = "";
-            //FormView FV = FormView1; 
-            //if (FV != null)
-            //{
-            //    DDL1 = FV.Controls[0].FindControl("ddlWaterShed") as DropDownList;
-            //    DDL2 = FV.Controls[0].FindControl("ddlWaterShed") as DropDownList;
-            //    if (DDL1 != null)
-            //    {
-            //        DDL1.DataSourceID = "SqlDataSourceWaterShed"; 
-            //        DDL1.DataBind();
-            //    }
-            //    if (DDL2 != null)
-            //    {
-            //        DDL2.DataSourceID = "SqlDataSourceWSGathering";
-            //        DDL2.DataBind();
-            //    }
-            //}
+            try
+            {
+                RiverWatchEntities RWE = new RiverWatchEntities();
+
+                int LKN = (int)(from c in RWE.organizations
+                                select c.KitNumber).Max();
+
+                lblKitNumber.Text = LKN.ToString();
+                
+                lblKitNumber.Visible = true;
+                lblLastUsedText.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
         }
 
-        protected void FormView1_DataBinding(object sender, EventArgs e)
+        protected void FormView1_ItemUpdated(object sender, FormViewUpdatedEventArgs e)
         {
-            //DropDownList DDL1;
-            //DropDownList DDL2;
-            //tbOrgName.Text = "";
-            //FormView FV = sender as FormView;
-            //if (FV != null)
-            //{
-            //    DDL1 = FV.Controls[0].FindControl("ddlWaterShedUpdate") as DropDownList;
-            //    DDL2 = FV.Controls[0].FindControl("ddlWaterShedEdit") as DropDownList;
-            //    if (DDL1 != null)
-            //        DDL1.DataBind();
-            //    if (DDL2 != null)
-            //        DDL2.DataBind();
-            //}
+            Session["NEW"] = false;
+            FormView1.ChangeMode(FormViewMode.ReadOnly);  // force into insert mode
+            FormView1.DataBind();
         }
 
-        protected void FormView1_DataBound(object sender, EventArgs e)
+        protected void FormView1_ItemInserted(object sender, FormViewInsertedEventArgs e)
         {
-           // DropDownList DDL1;
-           // DropDownList DDL2;
-           //// tbOrgName.Text = "";
-           // FormView FV = sender as FormView;
-           // if (FV != null)
-           // {
-           //     DDL1 = FV.Controls[0].FindControl("ddlWaterShed") as DropDownList;
-           //     DDL2 = FV.Controls[0].FindControl("ddlWaterShed") as DropDownList;
-           //     if (DDL1 != null)
-           //         DDL1.DataBind();
-           //     if (DDL2 != null)
-           //         DDL2.DataBind();
-           // }
-        }         
+            Session["NEW"] = false;
+            FormView1.ChangeMode(FormViewMode.ReadOnly);  // force into insert mode
+            FormView1.DataBind();
+        }
+
+        protected void SqlDataSource1_Inserted(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            lblLastUsedText.Visible = false;
+            lblKitNumber.Visible = false;
+            lblMsg.Visible = false; 
+
+            if (chbStatusAdd.Visible == true)
+            {
+                bool addStatus = chbStatusAdd.Checked;
+                if (addStatus)
+                {
+                    if (Session["ORGID"] != null)
+                    {
+                        int orgID = (int)Session["ORGID"];
+                        RiverWatchEntities RWE = new RiverWatchEntities();
+                        OrgStatu OS = new OrgStatu();
+                        OS.OrganizationID = orgID;
+                        OS.DateCreated = DateTime.Now;
+                        OS.UserCreated = User.Identity.Name;
+                        RWE.OrgStatus.Add(OS);
+                        RWE.SaveChanges();
+                        lblMsg.Text = "New Org Status created";
+                        chbStatusAdd.Checked = false; // just in case
+                    }
+                   
+                }
+            }
+            // new record inserted, turn off all messages, etc
+
+            chbStatusAdd.Visible = false;
+            lblMsg.Visible = false;
+            lblLastUsedText.Visible = false;
+            lblKitNumber.Visible = false;
+            btnSelect.Visible = true;
+            tbOrgName.Visible = true;
+            btnAddNew.Visible = true;
+
+        }
+
+        protected void InsertCancelButton_Click(object sender, EventArgs e)
+        {
+            chbStatusAdd.Visible = false;
+            lblMsg.Visible = false;
+            lblLastUsedText.Visible = false;
+            lblKitNumber.Visible = false;
+            btnSelect.Visible = true;
+            tbOrgName.Visible = true;
+            btnAddNew.Visible = true; 
+        }
+
+        protected void UpdateCancelButton_Click(object sender, EventArgs e)
+        {
+            chbStatusAdd.Visible = false;
+            lblMsg.Visible = false;
+            lblLastUsedText.Visible = false;
+            lblKitNumber.Visible = false;
+            btnSelect.Visible = true;
+            tbOrgName.Visible = true;
+            btnAddNew.Visible = true; 
+
+        }
+
+        protected void UpdateButton_Click(object sender, EventArgs e)
+        {
+            chbStatusAdd.Visible = false;
+            lblMsg.Visible = false;
+            lblLastUsedText.Visible = false;
+            lblKitNumber.Visible = false;
+            btnSelect.Visible = true;
+            tbOrgName.Visible = true;
+            btnAddNew.Visible = true; 
+        }   
     }
 }
