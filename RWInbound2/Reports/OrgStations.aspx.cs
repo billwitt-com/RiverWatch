@@ -78,7 +78,7 @@ namespace RWInbound2.Reports
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
                     orgNames = _db.organizations
-                                    .Where(c => c.OrganizationName.Contains(prefixText))
+                                    .Where(c => c.OrganizationName.StartsWith(prefixText))
                                     .Select(c => c.OrganizationName)
                                     .Distinct()
                                     .ToList();
