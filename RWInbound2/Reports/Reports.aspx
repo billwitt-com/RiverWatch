@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="RWInbound2.Reports.Reports" %>
+﻿<%@ Page Title="Reports" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="RWInbound2.Reports.Reports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="site-title">
         Reports
@@ -22,4 +22,6 @@
     <asp:Button ID="btnStations" runat="server" Text="All Stations" OnClick="btnStations_Click" />
     <br />
     <asp:Button ID="btnSamples" runat="server" Text="All Samples" OnClick="btnSamples_Click" />
+    <br />
+    <asp:Button ID="btnMetalBarCodes" runat="server" Text="All Metal Bar Codes" OnClick="btnMetalBarCodes_Click" />
 </asp:Content>

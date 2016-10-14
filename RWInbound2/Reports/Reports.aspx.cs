@@ -117,5 +117,10 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("Samples.aspx");
         }
+
+        protected void btnMetalBarCodes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MetalBarCodes.aspx");
+        }
     }
 }

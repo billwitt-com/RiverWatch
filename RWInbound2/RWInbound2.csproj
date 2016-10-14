@@ -250,6 +250,7 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
     <Content Include="Public\UnknownData.aspx" />
+    <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Reports\Organizations.aspx" />
     <Content Include="Reports\OrgStations.aspx" />
     <Content Include="Reports\OrgStatus.aspx" />
@@ -347,6 +348,17 @@
     </Content>
     <Content Include="RiverWatchOrganizationsDataSet.xsc">
       <DependentUpon>RiverWatchOrganizationsDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchMetalBarCodesDataSet.xsc">
+      <DependentUpon>RiverWatchMetalBarCodesDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchMetalBarCodesDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchMetalBarCodesDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchMetalBarCodesDataSet.xss">
+      <DependentUpon>RiverWatchMetalBarCodesDataSet.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchOrganizationsDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1038,6 +1050,13 @@
     <Compile Include="Public\UnknownData.aspx.designer.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\MetalBarCodes.aspx.cs">
+      <DependentUpon>MetalBarCodes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
+      <DependentUpon>MetalBarCodes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Organizations.aspx.cs">
       <DependentUpon>Organizations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1147,6 +1166,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchDataViewLachatNOBC.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchMetalBarCodesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchMetalBarCodesDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchOrganizationsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1503,6 +1527,7 @@
     </Content>
     <EmbeddedResource Include="Reports\OrganizationsAll.rdlc" />
     <EmbeddedResource Include="Reports\Participants.rdlc" />
+    <EmbeddedResource Include="Reports\MetalBarCodes.rdlc" />
     <EmbeddedResource Include="Reports\Samples.rdlc" />
     <EmbeddedResource Include="Reports\Stations.rdlc" />
   </ItemGroup>
