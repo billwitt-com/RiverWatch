@@ -52,27 +52,43 @@ namespace RWInbound2.Data
 
         protected void SqlDataSourceInBoundSample_Inserting(object sender, SqlDataSourceCommandEventArgs e)
         {
-            string sampNum = (string)Session["SAMPNUM"];
+           // string sampNum = (string)Session["SAMPNUM"];
             string uzr = User.Identity.Name;
             if ((uzr == null) | (uzr.Length < 3))
                 uzr = "Dev User";
-            e.Command.Parameters["@EntryStaff"].Value = uzr;    
-            e.Command.Parameters["@PassValStep"].Value = -1;            // not really necessary as most entries in table are null [PassValStep]
-            e.Command.Parameters["@StationNum"].Value = (int)Session["STATIONNUMBER"];
-            e.Command.Parameters["@SampleID"].Value = (string)Session["SAMPNUM"];
-            e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
-            e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
-            e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
-            e.Command.Parameters["@Valid"].Value = true;
+            try
+            {
+                e.Command.Parameters["@EntryStaff"].Value = uzr;
+                e.Command.Parameters["@PassValStep"].Value = -1;            // not really necessary as most entries in table are null [PassValStep]
+                e.Command.Parameters["@StationNum"].Value = (int)Session["STATIONNUMBER"];
+                e.Command.Parameters["@SampleID"].Value = (string)Session["SAMPNUM"];
+                e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
+                e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
+                e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
+                e.Command.Parameters["@Valid"].Value = true;
 
-            // put something in these fields since we don't want nulls later for validation
-            e.Command.Parameters["@DataSheetIncluded"].Value = false;
-            e.Command.Parameters["@FieldValid"].Value = true;
-//            e.Command.Parameters["@FinalCheck"].Value = true;
-            e.Command.Parameters["@MetalsStat"].Value = 0;
-            e.Command.Parameters["@ChainOfCustody"].Value = false;
-            e.Command.Parameters["@MissingDataSheetReceived"].Value = false;
-            e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
+                // put something in these fields since we don't want nulls later for validation
+                e.Command.Parameters["@DataSheetIncluded"].Value = false;
+                e.Command.Parameters["@FieldValid"].Value = true;
+                //            e.Command.Parameters["@FinalCheck"].Value = true;
+                e.Command.Parameters["@MetalsStat"].Value = 0;
+                e.Command.Parameters["@ChainOfCustody"].Value = false;
+                e.Command.Parameters["@MissingDataSheetReceived"].Value = false;
+                e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
+            }
+            catch (Exception ex)
+            {
+                Panel1.Visible = false; // clean up and then report error
+
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
         }
 
         protected void SqlDataSourceInBoundSample_Updating(object sender, SqlDataSourceCommandEventArgs e)
@@ -84,34 +100,49 @@ namespace RWInbound2.Data
             DateTime newdate;
             int hours = 0;
             int mins = 0;
+            try
+            {
+                success = DateTime.TryParse(dateStr, out newdate);
+                string timestr = tbTimeCollected.Text;
+                success = int.TryParse(timestr.Substring(0, 2), out hours);
+                success = int.TryParse(timestr.Substring(3, 2), out mins);
 
-            success = DateTime.TryParse(dateStr, out newdate);
-            string timestr = tbTimeCollected.Text;
-            success = int.TryParse(timestr.Substring(0, 2), out hours);
-            success = int.TryParse(timestr.Substring(3, 2), out mins);
+                Session["DATE"] = newdate;
+                Session["TIME"] = (hours * 100) + mins;
 
-            Session["DATE"] = newdate;
-            Session["TIME"] = (hours * 100) + mins; 
-             
-            string uzr = User.Identity.Name;
-            if ((uzr == null) | (uzr.Length < 3))
-                uzr = "Dev User";
-            e.Command.Parameters["@EntryStaff"].Value = uzr;
-            e.Command.Parameters["@PassValStep"].Value = -1;            // not really necessary as most entries in table are null [PassValStep]
-            e.Command.Parameters["@StationNum"].Value = (int)Session["STATIONNUMBER"];
-            e.Command.Parameters["@SampleID"].Value = (string)Session["SAMPNUM"];
-            e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
-            e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
-            e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
-            e.Command.Parameters["@Valid"].Value = true;
-            // put something in these fields since we don't want nulls later for validation
-            e.Command.Parameters["@DataSheetIncluded"].Value = false;
-            e.Command.Parameters["@FieldValid"].Value = true;
-//            e.Command.Parameters["@FinalCheck"].Value = true;
-            e.Command.Parameters["@MetalsStat"].Value = 0;
-            e.Command.Parameters["@ChainOfCustody"].Value = false;
-            e.Command.Parameters["@MissingDataSheetReceived"].Value = false;
-            e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
+                string uzr = User.Identity.Name;
+                if ((uzr == null) | (uzr.Length < 3))
+                    uzr = "Dev User";
+                e.Command.Parameters["@EntryStaff"].Value = uzr;
+                e.Command.Parameters["@PassValStep"].Value = -1;            // not really necessary as most entries in table are null [PassValStep]
+                e.Command.Parameters["@StationNum"].Value = (int)Session["STATIONNUMBER"];
+                e.Command.Parameters["@SampleID"].Value = (string)Session["SAMPNUM"];
+                e.Command.Parameters["@KitNum"].Value = (int)Session["KITNUMBER"];
+                e.Command.Parameters["@Date"].Value = (DateTime)Session["DATE"];
+                e.Command.Parameters["@Time"].Value = (int)Session["TIME"];
+                e.Command.Parameters["@Valid"].Value = true;
+                // put something in these fields since we don't want nulls later for validation
+                e.Command.Parameters["@DataSheetIncluded"].Value = false;
+                e.Command.Parameters["@FieldValid"].Value = true;
+                //            e.Command.Parameters["@FinalCheck"].Value = true;
+                e.Command.Parameters["@MetalsStat"].Value = 0;
+                e.Command.Parameters["@ChainOfCustody"].Value = false;
+                e.Command.Parameters["@MissingDataSheetReceived"].Value = false;
+                e.Command.Parameters["@txtSampleID"].Value = ((int)Session["STATIONNUMBER"]).ToString(); // this is a string, but is same as station number ---- 
+            }
+            catch (Exception ex)
+            {
+                Panel1.Visible = false; // clean up and then report error
+
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
         }
 
         // we are validating the user against org and org pwd and if valid, filling in lots of stuff 

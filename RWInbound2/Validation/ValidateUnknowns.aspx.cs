@@ -40,6 +40,26 @@ namespace RWInbound2.Validation
                 }
             }            
         }
+        // used by ddl failures
+        private string selectedValue;
+        protected void PreventErrorsOn_DataBinding(object sender, EventArgs e)
+        {
+            DropDownList theDropDownList = (DropDownList)sender;
+            theDropDownList.DataBinding -= new EventHandler(PreventErrorsOn_DataBinding);
+            theDropDownList.AppendDataBoundItems = true;
+
+            selectedValue = "";
+            try
+            {
+                theDropDownList.DataBind();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                theDropDownList.Items.Clear();
+                theDropDownList.Items.Insert(0, new ListItem("Please select", ""));
+                theDropDownList.SelectedValue = "";
+            }
+        }
 
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
@@ -295,6 +315,84 @@ namespace RWInbound2.Validation
                     countSamples(orgID);
                 }
             } 
-        }        
+        }
+
+        protected void TrueValueTextBox_TextChanged(object sender, EventArgs e)
+        {
+            updateNumbers();
+        }
+
+        public void updateNumbers()
+        {
+            string tbValue1Name;
+            string tbValue2Name;
+            TextBox tb1;
+            TextBox tb2;
+            TextBox TBTrueValue;
+            TextBox TBMean;
+            TextBox TBPctRecovery;
+            decimal Value1 = 0;
+            decimal Value2 = 0;
+            decimal mean = 0;
+            decimal pctRecovery = 0;
+            decimal trueValue = 0;
+            string UID = FormView1.UniqueID;
+
+            tbValue1Name = UID + "$" + "Value1TextBox";
+            tbValue2Name = UID + "$" + "Value2TextBox";
+
+            // TrueValueTextBox
+            // MeanValueTextBox
+            // PctRecoveryTextBox
+
+            tb1 = this.FindControl(tbValue1Name) as TextBox;
+            tb2 = this.FindControl(tbValue2Name) as TextBox;
+            TBMean = this.FindControl(UID + "$" + "MeanValueTextBox") as TextBox;
+            TBPctRecovery = this.FindControl(UID + "$" + "PctRecoveryTextBox") as TextBox;
+            TBTrueValue = this.FindControl(UID + "$" + "TrueValueTextBox") as TextBox;
+
+            if (tb1 == null)
+            {
+                return;
+            }
+            if (tb2 == null)
+            {
+                return;
+            }
+            if (TBMean == null)
+                return;
+            if (TBPctRecovery == null)
+                return;
+            if (TBTrueValue == null)
+                return;
+
+            // note: there must be two values.
+            if (!decimal.TryParse(tb1.Text, out Value1))
+            {
+                return; // do nothing
+            }
+
+            if (!decimal.TryParse(tb2.Text, out Value2))
+            {
+                return; // do nothing
+            }
+
+            if (!decimal.TryParse(TBTrueValue.Text, out trueValue))
+            {
+                return; // do nothing
+            }
+            // here so we must have the 'right stuff' 
+
+            mean = (Value1 + Value2) / 2;
+            TBMean.Text = mean.ToString();
+            pctRecovery = mean / trueValue * 100;
+            pctRecovery = decimal.Round(pctRecovery, 2); 
+            TBPctRecovery.Text = pctRecovery.ToString();
+        }
+
+        protected void btnCalc_Click(object sender, EventArgs e)
+        {
+            updateNumbers(); 
+        }
     }
 }

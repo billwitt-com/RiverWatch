@@ -319,5 +319,19 @@ namespace RWInbound2.Admin
             FormView1.ChangeMode(FormViewMode.ReadOnly);  // force into insert mode
             FormView1.DataBind();
         }
+
+        protected void SqlDataSource1_Inserting(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            string user = User.Identity.Name;
+            e.Command.Parameters["@UserCreated"].Value = user;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+        }
+
+        protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            string user = User.Identity.Name;
+            e.Command.Parameters["@UserCreated"].Value = user;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+        }
     }
 }

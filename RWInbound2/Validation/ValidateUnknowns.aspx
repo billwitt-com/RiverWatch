@@ -34,16 +34,30 @@
                     <br />--%>
                     &nbsp;<asp:TextBox ID="OrganizationIDTextBox" runat="server" Text='<%# Bind("OrganizationID") %>' />
                     <br />
-                    UnknownSampleID:
+                    UnknownSample ID:
                     <asp:Label ID="UnknownSampleIDLabel1" runat="server" Text='<%# Eval("UnknownSampleID") %>' />
                     <br />
-                    SampleType:
-                    <asp:TextBox ID="SampleTypeTextBox" runat="server" Text='<%# Bind("SampleType") %>' />
+                    Sample Type:
+                                    <asp:DropDownList ID="ddlSampleType"
+                    SelectedValue='<%# Bind("SampleType") %>'
+                    OnDataBinding="PreventErrorsOn_DataBinding"
+                    runat="server">
+                    <asp:ListItem>DA</asp:ListItem>
+                    <asp:ListItem>DO</asp:ListItem>
+                    <asp:ListItem>DH</asp:ListItem>
+                    <asp:ListItem>A</asp:ListItem>
+                    <asp:ListItem>P</asp:ListItem>
+                    <asp:ListItem>H</asp:ListItem>
+                </asp:DropDownList>
+<%--                    <asp:TextBox ID="SampleTypeTextBox" runat="server" Text='<%# Bind("SampleType") %>' />--%>
                     <br />
-                    SampleNumber:
+                    Sample Number:
                     <asp:TextBox ID="SampleNumberTextBox" runat="server" Text='<%# Bind("SampleNumber") %>' />
                     <br />
-                    DateSent:
+                    Batch Sample Number:
+                    <asp:TextBox ID="BatchSampleNumberTextBox" runat="server" Text='<%# Bind("BatchSampleNumber") %>' />
+                    <br />
+                    Date Sent:
                     <asp:TextBox ID="DateSentTextBox" runat="server" Text='<%# Bind("DateSent") %>' />
                     <br />
                     Value1:
@@ -52,14 +66,15 @@
                     Value2:
                     <asp:TextBox ID="Value2TextBox" runat="server" Text='<%# Bind("Value2") %>' />
                     <br />
-                    MeanValue:
+                    Mean Value:
                     <asp:TextBox ID="MeanValueTextBox" runat="server" Text='<%# Bind("MeanValue") %>' />
                     <br />
-                    TrueValue:
-                    <asp:TextBox ID="TrueValueTextBox" runat="server" Text='<%# Bind("TrueValue") %>' />
-                    PctRecovery:
-                    <asp:TextBox ID="PctRecoveryTextBox" runat="server" Text='<%# Bind("PctRecovery") %>' />
-                    <br />
+                    True Value:
+                    <asp:TextBox ID="TrueValueTextBox" OnTextChanged="TrueValueTextBox_TextChanged" runat="server" Text='<%# Bind("TrueValue") %>' />
+                                <asp:Button ID="btnCalc" runat="server" OnClick="btnCalc_Click" Text="Calculate" />
+                            <br />
+                    Pct Recovery:
+                    <asp:TextBox ID="PctRecoveryTextBox" runat="server" Text='<%# Bind("PctRecovery","{0.00}") %>' />
                     <br />
                     Round:
                     <asp:TextBox ID="RoundTextBox" runat="server" Text='<%# Bind("Round") %>' />
@@ -70,10 +85,17 @@
 <%--                    OldValidated:
                     <asp:TextBox ID="OldValidatedTextBox" runat="server" Text='<%# Bind("OldValidated") %>' />
                     <br />--%>
-                    &nbsp;<asp:TextBox ID="OldValidatedTextBox" runat="server" Text='<%# Bind("OldValidated") %>' />
-                    <br />
+<%--                    &nbsp;<asp:TextBox ID="OldValidatedTextBox" runat="server" Text='<%# Bind("OldValidated") %>' />
+                    <br />--%>
                     Path:
-                    <asp:TextBox ID="PathTextBox" runat="server" Text='<%# Bind("Path") %>' />
+                    
+             <asp:DropDownList ID="ddlPath" runat="server"
+                    SelectedValue='<%# Bind("Path") %>'
+                    OnDataBinding="PreventErrorsOn_DataBinding">
+                    <asp:ListItem Value="M">Mail</asp:ListItem>
+                    <asp:ListItem Value="SV">Site Visit</asp:ListItem>
+                        </asp:DropDownList>
+<%--                    <asp:TextBox ID="PathTextBox" runat="server" Text='<%# Bind("Path") %>' />--%>
                     <br />
                     DateCreated:
                     <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' />
@@ -87,28 +109,26 @@
                     UserLastModified:
                     <asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />
                     <br />--%>
-                    &nbsp;<asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
-                    <br />
-                    DateLastModified:  
+<%--                    &nbsp;<asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
+                    <br />--%>
+<%--                    Date Last Modified:  
                     <asp:TextBox ID="DateLastModifiedTextBox" runat="server" Text='<%# Bind("DateLastModified") %>' />
-                    <br />
+                    <br />--%>
 <%--                    Valid:
                     <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' />
                     <br />
                     Validated:
                     <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' />
                     <br />--%>
-                    &nbsp;<asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />
-                    <br />
-                    BatchSampleNumber:
-                    <asp:TextBox ID="BatchSampleNumberTextBox" runat="server" Text='<%# Bind("BatchSampleNumber") %>' />
-                    <br />
-                    Valid:
+<%--                    &nbsp;<asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />
+                    <br />--%>
+
+<%--                    Valid:
                     <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' />
                     <br />
                     Validated:
                     <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' />
-                    <br />
+                    <br />--%>
 
                     <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
                     &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />

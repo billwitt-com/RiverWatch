@@ -266,7 +266,7 @@
 <%--            &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" OnClick="NewButton_Click" CommandName="New" Text="New" />--%>
         </ItemTemplate>
     </asp:FormView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>"  OnInserting="SqlDataSource1_Inserting" OnUpdating="SqlDataSource1_Updating"
         DeleteCommand="DELETE FROM [UnknownSample] WHERE [UnknownSampleID] = @UnknownSampleID" 
         InsertCommand="INSERT INTO [UnknownSample] ([OrganizationID], [SampleType], [SampleNumber], [DateSent], [Value1], [Value2], [MeanValue], [TrueValue], [Round], [Comment], [OldValidated], [Path], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [BatchSampleNumber], [Valid], [Validated], [PctRecovery]) VALUES (@OrganizationID, @SampleType, @SampleNumber, @DateSent, @Value1, @Value2, @MeanValue, @TrueValue, @Round, @Comment, @OldValidated, @Path, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @BatchSampleNumber, @Valid, @Validated, @PctRecovery)" 
         SelectCommand="SELECT * FROM [UnknownSample]" 

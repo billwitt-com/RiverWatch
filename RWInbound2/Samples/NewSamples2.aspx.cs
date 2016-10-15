@@ -765,7 +765,10 @@ namespace RWInbound2.Samples
 
             }
 
-            // check to see if this was inboundsample data, and if so, invalidate sample                            
+            // check to see if this was inboundsample data, and if so, invalidate sample      
+            // XXXX BW = this was a bad idea. Setting not valid keeps validation from seeing it    
+            // I thought this would keep sample from being reused in drop down list
+            // but in reality, the fact that it is recorded in the samples table is enough
              if(Session["INBOUNDSAMPLEID"] != null)
              {
                  int inboundSampleID = (int)Session["INBOUNDSAMPLEID"];
@@ -776,8 +779,8 @@ namespace RWInbound2.Samples
                                         select s).FirstOrDefault(); 
                      if(S != null)
                      {
-                         S.Valid = false;
-                         NRWDE.SaveChanges();
+                         //S.Valid = false;
+                         //NRWDE.SaveChanges();
                          Session["INBOUNDSAMPLEID"] = null; 
                      }
                  }
