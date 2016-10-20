@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+// modified to only have one pH value bw 2016/10/20
 namespace RWInbound2.Public
 {
     public partial class UnknownData : System.Web.UI.Page
@@ -50,7 +51,7 @@ namespace RWInbound2.Public
             if(int.TryParse(kn, out kitNumber))
             {
                 passWord = tbOrgPwd.Text.Trim();
-                if((passWord.Length > 4) | (User.Identity.IsAuthenticated))
+                if((passWord.Length > 1) | (User.Identity.IsAuthenticated))
                 {
                     // query to see if this kit and pwd exist... 
 
@@ -251,8 +252,8 @@ namespace RWInbound2.Public
 
                             if (decimal.TryParse(tbpH1.Text, out val1))
                                 US.Value1 = val1;
-                            if (decimal.TryParse(tbpH2.Text, out val2))
-                                US.Value2 = val2;
+                            //if (decimal.TryParse(tbpH2.Text, out val2))
+                            //    US.Value2 = val2;
                                 
                             US.SampleType = "P";
                             US.Path = "M"; 

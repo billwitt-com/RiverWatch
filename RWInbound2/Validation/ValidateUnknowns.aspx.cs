@@ -58,6 +58,21 @@ namespace RWInbound2.Validation
                 theDropDownList.Items.Clear();
                 theDropDownList.Items.Insert(0, new ListItem("Please select", ""));
                 theDropDownList.SelectedValue = "";
+                if (theDropDownList.ID == "ddlPath")
+                {
+                    theDropDownList.Items.Add(new ListItem("Mail", "M"));
+                    theDropDownList.Items.Add(new ListItem("Site Visit", "SV"));
+                }
+                // 
+                if (theDropDownList.ID == "ddlSampleType")
+                {
+                    theDropDownList.Items.Add(new ListItem("DA", "DA"));
+                    theDropDownList.Items.Add(new ListItem("DO", "DO"));
+                    theDropDownList.Items.Add(new ListItem("DH", "DH"));
+                    theDropDownList.Items.Add(new ListItem("A", "A"));
+                    theDropDownList.Items.Add(new ListItem("P", "P"));
+                    theDropDownList.Items.Add(new ListItem("H", "H"));
+                }
             }
         }
 
@@ -215,7 +230,8 @@ namespace RWInbound2.Validation
             string user = User.Identity.Name;
             e.Command.Parameters["@UserCreated"].Value = user;
             e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
-          //  e.Command.Parameters["@Valid"].Value = 1;
+            e.Command.Parameters["@Valid"].Value = 1;
+            e.Command.Parameters["@Validated"].Value = 1; 
         }
 
         // we don't need to do this anymore
@@ -337,6 +353,7 @@ namespace RWInbound2.Validation
             decimal pctRecovery = 0;
             decimal trueValue = 0;
             string UID = FormView1.UniqueID;
+            bool have2values = true; 
 
             tbValue1Name = UID + "$" + "Value1TextBox";
             tbValue2Name = UID + "$" + "Value2TextBox";
@@ -374,20 +391,28 @@ namespace RWInbound2.Validation
 
             if (!decimal.TryParse(tb2.Text, out Value2))
             {
-                return; // do nothing
+                have2values = false;
+                // return; // do nothing
             }
 
             if (!decimal.TryParse(TBTrueValue.Text, out trueValue))
             {
+                lblMsg.Text = "Please enter a True Value";
                 return; // do nothing
             }
+            lblMsg.Text = "";
             // here so we must have the 'right stuff' 
-
-            mean = (Value1 + Value2) / 2;
+            if (have2values)
+            {
+                mean = (Value1 + Value2) / 2;
+            }
+            else
+            {
+                mean = Value1;
+            }
             TBMean.Text = mean.ToString();
             pctRecovery = mean / trueValue * 100;
-            pctRecovery = decimal.Round(pctRecovery, 2); 
-            TBPctRecovery.Text = pctRecovery.ToString();
+            TBPctRecovery.Text = pctRecovery.ToString(); 
         }
 
         protected void btnCalc_Click(object sender, EventArgs e)

@@ -20,8 +20,7 @@
         <br />
         <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
    
-        <br />
-   
+        <br />   
     <br />
 
             <asp:FormView ID="FormView1" runat="server" AllowPaging="True" DefaultMode="Edit" PagerSettings-Position="TopAndBottom" DataKeyNames="UnknownSampleID" DataSourceID="SqlDataSource1" Width="442px">
@@ -60,10 +59,10 @@
                     Date Sent:
                     <asp:TextBox ID="DateSentTextBox" runat="server" Text='<%# Bind("DateSent") %>' />
                     <br />
-                    Value1:
+                    Value1/Vol Equip/DO 2:
                     <asp:TextBox ID="Value1TextBox" runat="server" Text='<%# Bind("Value1") %>' />
                     <br />
-                    Value2:
+                    True Value/RE Equip/DO 1:
                     <asp:TextBox ID="Value2TextBox" runat="server" Text='<%# Bind("Value2") %>' />
                     <br />
                     Mean Value:
@@ -74,7 +73,7 @@
                                 <asp:Button ID="btnCalc" runat="server" OnClick="btnCalc_Click" Text="Calculate" />
                             <br />
                     Pct Recovery:
-                    <asp:TextBox ID="PctRecoveryTextBox" runat="server" Text='<%# Bind("PctRecovery","{0.00}") %>' />
+                    <asp:TextBox ID="PctRecoveryTextBox" runat="server" Text='<%# Bind("PctRecovery") %>' />
                     <br />
                     Round:
                     <asp:TextBox ID="RoundTextBox" runat="server" Text='<%# Bind("Round") %>' />
@@ -123,11 +122,11 @@
 <%--                    &nbsp;<asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />
                     <br />--%>
 
-<%--                    Valid:
-                    <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' />
+<%--                   Valid:
+                    <asp:CheckBox ID="ValidCheckBox" Visible="false"  runat="server" Checked='<%# Bind("Valid") %>' />
                     <br />
-                    Validated:
-                    <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' />
+                     Validated:
+                    <asp:CheckBox ID="ValidatedCheckBox" Visible="false" runat="server" Checked='<%# Bind("Validated") %>' />
                     <br />--%>
 
                     <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
@@ -151,10 +150,10 @@
                     DateSent:
                     <asp:Label ID="DateSentLabel" runat="server" Text='<%# Bind("DateSent") %>' />
                     <br />
-                    Value1:
+                    Value1/Vol Equip/DO 2:
                     <asp:Label ID="Value1Label" runat="server" Text='<%# Bind("Value1") %>' />
                     <br />
-                    Value2:
+                    True Value/RE Equip/DO 1:
                     <asp:Label ID="Value2Label" runat="server" Text='<%# Bind("Value2") %>' />
                     <br />
                     MeanValue:
@@ -209,7 +208,10 @@
             </asp:FormView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" OnUpdating="SqlDataSource1_Updating" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
                
-                UpdateCommand="UPDATE [UnknownSample] SET [OrganizationID] = @OrganizationID, [SampleType] = @SampleType, [SampleNumber] = @SampleNumber, [DateSent] = @DateSent, [Value1] = @Value1, [Value2] = @Value2, [MeanValue] = @MeanValue, [TrueValue] = @TrueValue, [Round] = @Round, [Comment] = @Comment, [OldValidated] = @OldValidated, [Path] = @Path, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified, [BatchSampleNumber] = @BatchSampleNumber, [Valid] = @Valid, [Validated] = @Validated, [PctRecovery] = @PctRecovery WHERE [UnknownSampleID] = @UnknownSampleID" DeleteCommand="DELETE FROM [UnknownSample] WHERE [UnknownSampleID] = @UnknownSampleID" InsertCommand="INSERT INTO [UnknownSample] ([OrganizationID], [SampleType], [SampleNumber], [DateSent], [Value1], [Value2], [MeanValue], [TrueValue], [Round], [Comment], [OldValidated], [Path], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [BatchSampleNumber], [Valid], [Validated], [PctRecovery]) VALUES (@OrganizationID, @SampleType, @SampleNumber, @DateSent, @Value1, @Value2, @MeanValue, @TrueValue, @Round, @Comment, @OldValidated, @Path, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @BatchSampleNumber, @Valid, @Validated, @PctRecovery)" SelectCommand="SELECT * FROM [UnknownSample]">
+                UpdateCommand="UPDATE [UnknownSample] SET [OrganizationID] = @OrganizationID, [SampleType] = @SampleType, [SampleNumber] = @SampleNumber, [DateSent] = @DateSent, [Value1] = @Value1, [Value2] = @Value2, [MeanValue] = @MeanValue, [TrueValue] = @TrueValue, [Round] = @Round, [Comment] = @Comment, [OldValidated] = @OldValidated, [Path] = @Path, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified, [BatchSampleNumber] = @BatchSampleNumber, [Valid] = 1, [Validated] = 1, [PctRecovery] = @PctRecovery WHERE [UnknownSampleID] = @UnknownSampleID" 
+                
+                DeleteCommand="DELETE FROM [UnknownSample] WHERE [UnknownSampleID] = @UnknownSampleID" 
+                InsertCommand="INSERT INTO [UnknownSample] ([OrganizationID], [SampleType], [SampleNumber], [DateSent], [Value1], [Value2], [MeanValue], [TrueValue], [Round], [Comment], [OldValidated], [Path], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [BatchSampleNumber], [Valid], [Validated], [PctRecovery]) VALUES (@OrganizationID, @SampleType, @SampleNumber, @DateSent, @Value1, @Value2, @MeanValue, @TrueValue, @Round, @Comment, @OldValidated, @Path, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @BatchSampleNumber, @Valid, @Validated, @PctRecovery)" SelectCommand="SELECT * FROM [UnknownSample]">
                 <DeleteParameters>
                     <asp:Parameter Name="UnknownSampleID" Type="Int32" />
                 </DeleteParameters>

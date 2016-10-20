@@ -28,35 +28,40 @@ namespace RWInbound2.Validation
             RiverWatchEntities RWE = new RiverWatchEntities();
             int nutrientCount = 0;
             bool allowed = false;
+            string batch = ""; ;
 
             allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             if (!allowed)
                 Response.Redirect("~/index.aspx");
 
             //  where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
-
-            var C = from c in RWE.NutrientDatas
-                    where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false 
-                    select c;
-            if (C.Count() > 0)
+            if (Session["BATCH"] != null)
             {
-                nutrientCount = C.Count();
-            }
+                batch = (string)Session["BATCH"];
+                nutrientCount = 0;
 
-            if (nutrientCount > 0)
-            {
-                lblNumberLeft.Text = string.Format("There are {0} samples left to validate", nutrientCount);
-            }
-            else
-            {
-                lblNumberLeft.Text = "There are NO samples left to validate";
-            }
+                var C = from c in RWE.NutrientDatas
+                        where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.Batch == batch
+                        select c;
+                if (C.Count() > 0)
+                {
+                    nutrientCount = C.Count();
+                }
 
+                if (nutrientCount > 0)
+                {
+                    lblNumberLeft.Text = string.Format("There are {0} samples left to validate", nutrientCount);
+                }
+                else
+                {
+                    lblNumberLeft.Text = "There are NO samples left to validate";
+                }
+
+            }
             if (!IsPostBack)
             {
                 Session["BATCH_CMDSTR"] = null; 
-            }
-               
+            }               
         }
         // this is the place to do metrics and change colors, etc
         // let's use green for below limits and pink for above
@@ -229,34 +234,48 @@ namespace RWInbound2.Validation
             NW.CreatedBy = namm;  
             NW.NutrientBarCode = barcode; // we will overwrite if there is already a bar code. Should be the same if there is one. 
             NW.SampleNumber = sampleNumber; // if existing record, this will be the same... 
-            if (!existingRecord) // no existing record, so we are first
+            try
             {
-                RWE.NEWexpWaters.Add(NW);
-            }
-            RWE.SaveChanges(); 
-
-            // update all rows that have this barcode in lachet table
-            var L = from l in RWE.Lachats
-                    where l.SampleType.ToUpper() == barcode.ToUpper()
-                    select l;
-            if(L != null)   // should never happen
-            {
-                foreach(Lachat l in L)
+                if (!existingRecord) // no existing record, so we are first
                 {
-                    l.Validated = true;
-                    l.Valid = true; 
+                    RWE.NEWexpWaters.Add(NW);
                 }
-                RWE.SaveChanges(); 
-            }
-
-            // I think this must happen before the sqldatasource update
-            var ND = (from nd in RWE.NutrientDatas
-                     where nd.BARCODE.ToUpper() == barcode.ToUpper()
-                     select nd).FirstOrDefault();  
-            if(ND != null)
-            {       
-                ND.Validated = true;
                 RWE.SaveChanges();
+
+                // update all rows that have this barcode in lachet table
+                var L = from l in RWE.Lachats
+                        where l.SampleType.ToUpper() == barcode.ToUpper()
+                        select l;
+                if (L != null)   // should never happen
+                {
+                    foreach (Lachat l in L)
+                    {
+                        l.Validated = true;
+                        l.Valid = true;
+                    }
+                    RWE.SaveChanges();
+                }
+
+                // I think this must happen before the sqldatasource update
+                var ND = (from nd in RWE.NutrientDatas
+                          where nd.BARCODE.ToUpper() == barcode.ToUpper()
+                          select nd).FirstOrDefault();
+                if (ND != null)
+                {
+                    ND.Validated = true;
+                    RWE.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
         }
 

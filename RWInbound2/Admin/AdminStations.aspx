@@ -122,7 +122,7 @@
 					<tr>
 						<td style="WIDTH: 14px"></td>
 						<td style="WIDTH: 111px">Township:</td>
-						<td><asp:dropdownlist id="ddlTownship" runat="server" Width="152px"></asp:dropdownlist></td>
+						<td><asp:dropdownlist id="ddlTownship" OnDataBinding="ddl_DataBinding" runat="server" Width="152px"></asp:dropdownlist></td>
 					</tr>
 					<tr>
 						<td style="WIDTH: 14px; HEIGHT: 19px"></td>

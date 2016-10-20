@@ -15,7 +15,13 @@ namespace RWInbound2.Validation
                 RiverWatchEntities RWE = new RiverWatchEntities();
                 NutrientData NData = null;
                 bool existingRecord = false;
+                int recordsProcessed = 0;
                 // first process the blanks and dups and tests etc. as we don't need them for validation
+                //string name = "profile";
+                //string msg = string.Format("Starting Lachat Query Start process at {0}", DateTime.Now);
+                //LogError LE = new LogError();
+                //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
+
                 var L = from l in RWE.Lachats
                         where l.Valid == true & l.CODE != "05" & l.CODE != "25" & l.CODE != "35" & l.BlkDup == false
                         select l;
@@ -29,23 +35,32 @@ namespace RWInbound2.Validation
                         ll.BlkDup = true;
                     }
                 }
-                RWE.SaveChanges();  
+                RWE.SaveChanges();
+                //msg = string.Format("Lachats not marked valid marked valid at {0} for {1} records", DateTime.Now, L.Count());
+                //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
 
                 // now get list of barcodes to process
+
+
+
 
                 List<string> BC = (from bc in RWE.Lachats
                                    where bc.SampleType.ToUpper().Contains("RW") == true & bc.CODE == "05" | bc.CODE == "25" | bc.CODE == "35" & bc.Validated == false & bc.Valid == true
                                    select bc.SampleType).Distinct().ToList<string>();
                 BC.Sort();
                 BC.Reverse(); // put newest elements first
-
+                recordsProcessed = BC.Count;
+                //msg = string.Format("Writing {1} Lachats not marked Valid to nutrient Data at {0} ", DateTime.Now, recordsProcessed);
+                //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
                 if (BC != null)
                 {
+                    recordsProcessed = 0; 
                     int bcCount = BC.Count;
                     foreach (string bcode in BC)
                     {
                         // get raw data from lachat table for this bar code, could be no values or could be six or more
-  
+                        //msg = string.Format("Start {1} Lachats not marked Valid to nutrient Data at {0} ", DateTime.Now, recordsProcessed);
+                        //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
                         var D = from d in RWE.Lachats
                                 where d.SampleType.ToUpper() == bcode.ToUpper()
                                 select d;
@@ -58,6 +73,7 @@ namespace RWInbound2.Validation
                         // see if this bar code exists in the nutrient data table, if not, insert it
 
                         // I don't think we need to test for valid or validated. If the BC is there, modify it. If not, make a new one
+                        // this is not correct
                         //NutrientData TEST = (NutrientData)(from nd in RWE.NutrientDatas
                         //                                   where nd.BARCODE == bcode & nd.Valid == true & nd.Validated == false
                         //                                   select nd).FirstOrDefault();
@@ -79,7 +95,7 @@ namespace RWInbound2.Validation
                         }
                         if (D != null)
                         {
-                            foreach (var item in D)
+                            foreach (var item in D) // there are multiple values for a barcode 
                             {
                                 NData.Ammonia_CH = false;   // preload so there are no null values for control display
                                 NData.Sulfate_CH = false;
@@ -165,8 +181,11 @@ namespace RWInbound2.Validation
                             NData.SampleNumber = SN; 
 
                         NData.BARCODE = bcode;
-                        NData.Valid = true;
-                        NData.Validated = false; 
+                        if (!existingRecord)    // only update these if this is a new record
+                        {
+                            NData.Valid = true;
+                            NData.Validated = false;
+                        }
                         NData.CreatedBy = userName;
                         NData.DateCreated = DateTime.Now;
                         if (!existingRecord)
@@ -176,6 +195,9 @@ namespace RWInbound2.Validation
                         }
 
                         RWE.SaveChanges();
+                        recordsProcessed++; 
+                        //msg = string.Format("Finished writing {1} Lachat to nutrient Data at {0} ", DateTime.Now, recordsProcessed);
+                        //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
 
                     }   // end of foreach                    
                 }

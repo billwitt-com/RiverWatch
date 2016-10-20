@@ -68,9 +68,24 @@ namespace RWInbound2.Validation
 
             try
             {
+                //string name = "";
+                //if (User.Identity.Name.Length < 3)
+                //    name = "Not logged in";
+                //else
+                //    name = User.Identity.Name;
+                //string msg = string.Format("Starting Nutrients Udate process at {0}",DateTime.Now);
+                //LogError LE = new LogError();
+                //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath,"" , name, "Profiling");
+
                 UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
+
+                // msg = string.Format("Starting Nutrients Ending process at {0}", DateTime.Now);
+                //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
                 // just added & c.Validated == false to query below
                 RiverWatchEntities RWE = new RiverWatchEntities();
+
+                //msg = string.Format("Starting Validation nutrient counts process at {0}", DateTime.Now);
+                //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
                 var C = from c in RWE.NutrientDatas
                         where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false
                         select c;
@@ -101,6 +116,14 @@ namespace RWInbound2.Validation
 
             try
             {
+                //string name = "";
+                //if (User.Identity.Name.Length < 3)
+                //    name = "Not logged in";
+                //else
+                //    name = User.Identity.Name;
+                //string msg = string.Format("Starting Validation sql validation counts process at {0}", DateTime.Now);
+                //LogError LE = new LogError();
+                //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
                 using (SqlDataSource S = new SqlDataSource()) 
                 {
                     DataSourceSelectArguments args = new DataSourceSelectArguments();
@@ -122,6 +145,7 @@ namespace RWInbound2.Validation
                     S.SelectCommand = "SELECT * FROM [LachatBCnotEntered]";
                     result = (DataView)S.Select(args);
                     lachatNotRecorded = result.Table.Rows.Count;
+
 
                     // run view to see if there are any barcodes in lachat that are not in nutrientbarcode table, ie they require attention. 
                      
@@ -227,6 +251,9 @@ namespace RWInbound2.Validation
                             FieldCount = (int)cmd.ExecuteScalar();
                         }
                     }
+
+                    //msg = string.Format("Ending Validation sql validation counts process at {0}", DateTime.Now);
+                    //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
 
                     if(FieldNotRecorded > 0)
                     {

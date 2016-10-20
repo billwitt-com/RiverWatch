@@ -85,6 +85,12 @@ namespace RWInbound2.Admin
             Response.Redirect("EditUnknowns.aspx");
         }
 
+        // miss labled should be admin users
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminUsers.aspx"); 
+        }
+
  
     }
 }

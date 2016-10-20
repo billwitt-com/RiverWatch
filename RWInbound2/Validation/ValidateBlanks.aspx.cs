@@ -370,6 +370,9 @@ namespace RWInbound2.Validation
 
 
             // get the dictionaries of limits from session state - these do not change during session
+            if (Session["HighLimit"] == null)
+                Response.Redirect("timedout.axpx"); 
+
             Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>) Session["HighLimit"];  //  Session["HighLimit"] = HighLimit;  
             Dictionary<string, decimal> MeasurementLimits = (Dictionary<string, decimal>)Session["MEASUREMENTLIMITS"];
 
@@ -393,7 +396,8 @@ namespace RWInbound2.Validation
             if (CTB == null)
             {
                 // wtf
-                string wtf = uniqueID; 
+                string wtf = uniqueID;
+                Response.Redirect("timedout.axpx"); 
             }
 
             barCode = CTB.Text;
@@ -487,23 +491,23 @@ namespace RWInbound2.Validation
 
                     if (Total > (MeasureLimit))
                     {
-                        tbT.ForeColor = Color.Red;
-                        tbT.ToolTip = string.Format("Total is greater than limit of {0}", MeasureLimit); 
+                        tbT.ForeColor = Color.Black;
+                        tbT.ToolTip += string.Format("Total is greater than limit of {0}", MeasureLimit); // this is good
                     }
                     else
                     {
-                        tbT.ForeColor = Color.Black;
-                        tbT.ToolTip = string.Format("Total is under limit of {0}", MeasureLimit); 
+                        tbT.ForeColor = Color.Red;
+                        tbT.ToolTip += string.Format("Total is under limit of {0}", MeasureLimit); 
                     }
                     if (Disolved > (MeasureLimit))
                     {
-                        tbD.ForeColor = Color.Red;
-                        tbD.ToolTip = string.Format("Dissolved is greater than limit of {0}", MeasureLimit); 
+                        tbD.ForeColor = Color.Black;
+                        tbD.ToolTip += string.Format("Dissolved is greater than limit of {0}", MeasureLimit); 
                     }
                     else
                     {
-                        tbD.ForeColor = Color.Black;
-                        tbD.ToolTip = string.Format("Dissolved is under limit of {0}", MeasureLimit); 
+                        tbD.ForeColor = Color.Red; 
+                        tbD.ToolTip += string.Format("Dissolved is under limit of {0}", MeasureLimit); 
                     }
                 }
             }

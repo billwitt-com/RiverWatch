@@ -229,6 +229,21 @@ namespace RWInbound2.Admin
                 theDropDownList.Items.Clear();
                 theDropDownList.Items.Insert(0, new ListItem("Please select", ""));
                 theDropDownList.SelectedValue = "";
+                if (theDropDownList.ID == "ddlPath")
+                {
+                    theDropDownList.Items.Add(new ListItem("Mail", "M"));
+                    theDropDownList.Items.Add(new ListItem("Site Visit", "SV"));                
+                }
+                // 
+                if (theDropDownList.ID == "ddlSampleType")
+                {
+                    theDropDownList.Items.Add(new ListItem("DA", "DA"));
+                    theDropDownList.Items.Add(new ListItem("DO", "DO"));
+                    theDropDownList.Items.Add(new ListItem("DH", "DH"));
+                    theDropDownList.Items.Add(new ListItem("A", "A"));
+                    theDropDownList.Items.Add(new ListItem("P", "P"));
+                    theDropDownList.Items.Add(new ListItem("H", "H"));
+                }
             }
         }
 
@@ -253,6 +268,7 @@ namespace RWInbound2.Admin
             decimal pctRecovery = 0;
             decimal trueValue = 0;
             string UID = FormView1.UniqueID;
+            bool have2values = true; 
 
             tbValue1Name = UID + "$" + "Value1TextBox";
             tbValue2Name = UID + "$" + "Value2TextBox";
@@ -267,7 +283,7 @@ namespace RWInbound2.Admin
             TBPctRecovery = this.FindControl(UID + "$" + "PctRecoveryTextBox") as TextBox;
             TBTrueValue = this.FindControl(UID + "$" + "TrueValueTextBox") as TextBox;
 
-            if (tb1 == null)
+            if (tb1 == null)    // make sure we have the text boxes
             {
                 return;
             }
@@ -282,7 +298,7 @@ namespace RWInbound2.Admin
             if (TBTrueValue == null)
                 return;
 
-            // note: there must be two values.
+            // note: there must be two values. ?????
             if (!decimal.TryParse(tb1.Text, out Value1))
             {
                 return; // do nothing
@@ -290,16 +306,25 @@ namespace RWInbound2.Admin
 
             if (!decimal.TryParse(tb2.Text, out Value2))
             {
-                return; // do nothing
+                have2values = false; 
+               // return; // do nothing
             }
 
             if (!decimal.TryParse(TBTrueValue.Text, out trueValue))
             {
+                lblMsg.Text = "Please enter a True Value";
                 return; // do nothing
             }
+            lblMsg.Text = "";
             // here so we must have the 'right stuff' 
-
-            mean = (Value1 + Value2) / 2;
+            if (have2values)
+            {
+                mean = (Value1 + Value2) / 2;
+            }
+            else
+            {
+                mean = Value1; 
+            }
             TBMean.Text = mean.ToString();
             pctRecovery = mean / trueValue * 100;
             TBPctRecovery.Text = pctRecovery.ToString(); 

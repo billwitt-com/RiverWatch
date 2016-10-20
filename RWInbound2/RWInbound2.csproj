@@ -196,7 +196,7 @@
     <Content Include="Edit\EditBioResultsType.aspx" />
     <Content Include="Edit\EditCommunities.aspx" />
     <Content Include="Edit\EditCounty.aspx" />
-    <Content Include="Edit\EditLimits.aspx" />
+    <Content Include="Admin\EditLimits.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
     <Content Include="Edit\EditQUADI.aspx" />
     <Content Include="Edit\EditQuarterSection.aspx" />
@@ -280,6 +280,7 @@
     <None Include="Properties\PublishProfiles\Alex_Azure.pubxml" />
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
     <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ColoradoRiverWatch.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\Samples.aspx" />
@@ -866,11 +867,11 @@
     <Compile Include="Edit\EditCounty.aspx.designer.cs">
       <DependentUpon>EditCounty.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Edit\EditLimits.aspx.cs">
+    <Compile Include="Admin\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Edit\EditLimits.aspx.designer.cs">
+    <Compile Include="Admin\EditLimits.aspx.designer.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditOrgFormView.aspx.cs">

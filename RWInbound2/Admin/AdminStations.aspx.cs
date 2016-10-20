@@ -34,10 +34,20 @@ namespace RWInbound2.Admin
                 ddlStationStatus.DataBind(); 
 
               //  ddlStationType
-                List<string> l2 = (from q in NRWE.tlkStationTypes
-                                   select q.Description).ToList<string>();
-                ddlStationType.DataSource = l2;
-                ddlStationType.DataBind(); 
+                var l2 = (from q in NRWE.tlkStationTypes
+                          select new
+                          {
+                              q.Description, 
+                              q.Code
+                          });
+                foreach (var v in l2)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlStationType.Items.Add(LI);
+                }
+
+                //ddlStationType.DataSource = l2;
+                //ddlStationType.DataBind(); 
 
                 // ddlWaterCode
                 List<string> wcList = new List<string>();
@@ -120,18 +130,36 @@ namespace RWInbound2.Admin
 
                 // ddlRWWaterShed
 
-                List<string> l10 = (from q in NRWE.tlkRiverWatchWaterSheds
-                                    orderby q.Code
-                                    select q.Code).ToList<string>();
-                ddlRWWaterShed.DataSource = l10;
-                ddlRWWaterShed.DataBind(); 
+                var l10 = (from q in NRWE.tlkRiverWatchWaterSheds
+                           orderby q.Code
+                           select new 
+                           { q.Code,
+                           q.Description});
+                foreach (var v in l10)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlRWWaterShed.Items.Add(LI);
+                }
+
+
+                //ddlRWWaterShed.DataSource = l10;
+                //ddlRWWaterShed.DataBind(); 
 
                 //ddlWQCCWaterShed
-                List<string> l11 = (from q in NRWE.tlkWQCCWaterSheds
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
-                ddlWQCCWaterShed.DataSource = l11;
-                ddlWQCCWaterShed.DataBind();
+                var l11 = (from q in NRWE.tlkWQCCWaterSheds
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+                foreach(var v in l11)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlWQCCWaterShed.Items.Add(LI); 
+                }
+                //ddlWQCCWaterShed.DataSource = l11;
+                //ddlWQCCWaterShed.DataBind();
 
                 //ddlState    
                 List<string> l12 = (from q in NRWE.tlkStates
@@ -150,11 +178,22 @@ namespace RWInbound2.Admin
                 ddlHydroUnit.DataBind(); 
 
                 //ddlEcoRegion
-                List<string> l14 = (from q in NRWE.tlkEcoRegions
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
-                ddlEcoRegion.DataSource = l14;
-                ddlEcoRegion.DataBind(); 
+                var l14 = (from q in NRWE.tlkEcoRegions
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+
+                foreach (var v in l14)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlEcoRegion.Items.Add(LI);
+                }
+
+                //ddlEcoRegion.DataSource = l14;
+                //ddlEcoRegion.DataBind(); 
 
                 // ddlSection
                 List<string> l15 = (from q in NRWE.tlkSections
@@ -398,11 +437,15 @@ namespace RWInbound2.Admin
                 txtStationName.Text = SN.StationName;
                 txtStationNumber.Text = SN.StationNumber.ToString();
                 txtriver.Text = SN.River ?? "";
-                ddlRiver.SelectedValue = SN.River; 
+                ddlRiver.SelectedValue = SN.River;
                 ddlCounty.SelectedValue = SN.County ?? "";
 
                 ddlWaterCode.Items.Insert(0,SN.WaterCode);
-                ddlEcoRegion.SelectedValue = SN.EcoRegion ?? "";
+                if (SN.EcoRegion.Length > 1)
+                    ddlEcoRegion.SelectedItem.Value = SN.EcoRegion; // ?? "";
+                else
+                    ddlEcoRegion.SelectedIndex = 0; 
+
                 ddlGrid.SelectedValue = SN.Grid;
                 ddlHydroUnit.SelectedValue = SN.HydroUnit;
                 ddlQUADI.SelectedValue = SN.QUADI;
@@ -410,14 +453,23 @@ namespace RWInbound2.Admin
                 ddlRange.SelectedValue = SN.Range;
                 ddlRegion.SelectedValue = SN.Region;
                 ddlRiver.SelectedValue = SN.River;
-                ddlRWWaterShed.SelectedValue = SN.RWWaterShed;
+
+                if (SN.RWWaterShed.Length > 1)
+                    ddlRWWaterShed.SelectedItem.Value = SN.RWWaterShed;
+                else
+                    ddlRWWaterShed.SelectedIndex = 0; 
+
                 ddlSection.SelectedValue = SN.Section.ToString();
                 ddlState.SelectedValue = SN.State; 
                 ddlStationQUAD.SelectedValue = SN.StationQUAD;
                 ddlStationStatus.SelectedValue = SN.StationStatus;
-                ddlStationType.SelectedValue = SN.StationType;
-                ddlTownship.SelectedValue = SN.Township;
 
+                if (SN.StationType.Length > 2)
+                    ddlStationType.SelectedItem.Value = SN.StationType;
+                else
+                    ddlStationType.SelectedIndex = 0;
+
+                ddlTownship.SelectedValue = SN.Township;
                 
             //    ddlWaterBodyID.SelectedValue = SN.WaterBodyID;
                 listCount = ddlWaterBodyID.Items.Count;
@@ -445,17 +497,27 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
+                string msg = ex.Message;
+                // do special case here, where DDL is unhappy
+                if(msg.Contains("SelectedValue"))   // we have a ddl unhappy here
+                {
+                    int second = 0;
+                    second = msg.IndexOf("'", 1);
+
+                    string ddlName = msg.Substring(1, second -1);
+                    DropDownList DL = this.FindControl(ddlName) as DropDownList;
+                    DL.SelectedIndex = 0;
+                    return;
+                }
                 string nam = "";
                 if (User.Identity.Name.Length < 3)
                     nam = "Not logged in";
                 else
                     nam = User.Identity.Name;
-                string msg = ex.Message;
+              //  string msg = ex.Message;
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Admin Stations");
             }
-
-
         }
 
         protected void cmdUpdate_Click(object sender, EventArgs e)
@@ -504,7 +566,7 @@ namespace RWInbound2.Admin
             }
 
             tmpString = txtStationName.Text;                 //tbStationName.Text;
-            if (tmpString.Length < 4)
+            if (tmpString.Length < 2)   // changed this to 2 since there are some very short station names
             {
                 lblStatus.Text = "Please enter a valid StationName";
                 lblStatus.Visible = true;
@@ -550,7 +612,8 @@ namespace RWInbound2.Admin
                 STN.StationName = stationName;  //txtStationName.Text;
                 STN.River = txtriver.Text;
                 STN.County = ddlCounty.SelectedValue;
-                STN.EcoRegion = ddlEcoRegion.SelectedValue;
+
+                STN.EcoRegion = ddlEcoRegion.SelectedItem.Value;                 //.SelectedValue;
                 STN.Grid = ddlGrid.SelectedValue;
                 STN.HydroUnit = ddlHydroUnit.SelectedValue; 
                 STN.QUADI = ddlQUADI.SelectedValue ;
@@ -558,9 +621,8 @@ namespace RWInbound2.Admin
                 STN.Range = ddlRange.SelectedValue ;
                 STN.Region = ddlRegion.SelectedValue ;
                 STN.River = ddlRiver.SelectedValue;
-                
-                
-                STN.RWWaterShed = ddlRWWaterShed.SelectedValue ;
+
+                STN.RWWaterShed = ddlRWWaterShed.SelectedItem.Value;                //.SelectedValue ;
 
                 if (int.TryParse(ddlSection.SelectedValue, out tempInt))    // XXXX should change this in the data base to string
                     STN.Section = tempInt;
@@ -568,7 +630,8 @@ namespace RWInbound2.Admin
                 STN.State = ddlState.SelectedValue.Trim().Substring(0,2);
                 STN.StationQUAD = ddlStationQUAD.SelectedValue;
                 STN.StationStatus = ddlStationStatus.SelectedValue;
-                STN.StationType = ddlStationType.SelectedValue;
+
+                STN.StationType = ddlStationType.SelectedItem.Value; // ddlStationType.SelectedValue;
                 STN.Township = ddlTownship.SelectedValue;
 
          //       wbid.Add(x.WBID + " : " + x.WATERSHED + " - " + x.SUBBASIN + " - " + wrkStr); 
@@ -594,7 +657,7 @@ namespace RWInbound2.Admin
                     STN.WaterCode = tmpString.Trim(); // ddlWaterCode.SelectedValue;
                 }
 
-                STN.WQCCWaterShed = ddlWQCCWaterShed.SelectedValue;
+                STN.WQCCWaterShed = ddlWQCCWaterShed.SelectedItem.Value;                //.SelectedValue;
                 STN.WaterShedRegion = ddlWSR.SelectedValue;
                 STN.StateEngineering = cbStateEngineering.Checked;
                 STN.USGS = cbUSGS.Checked;
@@ -623,7 +686,8 @@ namespace RWInbound2.Admin
                     NRWE.SaveChanges();
                 }
 
-                lblStatus.Text = string.Format("Station {0} saved", stationName);                
+                lblStatus.Text = string.Format("Station {0} saved", stationName);
+                lblStatus.Visible = true; 
             }
 
             catch (Exception ex)
@@ -639,6 +703,27 @@ namespace RWInbound2.Admin
                 lblStatus.Text = string.Format("Data Not Saved");
                 lblStatus.Visible = true;
                 return;
+            }
+        }
+
+        private string selectedValue; 
+        protected void ddl_DataBinding(object sender, EventArgs e)
+        {
+
+            DropDownList theDropDownList = (DropDownList)sender;
+            theDropDownList.DataBinding -= new EventHandler(ddl_DataBinding);
+            theDropDownList.AppendDataBoundItems = true;
+
+            selectedValue = "";
+            try
+            {
+                theDropDownList.DataBind();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+              //  theDropDownList.Items.Clear();
+                theDropDownList.Items.Insert(0, new ListItem("Please select:", ""));
+                theDropDownList.SelectedValue = "";               
             }
         }
 

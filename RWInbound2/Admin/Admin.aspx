@@ -71,7 +71,7 @@
         <asp:Button ID="btnEditUnknowns" runat="server" CssClass="adminButton"  Text="Edit Unknowns" Width="176px" OnClick="Button7_Click" />
                 </td>
                 <td>
-        <asp:Button ID="Button3" runat="server" CssClass="adminButton"  Enabled="False" Text="Edit Raw Data"  Width="176px" />
+                     <asp:Button ID="btnNutrientLimits" runat="server" Text="Nutrient Limits" CssClass="adminButton" Width="176px" OnClick="btnNutrientLimits_Click" />
                 </td>
             </tr>
             <tr>
@@ -86,7 +86,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-                    <asp:Button ID="Button1" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Users"  Width="176px" />
+                    <asp:Button ID="Button1" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Users"  Width="176px" OnClick="Button1_Click" />
                 </td>
                 <td>
                     <asp:Button ID="Button2" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" />
@@ -107,7 +107,7 @@
                     <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />
                 </td>
                  <td>
-                     <asp:Button ID="btnNutrientLimits" runat="server" Text="Nutrient Limits" CssClass="adminButton" Width="176px" OnClick="btnNutrientLimits_Click" />
+                    <asp:Button ID="Button5" runat="server" Text="Add InboundICP" CssClass="adminButton" Width="176px" OnClick="btnAddInboundICP_Click" />
                 </td>
             </tr>
             <tr>
@@ -116,8 +116,7 @@
                     <asp:Button ID="btnExpWater" runat="server" Text="Edit ExpWater" CssClass="adminButton" Width="176px" OnClick="btnExpWaters_Click" />
                 </td>
                 <td>
-                    <asp:Button ID="Button5" runat="server" Text="Add InboundICP" CssClass="adminButton" Width="176px" OnClick="btnAddInboundICP_Click" />
-                </td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Label"></asp:Label>
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Edit Unknowns"></asp:Label>
     <br />
     <br />    <asp:Label ID="Label2" runat="server" Text="Select Organization: "></asp:Label>
     <asp:TextBox ID="tbOrgName" runat="server" Height="19px" Width="256px"></asp:TextBox>
@@ -72,10 +72,10 @@
             DateSent:
             <asp:TextBox ID="DateSentTextBox" runat="server" Text='<%# Bind("DateSent") %>' />
             <br />
-            Value1:
+            Value1/Vol Equip/DO 2:
             <asp:TextBox ID="Value1TextBox" runat="server" Text='<%# Bind("Value1") %>' />
             <br />
-            Value2:
+            True Value/RE Equip/DO 1:
             <asp:TextBox ID="Value2TextBox" runat="server" Text='<%# Bind("Value2") %>' />
             <br />
             TrueValue:
@@ -86,7 +86,7 @@
             <asp:TextBox ID="MeanValueTextBox" runat="server" Text='<%# Bind("MeanValue") %>' />
             <br />
             PctRecovery:
-            <asp:TextBox ID="PctRecoveryTextBox" runat="server" Text='<%# Bind("PctRecovery","{0:0.00}") %>' />
+            <asp:TextBox ID="PctRecoveryTextBox" runat="server" Text='<%# Bind("PctRecovery") %>' />
             <br />
             Round:
             <asp:TextBox ID="RoundTextBox" runat="server" Text='<%# Bind("Round") %>' />
@@ -144,10 +144,10 @@
             <asp:TextBox ID="DateSentTextBox" runat="server" Text='<%# Bind("DateSent") %>' />
             <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server"   TargetControlID="DateSentTextBox" />
             <br />
-            Value1:
+            Value1/Vol Equip/DO 2:
             <asp:TextBox ID="Value1TextBox" runat="server" Text='<%# Bind("Value1") %>' />
             <br />
-            Value2:
+            True Value/RE Equip/DO 1:
             <asp:TextBox ID="Value2TextBox" runat="server" Text='<%# Bind("Value2") %>' />
             <br />
 
@@ -159,7 +159,7 @@
             <asp:TextBox ID="MeanValueTextBox" runat="server" Text='<%# Bind("MeanValue") %>' />
             <br />
             PctRecovery:
-            <asp:TextBox ID="PctRecoveryTextBox" runat="server" Text='<%# Bind("PctRecovery","{0:0.00}") %>' />
+            <asp:TextBox ID="PctRecoveryTextBox" runat="server" Text='<%# Bind("PctRecovery") %>' />
             <br />
             Round:
             <asp:TextBox ID="RoundTextBox" runat="server" Text='<%# Bind("Round") %>' />
@@ -225,10 +225,10 @@
             DateSent:
             <asp:Label ID="DateSentLabel" runat="server" Text='<%# Bind("DateSent") %>' />
             <br />
-            Value1:
+            Value1/Vol Equip/DO 2:
             <asp:Label ID="Value1Label" runat="server" Text='<%# Bind("Value1") %>' />
             <br />
-            Value2:
+            True Value/RE Equip/DO 1:
             <asp:Label ID="Value2Label" runat="server" Text='<%# Bind("Value2") %>' />
             <br />
             MeanValue:
@@ -238,7 +238,7 @@
             <asp:Label ID="TrueValueLabel" runat="server" Text='<%# Bind("TrueValue") %>' />
             <br />
             PctRecovery:
-            <asp:Label ID="PctRecoveryLabel" runat="server" Text='<%# Bind("PctRecovery") %>' />
+            <asp:Label ID="PctRecoveryLabel" runat="server" Text = '<%# Bind("TrueValue") %>' />
             <br />
             Round:
             <asp:Label ID="RoundLabel" runat="server" Text='<%# Bind("Round") %>' />
