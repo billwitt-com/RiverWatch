@@ -18,54 +18,93 @@ namespace RWInbound2.Validation
     {
         Dictionary<string, decimal> HighLimit = new Dictionary<string, decimal>(); 
         Dictionary<string, decimal> LowLimit = new Dictionary<string, decimal>(); 
-        RiverWatchEntities NRWDE = new RiverWatchEntities();
+ //       RiverWatchEntities NRWDE = new RiverWatchEntities();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // first, find all inbound lachat data that is not validated. 
             // mark all rows that have CODEs not in 05,25,35 as blkdup and validated
-            // then get all barcodes that have sample types (barcodes) that start with 'RW' and not validated and valid 
-            RiverWatchEntities RWE = new RiverWatchEntities();
-            int nutrientCount = 0;
+            // then get all barcodes that have sample types (barcodes) that start with 'RW' and not validated and valid
             bool allowed = false;
-
             allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             if (!allowed)
                 Response.Redirect("~/index.aspx");
 
-            //  where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
+            updateCounts();
 
-            var C = from c in RWE.NutrientDatas
-                    where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false 
-                    select c;
-            if (C.Count() > 0)
-            {
-                nutrientCount = C.Count();
-            }
-
-            if (nutrientCount > 0)
-            {
-                lblNumberLeft.Text = string.Format("There are {0} samples left to validate", nutrientCount);
-            }
-            else
-            {
-                lblNumberLeft.Text = "There are NO samples left to validate";
-            }
-
+            // create basic query, can be changed by selecting a batch.. 
             if (!IsPostBack)
             {
-                Session["BATCH_CMDSTR"] = null; 
-            }
-               
+                string cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and samplenumber is not null and validated = 0 and typecode LIKE '05' ");
+                SqlDataSource1.SelectCommand = cmdStr;
+                Session["CMDSTR"] = cmdStr; 
+                FormView1.DataBind();
+            }               
         }
         // this is the place to do metrics and change colors, etc
         // let's use green for below limits and pink for above
+        protected void updateCounts()
+        {
+            string batch = "";
+            int nutrientCount = 0;
+            RiverWatchEntities RWE = new RiverWatchEntities();
+             
+            if (Session["BATCH"] != null)
+            {
+                batch = (string)Session["BATCH"];
+                nutrientCount = 0;
+
+                var C = from c in RWE.NutrientDatas
+                        where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.Batch == batch & c.SampleNumber != null
+                        select c;
+                if (C.Count() > 0)
+                {
+                    nutrientCount = C.Count();
+                }
+
+                if (nutrientCount > 0)
+                {
+                    lblNumberLeft.Text = string.Format("For Batch {1} There are {0} samples left to validate", nutrientCount, batch);
+                }
+                else
+                {
+                    lblNumberLeft.Text = string.Format("For Batch {0} There are NO samples left to validate", batch);
+                }
+
+            }
+            else // change message if no batch selected
+            {
+                var C = from c in RWE.NutrientDatas
+                        where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
+                        select c;
+                if (C.Count() > 0)
+                {
+                    nutrientCount = C.Count();
+                }
+
+                if (nutrientCount > 0)
+                {
+                    lblNumberLeft.Text = string.Format("For All Batchs There are {0} samples left to validate", nutrientCount);
+                }
+                else
+                {
+                    lblNumberLeft.Text = string.Format("For All Batchs There are NO samples left to validate");
+                }
+                // now, for no reason I can figure out, we need to set the command string for sql command, Why this does not happen automatic I am not sure...
+
+            //    string cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' ");
+
+                //SqlDataSource1.SelectCommand = cmdStr;
+                //FormView1.DataBind();
+            }
+        }
         protected void FormView1_DataBound(object sender, EventArgs e)
         {
             updateControls(); // run validation on these values 
         }
 
         // can get text box here, so get all values 
+        // this is the validate button !!
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
             // TotalPhosTextBox
@@ -100,7 +139,6 @@ namespace RWInbound2.Validation
 
             tbName = uniqueID + "$" + "SampleNumberTextBox";
             TB = FormView1.Controls[0].FindControl("SampleNumberTextBox") as TextBox;
-         //   TB = FormView1.Controls[0].FindControl(tbName) as TextBox;
             if(TB != null)
             {
                 sampleNumber = TB.Text.Trim().ToUpper(); 
@@ -229,34 +267,56 @@ namespace RWInbound2.Validation
             NW.CreatedBy = namm;  
             NW.NutrientBarCode = barcode; // we will overwrite if there is already a bar code. Should be the same if there is one. 
             NW.SampleNumber = sampleNumber; // if existing record, this will be the same... 
-            if (!existingRecord) // no existing record, so we are first
+            try
             {
-                RWE.NEWexpWaters.Add(NW);
-            }
-            RWE.SaveChanges(); 
-
-            // update all rows that have this barcode in lachet table
-            var L = from l in RWE.Lachats
-                    where l.SampleType.ToUpper() == barcode.ToUpper()
-                    select l;
-            if(L != null)   // should never happen
-            {
-                foreach(Lachat l in L)
+                if (!existingRecord) // no existing record, so we are first
                 {
-                    l.Validated = true;
-                    l.Valid = true; 
+                    RWE.NEWexpWaters.Add(NW);
                 }
-                RWE.SaveChanges(); 
-            }
-
-            // I think this must happen before the sqldatasource update
-            var ND = (from nd in RWE.NutrientDatas
-                     where nd.BARCODE.ToUpper() == barcode.ToUpper()
-                     select nd).FirstOrDefault();  
-            if(ND != null)
-            {       
-                ND.Validated = true;
                 RWE.SaveChanges();
+
+                // update all rows that have this barcode in lachet table
+                var L = from l in RWE.Lachats
+                        where l.SampleType.ToUpper() == barcode.ToUpper()
+                        select l;
+                if (L != null)   
+                {
+                    foreach (Lachat l in L)
+                    {
+                        l.Validated = true;
+                        l.Valid = true;
+                    }
+                    RWE.SaveChanges();
+                }
+
+                // I think this must happen before the sqldatasource update
+                // JUST COMMENTED OUT THE EXISTING UPDATE COMMAND FROM THIS BUTTON
+                var ND = (from nd in RWE.NutrientDatas
+                          where nd.BARCODE.ToUpper() == barcode.ToUpper()
+                          select nd).FirstOrDefault();
+                if (ND != null)
+                {
+                    ND.Validated = true;
+                    RWE.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+            updateCounts();
+            SqlDataSource1.Update(); // refresh the data as we just edited it... 
+            if(Session["CMDSTR"] != null)
+            {
+                string cmdStr = (string)Session["CMDSTR"];
+                SqlDataSource1.SelectCommand = cmdStr;  // keep it current
             }
         }
 
@@ -278,6 +338,7 @@ namespace RWInbound2.Validation
             string tbName = "";
             string parmName = "";
 
+            // removed [Riverwatch].[dbo].
             try
             {
                 using (SqlConnection conn = new SqlConnection())
@@ -285,7 +346,7 @@ namespace RWInbound2.Validation
                     conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = string.Format("select distinct Element, HighLimit, Reporting from  [Riverwatch].[dbo].[NutrientLimits]");
+                        cmd.CommandText = string.Format("select distinct Element, HighLimit, Reporting from  [NutrientLimits]");
                         cmd.Connection = conn;
                         conn.Open();
 
@@ -400,22 +461,23 @@ namespace RWInbound2.Validation
         }
 
         // don't think this is being used as we set up these parms in our code
+        // XXXX I think we want to update this table, we have org values in lachat data
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
         {
-            //// <asp:Parameter Name="Valid" Type="Boolean" />
-            ////<asp:Parameter Name="Validated" Type="Boolean" />
-            ////<asp:Parameter Name="DateCreated" Type="DateTime" />
-            ////<asp:Parameter Name="CreatedBy" Type="String" />
+            // <asp:Parameter Name="Valid" Type="Boolean" />
+            //<asp:Parameter Name="Validated" Type="Boolean" />
+            //<asp:Parameter Name="DateCreated" Type="DateTime" />
+            //<asp:Parameter Name="CreatedBy" Type="String" />
 
-            //string uzr = "Unknown";
-            //if (User.Identity.Name.Length > 3)
-            //{
-            //    uzr = User.Identity.Name;
-            //}
-            //e.Command.Parameters["@CreatedBy"].Value = uzr;
-            //e.Command.Parameters["@Valid"].Value = true;
-            //e.Command.Parameters["@Validated"].Value = true;
-            //e.Command.Parameters["@DateCreated"].Value = DateTime.Now;           
+            string uzr = "Unknown";
+            if (User.Identity.Name.Length > 3)
+            {
+                uzr = User.Identity.Name;
+            }
+            e.Command.Parameters["@CreatedBy"].Value = uzr;
+            e.Command.Parameters["@Valid"].Value = true;
+            e.Command.Parameters["@Validated"].Value = true;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now;           
         }
         
         ///  pass in text box name and this will return parsed decimal value if return is true
@@ -500,7 +562,6 @@ namespace RWInbound2.Validation
 
             try
             {
-
                 var L = from l in RWE.Lachats
                         where l.SampleType.ToUpper() == barcode.ToUpper()
                         select l;
@@ -546,13 +607,16 @@ namespace RWInbound2.Validation
             string batchNumber = "";
             string cmdStr = "";
             batchNumber = tbBatchNumber.Text.Trim();
+            Session["BATCH"] = batchNumber; 
+
             // SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '05'
             
-            cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' and Batch like '{0}'", batchNumber);
+            cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and samplenumber is not null and typecode LIKE '05' and Batch like '{0}'", batchNumber);
 
-            Session["BATCH_CMDSTR"] = cmdStr; 
+            Session["CMDSTR"] = cmdStr; 
             SqlDataSource1.SelectCommand = cmdStr;
-            FormView1.DataBind(); 
+            FormView1.DataBind();
+            updateCounts(); 
         }
     }
 }

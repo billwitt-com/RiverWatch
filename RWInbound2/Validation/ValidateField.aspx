@@ -83,7 +83,7 @@
                 </tr>
 
                 <tr>
-                    <td>USGSFlow (CFSecond):               
+                    <td>USGS Flow (CFSecond):               
 
                     </td>
                     <td>
@@ -93,7 +93,7 @@
                      
                     </td>
                     <td>
-                                                <asp:CheckBox ID="FinalCheckCheckBox" runat="server" Checked='<%# Bind("FinalCheck") %>' />
+                           <asp:CheckBox ID="FinalCheckCheckBox" runat="server" Checked='<%# Bind("FinalCheck") %>' />
                            <asp:Label ID="Label3" runat="server" ForeColor="Red" Font-Bold="true" Text="CHECK IF IS GUAGE DATA: "></asp:Label>
                     </td>
                 </tr>
@@ -140,7 +140,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>TotalHard mg/L:
+                    <td>Total Hard mg/L:
                     </td>
                     <td>
                         <asp:TextBox ID="TotalHardTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="True" runat="server" Text='<%# Bind("TotalHard") %>' />
@@ -175,17 +175,17 @@
             </table>
 
             <table>
-                <tr>
+               <%-- <tr>
                     <td>Method:
 
                     </td>
                     <td>
                         <asp:TextBox ID="MethodTextBox" runat="server" Text='<%# Bind("Method") %>' />
                     </td>
-                </tr>
+                </tr>--%>
 
                 <tr>
-                    <td>DateReceived:
+                    <td>Date Received:
 
                     </td>
                     <td>
@@ -194,21 +194,21 @@
                 </tr>
                 <tr>
                     <td>
-                        DataSheetIncluded:
+                        Data Sheet Included:
                     </td>
                     <td>
                         <asp:CheckBox ID="DataSheetIncludedCheckBox" runat="server" Checked='<%# Bind("DataSheetIncluded") %>' /> 
                     </td>
                 </tr>
                 <tr>
-                    <td>MissingDataSheetReqDate:
+                    <td>Missing Data Sheet Req Date:
 
                     </td>
                     <td>
                         <asp:TextBox ID="MissingDataSheetReqDateTextBox" runat="server" Text='<%# Bind("MissingDataSheetReqDate") %>' />
                     </td>
                     <tr>
-                        <td>ChainOfCustody:
+                        <td>Chain Of Custody:
 
                         </td>
                         <td>
@@ -216,7 +216,7 @@
                         </td>
                     </tr>
                 <tr>
-                    <td>MissingDataSheetReceived:
+                    <td>Missing Data Sheet Received:
 
                     </td>
                     <td>
@@ -224,7 +224,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <%--<tr>
                     <td>EntryType:
 
                     </td>
@@ -239,7 +239,7 @@
                     <td>
                         <asp:TextBox ID="EntryStaffTextBox" runat="server" Text='<%# Bind("EntryStaff") %>' />
                     </td>
-                </tr>
+                </tr>--%>
                 <tr>
                     <td>Comments:
  

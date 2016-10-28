@@ -40,7 +40,8 @@ namespace RWInbound2.Validation
                 Response.Redirect("~/index.aspx"); 
 
             // count rows of not saved, valid Blanks first
-            SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
+            // removed [Riverwatch].[dbo].
+            SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
 
             System.Data.DataView result = (DataView)SqlDataSourceBlanks.Select(args);
            // int rowCount = result.Table.Rows.Count;
@@ -102,12 +103,13 @@ namespace RWInbound2.Validation
                 try
                 {
                     // changed this to use tlkLimits as they seem to correspond to Barb's note. 
+                    // removed [Riverwatch].[dbo].
                     using (SqlConnection conn = new SqlConnection())
                     {
                         conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
                         using (SqlCommand cmd = new SqlCommand())
                         {
-                            cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkLimits]");
+                            cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [tlkLimits]");
                             cmd.Connection = conn;
                             conn.Open();
 
@@ -156,10 +158,11 @@ namespace RWInbound2.Validation
                 int id = (int)DT.Rows[idx]["tblSampleID"];
                 string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
+                // removed [Riverwatch].[dbo].
                 if (barcode.Length > 2)
                 {
                     // build query to get associated normal
-                    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}' ", barcode);
+                    string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}' ", barcode);
                     SqlDataSourceNormals.SelectCommand = cmmd;
                     FormViewNormals.DataBind();
                     FormViewNormals.Visible = true;
@@ -173,10 +176,11 @@ namespace RWInbound2.Validation
 
                 barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
 
+                // removed [Riverwatch].[dbo].
                 if (barcode.Length > 2)
                 {
                     // build query to get associated normal
-                    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+                    string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}'", barcode);
                     SqlDataSourceDups.SelectCommand = cmmd;
                     FormViewDuplicate.DataBind();
                     FormViewDuplicate.Visible = true;
@@ -215,7 +219,8 @@ namespace RWInbound2.Validation
             int rowCount = 0; 
             DataSourceSelectArguments args = new DataSourceSelectArguments();
 
-            SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
+            // removed [Riverwatch].[dbo].
+            SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";    // this is the working table
             System.Data.DataView r = (DataView)SqlDataSourceBlanks.Select(args);
             DataTable DT = r.Table;
 
@@ -370,6 +375,9 @@ namespace RWInbound2.Validation
 
 
             // get the dictionaries of limits from session state - these do not change during session
+            if (Session["HighLimit"] == null)
+                Response.Redirect("timedout.axpx"); 
+
             Dictionary<string, decimal> D2TLimits = (Dictionary<string, decimal>) Session["HighLimit"];  //  Session["HighLimit"] = HighLimit;  
             Dictionary<string, decimal> MeasurementLimits = (Dictionary<string, decimal>)Session["MEASUREMENTLIMITS"];
 
@@ -393,7 +401,8 @@ namespace RWInbound2.Validation
             if (CTB == null)
             {
                 // wtf
-                string wtf = uniqueID; 
+                string wtf = uniqueID;
+                Response.Redirect("timedout.axpx"); 
             }
 
             barCode = CTB.Text;
@@ -487,23 +496,23 @@ namespace RWInbound2.Validation
 
                     if (Total > (MeasureLimit))
                     {
-                        tbT.ForeColor = Color.Red;
-                        tbT.ToolTip = string.Format("Total is greater than limit of {0}", MeasureLimit); 
+                        tbT.ForeColor = Color.Black;
+                        tbT.ToolTip += string.Format("Total is greater than limit of {0}", MeasureLimit); // this is good
                     }
                     else
                     {
-                        tbT.ForeColor = Color.Black;
-                        tbT.ToolTip = string.Format("Total is under limit of {0}", MeasureLimit); 
+                        tbT.ForeColor = Color.Red;
+                        tbT.ToolTip += string.Format("Total is under limit of {0}", MeasureLimit); 
                     }
                     if (Disolved > (MeasureLimit))
                     {
-                        tbD.ForeColor = Color.Red;
-                        tbD.ToolTip = string.Format("Dissolved is greater than limit of {0}", MeasureLimit); 
+                        tbD.ForeColor = Color.Black;
+                        tbD.ToolTip += string.Format("Dissolved is greater than limit of {0}", MeasureLimit); 
                     }
                     else
                     {
-                        tbD.ForeColor = Color.Black;
-                        tbD.ToolTip = string.Format("Dissolved is under limit of {0}", MeasureLimit); 
+                        tbD.ForeColor = Color.Red; 
+                        tbD.ToolTip += string.Format("Dissolved is under limit of {0}", MeasureLimit); 
                     }
                 }
             }
@@ -865,8 +874,9 @@ namespace RWInbound2.Validation
                 int cnt =  NewRWE.SaveChanges(); // update final table as it is 'attached' we don't need to refer to it
                
                 // count rows again
+                // removed [Riverwatch].[dbo].
                 DataSourceSelectArguments args = new DataSourceSelectArguments();
-                SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and saved = 0";    // this is the working table
+                SqlDataSourceBlanks.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '1' and saved = 0";    // this is the working table
 
                 // recount the number of blanks, since we just processed one of them
                 System.Data.DataView result = (DataView)SqlDataSourceBlanks.Select(args);
@@ -1028,11 +1038,12 @@ namespace RWInbound2.Validation
                 int id = (int)DT.Rows[idx]["tblSampleID"];
                 string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
+                // removed [Riverwatch].[dbo].
                 barcode = (string)DT.Rows[idx]["DuplicateBarCode"];
                 if (barcode.Length > 2)
                 {
                     // build query to get associated normal
-                    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+                    string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}'", barcode);
                     SqlDataSourceDups.SelectCommand = cmmd;
 
                     FormViewDuplicate.DataBind();
@@ -1048,7 +1059,8 @@ namespace RWInbound2.Validation
                 if (barcode.Length > 2)
                 {
                     // build query to get associated normal
-                    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'", barcode);
+                    // removed [Riverwatch].[dbo].
+                    string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}'", barcode);
                     SqlDataSourceNormals.SelectCommand = cmmd;
                     FormViewNormals.DataBind();
                     FormViewNormals.Visible = true;

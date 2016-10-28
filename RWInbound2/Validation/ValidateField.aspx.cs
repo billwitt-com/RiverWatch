@@ -54,6 +54,7 @@ namespace RWInbound2.Validation
             int unknownID = 0;
             string unID = "";
             string uCommand = "";
+            // removed [RiverWatch].[dbo].
             try
             {
                 TextBox TB = FormView1.Controls[0].FindControl("txtSampleIDTextBox") as TextBox;
@@ -62,7 +63,7 @@ namespace RWInbound2.Validation
                     unID = TB.Text.Trim();
                     if (int.TryParse(unID, out unknownID))
                     {
-                        uCommand = string.Format("update [RiverWatch].[dbo].[InboundSamples] set valid = 0 where [ID] = {0} ", unknownID);
+                        uCommand = string.Format("update [InboundSamples] set valid = 0 where [ID] = {0} ", unknownID);
                         SqlDataSource1.UpdateCommand = uCommand;
                         SqlDataSource1.Update();
                     }
@@ -421,11 +422,12 @@ namespace RWInbound2.Validation
                 return;           
 
             // we have some samples to validate, so set up the query and bind to formview
+            // removed [RiverWatch].[dbo].
             try
             {
-                sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[InboundSamples] JOIN Samples on InboundSamples.SampleID = " +
+                sCommand = string.Format(" select *  FROM [InboundSamples] JOIN Samples on InboundSamples.SampleID = " +
                        " Samples.SampleNumber " +
-                    " where KitNum = {0} and [RiverWatch].[dbo].[InboundSamples].[valid] = 1 and Samples.Valid = 1 and passValStep = -1 order by date desc ", LocaLkitNumber);
+                    " where KitNum = {0} and [InboundSamples].[valid] = 1 and Samples.Valid = 1 and passValStep = -1 order by date desc ", LocaLkitNumber);
 
                 //string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
                 //   " Samples.SampleNumber where InboundSamples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum  {0}", kitNumber);

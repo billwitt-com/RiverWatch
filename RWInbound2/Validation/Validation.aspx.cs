@@ -13,7 +13,7 @@ namespace RWInbound2.Validation
 {
     public partial class Validation : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e) 
         {
             int dupCount = 0;
             int blankCount = 0;
@@ -68,11 +68,30 @@ namespace RWInbound2.Validation
 
             try
             {
+                //string name = "";
+                //if (User.Identity.Name.Length < 3)
+                //    name = "Not logged in";
+                //else
+                //    name = User.Identity.Name;
+                //string msg = string.Format("Starting Nutrients Udate process at {0}",DateTime.Now);
+                //LogError LE = new LogError();
+                //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath,"" , name, "Profiling");
+
+                // moved from here to upload lachat XXXX
+// XXXX   
                 UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
+
+                // msg = string.Format("Starting Nutrients Ending process at {0}", DateTime.Now);
+                //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
                 // just added & c.Validated == false to query below
                 RiverWatchEntities RWE = new RiverWatchEntities();
+
+                //msg = string.Format("Starting Validation nutrient counts process at {0}", DateTime.Now);
+                //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
+
+                // added sample number to query 
                 var C = from c in RWE.NutrientDatas
-                        where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false
+                        where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
                         select c;
                 if(C.Count() > 0)
                 {
@@ -93,7 +112,7 @@ namespace RWInbound2.Validation
                 if (User.Identity.Name.Length < 3)
                     name = "Not logged in";
                 else
-                    name = User.Identity.Name;
+                    name = User.Identity.Name; 
                 string msg = ex.Message;
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), name, "");
@@ -101,19 +120,28 @@ namespace RWInbound2.Validation
 
             try
             {
+                //string name = "";
+                //if (User.Identity.Name.Length < 3)
+                //    name = "Not logged in";
+                //else
+                //    name = User.Identity.Name;
+                //string msg = string.Format("Starting Validation sql validation counts process at {0}", DateTime.Now);
+                //LogError LE = new LogError();
+                //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
+                // removed [Riverwatch].[dbo].
                 using (SqlDataSource S = new SqlDataSource()) 
                 {
                     DataSourceSelectArguments args = new DataSourceSelectArguments();
                     S.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  //GlobalSite.RiverWatchDev;
-                    S.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";
+                    S.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '1' and valid = 1 and saved = 0";
                     System.Data.DataView result = (DataView)S.Select(args);
                     blankCount = result.Table.Rows.Count;
 
-                    S.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '2' and valid = 1 and saved = 0";
+                    S.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '2' and valid = 1 and saved = 0";
                     result = (DataView)S.Select(args);
                     dupCount = result.Table.Rows.Count;
 
-                    S.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";
+                    S.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";
                     result = (DataView)S.Select(args);
                     normalCount = result.Table.Rows.Count;
 
@@ -122,6 +150,7 @@ namespace RWInbound2.Validation
                     S.SelectCommand = "SELECT * FROM [LachatBCnotEntered]";
                     result = (DataView)S.Select(args);
                     lachatNotRecorded = result.Table.Rows.Count;
+
 
                     // run view to see if there are any barcodes in lachat that are not in nutrientbarcode table, ie they require attention. 
                      
@@ -167,7 +196,7 @@ namespace RWInbound2.Validation
                     // now list Lachat samples 
                     if (nutrientCount > 0)
                     {
-                        lblLachet.Text = string.Format("There are {0} Nutrient samples", nutrientCount);
+                        lblLachet.Text = string.Format("There are {0} Nutrient samples to validate", nutrientCount);
                         
                     }
                     else
@@ -179,7 +208,7 @@ namespace RWInbound2.Validation
                     if (nutrientDupCount > 0)
                     {
 
-                        lblLachatDups.Text = string.Format("There are {0} nutrient dup samples", nutrientDupCount);
+                        lblLachatDups.Text = string.Format("There are {0} nutrient dup samples to validate", nutrientDupCount);
                     }
                     else
                     {
@@ -205,9 +234,9 @@ namespace RWInbound2.Validation
 
                     unknownCount = U.Count();
                     if(unknownCount > 0)
-                        lblUnknowns.Text = string.Format("There are {0} unknown samples to validate", unknownCount);
+                        lblUnknowns.Text = string.Format("There are {0} Unknown samples to validate", unknownCount);
                     else
-                        lblUnknowns.Text = string.Format("There are no unknown samples to validate");
+                        lblUnknowns.Text = string.Format("There are no Unknown samples to validate");
 
                     // now do field data 
 
@@ -227,6 +256,9 @@ namespace RWInbound2.Validation
                             FieldCount = (int)cmd.ExecuteScalar();
                         }
                     }
+
+                    //msg = string.Format("Ending Validation sql validation counts process at {0}", DateTime.Now);
+                    //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
 
                     if(FieldNotRecorded > 0)
                     {

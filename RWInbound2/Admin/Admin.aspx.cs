@@ -84,5 +84,17 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("ManagePublicAccess.aspx");
         }
+        protected void Button7_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditUnknowns.aspx");
+        }
+
+        // miss labled should be admin users
+        protected void btnUsers_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminUsers.aspx"); 
+        }
+
+ 
     }
 }
