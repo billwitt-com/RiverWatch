@@ -7,7 +7,7 @@
 td
 {
  border-bottom: 1px solid #ddd;
-  vertical-align:top;
+  /*vertical-align:top;*/
 
 }
 tr
@@ -38,12 +38,7 @@ body { /*works for table including fonts of labels but not text boxes see below*
     color: #324253;
     font-size: .85em;
     font-family: Consolas; /* choose as this is fixed width for tables*/
-    width: 1100px;  /* choose as this is width for page*/
-}
-
-form {
-    /*width: 100%;
-    margin-left: 2%;*/
+    width: 1125px;  /* choose as this is width for page*/
 }
 
 html {
@@ -1057,6 +1052,11 @@ tr.pager td {
 
     /* main layout
     ----------------------------------------------------------*/
+    .required:before {
+	    content: "*";
+	    font-weight: bold;
+	    color: red; 
+    }
     .main-content,
     .featured + .main-content {
         background-position: 10px 0;
@@ -1117,7 +1117,7 @@ tr.pager td {
 
     /* forms */
     input {
-        width: 90%;
+        /*width: 90%;*/
     }
 
 
@@ -1308,6 +1308,24 @@ fieldset {
     color: #808080;
 }
 
+/*Error and Success*/
+.label-error{  
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #b94a48;
+}
+
+.label-success{
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #468847;
+}
+
+.label-placement{
+    padding-top: 5px;
+    text-align:center;
+}
+
 /*Option on Edit Page*/
 .grid-columns-center{
     text-align:center;
@@ -1326,18 +1344,6 @@ fieldset {
 
 .grid-larger-editor-columns-center input[type="text"]{
     text-align:center; 
-}
-
-.label-error{
-    color:red;
-}
-
-.label-success{
-    color:green;
-}
-
-.label-placement{
-    text-align:center;
 }
 
 table#MainContent_Table1.edit-table{
@@ -1645,4 +1651,196 @@ div.edit-inboundicp-div > span{
 /*Edit Participants Page*/
 .organization-label{
     padding-left:5px;
+}
+
+/*Public Page*/
+.public-labels{
+    width: 90px;
+    display: inline-block;
+    height: 25px;
+    font-size: 16px;
+}
+
+.fields-required{
+    width: 280px;
+    background-color: blue;
+    color: white;
+    font-size: 11px;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.required{
+    font-weight: bold;
+    color: red;
+    font-size: 16px;    
+    border-radius: 5px;
+}
+
+.public-textbox{
+    width: 230px;
+    height: 20px;
+    border-color:gray;
+    border-radius: 0;
+    margin: 5px;
+    text-align:center;
+}
+
+.public-textbox-zip{
+    width: 70px;
+    height: 20px;
+    border-color:gray;
+    border-radius: 0;
+    margin: 5px;
+    text-align:center;
+}
+
+.public-dropdown{
+    margin-left: 5px;
+    margin-top: 5px;
+    height: 25px;
+    border-color:gray;
+}
+
+input#btnInsert, input#btnLogin.public-button, input#btnVerifyCaptcha.public-button{
+    color: white;
+    background-color:seagreen !important;
+    border: 1px solid #787878 !important;
+    border-radius:3px !important;
+    cursor: pointer;
+    font-size: .90em !important; 
+    font-weight: 500 !important;
+    padding: 5px;
+    box-shadow: 4px 3px 4px #99ADC2;
+}
+
+input#btnInsert.public-button.public-button-submit{
+    margin-top: 15px;
+}
+
+.public-receive-emails{
+    width: 350px;
+    display: inline-block;
+    height: 15px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.public-receive-emails-checkbox{
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom:5px;
+}
+
+input#newReceiveEmailUpdates{
+    padding-top: 15px;
+}
+
+.public-button-submit-div{
+    width: 300px;
+    text-align: center;
+}
+
+.public-request-access-link{
+    padding-left:98px;
+}
+
+.public-panel-reports{
+    margin-top: -20px;
+}
+
+input.public-button-reports{
+    color: #fff;
+    background-color:#337ab7 !important;
+    border: 1px solid #2e6da4 !important; 
+    border-radius:3px !important;
+    cursor: pointer;
+    font-size: .90em !important;
+    font-weight: 400 !important;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+.public-captcha-label-error{
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #b94a48;
+}
+
+.public-request-access{
+    padding-left:5px;
+}
+
+/*Manage Public Access*/
+.grid-larger-editor-columns-manage-public-users{
+    font-size: 10px;
+}
+
+.grid-manage-public-users-width{
+    text-align:center;
+    padding: 5px;
+    width: 50px;
+    resize: vertical;
+}
+
+.grid-manage-public-users-width-new{
+    width: 75px;
+    resize: vertical;
+}
+
+.grid-manage-public-users-width-new-zip{
+    width: 40px;
+    resize: vertical;
+}
+
+.grid-manage-public-users-width-new-email{
+    width: 90px;
+    resize: vertical;
+}
+
+.controls-manage-public-users{
+   width: 35px;
+   margin: 2px 5px;
+}
+
+.grid-manage-public-users-state-dropdown{
+    margin-left: 4px;
+    margin-top: 4px;
+    height: 20px;
+    border-color:gray;
+    font-size:9px;
+}
+
+/*EditPhysHab*/
+.grid-edit-physhab-comment{
+    resize: vertical;
+}
+
+.grid-view{
+    font-size: 11px;
+}
+
+/*Edit Para Forms */
+.para-form-view-labels{
+    width: 190px;
+    display: inline-block;
+    height: 25px;
+    font-size: 16px;
+}
+
+.para-form-view-textbox{
+    font-size:11px;
+    width: 240px;
+    height: 20px;
+    border-color:gray;
+    border-radius: 0;
+    margin: 15px 5px -7px 5px;
+    text-align:center;
+    padding: 3px;
+}
+
+.rowId-charid-dsorder-textbox {
+    width: 50px;
 }

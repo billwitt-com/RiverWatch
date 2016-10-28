@@ -237,10 +237,6 @@ namespace RWInbound2.Admin
 
                         SetMessages("Success", "New InboundICP Successfully Added.");
                     }
-                    //string redirect = "EditExpWater.aspx?sampleNumberSearchTerm=" + sampleNumberSearchTerm +
-                    //                   "&successLabelMessage=" + successLabelMessage;
-
-                    //Response.Redirect(redirect, false);
                 }
             }
             catch (Exception ex)

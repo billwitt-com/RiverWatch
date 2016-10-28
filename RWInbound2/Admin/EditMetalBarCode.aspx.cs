@@ -21,9 +21,9 @@ namespace RWInbound2.Admin
         {
             int role = 1;
 
-            if (Session["Role"] != null)
+            if (Session["ROLE"] != null)
             {
-                role = (int)Session["Role"];    // get users role
+                role = (int)Session["ROLE"];    // get users role
             }
 
             RiverWatchEntities RWE = new RiverWatchEntities();

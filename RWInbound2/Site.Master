@@ -44,47 +44,52 @@
                 <table class="headerTable ">
                     <tr>
                         <td >
-                           
-                            <asp:Image runat="server"  AlternateText="RW Logo" ImageUrl="/Images/RWLogo.png"  />
+                            <asp:Image runat="server"  AlternateText="RW Logo" ImageUrl="/Images/RWLogo.png" />
                         </td>
-                        <td  >
-
-                            <asp:Image runat="server" ImageUrl ="/Images/Colorado_River_Rocky_Mountains%20with%20text.jpg"  />                           
-                           
+                        <td >
+                            <asp:Image runat="server" ImageUrl ="/Images/Colorado_River_Rocky_Mountains%20with%20text.jpg" />                                                      
+                        </td>
+                        <td>
+                            <asp:Button ID="btnLogin" runat="server" Text="Log In" OnClick="btnLogin_Click" />
+                            <asp:Label ID="lblWelcome" Text="Welcome Default" runat="server"></asp:Label>
+                            <br />
+                            <asp:Button ID="btnLogOut" runat="server" OnClick="btnLogOut_Click" Text="Log Out" />
+                            <br />
                         </td>
                     </tr>
                 </table>
-
-     
+                     
                 <div>
                     <nav class="RW-nav">
                         <ul class="RW-hmenu">
                             <li>
                                <%-- <asp:HyperLink ID="Home"  runat="server">Home</asp:HyperLink>--%>
 
-                                <a   ID = "Home" runat="server" href="~/index.aspx">Home</a> 
+                                <a ID="Home" runat="server" href="~/index.aspx">Home</a> 
                             </li>
                             <li>
-                                <a ID = "Samples" runat="server" href="~/Samples/NewSamples2.aspx">Samples </a>
+                                <a ID="Samples" runat="server" href="~/Samples/NewSamples2.aspx">Samples</a>
                             </li>
                             <li>
-                                <a  ID = "Validation" runat="server" href= "~/Validation/Validation.aspx">VALIDATION</a>
+                                <a ID="Validation" runat="server" href= "~/Validation/Validation.aspx">VALIDATION</a>
                             </li>
                             <li>
-                                <a  id="Data" runat="server" href="~/data/data.aspx">Data</a>
+                                <a id="Data" runat="server" href="~/data/data.aspx">Data</a>
                             </li>
                             <li>
                                 <a id="Reports" runat="server" href= "~/reports/reports.aspx">Reports</a>
                             </li>
-                            
                             <li>
-                                <a id="Applications" runat="server" href="~/applications/applications.aspx"> Applications</a>
+                                <a id="Public" runat="server" href= "~/public/publicreports.aspx">Public</a>
+                            </li>
+                            <li>
+                                <a id="Applications" runat="server" href="~/applications/applications.aspx">Applications</a>
                             </li>
                             <li>
                                 <a id="Edit" runat="server" href="~/edit/edit.aspx">Edit</a>
                             </li>
                             <li>
-                                <a  id="Admin"  runat="server" href="~/admin/admin.aspx">Admin</a> 
+                                <a id="Admin"  runat="server" href="~/admin/admin.aspx">Admin</a> 
                             </li>
                         </ul>
                     </nav>

@@ -13,7 +13,7 @@ namespace RWInbound2.Edit
             if (iid.Length < 3)
                 iid = "Unknown";
 
-            lblWelcome.Text = string.Format("Welcome {0}", iid);
+            //lblWelcome.Text = string.Format("Welcome {0}", iid);
            
         }
 
@@ -181,6 +181,26 @@ namespace RWInbound2.Edit
         protected void btnWSR_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditWSR.aspx");
+        }
+
+        protected void btnEditSubSamps_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditSubSamp.aspx");
+        }
+
+        protected void btnEditPhysHab_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditPhysHab.aspx");
+        }
+
+        protected void btnPhysHabPara_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditPhysHabPara.aspx");
+        }
+
+        protected void btnSubPara_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditSubPara.aspx");
         }
     }
 }

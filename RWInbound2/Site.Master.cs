@@ -87,11 +87,13 @@ namespace RWInbound2
                 string filepath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
                 const string URIPrefx = "file:///";
                 if (filepath.StartsWith(URIPrefx)) filepath = filepath.Substring(URIPrefx.Length);
-
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(filepath);
                 string VerMsg = fileInfo.LastWriteTime.ToString("yyyy-MM-dd");
 
                 lblVersion.Text = "                                 VER: " + VerMsg + "      DS: " + dSource;
+                lblWelcome.Text = "";
+                btnLogOut.Visible = false;
+                btnLogin.Visible = true;
             }
                 
             catch (Exception ex)
@@ -107,9 +109,25 @@ namespace RWInbound2
             }
       
             // now manage menu items using users role and 
-            if (Session["Role"] != null)
+            if (Session["ROLE"] != null)
             {
-                role = (int)Session["Role"];    // get users role
+                role = (int)Session["ROLE"];    // get users role
+
+                string iid = Page.User.Identity.Name;                
+
+                if (role == 3)
+                {
+                    iid = "Public User";
+                }
+                else
+                {
+                    if (iid.Length < 3)
+                        iid = "Unknown";
+                }
+                
+                lblWelcome.Text = string.Format("Welcome: <br> {0}", iid);
+                btnLogOut.Visible = true;
+                btnLogin.Visible = false;
             }
             else
                 role = 1;
@@ -212,6 +230,19 @@ namespace RWInbound2
                     else
                         Admin.Visible = false;
                 }
+
+                //int? Q7 = (from r in R
+                //           where r.ControlID.ToUpper() == "PublicReports".ToUpper()
+                //           select r.RoleValue).FirstOrDefault();
+
+                //if (Q7 != null)
+                //{
+                //    if (role >= Q7.Value)
+                //        Reports.Visible = true;
+
+                //    else
+                //        Reports.Visible = false;
+                //}                           
             }
             catch (Exception ex)
             {
@@ -224,6 +255,18 @@ namespace RWInbound2
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
+        }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Account/login.aspx");
+        }
+
+        protected void btnLogOut_Click(object sender, EventArgs e)
+        {
+            FormsAuthentication.SignOut();
+            Session["ROLE"] = null;
+            Response.Redirect("~/Account/Login.aspx", false);
         }
 
         protected void Page_PreRender(object sender, EventArgs e)

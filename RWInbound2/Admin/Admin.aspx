@@ -124,7 +124,9 @@
                 <td style="width: 262px">
                     <asp:Button ID="btnEditIncoming" runat="server" Text="Edit Field Data" CssClass="adminButton" Width="176px" OnClick="btnEditIncoming_Click" />
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:Button ID="btnManagePublicUsers" runat="server" Text="Manage Public User Access" CssClass="adminButton" Width="176px" OnClick="btnManagePublicUsers_Click" />
+                </td>
             </tr>
         </table>
   
