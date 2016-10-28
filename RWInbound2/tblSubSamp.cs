@@ -12,12 +12,15 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class OrgStationsView
+    public partial class tblSubSamp
     {
-        public Nullable<int> OrganizationID { get; set; }
-        public string OrganizationName { get; set; }
-        public Nullable<int> StationNumber { get; set; }
-        public string StationName { get; set; }
-        public string River { get; set; }
+        public int SubstrateID { get; set; }
+        public Nullable<int> RepNum { get; set; }
+        public Nullable<int> ParaID { get; set; }
+        public Nullable<decimal> Value { get; set; }
+        public Nullable<int> SampleID { get; set; }
+        public string StoretUploaded { get; set; }
+        public Nullable<System.DateTime> EnterDate { get; set; }
+        public Nullable<bool> Valid { get; set; }
     }
 }

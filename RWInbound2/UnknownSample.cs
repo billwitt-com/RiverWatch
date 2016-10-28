@@ -34,5 +34,6 @@ namespace RWInbound2
         public string BatchSampleNumber { get; set; }
         public Nullable<bool> Valid { get; set; }
         public Nullable<bool> Validated { get; set; }
+        public Nullable<decimal> PctRecovery { get; set; }
     }
 }
