@@ -36,13 +36,13 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td>TypeCode:</td>
+                    <td>Type Code:</td>
                     <td>            
             <asp:TextBox ID="TypeCodeTextBox" OnTextChanged="TextBox_TextChanged"  AutoPostBack="true" runat="server" Text='<%# Bind("TypeCode") %>' /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td> SampleNumber:</td>
+                    <td> Sample Number:</td>
                     <td>           
             <asp:TextBox ID="SampleNumberTextBox" ReadOnly="true" runat="server" Text='<%# Bind("SampleNumber") %>' /></td>
                     <td>&nbsp;</td>
@@ -54,7 +54,7 @@
                 </tr>
 
                 <tr>
-                    <td>TotalPhos:</td>
+                    <td>Total Phos:</td>
                     <td>
                         <asp:TextBox ID="TotalPhosTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("TotalPhos", "{0:0.000}")%>' />
 
@@ -65,7 +65,7 @@
             <asp:CheckBox ID="TotalPhos_CHCheckBox" runat="server" Checked='<%# Bind("TotalPhos_CH") %>' /></td>
                 </tr>
                 <tr>
-                    <td>OrthoPhos:</td>
+                    <td>Ortho Phos:</td>
                     <td>
                         <asp:TextBox ID="OrthoPhosTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("OrthoPhos", "{0:0.000}") %>' />
                     </td>
@@ -74,7 +74,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>TotalNitro:</td>
+                    <td>Total Nitro:</td>
                     <td>
                         <asp:TextBox ID="TotalNitroTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("TotalNitro", "{0:0.000}") %>' />
                     </td>
@@ -82,7 +82,7 @@
             <asp:CheckBox ID="TotalNitro_CHCheckBox" runat="server" Checked='<%# Bind("TotalNitro_CH") %>' /></td>
                 </tr>
                 <tr>
-                    <td>NitrateNitrite:</td>
+                    <td>Nitrate Nitrite:</td>
                     <td>
                         <asp:TextBox ID="NitrateNitriteTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("NitrateNitrite", "{0:0.000}") %>' />
                     </td>
@@ -136,7 +136,7 @@
             <asp:CheckBox ID="TSS_CHCheckBox" runat="server" Checked='<%# Bind("TSS_CH") %>' /></td>
         </tr>
         <tr>
-            <td>ChlorA:</td>
+            <td>Chlor A:</td>
             <td>
             
             <asp:TextBox ID="ChlorATextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("ChlorA", "{0:0.000}") %>' />
@@ -152,7 +152,7 @@
     </table>
 
 
-            <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" Text="Update" />
+            <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" Text="VALIDATE" />
 <%--            &nbsp;<asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
              &nbsp;<asp:Button ID="btnBad" runat="server" CausesValidation="False"  OnClick="btnBad_Click" Text="BAD" />
         </EditItemTemplate>
@@ -176,13 +176,13 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td>TypeCode:</td>
+                    <td>Type Code:</td>
                     <td>            
             <asp:TextBox ID="TypeCodeTextBox" OnTextChanged="TextBox_TextChanged"  AutoPostBack="true" runat="server" Text='<%# Bind("TypeCode") %>' /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td> SampleNumber:</td>
+                    <td> Sample Number:</td>
                     <td>           
             <asp:TextBox ID="SampleNumberTextBox" ReadOnly="true" runat="server" Text='<%# Bind("SampleNumber") %>' /></td>
                     <td>&nbsp;</td>
@@ -194,7 +194,7 @@
                 </tr>
 
                 <tr>
-                    <td>TotalPhos:</td>
+                    <td>Total Phos:</td>
                     <td>
                         <asp:TextBox ID="TotalPhosTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("TotalPhos", "{0:0.000}") %>' />
 
@@ -205,7 +205,7 @@
             <asp:CheckBox ID="TotalPhos_CHCheckBox" runat="server" Checked='<%# Bind("TotalPhos_CH") %>' /></td>
                 </tr>
                 <tr>
-                    <td>OrthoPhos:</td>
+                    <td>Ortho Phos:</td>
                     <td>
                         <asp:TextBox ID="OrthoPhosTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("OrthoPhos", "{0:0.000}") %>' />
                     </td>
@@ -214,7 +214,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>TotalNitro:</td>
+                    <td>Total Nitro:</td>
                     <td>
                         <asp:TextBox ID="TotalNitroTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("TotalNitro", "{0:0.000}") %>' />
                     </td>
@@ -222,7 +222,7 @@
             <asp:CheckBox ID="TotalNitro_CHCheckBox" runat="server" Checked='<%# Bind("TotalNitro_CH") %>' /></td>
                 </tr>
                 <tr>
-                    <td>NitrateNitrite:</td>
+                    <td>Nitrate Nitrite:</td>
                     <td>
                         <asp:TextBox ID="NitrateNitriteTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("NitrateNitrite", "{0:0.000}") %>' />
                     </td>
@@ -276,7 +276,7 @@
             <asp:CheckBox ID="TSS_CHCheckBox" runat="server" Checked='<%# Bind("TSS_CH") %>' /></td>
         </tr>
         <tr>
-            <td>ChlorA:</td>
+            <td>Chlor A:</td>
             <td>
             
             <asp:TextBox ID="ChlorATextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("ChlorA", "{0:0.000}") %>' />
@@ -305,7 +305,7 @@
      
 
 
-     <asp:SqlDataSource ID="SqlDataSource1" runat="server"  ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
+     <asp:SqlDataSource ID="SqlDataSource1" runat="server"  OnUpdating="SqlDataSource1_Updating" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
         DeleteCommand="DELETE FROM [NutrientData] WHERE [ID] = @ID" 
         InsertCommand="INSERT INTO [NutrientData] ([BARCODE], [Batch], [TypeCode], [SampleNumber], [TotalPhos], [TotalPhos_CH], [OrthoPhos], [OrthoPhos_CH], [TotalNitro], [TotalNitro_CH], [NitrateNitrite], [NitrateNitrite_CH], [Ammonia], [Ammonia_CH], [DOC], [DOC_CH], [Chloride], [Chloride_CH], [Sulfate], [Sulfate_CH], [TSS], [TSS_CH], [ChlorA], [ChlorA_CH], [Valid], [Validated], [DateCreated], [CreatedBy]) VALUES (@BARCODE, @Batch, @TypeCode, @SampleNumber, @TotalPhos, @TotalPhos_CH, @OrthoPhos, @OrthoPhos_CH, @TotalNitro, @TotalNitro_CH, @NitrateNitrite, @NitrateNitrite_CH, @Ammonia, @Ammonia_CH, @DOC, @DOC_CH, @Chloride, @Chloride_CH, @Sulfate, @Sulfate_CH, @TSS, @TSS_CH, @ChlorA, @ChlorA_CH, @Valid, @Validated, @DateCreated, @CreatedBy)" 
         SelectCommand="SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '25'" 
@@ -349,7 +349,7 @@
 
 
 <%--            SelectCommand="SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '25'"--%>
-     <asp:SqlDataSource ID="SqlDataSource2" runat="server" OnUpdated="SqlDataSource2_Updated"  ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
+     <asp:SqlDataSource ID="SqlDataSource2" runat="server"   OnUpdating="SqlDataSource2_Updating" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
         DeleteCommand="DELETE FROM [NutrientData] WHERE [ID] = @ID" 
         InsertCommand="INSERT INTO [NutrientData] ([BARCODE], [Batch], [TypeCode], [SampleNumber], [TotalPhos], [TotalPhos_CH], [OrthoPhos], [OrthoPhos_CH], [TotalNitro], [TotalNitro_CH], [NitrateNitrite], [NitrateNitrite_CH], [Ammonia], [Ammonia_CH], [DOC], [DOC_CH], [Chloride], [Chloride_CH], [Sulfate], [Sulfate_CH], [TSS], [TSS_CH], [ChlorA], [ChlorA_CH], [Valid], [Validated], [DateCreated], [CreatedBy]) VALUES (@BARCODE, @Batch, @TypeCode, @SampleNumber, @TotalPhos, @TotalPhos_CH, @OrthoPhos, @OrthoPhos_CH, @TotalNitro, @TotalNitro_CH, @NitrateNitrite, @NitrateNitrite_CH, @Ammonia, @Ammonia_CH, @DOC, @DOC_CH, @Chloride, @Chloride_CH, @Sulfate, @Sulfate_CH, @TSS, @TSS_CH, @ChlorA, @ChlorA_CH, @Valid, @Validated, @DateCreated, @CreatedBy)" 
 

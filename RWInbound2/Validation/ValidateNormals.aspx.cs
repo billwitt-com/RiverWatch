@@ -33,7 +33,8 @@ namespace RWInbound2.Validation
                 Response.Redirect("~/index.aspx");
 
             // count rows of not saved, valid Blanks first
-            SqlDataSourceNormals.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";    // this is the working table
+            // removed  [Riverwatch].[dbo].
+            SqlDataSourceNormals.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '0' and valid = 1 and saved = 0";    // this is the working table
 
             System.Data.DataView result = (DataView)SqlDataSourceNormals.Select(args);
             // int rowCount = result.Table.Rows.Count;
@@ -93,12 +94,13 @@ namespace RWInbound2.Validation
                 try
                 {
                     // changed this to use tlkLimits as they seem to correspond to Barb's note. 
+                    // removed [Riverwatch].[dbo].
                     using (SqlConnection conn = new SqlConnection())
                     {
                         conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
                         using (SqlCommand cmd = new SqlCommand())
                         {
-                            cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkLimits]");
+                            cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [tlkLimits]");
                             cmd.Connection = conn;
                             conn.Open();
 
@@ -807,8 +809,9 @@ namespace RWInbound2.Validation
                 int cnt = NewRWE.SaveChanges(); // update final table as it is 'attached' we don't need to refer to it
 
                 // count rows again
+                // removed [Riverwatch].[dbo].
                 DataSourceSelectArguments args = new DataSourceSelectArguments();
-                SqlDataSourceNormals.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '0' and saved = 0";    // this is the working table
+                SqlDataSourceNormals.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '0' and saved = 0";    // this is the working table
 
                 // recount the number of blanks, since we just processed one of them
                 System.Data.DataView result = (DataView)SqlDataSourceNormals.Select(args);

@@ -26,6 +26,9 @@ namespace RWInbound2
         void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
+            string ers = "Error Here";
+            System.Type TS = sender.GetType(); 
+            System.Type TE = e.GetType(); 
 
         }
     }

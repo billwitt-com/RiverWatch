@@ -12,13 +12,14 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkSection
+    public partial class tblProjectStation
     {
-        public string Code { get; set; }
-        public string Description { get; set; }
+        public int ID { get; set; }
+        public int ProjectID { get; set; }
+        public int StationID { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public string UserCreated { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
-        public Nullable<bool> Valid { get; set; }
-        public int ID { get; set; }
     }
 }

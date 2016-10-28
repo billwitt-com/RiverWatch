@@ -40,22 +40,22 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Button btnManageStations;
         
         /// <summary>
-        /// Button7 control.
+        /// btnEditUnknowns control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button7;
+        protected global::System.Web.UI.WebControls.Button btnEditUnknowns;
         
         /// <summary>
-        /// Button3 control.
+        /// btnNutrientLimits control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.Button btnNutrientLimits;
         
         /// <summary>
         /// Button4 control.
@@ -76,13 +76,13 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Button btnEditMetalBarcode;
         
         /// <summary>
-        /// Button1 control.
+        /// btnUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnUsers;
         
         /// <summary>
         /// Button2 control.
@@ -121,13 +121,13 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Button btnRoles;
         
         /// <summary>
-        /// btnNutrientLimits control.
+        /// btnAddInboundICP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNutrientLimits;
+        protected global::System.Web.UI.WebControls.Button btnAddInboundICP;
         
         /// <summary>
         /// btnExpWater control.
@@ -137,15 +137,6 @@ namespace RWInbound2.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnExpWater;
-        
-        /// <summary>
-        /// Button5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button5;
         
         /// <summary>
         /// btnEditIncoming control.

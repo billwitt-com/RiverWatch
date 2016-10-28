@@ -20,29 +20,29 @@
     <br />
     <asp:Label ID="lblLastUsedText" runat="server" Text="Last Used Kit Number:  "></asp:Label>
     <asp:Label ID="lblKitNumber" runat="server" Font-Bold="True" Font-Size="11pt" ForeColor="#0066FF"></asp:Label>
-    <asp:FormView ID="FormView1" runat="server" DefaultMode ="ReadOnly"  AllowPaging="true" 
+    <asp:FormView ID="FormView1" runat="server"   AllowPaging="true" 
         PagerSettings-Mode="NumericFirstLast"  
         PagerSettings-Position="Bottom" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="467px">
         <EditItemTemplate>
             ID:
             <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
             <br /> 
-            KitNumber:
+            Kit Number:
             <asp:TextBox ID="KitNumberTextBox" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
-            OrganizationName:
+            Organization Name:
             <asp:TextBox ID="OrganizationNameTextBox" runat="server" Text='<%# Bind("OrganizationName") %>' />
             <br />
-            OrganizationType:
+            Organization Type:
             <asp:TextBox ID="OrganizationTypeTextBox" runat="server" Text='<%# Bind("OrganizationType") %>' />
             <br />
             Email:
             <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# Bind("Email") %>' />
             <br />
-            MailingAddress:
+            Mailing Address:
             <asp:TextBox ID="MailingAddressTextBox" runat="server" Text='<%# Bind("MailingAddress") %>' />
             <br />
-            ShippingAddress:
+            Shipping Address:
             <asp:TextBox ID="ShippingAddressTextBox" runat="server" Text='<%# Bind("ShippingAddress") %>' />
             <br />
             City:
@@ -60,7 +60,7 @@
             Fax:
             <asp:TextBox ID="FaxTextBox" runat="server" Text='<%# Bind("Fax") %>' />
             <br />
-            YearStarted:
+            Year Started:
             <asp:TextBox ID="YearStartedTextBox" runat="server" Text='<%# Bind("YearStarted") %>' />
             <br />
 <%--                            SelectedValue = '<%# Bind("WaterShed") %>'--%>
@@ -78,7 +78,7 @@
  
             <br />
 <%--                        SelectedValue = '<%# Bind("WaterShedGathering") %>'    --%>
-            WaterShedGathering:
+            WaterShed Gathering:
 <%--                        <asp:TextBox ID="WaterShedGatheringTextBox" runat="server" Text='<%# Bind("WaterShedGathering") %>' />--%>
             <asp:DropDownList ID="ddlWaterShedGathering" runat="server" 
                 OnDataBinding="PreventErrorsOn_DataBinding"    
@@ -96,16 +96,16 @@
             Active:
             <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />
             <br />
-            DateCreated:
+            Date Created:
             <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' />
             <br />
-            UserCreated:
+            User Created:
             <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
             <br />
-            DateLastModified:
+            Date Last Modified:
             <asp:TextBox ID="DateLastModifiedTextBox" runat="server" Text='<%# Bind("DateLastModified") %>' />
             <br />
-            UserLastModified:
+            User Last Modified:
             <asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />
             <br />
             Valid:
@@ -119,22 +119,22 @@
             ID:
             <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
             <br /> 
-            KitNumber:
+            Kit Number:
             <asp:TextBox ID="KitNumberTextBox" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
-            OrganizationName:
+            Organization Name:
             <asp:TextBox ID="OrganizationNameTextBox" runat="server" Text='<%# Bind("OrganizationName") %>' />
             <br />
-            OrganizationType:
+            Organization Type:
             <asp:TextBox ID="OrganizationTypeTextBox" runat="server" Text='<%# Bind("OrganizationType") %>' />
             <br />
             Email:
             <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# Bind("Email") %>' />
             <br />
-            MailingAddress:
+            Mailing Address:
             <asp:TextBox ID="MailingAddressTextBox" runat="server" Text='<%# Bind("MailingAddress") %>' />
             <br />
-            ShippingAddress:
+            Shipping Address:
             <asp:TextBox ID="ShippingAddressTextBox" runat="server" Text='<%# Bind("ShippingAddress") %>' />
             <br />
             City:
@@ -152,7 +152,7 @@
             Fax:
             <asp:TextBox ID="FaxTextBox" runat="server" Text='<%# Bind("Fax") %>' />
             <br />
-            YearStarted:
+            Year Started:
             <asp:TextBox ID="YearStartedTextBox" runat="server" Text='<%# Bind("YearStarted") %>' />
             <br />
            WaterShed:
@@ -167,7 +167,7 @@
  
             <br />
 <%--                        SelectedValue = '<%# Bind("WaterShedGathering") %>'    --%>
-            WaterShedGathering:
+            WaterShed Gathering:
 <%--                        <asp:TextBox ID="WaterShedGatheringTextBox" runat="server" Text='<%# Bind("WaterShedGathering") %>' />--%>
             <asp:DropDownList ID="ddlWaterShedGathering" runat="server" 
                 OnDataBinding="PreventErrorsOn_DataBinding"    
@@ -184,10 +184,10 @@
             Active:
             <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' />
             <br />
-            DateCreated:
+            Date Created:
             <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' />
             <br />
-            UserCreated:
+            User Created:
             <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
 <%--            <br />
             DateLastModified:
@@ -203,25 +203,25 @@
             &nbsp;<asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" OnClick="InsertCancelButton_Click" CommandName="Cancel" Text="Cancel" />
         </InsertItemTemplate>
         <ItemTemplate>
-<%--            ID:
+            ID:
             <asp:Label ID="IDLabel" runat="server" Text='<%# Eval("ID") %>' />
-            <br />--%>
-            KitNumber:
+            <br />
+            Kit Number:
             <asp:Label ID="KitNumberLabel" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
-            OrganizationName:
+            Organization Name:
             <asp:Label ID="OrganizationNameLabel" runat="server" Text='<%# Bind("OrganizationName") %>' />
             <br />
-            OrganizationType:
+            Organization Type:
             <asp:Label ID="OrganizationTypeLabel" runat="server" Text='<%# Bind("OrganizationType") %>' />
             <br />
             Email:
             <asp:Label ID="EmailLabel" runat="server" Text='<%# Bind("Email") %>' />
             <br />
-            MailingAddress:
+            Mailing Address:
             <asp:Label ID="MailingAddressLabel" runat="server" Text='<%# Bind("MailingAddress") %>' />
             <br />
-            ShippingAddress:
+            Shipping Address:
             <asp:Label ID="ShippingAddressLabel" runat="server" Text='<%# Bind("ShippingAddress") %>' />
             <br />
             City:
@@ -239,13 +239,13 @@
             Fax:
             <asp:Label ID="FaxLabel" runat="server" Text='<%# Bind("Fax") %>' />
             <br />
-            YearStarted:
+            Year Started:
             <asp:Label ID="YearStartedLabel" runat="server" Text='<%# Bind("YearStarted") %>' />
             <br />
             WaterShed:
             <asp:Label ID="WaterShedLabel" runat="server" Text='<%# Bind("WaterShed") %>' />
             <br />
-            WaterShedGathering:
+            WaterShed Gathering:
             <asp:Label ID="WaterShedGatheringLabel" runat="server" Text='<%# Bind("WaterShedGathering") %>' />
             <br />
             Password:
@@ -254,10 +254,10 @@
             Active:
             <asp:CheckBox ID="ActiveCheckBox" runat="server" Checked='<%# Bind("Active") %>' Enabled="false" />
             <br />
-            DateCreated:
+            Date Created:
             <asp:Label ID="DateCreatedLabel" runat="server" Text='<%# Bind("DateCreated") %>' />
             <br />
-            UserCreated:
+            User Created:
             <asp:Label ID="UserCreatedLabel" runat="server" Text='<%# Bind("UserCreated") %>' />
             <br />
 <%--            DateLastModified:
@@ -280,7 +280,7 @@
     </asp:FormView>
 
 
-    <asp:SqlDataSource ID="SqlDataSourceWSGathering" runat="server" 
+    &nbsp;<asp:SqlDataSource ID="SqlDataSourceWSGathering" runat="server" 
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
         SelectCommand="SELECT [Description], [Code] FROM [tlkWSG] where valid = 1"></asp:SqlDataSource>
 
@@ -290,7 +290,7 @@
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server"  OnInserted="SqlDataSource1_Inserted" 
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
-        DeleteCommand="UPDATE [organization] SET [Valid] = 1 WHERE [ID] = @ID" 
+        DeleteCommand="UPDATE [organization] SET [Valid] = 0 WHERE [ID] = @ID" 
         InsertCommand="INSERT INTO [organization] ([KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [State], [Zip], [Phone], [Fax], [YearStarted], [WaterShed], [WaterShedGathering], [Password], [Active], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [Valid]) VALUES (@KitNumber, @OrganizationName, @OrganizationType, @Email, @MailingAddress, @ShippingAddress, @City, @State, @Zip, @Phone, @Fax, @YearStarted, @WaterShed, @WaterShedGathering, @Password, @Active, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @Valid)" 
  
         UpdateCommand="UPDATE [organization] SET [KitNumber] = @KitNumber, [OrganizationName] = @OrganizationName, [OrganizationType] = @OrganizationType, [Email] = @Email, [MailingAddress] = @MailingAddress, [ShippingAddress] = @ShippingAddress, [City] = @City, [State] = @State, [Zip] = @Zip, [Phone] = @Phone, [Fax] = @Fax, [YearStarted] = @YearStarted, [WaterShed] = @WaterShed, [WaterShedGathering] = @WaterShedGathering, [Password] = @Password, [Active] = @Active, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified, [Valid] = @Valid WHERE [ID] = @ID">

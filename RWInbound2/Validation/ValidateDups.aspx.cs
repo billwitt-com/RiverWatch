@@ -36,7 +36,8 @@ namespace RWInbound2.Validation
             //RiverWatchEntities NRWDE = new RiverWatchEntities();
 
             // count rows of not saved, valid Dups first
-            SqlDataSourceDups.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '2' and valid = 1 and saved = 0";    // this is the working table
+            // removed [Riverwatch].[dbo].
+            SqlDataSourceDups.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '2' and valid = 1 and saved = 0";    // this is the working table
 
             System.Data.DataView result = (DataView)SqlDataSourceDups.Select(args);
             // int rowCount = result.Table.Rows.Count;
@@ -88,6 +89,7 @@ namespace RWInbound2.Validation
                 Session["CONTROLSSET"] = false;
                 pnlHelp.Visible = false; // make sure user does not see this unless requested
 
+                // removed  [Riverwatch].[dbo].
                 try
                 {
                     // changed this to use tlkLimits as they seem to correspond to Barb's note. 
@@ -96,7 +98,7 @@ namespace RWInbound2.Validation
                         conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
                         using (SqlCommand cmd = new SqlCommand())
                         {
-                            cmd.CommandText = string.Format("select distinct Element, Reporting, DvsTDifference, MDL from  [Riverwatch].[dbo].[tlkLimits] where valid = 1");
+                            cmd.CommandText = string.Format("select distinct Element, Reporting, DvsTDifference, MDL from [tlkLimits] where valid = 1");
                             cmd.Connection = conn;
                             conn.Open();
 
@@ -142,8 +144,8 @@ namespace RWInbound2.Validation
                 Session["REPORTINGLIMITS"] = ReportingLimits;
 
                 // fetch all duplicates and put them in formview
-
-                SqlDataSourceDups.SelectCommand = "SELECT* FROM [RiverWatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '2' and valid = 1 and saved = 0";
+                // removed [RiverWatch].[dbo].
+                SqlDataSourceDups.SelectCommand = "SELECT* FROM [InboundICPFinal] where left( DUPLICATE, 1) = '2' and valid = 1 and saved = 0";
                 //   SqlDataSourceDups.Select(args);
 
                 // build data table with blanks so we can work with them
@@ -203,10 +205,11 @@ namespace RWInbound2.Validation
                 int id = (int)DT.Rows[idx]["tblSampleID"];
                 string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
+                // removed [Riverwatch].[dbo].
                 if (barcode.Length > 4)
                 {
                     // build query to get associated normal
-                    string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}' and valid = 1 and saved = 0 ", barcode);
+                    string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}' and valid = 1 and saved = 0 ", barcode);
                     SqlDataSourceNormals.SelectCommand = cmmd;
                     FormViewSample.DataBind();
                     FormViewSample.Visible = true;
@@ -305,10 +308,11 @@ namespace RWInbound2.Validation
             //  int id = (int)DT.Rows[idx]["tblSampleID"];
             string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
+            // removed [Riverwatch].[dbo].
             if (barcode.Length > 4)
             {
                 // build query to get associated normal
-                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
+                string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
                 //           string cmmd = string.Format("SELECT * FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where Code = '{0}'", barcode);
                 //SqlDataSourceNormals.SelectCommand = cmmd;
                 //FormViewSample.DataBind();
@@ -800,8 +804,9 @@ namespace RWInbound2.Validation
                 int cnt = NewRWE.SaveChanges(); // update final table as it is 'attached' we don't need to refer to it
 
                 // count rows again
+                // removed [Riverwatch].[dbo].
                 DataSourceSelectArguments args = new DataSourceSelectArguments();
-                SqlDataSourceDups.SelectCommand = "SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where left( DUPLICATE, 1) = '1' and saved = 0";    // this is the working table
+                SqlDataSourceDups.SelectCommand = "SELECT * FROM [InboundICPFinal] where left( DUPLICATE, 1) = '1' and saved = 0";    // this is the working table
 
                 // recount the number of blanks, since we just processed one of them
                 System.Data.DataView result = (DataView)SqlDataSourceDups.Select(args);
@@ -894,10 +899,11 @@ namespace RWInbound2.Validation
             DataTable DT = (DataTable)Session["OURTABLE"];
             string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
+            // removed [Riverwatch].[dbo].
             if (barcode.Length > 4)
             {
                 // build query to get associated normal
-                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
+                string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
                 //           string cmmd = string.Format("SELECT * FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where Code = '{0}'", barcode);
                 SqlDataSourceNormals.SelectCommand = cmmd;
                 FormViewSample.DataBind();

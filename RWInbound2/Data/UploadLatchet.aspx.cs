@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
-using System.Text; 
+using System.Text;
+using RWInbound2.Validation; 
 
 // XXXX modified to put all samples with codes of 15, 45, 55, 65 to final data base as blank / dup
 // as per Michaela, as I understood it... 
@@ -40,19 +41,26 @@ namespace RWInbound2.Data
             {
                 try
                 {
-                    if (FileUpload1.PostedFile.ContentType == "application/vnd.ms-excel")          // "image/jpeg" 
+                    if ((FileUpload1.PostedFile.ContentType == "application/vnd.ms-excel") | (FileUpload1.PostedFile.ContentType == "application/x-csv"))         // "image/jpeg" 
                     {
                         if (FileUpload1.PostedFile.ContentLength < 902400)
                         {
                             FileName = Path.GetFileName(FileUpload1.FileName);
+                            FileName = FileUpload1.FileName;
                             lblStatus.Text = "Upload status: File uploaded!";
-                      //      lblUploadComplete.Text = string.Format("Would you like to process file {0} now?", FileName);
+                            //      lblUploadComplete.Text = string.Format("Would you like to process file {0} now?", FileName);
                         }
                         else
+                        {
                             lblStatus.Text = "Upload status: The file has to be less than 900 kb!";
+                            return;
+                        }
                     }
                     else
+                    {
                         lblStatus.Text = "Upload status: Only Excel CVS files are accepted!";
+                        return;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -194,11 +202,19 @@ namespace RWInbound2.Data
                         string msg = ex.Message;
                         LogError LE = new LogError();
                         LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                        lblStatus.Text = "Upload failed, please check your input file";
+                        lblStatus.Visible = true; 
+                        return; 
                     }
 
                     int result = RWE.SaveChanges();
 
-                    lblStatus.Text = string.Format("{0} lines processed from file {1}", linesProcessed, FileName); 
+                    lblStatus.Text = string.Format("{0} lines processed from file {1}", linesProcessed, FileName);
+                    lblStatus.Visible = true;
+
+                    // put back here because it is too slow to run in Validate
+                    // XXXX
+                    UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
                     
                     // now save the data in the File table
 
@@ -233,9 +249,12 @@ namespace RWInbound2.Data
                         string msg = ex.Message;
                         LogError LE = new LogError();
                         LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                        lblStatus.Text = "Excel File Save failed, please check your input file";
+                        lblStatus.Visible = true; 
                     }
                 }
             }          
+            // XXXX moved this here.. 
         }
 
         protected void FileUpload1_Load(object sender, EventArgs e)

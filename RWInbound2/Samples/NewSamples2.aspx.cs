@@ -765,7 +765,10 @@ namespace RWInbound2.Samples
 
             }
 
-            // check to see if this was inboundsample data, and if so, invalidate sample                            
+            // check to see if this was inboundsample data, and if so, invalidate sample      
+            // XXXX BW = this was a bad idea. Setting not valid keeps validation from seeing it    
+            // I thought this would keep sample from being reused in drop down list
+            // but in reality, the fact that it is recorded in the samples table is enough
              if(Session["INBOUNDSAMPLEID"] != null)
              {
                  int inboundSampleID = (int)Session["INBOUNDSAMPLEID"];
@@ -776,8 +779,8 @@ namespace RWInbound2.Samples
                                         select s).FirstOrDefault(); 
                      if(S != null)
                      {
-                         S.Valid = false;
-                         NRWDE.SaveChanges();
+                         //S.Valid = false;
+                         //NRWDE.SaveChanges();
                          Session["INBOUNDSAMPLEID"] = null; 
                      }
                  }
@@ -1092,12 +1095,13 @@ namespace RWInbound2.Samples
         }
 
         // add link button 
+        // removed [Riverwatch].[dbo].
         protected void FillTabPanelBarcode(string EventNumber)
         {
 
             string queryString = string.Format("SELECT [LabID] ,[Code] ,[Type] ,[Filtered] ,[BoxNumber] " +
 
-                        " FROM [Riverwatch].[dbo].[MetalBarCode] " +
+                        " FROM [MetalBarCode] " +
                         " where NumberSample like '{0}'", EventNumber.Trim());
 
 
@@ -1152,16 +1156,16 @@ namespace RWInbound2.Samples
             string sid = EventNumber.Trim(); // txtNumSmp.Text.Trim(); // scrape page
             // query for barcodes that have been entered but not analyzed
             // thus are in newEXPWater (final output) nor in inboundicpfinal and NOT IN METALBARCODES      
-
+            // removed  [RiverWatch].[dbo].
 
             string queryString = "";
             queryString = string.Format(
                 " SELECT LabID as [Barcode], Code as [Sample Type] " +
-                " FROM      [RiverWatch].[dbo].[MetalBarCode] AS a " +
+                " FROM  [MetalBarCode] AS a " +
                 " WHERE    a.NumberSample like '{0}' " +
-                " and   NOT EXISTS (SELECT * FROM[RiverWatch].[dbo].[NEWexpWater] AS b " +
+                " and   NOT EXISTS (SELECT * FROM [NEWexpWater] AS b " +
                 " WHERE b.tblSampleID = a.ID) " +
-                " and  Not Exists (Select * From [RiverWatch].[dbo].[InboundICPFinal] as c " +
+                " and  Not Exists (Select * From [InboundICPFinal] as c " +
                 " Where a.LabID  =  c.CODE) " +
                 " order by SampleID desc", sid);
             try

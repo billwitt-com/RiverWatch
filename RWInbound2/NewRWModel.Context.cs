@@ -65,7 +65,6 @@ namespace RWInbound2
         public virtual DbSet<tlkregion> tlkregions { get; set; }
         public virtual DbSet<tlkRiverWatchWaterShed> tlkRiverWatchWaterSheds { get; set; }
         public virtual DbSet<tlkSampleType> tlkSampleTypes { get; set; }
-        public virtual DbSet<tlkSection> tlkSections { get; set; }
         public virtual DbSet<tlkState> tlkStates { get; set; }
         public virtual DbSet<tlkStationQUAD> tlkStationQUADs { get; set; }
         public virtual DbSet<tlkStationStatu> tlkStationStatus { get; set; }
@@ -89,11 +88,23 @@ namespace RWInbound2
         public virtual DbSet<NutrientData> NutrientDatas { get; set; }
         public virtual DbSet<NutrientLimit> NutrientLimits { get; set; }
         public virtual DbSet<tlkNutrientLimit> tlkNutrientLimits { get; set; }
+        public virtual DbSet<OrgStatusView> OrgStatusViews { get; set; }
         public virtual DbSet<ParticipantswithOrgName> ParticipantswithOrgNames { get; set; }
         public virtual DbSet<ViewSoloNutrientDup> ViewSoloNutrientDups { get; set; }
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<UnknownSample> UnknownSample { get; set; }
         public virtual DbSet<InboundSamples> InboundSamples { get; set; }
+        public virtual DbSet<ParticipantsView> ParticipantsView { get; set; }
+        public virtual DbSet<SamplesView> SamplesView { get; set; }
+        public virtual DbSet<tblProject> tblProject { get; set; }
+        public virtual DbSet<tblProjectStation> tblProjectStation { get; set; }
+        public virtual DbSet<tlkSection> tlkSection { get; set; }
+        public virtual DbSet<tblBenGrid> tblBenGrid { get; set; }
+        public virtual DbSet<tblBenSamps> tblBenSamps { get; set; }
+        public virtual DbSet<tblBenthics> tblBenthics { get; set; }
+        public virtual DbSet<tblPhysHab> tblPhysHab { get; set; }
+        public virtual DbSet<tblSubSamp> tblSubSamp { get; set; }
+        public virtual DbSet<tlkPhysHabPara> tlkPhysHabPara { get; set; }
         public virtual DbSet<tblBenthics> tblBenthics { get; set; }
         public virtual DbSet<PublicUsers> PublicUsers { get; set; }
         public virtual DbSet<tblSubSamp> tblSubSamp { get; set; }

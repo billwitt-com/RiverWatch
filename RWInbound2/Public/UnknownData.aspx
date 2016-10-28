@@ -103,7 +103,7 @@
                         ErrorMessage="Please enter a decimal value"></asp:RangeValidator>
                 </td>
             </tr>
-            <tr>
+           <%-- <tr>
                 <td style="width: 33px">&nbsp;</td>
                 <td style="width: 166px">
                     <asp:Label ID="Label7" runat="server" Text="pH 2: "></asp:Label>
@@ -113,7 +113,7 @@
                     <asp:RangeValidator ID="RangeValidator2" runat="server"  ControlToValidate="tbpH2" MinimumValue="0"  Type="Double" 
                         ErrorMessage="Please enter a decimal value"></asp:RangeValidator>
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td style="width: 33px">&nbsp;</td>
                 <td style="width: 166px">&nbsp;</td>
