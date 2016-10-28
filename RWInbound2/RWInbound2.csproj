@@ -132,6 +132,7 @@
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
     <Content Include="Applications\Applications.aspx" />
+    <Content Include="Applications\DBSpeedTest.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -300,6 +301,7 @@
     <Content Include="RiverWatchDataSetOrgStations.xsc">
       <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\LoveofSpeed.pubxml" />
     <None Include="Properties\PublishProfiles\RiverWatch %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\RiverWatch.pubxml" />
     <None Include="RiverWatchDataSetOrgStations.xsd">
@@ -619,6 +621,13 @@
     <Compile Include="Applications\Applications.aspx.designer.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Applications\DBSpeedTest.aspx.cs">
+      <DependentUpon>DBSpeedTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Applications\DBSpeedTest.aspx.designer.cs">
+      <DependentUpon>DBSpeedTest.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Code\Permissions.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="Account\Login.aspx.cs">
@@ -799,10 +808,10 @@
     <Compile Include="NutrientLimit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrgStationsView.cs">
+    <Compile Include="OrgStatusView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrgStatusView.cs">
+    <Compile Include="ParticipantsView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ParticipantswithOrgName.cs">
@@ -1222,6 +1231,9 @@
     <Compile Include="FormViewOrgStatus.aspx.designer.cs">
       <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SamplesView.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Samples\NewSamples2.aspx.cs">
       <DependentUpon>NewSamples2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1232,19 +1244,40 @@
     <Compile Include="Station.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblBenGrid.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBenSamps.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBenthics.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblParticipant.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblPartInfo.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblPhysHab.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblPhysHabPara.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProject.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblRegistration.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblSampleXXXX.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSubSamp.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblTrainee.cs">
@@ -1376,6 +1409,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tlkOrganizationType.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkPhysHabPara.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tlkQUADI.cs">

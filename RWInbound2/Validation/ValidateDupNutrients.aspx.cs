@@ -24,17 +24,31 @@ namespace RWInbound2.Validation
             // first, find all inbound lachat data that is not validated. 
             // mark all rows that have CODEs not in 05,25,35 as blkdup and validated
             // then get all barcodes that have sample types (barcodes) that start with 'RW' and not validated and valid 
-            RiverWatchEntities RWE = new RiverWatchEntities();
-            int DUPnutrientCount = 0;
+
+
             bool allowed = false;
             allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             if (!allowed)
                 Response.Redirect("~/index.aspx");
             lblError.Visible = false;
-
-            Session["BATCH_CMDSTR"] = null; 
+            if (!IsPostBack)    // load panel if there is data 
+            {
+                string cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '25' ");
+                SqlDataSource1.SelectCommand = cmdStr;
+                Session["CMDSTR"] = cmdStr;
+                FormView1.DataBind();
+            }  
+ 
             //  where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
 
+            updateCounts();
+            updateControls(); 
+        }
+
+        public void updateCounts()
+        {
+            int DUPnutrientCount = 0;
+            RiverWatchEntities RWE = new RiverWatchEntities();
             var C = from c in RWE.NutrientDatas
                     where c.Valid == true & (c.TypeCode.Contains("25") | c.TypeCode.Contains("35")) & c.Validated == false
                     select c;
@@ -51,7 +65,6 @@ namespace RWInbound2.Validation
             {
                 lblNumberLeft.Text = "There are NO samples left to validate";
             }
-            updateControls(); 
         }
 
         protected void btnSelectBatch_Click(object sender, EventArgs e)
@@ -61,8 +74,7 @@ namespace RWInbound2.Validation
             batchNumber = tbBatchNumber.Text.Trim();
             // SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and SampleNumber is not null and typecode LIKE '05'
             cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '25' and Batch like '{0}'", batchNumber);
-            Session["BATCH_CMDSTR"] = cmdStr; 
-
+            Session["CMDSTR"] = cmdStr; 
             SqlDataSource1.SelectCommand = cmdStr;
             FormView1.DataBind(); 
         }
@@ -84,6 +96,7 @@ namespace RWInbound2.Validation
             string tbName = "";
             string parmName = "";
 
+            // removed [Riverwatch].[dbo].
             try
             {
                 using (SqlConnection conn = new SqlConnection())
@@ -91,7 +104,7 @@ namespace RWInbound2.Validation
                     conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = string.Format("select distinct Element, HighLimit, Reporting from  [Riverwatch].[dbo].[NutrientLimits]");
+                        cmd.CommandText = string.Format("select distinct Element, HighLimit, Reporting from  [NutrientLimits]");
                         cmd.Connection = conn;
                         conn.Open();
 
@@ -394,6 +407,7 @@ namespace RWInbound2.Validation
             }
         }
         // this will need to change to accomodate two forms
+        // this is validation button
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
             // TotalPhosTextBox
@@ -563,10 +577,6 @@ namespace RWInbound2.Validation
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-
-            SqlDataSource1.Update(); // force update 
-            SqlDataSource2.Update(); 
-
             // update all rows that have this barcode in lachet table
             try
             {
@@ -589,6 +599,7 @@ namespace RWInbound2.Validation
                 if (ND != null)
                 {
                     ND.Validated = true;
+                    ND.Valid = true; 
                     RWE.SaveChanges();
                 }
 
@@ -620,7 +631,8 @@ namespace RWInbound2.Validation
                                select nd).FirstOrDefault();
                     if (ND1 != null)
                     {
-                        ND1.Validated = true;                        
+                        ND1.Validated = true;
+                        ND1.Valid = true; 
                         RWE.SaveChanges();
                     }
                 }
@@ -637,6 +649,18 @@ namespace RWInbound2.Validation
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
+
+            if (Session["CMDSTR"] != null)
+            {
+                string cmdStr = (string)Session["CMDSTR"];
+                SqlDataSource1.SelectCommand = cmdStr;  // keep it current
+            }
+            updateCounts();
+
+
+            // XXXX we are updating ourselves
+            SqlDataSource1.Update(); // force update 
+            SqlDataSource2.Update(); 
         }
 
         // I think we need to make both samples bad in this case, or change the type of the sister dup to 05 
@@ -746,6 +770,7 @@ namespace RWInbound2.Validation
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
+            updateCounts(); 
         }
 
 
@@ -789,26 +814,49 @@ namespace RWInbound2.Validation
             FormView2.Visible = true; 
             // we have good barcode for dup, so set formview2 to this barcode. 
 
-            if (Session["BATCH_CMDSTR"] != null)
-            {
-                query = (string)Session["BATCH_CMDSTR"];
-            }
-            else
-            {
+            //if (Session["CMDSTR"] != null)
+            //{
+            //    query = (string)Session["BATCH_CMDSTR"];
+            //}
+            //else
+            //{
                 query = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and barcode = '{0}'", BC);
-            }
+          //  }
             SqlDataSource2.SelectCommand = query;
             FormView2.DataBind(); // force update from sql data source
         }
 
-        protected void SqlDataSource2_Updated(object sender, SqlDataSourceStatusEventArgs e)
-        {
-
-        }
 
         protected void FormView2_DataBound(object sender, EventArgs e)
         {
             updateControls(); 
+        }
+
+        protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+
+            string uzr = "Unknown";
+            if (User.Identity.Name.Length > 3)
+            {
+                uzr = User.Identity.Name;
+            }
+            e.Command.Parameters["@CreatedBy"].Value = uzr;
+            e.Command.Parameters["@Valid"].Value = true;
+            e.Command.Parameters["@Validated"].Value = true;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now; 
+        }
+
+        protected void SqlDataSource2_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            string uzr = "Unknown";
+            if (User.Identity.Name.Length > 3)
+            {
+                uzr = User.Identity.Name;
+            }
+            e.Command.Parameters["@CreatedBy"].Value = uzr;
+            e.Command.Parameters["@Valid"].Value = true;
+            e.Command.Parameters["@Validated"].Value = true;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now; 
         }
     }
 }

@@ -157,9 +157,10 @@ namespace RWInbound2.Validation
             }
 
             // we have some samples to validate, so set up the query and bind to formview
+            // removed [RiverWatch].[dbo].
             try
             {
-                sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[UnknownSample] " +
+                sCommand = string.Format(" select *  FROM [UnknownSample] " +
                     " where validated = 0 and OrganizationID = {0} and valid = 1 order by datesent desc ", orgID);
                 SqlDataSource1.SelectCommand = sCommand;
                 Session["COMMAND"] = sCommand;
@@ -205,12 +206,13 @@ namespace RWInbound2.Validation
             string unID = "";
             string uCommand = "";
             Label TB = FormView1.Controls[0].FindControl("UnknownSampleIDLabel1") as Label;
+            // removed [RiverWatch].[dbo].
             if (TB != null)
             {
                 unID = TB.Text.Trim();
                 if (int.TryParse(unID, out unknownID))
                 {
-                    uCommand = string.Format("update [RiverWatch].[dbo].[UnknownSample]	set validated = 1, valid = 0 where [UnknownSampleID] = {0} ", unknownID);
+                    uCommand = string.Format("update [UnknownSample] set validated = 1, valid = 0 where [UnknownSampleID] = {0} ", unknownID);
                     SqlDataSource1.UpdateCommand = uCommand;
                     SqlDataSource1.Update();
                 }
@@ -313,12 +315,13 @@ namespace RWInbound2.Validation
             string unID = "";
             string uCommand = "";
             Label TB = FormView1.Controls[0].FindControl("UnknownSampleIDLabel1") as Label;
+            // removed [RiverWatch].[dbo].
             if (TB != null)
             {
                 unID = TB.Text.Trim();
                 if (int.TryParse(unID, out unknownID))
                 {
-                    uCommand = string.Format("update [RiverWatch].[dbo].[UnknownSample]	set validated = 1, valid = 1 where [UnknownSampleID] = {0} ", unknownID);
+                    uCommand = string.Format("update [UnknownSample]	set validated = 1, valid = 1 where [UnknownSampleID] = {0} ", unknownID);
                     SqlDataSource1.UpdateCommand = uCommand;
                     SqlDataSource1.Update();
                 }
@@ -410,14 +413,29 @@ namespace RWInbound2.Validation
             {
                 mean = Value1;
             }
+            mean = decimal.Round(mean, 2);
             TBMean.Text = mean.ToString();
             pctRecovery = mean / trueValue * 100;
+            pctRecovery = decimal.Round(pctRecovery, 2);
             TBPctRecovery.Text = pctRecovery.ToString(); 
         }
 
         protected void btnCalc_Click(object sender, EventArgs e)
         {
             updateNumbers(); 
+        }
+
+        protected void UpdateButton_Click1(object sender, EventArgs e)
+        {
+            if (Session["ORGID"] != null)
+            {
+                int orgID = (int)Session["ORGID"];
+                if (orgID != 0)
+                {
+                    countSamples(orgID);
+                }
+            }        
+
         }
     }
 }

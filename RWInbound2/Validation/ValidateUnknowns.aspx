@@ -19,23 +19,10 @@
    
         <br />
         <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
-   
-        <br />   
-    <br />
 
-            <asp:FormView ID="FormView1" runat="server" AllowPaging="True" DefaultMode="Edit" PagerSettings-Position="TopAndBottom" DataKeyNames="UnknownSampleID" DataSourceID="SqlDataSource1" Width="442px">
+            <asp:FormView ID="FormView1" runat="server" AllowPaging="True" DefaultMode="Edit" PagerSettings-Position="TopAndBottom" DataKeyNames="UnknownSampleID" DataSourceID="SqlDataSource1" Width="729px">
                 <EditItemTemplate>
-<%--                    Organization ID:
-                    <asp:TextBox ID="OrganizationIDTextBox" Enabled="false" runat="server" Text='<%# Bind("OrganizationID") %>' />
-                    <br />
-                    Unknown Sample ID:
-                    <asp:Label ID="UnknownSampleIDLabel1" runat="server" Text='<%# Eval("UnknownSampleID") %>' />
-                    <br />--%>
-                    &nbsp;<asp:TextBox ID="OrganizationIDTextBox" runat="server" Text='<%# Bind("OrganizationID") %>' />
-                    <br />
-                    UnknownSample ID:
-                    <asp:Label ID="UnknownSampleIDLabel1" runat="server" Text='<%# Eval("UnknownSampleID") %>' />
-                    <br />
+                 
                     Sample Type:
                                     <asp:DropDownList ID="ddlSampleType"
                     SelectedValue='<%# Bind("SampleType") %>'
@@ -59,16 +46,16 @@
                     Date Sent:
                     <asp:TextBox ID="DateSentTextBox" runat="server" Text='<%# Bind("DateSent") %>' />
                     <br />
-                    Value1/Vol Equip/DO 2:
+                    Vol Value 1 / DO Value 2:
                     <asp:TextBox ID="Value1TextBox" runat="server" Text='<%# Bind("Value1") %>' />
                     <br />
-                    True Value/RE Equip/DO 1:
+                    Vol Value 2:
                     <asp:TextBox ID="Value2TextBox" runat="server" Text='<%# Bind("Value2") %>' />
                     <br />
                     Mean Value:
                     <asp:TextBox ID="MeanValueTextBox" runat="server" Text='<%# Bind("MeanValue") %>' />
                     <br />
-                    True Value:
+                    True Value / RW Equip value / DO value 1:
                     <asp:TextBox ID="TrueValueTextBox" OnTextChanged="TrueValueTextBox_TextChanged" runat="server" Text='<%# Bind("TrueValue") %>' />
                                 <asp:Button ID="btnCalc" runat="server" OnClick="btnCalc_Click" Text="Calculate" />
                             <br />
@@ -128,16 +115,18 @@
                      Validated:
                     <asp:CheckBox ID="ValidatedCheckBox" Visible="false" runat="server" Checked='<%# Bind("Validated") %>' />
                     <br />--%>
+                       <asp:Label ID="UnknownSampleIDLabel1" runat="server" Width="0px"  ForeColor="White" Text='<%# Eval("UnknownSampleID") %>' />           
+                    <asp:TextBox ID="OrganizationIDTextBox" runat="server" Width="0px" ForeColor="White"  Text='<%# Bind("OrganizationID") %>' />
 
-                    <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
-                    &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+                    <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click1" CommandName="Update" Text="Validate" />
+                    &nbsp;<asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
                 </EditItemTemplate>
               
                
                 <ItemTemplate>
-                    OrganizationID:
+<%--                    OrganizationID:
                     <asp:Label ID="OrganizationIDLabel" runat="server" Text='<%# Bind("OrganizationID") %>' />
-                    <br />
+                    <br />--%>
                     UnknownSampleID:
                     <asp:Label ID="UnknownSampleIDLabel" runat="server" Text='<%# Eval("UnknownSampleID") %>' />
                     <br />
@@ -147,20 +136,26 @@
                     SampleNumber:
                     <asp:Label ID="SampleNumberLabel" runat="server" Text='<%# Bind("SampleNumber") %>' />
                     <br />
+                     BatchSampleNumber:
+                    <asp:Label ID="BatchSampleNumberLabel" runat="server" Text='<%# Bind("BatchSampleNumber") %>' />
+                    <br />
                     DateSent:
                     <asp:Label ID="DateSentLabel" runat="server" Text='<%# Bind("DateSent") %>' />
                     <br />
-                    Value1/Vol Equip/DO 2:
+                    Vol Value 1 / DO Value 2:
                     <asp:Label ID="Value1Label" runat="server" Text='<%# Bind("Value1") %>' />
                     <br />
-                    True Value/RE Equip/DO 1:
+                    Vol Value 2:
                     <asp:Label ID="Value2Label" runat="server" Text='<%# Bind("Value2") %>' />
                     <br />
                     MeanValue:
                     <asp:Label ID="MeanValueLabel" runat="server" Text='<%# Bind("MeanValue") %>' />
                     <br />
-                    TrueValue:
+                    True Value / RW Equip value / DO value 1:
                     <asp:Label ID="TrueValueLabel" runat="server" Text='<%# Bind("TrueValue") %>' />
+                    <br />
+                    PctRecovery:
+                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("PctRecovery") %>' />
                     <br />
                     Round:
                     <asp:Label ID="RoundLabel" runat="server" Text='<%# Bind("Round") %>' />
@@ -186,18 +181,14 @@
                     UserLastModified:
                     <asp:Label ID="UserLastModifiedLabel" runat="server" Text='<%# Bind("UserLastModified") %>' />
                     <br />
-                    BatchSampleNumber:
-                    <asp:Label ID="BatchSampleNumberLabel" runat="server" Text='<%# Bind("BatchSampleNumber") %>' />
-                    <br />
-                    Valid:
+
+<%--                    Valid:
                     <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' Enabled="false" />
                     <br />
                     Validated:
                     <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' Enabled="false" />
-                    <br />
-                    PctRecovery:
-                    <asp:Label ID="PctRecoveryLabel" runat="server" Text='<%# Bind("PctRecovery") %>' />
-                    <br />
+                    <br />--%>
+
                     <asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
                     &nbsp;<asp:LinkButton ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
                     &nbsp;<asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />

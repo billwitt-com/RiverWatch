@@ -210,6 +210,10 @@ namespace RWInbound2.Data
                     int result = RWE.SaveChanges();
 
                     lblStatus.Text = string.Format("{0} lines processed from file {1}", linesProcessed, FileName);
+                    lblStatus.Visible = true;
+
+                    // put back here because it is too slow to run in Validate
+                    // XXXX
                     UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
                     
                     // now save the data in the File table
@@ -250,6 +254,7 @@ namespace RWInbound2.Data
                     }
                 }
             }          
+            // XXXX moved this here.. 
         }
 
         protected void FileUpload1_Load(object sender, EventArgs e)

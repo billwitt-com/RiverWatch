@@ -12,13 +12,16 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkSection
+    public partial class tblPhysHab
     {
-        public string Code { get; set; }
-        public string Description { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
-        public string UserLastModified { get; set; }
-        public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
+        public Nullable<int> RepNum { get; set; }
+        public Nullable<int> ParaID { get; set; }
+        public Nullable<decimal> Value { get; set; }
+        public Nullable<System.DateTime> EnterDate { get; set; }
+        public string Comment { get; set; }
+        public Nullable<int> SampleID { get; set; }
+        public string StoretUploaded { get; set; }
+        public Nullable<bool> Valid { get; set; }
     }
 }

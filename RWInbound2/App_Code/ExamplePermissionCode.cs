@@ -13,13 +13,17 @@ namespace RWInbound2.Data
     public class ExamplePermissionCode
     {
         public static void permissionExample()
-        {
-            //bool allowed = false; 
-            //// public static bool Test(string pageName, string controlName)
+        {  
+          //// public static bool Test(string pageName, string controlName)
+/* CUT AND PASTE 4 LINES BELOW:
+ * 
+            bool allowed = false;
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx"); 
+*/
 
-            //allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
-            //if (!allowed)
-            //    Response.Redirect("~/index.aspx"); 
+
         }
           
     }

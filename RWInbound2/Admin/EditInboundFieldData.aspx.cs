@@ -169,10 +169,11 @@ namespace RWInbound2.Admin
             }
 
             // we have some samples to edit, so set up the query and bind to formview
+            // removed [RiverWatch].[dbo]. from query string
             try
             {
                
-                sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[InboundSamples] " +
+                sCommand = string.Format(" select *  FROM [InboundSamples] " +
                     " where KitNum = {0} and valid = 1 order by date desc ", LocaLkitNumber);
                 Session["SELECTCOMMAND"] = sCommand;
                 SqlDataSource1.SelectCommand = sCommand;

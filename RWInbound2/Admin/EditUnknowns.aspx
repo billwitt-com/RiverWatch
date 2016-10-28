@@ -22,7 +22,7 @@
         <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
    
     <br />
-    <br />
+
 <%--    <asp:DropDownList ID="ddlSampleType" runat="server">
         <asp:ListItem>DA</asp:ListItem>
         <asp:ListItem>DO</asp:ListItem>
@@ -39,7 +39,7 @@
                     <asp:ListItem Value="SV">Site Visit</asp:ListItem>
     </asp:DropDownList>--%>
 
-    <asp:FormView ID ="FormView1" runat="server" DefaultMode="ReadOnly" Width="477px" DataKeyNames="UnknownSampleID" 
+    <asp:FormView ID ="FormView1" runat="server" DefaultMode="ReadOnly" Width="665px" DataKeyNames="UnknownSampleID" 
          AllowPaging="true" PagerSettings-Mode="NumericFirstLast"
         OnItemUpdated ="FormView1_ItemUpdated"
         OnItemInserted="FormView1_ItemInserted"
@@ -47,11 +47,12 @@
         DataSourceID = "SqlDataSource1">
         <EditItemTemplate> 
             OrganizationID:
-            <asp:TextBox ID="OrganizationIDTextBox" runat="server" Text='<%# Bind("OrganizationID") %>' ForeColor="Silver" />
-            <br />
+
             BatchSampleNumber:
             <asp:TextBox ID="BatchSampleNumberTextBox" runat="server" Text='<%# Bind("BatchSampleNumber") %>' />
+                        <asp:TextBox ID="OrganizationIDTextBox" Width="0px"  runat="server" Text='<%# Bind("OrganizationID") %>' ForeColor="White" />
             <br />
+
             SampleType:
                 <asp:DropDownList ID="ddlSampleType"
                     SelectedValue='<%# Bind("SampleType") %>'
@@ -72,10 +73,10 @@
             DateSent:
             <asp:TextBox ID="DateSentTextBox" runat="server" Text='<%# Bind("DateSent") %>' />
             <br />
-            Value1/Vol Equip/DO 2:
+            Vol Value 1 / DO Value 2:
             <asp:TextBox ID="Value1TextBox" runat="server" Text='<%# Bind("Value1") %>' />
             <br />
-            True Value/RE Equip/DO 1:
+            Vol Value 2:
             <asp:TextBox ID="Value2TextBox" runat="server" Text='<%# Bind("Value2") %>' />
             <br />
             TrueValue:
@@ -117,11 +118,11 @@
             &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
         </EditItemTemplate>
         <InsertItemTemplate>
-            OrganizationID:
-            <asp:TextBox ID="OrganizationIDTextBox" runat="server"  ForeColor="Silver" Text='<%# Bind("OrganizationID") %>' />
-            <br />
+  
             BatchSampleNumber:
             <asp:TextBox ID="BatchSampleNumberTextBox" runat="server" Text='<%# Bind("BatchSampleNumber") %>' />
+              OrganizationID:
+            <asp:TextBox ID="OrganizationIDTextBox" runat="server"  ForeColor="White"  Width="0px" Text='<%# Bind("OrganizationID") %>' />
             <br />
             SampleType:
                 <asp:DropDownList ID="ddlSampleType"
@@ -144,14 +145,14 @@
             <asp:TextBox ID="DateSentTextBox" runat="server" Text='<%# Bind("DateSent") %>' />
             <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server"   TargetControlID="DateSentTextBox" />
             <br />
-            Value1/Vol Equip/DO 2:
+            Vol Value 1 / DO Value 2:
             <asp:TextBox ID="Value1TextBox" runat="server" Text='<%# Bind("Value1") %>' />
             <br />
-            True Value/RE Equip/DO 1:
+            Vol Value 2:
             <asp:TextBox ID="Value2TextBox" runat="server" Text='<%# Bind("Value2") %>' />
             <br />
 
-            TrueValue:
+            True Value / RW Equip value / DO value 1:
             <asp:TextBox ID="TrueValueTextBox" OnTextChanged="TrueValueTextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("TrueValue") %>' />
             <asp:Button ID="btnCalc" runat="server" OnClick="btnCalc_Click" Text="Calculate" />
             <br />
@@ -225,20 +226,20 @@
             DateSent:
             <asp:Label ID="DateSentLabel" runat="server" Text='<%# Bind("DateSent") %>' />
             <br />
-            Value1/Vol Equip/DO 2:
+            Vol Value 1 / DO Value 2:
             <asp:Label ID="Value1Label" runat="server" Text='<%# Bind("Value1") %>' />
             <br />
-            True Value/RE Equip/DO 1:
+            Vol Value 2:
             <asp:Label ID="Value2Label" runat="server" Text='<%# Bind("Value2") %>' />
             <br />
             MeanValue:
             <asp:Label ID="MeanValueLabel" runat="server" Text='<%# Bind("MeanValue") %>' />
             <br />
-            TrueValue:
+            True Value / RW Equip value / DO value 1:
             <asp:Label ID="TrueValueLabel" runat="server" Text='<%# Bind("TrueValue") %>' />
             <br />
             PctRecovery:
-            <asp:Label ID="PctRecoveryLabel" runat="server" Text = '<%# Bind("TrueValue") %>' />
+            <asp:Label ID="PctRecoveryLabel" runat="server" Text = '<%# Bind("PctRecovery") %>' />
             <br />
             Round:
             <asp:Label ID="RoundLabel" runat="server" Text='<%# Bind("Round") %>' />

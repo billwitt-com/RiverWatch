@@ -4,12 +4,12 @@
 
     <br />
     <br />
-    <asp:Label ID="Label2" runat="server" Text="Select by Batch: "></asp:Label>
+    <asp:Label ID="Label2" runat="server" Text="OPTIONAL: Select by Batch:   "></asp:Label>
     <asp:TextBox ID="tbBatchNumber" runat="server"></asp:TextBox>
     <asp:Button ID="btnSelectBatch" runat="server" Text="Select" OnClick="btnSelectBatch_Click" />
 &nbsp;
     <br />
-    <asp:Label ID="lblNumberLeft" runat="server" Text="Label"></asp:Label>
+    <asp:Label ID="lblNumberLeft" runat="server"></asp:Label>
    
     <br />
    
@@ -19,7 +19,7 @@
         <EditItemTemplate>
             <table style="width: 100%">
                 <tr>
-                    <td>            BARCODE:</td>
+                    <td>            BAR CODE:</td>
                     <td> <asp:TextBox ID="BARCODETextBox"  runat="server" ReadOnly="true" Text='<%# Bind("BARCODE") %>' /></td>
                     <td>&nbsp;</td>
                 </tr>
@@ -30,13 +30,13 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td>TypeCode:</td>
+                    <td>Type Code:</td>
                     <td>            
             <asp:TextBox ID="TypeCodeTextBox" OnTextChanged="TextBox_TextChanged"  AutoPostBack="true" runat="server" Text='<%# Bind("TypeCode") %>' /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td> SampleNumber:</td>
+                    <td> Sample Number:</td>
                     <td>           
             <asp:TextBox ID="SampleNumberTextBox" ReadOnly="true" runat="server" Text='<%# Bind("SampleNumber") %>' /></td>
                     <td>&nbsp;</td>
@@ -48,7 +48,7 @@
                 </tr>
 
                 <tr>
-                    <td>TotalPhos:</td>
+                    <td>Total Phos:</td>
                     <td>
                         <asp:TextBox ID="TotalPhosTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("TotalPhos") %>' />
 
@@ -59,7 +59,7 @@
             <asp:CheckBox ID="TotalPhos_CHCheckBox" runat="server" Checked='<%# Bind("TotalPhos_CH") %>' /></td>
                 </tr>
                 <tr>
-                    <td>OrthoPhos:</td>
+                    <td>Ortho Phos:</td>
                     <td>
                         <asp:TextBox ID="OrthoPhosTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("OrthoPhos") %>' />
                     </td>
@@ -68,7 +68,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>TotalNitro:</td>
+                    <td>Total Nitro:</td>
                     <td>
                         <asp:TextBox ID="TotalNitroTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("TotalNitro") %>' />
                     </td>
@@ -76,7 +76,7 @@
             <asp:CheckBox ID="TotalNitro_CHCheckBox" runat="server" Checked='<%# Bind("TotalNitro_CH") %>' /></td>
                 </tr>
                 <tr>
-                    <td>NitrateNitrite:</td>
+                    <td>Nitrate Nitrite:</td>
                     <td>
                         <asp:TextBox ID="NitrateNitriteTextBox" OnTextChanged="TextBox_TextChanged" AutoPostBack="true" runat="server" Text='<%# Bind("NitrateNitrite") %>' />
                     </td>
@@ -145,8 +145,8 @@
         </tr>
     </table>
 
-
-            <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" CommandName="Update" Text="Update" />
+<%--            CommandName="Update"--%>
+            <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True"  Text="VALIDATE" />
             &nbsp;<asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
              &nbsp;<asp:Button ID="btnBad" runat="server" CausesValidation="False"  OnClick="btnBad_Click" Text="BAD" />
         </EditItemTemplate>

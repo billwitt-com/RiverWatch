@@ -11,7 +11,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Runtime.Serialization;
 using System.IO;
-using System.Web.Providers.Entities;
+using System.Web.Providers.Entities; 
 
 namespace RWInbound2.Admin
 {
@@ -19,8 +19,13 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //bool allowed = false;
+            //allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            //if (!allowed)
+            //    Response.Redirect("~/index.aspx");
+
             string sCommand = "";
-            //if (!IsPostBack)
+            if (!IsPostBack)
             {
                 FormView1.Visible = false;
                 lblKitNumber.Visible = false;
@@ -31,6 +36,7 @@ namespace RWInbound2.Admin
             {
                 sCommand = (string)Session["COMMAND"];
                 SqlDataSource1.SelectCommand = sCommand;
+             //   FormView1.DataBind(); 
             }
             if(Session["NEW"] != null)
             {
@@ -113,7 +119,8 @@ namespace RWInbound2.Admin
                 // first, check to see if there are any 
                 //sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[UnknownSample] " +
                 //    " where validated = 0 and OrganizationID = {0} and valid = 1 order by datesent desc ", orgID);
-                sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[Organization] " +
+                // removed [RiverWatch].[dbo]. from select
+                sCommand = string.Format(" select *  FROM [Organization] " +
                     " where OrganizationName = '{0}' ", orgName);
                 SqlDataSource1.SelectCommand = sCommand;
                 Session["COMMAND"] = sCommand;
@@ -264,7 +271,6 @@ namespace RWInbound2.Admin
             btnSelect.Visible = true;
             tbOrgName.Visible = true;
             btnAddNew.Visible = true; 
-
         }
 
         protected void UpdateButton_Click(object sender, EventArgs e)

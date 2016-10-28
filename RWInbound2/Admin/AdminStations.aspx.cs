@@ -24,268 +24,11 @@ namespace RWInbound2.Admin
             if(!IsPostBack)
             {
                 Session["NEW"] = false; 
-                RiverWatchEntities NRWE = new RiverWatchEntities();
-                string wrkStr = "";
-              // ddlStationStatus
-                List<string> l1 = (from q in NRWE.tlkStationStatus
-                                   where q.Valid == true
-                                   select q.Description).ToList<string>();
-                ddlStationStatus.DataSource = l1;
-                ddlStationStatus.DataBind(); 
-
-              //  ddlStationType
-                var l2 = (from q in NRWE.tlkStationTypes
-                          select new
-                          {
-                              q.Description, 
-                              q.Code
-                          });
-                foreach (var v in l2)
-                {
-                    ListItem LI = new ListItem(v.Description, v.Code);
-                    ddlStationType.Items.Add(LI);
-                }
-
-                //ddlStationType.DataSource = l2;
-                //ddlStationType.DataBind(); 
-
-                // ddlWaterCode
-                List<string> wcList = new List<string>();
-                var l3 = (from q in NRWE.tblWatercodes
-                          where q.OBSOLETE != true
-                          orderby q.WATERNAME
-                          select new
-                          {
-                              q.WATERNAME,
-                              q.WATERCODE,
-                              q.LOCATION
-                          }).AsEnumerable();            
-                    foreach(var x in l3)
-                    {
-                        wcList.Add(x.WATERNAME + " - " + x.LOCATION + " : " + x.WATERCODE); 
-                    }
-                    ddlWaterCode.DataSource = wcList;
-                    ddlWaterCode.DataBind();
- 
-                // ddlWaterBodyID
-                    List<string> wbid = new List<string>();
-                    var l4 = (from q in NRWE.tblWBKeys
-                              orderby q.WBID
-                              select new
-                              {
-                                  q.WATERSHED,
-                                  q.SUBBASIN,
-                                  q.WBID,
-                                  q.SegDesc
-                              }).AsEnumerable(); 
-                foreach(var x in l4)
-                {
-                    wrkStr = x.SegDesc;
-                    int len = wrkStr.Length;
-                    if (len > 80)
-                        len = 80; // no more than 80 chars
-                    wrkStr = wrkStr.Substring(0, len); 
-
-                    wbid.Add(x.WBID + " : " + x.WATERSHED + " - " + x.SUBBASIN + " - " + wrkStr); 
-                }
-                ddlWaterBodyID.DataSource = wbid;
-                ddlWaterBodyID.DataBind(); 
-
-                // ddlQUADI
-                List<string> l5 = (from q in NRWE.tlkQUADIs
-                                  orderby q.Description
-                                  select q.Description).ToList<string>();
-
-                ddlQUADI.DataSource = l5;
-                ddlQUADI.DataBind(); 
-
-                // ddlTownship
-
-                List<string> l6 = (from q in NRWE.tlkTownships
-                                   orderby q.Description
-                                   select q.Description).ToList<string>();
-                ddlTownship.DataSource = l6;
-                ddlTownship.DataBind();
-
-                // ddlRange
-                List<string> l9 = (from q in NRWE.tlkRanges
-                                   orderby q.Description
-                                   select q.Description).ToList<string>();
-                ddlRange.DataSource = l9;
-                ddlRange.DataBind(); 
-               
-                // ddlQuarterSection
-                List<string> l7 = (from q in NRWE.tlkQuarterSections
-                                   orderby q.Description
-                                   select q.Description).ToList<string>();
-                ddlQuarterSection.DataSource = l7;
-                ddlQuarterSection.DataBind(); 
-
-                // ddlGrid
-                List<string> l8 = (from q in NRWE.tlkGrids
-                                   orderby q.Description
-                                   select q.Description).ToList<string>();
-                ddlGrid.DataSource = l8;
-                ddlGrid.DataBind();
-
-                // ddlRWWaterShed
-
-                var l10 = (from q in NRWE.tlkRiverWatchWaterSheds
-                           orderby q.Code
-                           select new 
-                           { q.Code,
-                           q.Description});
-                foreach (var v in l10)
-                {
-                    ListItem LI = new ListItem(v.Description, v.Code);
-                    ddlRWWaterShed.Items.Add(LI);
-                }
-
-
-                //ddlRWWaterShed.DataSource = l10;
-                //ddlRWWaterShed.DataBind(); 
-
-                //ddlWQCCWaterShed
-                var l11 = (from q in NRWE.tlkWQCCWaterSheds
-                           orderby q.Description
-                           select new
-                           {
-                               q.Description,
-                               q.Code
-                           });
-                foreach(var v in l11)
-                {
-                    ListItem LI = new ListItem(v.Description, v.Code);
-                    ddlWQCCWaterShed.Items.Add(LI); 
-                }
-                //ddlWQCCWaterShed.DataSource = l11;
-                //ddlWQCCWaterShed.DataBind();
-
-                //ddlState    
-                List<string> l12 = (from q in NRWE.tlkStates
-                                    where q.Description != "Colorado"
-                                    orderby q.Code
-                                    select q.Code).ToList<string>();
-                ddlState.DataSource = l12;
-                ddlState.DataBind();
-                ddlState.Items.Insert(0, "CO");  
-
-                //ddlHydroUnit
-                List<string> l13 = (from q in NRWE.tlkHydroUnits
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
-                ddlHydroUnit.DataSource = l13;
-                ddlHydroUnit.DataBind(); 
-
-                //ddlEcoRegion
-                var l14 = (from q in NRWE.tlkEcoRegions
-                           orderby q.Description
-                           select new
-                           {
-                               q.Description,
-                               q.Code
-                           });
-
-                foreach (var v in l14)
-                {
-                    ListItem LI = new ListItem(v.Description, v.Code);
-                    ddlEcoRegion.Items.Add(LI);
-                }
-
-                //ddlEcoRegion.DataSource = l14;
-                //ddlEcoRegion.DataBind(); 
-
-                // ddlSection
-                List<string> l15 = (from q in NRWE.tlkSections
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
-                ddlSection.DataSource = l15;
-                ddlSection.DataBind();
-
-                // ddlRange
-                List<string> l16 = (from q in NRWE.tlkRanges
-                                orderby q.Description
-                            select q.Description).ToList<string>();
-                ddlRange.DataSource = l16;
-                ddlRange.DataBind(); 
-
-                //ddlCounty
-                List<string> l17 = (from q in NRWE.tlkCounties
-                                        orderby q.Description
-                                    select q.Description).ToList<string>();
-                ddlCounty.DataSource = l17;
-                ddlCounty.DataBind();
-
-                //ddlWSR
-                List<string> l18 = (from q in NRWE.tlkWSRs
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
-                ddlWSR.DataSource = l18;
-                ddlWSR.DataBind(); 
-
-                //ddlRegion
-                List<string> l19 = (from q in NRWE.tlkregions
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
-                ddlRegion.DataSource = l19;
-                ddlRegion.DataBind();
-
-                //ddlStationQUAD
-                List<string> l20 = (from q in NRWE.tlkStationQUADs
-                                    orderby q.Description
-                                    select q.Description).ToList<string>();
-                ddlStationQUAD.DataSource = l20;
-                ddlStationQUAD.DataBind();
-
-                List<string> l21 = (from q in NRWE.Stations
-                                    orderby q.River
-                                    where q.River != null
-                                    select q.River).Distinct().ToList<string>();
-                l21.Sort(); 
-                ddlRiver.DataSource = l21;
-                ddlRiver.DataBind(); 
+                lblStatus.Visible = false;
+            //    pnlTable.Visible = false; // hide for now     
+                loadDropDownLists(); 
             }
         }
-
-        [System.Web.Script.Services.ScriptMethod]
-        [System.Web.Services.WebMethod]
-        public static List<string> SearchStations(string prefixText, int count)
-        {
-            List<string> customers = new List<string>();
-            try
-            {
-                using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
-                {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "select StationName from Station where StationName like @SearchText + '%'";
-                        cmd.Parameters.AddWithValue("@SearchText", prefixText);
-                        cmd.Connection = conn;
-                        conn.Open();
-
-                        using (SqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                            while (sdr.Read())
-                            {
-                                customers.Add(sdr["StationName"].ToString());
-                            }
-                        }
-                        conn.Close();
-                        return customers;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string nam = "Not Known - in method";
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
-                return customers;
-            }
-        }
-
         public void resetControls()
         {
             // reset the drop down controls and clear text boxes
@@ -323,7 +66,8 @@ namespace RWInbound2.Admin
             resetControls(); 
             txtStationName.Focus();
             txtStationName.BackColor = System.Drawing.Color.Bisque;
-            Session["NEW"] = true; 
+            Session["NEW"] = true;
+          //  loadDropDownLists();
         }
 
         protected void btnSelectStnName_Click(object sender, EventArgs e)
@@ -344,6 +88,9 @@ namespace RWInbound2.Admin
                 var R = (from q in NRWE.Stations
                          where q.StationName == stationName
                          select q.StationNumber).FirstOrDefault();
+
+                lblStatus.Visible = false; 
+
                 if(R == null)
                 {
                     lblStatus.Text = string.Format("Station Name {0} not found", stationName);
@@ -352,8 +99,8 @@ namespace RWInbound2.Admin
                     tbStnNumber.Text = "";
                     return;      
                 }
-
-                populateDDLs(R.Value);
+           //     pnlTable.Visible = true; 
+                populatePage(R.Value);
             }
             catch (Exception ex)
             {
@@ -388,7 +135,7 @@ namespace RWInbound2.Admin
                     {
                         tbStationName.Text = SN;
                     }
-
+                    lblStatus.Visible = false; 
                 }
                 else
                 {
@@ -397,7 +144,9 @@ namespace RWInbound2.Admin
                     lblStatus.Visible = true;
                     return;
                 }
-                populateDDLs(stnNumber);
+
+           //     pnlTable.Visible = true;
+                populatePage(stnNumber);
             }
             catch (Exception ex)
             {
@@ -417,10 +166,10 @@ namespace RWInbound2.Admin
 
         }
 
-       
-
-        public void populateDDLs(int stnNumber)
+        public void populatePage(int stnNumber)
         {
+            //loadDropDownLists();
+           // clearDDLselections(); 
             RiverWatchEntities NRWE = new RiverWatchEntities();
             int listCount = 0; 
            
@@ -432,17 +181,33 @@ namespace RWInbound2.Admin
                 if (SN == null)
                     return;
 
-                resetControls(); // make them all default state so if values below do not match the selected value, they are at default values
+             //   resetControls(); // make them all default state so if values below do not match the selected value, they are at default values
 
                 txtStationName.Text = SN.StationName;
                 txtStationNumber.Text = SN.StationNumber.ToString();
                 txtriver.Text = SN.River ?? "";
+                tbdescription.Text = SN.Description ?? ""; 
+                tbLongtitude.Text = SN.Longtitude.ToString();
+                tbLatitude.Text = SN.Latitude.ToString();
+                tbAquaticModelIndex.Text = SN.AquaticModelIndex ?? "";
+                tbUTMX.Text = SN.UTMX.ToString();
+                tbUTMY.Text = SN.UTMY.ToString();
+                tbNearCity.Text = SN.NearCity ?? "";
+                tbMove.Text = SN.Move ?? "";
+                tbElevation.Text = SN.Elevation.ToString(); 
+                cbStateEngineering.Checked = SN.StateEngineering.Value;
+                cbUSGS.Checked = SN.USGS.Value; 
+
+                // do ddls
+
                 ddlRiver.SelectedValue = SN.River;
                 ddlCounty.SelectedValue = SN.County ?? "";
 
-                ddlWaterCode.Items.Insert(0,SN.WaterCode);
+                ////////ddlWaterCode.Items.Insert(0,SN.WaterCode);
+                /////////  ddlEcoRegion.SelectedItem.Value = SN.EcoRegion; // ?? "";
+                
                 if (SN.EcoRegion.Length > 1)
-                    ddlEcoRegion.SelectedItem.Value = SN.EcoRegion; // ?? "";
+                    ddlEcoRegion.SelectedValue = SN.EcoRegion; // ?? "";
                 else
                     ddlEcoRegion.SelectedIndex = 0; 
 
@@ -452,48 +217,50 @@ namespace RWInbound2.Admin
                 ddlQuarterSection.SelectedValue = SN.QuaterSection;
                 ddlRange.SelectedValue = SN.Range;
                 ddlRegion.SelectedValue = SN.Region;
-                ddlRiver.SelectedValue = SN.River;
 
-                if (SN.RWWaterShed.Length > 1)
-                    ddlRWWaterShed.SelectedItem.Value = SN.RWWaterShed;
+                ///////////////////                     ddlRWWaterShed.SelectedItem.Value = SN.RWWaterShed;
+                if (SN.RWWaterShed.Length > 0)
+                    ddlRWWaterShed.SelectedValue = SN.RWWaterShed;
                 else
-                    ddlRWWaterShed.SelectedIndex = 0; 
+                    ddlRWWaterShed.SelectedIndex = 0;
 
                 ddlSection.SelectedValue = SN.Section.ToString();
-                ddlState.SelectedValue = SN.State; 
+                ddlState.SelectedValue = SN.State;
                 ddlStationQUAD.SelectedValue = SN.StationQUAD;
+
                 ddlStationStatus.SelectedValue = SN.StationStatus;
 
-                if (SN.StationType.Length > 2)
+                if (SN.StationType.Length > 0)
                     ddlStationType.SelectedItem.Value = SN.StationType;
                 else
                     ddlStationType.SelectedIndex = 0;
 
                 ddlTownship.SelectedValue = SN.Township;
-                
-            //    ddlWaterBodyID.SelectedValue = SN.WaterBodyID;
+
+
                 listCount = ddlWaterBodyID.Items.Count;
                 for (int z = 0; z < listCount; z++)
                 {
                     if (ddlWaterBodyID.Items[z].Value.Contains(SN.WaterBodyID))
                     {
                         ddlWaterBodyID.Items[z].Selected = true;
+                        break;
                     }
-                }    
-           
+                }
+
                 listCount = ddlWaterCode.Items.Count;
-                for (int z = 0; z < listCount; z++ )
+                for (int z = 0; z < listCount; z++)
                 {
-                    if(ddlWaterCode.Items[z].Value.Contains(SN.WaterCode))
+                    if (ddlWaterCode.Items[z].Value.Contains(SN.WaterCode))
                     {
                         ddlWaterCode.Items[z].Selected = true;
+                        break; 
                     }
-                }                 
+                }
 
                 ddlWQCCWaterShed.SelectedValue = SN.WQCCWaterShed;
                 ddlWSR.SelectedValue = SN.WaterShedRegion;
-                cbStateEngineering.Checked = SN.StateEngineering.Value;
-                cbUSGS.Checked = SN.USGS.Value ; 
+
             }
             catch (Exception ex)
             {
@@ -505,7 +272,9 @@ namespace RWInbound2.Admin
                     second = msg.IndexOf("'", 1);
 
                     string ddlName = msg.Substring(1, second -1);
-                    DropDownList DL = this.FindControl(ddlName) as DropDownList;
+                  //  DropDownList DL = this.Controls[0].FindControl(ddlName) as DropDownList;
+                    DropDownList DL = Page.FindControl(ddlName) as DropDownList;
+
                     DL.SelectedIndex = 0;
                     return;
                 }
@@ -538,6 +307,9 @@ namespace RWInbound2.Admin
 
             stnNumString = txtStationNumber.Text.Trim();
             success = int.TryParse(stnNumString, out stnNumber);
+
+            lblStatus.Visible = false; 
+
             if (!success)
             {
                 tbStnNumber.Text = "";
@@ -548,7 +320,7 @@ namespace RWInbound2.Admin
 
             // do some validation here.. .
             tmpString = tbLatitude.Text;
-            if(tmpString.Length < 4)
+            if(tmpString.Length < 2)
             {
                 lblStatus.Text = "Please enter a valid Latitude";
                 lblStatus.Visible = true;
@@ -557,7 +329,7 @@ namespace RWInbound2.Admin
             }
 
             tmpString = tbLongtitude.Text;
-            if (tmpString.Length < 4)
+            if (tmpString.Length < 2)
             {
                 lblStatus.Text = "Please enter a valid Longtitude";
                 lblStatus.Visible = true;
@@ -585,7 +357,7 @@ namespace RWInbound2.Admin
                     STN = (from q in NRWE.Stations
                            where q.StationNumber == stnNumber
                            select q).FirstOrDefault();
-
+                    lblStatus.Visible = false; 
                     if (STN != null)
                     {
                         tbStnNumber.Text = "";
@@ -672,6 +444,8 @@ namespace RWInbound2.Admin
                 STN.DateCreated = DateTime.Now;
                 NRWE.SaveChanges();
 
+                lblStatus.Visible = false; 
+
                 if(isNewStation)
                 {
                     NRWE.Stations.Add(STN);
@@ -726,6 +500,500 @@ namespace RWInbound2.Admin
                 theDropDownList.SelectedValue = "";               
             }
         }
+        public void loadDropDownLists()
+        {
+            RiverWatchEntities NRWE = new RiverWatchEntities();
+            string wrkStr = "";
+            try
+            {
+                // ddlStationStatus
+                //List<string> l1 = (from q in NRWE.tlkStationStatus
+                //                   where q.Valid == true
+                //                   select q.Code).ToList<string>();
 
+                var l1 = (from q in NRWE.tlkStationStatus
+                          where q.Valid == true
+                          select new
+                          {
+                              q.Description,
+                              q.Code,
+                          }); 
+                foreach(var v in l1)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlStationStatus.Items.Add(LI); 
+                }
+
+                //  ddlStationType
+                var l2 = (from q in NRWE.tlkStationTypes
+                          select new
+                          {
+                              q.Description,
+                              q.Code
+                          });
+                foreach (var v in l2)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlStationType.Items.Add(LI);
+                }
+
+                //ddlStationType.DataSource = l2;
+                //ddlStationType.DataBind(); 
+
+                // ddlWaterCode
+                List<string> wcList = new List<string>();
+                var l3 = (from q in NRWE.tblWatercodes
+                          where q.OBSOLETE != true
+                          orderby q.WATERNAME
+                          select new
+                          {
+                              q.WATERNAME,
+                              q.WATERCODE,
+                              q.LOCATION
+                          }).AsEnumerable();
+                foreach (var x in l3)
+                {
+                    wcList.Add(x.WATERNAME + " - " + x.LOCATION + " : " + x.WATERCODE);
+                }
+                ddlWaterCode.DataSource = wcList;
+                ddlWaterCode.DataBind();
+
+                // ddlWaterBodyID
+                List<string> wbid = new List<string>();
+                var l4 = (from q in NRWE.tblWBKeys
+                          orderby q.WBID
+                          select new
+                          {
+                              q.WATERSHED,
+                              q.SUBBASIN,
+                              q.WBID,
+                              q.SegDesc
+                          }).AsEnumerable();
+                foreach (var x in l4)
+                {
+                    wrkStr = x.SegDesc;
+                    int len = wrkStr.Length;
+                    if (len > 80)
+                        len = 80; // no more than 80 chars
+                    wrkStr = wrkStr.Substring(0, len);
+
+                    wbid.Add(x.WBID + " : " + x.WATERSHED + " - " + x.SUBBASIN + " - " + wrkStr);
+                }
+                ddlWaterBodyID.DataSource = wbid;
+                ddlWaterBodyID.DataBind();
+
+                // ddlQUADI
+                var l5 = (from q in NRWE.tlkQUADIs
+                          select new
+                          {
+                              q.Description,
+                              q.Code
+                          });
+
+                foreach (var v in l5)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlQUADI.Items.Add(LI);
+                }
+
+                //                   orderby q.Description
+                //                   select q.Description).ToList<string>();
+
+                //ddlQUADI.DataSource = l5;
+                //ddlQUADI.DataBind();
+
+                // ddlTownship
+
+                var l6 = (from q in NRWE.tlkTownships
+                          select new
+                          {
+                              q.Description,
+                              q.Code
+                          });
+
+                foreach (var v in l6)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlTownship.Items.Add(LI);
+                }
+                    
+                    
+                //    (from q in NRWE.tlkTownships
+                //                   orderby q.Description
+                //                   select q.Description).ToList<string>();
+                //ddlTownship.DataSource = l6;
+                //ddlTownship.DataBind();
+
+                // ddlRange
+
+                var l9 = (from q in NRWE.tlkRanges
+                          select new
+                          {
+                              q.Description,
+                              q.Code
+                          });
+
+                foreach (var v in l9)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlRange.Items.Add(LI);
+                }
+
+
+                //List<string> l9 = (from q in NRWE.tlkRanges
+                //                   orderby q.Description
+                //                   select q.Description).ToList<string>();
+                //ddlRange.DataSource = l9;
+                //ddlRange.DataBind();
+
+
+                // ddlQuarterSection
+                var l7 = (from q in NRWE.tlkQuarterSections
+                          select new
+                          {
+                              q.Description,
+                              q.Code
+                          });
+
+                foreach (var v in l7)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlQuarterSection.Items.Add(LI);
+                }
+
+                //List<string> l7 = (from q in NRWE.tlkQuarterSections
+                //                   orderby q.Description
+                //                   select q.Description).ToList<string>();
+                //ddlQuarterSection.DataSource = l7;
+                //ddlQuarterSection.DataBind();
+
+                // ddlGrid
+                var l8 = (from q in NRWE.tlkGrids
+                          select new
+                          {
+                              q.Description,
+                              q.Code
+                          });
+
+                foreach (var v in l8)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlGrid.Items.Add(LI);
+                }
+
+
+
+                var l10 = (from q in NRWE.tlkRiverWatchWaterSheds
+                           orderby q.Code
+                           select new
+                           {
+                               q.Code,
+                               q.Description
+                           });
+                foreach (var v in l10)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlRWWaterShed.Items.Add(LI);
+                }
+
+
+
+                //ddlWQCCWaterShed
+                var l11 = (from q in NRWE.tlkWQCCWaterSheds
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+                foreach (var v in l11)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlWQCCWaterShed.Items.Add(LI);
+                }
+                //ddlWQCCWaterShed.DataSource = l11;
+                //ddlWQCCWaterShed.DataBind();
+
+                //ddlState
+
+                var l12 = (from q in NRWE.tlkStates
+                           where q.Description.ToUpper() != "COLORADO"
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+                foreach (var v in l12)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlState.Items.Add(LI);
+                }
+                ListItem LI100 = new ListItem("COLORADO", "CO");    // put this at top of list
+                ddlState.Items.Insert(0, LI100); 
+
+                //List<string> l12 = (from q in NRWE.tlkStates
+                //                    where q.Description.ToUpper() != "COLORADO"
+                //                    orderby q.Code
+                //                    select q.Code).ToList<string>();
+                //ddlState.DataSource = l12;
+                //ddlState.DataBind();
+                //ddlState.Items.Insert(0, "COLORADO");
+
+                //ddlHydroUnit
+
+                var l13 = (from q in NRWE.tlkHydroUnits
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+                foreach (var v in l13)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlHydroUnit.Items.Add(LI);
+                }
+
+
+                //List<string> l13 = (from q in NRWE.tlkHydroUnits
+                //                    orderby q.Description
+                //                    select q.Description).ToList<string>();
+                //ddlHydroUnit.DataSource = l13;
+                //ddlHydroUnit.DataBind();
+
+                //ddlEcoRegion
+                var l14 = (from q in NRWE.tlkEcoRegions
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           }); 
+
+                foreach (var v in l14)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlEcoRegion.Items.Add(LI);
+                }
+
+                //ddlEcoRegion.DataSource = l14;
+                //ddlEcoRegion.DataBind(); 
+
+                // ddlSection
+
+                var l15 = (from q in NRWE.tlkSections
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+
+                foreach (var v in l15)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlSection.Items.Add(LI);
+                }
+                //List<string> l15 = (from q in NRWE.tlkSections
+                //                    orderby q.Description
+                //                    select q.Description).ToList<string>();
+                //ddlSection.DataSource = l15;
+                //ddlSection.DataBind();
+
+                // ddlRange
+
+                var l16 = (from q in NRWE.tlkRanges
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+
+                foreach (var v in l16)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlRange.Items.Add(LI);
+                }
+
+
+                //List<string> l16 = (from q in NRWE.tlkRanges
+                //                    orderby q.Description
+                //                    select q.Description).ToList<string>();
+                //ddlRange.DataSource = l16;
+                //ddlRange.DataBind();
+
+                //ddlCounty
+
+                var l17 = (from q in NRWE.tlkCounties
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+
+                foreach (var v in l17)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlCounty.Items.Add(LI);
+                }
+
+                //List<string> l17 = (from q in NRWE.tlkCounties
+                //                    orderby q.Description
+                //                    select q.Description).ToList<string>();
+                //ddlCounty.DataSource = l17;
+                //ddlCounty.DataBind();
+
+                //ddlWSR
+
+                var l18 = (from q in NRWE.tlkWSRs
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+
+                foreach (var v in l18)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlWSR.Items.Add(LI);
+                }
+
+                //List<string> l18 = (from q in NRWE.tlkWSRs
+                //                    orderby q.Description
+                //                    select q.Description).ToList<string>();
+                //ddlWSR.DataSource = l18;
+                //ddlWSR.DataBind();
+
+                //ddlRegion
+
+                var l19 = (from q in NRWE.tlkregions
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+
+                foreach (var v in l19)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlRegion.Items.Add(LI);
+                }
+
+                //List<string> l19 = (from q in NRWE.tlkregions
+                //                    orderby q.Description
+                //                    select q.Description).ToList<string>();
+                //ddlRegion.DataSource = l19;
+                //ddlRegion.DataBind();
+
+                //ddlStationQUAD
+
+                var l20 = (from q in NRWE.tlkStationQUADs
+                           orderby q.Description
+                           select new
+                           {
+                               q.Description,
+                               q.Code
+                           });
+
+                foreach (var v in l20)
+                {
+                    ListItem LI = new ListItem(v.Description, v.Code);
+                    ddlStationQUAD.Items.Add(LI);
+                }
+                //List<string> l20 = (from q in NRWE.tlkStationQUADs
+                //                    orderby q.Description
+                //                    select q.Description).ToList<string>();
+                //ddlStationQUAD.DataSource = l20;
+                //ddlStationQUAD.DataBind();
+
+                List<string> l21 = (from q in NRWE.Stations
+                                    orderby q.River
+                                    where q.River != null
+                                    select q.River).Distinct().ToList<string>();
+                l21.Sort();
+                ddlRiver.DataSource = l21;
+                ddlRiver.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Admin Stations");
+            }
+        }
+
+        [System.Web.Script.Services.ScriptMethod]
+        [System.Web.Services.WebMethod]
+        public static List<string> SearchStations(string prefixText, int count)
+        {
+            List<string> customers = new List<string>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
+                {
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "select StationName from Station where StationName like @SearchText + '%'";
+                        cmd.Parameters.AddWithValue("@SearchText", prefixText);
+                        cmd.Connection = conn;
+                        conn.Open();
+
+                        using (SqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                customers.Add(sdr["StationName"].ToString());
+                            }
+                        }
+                        conn.Close();
+                        return customers;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "Not Known - in method";
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
+                return customers;
+            }
+        }
+        public void clearDDLselections()
+        {
+
+            ddlCounty.ClearSelection();
+            ddlEcoRegion.ClearSelection();
+            ddlGrid.ClearSelection();
+            ddlHydroUnit.ClearSelection();
+            ddlQUADI.ClearSelection();
+            ddlQuarterSection.ClearSelection();
+            ddlRange.ClearSelection();
+            ddlRegion.ClearSelection();
+            ddlRiver.ClearSelection();
+            ddlRWWaterShed.ClearSelection();
+            ddlSection.ClearSelection();
+            ddlState.ClearSelection();
+            ddlStationQUAD.ClearSelection();
+            ddlStationStatus.ClearSelection();
+            ddlStationType.ClearSelection();
+            ddlTownship.ClearSelection();
+            ddlWaterBodyID.ClearSelection();
+            ddlWaterCode.ClearSelection();
+            ddlWQCCWaterShed.ClearSelection();
+            ddlWSR.ClearSelection();
+
+        }
     }
 }

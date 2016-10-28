@@ -12,13 +12,18 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkSection
+    public partial class tblBenthics
     {
-        public string Code { get; set; }
-        public string Description { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
-        public string UserLastModified { get; set; }
-        public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
+        public string Stage { get; set; }
+        public int BenSampID { get; set; }
+        public int RepNum { get; set; }
+        public Nullable<int> Individuals { get; set; }
+        public Nullable<bool> ExcludedTaxa { get; set; }
+        public string HabitatType { get; set; }
+        public string Comments { get; set; }
+        public Nullable<System.DateTime> EnterDate { get; set; }
+        public string StoretUploaded { get; set; }
+        public Nullable<bool> Valid { get; set; }
     }
 }

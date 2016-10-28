@@ -107,7 +107,8 @@ namespace RWInbound2.Admin
                 // first, check to see if there are any 
                 //sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[UnknownSample] " +
                 //    " where validated = 0 and OrganizationID = {0} and valid = 1 order by datesent desc ", orgID);
-                sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[UnknownSample] " +
+                // removed [RiverWatch].[dbo].
+                sCommand = string.Format(" select *  FROM [UnknownSample] " +
                     " where OrganizationID = {0} order by datesent desc ", orgID);
                 SqlDataSource1.SelectCommand = sCommand;
                 Session["COMMAND"] = sCommand;
@@ -325,8 +326,10 @@ namespace RWInbound2.Admin
             {
                 mean = Value1; 
             }
+            mean = decimal.Round(mean, 2);
             TBMean.Text = mean.ToString();
             pctRecovery = mean / trueValue * 100;
+            pctRecovery = decimal.Round(pctRecovery, 2);
             TBPctRecovery.Text = pctRecovery.ToString(); 
         }
 
