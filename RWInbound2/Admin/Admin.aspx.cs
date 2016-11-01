@@ -95,6 +95,18 @@ namespace RWInbound2.Admin
             Response.Redirect("AdminUsers.aspx"); 
         }
 
+        protected void btnManageParticipants_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditParticipants.aspx"); 
+        }
+
+        protected void btnPermissions_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
  
     }
 }

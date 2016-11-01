@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Text;
 using RWInbound2.Validation; 
-
+ 
 // XXXX modified to put all samples with codes of 15, 45, 55, 65 to final data base as blank / dup
 // as per Michaela, as I understood it... 
 // XXXX will change when Michaela adds date to this.
@@ -35,7 +35,11 @@ namespace RWInbound2.Data
             string tstr = "";
             string line = "";
             int lineNumber = 0;
-            int linesProcessed = 0; 
+            int linesProcessed = 0;
+
+            // run this regardless 
+
+
 
             if (FileUpload1.HasFile)
             {
@@ -114,7 +118,15 @@ namespace RWInbound2.Data
 
                             Startindex = Endindex + 1; // reposition 
                             Endindex = line.IndexOf(",", Startindex);
-                            tstr = line.Substring(Startindex, Endindex - Startindex);      //,[CODE]
+                            tstr = line.Substring(Startindex, Endindex - Startindex).Trim();      //,[CODE]
+
+                            if(tstr.Length == 1) // single char
+                            {
+                                if(tstr == "5")
+                                {
+                                    tstr = "05"; 
+                                }
+                            }
                             LACHAT.CODE = tstr;
 
                             Startindex = Endindex + 1; // reposition                   
@@ -214,7 +226,8 @@ namespace RWInbound2.Data
 
                     // put back here because it is too slow to run in Validate
                     // XXXX
-                    UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
+                    // moved to start of method, so it will always run... 
+                  //  UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
                     
                     // now save the data in the File table
 
@@ -253,8 +266,9 @@ namespace RWInbound2.Data
                         lblStatus.Visible = true; 
                     }
                 }
-            }          
-            // XXXX moved this here.. 
+            }  // end of file to upload test 
+            // XXXX moved this here.. so it will always run
+            UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
         }
 
         protected void FileUpload1_Load(object sender, EventArgs e)

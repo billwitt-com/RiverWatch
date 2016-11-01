@@ -894,10 +894,10 @@
     <Compile Include="ParticipantsView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Project.cs">
+    <Compile Include="ParticipantswithOrgName.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PublicUsers.cs">
+    <Compile Include="Project.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PublicUsers.cs">
@@ -1333,6 +1333,9 @@
     <Compile Include="FormViewOrgStatus.aspx.designer.cs">
       <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SamplesView.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Samples\NewSamples2.aspx.cs">
       <DependentUpon>NewSamples2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1341,6 +1344,9 @@
       <DependentUpon>NewSamples2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Station.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBenGrid.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblBenSamps.cs">

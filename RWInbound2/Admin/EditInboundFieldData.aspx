@@ -34,7 +34,10 @@
     <br />
     <asp:Label ID="lblMsg" runat="server"></asp:Label>
     <br />
-    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" OnRowUpdated="GridView1_RowUpdated" OnRowUpdating="GridView1_RowUpdating" OnRowDeleted="GridView1_RowDeleted"  OnRowEditing="GridView1_RowEditing"  DataKeyNames="ID" DataSourceID="SqlDataSource1">
+     <div style ="height:370px; width:917px; overflow:auto;">
+    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" OnRowUpdated="GridView1_RowUpdated" 
+        OnRowUpdating="GridView1_RowUpdating"  
+        OnRowDeleted="GridView1_RowDeleted"  OnRowEditing="GridView1_RowEditing"  DataKeyNames="ID" DataSourceID="SqlDataSource1">
         <Columns>
             <asp:CommandField    ButtonType="Button"  ItemStyle-Wrap="false"  ShowDeleteButton="True" />
             <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" />
@@ -83,6 +86,7 @@
 
         </Columns>
     </asp:GridView>
+         </div>
 
 <%--            SelectCommand ="select * FROM [RiverWatch].[dbo].[InboundSamples] where KitNum = 126 "--%>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 

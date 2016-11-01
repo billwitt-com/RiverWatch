@@ -12,15 +12,14 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class ErrorLog
+    public partial class tblBenGrid
     {
         public int ID { get; set; }
-        public string Message { get; set; }
-        public string FromPage { get; set; }
-        public string StackTrace { get; set; }
-        public Nullable<int> Severity { get; set; }
-        public string LoggedInUser { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Comment { get; set; }
+        public Nullable<int> BenSampID { get; set; }
+        public int RepNum { get; set; }
+        public int GridNum { get; set; }
+        public Nullable<int> BenCount { get; set; }
+        public string StoretUploaded { get; set; }
+        public Nullable<bool> Valid { get; set; }
     }
 }

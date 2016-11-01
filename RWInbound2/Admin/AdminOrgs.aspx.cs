@@ -282,6 +282,22 @@ namespace RWInbound2.Admin
             btnSelect.Visible = true;
             tbOrgName.Visible = true;
             btnAddNew.Visible = true; 
+        }
+
+        protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            string user = User.Identity.Name;
+            e.Command.Parameters["@UserCreated"].Value = user;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+            e.Command.Parameters["@Valid"].Value = 1;
+        }
+
+        protected void SqlDataSource1_Inserting(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            string user = User.Identity.Name;
+            e.Command.Parameters["@UserCreated"].Value = user;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+            e.Command.Parameters["@Valid"].Value = 1;
         }   
     }
 }

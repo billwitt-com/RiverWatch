@@ -793,7 +793,7 @@ namespace RWInbound2.Admin
 
             // do some validation here.. .
             tmpString = tbLatitude.Text;
-            if(tmpString.Length < 3)
+            if(tmpString.Length < 2)
             {
                 lblStatus.Text = "Please enter a valid Latitude";
                 lblStatus.Visible = true;
