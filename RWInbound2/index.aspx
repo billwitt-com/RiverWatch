@@ -9,13 +9,13 @@
        
                     </td>
                 <td style="width: 74px">
-                    <asp:Button ID="btnLogin" runat="server" Text="Log In" OnClick="btnLogin_Click" /></td>
-                <td>
-                    <asp:Button ID="btnLogOut" runat="server" OnClick="btnLogOut_Click" Text="Log Out" />
+                    <%--<asp:Button ID="btnLogin" runat="server" Text="Log In" OnClick="btnLogin_Click" />--%>
                 </td>
+                <%--<td>
+                    <asp:Button ID="btnLogOut" runat="server" OnClick="btnLogOut_Click" Text="Log Out" />
+                </td>--%>
             </tr>
-        </table>
-   
+        </table>   
     <p>
         Links to associated sites?</p>
     <p>

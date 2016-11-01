@@ -229,7 +229,7 @@ namespace RWInbound2.Data
                     { 
                         FormsAuthentication.SetAuthCookie(VP, false); // create user name as authenticated 
                         //    FormsAuthentication.RedirectFromLoginPage(VP, false);
-                        Session["Role"] = 1;  // XXXX not sure about this yet.... 
+                        Session["ROLE"] = 1;  // XXXX not sure about this yet.... 
                     }
                     else  // login failure
                     {

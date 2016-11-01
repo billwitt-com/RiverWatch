@@ -20,9 +20,9 @@ namespace RWInbound2.App_Code
             {
                 int role = 1;
 
-                if (HttpContext.Current.Session["Role"] != null)
+                if (HttpContext.Current.Session["ROLE"] != null)
                 {
-                    role = (int)HttpContext.Current.Session["Role"];    // get users role set on login page
+                    role = (int)HttpContext.Current.Session["ROLE"];    // get users role set on login page
                 }
 
                 string pgname = pageName.Replace("ASP.", "").Replace("_", ".").ToUpper(); // Page.ToString().Replace("ASP.", "").Replace("_", ".").ToUpper();

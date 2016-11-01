@@ -13,15 +13,6 @@ namespace RWInbound2.Edit {
     public partial class Edit {
         
         /// <summary>
-        /// lblWelcome control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWelcome;
-        
-        /// <summary>
         /// Table1 control.
         /// </summary>
         /// <remarks>
@@ -193,6 +184,24 @@ namespace RWInbound2.Edit {
         protected global::System.Web.UI.WebControls.Button btnOrganizationType;
         
         /// <summary>
+        /// btnPhysHabPara control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPhysHabPara;
+        
+        /// <summary>
+        /// btnEditPhysHab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditPhysHab;
+        
+        /// <summary>
         /// btnProject control.
         /// </summary>
         /// <remarks>
@@ -292,6 +301,24 @@ namespace RWInbound2.Edit {
         protected global::System.Web.UI.WebControls.Button btnStationStatus;
         
         /// <summary>
+        /// btnSubPara control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubPara;
+        
+        /// <summary>
+        /// btnEditSubSamps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditSubSamps;
+        
+        /// <summary>
         /// btnTownship control.
         /// </summary>
         /// <remarks>
@@ -319,12 +346,12 @@ namespace RWInbound2.Edit {
         protected global::System.Web.UI.WebControls.Button btnWSG;
         
         /// <summary>
-        /// Button4 control.
+        /// btnWSR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button4;
+        protected global::System.Web.UI.WebControls.Button btnWSR;
     }
 }
