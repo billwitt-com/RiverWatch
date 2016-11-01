@@ -12,13 +12,18 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkSection
+    public partial class tlkSubPara
     {
-        public string Code { get; set; }
+        public int SubParaID { get; set; }
+        public string LongParameterName { get; set; }
+        public string ParameterName { get; set; }
+        public string ParameterTypeI { get; set; }
+        public string ParameterTypeII { get; set; }
+        public string RowID { get; set; }
+        public string CharGroupID { get; set; }
+        public string Comments { get; set; }
         public string Description { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
-        public string UserLastModified { get; set; }
+        public Nullable<int> dsOrder { get; set; }
         public Nullable<bool> Valid { get; set; }
-        public int ID { get; set; }
     }
 }

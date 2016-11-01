@@ -13,22 +13,26 @@
     <asp:Panel ID="pnlInput" runat="server">
         <table style="width: 100%">
             <tr>
-                <td style="width: 43px">&nbsp;<asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="18px" Text="  OR"></asp:Label>
+                <td style="width: 18px">&nbsp;<asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="18px" Text="  OR"></asp:Label>
                 </td>
-                <td style="width: 108px">
+                <td   >
                     <asp:Label ID="Label1" runat="server" Text="Station Name: "></asp:Label>
                 </td>
-                <td style="width: 132px">
-                    <asp:TextBox ID="tbStationName" runat="server"></asp:TextBox>
+                <td >
+                    <asp:TextBox ID="tbStationName" runat="server" Height="22px" Width="335px"></asp:TextBox>
                 </td>
-                <td style="width: 60px">
+                <td >
                     <asp:Button ID="btnSelectStnName" runat="server" Text="Select" OnClick="btnSelectStnName_Click" CssClass="adminButton" />
                 </td>
-                <td style="width: 106px">
-                    <asp:Label ID="Label2" runat="server" Text="  OR Station #: "></asp:Label>
+                </tr>
+            <tr>
+                <td style="width: 18px">&nbsp;<asp:Label ID="Label3" runat="server" Font-Bold="True" Font-Size="18px" Text="  OR"></asp:Label>
                 </td>
-                <td style="width: 135px">
-                    <asp:TextBox ID="tbStnNumber" runat="server"></asp:TextBox>
+                <td style="width: 91px">
+                    <asp:Label ID="Label2" runat="server" Text="Station #: "></asp:Label>
+                </td>
+                <td style="width: 156px">
+                    <asp:TextBox ID="tbStnNumber" runat="server" Height="22px"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Button ID="btnSelectStnNumber" runat="server" Text="Select" OnClick="btnSelectStnNumber_Click" CssClass="adminButton" />
@@ -38,7 +42,7 @@
         </table>
     </asp:Panel>
     <br />
-<%--    <asp:Panel ID="pnlTable" runat="server">--%>
+    <asp:Panel ID="pnlTable" runat="server">
 
         <table id="Table1" style="width: 917px"
             border="0">
@@ -58,8 +62,7 @@
                 <td style="width: 8px"></td>
                 <td style="width: 190px">Station Name: *</td>
                 <td>
-                    <asp:TextBox ID="txtStationName" runat="server">
-                    </asp:TextBox>
+                    <asp:TextBox ID="txtStationName" runat="server" Height="22px" Width="700px"></asp:TextBox>
 
                     <%--  <asp:requiredfieldvalidator id="valName" runat="server" 
                                 ErrorMessage="Name is required." CssClass="errMsg" ControlToValidate="txtStationName"></asp:requiredfieldvalidator></td>--%>
@@ -77,7 +80,7 @@
                 <td style="width: 8px; height: 32px"></td>
                 <td style="height: 32px; width: 190px;">Water Code: *</td>
                 <td style="height: 32px">
-                    <asp:DropDownList ID="ddlWaterCode" runat="server" Width="432px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlWaterCode"  runat="server" Width="700px" Height="22px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 10px"></td>
@@ -85,64 +88,64 @@
                 <td style="height: 10px">
                     <asp:TextBox ID="txtriver" runat="server"></asp:TextBox>&nbsp; 
 							Select River:
-							<asp:DropDownList ID="ddlRiver" runat="server" Width="152px" AutoPostBack="true" OnSelectedIndexChanged="ddlRiver_SelectedIndexChanged"></asp:DropDownList></td>
+							<asp:DropDownList ID="ddlRiver" runat="server" Width="152px"   OnSelectedIndexChanged="ddlRiver_SelectedIndexChanged"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 22px"></td>
                 <td style="width: 190px; height: 22px">Description:</td>
                 <td style="height: 22px">
-                    <asp:TextBox ID="tbdescription" runat="server" Height="53px" TextMode="MultiLine" Width="631px"></asp:TextBox></td>
+                    <asp:TextBox ID="tbdescription" runat="server" Height="60px" TextMode="MultiLine" Width="700px"></asp:TextBox></td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 18px"></td>
                 <td style="width: 190px; height: 18px">Station Type: *</td>
                 <td style="height: 18px">
-                    <asp:DropDownList ID="ddlStationType" runat="server" Width="152px"></asp:DropDownList>&nbsp;
+                    <asp:DropDownList ID="ddlStationType" runat="server"  Width="700px" Height="22px"></asp:DropDownList>&nbsp;
                 </td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 4px"></td>
                 <td style="width: 190px; height: 4px">Station Status: *</td>
                 <td style="height: 4px">
-                    <asp:DropDownList ID="ddlStationStatus" runat="server" Width="152px"></asp:DropDownList>&nbsp;
+                    <asp:DropDownList ID="ddlStationStatus" runat="server"  Width="152px"></asp:DropDownList>&nbsp;
                 </td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">Aquatic Model Index:</td>
                 <td>
-                    <asp:TextBox ID="tbAquaticModelIndex" runat="server"></asp:TextBox></td>
+                    <asp:TextBox ID="tbAquaticModelIndex" runat="server" Height="19px" Width="106px"></asp:TextBox></td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 18px"></td>
                 <td style="width: 190px; height: 18px">Water Body ID: *</td>
                 <td style="height: 18px">
-                    <asp:DropDownList ID="ddlWaterBodyID" runat="server" Width="152px"></asp:DropDownList>&nbsp;
+                    <asp:DropDownList ID="ddlWaterBodyID" runat="server"  Width="700px" Height="22px"></asp:DropDownList>&nbsp;
                 </td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">QUADI:</td>
                 <td>
-                    <asp:DropDownList ID="ddlQUADI" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlQUADI" runat="server"  Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">Township:</td>
                 <td>
-                    <asp:DropDownList ID="ddlTownship" OnDataBinding="ddl_DataBinding" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlTownship" runat="server" Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 19px"></td>
                 <td style="width: 190px; height: 19px">Range:</td>
                 <td style="height: 19px">
-                    <asp:DropDownList ID="ddlRange" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlRange" runat="server"  Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">Section:</td>
                 <td>
-                    <asp:DropDownList ID="ddlSection" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlSection" runat="server"  Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
@@ -154,7 +157,7 @@
                 <td style="width: 8px; height: 15px"></td>
                 <td style="width: 190px; height: 15px">Grid:</td>
                 <td style="height: 15px">
-                    <asp:DropDownList ID="ddlGrid" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlGrid" runat="server"  Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
@@ -166,13 +169,13 @@
                 <td style="width: 8px"></td>
                 <td style="width: 190px">RiverWatch Watershed:</td>
                 <td>
-                    <asp:DropDownList ID="ddlRWWaterShed" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlRWWaterShed"  runat="server" Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">WQCC Watershed:</td>
                 <td>
-                    <asp:DropDownList ID="ddlWQCCWaterShed" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlWQCCWaterShed" runat="server" Width="616px" Height="22px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
@@ -184,7 +187,7 @@
                 <td style="width: 8px; height: 16px"></td>
                 <td style="width: 190px; height: 16px">Eco Region:</td>
                 <td style="height: 16px">
-                    <asp:DropDownList ID="ddlEcoRegion" runat="server" Width="312px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlEcoRegion"  runat="server" Width="619px" Height="22px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
@@ -196,7 +199,7 @@
                 <td style="width: 8px"></td>
                 <td style="width: 190px">Watershed Report:</td>
                 <td>
-                    <asp:DropDownList ID="ddlWSR" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlWSR" runat="server"  Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
@@ -232,13 +235,13 @@
                 <td style="width: 8px; height: 12px"></td>
                 <td style="width: 190px; height: 12px">County:</td>
                 <td style="height: 12px">
-                    <asp:DropDownList ID="ddlCounty" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlCounty"  runat="server" Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">State:</td>
                 <td>
-                    <asp:DropDownList ID="ddlState" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlState" AutoPostBack="true" runat="server" Width="152px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
@@ -274,7 +277,7 @@
                 <td style="width: 8px"></td>
                 <td style="width: 190px">Comment:</td>
                 <td>
-                    <asp:TextBox ID="tbComment" runat="server" Width="448px" Rows="10" TextMode="MultiLine" Height="76px"></asp:TextBox></td>
+                    <asp:TextBox ID="tbComment" runat="server" Width="700px" Rows="10" TextMode="MultiLine" Height="76px"></asp:TextBox></td>
             </tr>
             <%--<tr>
 						<td style="WIDTH: 8px"></td>
@@ -298,6 +301,6 @@
                 <td style="width: 60px" colspan="3"></td>
             </tr>
         </table>
-<%--    </asp:Panel>--%>
+    </asp:Panel>
 
 </asp:Content>
