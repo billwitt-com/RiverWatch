@@ -109,7 +109,7 @@ namespace RWInbound2.Account
            // FormsAuthentication.RedirectFromLoginPage(UZerName, false);
             if(role.Value > 0)
             {
-                Session["Role"] = role.Value; 
+                Session["ROLE"] = role.Value; 
             }
           
              Response.Redirect("~/index.aspx"); 

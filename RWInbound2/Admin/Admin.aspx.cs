@@ -80,6 +80,10 @@ namespace RWInbound2.Admin
             Response.Redirect("AdminOrgs.aspx");
         }
 
+        protected void btnManagePublicUsers_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManagePublicAccess.aspx");
+        }
         protected void Button7_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditUnknowns.aspx");

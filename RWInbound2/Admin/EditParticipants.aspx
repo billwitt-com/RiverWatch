@@ -178,7 +178,6 @@
             </EditItemTemplate>
 
             <InsertItemTemplate>
-               <%-- <br />--%>
                 <label>First Name:</label>
                 <asp:TextBox ID="newFirstName" runat="server" Text='<%# Bind("FirstName") %>'></asp:TextBox>
                 <br />

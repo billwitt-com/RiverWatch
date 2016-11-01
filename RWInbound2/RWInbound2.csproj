@@ -59,6 +59,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AspNet.ScriptManager.jQuery.UI.Combined.1.11.4\lib\net40\AspNet.ScriptManager.jQuery.UI.Combined.dll</HintPath>
     </Reference>
+    <Reference Include="BotDetect, Version=4.1.0.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Captcha.4.1.0\lib\net45\BotDetect.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BotDetect.Web.Mvc, Version=4.1.0.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Captcha.4.1.0\lib\net45\BotDetect.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
@@ -131,6 +139,7 @@
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
+    <Content Include="Admin\ManagePublicAccess.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
     <Content Include="Applications\PageRenderTest.aspx" />
@@ -171,6 +180,7 @@
     <Content Include="Data\Organizations.aspx" />
     <Content Include="Data\Participants.aspx" />
     <Content Include="Data\Stations.aspx" />
+    <Content Include="Edit\EditBenGrid.aspx" />
     <Content Include="Edit\EditEcoRegion.aspx" />
     <Content Include="Edit\EditEquipCategory.aspx" />
     <Content Include="Edit\EditEquipItems.aspx" />
@@ -182,6 +192,8 @@
     <Content Include="Edit\EditMetalBarCodeType.aspx" />
     <Content Include="Edit\EditNutrientBarCodeType.aspx" />
     <Content Include="Edit\EditOrganizationType.aspx" />
+    <Content Include="Edit\EditPhysHab.aspx" />
+    <Content Include="Edit\EditPhysHabPara.aspx" />
     <Content Include="Edit\EditProject.aspx" />
     <Content Include="Edit\EditRiverWatchWaterShed.aspx" />
     <Content Include="Edit\EditSampleType.aspx" />
@@ -189,6 +201,8 @@
     <Content Include="Edit\EditState.aspx" />
     <Content Include="Edit\EditStationQUAD.aspx" />
     <Content Include="Edit\EditStationStatus.aspx" />
+    <Content Include="Edit\EditSubPara.aspx" />
+    <Content Include="Edit\EditSubSamp.aspx" />
     <Content Include="Images\loader.gif" />
     <Content Include="Public\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
@@ -252,12 +266,14 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="OrgExample.aspx" />
+    <Content Include="Public\PublicReports.aspx" />
     <Content Include="Public\UnknownData.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Reports\Organizations.aspx" />
     <Content Include="Reports\OrgStations.aspx" />
     <Content Include="Reports\OrgStatus.aspx" />
     <Content Include="Reports\Participants.aspx" />
+    <Content Include="Reports\PublicUsers.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="favicon.ico" />
@@ -389,6 +405,17 @@
     </Content>
     <Content Include="RiverWatchSamplesDataSet.xsc">
       <DependentUpon>RiverWatchSamplesDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchPublicUsersDataSet.xsc">
+      <DependentUpon>RiverWatchPublicUsersDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchPublicUsersDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchPublicUsersDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchPublicUsersDataSet.xss">
+      <DependentUpon>RiverWatchPublicUsersDataSet.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchSamplesDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -615,6 +642,13 @@
     <Compile Include="Admin\EditUnknowns.aspx.designer.cs">
       <DependentUpon>EditUnknowns.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\ManagePublicAccess.aspx.cs">
+      <DependentUpon>ManagePublicAccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManagePublicAccess.aspx.designer.cs">
+      <DependentUpon>ManagePublicAccess.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Applications\Applications.aspx.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -677,6 +711,13 @@
     </Compile>
     <Compile Include="Data\Stations.aspx.designer.cs">
       <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditBenGrid.aspx.cs">
+      <DependentUpon>EditBenGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditBenGrid.aspx.designer.cs">
+      <DependentUpon>EditBenGrid.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditEcoRegion.aspx.cs">
       <DependentUpon>EditEcoRegion.aspx</DependentUpon>
@@ -755,6 +796,20 @@
     <Compile Include="Edit\EditOrganizationType.aspx.designer.cs">
       <DependentUpon>EditOrganizationType.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditPhysHab.aspx.cs">
+      <DependentUpon>EditPhysHab.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditPhysHab.aspx.designer.cs">
+      <DependentUpon>EditPhysHab.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditPhysHabPara.aspx.cs">
+      <DependentUpon>EditPhysHabPara.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditPhysHabPara.aspx.designer.cs">
+      <DependentUpon>EditPhysHabPara.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditProject.aspx.cs">
       <DependentUpon>EditProject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -804,6 +859,20 @@
     <Compile Include="Edit\EditStationStatus.aspx.designer.cs">
       <DependentUpon>EditStationStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditSubPara.aspx.cs">
+      <DependentUpon>EditSubPara.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditSubPara.aspx.designer.cs">
+      <DependentUpon>EditSubPara.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditSubSamp.aspx.cs">
+      <DependentUpon>EditSubSamp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditSubSamp.aspx.designer.cs">
+      <DependentUpon>EditSubSamp.aspx</DependentUpon>
+    </Compile>
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -825,10 +894,10 @@
     <Compile Include="ParticipantsView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ParticipantswithOrgName.cs">
+    <Compile Include="Project.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Project.cs">
+    <Compile Include="PublicUsers.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PublicUsers.cs">
@@ -1068,6 +1137,13 @@
     <Compile Include="ProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Public\PublicReports.aspx.cs">
+      <DependentUpon>PublicReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\PublicReports.aspx.designer.cs">
+      <DependentUpon>PublicReports.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Public\UnknownData.aspx.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1109,6 +1185,13 @@
     </Compile>
     <Compile Include="Reports\Participants.aspx.designer.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PublicUsers.aspx.cs">
+      <DependentUpon>PublicUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\PublicUsers.aspx.designer.cs">
+      <DependentUpon>PublicUsers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
       <DependentUpon>ReportLachatNOTINNutrientBarcode.aspx</DependentUpon>
@@ -1211,6 +1294,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchParticipantsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchPublicUsersDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchPublicUsersDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchSamplesDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1571,13 +1659,22 @@
     <Content Include="Reports\StationsWithGauges.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Reports\OrganizationsAll.rdlc" />
+    <Content Include="Reports\OrganizationsAll.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Reports\Participants.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Reports\MetalBarCodes.rdlc" />
-    <EmbeddedResource Include="Reports\Samples.rdlc" />
-    <EmbeddedResource Include="Reports\Stations.rdlc" />
+    <Content Include="Reports\MetalBarCodes.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Samples.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Stations.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Reports\PublicUsers.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

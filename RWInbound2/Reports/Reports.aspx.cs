@@ -16,9 +16,9 @@ namespace RWInbound2.Reports
             {
                 int role = 1;
 
-                if (Session["Role"] != null)
+                if (Session["ROLE"] != null)
                 {
-                    role = (int)Session["Role"];    // get users role
+                    role = (int)Session["ROLE"];    // get users role
                 }
 
                 string pgname = Page.ToString().Replace("ASP.", "").Replace("_", ".").ToUpper();
@@ -121,6 +121,11 @@ namespace RWInbound2.Reports
         protected void btnMetalBarCodes_Click(object sender, EventArgs e)
         {
             Response.Redirect("MetalBarCodes.aspx");
+        }
+
+        protected void btnPublicUsers_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PublicUsers.aspx");
         }
     }
 }

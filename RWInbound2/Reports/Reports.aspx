@@ -24,4 +24,6 @@
     <asp:Button ID="btnSamples" runat="server" Text="All Samples" OnClick="btnSamples_Click" />
     <br />
     <asp:Button ID="btnMetalBarCodes" runat="server" Text="All Metal Bar Codes" OnClick="btnMetalBarCodes_Click" />
+    <br />
+    <asp:Button ID="btnPublicUsers" runat="server" Text="PublicUsers" OnClick="btnPublicUsers_Click" />
 </asp:Content>
