@@ -1,8 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UploadLatchet.aspx.cs" Inherits="RWInbound2.Data.UploadLatchet" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="Label2" runat="server" Text="Upload Latchet Data from CSV file" CssClass="site-title"></asp:Label>
-    
+    <asp:Label ID="Label2" runat="server" Text="Upload Latchet Data from CSV file"  CssClass="PageLabel"></asp:Label>
+    <br />
+    <br />
+    <asp:Label ID="Label3" runat="server" Text="Note: This also updates nutrient data in the data base"></asp:Label>
+    <br />
+    <asp:Label ID="Label4" runat="server" Text="And may take a minute or two - Please be patient"></asp:Label>
 
     <br />
     <br />

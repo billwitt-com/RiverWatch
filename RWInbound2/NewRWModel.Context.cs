@@ -105,5 +105,7 @@ namespace RWInbound2
         public virtual DbSet<tlkSubPara> tlkSubPara { get; set; }
         public virtual DbSet<OrgStationsView> OrgStationsView { get; set; }
         public virtual DbSet<ParticipantsView> ParticipantsView { get; set; }
+        public virtual DbSet<SamplesView> SamplesView { get; set; }
+        public virtual DbSet<tblBenGrid> tblBenGrid { get; set; }
     }
 }

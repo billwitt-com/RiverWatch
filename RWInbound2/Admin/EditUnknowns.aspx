@@ -114,8 +114,8 @@
             <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' />
             <br />
 
-            <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
-            &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+            <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CssClass="adminButton" CommandName="Update" Text="Update" />
+            &nbsp;<asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CssClass="adminButton" CommandName="Cancel" Text="Cancel" />
         </EditItemTemplate>
         <InsertItemTemplate>
   
@@ -203,7 +203,7 @@
             Validated:
             <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' />
             <br />
-            <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" />
+            <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CssClass="adminButton" CommandName="Insert" Text="Insert" />
             &nbsp;<asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
         </InsertItemTemplate>
         <ItemTemplate>
@@ -262,8 +262,8 @@
             <asp:CheckBox ID="ValidatedCheckBox" runat="server" Checked='<%# Bind("Validated") %>' Enabled="false" />
             <br />
 
-            <asp:Button ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
-            &nbsp;<asp:Button ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
+            <asp:Button ID="EditButton" runat="server" CssClass="adminButton" CausesValidation="False" CommandName="Edit" Text="Edit" />
+            &nbsp;<asp:Button ID="DeleteButton" runat="server" CssClass="adminButton" CausesValidation="False" CommandName="Delete" Text="Delete" />
 <%--            &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" OnClick="NewButton_Click" CommandName="New" Text="New" />--%>
         </ItemTemplate>
     </asp:FormView>

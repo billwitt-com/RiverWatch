@@ -77,7 +77,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button4" CssClass="adminButton"  runat="server" Text="Manage Participants" Width="176px" />
+        <asp:Button ID="btnManageParticipants" CssClass="adminButton"  runat="server" Text="Manage Participants" Width="176px" OnClick="btnManageParticipants_Click" />
                 </td>
                 <td>
                     <asp:Button ID="btnEditMetalBarcode"   CssClass="adminButton" Width="176px" runat="server" Text="Edit Metal Barcodes" OnClick="btnEditMetalBarcode_Click" />
@@ -89,7 +89,9 @@
                     <asp:Button ID="btnUsers" CssClass="adminButton"  runat="server"  Text="Manage Users"  Width="176px" OnClick="btnUsers_Click" />
                 </td>
                 <td>
-                    <asp:Button ID="Button2" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" />
+                   <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />
+
+<%--                    <asp:Button ID="btnPermissions" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" OnClick="btnPermissions_Click" />--%>
                 </td>
             </tr>
              <tr>
@@ -104,7 +106,7 @@
             <tr>
                 <td>&nbsp;</td>               
                 <td style="width: 262px">
-                    <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />
+                    <asp:Button ID="btnExpWater" runat="server" Text="Edit ExpWater" CssClass="adminButton" Width="176px" OnClick="btnExpWaters_Click" />
                 </td>
                  <td>
                     <asp:Button ID="btnAddInboundICP" runat="server" Text="Add InboundICP" CssClass="adminButton" Width="176px" OnClick="btnAddInboundICP_Click" />
@@ -113,19 +115,18 @@
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-                    <asp:Button ID="btnExpWater" runat="server" Text="Edit ExpWater" CssClass="adminButton" Width="176px" OnClick="btnExpWaters_Click" />
+                    <asp:Button ID="btnEditIncoming" runat="server" Text="Edit Field Data" CssClass="adminButton" Width="176px" OnClick="btnEditIncoming_Click" />
                 </td>
                 <td>
-                    &nbsp;</td>
+                    <asp:Button ID="btnManagePublicUsers" Enabled="false" runat="server" Text="Manage Public Users" CssClass="adminButton" Width="176px" OnClick="btnManagePublicUsers_Click" />
+                </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-                    <asp:Button ID="btnEditIncoming" runat="server" Text="Edit Field Data" CssClass="adminButton" Width="176px" OnClick="btnEditIncoming_Click" />
-                </td>
+                    &nbsp;</td>
                 <td>
-                    <asp:Button ID="btnManagePublicUsers" runat="server" Text="Manage Public User Access" CssClass="adminButton" Width="176px" OnClick="btnManagePublicUsers_Click" />
-                </td>
+                    &nbsp;</td>
             </tr>
         </table>
   

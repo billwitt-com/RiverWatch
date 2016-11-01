@@ -288,7 +288,7 @@
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
         SelectCommand="SELECT [Description], [Code] FROM [tlkWQCCWaterShed] where valid = 1"></asp:SqlDataSource>
 
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server"  OnInserted="SqlDataSource1_Inserted" 
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server"  OnInserted="SqlDataSource1_Inserted"  OnUpdating="SqlDataSource1_Updating" OnInserting="SqlDataSource1_Inserting"
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
         DeleteCommand="UPDATE [organization] SET [Valid] = 0 WHERE [ID] = @ID" 
         InsertCommand="INSERT INTO [organization] ([KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [State], [Zip], [Phone], [Fax], [YearStarted], [WaterShed], [WaterShedGathering], [Password], [Active], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [Valid]) VALUES (@KitNumber, @OrganizationName, @OrganizationType, @Email, @MailingAddress, @ShippingAddress, @City, @State, @Zip, @Phone, @Fax, @YearStarted, @WaterShed, @WaterShedGathering, @Password, @Active, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @Valid)" 

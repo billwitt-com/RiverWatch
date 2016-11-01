@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Reports" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="RWInbound2.Reports.Reports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="site-title">
-        Reports
+        <asp:Label ID="Label1" runat="server" CssClass =" PageLabel" Text="Reports"></asp:Label>
     </div>
     <asp:Button ID="btnErrorLogReport" runat="server" Text="Error Log" OnClick="btnErrorLogReport_Click" />
     <br />
