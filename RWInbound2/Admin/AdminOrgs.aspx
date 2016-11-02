@@ -18,7 +18,7 @@
     <br />
     <asp:Label ID="lblMsg" runat="server" ></asp:Label>
     <br />
-    <asp:Label ID="lblLastUsedText" runat="server" Text="Last Used Kit Number:  "></asp:Label>
+    <asp:Label ID="lblLastUsedText" runat="server" Text="Next Unused Kit Number:  "></asp:Label>
     <asp:Label ID="lblKitNumber" runat="server" Font-Bold="True" Font-Size="11pt" ForeColor="#0066FF"></asp:Label>
     <asp:FormView ID="FormView1" runat="server"   AllowPaging="true" 
         PagerSettings-Mode="NumericFirstLast"  

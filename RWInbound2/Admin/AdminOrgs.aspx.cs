@@ -171,17 +171,35 @@ namespace RWInbound2.Admin
             FormView1.Visible = true;
             btnSelect.Visible = false;  // hide so we don't have any errors
             tbOrgName.Visible = false;
-            btnAddNew.Visible = false; 
+            btnAddNew.Visible = false;
+            int item = 0;
+            int last = 0; 
+            int nextKitNumber = 0; 
 
             try
             {
                 RiverWatchEntities RWE = new RiverWatchEntities();
 
-                int LKN = (int)(from c in RWE.organizations
-                                select c.KitNumber).Max();
+                //int LKN = (int)(from c in RWE.organizations
+                //                select c.KitNumber).Max();
 
-                lblKitNumber.Text = LKN.ToString();
-                
+                //lblKitNumber.Text = LKN.ToString();
+
+                IEnumerable<int> L = from c in RWE.organizations
+                                     select
+                                      c.KitNumber.Value;                                   
+
+                foreach(int i in L)
+                {
+                    if(i - last > 1)    // is the next number a jump in sequence?
+                    {
+                        nextKitNumber = i - 1;  // go back to the one that was not there
+                        break; 
+                    }
+                    last = i; 
+                }
+
+                lblKitNumber.Text = nextKitNumber.ToString();
                 lblKitNumber.Visible = true;
                 lblLastUsedText.Visible = true;
             }
