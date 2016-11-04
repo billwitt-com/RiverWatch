@@ -39,10 +39,10 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
                 {
-                    return _db.tlkSections.Where(c => c.Description.Equals(descriptionSearchTerm))
+                    return _db.tlkSection.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkSection> sections = _db.tlkSections
+                IQueryable<tlkSection> sections = _db.tlkSection
                                                      .OrderBy(c => c.Code);
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
@@ -98,7 +98,7 @@ namespace RWInbound2.Edit
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    sectionsDescriptions = _db.tlkSections
+                    sectionsDescriptions = _db.tlkSection
                                              .Where(c => c.Description.Contains(prefixText))
                                              .Select(c => c.Description).ToList();
 
@@ -119,7 +119,7 @@ namespace RWInbound2.Edit
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var sectionToUpdate = _db.tlkSections.Find(model.ID);
+                    var sectionToUpdate = _db.tlkSection.Find(model.ID);
 
                     sectionToUpdate.Code = model.Code;
                     sectionToUpdate.Description = model.Description;
@@ -153,8 +153,8 @@ namespace RWInbound2.Edit
             {
                 try
                 {
-                    var sectionToDelete = _db.tlkSections.Find(model.ID);
-                    _db.tlkSections.Remove(sectionToDelete);
+                    var sectionToDelete = _db.tlkSection.Find(model.ID);
+                    _db.tlkSection.Remove(sectionToDelete);
                     _db.SaveChanges();
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "Section Deleted";
@@ -180,44 +180,34 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    int code;
-                    bool convertToInt = int.TryParse(strCode, out code);
-                    if (!convertToInt)
+                    var newSection = new tlkSection()
                     {
-                        SuccessLabel.Text = "";
-                        ErrorLabel.Text = "Code field must be an integer number.";
+                        Code = strCode,
+                        Description = description,
+                        Valid = true,
+                        DateLastModified = DateTime.Now
+                    };
+
+                    if (this.User != null && this.User.Identity.IsAuthenticated)
+                    {
+                        newSection.UserLastModified
+                            = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        var newSection = new tlkSection()
-                        {
-                            Code = code,
-                            Description = description,
-                            Valid = true,
-                            DateLastModified = DateTime.Now
-                        };
+                        newSection.UserLastModified = "Unknown";
+                    }
 
-                        if (this.User != null && this.User.Identity.IsAuthenticated)
-                        {
-                            newSection.UserLastModified
-                                = HttpContext.Current.User.Identity.Name;
-                        }
-                        else
-                        {
-                            newSection.UserLastModified = "Unknown";
-                        }
+                    using (RiverWatchEntities _db = new RiverWatchEntities())
+                    {
+                        _db.tlkSection.Add(newSection);
+                        _db.SaveChanges();
+                        ErrorLabel.Text = "";
 
-                        using (RiverWatchEntities _db = new RiverWatchEntities())
-                        {
-                            _db.tlkSections.Add(newSection);
-                            _db.SaveChanges();
-                            ErrorLabel.Text = "";
+                        string successLabelText = "New Section Added: " + newSection.Description;
+                        string redirect = "EditSection.aspx?successLabelMessage=" + successLabelText;
 
-                            string successLabelText = "New Section Added: " + newSection.Description;
-                            string redirect = "EditSection.aspx?successLabelMessage=" + successLabelText;
-
-                            Response.Redirect(redirect, false);
-                        }
+                        Response.Redirect(redirect, false);
                     }
                 }
             }
