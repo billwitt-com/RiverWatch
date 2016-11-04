@@ -24,7 +24,7 @@ namespace RWInbound2.Edit
             SuccessLabel.Text = "";
         }
 
-        public IQueryable<tlkSection> GetSections([QueryString]string descriptionSearchTerm = "",
+        public IQueryable<tlkSections> GetSections([QueryString]string descriptionSearchTerm = "",
                                                        [QueryString]string successLabelMessage = "")
         {
             try
@@ -42,7 +42,7 @@ namespace RWInbound2.Edit
                     return _db.tlkSection.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkSection> sections = _db.tlkSection
+                IQueryable<tlkSection> sections = _db.tlkSections
                                                      .OrderBy(c => c.Code);
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
@@ -113,7 +113,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public void UpdateSection(tlkSection model)
+        public void UpdateSection(tlkSections model)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public void DeleteSection(tlkSection model)
+        public void DeleteSection(tlkSections model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
@@ -180,13 +180,22 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                    var newSection = new tlkSection()
+                    int code;
+                    bool convertToInt = int.TryParse(strCode, out code);
+                    if (!convertToInt)
                     {
-                        Code = strCode,
-                        Description = description,
-                        Valid = true,
-                        DateLastModified = DateTime.Now
-                    };
+                        SuccessLabel.Text = "";
+                        ErrorLabel.Text = "Code field must be an integer number.";
+                    }
+                    else
+                    {
+                        var newSection = new tlkSection()
+                        {
+                            Code = code,
+                            Description = description,
+                            Valid = true,
+                            DateLastModified = DateTime.Now
+                        };
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
@@ -198,16 +207,17 @@ namespace RWInbound2.Edit
                         newSection.UserLastModified = "Unknown";
                     }
 
-                    using (RiverWatchEntities _db = new RiverWatchEntities())
-                    {
-                        _db.tlkSection.Add(newSection);
-                        _db.SaveChanges();
-                        ErrorLabel.Text = "";
+                        using (RiverWatchEntities _db = new RiverWatchEntities())
+                        {
+                            _db.tlkSections.Add(newSection);
+                            _db.SaveChanges();
+                            ErrorLabel.Text = "";
 
                         string successLabelText = "New Section Added: " + newSection.Description;
                         string redirect = "EditSection.aspx?successLabelMessage=" + successLabelText;
 
-                        Response.Redirect(redirect, false);
+                            Response.Redirect(redirect, false);
+                        }
                     }
                 }
             }

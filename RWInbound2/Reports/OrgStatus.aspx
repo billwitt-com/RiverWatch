@@ -13,8 +13,8 @@
     <div class="label-placement">
             <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
     </div>
-    <br />
-    <p>
+ 
+
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 Search By Organization Name:
@@ -37,8 +37,7 @@
                 </ajaxToolkit:AutoCompleteExtender>
             </ContentTemplate>
         </asp:UpdatePanel>         
-    </p>
-<br />
+
 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1055px" Height="647px">
     <LocalReport ReportPath="Reports\OrgStatus.rdlc">
         <DataSources>

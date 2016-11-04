@@ -20,7 +20,7 @@ namespace RWInbound2.Admin
                 SetMessages();
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
-                Validate();                
+            //    Validate();                
             }
             try
             {
