@@ -35,12 +35,12 @@ namespace RWInbound2.Admin
                 if(itemTemplatePanel != null && id > 0)
                 {
                     itemTemplatePanel.Visible = true;
-                    ExpWaterFormView.AllowPaging = false;
+                    //ExpWaterFormView.AllowPaging = false;
                 }
                 else if (itemTemplatePanel != null)
                 {
                     itemTemplatePanel.Visible = false;
-                    ExpWaterFormView.AllowPaging = true;
+                    //ExpWaterFormView.AllowPaging = true;
                 }                
             }
             catch (Exception ex)

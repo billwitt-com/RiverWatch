@@ -35,6 +35,11 @@ namespace RWInbound2.Admin
             Response.Redirect("adminStations.aspx");
         }
 
+        protected void btnManageParticipants_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditParticipants.aspx");
+        }
+
         protected void btnEditMetalBarcode_Click(object sender, EventArgs e)
         {
             Response.Redirect("editmetalbarcode.aspx"); 

@@ -782,7 +782,7 @@ namespace RWInbound2.Admin
 
                 // ddlSection
 
-                var l15 = (from q in NRWE.tlkSections
+                var l15 = (from q in NRWE.tlkSection
                            orderby q.Description
                            select new
                            {

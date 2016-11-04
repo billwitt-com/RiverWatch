@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="RWInbound2.Admin.Admin" %>
+﻿<%@ Page Title="Admin" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="RWInbound2.Admin.Admin" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -77,7 +77,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <td style="width: 262px">
-        <asp:Button ID="Button4" CssClass="adminButton"  runat="server" Text="Manage Participants" Width="176px" />
+                    <asp:Button ID="btnManageParticipants" CssClass="adminButton"  runat="server" Text="Manage Participants" Width="176px" OnClick="btnManageParticipants_Click" />
                 </td>
                 <td>
                     <asp:Button ID="btnEditMetalBarcode"   CssClass="adminButton" Width="176px" runat="server" Text="Edit Metal Barcodes" OnClick="btnEditMetalBarcode_Click" />
