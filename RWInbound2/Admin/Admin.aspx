@@ -89,7 +89,9 @@
                     <asp:Button ID="btnUsers" CssClass="adminButton"  runat="server"  Text="Manage Users"  Width="176px" OnClick="btnUsers_Click" />
                 </td>
                 <td>
-                    <asp:Button ID="Button2" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" />
+                   <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />
+
+<%--                    <asp:Button ID="btnPermissions" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" OnClick="btnPermissions_Click" />--%>
                 </td>
             </tr>
              <tr>

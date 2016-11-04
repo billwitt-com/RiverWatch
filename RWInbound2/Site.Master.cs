@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web;
+
 
 namespace RWInbound2
 {
@@ -82,7 +82,7 @@ namespace RWInbound2
                 string con = RWE.Database.Connection.ConnectionString;
                 string ds = "Data Source";
                 int idx = con.IndexOf(ds);
-                string dSource = con.Substring(idx + 3 + ds.Length, 10);
+                string dSource = con.Substring(idx + 2 + ds.Length, 10);
 
                 string filepath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
                 const string URIPrefx = "file:///";

@@ -94,15 +94,6 @@ namespace RWInbound2 {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor Reports;
         
         /// <summary>
-        /// Public control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor Public;
-        
-        /// <summary>
         /// Applications control.
         /// </summary>
         /// <remarks>

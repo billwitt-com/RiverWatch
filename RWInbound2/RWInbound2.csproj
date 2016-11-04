@@ -142,6 +142,7 @@
     <Content Include="Admin\ManagePublicAccess.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
+    <Content Include="Applications\PageRenderTest.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -662,6 +663,13 @@
     <Compile Include="Applications\DBSpeedTest.aspx.designer.cs">
       <DependentUpon>DBSpeedTest.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Applications\PageRenderTest.aspx.cs">
+      <DependentUpon>PageRenderTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Applications\PageRenderTest.aspx.designer.cs">
+      <DependentUpon>PageRenderTest.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Code\Permissions.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="Account\Login.aspx.cs">
@@ -881,6 +889,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OrgStatusView.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ParticipantswithOrgName.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ParticipantswithOrgName.cs">
@@ -1517,7 +1528,7 @@
     <Compile Include="tlkSampleType.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="tlkSection.cs">
+    <Compile Include="tlkSections.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tlkState.cs">

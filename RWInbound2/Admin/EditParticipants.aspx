@@ -47,7 +47,7 @@
         <asp:Label ID="OrganizationName" runat="server" />
        <asp:Label ID="OrgID" runat="server" Visible="false" />
     </div> 
-    <asp:FormView ID="ExpWaterFormView" runat="server"
+    <asp:FormView ID="ExpWaterFormView" runat="server" 
             DataKeyNames="ID"
             ItemType="RWInbound2.View_Models.ParticipantsViewModel" 
             SelectMethod="GetParticipants"
@@ -58,7 +58,7 @@
             CellPadding="4"
             AutoGenerateColumns="False" 
             GridLines="None" ForeColor="#333333" 
-            AllowPaging="true" Pagesize="15"
+            AllowPaging="true" Pagesize="15" PagerSettings-Mode="NumericFirstLast" PagerSettings-Position="TopAndBottom"
             OnItemDeleted="ExpWaterFormView_ItemDeleted"> 
             
             <ItemTemplate>
@@ -87,6 +87,9 @@
                     <br />
                     <label>Address2:</label>
                     <asp:Label ID="lblAddress2" runat="server" Text='<%# Bind("Address2") %>'></asp:Label>
+                    <br />
+                     <label>City: </label>
+                    <asp:Label  ID= "lblCity" runat="server" Text='<%# Bind("City") %>'></asp:Label>
                     <br />
                     <label>State: </label>
                     <asp:Label ID="lblState" runat="server" Text='<%# Bind("State") %>'></asp:Label>
@@ -146,6 +149,9 @@
                 <label>Address2:</label>
                 <asp:TextBox ID="txtAddress2" runat="server" Text='<%# Bind("Address2") %>'></asp:TextBox>
                 <br />
+                 <label>City: </label>
+                <asp:TextBox ID= "txtCity" runat="server" Text='<%# Bind("City") %>'></asp:TextBox>
+                 <br />
                 <label>State: </label>
                 <asp:TextBox ID="txtState" runat="server" Text='<%# Bind("State") %>'></asp:TextBox>
                 <br />
@@ -202,6 +208,9 @@
                 <label>Address2:</label>
                 <asp:TextBox ID="newAddress2" runat="server" Text='<%# Bind("Address2") %>'></asp:TextBox>
                 <br />
+                <label>City: </label>
+                <asp:TextBox ID= "newCity" runat="server" Text='<%# Bind("City") %>'></asp:TextBox>
+                 <br />
                 <label>State: </label>
                 <asp:TextBox ID="newState" runat="server" Text='<%# Bind("State") %>'></asp:TextBox>
                 <br />
