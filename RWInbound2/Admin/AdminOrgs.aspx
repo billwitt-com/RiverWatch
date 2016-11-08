@@ -24,9 +24,7 @@
         PagerSettings-Mode="NumericFirstLast"  
         PagerSettings-Position="Bottom" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="467px">
         <EditItemTemplate>
-            ID:
-            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
-            <br /> 
+
             Kit Number:
             <asp:TextBox ID="KitNumberTextBox" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
@@ -108,6 +106,9 @@
             User Last Modified:
             <asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' />
             <br />
+                        ID:
+            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
+            <br /> 
             Valid:
             <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' />
             <br />
@@ -116,9 +117,7 @@
 <%--             &nbsp;<asp:Button ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />--%>
         </EditItemTemplate>
         <InsertItemTemplate>
-            ID:
-            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
-            <br /> 
+ 
             Kit Number:
             <asp:TextBox ID="KitNumberTextBox" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
@@ -203,9 +202,7 @@
             &nbsp;<asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" OnClick="InsertCancelButton_Click" CommandName="Cancel" Text="Cancel" />
         </InsertItemTemplate>
         <ItemTemplate>
-            ID:
-            <asp:Label ID="IDLabel" runat="server" Text='<%# Eval("ID") %>' />
-            <br />
+           
             Kit Number:
             <asp:Label ID="KitNumberLabel" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
@@ -266,6 +263,9 @@
             UserLastModified:
             <asp:Label ID="UserLastModifiedLabel" runat="server" Text='<%# Bind("UserLastModified") %>' />
             <br />--%>
+                        ID:
+            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
+            <br />
             Valid:
             <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' Enabled="false" />
             <br />

@@ -19,34 +19,17 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            int role = 1;
-
-            if (Session["ROLE"] != null)
-            {
-                role = (int)Session["ROLE"];    // get users role
-            }
-
-            RiverWatchEntities RWE = new RiverWatchEntities();
-
-            var R = from r in RWE.ControlPermissions
-                    where r.PageName.ToUpper() == "EditMetalBarCode"
-                    select r;
-
-            int? Q = (from r in R
-                      where r.ControlID.ToUpper() == "Page"
-                      select r.RoleValue).FirstOrDefault();
-
-            if (Q != null)
-            {
-                if (role < Q.Value)
-                    Response.Redirect("~/index.aspx");
-            }
-            else
-            {
-                Response.Redirect("~/index.aspx");
-            }
+            bool allowed = false;
+            allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
+            if (!allowed)
+                Response.Redirect("~/index.aspx"); 
 
             // check to see if there is a barcode in the request
+
+            if(!IsPostBack)
+            {
+                FormView1.Visible = false; // hide until we have some data 
+            }
 
             if(Request.QueryString.Count > 0)
             {
@@ -56,7 +39,6 @@ namespace RWInbound2.Admin
                 FormView1.DataBind(); 
             }
         }
-
 
         [System.Web.Script.Services.ScriptMethod]
         [System.Web.Services.WebMethod]
@@ -101,7 +83,8 @@ namespace RWInbound2.Admin
         {
             string barCode = tbSelectBarcode.Text.Trim();
             string selStr = string.Format("Select * from [metalbarcode] where [labid] like '{0}'", barCode);
-            SqlDataSource1.SelectCommand = selStr; 
+            SqlDataSource1.SelectCommand = selStr;
+            FormView1.Visible = true;
         }
 
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)

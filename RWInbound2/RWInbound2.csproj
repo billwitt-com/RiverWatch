@@ -137,8 +137,10 @@
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
+    <Content Include="Admin\EditNutrientBarcode.aspx" />
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
+    <Content Include="Admin\EditWaterCodes.aspx" />
     <Content Include="Admin\ManagePublicAccess.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
@@ -628,6 +630,13 @@
     <Compile Include="Admin\EditMetalBarCode.aspx.designer.cs">
       <DependentUpon>EditMetalBarCode.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\EditNutrientBarcode.aspx.cs">
+      <DependentUpon>EditNutrientBarcode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditNutrientBarcode.aspx.designer.cs">
+      <DependentUpon>EditNutrientBarcode.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\EditParticipants.aspx.cs">
       <DependentUpon>EditParticipants.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -641,6 +650,13 @@
     </Compile>
     <Compile Include="Admin\EditUnknowns.aspx.designer.cs">
       <DependentUpon>EditUnknowns.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditWaterCodes.aspx.cs">
+      <DependentUpon>EditWaterCodes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditWaterCodes.aspx.designer.cs">
+      <DependentUpon>EditWaterCodes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ManagePublicAccess.aspx.cs">
       <DependentUpon>ManagePublicAccess.aspx</DependentUpon>

@@ -27,7 +27,8 @@ namespace RWInbound2.Admin
                 Session["NEW"] = false; 
                 lblStatus.Visible = false;
             //    pnlTable.Visible = false; // hide for now     
-                loadDropDownLists(); 
+                loadDropDownLists();
+                lblNextStnNumber.Visible = false; 
             }
         }
         public void resetControls()
@@ -70,6 +71,7 @@ namespace RWInbound2.Admin
             tbNearCity.Text = "";
             tbUTMX.Text = "";
             tbUTMY.Text = "";
+            lblNextStnNumber.Visible = false; 
 
         }
         protected void btnNewStation_Click(object sender, EventArgs e)
@@ -82,7 +84,55 @@ namespace RWInbound2.Admin
             txtStationName.Focus();
             txtStationName.BackColor = System.Drawing.Color.Bisque;
             Session["NEW"] = true;
-            tbStationName.Focus(); 
+            tbStationName.Focus();
+            int nextStnNumber = 0;
+            int last = 0; 
+
+            try
+            {
+                RiverWatchEntities RWE = new RiverWatchEntities();
+
+                //int LKN = (int)(from c in RWE.organizations
+                //                select c.KitNumber).Max();
+
+                //lblKitNumber.Text = LKN.ToString();
+
+                IEnumerable<int> L = (from c in RWE.Stations
+                                      orderby c.StationNumber 
+                                     select                                     
+                                      c.StationNumber.Value
+                                      ) ; 
+               
+                foreach (int i in L)
+                {
+                    if (i - last > 1)    // is the next number a jump in sequence?
+                    {
+                        nextStnNumber = i - 1;  // go back to the one that was not there
+                        break;
+                    }
+                    last = i;
+                }
+
+                lblNextStnNumber.Text = nextStnNumber.ToString();
+                lblNextStnNumber.Visible = true;
+                //lblLastUsedText.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+
+
+
+
           //  loadDropDownLists();
         }
 
@@ -192,13 +242,14 @@ namespace RWInbound2.Admin
             int listCount = 0;
             int z = 0; 
            
-            try
-            {
-                var SN = (from q in NRWE.Stations
+               var SN = (from q in NRWE.Stations
                           where q.StationNumber == stnNumber
                           select q).FirstOrDefault();    // get the data
                 if (SN == null)
                     return;
+            try
+            {
+             
 
              //   resetControls(); // make them all default state so if values below do not match the selected value, they are at default values
 
@@ -219,9 +270,24 @@ namespace RWInbound2.Admin
                 cbUSGS.Checked = SN.USGS.Value;
 
                 tbComment.Text = SN.Comments ?? ""; 
+            }
+             
+            catch (Exception ex)
+            {
+                string msg = ex.Message;                
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+              //  string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Populating Text Boxes");
+            }
 
                 // do ddls
-
+            try
+            {
                 if (SN.WaterCode != null)
                 {
                     if (SN.WaterCode.Length > 0)
@@ -306,7 +372,23 @@ namespace RWInbound2.Admin
                 }
                       //  ddlStationStatus.SelectedValue = SN.StationStatus;
 
-                if (SN.WaterBodyID != null)
+            } 
+            catch (Exception ex)
+            {
+                string msg = ex.Message;                
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+              //  string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Populating DDLs Line 336");
+            }
+            try
+            {
+                if (SN.WaterBodyID
+                    != null)
                 {
                     if (SN.WaterBodyID.Length > 0)
                     {
@@ -329,6 +411,21 @@ namespace RWInbound2.Admin
                     }
                 }
 
+            }            
+    
+            catch (Exception ex)
+            {
+                string msg = ex.Message;                
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+              //  string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Populating Drop Downs L. 376");
+            }
+            try{
                 if (SN.QUADI != null)
                 {
                     if (SN.QUADI.Length > 0)
@@ -456,8 +553,22 @@ namespace RWInbound2.Admin
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;                
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+              //  string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Populating Drop Downs L. 517");
+            }
 
-
+            try
+            {
                 //if (SN.QuaterSection != null)
                 //    if (SN.QuaterSection.Length > 0)
                 //        ddlQuarterSection.SelectedValue = SN.QuaterSection;
@@ -564,10 +675,24 @@ namespace RWInbound2.Admin
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;                
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+              //  string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Populating Drop Downs L. 639");
+            }
                 //if (SN.WQCCWaterShed != null)
                 //    if (SN.WQCCWaterShed.Length > 0)
                 //        ddlWQCCWaterShed.SelectedValue = SN.WQCCWaterShed;
-
+            try
+            {
                 if (SN.HydroUnit != null)
                 {
                     if (SN.HydroUnit.Length > 0)
@@ -724,24 +849,12 @@ namespace RWInbound2.Admin
                 /////////  ddlEcoRegion.SelectedItem.Value = SN.EcoRegion; // ?? "";
 
                 ///////////////////                     ddlRWWaterShed.SelectedItem.Value = SN.RWWaterShed;
+            
 
             }
             catch (Exception ex)
             {
-                string msg = ex.Message;
-                // do special case here, where DDL is unhappy
-                if(msg.Contains("SelectedValue"))   // we have a ddl unhappy here
-                {
-                    int second = 0;
-                    second = msg.IndexOf("'", 1);
-
-                    string ddlName = msg.Substring(1, second -1);
-                  //  DropDownList DL = this.Controls[0].FindControl(ddlName) as DropDownList;
-                    DropDownList DL = Page.FindControl(ddlName) as DropDownList;
-                    if(DL != null)
-                        DL.SelectedIndex = 0;
-                   // return;
-                }
+                string msg = ex.Message;                
                 string nam = "";
                 if (User.Identity.Name.Length < 3)
                     nam = "Not logged in";
@@ -749,7 +862,7 @@ namespace RWInbound2.Admin
                     nam = User.Identity.Name;
               //  string msg = ex.Message;
                 LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Admin Stations");
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Populating Drop Downs L. 815");
             }
         }
 
@@ -758,7 +871,7 @@ namespace RWInbound2.Admin
             string stationName = "";
             if (Session["NEW"] == null)
                 Response.Redirect("~/timedout.aspx");
-            lblStatus.Visible = false; 
+            lblStatus.Visible = false;
 
             bool isNewStation = false;
             bool successlat = false;
@@ -770,18 +883,18 @@ namespace RWInbound2.Admin
             int idx = 0;
             int savedChanges = 0;
             double lon = 0;
-            double lat = 0; 
+            double lat = 0;
             bool successlon = false;
             bool success = false;
             double elevation = 0;
             double utmx = 0;
-            double utmy = 0; 
+            double utmy = 0;
 
 
             stnNumString = txtStationNumber.Text.Trim();
             success = int.TryParse(stnNumString, out stnNumber);
 
-            lblStatus.Visible = false; 
+            lblStatus.Visible = false;
 
             if (!success)
             {
@@ -793,12 +906,12 @@ namespace RWInbound2.Admin
 
             // do some validation here.. .
             tmpString = tbLatitude.Text;
-            if(tmpString.Length < 2)
+            if (tmpString.Length < 2)
             {
                 lblStatus.Text = "Please enter a valid Latitude";
                 lblStatus.Visible = true;
                 tbLatitude.Focus();
-                return; 
+                return;
             }
 
             tmpString = tbLongtitude.Text;
@@ -837,8 +950,8 @@ namespace RWInbound2.Admin
                 tbLatitude.Focus();
                 return;
             }
-                       
-            
+
+
             Station STN;
             RiverWatchEntities NRWE = new RiverWatchEntities();
             try
@@ -849,12 +962,12 @@ namespace RWInbound2.Admin
                     STN = (from q in NRWE.Stations
                            where q.StationNumber == stnNumber
                            select q).FirstOrDefault();
-                    lblStatus.Visible = false; 
+                    lblStatus.Visible = false;
                     if (STN != null)
                     {
                         tbStnNumber.Text = "";
                         lblStatus.Text = string.Format("Station Number {0} is used!", stnNumber);
-                        lblStatus.Visible = true; 
+                        lblStatus.Visible = true;
                         return;
                     }
                     // good to go here 
@@ -870,7 +983,7 @@ namespace RWInbound2.Admin
 
                 if (isNewStation)
                 {
-                   STN.StationNumber = stnNumber;
+                    STN.StationNumber = stnNumber;
                 }
                 // see if we have a valid lat long
 
@@ -880,9 +993,9 @@ namespace RWInbound2.Admin
                     STN.Latitude = lat;
 
                 success = double.TryParse(tbUTMX.Text.Trim(), out utmx);
-                if(success)
+                if (success)
                 {
-                    STN.UTMX = utmx; 
+                    STN.UTMX = utmx;
                 }
 
                 success = double.TryParse(tbUTMY.Text.Trim(), out utmy);
@@ -894,7 +1007,7 @@ namespace RWInbound2.Admin
                 string tmpText = tbElevation.Text.Trim();
                 success = double.TryParse(tmpText, out elevation);
                 if (success)
-                    STN.Elevation = elevation; 
+                    STN.Elevation = elevation;
 
                 STN.StationName = stationName;  //txtStationName.Text;
                 STN.River = txtriver.Text;
@@ -902,44 +1015,61 @@ namespace RWInbound2.Admin
 
                 STN.EcoRegion = ddlEcoRegion.SelectedItem.Value;                 //.SelectedValue;
                 STN.Grid = ddlGrid.SelectedValue;
-                STN.HydroUnit = ddlHydroUnit.SelectedValue; 
-                STN.QUADI = ddlQUADI.SelectedValue ;
-                STN.QuaterSection = ddlQuarterSection.SelectedValue ;
-                STN.Range = ddlRange.SelectedValue ;
-                STN.Region = ddlRegion.SelectedValue ;
+                STN.HydroUnit = ddlHydroUnit.SelectedValue;
+                STN.QUADI = ddlQUADI.SelectedValue;
+                STN.QuaterSection = ddlQuarterSection.SelectedValue;
+                STN.Range = ddlRange.SelectedValue;
+                STN.Region = ddlRegion.SelectedValue;
                 STN.River = txtriver.Text.Trim();    // ddlRiver.SelectedValue;
                 STN.NearCity = tbNearCity.Text.Trim();
                 STN.Move = tbMove.Text.Trim();
-                STN.Description = tbdescription.Text.Trim(); 
+                STN.Description = tbdescription.Text.Trim();
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Updating Stations L 987");
+                //lblStatus.Text = string.Format("Data Not Saved");
+                //lblStatus.Visible = true;
+                return;
+            }
 
+            try
+            {
                 STN.RWWaterShed = ddlRWWaterShed.SelectedItem.Value;                //.SelectedValue ;
-                STN.WQCCWaterShed = ddlRWWaterShed.SelectedItem.Value; 
+                STN.WQCCWaterShed = ddlRWWaterShed.SelectedItem.Value;
 
                 if (int.TryParse(ddlSection.SelectedValue, out tempInt))    // XXXX should change this in the data base to string
                     STN.Section = tempInt;
 
-                STN.State = ddlState.SelectedValue.Trim().Substring(0,2);
+                STN.State = ddlState.SelectedValue.Trim().Substring(0, 2);
                 STN.StationQUAD = ddlStationQUAD.SelectedValue;
                 STN.StationStatus = ddlStationStatus.SelectedValue;
 
                 STN.StationType = ddlStationType.SelectedItem.Value; // ddlStationType.SelectedValue;
                 STN.Township = ddlTownship.SelectedValue;
-                STN.AquaticModelIndex = tbAquaticModelIndex.Text.Trim();         
+                STN.AquaticModelIndex = tbAquaticModelIndex.Text.Trim();
 
                 tmpString = ddlWaterBodyID.SelectedValue; // wbid.Add(x.WBID + " : " + x.WATERSHED + " - " + x.SUBBASIN + " - " + wrkStr); 
-                idx = tmpString.IndexOf(":"); 
-                if(idx != 0)
+                idx = tmpString.IndexOf(":");
+                if (idx != 0)
                 {
-                    tmpString = tmpString.Substring(0, idx -1 ); 
+                    tmpString = tmpString.Substring(0, idx - 1);
                 }
                 STN.WaterBodyID = tmpString.Trim(); // ddlWaterBodyID.SelectedValue;
 
-               
+
                 idx = 0;
                 tmpString = ""; // just in case... 
 
                 tmpString = ddlWaterCode.SelectedValue; // wcList.Add(x.WATERNAME + " - " + x.LOCATION + " : " + x.WATERCODE); 
-                int len = tmpString.Length; 
+                int len = tmpString.Length;
                 idx = tmpString.IndexOf(":");
                 if (idx != 0)
                 {
@@ -953,35 +1083,82 @@ namespace RWInbound2.Admin
                 STN.USGS = cbUSGS.Checked;
                 STN.Comments = tbComment.Text.Trim();
 
-                 string nam = "";
-                    if (User.Identity.Name.Length < 3)
-                        nam = "Not logged in";
-                    else
-                        nam = User.Identity.Name;
-                    
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+
                 STN.UserCreated = nam;
                 STN.DateCreated = DateTime.Now;
-
-
-                lblStatus.Visible = false; 
-
-                if(isNewStation)
+                lblStatus.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Updating Stations L 1055");
+                //lblStatus.Text = string.Format("Data Not Saved");
+                //lblStatus.Visible = true;
+                return;
+            }
+            try
+            {
+                if (isNewStation)
                 {
-                    NRWE.Stations.Add(STN);
-                    // add station to projects 
-                    ProjectStation PS = new ProjectStation();
-                    PS.ProjectID = 1;
-                    PS.StationNumber = STN.StationNumber;
-                    PS.DateCreated = DateTime.Now;                     
-                    PS.UserCreated = nam;
-                    PS.Valid = true; 
-                    NRWE.ProjectStations.Add(PS);                 
-                  //  NRWE.SaveChanges();
+                    try
+                    {
+                        NRWE.Stations.Add(STN);
+                        // add station to projects 
+                        ProjectStation PS = new ProjectStation();
+                        PS.ProjectID = 1;
+                        PS.StationNumber = STN.StationNumber;
+                        PS.DateCreated = DateTime.Now;
+                        PS.UserCreated = User.Identity.Name;
+                        PS.Valid = true;
+                        NRWE.ProjectStations.Add(PS);
+                    }
+                    catch (Exception ex)
+                    {
+                        string nam = "";
+                        if (User.Identity.Name.Length < 3)
+                            nam = "Not logged in";
+                        else
+                            nam = User.Identity.Name;
+                        string msg = ex.Message;
+                        LogError LE = new LogError();
+                        LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Updating Stations L. 1085");
+
+                        return;
+                    }
+                    //  NRWE.SaveChanges();
                 }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Updating Stations L. 1108");
+                lblStatus.Text = string.Format("Data Not Saved");
+                lblStatus.Visible = true;
+                return;
+            }
+
+            try
+            {
                 savedChanges = NRWE.SaveChanges();
-                
                 lblStatus.Text = string.Format("Station {0} saved", stationName);
-                lblStatus.Visible = true; 
+                lblStatus.Visible = true;
             }
 
             catch (Exception ex)
@@ -993,13 +1170,12 @@ namespace RWInbound2.Admin
                     nam = User.Identity.Name;
                 string msg = ex.Message;
                 LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Admin Stations");
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Updating Stations L. 1126");
                 lblStatus.Text = string.Format("Data Not Saved");
                 lblStatus.Visible = true;
                 return;
             }
         }
-
         // not currently used
         private string selectedValue; 
         protected void ddl_DataBinding(object sender, EventArgs e)
