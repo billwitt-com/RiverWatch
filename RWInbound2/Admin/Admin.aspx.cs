@@ -105,8 +105,14 @@ namespace RWInbound2.Admin
 
         }
 
+        protected void btnEditNutrientBarcodes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditNutrientBarcode.aspx"); 
+        }
 
-
- 
+        protected void btnEditWaterCodes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditWatercodes.aspx"); 
+        }
     }
 }

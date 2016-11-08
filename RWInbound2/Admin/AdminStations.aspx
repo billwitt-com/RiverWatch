@@ -75,6 +75,8 @@
                     </asp:TextBox>
                     <%--                            <asp:requiredfieldvalidator id="vaStnNum" runat="server" ErrorMessage="Station Number is required." CssClass="errMsg"
 								ControlToValidate="txtStationNumber"></asp:requiredfieldvalidator></td>--%>
+                    <asp:Label ID="Label5" runat="server" Font-Size="16px" Text=" Next Stn Number: "></asp:Label>
+                    <asp:Label ID="lblNextStnNumber" runat="server" Font-Bold="True" Font-Size="16px" ForeColor="#3399FF"></asp:Label>
             </tr>
             <tr>
                 <td style="width: 8px; height: 32px"></td>

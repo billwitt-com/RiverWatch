@@ -33,6 +33,7 @@ namespace RWInbound2
             TimeSpan TS = new TimeSpan();
             int Masterloops = 0;
             int loops = 0;
+            string newCmd = "";
 
             RiverWatchEntities RWE = new RiverWatchEntities();
             RWE.Database.Connection.ConnectionString = AzureConnectionString;
@@ -48,21 +49,36 @@ namespace RWInbound2
             pnlStuff.Visible = false; 
             // AZURE
             // first, do a linq query on azure
-            var Q1 = from q in RWE.ViewSoloNutrientDups
-                     select q;
-            TTS = DateTime.Now;
-            lblAzLinqStart.Text = string.Format("Starting {0}:{1}:{2}:{3}", TTS.Hour, TTS.Minute, TTS.Second, TTS.Millisecond);
-            loops = Masterloops;
-            while (loops > 0)
+            try
             {
-                count = Q1.Count(); // count the values which actually runs the query
-                loops--;
+                var Q1 = (from q in RWE.ViewSoloNutrientDups
+                         select q).OrderBy(z => z.Batch);
+                TTS = DateTime.Now;
+                lblAzLinqStart.Text = string.Format("Starting {0}:{1}:{2}:{3}", TTS.Hour, TTS.Minute, TTS.Second, TTS.Millisecond);
+                loops = Masterloops;
+                while (loops > 0)
+                {
+                    count = Q1.Count(); // count the values which actually runs the query
+                    loops--;
+                }
+                TTE = DateTime.Now;
+                lblAZLinqEnd.Text = string.Format("Ended {0}:{1}:{2}:{3}", TTE.Hour, TTE.Minute, TTE.Second, TTE.Millisecond);
+                TS = TTE - TTS;
+                lblAzLinqTotal.Text = string.Format("Total Time {0}:{1}:{2}:{3}", TS.Hours, TS.Minutes, TS.Seconds, TS.Milliseconds);
+                lblAzLinqCount.Text = string.Format("Counted {0} items", count);
             }
-            TTE = DateTime.Now;
-            lblAZLinqEnd.Text = string.Format("Ended {0}:{1}:{2}:{3}", TTE.Hour, TTE.Minute, TTE.Second, TTE.Millisecond);
-            TS = TTE - TTS;
-            lblAzLinqTotal.Text = string.Format("Total Time {0}:{1}:{2}:{3}", TS.Hours, TS.Minutes, TS.Seconds, TS.Milliseconds);
-            lblAzLinqCount.Text = string.Format("Counted {0} items", count);
+
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
 
             // now do a sql query
 
@@ -71,88 +87,137 @@ namespace RWInbound2
             count = 0;
 
             loops = Masterloops;
-            while (loops > 0)
-            {
-                count = 0;
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        conn.ConnectionString = AzureConnectionString;
-                        cmd.Connection = conn;
-                        conn.Open();
-                        cmd.CommandText = "select * from ViewSoloNutrientDups";
 
-                        SqlDataReader rdr = cmd.ExecuteReader();
-                        while (rdr.Read())
+            try
+            {
+                newCmd = " SELECT DISTINCT  [StationNum] ,[SampleID] ,[KitNum],[Date] as [Date] FROM  " +
+                    " InboundSamples WHERE Valid = 1 and SampleID NOT IN " +
+                             "(SELECT SampleNumber FROM Samples)  order by stationNum, sampleid"; 
+                while (loops > 0)
+                {
+                    count = 0;
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        using (SqlCommand cmd = new SqlCommand())
                         {
-                            count++;
+                            conn.ConnectionString = AzureConnectionString;
+                            cmd.Connection = conn;
+                            conn.Open();
+                            cmd.CommandText = newCmd; // "select * from ViewSoloNutrientDups";
+
+                            SqlDataReader rdr = cmd.ExecuteReader();
+                            while (rdr.Read())
+                            {
+                                count++;
+                            }
                         }
                     }
+                    loops--;
                 }
-                loops--; 
+
+                TTE = DateTime.Now;
+                lblAzSqlEnd.Text = string.Format("Ended {0}:{1}:{2}:{3}", TTE.Hour, TTE.Minute, TTE.Second, TTE.Millisecond);
+                TS = TTE - TTS;
+                lblAzSqlTotal.Text = string.Format("Total Time {0}:{1}:{2}:{3}", TS.Hours, TS.Minutes, TS.Seconds, TS.Milliseconds);
+                lblAzSqlCount.Text = string.Format("Counted {0} items", count);
             }
 
-            TTE = DateTime.Now;
-            lblAzSqlEnd.Text = string.Format("Ended {0}:{1}:{2}:{3}", TTE.Hour, TTE.Minute, TTE.Second, TTE.Millisecond);
-            TS = TTE - TTS;
-            lblAzSqlTotal.Text = string.Format("Total Time {0}:{1}:{2}:{3}", TS.Hours, TS.Minutes, TS.Seconds, TS.Milliseconds);
-            lblAzSqlCount.Text = string.Format("Counted {0} items", count);
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
 
             // REMOTE
             // next , do a linq query on Remote
             RWE.Database.Connection.ConnectionString = RemoteConnectionString;
             loops = Masterloops;
-            TTS = DateTime.Now;
-            lblReLinqStart.Text = string.Format("Starting {0}:{1}:{2}:{3}", TTS.Hour, TTS.Minute, TTS.Second, TTS.Millisecond);
-            while (loops > 0)
+            try
             {
-                var Q2 = from q in RWE.ViewSoloNutrientDups      //RWE.MetalBarCodes
-                         select q;
-                count = Q2.Count(); // count the values which actually runs the query
-                loops--;
-            }
+                TTS = DateTime.Now;
+                lblReLinqStart.Text = string.Format("Starting {0}:{1}:{2}:{3}", TTS.Hour, TTS.Minute, TTS.Second, TTS.Millisecond);
+                while (loops > 0)
+                {
+                    var Q2 = (from q in RWE.ViewSoloNutrientDups      //RWE.MetalBarCodes
+                             select q).OrderBy(z => z.Batch);
+                    count = Q2.Count(); // count the values which actually runs the query
+                    loops--;
+                }
 
-            TTE = DateTime.Now;
-            lblReLinqEnd.Text = string.Format("Ended {0}:{1}:{2}:{3}", TTE.Hour, TTE.Minute, TTE.Second, TTE.Millisecond);
-            TS = TTE - TTS;
-            lblReLinqTotal.Text = string.Format("Total Time {0}:{1}:{2}:{3}", TS.Hours, TS.Minutes, TS.Seconds, TS.Milliseconds);
-            lblReLinqCount.Text = string.Format("Counted {0} items", count);
+                TTE = DateTime.Now;
+                lblReLinqEnd.Text = string.Format("Ended {0}:{1}:{2}:{3}", TTE.Hour, TTE.Minute, TTE.Second, TTE.Millisecond);
+                TS = TTE - TTS;
+                lblReLinqTotal.Text = string.Format("Total Time {0}:{1}:{2}:{3}", TS.Hours, TS.Minutes, TS.Seconds, TS.Milliseconds);
+                lblReLinqCount.Text = string.Format("Counted {0} items", count);
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
 
             // REMOTE
             // now do a sql query
-
-            TTS = DateTime.Now;
-            lblReSqlStart.Text = string.Format("Starting {0}:{1}:{2}:{3}", TTS.Hour, TTS.Minute, TTS.Second, TTS.Millisecond);
-            count = 0;
-            loops = Masterloops;
-            while (loops > 0)
+            try
             {
+                TTS = DateTime.Now;
+                lblReSqlStart.Text = string.Format("Starting {0}:{1}:{2}:{3}", TTS.Hour, TTS.Minute, TTS.Second, TTS.Millisecond);
                 count = 0;
-                using (SqlConnection conn = new SqlConnection())
+                loops = Masterloops;
+                while (loops > 0)
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    newCmd = " SELECT DISTINCT  [StationNum] ,[SampleID] ,[KitNum],[Date] as [Date] FROM  " +
+                        " InboundSamples WHERE Valid = 1 and SampleID NOT IN " +
+                            "(SELECT SampleNumber FROM Samples)  order by stationNum, sampleid"; 
+                    count = 0;
+                    using (SqlConnection conn = new SqlConnection())
                     {
-                        conn.ConnectionString = RemoteConnectionString;
-                        cmd.Connection = conn;
-                        conn.Open();
-                        cmd.CommandText = "select * from ViewSoloNutrientDups";
-
-                        SqlDataReader rdr = cmd.ExecuteReader();
-                        while (rdr.Read())
+                        using (SqlCommand cmd = new SqlCommand())
                         {
-                            count++;
+                            conn.ConnectionString = RemoteConnectionString;
+                            cmd.Connection = conn;
+                            conn.Open();
+                            cmd.CommandText = newCmd;    // "select * from ViewSoloNutrientDups";
+
+                            SqlDataReader rdr = cmd.ExecuteReader();
+                            while (rdr.Read())
+                            {
+                                count++;
+                            }
                         }
                     }
+                    loops--;
                 }
-                loops--; 
-            }
 
-            TTE = DateTime.Now;
-            lblReSqlEnd.Text = string.Format("Ended {0}:{1}:{2}:{3}", TTE.Hour, TTE.Minute, TTE.Second, TTE.Millisecond);
-            TS = TTE - TTS;
-            lblReSqlTotal.Text = string.Format("Total Time {0}:{1}:{2}:{3}", TS.Hours, TS.Minutes, TS.Seconds, TS.Milliseconds);
-            lblReSqlCount.Text = string.Format("Counted {0} items", count);
+                TTE = DateTime.Now;
+                lblReSqlEnd.Text = string.Format("Ended {0}:{1}:{2}:{3}", TTE.Hour, TTE.Minute, TTE.Second, TTE.Millisecond);
+                TS = TTE - TTS;
+                lblReSqlTotal.Text = string.Format("Total Time {0}:{1}:{2}:{3}", TS.Hours, TS.Minutes, TS.Seconds, TS.Milliseconds);
+                lblReSqlCount.Text = string.Format("Counted {0} items", count);
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
 
             //// Local
             //// next , do a linq query on Local
