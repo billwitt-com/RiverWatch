@@ -130,8 +130,7 @@ namespace RWInbound2.Public
                 {
                     pnlRequest.Visible = true;
                     SetMessages("CaptchaError", "Incorrect code, please try again.");
-                }
-                
+                }                
             }
             catch (Exception ex)
             {
