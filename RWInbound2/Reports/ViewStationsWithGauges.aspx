@@ -13,6 +13,6 @@
         </rsweb:ReportViewer>
 
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
-            SelectCommand="SELECT * FROM [Station] where [USGS] = 1"></asp:SqlDataSource>
+            SelectCommand="SELECT * FROM [Station] where [USGS] = 1 order by stationnumber asc "></asp:SqlDataSource>
 
 </asp:Content>
