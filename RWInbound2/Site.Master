@@ -50,10 +50,10 @@
                             <asp:Image runat="server" ImageUrl ="/Images/Colorado_River_Rocky_Mountains%20with%20text.jpg" />                                                      
                         </td>
                         <td>
-                            <asp:Button ID="btnLogin" runat="server" Text="Log In" OnClick="btnLogin_Click" />
+                            <asp:Button ID="btnLogin" runat="server" Text="Log In" OnClick="btnLogin_Click" CssClass="login-button" />
                             <asp:Label ID="lblWelcome" Text="Welcome Default" runat="server"></asp:Label>
                             <br />
-                            <asp:Button ID="btnLogOut" runat="server" OnClick="btnLogOut_Click" Text="Log Out" />
+                            <asp:Button ID="btnLogOut" runat="server" OnClick="btnLogOut_Click" Text="Log Out" CssClass="login-button" />
                             <br />
                         </td>
                     </tr>
