@@ -38,14 +38,15 @@
             </ContentTemplate>
         </asp:UpdatePanel>         
 
-<rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1055px" Height="647px">
+<rsweb:ReportViewer ID="ReportViewer1" runat="server"  Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1055px" Height="551px">
     <LocalReport ReportPath="Reports\OrgStatus.rdlc">
         <DataSources>
             <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
         </DataSources>
     </LocalReport>
 </rsweb:ReportViewer>
-<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" SelectCommand="SELECT [OrganizationName], [ContractStartDate], [ContractEndDate], [ContractSigned], [ContractSignedDate], [SiteVisited], [VolunteerTimeSheet1], [VolunteerTimeShee2], [VolunteerTimeSheet3], [VolunteerTimeSheet4], [DataEnteredElectronically1], [DataEnteredElectronically2], [DataEnteredElectronically3], [DataEnteredElectronically4], [NumberOfSamplesMar], [SampleShipped1], [SampleShipped2], [SampleShipped3], [SampleShipped4], [NumberOfSamplesJan], [NumberOfSamplesFeb], [NumberOfSamplesApr], [NumberOfSamplesMay], [NumberOfSamplesJun], [NumberOfSamplesJul], [NumberOfSamplesAug], [NumberOfSamplesSep], [NumberOfSamplesOct], [NumberOfSamplesNov], [NumberOfSamplesDec], [Nutrient1Collected], [Nutrient2Collected], [BugCollected], [UnknownSpringRecordedDate], [UnknownFallRecordedDate], [NumberOfSamplesBlank], [NumberOfSamplesDuplicate], [TroubleComment], [NoteComment], [HardshipComment], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [NumberOfMetalsBlank], [NumberOfMetalsDuplicate] FROM [OrgStatusView] ORDER BY [OrganizationName]"></asp:SqlDataSource>
+<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
+    SelectCommand="SELECT [OrganizationName], [ContractStartDate], [ContractEndDate], [ContractSigned], [ContractSignedDate], [SiteVisited], [VolunteerTimeSheet1], [VolunteerTimeShee2], [VolunteerTimeSheet3], [VolunteerTimeSheet4], [DataEnteredElectronically1], [DataEnteredElectronically2], [DataEnteredElectronically3], [DataEnteredElectronically4], [NumberOfSamplesMar], [SampleShipped1], [SampleShipped2], [SampleShipped3], [SampleShipped4], [NumberOfSamplesJan], [NumberOfSamplesFeb], [NumberOfSamplesApr], [NumberOfSamplesMay], [NumberOfSamplesJun], [NumberOfSamplesJul], [NumberOfSamplesAug], [NumberOfSamplesSep], [NumberOfSamplesOct], [NumberOfSamplesNov], [NumberOfSamplesDec], [Nutrient1Collected], [Nutrient2Collected], [BugCollected], [UnknownSpringRecordedDate], [UnknownFallRecordedDate], [NumberOfSamplesBlank], [NumberOfSamplesDuplicate], [TroubleComment], [NoteComment], [HardshipComment], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [NumberOfMetalsBlank], [NumberOfMetalsDuplicate] FROM [OrgStatusView] ORDER BY [OrganizationName], contractEndDate desc "></asp:SqlDataSource>
 <br />
 
 </asp:Content>
