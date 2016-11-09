@@ -21,11 +21,11 @@ namespace RWInbound2.Data
             RiverWatchEntities RWE = new RiverWatchEntities();
 
             var R = from r in RWE.ControlPermissions
-                    where r.PageName.ToUpper() == "Data"
+                    where r.PageName.ToUpper() == "DATA"
                     select r;
 
             int? Q = (from r in R
-                      where r.ControlID.ToUpper() == "btnUploadLatchat"
+                      where r.ControlID.ToUpper() == "BTNUPLOADLACHAT"  
                       select r.RoleValue).FirstOrDefault();
 
             if (Q != null)
@@ -37,8 +37,17 @@ namespace RWInbound2.Data
                     btnUploadLatchat.Visible = false;
             }
 
+            //if(role < Q.Value)
+            //{
+            //    pnlDownloadData.Visible = false;
+            //}
+            //else
+            //{
+            //    pnlDownloadData.Visible = true; 
+            //}
         }
 
+        // Field Data button is default to everyone 
         protected void btnFieldData_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Public/FieldData.aspx"); 

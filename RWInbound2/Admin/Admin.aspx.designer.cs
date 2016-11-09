@@ -86,12 +86,14 @@ namespace RWInbound2.Admin {
         
         /// <summary>
         /// btnManageParticipants control.
+        /// btnEditNutrientBarcodes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnManageParticipants;
+        protected global::System.Web.UI.WebControls.Button btnEditNutrientBarcodes;
         
         /// <summary>
         /// btnManagePublicUsers control.
@@ -140,11 +142,13 @@ namespace RWInbound2.Admin {
         
         /// <summary>
         /// btnRoles control.
+        /// btnEditWaterCodes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRoles;
+        protected global::System.Web.UI.WebControls.Button btnEditWaterCodes;
     }
 }

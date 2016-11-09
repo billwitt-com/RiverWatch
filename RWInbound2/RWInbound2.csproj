@@ -141,8 +141,10 @@
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
+    <Content Include="Admin\EditNutrientBarcode.aspx" />
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
+    <Content Include="Admin\EditWaterCodes.aspx" />
     <Content Include="Admin\ManagePublicAccess.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
@@ -207,7 +209,10 @@
     <Content Include="Edit\EditStationStatus.aspx" />
     <Content Include="Edit\EditSubPara.aspx" />
     <Content Include="Edit\EditSubSamp.aspx" />
+    <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
+    <Content Include="Images\Clear Creek High School.JPG" />
     <Content Include="Images\loader.gif" />
+    <Content Include="Images\RWsciencefairawards.jpg" />
     <Content Include="Public\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
@@ -634,6 +639,13 @@
     <Compile Include="Admin\EditMetalBarCode.aspx.designer.cs">
       <DependentUpon>EditMetalBarCode.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\EditNutrientBarcode.aspx.cs">
+      <DependentUpon>EditNutrientBarcode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditNutrientBarcode.aspx.designer.cs">
+      <DependentUpon>EditNutrientBarcode.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\EditParticipants.aspx.cs">
       <DependentUpon>EditParticipants.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -647,6 +659,13 @@
     </Compile>
     <Compile Include="Admin\EditUnknowns.aspx.designer.cs">
       <DependentUpon>EditUnknowns.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditWaterCodes.aspx.cs">
+      <DependentUpon>EditWaterCodes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditWaterCodes.aspx.designer.cs">
+      <DependentUpon>EditWaterCodes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ManagePublicAccess.aspx.cs">
       <DependentUpon>ManagePublicAccess.aspx</DependentUpon>

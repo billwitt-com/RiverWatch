@@ -186,6 +186,7 @@ namespace RWInbound2.Admin
                 //lblKitNumber.Text = LKN.ToString();
 
                 IEnumerable<int> L = from c in RWE.organizations
+                                     orderby c.KitNumber ascending
                                      select
                                       c.KitNumber.Value;                                   
 
@@ -193,7 +194,8 @@ namespace RWInbound2.Admin
                 {
                     if(i - last > 1)    // is the next number a jump in sequence?
                     {
-                        nextKitNumber = i - 1;  // go back to the one that was not there
+                      //  nextKitNumber = i - 1;  // go back to the one that was not there
+                        nextKitNumber = last + 1; 
                         break; 
                     }
                     last = i; 

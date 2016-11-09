@@ -148,6 +148,24 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.TextBox txtStationNumber;
         
         /// <summary>
+        /// Label5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label5;
+        
+        /// <summary>
+        /// lblNextStnNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNextStnNumber;
+        
+        /// <summary>
         /// ddlWaterCode control.
         /// </summary>
         /// <remarks>

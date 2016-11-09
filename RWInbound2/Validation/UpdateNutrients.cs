@@ -17,7 +17,10 @@ namespace RWInbound2.Validation
                 NutrientData NData = null;
                 bool existingRecord = false;
                 string conStr = RWE.Database.Connection.ConnectionString;
-                string SampNumber = ""; 
+                string SampNumber = "";
+                List<string> BC = null; // keep these in scope
+                NutrientData TEST = null;
+                int recordsSaved = 0;
                 
                 // first process the blanks and dups and tests etc. as we don't need them for validation
                 //string name = "profile";
@@ -26,31 +29,39 @@ namespace RWInbound2.Validation
                 //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
 
                 // we do all of these, every time, but it is quite fast
-                var L = from l in RWE.Lachats
-                        where l.Valid == true & l.CODE != "05" & l.CODE != "25" & l.CODE != "35" & l.BlkDup == false
-                        select l;
-
-                if (L.Count() > 0)
+                try
                 {
-                    int count = L.Count();
-                    foreach (var ll in L)
-                    {
-                        ll.Validated = true;
-                        ll.BlkDup = true;
-                    }
-                }
-                RWE.SaveChanges();
-                //msg = string.Format("Lachats not marked valid marked valid at {0} for {1} records", DateTime.Now, L.Count());
-                //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
+                    var L = from l in RWE.Lachats
+                            where l.Valid == true & l.CODE != "05" & l.CODE != "25" & l.CODE != "35" & l.BlkDup == false
+                            select l;
 
-                // now get list of not validated but valid real sample barcodes to process
-                List<string> BC = (from bc in RWE.Lachats
-                                   where bc.SampleType.ToUpper().Contains("RW") == true & bc.CODE == "05" | bc.CODE == "25" | bc.CODE == "35" 
-                                   & bc.Validated == false & bc.Valid == true 
-                                   select bc.SampleType).Distinct().ToList<string>();
-                BC.Sort();
-                BC.Reverse(); // put newest elements first
-                recordsProcessed = BC.Count;
+                    if (L.Count() > 0)
+                    {
+                        int count = L.Count();
+                        foreach (var ll in L)
+                        {
+                            ll.Validated = true;
+                            ll.BlkDup = true;
+                        }
+                    }
+                    RWE.SaveChanges();
+                    //msg = string.Format("Lachats not marked valid marked valid at {0} for {1} records", DateTime.Now, L.Count());
+                    //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
+
+                    // now get list of not validated but valid real sample barcodes to process
+                    BC = (from bc in RWE.Lachats
+                                       where bc.SampleType.ToUpper().Contains("RW") == true & (bc.CODE == "05" | bc.CODE == "25" | bc.CODE == "35")
+                                       & bc.Validated == false & bc.Valid == true & bc.BlkDup == false
+                                       select bc.SampleType).Distinct().ToList<string>();
+                    BC.Sort();
+                    BC.Reverse(); // put newest elements first
+                    recordsProcessed = BC.Count;
+                }
+                catch(Exception ex)
+                {
+                    string e = ex.Message;
+                }
+
 
                 //LogError LE = new LogError();
                 //string msg = string.Format("Processing {1} Lachats barcodes marked Valid to nutrient Data at {0} ", DateTime.Now, recordsProcessed);
@@ -59,19 +70,19 @@ namespace RWInbound2.Validation
                 if (BC != null)
                 {
                     recordsProcessed = 0; 
-                    int bcCount = BC.Count;
+                    int bcCount = BC.Count;                    
+                    
                     foreach (string bcode in BC)
                     {
                         // get raw data from lachat table for this bar code, could be no values or could be six or more
                         //msg = string.Format("Start {1} Lachats not marked Valid to nutrient Data at {0} ", DateTime.Now, recordsProcessed);
                         //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
+                        
+
                         var D = from d in RWE.Lachats
-                                where d.SampleType.ToUpper() == bcode.ToUpper() & d.Valid == true & d.Validated == false
+                                where d.SampleType.ToUpper() == bcode.ToUpper() & d.Valid == true & d.Validated == false & d.CODE != null & d.SampleType != null
                                 select d;
-                        if(bcode == "RW16-5207")
-                        {
-                            string stophere = "stop";
-                        }
+
                         string SN = (from z in RWE.NutrientBarCodes
                                      where z.LabID.ToUpper().Equals(bcode.ToUpper())
                                      select z.SampleNumber).FirstOrDefault();
@@ -90,7 +101,8 @@ namespace RWInbound2.Validation
                         //                                   select nd).FirstOrDefault();
 
                         // get all entries so we don't build dups
-                        NutrientData TEST = (NutrientData)(from nd in RWE.NutrientDatas
+
+                        TEST = (NutrientData)(from nd in RWE.NutrientDatas
                                                            where nd.BARCODE.ToUpper() == bcode.ToUpper() // & nd.Valid == true & nd.Validated == false 
                                                            select nd).FirstOrDefault();
 
@@ -173,8 +185,30 @@ namespace RWInbound2.Validation
                                 }   // end of switch
 
                                 // fill in the rest
-                                NData.TypeCode = item.CODE; // this will be overwritten for each pass, but we only know item in this foreach
-                                NData.Batch = item.Batch;
+                                NData.TypeCode = ""; // force this since there seems to be some junk in the types in lachet data
+                                
+                                if (item.CODE != null)
+                                {
+                                    if(item.CODE.Length > 0)
+                                        NData.TypeCode = item.CODE.Trim();
+                                    else
+                                        NData.TypeCode = ""; 
+                                }
+                                else
+                                {
+                                    NData.TypeCode = ""; 
+                                }
+                                if (item.Batch != null)
+                                {
+                                    if (item.Batch.Length > 0)
+                                        NData.Batch = item.Batch;
+                                    else
+                                        NData.Batch = "";
+                                }
+                                else
+                                {
+                                    NData.Batch = ""; 
+                                }
 
 
                             }   // end of foreach
@@ -231,17 +265,25 @@ namespace RWInbound2.Validation
                             RWE.NutrientDatas.Add(NData);
                             existingRecord = false;
                         }
+                        try
+                        {
+                            recordsSaved = RWE.SaveChanges();
+                        }
+                        catch(Exception ex)
+                        {
+                            string stop = "stop";
 
-                        RWE.SaveChanges();
+                        }
                         recordsProcessed++; 
                         //msg = string.Format("Finished writing {1} Lachat to nutrient Data at {0} ", DateTime.Now, recordsProcessed);
                         //LE.logError(msg, "UpdateNutrients", "", name, "Profiling");
 
-                    }   // end of foreach                    
+                    }   // end of foreach  
+                  
                 }
             }
             catch (Exception ex)
-            {
+            {                
                 string name = "";
                 if (userName.Length < 3)
                     name = "Not logged in";
