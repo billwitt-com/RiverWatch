@@ -133,9 +133,7 @@
                 <asp:Panel ID="pnlReports" runat="server" CssClass="public-panel-reports">                                
                     <asp:Button ID="btnStations" runat="server" Text="All Stations" OnClick="btnStations_Click" CssClass="public-button-reports"/>
                     <br />
-                    <asp:Button ID="btnStationsWithGauges" runat="server" Text="Stations With Gauges" OnClick="btnStationsWithGauges_Click" CssClass="public-button-reports" />
-                    <br />
-                    <asp:Button ID="btnOrgPerformance" runat="server" Text="Organization Performance" CssClass="public-button-reports"/>
+                    <asp:Button ID="btnStationsWithGauges" runat="server" Text="Stations With Gauges" OnClick="btnStationsWithGauges_Click" CssClass="public-button-reports" />                    
                     <br />    
                     <asp:Button ID="btnOrgStatus" runat="server" Text="Organization Status" OnClick="btnOrgStatus_Click" CssClass="public-button-reports"/>
                     <br />
