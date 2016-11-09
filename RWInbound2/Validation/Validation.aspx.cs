@@ -241,7 +241,8 @@ namespace RWInbound2.Validation
                     // now do field data 
 
                     string cmdCount = "select count(*) from [FieldNOTInSamples]";
-                    string totalField = "select count(*) from [FieldINSamples]";
+                    //string totalField = "select count(*) from [FieldINSamples]";
+                    string totalField = "EXEC GetFieldINSamples";
                     using (SqlConnection conn = new SqlConnection())
                     {
                         using (SqlCommand cmd = new SqlCommand())
