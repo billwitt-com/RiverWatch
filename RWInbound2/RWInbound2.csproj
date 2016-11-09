@@ -1369,7 +1369,7 @@
     <Compile Include="tblBenGrid.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblBenSamps.cs">
+    <Compile Include="tblBenSamp.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblBenthics.cs">

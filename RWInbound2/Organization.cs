@@ -14,6 +14,7 @@ namespace RWInbound2
     
     public partial class organization
     {
+        public int ID { get; set; }
         public Nullable<int> KitNumber { get; set; }
         public string OrganizationName { get; set; }
         public string OrganizationType { get; set; }
@@ -35,6 +36,5 @@ namespace RWInbound2
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
         public Nullable<bool> Valid { get; set; }
-        public int ID { get; set; }
     }
 }

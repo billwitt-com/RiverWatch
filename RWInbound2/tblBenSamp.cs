@@ -12,7 +12,7 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tblBenSamps
+    public partial class tblBenSamp
     {
         public int ID { get; set; }
         public Nullable<int> SampleID { get; set; }
