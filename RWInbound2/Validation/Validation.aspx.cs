@@ -78,8 +78,8 @@ namespace RWInbound2.Validation
                 //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath,"" , name, "Profiling");
 
                 // moved from here to upload lachat XXXX
-// XXXX   
-                UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
+
+    // XXXX     UpdateNutrients.Update(User.Identity.Name); // static class.. process any new lachat input before we get going.. 
 
                 // msg = string.Format("Starting Nutrients Ending process at {0}", DateTime.Now);
                 //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
