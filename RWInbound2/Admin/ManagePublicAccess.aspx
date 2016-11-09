@@ -36,7 +36,8 @@
                     AllowPaging="true" Pagesize="15"
                     OnRowUpdating="PublicUsersGridView_RowUpdating"
                     OnRowDataBound="PublicUsersGridView_RowDataBound"
-                    OnRowEditing="PublicUsersGridView_RowEditing" >
+                    OnRowEditing="PublicUsersGridView_RowEditing"
+                    HeaderStyle-CssClass="grid-manage-public-users-header" >
                     <AlternatingRowStyle BackColor="White" />    
                     <Columns>  
                         <asp:TemplateField ControlStyle-CssClass="controls-manage-public-users" ItemStyle-VerticalAlign="Middle">

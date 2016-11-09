@@ -1813,6 +1813,12 @@ input.public-button-reports{
     font-size:9px;
 }
 
+.grid-manage-public-users-header{
+    font-weight:bold;
+    font-size: 1.2em;
+    background-color:ActiveCaption;
+}
+
 /*EditPhysHab*/
 .grid-edit-physhab-comment{
     resize: vertical;
