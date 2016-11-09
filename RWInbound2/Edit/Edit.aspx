@@ -148,6 +148,10 @@
 
         <asp:TableRow CssClass="edit-table-row">
             <asp:TableCell CssClass="edit-table-cell">
+                <asp:Button ID="btnStationTypes" runat="server" OnClick="btnStationTypes_Click" Text="Station Types" 
+                            CssClass="adminButton"/>
+            </asp:TableCell>
+            <asp:TableCell CssClass="edit-table-cell">
                 <asp:Button ID="btnStationStatus" runat="server" OnClick="btnStationStatus_Click" Text="Station Statuses" 
                             CssClass="adminButton"/>  
             </asp:TableCell> 
@@ -163,13 +167,13 @@
                 <asp:Button ID="btnTownship" runat="server" OnClick="btnTownship_Click" Text="Townships" 
                             CssClass="adminButton"/>
             </asp:TableCell> 
+        </asp:TableRow>
+
+        <asp:TableRow CssClass="edit-table-row">
             <asp:TableCell CssClass="edit-table-cell">
                 <asp:Button ID="btnWQCCWaterShed" runat="server" OnClick="btnWQCCWaterShed_Click" Text="WQCC Water Sheds" 
                             CssClass="adminButton"/>
             </asp:TableCell>
-        </asp:TableRow>
-
-        <asp:TableRow CssClass="edit-table-row">
             <asp:TableCell CssClass="edit-table-cell">
                 <asp:Button ID="btnWSG" runat="server" OnClick="btnWSG_Click" Text="WSGs" 
                             CssClass="adminButton"/>
@@ -182,9 +186,6 @@
             </asp:TableCell> 
             <asp:TableCell CssClass="edit-table-cell">
             </asp:TableCell>
-            <asp:TableCell CssClass="edit-table-cell">
-            </asp:TableCell> 
         </asp:TableRow>
-
     </asp:Table>
 </asp:Content>
