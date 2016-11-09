@@ -121,15 +121,6 @@ namespace RWInbound2.Public {
         protected global::System.Web.UI.WebControls.Button btnStationsWithGauges;
         
         /// <summary>
-        /// btnOrgPerformance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgPerformance;
-        
-        /// <summary>
         /// btnOrgStatus control.
         /// </summary>
         /// <remarks>

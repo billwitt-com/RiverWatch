@@ -172,42 +172,42 @@ namespace RWInbound2.Public
 
         protected void btnLachatNoBC_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ReportLachatNOTINNutrientBarcode.aspx");
+            Response.Redirect("~/Reports/ReportLachatNOTINNutrientBarcode.aspx");
         }
 
         protected void btnOrgStatus_Click(object sender, EventArgs e)
         {
-            Response.Redirect("OrgStatus.aspx");
+            Response.Redirect("~/Reports/OrgStatus.aspx");
         }
 
         protected void btnOrgStations_Click(object sender, EventArgs e)
         {
-            Response.Redirect("OrgStations.aspx");
+            Response.Redirect("~/Reports/OrgStations.aspx");
         }
 
         protected void btnOrganizations_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Organizations.aspx");
+            Response.Redirect("~/Reports/Organizations.aspx");
         }
 
         protected void btnParticipants_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Participants.aspx");
+            Response.Redirect("~/Reports/Participants.aspx");
         }
 
         protected void btnStations_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Stations.aspx");
+            Response.Redirect("~/Reports/Stations.aspx");
         }
 
         protected void btnSamples_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Samples.aspx");
+            Response.Redirect("~/Reports/Samples.aspx");
         }
 
         protected void btnMetalBarCodes_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MetalBarCodes.aspx");
+            Response.Redirect("~/Reports/MetalBarCodes.aspx");
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
