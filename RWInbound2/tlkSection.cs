@@ -12,7 +12,7 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tlkSections
+    public partial class tlkSection
     {
         public string Code { get; set; }
         public string Description { get; set; }

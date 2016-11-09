@@ -24,7 +24,7 @@ namespace RWInbound2.Edit
             SuccessLabel.Text = "";
         }
 
-        public IQueryable<tlkSections> GetSections([QueryString]string descriptionSearchTerm = "",
+        public IQueryable<tlkSection> GetSections([QueryString]string descriptionSearchTerm = "",
                                                        [QueryString]string successLabelMessage = "")
         {
             try
@@ -42,7 +42,7 @@ namespace RWInbound2.Edit
                     return _db.tlkSection.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkSection> sections = _db.tlkSections
+                IQueryable<tlkSection> sections = _db.tlkSection
                                                      .OrderBy(c => c.Code);
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
@@ -113,7 +113,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public void UpdateSection(tlkSections model)
+        public void UpdateSection(tlkSection model)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace RWInbound2.Edit
             }
         }
 
-        public void DeleteSection(tlkSections model)
+        public void DeleteSection(tlkSection model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
@@ -170,55 +170,37 @@ namespace RWInbound2.Edit
         {
             try
             {
-                string strCode = ((TextBox)SectionsGridView.FooterRow.FindControl("NewCode")).Text;
+                string code = ((TextBox)SectionsGridView.FooterRow.FindControl("NewCode")).Text;
                 string description = ((TextBox)SectionsGridView.FooterRow.FindControl("NewDescription")).Text;
 
-                if (string.IsNullOrEmpty(strCode))
+                var newSection = new tlkSection()
                 {
-                    SuccessLabel.Text = "";
-                    ErrorLabel.Text = "Code field is required.";
+                    Code = code,
+                    Description = description,
+                    Valid = true,
+                    DateLastModified = DateTime.Now
+                };
+
+                if (this.User != null && this.User.Identity.IsAuthenticated)
+                {
+                    newSection.UserLastModified
+                        = HttpContext.Current.User.Identity.Name;
                 }
                 else
                 {
-                    int code;
-                    bool convertToInt = int.TryParse(strCode, out code);
-                    if (!convertToInt)
-                    {
-                        SuccessLabel.Text = "";
-                        ErrorLabel.Text = "Code field must be an integer number.";
-                    }
-                    else
-                    {
-                        var newSection = new tlkSection()
-                        {
-                            Code = code,
-                            Description = description,
-                            Valid = true,
-                            DateLastModified = DateTime.Now
-                        };
+                    newSection.UserLastModified = "Unknown";
+                }
 
-                    if (this.User != null && this.User.Identity.IsAuthenticated)
-                    {
-                        newSection.UserLastModified
-                            = HttpContext.Current.User.Identity.Name;
-                    }
-                    else
-                    {
-                        newSection.UserLastModified = "Unknown";
-                    }
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    _db.tlkSection.Add(newSection);
+                    _db.SaveChanges();
+                    ErrorLabel.Text = "";
 
-                        using (RiverWatchEntities _db = new RiverWatchEntities())
-                        {
-                            _db.tlkSections.Add(newSection);
-                            _db.SaveChanges();
-                            ErrorLabel.Text = "";
+                    string successLabelText = "New Section Added: " + newSection.Description;
+                    string redirect = "EditSection.aspx?successLabelMessage=" + successLabelText;
 
-                        string successLabelText = "New Section Added: " + newSection.Description;
-                        string redirect = "EditSection.aspx?successLabelMessage=" + successLabelText;
-
-                            Response.Redirect(redirect, false);
-                        }
-                    }
+                    Response.Redirect(redirect, false);
                 }
             }
             catch (Exception ex)
