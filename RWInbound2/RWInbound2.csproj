@@ -205,7 +205,10 @@
     <Content Include="Edit\EditStationStatus.aspx" />
     <Content Include="Edit\EditSubPara.aspx" />
     <Content Include="Edit\EditSubSamp.aspx" />
+    <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
+    <Content Include="Images\Clear Creek High School.JPG" />
     <Content Include="Images\loader.gif" />
+    <Content Include="Images\RWsciencefairawards.jpg" />
     <Content Include="Public\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
