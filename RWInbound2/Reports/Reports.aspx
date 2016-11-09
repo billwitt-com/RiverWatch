@@ -5,9 +5,7 @@
     </div>
     <asp:Button ID="btnErrorLogReport" runat="server" Text="Error Log" OnClick="btnErrorLogReport_Click" />
     <br />
-    <asp:Button ID="btnStationsWithGauges" runat="server" Text="StationsWithGauges" OnClick="btnStationsWithGauges_Click" />
-    <br />
-    <asp:Button ID="btnOrgPerformance" runat="server" Text="OrgPerformance" />
+    <asp:Button ID="btnStationsWithGauges" runat="server" Text="StationsWithGauges" OnClick="btnStationsWithGauges_Click" />    
     <br />
     <asp:Button ID="btnLachatNoBC" runat="server" Text="Lachat BC not Entered" OnClick="btnLachatNoBC_Click" />
     <br />
