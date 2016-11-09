@@ -52,7 +52,7 @@ namespace RWInbound2.Reports
                 orgNameSearch.Text = "";
                 string cmdStr = string.Empty;
 
-                cmdStr = string.Format("SELECT * FROM OrgStatusView ORDER BY OrganizationName");
+                cmdStr = string.Format("SELECT * FROM OrgStatusView ORDER BY OrganizationName, contractEndDate desc ");
 
                 SqlDataSource1.SelectCommand = cmdStr;
                 ReportDataSource rd1 = new ReportDataSource("DataSet1", SqlDataSource1);
