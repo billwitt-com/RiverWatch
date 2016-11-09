@@ -15,7 +15,7 @@
             <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
     </div>
     <br />
-    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="516px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1049px">
+    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1072px" Height="551px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
         <LocalReport ReportPath="Reports\OrganizationsAll.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
