@@ -67,7 +67,7 @@ label {
 label.checkbox {
     display: inline;
     font-family: Consolas;
-    font-size: .5em;
+    font-size: 0.85em;
 }
 
 /*formats tables for validation tables*/ 

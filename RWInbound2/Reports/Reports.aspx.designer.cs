@@ -40,15 +40,6 @@ namespace RWInbound2.Reports {
         protected global::System.Web.UI.WebControls.Button btnStationsWithGauges;
         
         /// <summary>
-        /// btnOrgPerformance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgPerformance;
-        
-        /// <summary>
         /// btnLachatNoBC control.
         /// </summary>
         /// <remarks>
