@@ -12,18 +12,17 @@
     </ajaxToolkit:AutoCompleteExtender>
     <asp:Button ID="btnSelectBarCode" runat="server" Text="Select" OnClick="btnSelectBarCode_Click" />
     <br />
+    <br />
     <asp:FormView ID="FormView1" runat="server" DataKeyNames="ID" DefaultMode="Edit" DataSourceID="SqlDataSource1">
         <EditItemTemplate>
-            ID:
-            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>'  />
-            <br />
-            SampleNumber:
+
+            Sample Number:
             <asp:TextBox ID="SampleNumberTextBox" runat="server" Text='<%# Bind("SampleNumber") %>' ReadOnly="True"  />
             <br />
-            NumberSample:
+            Number Sample:
             <asp:TextBox ID="NumberSampleTextBox"  runat="server" Text='<%# Bind("NumberSample") %>' ReadOnly="True" />
             <br />
-            LabID:
+            Lab ID (Barcode):
             <asp:TextBox ID="LabIDTextBox" runat="server" Text='<%# Bind("LabID") %>' ReadOnly="True" />
             <br />
             Code:
@@ -35,10 +34,10 @@
             Filtered:
             <asp:CheckBox ID="FilteredCheckBox" runat="server" Checked='<%# Bind("Filtered") %>' />
             <br />
-            ContainMetal:
+            Contains Metal:
             <asp:CheckBox ID="ContainMetalCheckBox" runat="server" Checked='<%# Bind("ContainMetal") %>' />
             <br />
-            BoxNumber:
+            Box Number:
             <asp:TextBox ID="BoxNumberTextBox" runat="server" Text='<%# Bind("BoxNumber") %>' />
             <br />
             Verified:
@@ -47,18 +46,15 @@
             LogDate:
             <asp:TextBox ID="LogDateTextBox" runat="server" Text='<%# Bind("LogDate") %>' />
             <br />
-            AnalyzeDate:
+            Analyze Date:
             <asp:TextBox ID="AnalyzeDateTextBox" runat="server" Text='<%# Bind("AnalyzeDate") %>' />
             <br />
-            DateCreated:
-            <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' ReadOnly="True"/>
-            <br />
-            UserCreated:
-            <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' ReadOnly="True"/>
-            <br />
-           
-            SampleID:
-            <asp:TextBox ID="SampleIDTextBox" runat="server" Text='<%# Bind("SampleID") %>' ReadOnly="True" />
+
+
+            <asp:Label ID="IDLabel1" ForeColor="White"  runat="server" Text='<%# Eval("ID") %>'  />
+            <asp:TextBox ID="DateCreatedTextBox" ForeColor="White"  runat="server" Text='<%# Bind("DateCreated") %>' ReadOnly="True"/>
+            <asp:TextBox ID="UserCreatedTextBox" ForeColor="White"  runat="server" Text='<%# Bind("UserCreated") %>' ReadOnly="True"/>    
+            <asp:TextBox ID="SampleIDTextBox" ForeColor="White"  runat="server" Text='<%# Bind("SampleID") %>' ReadOnly="True" />
             <br />
             <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
             &nbsp;<asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />

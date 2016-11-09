@@ -16,6 +16,7 @@ namespace RWInbound2.App_Code
 
             // Added code to read page name so this is now generic for a page... 
             // pass in Page.ToString() and name of control which can be 'PAGE' for the whole page
+            // note, this sets sesssion ROLE, which can be used after calling for more detail... 
             try
             {
                 int role = 1;
