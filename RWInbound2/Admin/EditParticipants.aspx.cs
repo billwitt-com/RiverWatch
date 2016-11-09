@@ -32,17 +32,16 @@ namespace RWInbound2.Admin
                     int.TryParse(ExpWaterFormView.DataKey.Value.ToString(), out id);
                 }
 
-            //    if (itemTemplatePanel != null && id > 0)
-            //    {
-            //        itemTemplatePanel.Visible = true;
-            //        ExpWaterFormView.AllowPaging = false;
-            //    }
-            //    else if (itemTemplatePanel != null)
-            //    {
-            //        itemTemplatePanel.Visible = false;
-            //        ExpWaterFormView.AllowPaging = true;
-            //    }                
-            //
+                if(itemTemplatePanel != null && id > 0)
+                {
+                    itemTemplatePanel.Visible = true;
+                    //ExpWaterFormView.AllowPaging = false;
+                }
+                else if (itemTemplatePanel != null)
+                {
+                    itemTemplatePanel.Visible = false;
+                    //ExpWaterFormView.AllowPaging = true;
+                }                
             }
             catch (Exception ex)
             {

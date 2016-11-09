@@ -910,7 +910,7 @@
     <Compile Include="OrgStatusView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ParticipantsView.cs">
+    <Compile Include="ParticipantswithOrgName.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ParticipantswithOrgName.cs">
@@ -1351,9 +1351,6 @@
     </Compile>
     <Compile Include="FormViewOrgStatus.aspx.designer.cs">
       <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SamplesView.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Samples\NewSamples2.aspx.cs">
       <DependentUpon>NewSamples2.aspx</DependentUpon>

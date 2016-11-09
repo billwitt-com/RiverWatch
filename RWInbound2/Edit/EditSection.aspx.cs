@@ -42,7 +42,7 @@ namespace RWInbound2.Edit
                     return _db.tlkSection.Where(c => c.Description.Equals(descriptionSearchTerm))
                                        .OrderBy(c => c.Code);
                 }
-                IQueryable<tlkSections> sections = _db.tlkSection
+                IQueryable<tlkSection> sections = _db.tlkSections
                                                      .OrderBy(c => c.Code);
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
@@ -180,17 +180,16 @@ namespace RWInbound2.Edit
                 }
                 else
                 {
-                   // int code;
-                    string code = strCode; // ""; 
-                    //bool convertToInt = int.TryParse(strCode, out code);
-                    //if (!convertToInt)
-                    //{
-                    //    SuccessLabel.Text = "";
-                    //    ErrorLabel.Text = "Code field must be an integer number.";
-                    //}
-                    //else
-                    //{
-                        var newSection = new tlkSections()
+                    int code;
+                    bool convertToInt = int.TryParse(strCode, out code);
+                    if (!convertToInt)
+                    {
+                        SuccessLabel.Text = "";
+                        ErrorLabel.Text = "Code field must be an integer number.";
+                    }
+                    else
+                    {
+                        var newSection = new tlkSection()
                         {
                             Code = code,
                             Description = description,
@@ -198,28 +197,28 @@ namespace RWInbound2.Edit
                             DateLastModified = DateTime.Now
                         };
 
-                        if (this.User != null && this.User.Identity.IsAuthenticated)
-                        {
-                            newSection.UserLastModified
-                                = HttpContext.Current.User.Identity.Name;
-                        }
-                        else
-                        {
-                            newSection.UserLastModified = "Unknown";
-                        }
+                    if (this.User != null && this.User.Identity.IsAuthenticated)
+                    {
+                        newSection.UserLastModified
+                            = HttpContext.Current.User.Identity.Name;
+                    }
+                    else
+                    {
+                        newSection.UserLastModified = "Unknown";
+                    }
 
                         using (RiverWatchEntities _db = new RiverWatchEntities())
                         {
-                            _db.tlkSection.Add(newSection);
+                            _db.tlkSections.Add(newSection);
                             _db.SaveChanges();
                             ErrorLabel.Text = "";
 
-                            string successLabelText = "New Section Added: " + newSection.Description;
-                            string redirect = "EditSection.aspx?successLabelMessage=" + successLabelText;
+                        string successLabelText = "New Section Added: " + newSection.Description;
+                        string redirect = "EditSection.aspx?successLabelMessage=" + successLabelText;
 
                             Response.Redirect(redirect, false);
                         }
-                  //  }
+                    }
                 }
             }
             catch (Exception ex)
