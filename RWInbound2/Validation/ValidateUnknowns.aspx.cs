@@ -415,7 +415,8 @@ namespace RWInbound2.Validation
             }
             mean = decimal.Round(mean, 2);
             TBMean.Text = mean.ToString();
-            pctRecovery = mean / trueValue * 100;
+            if(Math.Abs(trueValue) > .001m)
+                pctRecovery = mean / trueValue * 100;
             pctRecovery = decimal.Round(pctRecovery, 2);
             TBPctRecovery.Text = pctRecovery.ToString(); 
         }
