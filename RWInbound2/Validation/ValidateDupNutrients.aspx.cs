@@ -561,6 +561,8 @@ namespace RWInbound2.Validation
                 NW.SampleNumber = sampleNumber; // if existing record, this will be the same... 
                 if (!existingRecord) // no existing record, so we are first
                 {
+                    NW.Event = "";
+                    NW.SampleDate = DateTime.Now; // what else to do?
                     RWE.NEWexpWaters.Add(NW);
                 }
                 RWE.SaveChanges();
@@ -574,7 +576,7 @@ namespace RWInbound2.Validation
                     nam = User.Identity.Name;
                 string msg = ex.Message;
                 LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Updating newExpWaters");
             }
 
             // update all rows that have this barcode in lachet table
@@ -602,7 +604,20 @@ namespace RWInbound2.Validation
                     ND.Valid = true; 
                     RWE.SaveChanges();
                 }
-
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Updating Lachats");
+            }
+            try
+            {
                 // now, update for dup if it exists using form 2
                 if (FormView2.Visible == true)
                 {
@@ -618,6 +633,10 @@ namespace RWInbound2.Validation
                              select l;
                     if (LL != null)   // should never happen
                     {
+                        var L = from l in RWE.Lachats
+                                where l.SampleType.ToUpper() == barcode.ToUpper()
+                                select l;
+
                         foreach (Lachat l in L)
                         {
                             l.Validated = true;
@@ -647,7 +666,7 @@ namespace RWInbound2.Validation
                     nam = User.Identity.Name;
                 string msg = ex.Message;
                 LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "updating Lachats dups");
             }
 
             if (Session["CMDSTR"] != null)
@@ -682,7 +701,6 @@ namespace RWInbound2.Validation
 
             try
             {
-
                 var L = from l in RWE.Lachats
                         where l.SampleType.ToUpper() == barcode.ToUpper()
                         select l;
