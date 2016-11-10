@@ -72,5 +72,10 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("PublicUsers.aspx");
         }
+
+        protected void btnParticipantsPrimaryContacts_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ParticipantsPrimaryContacts.aspx");
+        }
     }
 }
