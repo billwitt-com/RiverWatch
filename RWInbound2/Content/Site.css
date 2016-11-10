@@ -1653,6 +1653,52 @@ div.edit-inboundicp-div > span{
     padding-left:5px;
 }
 
+/*Login Page*/
+.login-labels{
+    width: 90px;
+    display: inline-block;
+    height: 25px;
+    font-size: 16px;
+}
+
+.login-remember-me-label{
+    width: 150px;
+    display: inline-block;
+    height: 25px;
+    font-size: 16px;
+}
+
+.login-textbox{
+    width: 200px;
+    height: 20px;
+    border-color:gray;
+    border-radius: 0;
+    margin: 5px;
+    padding:3px;
+}
+
+.login-checkbox{
+    padding-left:5px;
+}
+
+.login-list{
+    list-style:none;
+    margin-left:-4px;
+    padding-left:0;
+}
+
+input.login-button, input#btnLogin.login-button, input#btnLogOut.login-button{
+    color: white;
+    background-color:seagreen !important;
+    border: 1px solid #787878 !important;
+    border-radius:3px !important;
+    cursor: pointer;
+    font-size: .90em !important; 
+    font-weight: 500 !important;
+    padding: 5px;
+    box-shadow: 4px 3px 4px #99ADC2;
+}
+
 /*Public Page*/
 .public-labels{
     width: 90px;
@@ -1684,7 +1730,6 @@ div.edit-inboundicp-div > span{
     border-color:gray;
     border-radius: 0;
     margin: 5px;
-    text-align:center;
 }
 
 .public-textbox-zip{
@@ -1693,7 +1738,6 @@ div.edit-inboundicp-div > span{
     border-color:gray;
     border-radius: 0;
     margin: 5px;
-    text-align:center;
 }
 
 .public-dropdown{
@@ -1713,6 +1757,25 @@ input#btnInsert, input#btnLogin.public-button, input#btnVerifyCaptcha.public-but
     font-weight: 500 !important;
     padding: 5px;
     box-shadow: 4px 3px 4px #99ADC2;
+}
+
+input#btnVerifyCaptcha.public-button{
+    color: white;
+    background-color:blue !important;
+    border: 1px solid #787878 !important;
+    border-radius:3px !important;
+    cursor: pointer;
+    font-size: .90em !important; 
+    font-weight: 500 !important;
+    padding: 5px;
+    box-shadow: 4px 3px 4px #99ADC2;
+}
+
+.public-submit-success-label{
+    font-size: 12px;
+    font-weight:bold;
+    font-family: sans-serif;
+    color: #468847;
 }
 
 input#btnInsert.public-button.public-button-submit{

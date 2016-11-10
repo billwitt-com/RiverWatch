@@ -285,6 +285,7 @@
     <Content Include="Reports\OrgStations.aspx" />
     <Content Include="Reports\OrgStatus.aspx" />
     <Content Include="Reports\Participants.aspx" />
+    <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
@@ -423,6 +424,17 @@
     </Content>
     <Content Include="RiverWatchPublicUsersDataSet.xsc">
       <DependentUpon>RiverWatchPublicUsersDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchParticipantsPrimaryContactsDataSet.xsc">
+      <DependentUpon>RiverWatchParticipantsPrimaryContactsDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchParticipantsPrimaryContactsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchParticipantsPrimaryContactsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchParticipantsPrimaryContactsDataSet.xss">
+      <DependentUpon>RiverWatchParticipantsPrimaryContactsDataSet.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchPublicUsersDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1209,6 +1221,13 @@
     <Compile Include="Reports\Participants.aspx.designer.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ParticipantsPrimaryContacts.aspx.cs">
+      <DependentUpon>ParticipantsPrimaryContacts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ParticipantsPrimaryContacts.aspx.designer.cs">
+      <DependentUpon>ParticipantsPrimaryContacts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\PublicUsers.aspx.cs">
       <DependentUpon>PublicUsers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1317,6 +1336,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchParticipantsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchParticipantsPrimaryContactsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchParticipantsPrimaryContactsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchPublicUsersDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1707,6 +1731,7 @@
     <Content Include="Reports\PublicUsers.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Reports\ParticipantsPrimaryContacts.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

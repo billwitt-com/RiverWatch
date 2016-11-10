@@ -205,7 +205,7 @@ namespace RWInbound2.Edit
                         _db.SaveChanges();
                         ErrorLabel.Text = "";
 
-                        string successLabelText = "New River Watch Water Shed Added: " + newSampleType.Description;
+                        string successLabelText = "New Sample Type Added: " + newSampleType.Description;
                         string redirect = "EditSampleType.aspx?successLabelMessage=" + successLabelText;
 
                         Response.Redirect(redirect, false);

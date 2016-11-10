@@ -202,5 +202,10 @@ namespace RWInbound2.Edit
         {
             Response.Redirect("EditSubPara.aspx");
         }
+
+        protected void btnStationTypes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditStationType.aspx");
+        }
     }
 }
