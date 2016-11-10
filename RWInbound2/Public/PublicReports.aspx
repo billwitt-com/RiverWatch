@@ -119,8 +119,11 @@
                                     </asp:Panel>
 
                                     <asp:Panel ID="pnlSubmit" runat="server">
-                                        <asp:HiddenField ID="verified" runat="server" />    
-                                        <div class="public-button-submit-div">                                            
+                                        <asp:HiddenField ID="verified" runat="server" />
+                                        <div class="public-button-submit-div">  
+                                            <br />                                          
+                                            <asp:Label ID="SubmitSuccessLabel" CssClass="public-submit-success-label" Text="Code Verified!" runat="server" />   
+                                            <br />  
                                             <asp:Button ID="btnInsert" runat="server" CausesValidation="True" CommandName="Insert" 
                                                         Text="Submit" CssClass="public-button public-button-submit" />
                                         </div>
