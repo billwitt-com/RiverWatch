@@ -163,7 +163,7 @@ namespace RWInbound2.Edit
                     var subParaToDelete = _db.tlkSubPara.Find(model.SubParaID);
                     _db.tlkSubPara.Remove(subParaToDelete);
                     _db.SaveChanges();
-                    string successMsg = string.Format("Sub Para Deleted for Parameter Name: {0} " + subParaToDelete.ParameterName);
+                    string successMsg = string.Format("Sub Para Deleted for Parameter Name: {0} ", subParaToDelete.ParameterName);
                     SetMessages("Success", successMsg);
                 }
                 catch (Exception ex)
