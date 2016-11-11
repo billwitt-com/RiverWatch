@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Edit Water BodyID" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditWaterBodyID.aspx.cs" Inherits="RWInbound2.Edit.EditWaterBodyID" %>
+﻿<%@ Page Title="Edit Water Body ID" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditWaterBodyID.aspx.cs" Inherits="RWInbound2.Edit.EditWaterBodyID" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" ClientIDMode="Static" runat="server">
     <div>
         <hgroup>
@@ -16,7 +16,7 @@
     <div>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                Search By Water BodyID:
+                Search By Water Body ID:
                 <asp:TextBox ID="waterBodyIDSearch" 
                     AutoPostBack="true" 
                     runat="server"></asp:TextBox>
@@ -49,7 +49,7 @@
         OnModeChanging="tblWBKeyViewModelFormView_ModeChanging">                    
             <ItemTemplate>
                 <div class="form-view-labels">
-                    <label>Water BodyID:</label>                 
+                    <label>Water Body ID:</label>                 
                 </div>
                 <%# Eval("WBID") %>
                 <br />
@@ -110,7 +110,7 @@
 
             <EditItemTemplate>
                 <div class="form-view-labels">
-                    <label>Water BodyID:</label>
+                    <label>Water Body ID:</label>
                 </div>                 
                 <asp:TextBox ID="txtWBID" runat="server" Text='<%# Bind("WBID") %>' MaxLength="25" CssClass="form-view-textbox"></asp:TextBox>
                 <asp:RequiredFieldValidator id="RequiredFieldValidator" runat="server" CssClass="edit-inboundicp-required"
@@ -205,7 +205,7 @@
 
             <InsertItemTemplate>
                 <div class="form-view-labels">
-                    <label>Water BodyID:</label>
+                    <label>Water Body ID:</label>
                 </div>                 
                 <asp:TextBox ID="newWBID" runat="server" Text='<%# Bind("WBID") %>' MaxLength="25" CssClass="form-view-textbox"></asp:TextBox>
                 <asp:RequiredFieldValidator id="RequiredFieldValidator3" runat="server" CssClass="edit-inboundicp-required"

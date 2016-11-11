@@ -186,7 +186,7 @@ namespace RWInbound2.Edit
                         {
                             _db.SaveChanges();
 
-                            string successMsg = string.Format("Water BodyID Updated: {0}", tblWBKeyToUpdate.WBID);
+                            string successMsg = string.Format("Water Body ID Updated: {0}", tblWBKeyToUpdate.WBID);
                             SetMessages("Success", successMsg);
                         }
                         else
@@ -212,7 +212,7 @@ namespace RWInbound2.Edit
                     _db.tblWBKeys.Remove(tblWBKeyToDelete);
                     _db.SaveChanges();
 
-                    string successLabelText = string.Format("Water BodyID Deleted: {0} ", tblWBKeyToDelete.WBID);
+                    string successLabelText = string.Format("Water Body ID Deleted: {0} ", tblWBKeyToDelete.WBID);
                     SetMessages("Success", successLabelText);
                 }
                 catch (Exception ex)
@@ -248,7 +248,7 @@ namespace RWInbound2.Edit
                     _db.tblWBKeys.Add(newtblWBKey);
                     _db.SaveChanges();
 
-                    string successLabelText = string.Format("New Water BodyID Added: {0}", newtblWBKey.WBID);
+                    string successLabelText = string.Format("New Water Body ID Added: {0}", newtblWBKey.WBID);
                     string redirect = "EditWaterBodyID.aspx?successLabelMessage=" + successLabelText;
 
                     Response.Redirect(redirect, false);

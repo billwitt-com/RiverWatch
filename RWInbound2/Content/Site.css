@@ -1107,7 +1107,6 @@ tr.pager td {
         padding: 10px;
         width: auto;
     }
-
         section.feature img {
             color: #999;
             content: attr(alt);
@@ -1119,8 +1118,6 @@ tr.pager td {
     input {
         /*width: 90%;*/
     }
-
-
 
     /* login page */
     #loginForm {
