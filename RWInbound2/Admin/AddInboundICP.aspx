@@ -51,9 +51,9 @@
             <br />   
             <div class="edit-inboundicp-div">
                 <label>Metals Bar Code:</label>
-                <asp:Label ID="TextBoxCODE" runat="server" Text='<%# Bind("CODE") %>' ReadOnly="true"></asp:Label>              
+                <asp:Label ID="TextBoxCODE" runat="server" Text='<%# Bind("CODE") %>'></asp:Label>              
                 <label>Sample ID:</label>
-                <asp:Label ID="TextBoxtblSampleID" runat="server" Text='<%# Bind("tblSampleID") %>' ReadOnly="true"></asp:Label>                              
+                <asp:Label ID="TextBoxtblSampleID" runat="server" Text='<%# Bind("tblSampleID") %>'></asp:Label>                              
             </div>   
             <hr class="edit-inboundicp-hr" />  
             <div class="edit-inboundicp-div">
@@ -68,7 +68,7 @@
                                                 BehaviorID="TextBoxSDATE_SENT_CalendarExtender" 
                                                 TargetControlID="TextBoxDATE_SENT"></ajaxToolkit:CalendarExtender>
                 <label>Complete:</label> 
-                <asp:CheckBox ID="CheckBoxCOMPLETE" DataField="COMPLETE" runat="server" Text='<%# Bind("COMPLETE") %>'/>
+                <asp:CheckBox ID="CheckBoxCOMPLETE" runat="server" Text='<%# Bind("COMPLETE") %>'/>
             </div> 
             <hr class="edit-inboundicp-hr" />    
             <div class="edit-inboundicp-div">
