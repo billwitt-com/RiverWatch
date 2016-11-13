@@ -11,6 +11,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Sql;
  
+// updated around line 562 to make sure a barcode that is not yet in new expwater will be created as new item and not overwrite another bar code
+// thus we could have three bar codes in newEXPwater for a single sample event
+
 namespace RWInbound2.Validation
 {
     public partial class ValidateDups : System.Web.UI.Page
@@ -530,7 +533,7 @@ namespace RWInbound2.Validation
             string uniqueID = FormViewDup.Controls[0].UniqueID;
 
             // XXXX another WTF moment, why is the uniqueid different here, just because we pressed a button
-            // note that the data is correct whey we have the correct string
+            // note that the data is correct when we have the correct string
             uniqueID = uniqueID.Replace("$ctl00", "");
             // scrape text box strings, which will never be null, but can be zero length
             string codeTextBoxName = uniqueID + "$" + "tbCode"; // get the text box off the page
@@ -920,5 +923,7 @@ namespace RWInbound2.Validation
         {
             updateDup("BAD");
         }
+
+
     }
 }
