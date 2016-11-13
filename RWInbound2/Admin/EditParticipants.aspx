@@ -56,9 +56,8 @@
             InsertMethod="InsertParticipant"
             ShowFooter="true"
             CellPadding="4"
-            AutoGenerateColumns="False" 
             GridLines="None" ForeColor="#333333" 
-            AllowPaging="true" Pagesize="15" PagerSettings-Mode="NumericFirstLast" PagerSettings-Position="TopAndBottom"
+            AllowPaging="true" Pagesize="15" PagerSettings-Mode="NumericFirstLast" PagerSettings-Position="Bottom"
             OnItemDeleted="ExpWaterFormView_ItemDeleted"> 
             
             <ItemTemplate>
