@@ -605,6 +605,9 @@ namespace RWInbound2.Samples
             int orgID = 0;
             int orgNumber = 0;
             int kitNumber = 0;
+            string SampleNumber = txtSmpNum.Text.Trim();
+            NEWexpWater NEW = null ; 
+            bool existingRecord = false; 
 
             // make sure we have good basic input, like sample number, etc.  
             lblWarning.Visible = false;
@@ -626,7 +629,6 @@ namespace RWInbound2.Samples
             }
 
             bool success = int.TryParse(tbSite.Text, out stationNumber);
-       // XXXX     bool success2 = int.TryParse(tbKitNumber.Text, out orgNumber);
 
             bool success2 = int.TryParse(tbKitNumber.Text, out kitNumber);
 
@@ -707,8 +709,6 @@ namespace RWInbound2.Samples
                     orgTS.DateCreated = DateTime.Now;
                     NRWDE.SaveChanges(); // update all records
                 }
-                // this is crap, but I must evaluate what happens if I create a identity column.
-                // see code at end of update -- it works
 
                 // add new record 
                 TS.StationID = stnID;
@@ -719,9 +719,10 @@ namespace RWInbound2.Samples
                 TS.DateCollected = DateTime.Parse(txtDateCollected.Text.Trim());
                 TS.Comment = txtComment.Text;
 
+                // here we save sample, get the new identity and save that value in sampleID in case we want to use it later... 
                 NRWDE.Samples.Add(TS);
                 NRWDE.SaveChanges(); // update 
-                TS.SampleID = TS.ID;    // update old column, just in case
+                TS.SampleID = TS.ID;    // update old sampleID column, which is not an identity column, but we may want to use it...  just in case
                 NRWDE.SaveChanges(); // update 
 
                 // clear fields for next sample
@@ -737,6 +738,137 @@ namespace RWInbound2.Samples
             {
                 Panel1.Visible = false;
                 string nam;
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+            // XXXX added 11/13/ bwitt to update newExpWater table with either a new record or an update to existing record. 
+
+            try
+            {
+                //NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
+                //                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
+                //                    select t).FirstOrDefault();
+
+                NEWexpWater TEST = (from t in NRWDE.NEWexpWaters
+                                    where t.Valid == true & t.SampleNumber == SampleNumber
+                                    select t).FirstOrDefault();
+                if (TEST != null)
+                {
+                    // skip these as they are not our business to insert into a row that already exists
+                    // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
+                    NEW = TEST; // keep the name common to this method
+                    existingRecord = true; // flag for later
+                }
+                else
+                {
+                    NEW = new NEWexpWater(); // create new entity as there is not one yet
+                    existingRecord = false; // to make sure
+                }
+
+                // no existing record, so we are first
+                if (!existingRecord)
+                {
+                    // not sure why we are setting all the nulls... 
+                    NEW.BadDuplicate = false;
+                    NEW.BadSample = false;
+                    NEW.BenthicsComments = null;
+                    NEW.BugsBarCode = null;
+                    NEW.BugsComments = null;
+                    NEW.Chloride = null;
+                    NEW.ChlorophyllA = null;
+                    NEW.CreateDate = DateTime.Now;
+                    NEW.CreatedBy = User.Identity.Name;                  
+                    
+                    NEW.DO_MGL = null;
+                    NEW.DOC = null;
+                    NEW.DOSAT = null;
+                    NEW.FieldBarCode = null;
+                    NEW.FieldComment = null;
+
+                    NEW.TypeCode = null;
+                    NEW.MetalsComment = null;
+                    NEW.MetalsBarCode = null;
+
+                    NEW.tblSampleID = TS.ID;        // FK to tblSample
+                    NEW.KitNumber = kitNumber;
+                    NEW.Event = TS.NumberSample;    // string like above, 10.095    
+                    NEW.SampleNumber = TS.SampleNumber; // this is the big string of station id + date time - build at sample entry
+
+                    NEW.NutrientBarCode = null;
+                    NEW.NutrientComment = null;
+                    NEW.OP = null;
+
+                    NEW.orgN = null;
+                    NEW.PH = null;
+                    NEW.PHEN_ALK = null;
+                    NEW.Rep = null;
+                    NEW.SampleDate = TS.DateCollected; // ts.DateCollected; // this is date part only, no time and may be junk XXXX
+                    if (TS.TimeCollected.Value.Year > 1970)  // likely a real value - otherwise, leave blank
+                    {
+                        NEW.SampleDate.AddHours(TS.TimeCollected.Value.Hour); // add in pieces
+                        NEW.SampleDate.AddMinutes(TS.TimeCollected.Value.Minute);
+                    }
+
+                    NEW.StationNumber = (short)stationNumber;
+                    var STN = (from s in NRWDE.Stations
+                               where s.ID == TS.StationID
+                               select s).FirstOrDefault();
+
+                    NEW.StationName = STN.StationName;
+                    NEW.River_CD = null;
+                    NEW.RiverName = STN.River;
+                    NEW.WaterShed = STN.RWWaterShed; 
+
+                    var ORG = (from o in NRWDE.organizations
+                               where o.ID == orgID
+                               select o).FirstOrDefault();
+
+                    NEW.OrganizationName = ORG.OrganizationName;
+                    NEW.OrganizationID = orgID;
+
+                    // zero out filed data 
+                    NEW.Sulfate = null;
+                    NEW.TempC = null;
+                    NEW.TKN = null;
+                    NEW.TOTAL_ALK = null;
+                    NEW.TOTAL_HARD = null;
+                    NEW.BadBlank = false;
+                    NEW.Valid = true;
+                }
+                else    // we have existing newEXPwater record, so update with new sample data 
+                {
+                    NEW.CreateDate = DateTime.Now;
+                    NEW.CreatedBy = User.Identity.Name;
+                    NEW.tblSampleID = TS.ID;        // FK to tblSample
+                    NEW.KitNumber = kitNumber;
+                    NEW.SampleNumber = TS.SampleNumber; 
+                    NEW.Event = TS.NumberSample;    
+                    NEW.OrganizationID = orgID;
+                    NEW.StationNumber = (short)stationNumber;     
+
+                }
+
+                if(existingRecord == true)
+                {
+                    NRWDE.SaveChanges();
+                }
+                else
+                {
+                    NRWDE.NEWexpWaters.Add(NEW);
+                    NRWDE.SaveChanges();
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                string nam = "";
                 if (User.Identity.Name.Length < 3)
                     nam = "Not logged in";
                 else

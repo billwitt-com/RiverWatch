@@ -22,10 +22,11 @@ namespace RWInbound2.Validation
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            int x = 0;
-            int sampID = 0;
-            string sampleType = ""; // this is Value2 in data base, for now
-            string searchDup = "";
+            // no longer used, but being careful here... 
+            //int x = 0;
+            //int sampID = 0;
+            //string sampleType = ""; // this is Value2 in data base, for now
+            //string searchDup = "";
             DataSourceSelectArguments args = new DataSourceSelectArguments();
             string name = "";
             decimal D2Tvalue = 0;
