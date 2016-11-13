@@ -1,0 +1,251 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Entity;
+using System.Drawing;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.Sql;
+
+namespace RWInbound2.Reports
+{
+    public partial class QAQCReport : System.Web.UI.Page
+    {
+        public DataSet DS = new DataSet("QAQCDataSet");
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        [System.Web.Script.Services.ScriptMethod]
+        [System.Web.Services.WebMethod]
+
+        public static List<string> SearchOrgs(string prefixText, int count)
+        {
+            List<string> customers = new List<string>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
+                {
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; // GlobalSite.RiverWatchDev;
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "select OrganizationName from Organization where OrganizationName like @SearchText + '%'";
+                        cmd.Parameters.AddWithValue("@SearchText", prefixText);
+                        cmd.Connection = conn;
+                        conn.Open();
+
+                        using (SqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                customers.Add(sdr["OrganizationName"].ToString());
+                            }
+                        }
+                        conn.Close();
+                        return customers;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "Not Known - in method";
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
+                return customers;
+            }
+        }
+
+        protected void btnOrgName_Click(object sender, EventArgs e)
+        {
+            string orgName = tbOrgName.Text.Trim();
+            lblOrgNameMsg.Visible = false; // set it so it never shows.. unless
+            lblKitNumMsg.Visible = false;
+            lblStnNumMsg.Visible = false;
+
+            if(orgName.Length < 2)
+            {
+                lblOrgNameMsg.Text = "Please choose a valid Org Name!";
+                lblOrgNameMsg.Visible = true;
+                lblOrgNameMsg.BackColor = System.Drawing.Color.Red;
+            }
+
+            string cmdStr = string.Format("Select [TypeCode] ,[SampleNumber], [AL_D] ,[AL_T] ,[AS_D] ,[AS_T] ,[CA_D] ,[CA_T] ,[CD_D] ,[CD_T] ,[CU_D] " +
+            " ,[CU_T] ,[FE_D] ,[FE_T] ,[MG_D] ,[MG_T] ,[MN_D] ,[MN_T] ,[PB_D] ,[PB_T] ,[SE_D] ,[SE_T] ,[ZN_D] ,[ZN_T] ,[NA_D] ,[NA_T] ,[K_D],[K_T] " +
+            " from [NEWexpWater] where ([TypeCode] = '20' or [TypeCode] = '00') and valid = 1 " +
+            " and [OrganizationName] like '{0}' order by [SampleNumber], [TypeCode] ", orgName);
+
+            buildReport(cmdStr); 
+        }
+
+        // fill data table and do math...
+        protected void buildReport(string cmdString)
+        {
+            DataTable DT = new DataTable();
+            double N = 0;
+            double D = 0;
+            double R = 0;
+
+            using(SqlCommand cmd = new SqlCommand())
+            {
+                using(SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;
+                    cmd.Connection = conn;
+                    conn.Open(); 
+                    cmd.CommandText = cmdString ;
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    DT.Load(rdr);
+                }
+            }
+
+            if(DT.Rows.Count > 0)
+            {
+                DataTable RES = DT.Clone(); // make an empty copy
+
+
+                // walk the origional table looking for a '20' in the [TypeCode] column
+                int c = DT.Rows.Count;
+                for (int x = 0; x < c - 1; x++ )
+                {
+                    var X = DT.Rows[x]["TypeCode"]; 
+                    if(X != null)
+                    {                            
+                        if((string)X == "20")    // this is a dup
+                        {
+                            var Y = DT.Rows[x]["SampleNumber"]; 
+                            if((string)Y != null)
+                            {
+                                var Z = DT.Rows[x+1]["SampleNumber"]; // look at next row to see if it is same sample
+
+                                if(Z != null)
+                                {
+                                    if((string)Y == (string)Z)  // same sample numbers
+                                    {
+                                        var Q = DT.Rows[x + 1]["TypeCode"]; 
+                                        if(Q != null)
+                                        {
+                                            if((string)Q == "00")   // we have a normal for the next row
+                                            {
+                                                RES.Rows.Add(DT.Rows[x]);
+                                                RES.Rows.Add(DT.Rows[x + 1]);
+                                                DataRow DR = DT.Rows[x];
+                                                DR["TypeCode"] = "ZZ";
+
+                                                for (int y = 2; y < 28; y++)
+                                                {
+                                                    if (DT.Rows[x][y] != null)
+                                                    {
+                                                        D = (double)DT.Rows[x+1][y];    // normal row, one after dup
+                                                        if (DT.Rows[x + 1][y] != null)
+                                                        {
+                                                            N = (double)DT.Rows[x + 1][y];
+                                                            R = (N + D) / N;
+                                                            DR[y] = R; 
+                                                        }
+                                                    }
+                                                }
+                                                RES.Rows.Add(DR);
+                                                x++; 
+
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+                        }
+              
+
+                    }
+                   
+                }
+
+
+
+                    GridView1.DataSource = RES;
+                GridView1.DataBind(); 
+                //int count = DT.Rows.Count;
+
+              
+                //DS.Tables.Add(DT);
+
+
+
+
+
+            }
+        }
+
+        protected void btnKitNumber_Click(object sender, EventArgs e)
+        {
+            int kitNumber = 0;
+            bool isValidKitNumber = false;
+            string kn = tbKitNumber.Text.Trim();
+            lblOrgNameMsg.Visible = false; // set it so it never shows.. unless
+            lblKitNumMsg.Visible = false;
+            lblStnNumMsg.Visible = false;
+
+            if(kn.Length < 1)
+            {
+                lblKitNumMsg.Text = "Please choose a valid kit number";
+                lblKitNumMsg.Visible = true;
+                lblKitNumMsg.BackColor = System.Drawing.Color.Red;
+                return; 
+            }
+            bool success = int.TryParse(kn, out kitNumber);
+            if(!success)
+            {
+                lblKitNumMsg.Text = "Please choose a valid kit number";
+                lblKitNumMsg.Visible = true;
+                lblKitNumMsg.BackColor = System.Drawing.Color.Red;
+                return; 
+            }
+
+
+            string cmdStr = string.Format("Select [TypeCode] ,[SampleNumber], [AL_D] ,[AL_T] ,[AS_D] ,[AS_T] ,[CA_D] ,[CA_T] ,[CD_D] ,[CD_T] ,[CU_D] " +
+           " ,[CU_T] ,[FE_D] ,[FE_T] ,[MG_D] ,[MG_T] ,[MN_D] ,[MN_T] ,[PB_D] ,[PB_T] ,[SE_D] ,[SE_T] ,[ZN_D] ,[ZN_T] ,[NA_D] ,[NA_T] ,[K_D],[K_T] " +
+           " from [NEWexpWater] where ([TypeCode] = '20' or [TypeCode] = '00') and valid = 1 " +
+           " and [KitNumber] = {0} order by [SampleNumber], [TypeCode] ", kitNumber);
+
+            // check to see if there is as kit number like this
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.CommandText = cmdStr;
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    isValidKitNumber = rdr.HasRows; 
+                }
+            }
+            if (isValidKitNumber)
+            {
+                buildReport(cmdStr);
+            }
+            else
+            {
+                lblKitNumMsg.Text = string.Format("There are no results for {0}", kitNumber);
+                lblKitNumMsg.Visible = true;
+                lblKitNumMsg.BackColor = System.Drawing.Color.Red;
+                return;
+            }
+        }
+
+    }
+}
