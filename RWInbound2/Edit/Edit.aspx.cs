@@ -207,5 +207,10 @@ namespace RWInbound2.Edit
         {
             Response.Redirect("EditStationType.aspx");
         }
+
+        protected void btntblWBKey_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditWaterBodyID.aspx");
+        }
     }
 }

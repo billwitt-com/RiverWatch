@@ -211,6 +211,7 @@
     <Content Include="Edit\EditStationStatus.aspx" />
     <Content Include="Edit\EditSubPara.aspx" />
     <Content Include="Edit\EditSubSamp.aspx" />
+    <Content Include="Edit\EditWaterBodyID.aspx" />
     <Content Include="Images\Bucketdrop.jpg" />
     <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
     <Content Include="Images\Clear Creek High School.JPG" />
@@ -925,6 +926,13 @@
     </Compile>
     <Compile Include="Edit\EditSubSamp.aspx.designer.cs">
       <DependentUpon>EditSubSamp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditWaterBodyID.aspx.cs">
+      <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditWaterBodyID.aspx.designer.cs">
+      <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
     </Compile>
     <Compile Include="InboundSamples.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1704,6 +1712,7 @@
     </Compile>
     <Compile Include="View_Models\ParticipantsViewModel.cs" />
     <Compile Include="View_Models\ProjectStationViewModel.cs" />
+    <Compile Include="View_Models\tblWBKeyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1755,7 +1764,9 @@
     <Content Include="Reports\PublicUsers.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Reports\ParticipantsPrimaryContacts.rdlc" />
+    <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

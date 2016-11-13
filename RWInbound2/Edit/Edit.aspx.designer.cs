@@ -337,6 +337,15 @@ namespace RWInbound2.Edit {
         protected global::System.Web.UI.WebControls.Button btnTownship;
         
         /// <summary>
+        /// btntblWBKey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btntblWBKey;
+        
+        /// <summary>
         /// btnWQCCWaterShed control.
         /// </summary>
         /// <remarks>

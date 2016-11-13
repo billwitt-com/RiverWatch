@@ -1107,7 +1107,6 @@ tr.pager td {
         padding: 10px;
         width: auto;
     }
-
         section.feature img {
             color: #999;
             content: attr(alt);
@@ -1119,8 +1118,6 @@ tr.pager td {
     input {
         /*width: 90%;*/
     }
-
-
 
     /* login page */
     #loginForm {
@@ -1308,6 +1305,22 @@ fieldset {
     color: #808080;
 }
 
+/*Form View*/
+.formview-wide-item-template-div{
+    display: inline-flex;
+    width: 600px;
+}
+
+.update-panel-div{
+    display:inline-flex;
+}
+
+.formview-dropdowns{
+    margin:15px 5px -7px 5px;
+    height: 20px;
+    border-color:gray;
+    font-size:11px;
+}
 /*Error and Success*/
 .label-error{  
     font-size: 12px;
@@ -1892,21 +1905,20 @@ input.public-button-reports{
 }
 
 /*Edit Para Forms */
-.para-form-view-labels{
+.form-view-labels{
     width: 190px;
     display: inline-block;
     height: 25px;
     font-size: 16px;
 }
 
-.para-form-view-textbox{
+.form-view-textbox{
     font-size:11px;
     width: 240px;
     height: 20px;
     border-color:gray;
     border-radius: 0;
     margin: 15px 5px -7px 5px;
-    text-align:center;
     padding: 3px;
 }
 
