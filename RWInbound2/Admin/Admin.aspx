@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Administration"></asp:Label>  
+    <br />
   <%--  
     <asp:Panel ID="pnlQuickview"   runat="server" BackColor="#FFFFCC"  CssClass="panelgrouping"
           Width="468px" ForeColor="Black"    >
@@ -92,16 +93,16 @@
                      <asp:Button ID="btnManageOrgs"  CssClass="adminButton" runat="server" Text="Manage Organizations" OnClick="btnManageOrgs_Click" Width="176px"  />                                   
                 </td>
                <td style="width: 262px">  
-                    <asp:Button ID="btnManageParticipants" CssClass="adminButton"  runat="server" Text="Manage Participants" Width="176px" OnClick="btnManageParticipants_Click" />                
-                </td>                    
+               <asp:Button ID="btnManageOrgStatus"  CssClass="adminButton" runat="server" Text="Manage Org Status"  Width="176px" OnClick="btnManageOrgStatus_Click"  />                                   
+</td>                    
                 <td>  
-                     <asp:Button ID="btnPermissions" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" OnClick="btnPermissions_Click" />                 
+                    <asp:Button ID="btnManageParticipants" CssClass="adminButton"  runat="server" Text="Manage Participants" Width="176px" OnClick="btnManageParticipants_Click" />                
                 </td> 
             </tr>  
             <tr>
                 <td>&nbsp;</td>               
                 <td style="width: 262px">      
-                    <asp:Button ID="btnManagePublicUsers" runat="server" Text="Manage Public User Access" CssClass="adminButton" Width="176px" OnClick="btnManagePublicUsers_Click" />                  
+                     <asp:Button ID="btnPermissions" CssClass="adminButton"  runat="server" Enabled="False" Text="Manage Permissions"  Width="176px" OnClick="btnPermissions_Click" />                 
                 </td>
                  <td style="width: 262px">  
                     <asp:Button ID="btnManageStations" runat="server" Text="Manage Stations" CssClass="adminButton" Width="176px" OnClick="btnManageStations_Click" />               
@@ -116,12 +117,13 @@
             <tr>
                 <td>&nbsp;</td>               
                 <td style="width: 262px">    
-                    <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />               
+                    <asp:Button ID="btnManagePublicUsers" runat="server" Text="Public User Access" CssClass="adminButton" Width="176px" OnClick="btnManagePublicUsers_Click" />                  
                 </td>
                  <td style="width: 262px">                   
+                    <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />               
                 </td>
                <td style="width: 262px">                    
-                </td>                    
+                   &nbsp;</td>                    
                 <td>                    
                 </td> 
             </tr>   

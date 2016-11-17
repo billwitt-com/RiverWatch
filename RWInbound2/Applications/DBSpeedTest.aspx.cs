@@ -24,9 +24,14 @@ namespace RWInbound2
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-            string AzureConnectionString = "Data Source=istrwtest.database.windows.net;Initial Catalog=RiverWatch;User ID=istonish;Password=RiverWatch!"; // providerName = "System.Data.SqlClient";
+         //   string AzureConnectionString = "Data Source=istrwtest.database.windows.net;Initial Catalog=RiverWatch;User ID=istonish;Password=RiverWatch!"; // providerName = "System.Data.SqlClient";
+          //  string AzureConnectionString = "Server=tcp:corw.database.windows.net,1433;Initial Catalog=RiverWatch;Persist Security Info=False;User ID=riverwatchadmin;Password=XkYZk2ul6fp4%;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; // providerName="System.Data.SqlClient" ;
             string RemoteConnectionString = "Data Source=45.35.12.6,1090;Initial Catalog=RiverWatch_2014;Persist Security Info=False;User ID=riveruser;Password=DBM@123";
         //    string LocalConnectionString = @"Data Source=BILL2014\SQLEXPRESS2008;Initial Catalog=RiverWatch;Persist Security Info=False;User ID=Bill;Password=Password16";
+           
+            RiverWatchEntities RWE = new RiverWatchEntities();
+            string AzureConnectionString = RWE.Database.Connection.ConnectionString; // we are hooked up to this already
+
             DateTime TTS;
             DateTime TTE;
             int count = 0;
@@ -35,8 +40,8 @@ namespace RWInbound2
             int loops = 0;
             string newCmd = "";
 
-            RiverWatchEntities RWE = new RiverWatchEntities();
-            RWE.Database.Connection.ConnectionString = AzureConnectionString;
+
+          //  RWE.Database.Connection.ConnectionString = AzureConnectionString;
             DataSourceSelectArguments ARGS = new DataSourceSelectArguments();
 
             if (tbLoopCount.Text.Length < 0)

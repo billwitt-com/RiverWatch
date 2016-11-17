@@ -31,7 +31,7 @@
             </tr>
         </table>
 
-    <asp:Label ID="Label2" runat="server" Text="Test: SQL query to count entries in view ViewSoloNutrientDups using Azure"></asp:Label>
+    <asp:Label ID="Label2" runat="server" Text="Test: SQL query inboundsamples using Azure"></asp:Label>
 
         <table style="width: 100%">
             <tr>
@@ -70,7 +70,7 @@
         </tr>
     </table>
 
-    <asp:Label ID="Label13" runat="server" Text="Test: SQL query to count entries in view ViewSoloNutrientDups using Remote SQL DB"></asp:Label>
+    <asp:Label ID="Label13" runat="server" Text="Test: SQL query inboundsamples using Remote SQL DB"></asp:Label>
     <table style="width: 100%">
         <tr>
             <td style="width: 181px">

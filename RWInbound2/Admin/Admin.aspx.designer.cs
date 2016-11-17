@@ -112,6 +112,15 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Button btnManageOrgs;
         
         /// <summary>
+        /// btnManageOrgStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnManageOrgStatus;
+        
+        /// <summary>
         /// btnManageParticipants control.
         /// </summary>
         /// <remarks>
@@ -128,15 +137,6 @@ namespace RWInbound2.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPermissions;
-        
-        /// <summary>
-        /// btnManagePublicUsers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManagePublicUsers;
         
         /// <summary>
         /// btnManageStations control.
@@ -164,6 +164,15 @@ namespace RWInbound2.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnProjectStations;
+        
+        /// <summary>
+        /// btnManagePublicUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnManagePublicUsers;
         
         /// <summary>
         /// btnRoles control.

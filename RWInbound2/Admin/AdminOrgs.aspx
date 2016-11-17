@@ -62,7 +62,7 @@
             <asp:TextBox ID="YearStartedTextBox" runat="server" Text='<%# Bind("YearStarted") %>' />
             <br />
 <%--                            SelectedValue = '<%# Bind("WaterShed") %>'--%>
-            WaterShed:
+            Watershed:
 <%--            <asp:TextBox ID="WaterShedTextBox" runat="server" Text='<%# Bind("WaterShed") %>' />--%>
             <asp:DropDownList ID="ddlWaterShed" runat="server" 
                 OnDataBinding="PreventErrorsOn_DataBinding"
@@ -76,7 +76,7 @@
  
             <br />
 <%--                        SelectedValue = '<%# Bind("WaterShedGathering") %>'    --%>
-            WaterShed Gathering:
+            Watershed Gathering:
 <%--                        <asp:TextBox ID="WaterShedGatheringTextBox" runat="server" Text='<%# Bind("WaterShedGathering") %>' />--%>
             <asp:DropDownList ID="ddlWaterShedGathering" runat="server" 
                 OnDataBinding="PreventErrorsOn_DataBinding"    
@@ -154,7 +154,7 @@
             Year Started:
             <asp:TextBox ID="YearStartedTextBox" runat="server" Text='<%# Bind("YearStarted") %>' />
             <br />
-           WaterShed:
+           Watershed:
 <%--            <asp:TextBox ID="WaterShedTextBox" runat="server" Text='<%# Bind("WaterShed") %>' />--%>
             <asp:DropDownList ID="ddlWaterShed" runat="server" 
                 OnDataBinding="PreventErrorsOn_DataBinding"
@@ -166,7 +166,7 @@
  
             <br />
 <%--                        SelectedValue = '<%# Bind("WaterShedGathering") %>'    --%>
-            WaterShed Gathering:
+            Watershed Gathering:
 <%--                        <asp:TextBox ID="WaterShedGatheringTextBox" runat="server" Text='<%# Bind("WaterShedGathering") %>' />--%>
             <asp:DropDownList ID="ddlWaterShedGathering" runat="server" 
                 OnDataBinding="PreventErrorsOn_DataBinding"    
@@ -239,10 +239,10 @@
             Year Started:
             <asp:Label ID="YearStartedLabel" runat="server" Text='<%# Bind("YearStarted") %>' />
             <br />
-            WaterShed:
+            Watershed:
             <asp:Label ID="WaterShedLabel" runat="server" Text='<%# Bind("WaterShed") %>' />
             <br />
-            WaterShed Gathering:
+            Watershed Gathering:
             <asp:Label ID="WaterShedGatheringLabel" runat="server" Text='<%# Bind("WaterShedGathering") %>' />
             <br />
             Password:

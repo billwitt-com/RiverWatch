@@ -41,6 +41,10 @@
 
                          <table id="topTable" class="headerTable" runat="server">
                              <tr>
+                                 <td></td>
+                                 <td></td>
+                             </tr>
+                             <tr>
                                  <td>Code:
                                         <asp:TextBox ID="tbBlankCode" runat="server" ReadOnly="true" Text='<%# Bind("CODE") %>' BackColor="Silver" />
                                  </td>
