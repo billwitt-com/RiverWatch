@@ -279,8 +279,8 @@ namespace RWInbound2.Validation
             string barCode = "";
             string dupCode = "";
             decimal D2Tlimit = 0;
-            decimal MeasureLimit = 0;
-            decimal ReportLimit = 0; 
+            //decimal MeasureLimit = 0;
+            //decimal ReportLimit = 0; 
             string tbDups_DName;
             string tbDups_TName;
             string tbNormals_DName;

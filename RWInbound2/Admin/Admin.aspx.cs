@@ -114,5 +114,10 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("EditWatercodes.aspx"); 
         }
+
+        protected void btnManageOrgStatus_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminOrgstatus.aspx");
+        }
     }
 }

@@ -136,6 +136,7 @@
     <Content Include="Admin\AdminControlPermissions.aspx" />
     <Content Include="Admin\AdminNutrientLimits.aspx" />
     <Content Include="Admin\AdminOrgs.aspx" />
+    <Content Include="Admin\AdminOrgStatus.aspx" />
     <Content Include="Admin\AdminProjectStations.aspx" />
     <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
@@ -212,6 +213,7 @@
     <Content Include="Edit\EditSubPara.aspx" />
     <Content Include="Edit\EditSubSamp.aspx" />
     <Content Include="Edit\EditWaterBodyID.aspx" />
+    <Content Include="Help\HelpInboundICP.aspx" />
     <Content Include="Images\Bucketdrop.jpg" />
     <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
     <Content Include="Images\Clear Creek High School.JPG" />
@@ -261,7 +263,6 @@
       <DependentUpon>NewRWModel.edmx</DependentUpon>
       <LastGenOutput>NewRWModel.cs</LastGenOutput>
     </Content>
-    <Content Include="OrgEdit.aspx" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -278,7 +279,6 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="OrgExample.aspx" />
     <Content Include="Public\PublicReports.aspx" />
     <Content Include="Public\UnknownData.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
@@ -556,6 +556,7 @@
     <Content Include="Validation\ValidateNutrients.aspx" />
     <Content Include="Validation\ValidateUnknowns.aspx" />
     <Content Include="Validation\Validation.aspx" />
+    <Content Include="Video\Create and validate ICP data.mp4" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -618,6 +619,13 @@
     </Compile>
     <Compile Include="Admin\AdminOrgs.aspx.designer.cs">
       <DependentUpon>AdminOrgs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminOrgStatus.aspx.cs">
+      <DependentUpon>AdminOrgStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminOrgStatus.aspx.designer.cs">
+      <DependentUpon>AdminOrgStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\AdminProjectStations.aspx.cs">
       <DependentUpon>AdminProjectStations.aspx</DependentUpon>
@@ -934,6 +942,13 @@
     <Compile Include="Edit\EditWaterBodyID.aspx.designer.cs">
       <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Help\HelpInboundICP.aspx.cs">
+      <DependentUpon>HelpInboundICP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help\HelpInboundICP.aspx.designer.cs">
+      <DependentUpon>HelpInboundICP.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InboundSamples.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -1171,20 +1186,6 @@
     </Compile>
     <Compile Include="organization.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OrgEdit.aspx.cs">
-      <DependentUpon>OrgEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="OrgEdit.aspx.designer.cs">
-      <DependentUpon>OrgEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="OrgExample.aspx.cs">
-      <DependentUpon>OrgExample.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="OrgExample.aspx.designer.cs">
-      <DependentUpon>OrgExample.aspx</DependentUpon>
     </Compile>
     <Compile Include="OrgStatu.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>

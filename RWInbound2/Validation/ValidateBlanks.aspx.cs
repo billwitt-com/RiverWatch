@@ -594,6 +594,9 @@ namespace RWInbound2.Validation
             decimal Total;
             decimal Disolved;
             bool isbad = false;
+            int OrgID = 0;
+            int KitNumber = 0;
+
 
             string uniqueID = FormViewBlank.Controls[0].UniqueID;
 
@@ -691,25 +694,37 @@ namespace RWInbound2.Validation
 
                 try
                 {
-
-                    Sample ts = (from t in NewRWE.Samples
-                                    where t.SampleID == sID & t.Valid == true
+                    //   where t.SampleID == sID & t.Valid == true
+                    var ts = (from t in NewRWE.Samples
+                                    where t.ID == sID & t.Valid == true
                                     select t).FirstOrDefault(); // should be only one copy
                     if (ts != null)
                     {
-                        // make kit number 
+                        // make STATION number 
                         string numS = ts.NumberSample; // looks weird and is, this is the string like 44.096 and kit # is on the left of decimal place
                         int idx = numS.IndexOf(".");
                         string numS1 = numS.Substring(0, idx);  // get chars to left of decimal point
+                        if (ts.OrganizationID != null)
+                        {
+                            OrgID = ts.OrganizationID.Value;
 
-                        NEW.KitNumber = short.Parse(numS1);
+                            organization O = (from o in NewRWE.organizations
+                                             where o.ID == OrgID & o.Valid == true
+                                             select o).FirstOrDefault();
+                            NEW.OrganizationName = O.OrganizationName;
+                            if (O.KitNumber != null)
+                            {
+                                KitNumber = O.KitNumber.Value;
+                                NEW.KitNumber = KitNumber;
+                            }
+                        }
+
                         NEW.Event = numS; // string like above, 10.095
 
                         NEW.NutrientBarCode = null;
                         NEW.NutrientComment = null;
                         NEW.OP = null;
 
-                        NEW.OrganizationName = "";
                         NEW.orgN = null;
                         NEW.PH = null;
                         NEW.PHEN_ALK = null;
