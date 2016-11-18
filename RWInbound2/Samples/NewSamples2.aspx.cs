@@ -1432,7 +1432,7 @@ namespace RWInbound2.Samples
             }
             if (type.Substring(0, 1) == "1")  // blank
             {
-                mult = .1m;
+                mult = .001m;
             }
 
             if (type.Substring(0, 1) == "2")  // duplicate 
