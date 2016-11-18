@@ -124,7 +124,7 @@
         </table>
     </asp:Panel>
 
-    <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" UseVerticalStripPlacement="False">
+    <ajaxToolkit:TabContainer ID="TabContainer1" ActiveTabIndex="0" runat="server" UseVerticalStripPlacement="False">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
         
@@ -168,8 +168,9 @@
                         <td style="width: 198px">
                             <asp:CheckBox ID="chkNoNut" runat="server" Text="No Nutrients"></asp:CheckBox></td>
                         <td style="width: 189px">
-                            <asp:TextBox ID="txtMDSR" runat="server" Width="80px"></asp:TextBox><ajaxToolkit:CalendarExtender ID="txtMDSR_CalendarExtender" runat="server" BehaviorID="txtMDSR_CalendarExtender" TargetControlID="txtMDSR" />
-                            MDSR</td>
+                            <asp:TextBox ID="txtMDSR" runat="server" Width="80px"></asp:TextBox>
+                            <ajaxToolkit:CalendarExtender ID="txtMDSR_CalendarExtender" runat="server" BehaviorID="txtMDSR_CalendarExtender" TargetControlID="txtMDSR" />
+                            </td>
                         <td style="width: 163px">
                             <asp:CheckBox ID="chkBugQA" runat="server" Text="Bugs QA"></asp:CheckBox></td>
                     </tr>
@@ -326,9 +327,13 @@
         <ajaxToolkit:TabPanel runat="server" HeaderText="Update Org" ID="TabUpdateOrg">
             <ContentTemplate>
                 <div runat="server" id="divSizer" style="border-left: 12px">
-                    <asp:Label ID="Label3" runat="server" Text="Samples Collected:"></asp:Label><asp:FormView ID="FormView1" runat="server" AllowPaging="false" DataKeyNames="ID" DefaultMode="Edit" DataSourceID="SqlDataSourceOrgStatus">
-                        <EditItemTemplate>Status ID:
-                            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' /><br />
+                   <%-- <asp:Label ID="Label3" runat="server" Text="Samples Collected:"></asp:Label>--%>
+                    
+                    <asp:FormView ID="FormView1" runat="server" AllowPaging="false" DataKeyNames="ID" DefaultMode="Edit" DataSourceID="SqlDataSourceOrgStatus">
+                        <EditItemTemplate>
+                            Status ID:
+                            <asp:Label ID="IDLabel1" runat="server" Text='<%# Eval("ID") %>' />
+                            <br />
                             Contract Start Date:
                             <asp:TextBox ID="ContractStartDateTextBox" runat="server" Text='<%# Bind("ContractStartDate","{0:d}") %>' /><ajaxToolkit:CalendarExtender ID="CalendarExtender1" Animated="true" TargetControlID="ContractStartDateTextBox" runat="server" />
                             <br />
@@ -412,15 +417,10 @@
                             Date Created:
                             <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' /><br />
                             User Created:
-                            <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' /><br />
-                            Date Last Modified:
-                            <asp:TextBox ID="DateLastModifiedTextBox" runat="server" Text='<%# Bind("DateLastModified") %>' /><br />
-                            User Last Modified:
-                            <asp:TextBox ID="UserLastModifiedTextBox" runat="server" Text='<%# Bind("UserLastModified") %>' /><br />
-                            Number Of Metals Blank:
-                            <asp:TextBox ID="NumberOfMetalsBlankTextBox" runat="server" Text='<%# Bind("NumberOfMetalsBlank") %>' /><br />
-                            Number O fMetals Duplicate:
-                            <asp:TextBox ID="NumberOfMetalsDuplicateTextBox" runat="server" Text='<%# Bind("NumberOfMetalsDuplicate") %>' /><br />
+                            <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
+                            <asp:TextBox ID="OrganizationIDTextBox"  ForeColor="White" runat="server" Text='<%# Bind("OrganizationID") %>' />
+                            <br />
+
                             <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" CssClass="samplesButton" CommandName="Update" Text="Update" />&#160;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" /></EditItemTemplate>
                     </asp:FormView>
                 </div>
@@ -446,19 +446,22 @@
         </ajaxToolkit:TabPanel>
 
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%-- &nbsp;&nbsp;&nbsp;--%>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;
     </ajaxToolkit:TabContainer>
 
+<%--            SelectCommand="SELECT * FROM [OrgStatus]" --%>
+    <asp:SqlDataSource ID="SqlDataSourceOrgStatus" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>"
 
-    <asp:SqlDataSource ID="SqlDataSourceOrgStatus" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
-        SelectCommand="SELECT * FROM [OrgStatus] "
-           UpdateCommand="UPDATE [OrgStatus] SET [ContractStartDate] = @ContractStartDate, [ContractEndDate] = @ContractEndDate, [ContractSigned] = @ContractSigned, [ContractSignedDate] = @ContractSignedDate, [SiteVisited] = @SiteVisited, [VolunteerTimeSheet1] = @VolunteerTimeSheet1, [VolunteerTimeShee2] = @VolunteerTimeShee2, [VolunteerTimeSheet3] = @VolunteerTimeSheet3, [VolunteerTimeSheet4] = @VolunteerTimeSheet4, [DataEnteredElectronically1] = @DataEnteredElectronically1, [DataEnteredElectronically2] = @DataEnteredElectronically2, [DataEnteredElectronically3] = @DataEnteredElectronically3, [DataEnteredElectronically4] = @DataEnteredElectronically4, [SampleShipped1] = @SampleShipped1, [SampleShipped2] = @SampleShipped2, [SampleShipped3] = @SampleShipped3, [SampleShipped4] = @SampleShipped4, [NumberOfSamplesJan] = @NumberOfSamplesJan, [NumberOfSamplesFeb] = @NumberOfSamplesFeb, [NumberOfSamplesMar] = @NumberOfSamplesMar, [NumberOfSamplesApr] = @NumberOfSamplesApr, [NumberOfSamplesMay] = @NumberOfSamplesMay, [NumberOfSamplesJun] = @NumberOfSamplesJun, [NumberOfSamplesJul] = @NumberOfSamplesJul, [NumberOfSamplesAug] = @NumberOfSamplesAug, [NumberOfSamplesSep] = @NumberOfSamplesSep, [NumberOfSamplesOct] = @NumberOfSamplesOct, [NumberOfSamplesNov] = @NumberOfSamplesNov, [NumberOfSamplesDec] = @NumberOfSamplesDec, [Nutrient1Collected] = @Nutrient1Collected, [Nutrient2Collected] = @Nutrient2Collected, [BugCollected] = @BugCollected, [UnknownSpringRecordedDate] = @UnknownSpringRecordedDate, [UnknownFallRecordedDate] = @UnknownFallRecordedDate, [NumberOfSamplesBlank] = @NumberOfSamplesBlank, [NumberOfSamplesDuplicate] = @NumberOfSamplesDuplicate, [TroubleComment] = @TroubleComment, [NoteComment] = @NoteComment, [HardshipComment] = @HardshipComment, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified, [NumberOfMetalsBlank] = @NumberOfMetalsBlank, [NumberOfMetalsDuplicate] = @NumberOfMetalsDuplicate WHERE [ID] = @ID">
+        DeleteCommand="DELETE FROM [OrgStatus] WHERE [ID] = @ID" 
+        InsertCommand="INSERT INTO [OrgStatus] ([OrganizationID], [ContractStartDate], [ContractEndDate], [ContractSigned], [ContractSignedDate], [SiteVisited], [VolunteerTimeSheet1], [VolunteerTimeShee2], [VolunteerTimeSheet3], [VolunteerTimeSheet4], [DataEnteredElectronically1], [DataEnteredElectronically2], [DataEnteredElectronically3], [DataEnteredElectronically4], [SampleShipped1], [SampleShipped2], [SampleShipped3], [SampleShipped4], [NumberOfSamplesJan], [NumberOfSamplesFeb], [NumberOfSamplesMar], [NumberOfSamplesApr], [NumberOfSamplesMay], [NumberOfSamplesJun], [NumberOfSamplesJul], [NumberOfSamplesAug], [NumberOfSamplesSep], [NumberOfSamplesOct], [NumberOfSamplesNov], [NumberOfSamplesDec], [Nutrient1Collected], [Nutrient2Collected], [BugCollected], [UnknownSpringRecordedDate], [UnknownFallRecordedDate], [NumberOfSamplesBlank], [NumberOfSamplesDuplicate], [TroubleComment], [NoteComment], [HardshipComment], [DateCreated], [UserCreated]) VALUES (@OrganizationID, @ContractStartDate, @ContractEndDate, @ContractSigned, @ContractSignedDate, @SiteVisited, @VolunteerTimeSheet1, @VolunteerTimeShee2, @VolunteerTimeSheet3, @VolunteerTimeSheet4, @DataEnteredElectronically1, @DataEnteredElectronically2, @DataEnteredElectronically3, @DataEnteredElectronically4, @SampleShipped1, @SampleShipped2, @SampleShipped3, @SampleShipped4, @NumberOfSamplesJan, @NumberOfSamplesFeb, @NumberOfSamplesMar, @NumberOfSamplesApr, @NumberOfSamplesMay, @NumberOfSamplesJun, @NumberOfSamplesJul, @NumberOfSamplesAug, @NumberOfSamplesSep, @NumberOfSamplesOct, @NumberOfSamplesNov, @NumberOfSamplesDec, @Nutrient1Collected, @Nutrient2Collected, @BugCollected, @UnknownSpringRecordedDate, @UnknownFallRecordedDate, @NumberOfSamplesBlank, @NumberOfSamplesDuplicate, @TroubleComment, @NoteComment, @HardshipComment, @DateCreated, @UserCreated)" 
+        UpdateCommand="UPDATE [OrgStatus] SET [OrganizationID] = @OrganizationID, [ContractStartDate] = @ContractStartDate, [ContractEndDate] = @ContractEndDate, [ContractSigned] = @ContractSigned, [ContractSignedDate] = @ContractSignedDate, [SiteVisited] = @SiteVisited, [VolunteerTimeSheet1] = @VolunteerTimeSheet1, [VolunteerTimeShee2] = @VolunteerTimeShee2, [VolunteerTimeSheet3] = @VolunteerTimeSheet3, [VolunteerTimeSheet4] = @VolunteerTimeSheet4, [DataEnteredElectronically1] = @DataEnteredElectronically1, [DataEnteredElectronically2] = @DataEnteredElectronically2, [DataEnteredElectronically3] = @DataEnteredElectronically3, [DataEnteredElectronically4] = @DataEnteredElectronically4, [SampleShipped1] = @SampleShipped1, [SampleShipped2] = @SampleShipped2, [SampleShipped3] = @SampleShipped3, [SampleShipped4] = @SampleShipped4, [NumberOfSamplesJan] = @NumberOfSamplesJan, [NumberOfSamplesFeb] = @NumberOfSamplesFeb, [NumberOfSamplesMar] = @NumberOfSamplesMar, [NumberOfSamplesApr] = @NumberOfSamplesApr, [NumberOfSamplesMay] = @NumberOfSamplesMay, [NumberOfSamplesJun] = @NumberOfSamplesJun, [NumberOfSamplesJul] = @NumberOfSamplesJul, [NumberOfSamplesAug] = @NumberOfSamplesAug, [NumberOfSamplesSep] = @NumberOfSamplesSep, [NumberOfSamplesOct] = @NumberOfSamplesOct, [NumberOfSamplesNov] = @NumberOfSamplesNov, [NumberOfSamplesDec] = @NumberOfSamplesDec, [Nutrient1Collected] = @Nutrient1Collected, [Nutrient2Collected] = @Nutrient2Collected, [BugCollected] = @BugCollected, [UnknownSpringRecordedDate] = @UnknownSpringRecordedDate, [UnknownFallRecordedDate] = @UnknownFallRecordedDate, [NumberOfSamplesBlank] = @NumberOfSamplesBlank, [NumberOfSamplesDuplicate] = @NumberOfSamplesDuplicate, [TroubleComment] = @TroubleComment, [NoteComment] = @NoteComment, [HardshipComment] = @HardshipComment, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated WHERE [ID] = @ID">
 
-    <%--    UpdateCommand="UPDATE [OrgStatus] SET [ID] = @ID, [ContractStartDate] = @ContractStartDate, [ContractEndDate] = @ContractEndDate, [ContractSigned] = @ContractSigned, [ContractSignedDate] = @ContractSignedDate, [SiteVisited] = @SiteVisited, [VolunteerTimeSheet1] = @VolunteerTimeSheet1, [VolunteerTimeShee2] = @VolunteerTimeShee2, [VolunteerTimeSheet3] = @VolunteerTimeSheet3, [VolunteerTimeSheet4] = @VolunteerTimeSheet4, [DataEnteredElectronically1] = @DataEnteredElectronically1, [DataEnteredElectronically2] = @DataEnteredElectronically2, [DataEnteredElectronically3] = @DataEnteredElectronically3, [DataEnteredElectronically4] = @DataEnteredElectronically4, [SampleShipped1] = @SampleShipped1, [SampleShipped2] = @SampleShipped2, [SampleShipped3] = @SampleShipped3, [SampleShipped4] = @SampleShipped4, [NumberOfSamplesJan] = @NumberOfSamplesJan, [NumberOfSamplesFeb] = @NumberOfSamplesFeb, [NumberOfSamplesMar] = @NumberOfSamplesMar, [NumberOfSamplesApr] = @NumberOfSamplesApr, [NumberOfSamplesMay] = @NumberOfSamplesMay, [NumberOfSamplesJun] = @NumberOfSamplesJun, [NumberOfSamplesJul] = @NumberOfSamplesJul, [NumberOfSamplesAug] = @NumberOfSamplesAug, [NumberOfSamplesSep] = @NumberOfSamplesSep, [NumberOfSamplesOct] = @NumberOfSamplesOct, [NumberOfSamplesNov] = @NumberOfSamplesNov, [NumberOfSamplesDec] = @NumberOfSamplesDec, [Nutrient1Collected] = @Nutrient1Collected, [Nutrient2Collected] = @Nutrient2Collected, [BugCollected] = @BugCollected, [UnknownSpringRecordedDate] = @UnknownSpringRecordedDate, [UnknownFallRecordedDate] = @UnknownFallRecordedDate, [NumberOfSamplesBlank] = @NumberOfSamplesBlank, [NumberOfSamplesDuplicate] = @NumberOfSamplesDuplicate, [TroubleComment] = @TroubleComment, [NoteComment] = @NoteComment, [HardshipComment] = @HardshipComment, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified, [NumberOfMetalsBlank] = @NumberOfMetalsBlank, [NumberOfMetalsDuplicate] = @NumberOfMetalsDuplicate WHERE [ID] = @ID">--%>
-
-        <UpdateParameters>
+        <DeleteParameters>
             <asp:Parameter Name="ID" Type="Int32" />
+        </DeleteParameters>
+        <InsertParameters>
+            <asp:Parameter Name="OrganizationID" Type="Int32" />
             <asp:Parameter Name="ContractStartDate" Type="DateTime" />
             <asp:Parameter Name="ContractEndDate" Type="DateTime" />
             <asp:Parameter Name="ContractSigned" Type="Boolean" />
@@ -500,11 +503,52 @@
             <asp:Parameter Name="HardshipComment" Type="String" />
             <asp:Parameter Name="DateCreated" Type="DateTime" />
             <asp:Parameter Name="UserCreated" Type="String" />
-            <asp:Parameter Name="DateLastModified" Type="DateTime" />
-            <asp:Parameter Name="UserLastModified" Type="String" />
-            <asp:Parameter Name="NumberOfMetalsBlank" Type="Int32" />
-            <asp:Parameter Name="NumberOfMetalsDuplicate" Type="Int32" />
+        </InsertParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="OrganizationID" Type="Int32" />
+            <asp:Parameter Name="ContractStartDate" Type="DateTime" />
+            <asp:Parameter Name="ContractEndDate" Type="DateTime" />
+            <asp:Parameter Name="ContractSigned" Type="Boolean" />
+            <asp:Parameter Name="ContractSignedDate" Type="DateTime" />
+            <asp:Parameter Name="SiteVisited" Type="Boolean" />
+            <asp:Parameter Name="VolunteerTimeSheet1" Type="Boolean" />
+            <asp:Parameter Name="VolunteerTimeShee2" Type="Boolean" />
+            <asp:Parameter Name="VolunteerTimeSheet3" Type="Boolean" />
+            <asp:Parameter Name="VolunteerTimeSheet4" Type="Boolean" />
+            <asp:Parameter Name="DataEnteredElectronically1" Type="Boolean" />
+            <asp:Parameter Name="DataEnteredElectronically2" Type="Boolean" />
+            <asp:Parameter Name="DataEnteredElectronically3" Type="Boolean" />
+            <asp:Parameter Name="DataEnteredElectronically4" Type="Boolean" />
+            <asp:Parameter Name="SampleShipped1" Type="Boolean" />
+            <asp:Parameter Name="SampleShipped2" Type="Boolean" />
+            <asp:Parameter Name="SampleShipped3" Type="Boolean" />
+            <asp:Parameter Name="SampleShipped4" Type="Boolean" />
+            <asp:Parameter Name="NumberOfSamplesJan" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesFeb" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesMar" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesApr" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesMay" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesJun" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesJul" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesAug" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesSep" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesOct" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesNov" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesDec" Type="Int32" />
+            <asp:Parameter Name="Nutrient1Collected" Type="Boolean" />
+            <asp:Parameter Name="Nutrient2Collected" Type="Boolean" />
+            <asp:Parameter Name="BugCollected" Type="Boolean" />
+            <asp:Parameter Name="UnknownSpringRecordedDate" Type="DateTime" />
+            <asp:Parameter Name="UnknownFallRecordedDate" Type="DateTime" />
+            <asp:Parameter Name="NumberOfSamplesBlank" Type="Int32" />
+            <asp:Parameter Name="NumberOfSamplesDuplicate" Type="Int32" />
+            <asp:Parameter Name="TroubleComment" Type="String" />
+            <asp:Parameter Name="NoteComment" Type="String" />
+            <asp:Parameter Name="HardshipComment" Type="String" />
+            <asp:Parameter Name="DateCreated" Type="DateTime" />
+            <asp:Parameter Name="UserCreated" Type="String" />
             <asp:Parameter Name="ID" Type="Int32" />
         </UpdateParameters>
+
     </asp:SqlDataSource>
 </asp:Content>
