@@ -455,7 +455,7 @@ namespace RWInbound2.Samples
 
             if (QQ.Count() == 0) // there are no entries
             {
-                OrgStatu OS = new OrgStatu();   // not sure why this name lacks traling 'S' XXXX 
+                OrgStatu OS = new OrgStatu();   // not sure why this name lacks trailing 'S' XXXX 
 
                 OS.OrganizationID = locOrgID;
                 OS.ContractStartDate = DateTime.Now.AddYears(-50); // make not believeable    //locStatusYear;
@@ -579,17 +579,30 @@ namespace RWInbound2.Samples
         }
 
         // user has chosen a current sample
+        // need to get year of this sample
         protected void lstSamples_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string EventNumber;
+            string locStnNumber;
             int index = 0;
-            EventNumber = lstSamples.SelectedItem.Value;
+            locStnNumber = lstSamples.SelectedItem.Value;
             // select out the station event which is all digits to the left of the colon
 
-            index = EventNumber.IndexOf(":");
-            EventNumber = EventNumber.Substring(0, index); // all to left of colon
-            EventNumber = EventNumber.Trim();             // remove any spaces, etc.
-            updateSamplesPage(EventNumber);
+            index = locStnNumber.IndexOf(":");
+            locStnNumber = locStnNumber.Substring(0, index); // all to left of colon
+            locStnNumber = locStnNumber.Trim();             // remove any spaces, etc.
+            updateSamplesPage(locStnNumber);
+
+            if (Session["ORGID"] == null)
+                Response.Redirect("~/timedout.aspx");
+            int locorgid = (int)Session["ORGID"];
+
+            if(Session["CURRENTYEAR"] == null)
+            {
+                Response.Redirect("~/timedout.aspx");
+            }
+            DateTime locstatusdate = (DateTime)Session["CURRENTYEAR"];
+
+            populateOrgStatus(locorgid, locstatusdate); 
             showTabs();
             // update org status tab too
         }

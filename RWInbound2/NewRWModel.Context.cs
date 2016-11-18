@@ -31,7 +31,6 @@ namespace RWInbound2
         public virtual DbSet<InboundICPOrigional> InboundICPOrigionals { get; set; }
         public virtual DbSet<MetalBarCode> MetalBarCodes { get; set; }
         public virtual DbSet<NutrientBarCode> NutrientBarCodes { get; set; }
-        public virtual DbSet<OrgStatu> OrgStatus { get; set; }
         public virtual DbSet<ProjectStation> ProjectStations { get; set; }
         public virtual DbSet<Sample> Samples { get; set; }
         public virtual DbSet<Station> Stations { get; set; }
@@ -104,5 +103,6 @@ namespace RWInbound2
         public virtual DbSet<InboundSamples> InboundSamples { get; set; }
         public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
+        public virtual DbSet<OrgStatu> OrgStatus { get; set; }
     }
 }
