@@ -88,6 +88,7 @@
         <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="19.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.organization" Width="1.5" PointX="25.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.OrgStatu" Width="1.5" PointX="3.375" PointY="10.75" />
+        <AssociationConnector Association="RiverWatchModel.FK_tblBenthics_tblBenSamps" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

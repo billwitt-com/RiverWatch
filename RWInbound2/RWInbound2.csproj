@@ -190,6 +190,7 @@
     <Content Include="Data\Participants.aspx" />
     <Content Include="Data\Stations.aspx" />
     <Content Include="Edit\EditBenGrid.aspx" />
+    <Content Include="Edit\EditBenthics.aspx" />
     <Content Include="Edit\EditEcoRegion.aspx" />
     <Content Include="Edit\EditEquipCategory.aspx" />
     <Content Include="Edit\EditEquipItems.aspx" />
@@ -779,6 +780,13 @@
     </Compile>
     <Compile Include="Edit\EditBenGrid.aspx.designer.cs">
       <DependentUpon>EditBenGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditBenthics.aspx.cs">
+      <DependentUpon>EditBenthics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditBenthics.aspx.designer.cs">
+      <DependentUpon>EditBenthics.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditEcoRegion.aspx.cs">
       <DependentUpon>EditEcoRegion.aspx</DependentUpon>

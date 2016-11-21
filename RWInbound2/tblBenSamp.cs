@@ -14,6 +14,11 @@ namespace RWInbound2
     
     public partial class tblBenSamp
     {
+        public tblBenSamp()
+        {
+            this.tblBenthics = new HashSet<tblBenthics>();
+        }
+    
         public int ID { get; set; }
         public Nullable<int> SampleID { get; set; }
         public Nullable<int> ActivityID { get; set; }
@@ -31,5 +36,7 @@ namespace RWInbound2
         public string Comments { get; set; }
         public Nullable<System.DateTime> EnterDate { get; set; }
         public Nullable<bool> Valid { get; set; }
+    
+        public virtual ICollection<tblBenthics> tblBenthics { get; set; }
     }
 }

@@ -25,5 +25,7 @@ namespace RWInbound2
         public Nullable<System.DateTime> EnterDate { get; set; }
         public string StoretUploaded { get; set; }
         public Nullable<bool> Valid { get; set; }
+    
+        public virtual tblBenSamp tblBenSamp { get; set; }
     }
 }
