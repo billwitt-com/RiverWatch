@@ -622,7 +622,6 @@
     </Compile>
     <Compile Include="Admin\AdminOrgStatus.aspx.cs">
       <DependentUpon>AdminOrgStatus.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\AdminOrgStatus.aspx.designer.cs">
       <DependentUpon>AdminOrgStatus.aspx</DependentUpon>

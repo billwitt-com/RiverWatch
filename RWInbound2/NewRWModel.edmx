@@ -902,8 +902,8 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.tb
           </Key>
           <Property Name="WBID" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="WATERSHED" Type="varchar" MaxLength="2" />
-          <Property Name="BASIN" Type="varchar" MaxLength="15" />
-          <Property Name="SUBBASIN" Type="varchar" MaxLength="20" />
+          <Property Name="BASIN" Type="varchar" MaxLength="50" />
+          <Property Name="SUBBASIN" Type="varchar" MaxLength="50" />
           <Property Name="REGION" Type="varchar" MaxLength="6" />
           <Property Name="SEGMENT" Type="varchar" MaxLength="4" />
           <Property Name="DESIG" Type="varchar" MaxLength="2" />
@@ -2122,8 +2122,8 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           </Key>
           <Property Name="WBID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="WATERSHED" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="BASIN" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SUBBASIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BASIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SUBBASIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="REGION" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="SEGMENT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="DESIG" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
