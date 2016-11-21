@@ -650,16 +650,10 @@
           <Property Name="EnterDate" Type="datetime" />
           <Property Name="Valid" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.tblBenthics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblBenthics">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Stage" />
-            <PropertyRef Name="BenSampID" />
-            <PropertyRef Name="RepNum" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Stage" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="BenSampID" Type="int" Nullable="false" />
           <Property Name="RepNum" Type="int" Nullable="false" />
@@ -670,6 +664,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.tb
           <Property Name="EnterDate" Type="datetime" />
           <Property Name="StoretUploaded" Type="varchar" MaxLength="25" />
           <Property Name="Valid" Type="bit" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="tblParticipant">
           <Key>
@@ -1507,6 +1502,18 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_tblBenthics_tblBenSamps">
+          <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="1" />
+          <End Role="tblBenthics" Type="Self.tblBenthics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBenSamps">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenthics">
+              <PropertyRef Name="BenSampID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RiverWatchModelStoreContainer">
           <EntitySet Name="ControlPermissions" EntityType="Self.ControlPermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
@@ -1531,6 +1538,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBenGrid" EntityType="Self.tblBenGrid" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBenSamps" EntityType="Self.tblBenSamps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBenthics" EntityType="Self.tblBenthics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblParticipant" EntityType="Self.tblParticipant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPartInfo" EntityType="Self.tblPartInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPhysHab" EntityType="Self.tblPhysHab" Schema="dbo" store:Type="Tables" />
@@ -1582,21 +1590,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <EntitySet Name="tlkWSR" EntityType="Self.tlkWSR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="trsChemParaMapColumns" EntityType="Self.trsChemParaMapColumns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnknownSample" EntityType="Self.UnknownSample" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblBenthics" EntityType="Self.tblBenthics" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblBenthics].[ID] AS [ID], 
-    [tblBenthics].[Stage] AS [Stage], 
-    [tblBenthics].[BenSampID] AS [BenSampID], 
-    [tblBenthics].[RepNum] AS [RepNum], 
-    [tblBenthics].[Individuals] AS [Individuals], 
-    [tblBenthics].[ExcludedTaxa] AS [ExcludedTaxa], 
-    [tblBenthics].[HabitatType] AS [HabitatType], 
-    [tblBenthics].[Comments] AS [Comments], 
-    [tblBenthics].[EnterDate] AS [EnterDate], 
-    [tblBenthics].[StoretUploaded] AS [StoretUploaded], 
-    [tblBenthics].[Valid] AS [Valid]
-    FROM [dbo].[tblBenthics] AS [tblBenthics]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="tblXS" EntityType="Self.tblXS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tblXS].[XSID] AS [XSID], 
@@ -1717,6 +1710,10 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
     [ViewSoloNutrientDups].[CreatedBy] AS [CreatedBy]
     FROM [dbo].[ViewSoloNutrientDups] AS [ViewSoloNutrientDups]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_tblBenthics_tblBenSamps" Association="Self.FK_tblBenthics_tblBenSamps">
+            <End Role="tblBenSamps" EntitySet="tblBenSamps" />
+            <End Role="tblBenthics" EntitySet="tblBenthics" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -2574,6 +2571,10 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <EntitySet Name="tblBenSamps" EntityType="RiverWatchModel.tblBenSamp" />
           <EntitySet Name="organizations" EntityType="RiverWatchModel.organization" />
           <EntitySet Name="OrgStatus" EntityType="RiverWatchModel.OrgStatu" />
+          <AssociationSet Name="FK_tblBenthics_tblBenSamps" Association="RiverWatchModel.FK_tblBenthics_tblBenSamps">
+            <End Role="tblBenSamp" EntitySet="tblBenSamps" />
+            <End Role="tblBenthics" EntitySet="tblBenthics" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tlkSubPara">
           <Key>
@@ -3094,6 +3095,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="EnterDate" Type="DateTime" Precision="3" />
           <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
+          <NavigationProperty Name="tblBenSamp" Relationship="RiverWatchModel.FK_tblBenthics_tblBenSamps" FromRole="tblBenthics" ToRole="tblBenSamp" />
         </EntityType>
         <EntityType Name="tblPhysHab">
           <Key>
@@ -3218,6 +3220,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EnterDate" Type="DateTime" Precision="3" />
           <Property Name="Valid" Type="Boolean" />
+          <NavigationProperty Name="tblBenthics" Relationship="RiverWatchModel.FK_tblBenthics_tblBenSamps" FromRole="tblBenSamp" ToRole="tblBenthics" />
         </EntityType>
         <EntityType Name="organization">
           <Key>
@@ -3294,6 +3297,18 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="UserCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_tblBenthics_tblBenSamps">
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenthics" Role="tblBenthics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBenSamp">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenthics">
+              <PropertyRef Name="BenSampID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
