@@ -1436,7 +1436,7 @@
     <Compile Include="tblBenSamp.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblBenthics.cs">
+    <Compile Include="tblBenthic.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblParticipant.cs">
