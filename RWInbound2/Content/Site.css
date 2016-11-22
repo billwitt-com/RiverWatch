@@ -1953,3 +1953,18 @@ td.grid-edit-benthics-buttons{
     border-right:none;
     margin-bottom: -23px;
 }
+
+div#updatePanelOrgUnknownResults{
+    display:inline-block;
+}
+
+.org-unknown-results-or{
+    display:inline-block;
+    font-size: 1.5em;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.org-unknown-results-reset-search{
+    margin-left: 50px !important;
+}
