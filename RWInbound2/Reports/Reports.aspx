@@ -16,6 +16,10 @@
                 <asp:Button ID="btnLachatNoBC" runat="server" Text="Lachat BC not Entered" OnClick="btnLachatNoBC_Click"
                             CssClass="adminButton" />
             </asp:TableCell> 
+            <asp:TableCell CssClass="edit-table-cell"> 
+                <asp:Button ID="btnMailingList" runat="server" Text="Mailing List" OnClick="btnMailingList_Click" 
+                            CssClass="adminButton"/>          
+            </asp:TableCell>   
              <asp:TableCell CssClass="edit-table-cell">
                 <asp:Button ID="btnMetalBarCodes" runat="server" Text="Metal Bar Codes" OnClick="btnMetalBarCodes_Click" 
                             CssClass="adminButton"/>
@@ -24,13 +28,13 @@
                 <asp:Button ID="btnOrganizations" runat="server" Text="Organizations" OnClick="btnOrganizations_Click"
                             CssClass="adminButton" />
             </asp:TableCell>             
+        </asp:TableRow>
+
+        <asp:TableRow CssClass="edit-table-row">
             <asp:TableCell CssClass="edit-table-cell">
                 <asp:Button ID="btnOrgStations" runat="server" Text="Organization Stations" OnClick="btnOrgStations_Click" 
                             CssClass="adminButton"/>                
             </asp:TableCell>     
-        </asp:TableRow>
-
-        <asp:TableRow CssClass="edit-table-row">
             <asp:TableCell CssClass="edit-table-cell">                
                 <asp:Button ID="btnOrgStatus" runat="server" Text="Organization Status" OnClick="btnOrgStatus_Click" 
                             CssClass="adminButton"/>
@@ -47,13 +51,13 @@
                 <asp:Button ID="btnPublicUsers" runat="server" Text="Public Users" OnClick="btnPublicUsers_Click" 
                             CssClass="adminButton"/>
             </asp:TableCell>             
+        </asp:TableRow>
+
+        <asp:TableRow CssClass="edit-table-row">
             <asp:TableCell CssClass="edit-table-cell">           
                 <asp:Button ID="btnSamples" runat="server" Text="Samples" OnClick="btnSamples_Click" 
                             CssClass="adminButton"/>
             </asp:TableCell>     
-        </asp:TableRow>
-
-        <asp:TableRow CssClass="edit-table-row">
             <asp:TableCell CssClass="edit-table-cell"> 
                 <asp:Button ID="btnStations" runat="server" Text="Stations" OnClick="btnStations_Click" 
                             CssClass="adminButton"/>
@@ -65,9 +69,7 @@
              <asp:TableCell CssClass="edit-table-cell">
             </asp:TableCell>
             <asp:TableCell CssClass="edit-table-cell">
-            </asp:TableCell>             
-            <asp:TableCell CssClass="edit-table-cell">           
-            </asp:TableCell>     
+            </asp:TableCell>
         </asp:TableRow>
 
         <%--<asp:TableRow CssClass="edit-table-row">
