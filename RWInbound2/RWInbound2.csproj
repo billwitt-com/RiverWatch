@@ -282,6 +282,7 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Public\PublicReports.aspx" />
     <Content Include="Public\UnknownData.aspx" />
+    <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Reports\Organizations.aspx" />
     <Content Include="Reports\OrgStations.aspx" />
@@ -402,6 +403,17 @@
     </Content>
     <Content Include="RiverWatchMetalBarCodesDataSet.xsc">
       <DependentUpon>RiverWatchMetalBarCodesDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchMailingLabelDbDataSet.xsc">
+      <DependentUpon>RiverWatchMailingLabelDbDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchMailingLabelDbDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchMailingLabelDbDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchMailingLabelDbDataSet.xss">
+      <DependentUpon>RiverWatchMailingLabelDbDataSet.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchMetalBarCodesDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1214,6 +1226,13 @@
     <Compile Include="Public\UnknownData.aspx.designer.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\MailingLabels.aspx.cs">
+      <DependentUpon>MailingLabels.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MailingLabels.aspx.designer.cs">
+      <DependentUpon>MailingLabels.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MetalBarCodes.aspx.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1356,6 +1375,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchDataViewLachatNOBC.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchMailingLabelDbDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchMailingLabelDbDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchMetalBarCodesDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1775,6 +1799,7 @@
     <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Reports\MailingLabels.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
