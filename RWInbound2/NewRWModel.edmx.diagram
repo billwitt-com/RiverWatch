@@ -74,7 +74,6 @@
         <EntityTypeShape EntityType="RiverWatchModel.InboundSamples" Width="1.5" PointX="13.375" PointY="26.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tblProject" Width="1.5" PointX="9.375" PointY="14.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkSections" Width="1.5" PointX="27.375" PointY="8.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenthics" Width="1.5" PointX="29.375" PointY="0.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tblPhysHab" Width="1.5" PointX="29.375" PointY="4.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tblSubSamp" Width="1.5" PointX="29.375" PointY="8.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkPhysHabPara" Width="1.5" PointX="29.375" PointY="12.75" />
@@ -88,7 +87,7 @@
         <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="19.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.organization" Width="1.5" PointX="25.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.OrgStatu" Width="1.5" PointX="3.375" PointY="10.75" />
-        <AssociationConnector Association="RiverWatchModel.FK_tblBenthics_tblBenSamps" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenthic" Width="1.5" PointX="27.375" PointY="28.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

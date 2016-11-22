@@ -212,5 +212,10 @@ namespace RWInbound2.Edit
         {
             Response.Redirect("EditWaterBodyID.aspx");
         }
+
+        protected void btnBenthics_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditBenthics.aspx");
+        }
     }
 }

@@ -38,7 +38,7 @@ body { /*works for table including fonts of labels but not text boxes see below*
     color: #324253;
     font-size: .85em;
     font-family: Consolas; /* choose as this is fixed width for tables*/
-    width: 1125px;  /* choose as this is width for page*/
+    width: 1150px;  /* choose as this is width for page*/
 }
 
 html {
@@ -1925,7 +1925,31 @@ input.public-button-reports{
 .rowId-charid-dsorder-textbox {
     width: 50px;
 }
-formviewText {
+/*formviewText {
     font-family: "Courier New", Courier, monospace;
     font-size: 16px;
+}*/
+
+/*Edit Benthics */
+.grid-edit-benthics-width{
+    text-align:center;
+    padding: 5px;
+    width: 50px;
+    resize: vertical;
+}
+
+.grid-edit-benthics-comments{
+    text-align:center;
+    padding: 5px;
+    width: 120px;
+    resize: vertical;
+}
+
+td.grid-edit-benthics-buttons{
+     width: 85px;
+    text-align:center;
+    display:inline-block;
+    border-left:none;
+    border-right:none;
+    margin-bottom: -23px;
 }

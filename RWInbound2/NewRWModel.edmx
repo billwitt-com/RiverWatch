@@ -1502,18 +1502,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_tblBenthics_tblBenSamps">
-          <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="1" />
-          <End Role="tblBenthics" Type="Self.tblBenthics" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBenSamps">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblBenthics">
-              <PropertyRef Name="BenSampID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="RiverWatchModelStoreContainer">
           <EntitySet Name="ControlPermissions" EntityType="Self.ControlPermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
@@ -1710,10 +1698,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
     [ViewSoloNutrientDups].[CreatedBy] AS [CreatedBy]
     FROM [dbo].[ViewSoloNutrientDups] AS [ViewSoloNutrientDups]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_tblBenthics_tblBenSamps" Association="Self.FK_tblBenthics_tblBenSamps">
-            <End Role="tblBenSamps" EntitySet="tblBenSamps" />
-            <End Role="tblBenthics" EntitySet="tblBenthics" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -2560,7 +2544,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <EntitySet Name="UnknownSample" EntityType="RiverWatchModel.UnknownSample" />
           <EntitySet Name="tblProject" EntityType="RiverWatchModel.tblProject" />          
           <EntitySet Name="tblBenGrid" EntityType="RiverWatchModel.tblBenGrid" />
-          <EntitySet Name="tblBenthics" EntityType="RiverWatchModel.tblBenthics" />
           <EntitySet Name="tblPhysHab" EntityType="RiverWatchModel.tblPhysHab" />
           <EntitySet Name="tlkPhysHabPara" EntityType="RiverWatchModel.tlkPhysHabPara" />
           <EntitySet Name="PublicUsers" EntityType="RiverWatchModel.PublicUsers" />
@@ -2571,10 +2554,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <EntitySet Name="tblBenSamps" EntityType="RiverWatchModel.tblBenSamp" />
           <EntitySet Name="organizations" EntityType="RiverWatchModel.organization" />
           <EntitySet Name="OrgStatus" EntityType="RiverWatchModel.OrgStatu" />
-          <AssociationSet Name="FK_tblBenthics_tblBenSamps" Association="RiverWatchModel.FK_tblBenthics_tblBenSamps">
-            <End Role="tblBenSamp" EntitySet="tblBenSamps" />
-            <End Role="tblBenthics" EntitySet="tblBenthics" />
-          </AssociationSet>
+          <EntitySet Name="tblBenthics" EntityType="RiverWatchModel.tblBenthic" />
         </EntityContainer>
         <EntityType Name="tlkSubPara">
           <Key>
@@ -3077,26 +3057,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="tblBenthics">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="Stage" />
-            <PropertyRef Name="BenSampID" />
-            <PropertyRef Name="RepNum" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Stage" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="BenSampID" Type="Int32" Nullable="false" />
-          <Property Name="RepNum" Type="Int32" Nullable="false" />
-          <Property Name="Individuals" Type="Int32" />
-          <Property Name="ExcludedTaxa" Type="Boolean" />
-          <Property Name="HabitatType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="EnterDate" Type="DateTime" Precision="3" />
-          <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Valid" Type="Boolean" />
-          <NavigationProperty Name="tblBenSamp" Relationship="RiverWatchModel.FK_tblBenthics_tblBenSamps" FromRole="tblBenthics" ToRole="tblBenSamp" />
-        </EntityType>
         <EntityType Name="tblPhysHab">
           <Key>
             <PropertyRef Name="ID" />
@@ -3220,7 +3180,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EnterDate" Type="DateTime" Precision="3" />
           <Property Name="Valid" Type="Boolean" />
-          <NavigationProperty Name="tblBenthics" Relationship="RiverWatchModel.FK_tblBenthics_tblBenSamps" FromRole="tblBenSamp" ToRole="tblBenthics" />
         </EntityType>
         <EntityType Name="organization">
           <Key>
@@ -3297,18 +3256,22 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="UserCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_tblBenthics_tblBenSamps">
-          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="1" />
-          <End Type="RiverWatchModel.tblBenthics" Role="tblBenthics" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBenSamp">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblBenthics">
-              <PropertyRef Name="BenSampID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="tblBenthic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Stage" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BenSampID" Type="Int32" Nullable="false" />
+          <Property Name="RepNum" Type="Int32" Nullable="false" />
+          <Property Name="Individuals" Type="Int32" />
+          <Property Name="ExcludedTaxa" Type="Boolean" />
+          <Property Name="HabitatType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4611,23 +4574,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblBenthics">
-            <EntityTypeMapping TypeName="RiverWatchModel.tblBenthics">
-              <MappingFragment StoreEntitySet="tblBenthics">
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-                <ScalarProperty Name="HabitatType" ColumnName="HabitatType" />
-                <ScalarProperty Name="ExcludedTaxa" ColumnName="ExcludedTaxa" />
-                <ScalarProperty Name="Individuals" ColumnName="Individuals" />
-                <ScalarProperty Name="RepNum" ColumnName="RepNum" />
-                <ScalarProperty Name="BenSampID" ColumnName="BenSampID" />
-                <ScalarProperty Name="Stage" ColumnName="Stage" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblPhysHab">
             <EntityTypeMapping TypeName="RiverWatchModel.tblPhysHab">
               <MappingFragment StoreEntitySet="tblPhysHab">
@@ -4872,6 +4818,23 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
                 <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
                 <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBenthics">
+            <EntityTypeMapping TypeName="RiverWatchModel.tblBenthic">
+              <MappingFragment StoreEntitySet="tblBenthics">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="StoretUploaded" ColumnName="StoretUploaded" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="HabitatType" ColumnName="HabitatType" />
+                <ScalarProperty Name="ExcludedTaxa" ColumnName="ExcludedTaxa" />
+                <ScalarProperty Name="Individuals" ColumnName="Individuals" />
+                <ScalarProperty Name="RepNum" ColumnName="RepNum" />
+                <ScalarProperty Name="BenSampID" ColumnName="BenSampID" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>          

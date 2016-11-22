@@ -93,7 +93,6 @@ namespace RWInbound2
         public virtual DbSet<UnknownSample> UnknownSample { get; set; }
         public virtual DbSet<tblProject> tblProject { get; set; }
         public virtual DbSet<tblBenGrid> tblBenGrid { get; set; }
-        public virtual DbSet<tblBenthics> tblBenthics { get; set; }
         public virtual DbSet<tblPhysHab> tblPhysHab { get; set; }
         public virtual DbSet<tlkPhysHabPara> tlkPhysHabPara { get; set; }
         public virtual DbSet<PublicUsers> PublicUsers { get; set; }
@@ -104,5 +103,6 @@ namespace RWInbound2
         public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
         public virtual DbSet<OrgStatu> OrgStatus { get; set; }
+        public virtual DbSet<tblBenthic> tblBenthics { get; set; }
     }
 }
