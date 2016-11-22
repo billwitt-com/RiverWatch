@@ -287,6 +287,7 @@
     <Content Include="Reports\Organizations.aspx" />
     <Content Include="Reports\OrgStations.aspx" />
     <Content Include="Reports\OrgStatus.aspx" />
+    <Content Include="Reports\OrgUnknownResults.aspx" />
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
@@ -434,6 +435,17 @@
     <Content Include="RiverWatchParticipantsDataSet.xsc">
       <DependentUpon>RiverWatchParticipantsDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="RiverWatchOrgUnknownResultsDataSet.xsc">
+      <DependentUpon>RiverWatchOrgUnknownResultsDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchOrgUnknownResultsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchOrgUnknownResultsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchOrgUnknownResultsDataSet.xss">
+      <DependentUpon>RiverWatchOrgUnknownResultsDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="RiverWatchParticipantsDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>RiverWatchParticipantsDataSet.Designer.cs</LastGenOutput>
@@ -493,6 +505,28 @@
     </None>
     <Content Include="RiverWatchStationsWithGauges.xss">
       <DependentUpon>RiverWatchStationsWithGauges.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatch_OrgUnknownResults_DbDataSet.xsc">
+      <DependentUpon>RiverWatch_OrgUnknownResults_DbDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RiverWatchUnknownResultsForOrgDataSet.xsc">
+      <DependentUpon>RiverWatchUnknownResultsForOrgDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatchUnknownResultsForOrgDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatchUnknownResultsForOrgDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatchUnknownResultsForOrgDataSet.xss">
+      <DependentUpon>RiverWatchUnknownResultsForOrgDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RiverWatch_OrgUnknownResults_DbDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RiverWatch_OrgUnknownResults_DbDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RiverWatch_OrgUnknownResults_DbDataSet.xss">
+      <DependentUpon>RiverWatch_OrgUnknownResults_DbDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
@@ -1261,6 +1295,13 @@
     <Compile Include="Reports\OrgStatus.aspx.designer.cs">
       <DependentUpon>OrgStatus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\OrgUnknownResults.aspx.cs">
+      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgUnknownResults.aspx.designer.cs">
+      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1391,6 +1432,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchOrganizationsDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="RiverWatchOrgUnknownResultsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchOrgUnknownResultsDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="RiverWatchParticipants.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1430,6 +1476,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchStationsWithGauges.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchUnknownResultsForOrgDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatchUnknownResultsForOrgDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatch_OrgUnknownResults_DbDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiverWatch_OrgUnknownResults_DbDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1800,6 +1856,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Reports\MailingLabels.rdlc" />
+    <EmbeddedResource Include="Reports\OrgUnknownResults.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

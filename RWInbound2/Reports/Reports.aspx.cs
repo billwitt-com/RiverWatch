@@ -82,5 +82,10 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("MailingLabels.aspx");
         }
+
+        protected void btnOrgUnknownResults_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgUnknownResults.aspx");
+        }
     }
 }

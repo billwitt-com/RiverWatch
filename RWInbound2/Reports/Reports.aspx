@@ -48,12 +48,16 @@
                             CssClass="adminButton"/>
             </asp:TableCell>
             <asp:TableCell CssClass="edit-table-cell">
-                <asp:Button ID="btnPublicUsers" runat="server" Text="Public Users" OnClick="btnPublicUsers_Click" 
-                            CssClass="adminButton"/>
-            </asp:TableCell>             
+                <asp:Button ID="btnOrgUnknownResults" runat="server" Text="Organization Unknown Results" OnClick="btnOrgUnknownResults_Click"
+                            CssClass="adminButton"/>  
+            </asp:TableCell>
         </asp:TableRow>
 
         <asp:TableRow CssClass="edit-table-row">
+            <asp:TableCell CssClass="edit-table-cell">
+                <asp:Button ID="btnPublicUsers" runat="server" Text="Public Users" OnClick="btnPublicUsers_Click" 
+                            CssClass="adminButton"/>
+            </asp:TableCell>             
             <asp:TableCell CssClass="edit-table-cell">           
                 <asp:Button ID="btnSamples" runat="server" Text="Samples" OnClick="btnSamples_Click" 
                             CssClass="adminButton"/>
@@ -66,9 +70,7 @@
                 <asp:Button ID="btnStationsWithGauges" runat="server" Text="Stations With Gauges" OnClick="btnStationsWithGauges_Click" 
                             CssClass="adminButton"/>    
             </asp:TableCell> 
-             <asp:TableCell CssClass="edit-table-cell">
-            </asp:TableCell>
-            <asp:TableCell CssClass="edit-table-cell">
+             <asp:TableCell CssClass="edit-table-cell">                 
             </asp:TableCell>
         </asp:TableRow>
 

@@ -10,150 +10,114 @@
 namespace RWInbound2.Reports {
     
     
-    public partial class Reports {
+    public partial class OrgUnknownResults {
         
         /// <summary>
-        /// Label1 control.
+        /// ErrorLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label ErrorLabel;
         
         /// <summary>
-        /// Table1 control.
+        /// SuccessLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table Table1;
+        protected global::System.Web.UI.WebControls.Label SuccessLabel;
         
         /// <summary>
-        /// btnErrorLogReport control.
+        /// updatePanelOrgUnknownResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnErrorLogReport;
+        protected global::System.Web.UI.UpdatePanel updatePanelOrgUnknownResults;
         
         /// <summary>
-        /// btnLachatNoBC control.
+        /// orgNameSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLachatNoBC;
+        protected global::System.Web.UI.WebControls.TextBox orgNameSearch;
         
         /// <summary>
-        /// btnMailingList control.
+        /// btnSearchOrgName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMailingList;
+        protected global::System.Web.UI.WebControls.Button btnSearchOrgName;
         
         /// <summary>
-        /// btnMetalBarCodes control.
+        /// tbSearch_AutoCompleteExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMetalBarCodes;
+        protected global::AjaxControlToolkit.AutoCompleteExtender tbSearch_AutoCompleteExtender;
         
         /// <summary>
-        /// btnOrganizations control.
+        /// kitNumberSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrganizations;
+        protected global::System.Web.UI.WebControls.TextBox kitNumberSearch;
         
         /// <summary>
-        /// btnOrgStations control.
+        /// btnSearchKitNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgStations;
+        protected global::System.Web.UI.WebControls.Button btnSearchKitNumber;
         
         /// <summary>
-        /// btnOrgStatus control.
+        /// AutoCompleteExtender1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgStatus;
+        protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
         
         /// <summary>
-        /// btnParticipants control.
+        /// btnSearchRefresh control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnParticipants;
+        protected global::System.Web.UI.WebControls.Button btnSearchRefresh;
         
         /// <summary>
-        /// btnParticipantsPrimaryContacts control.
+        /// ReportViewer1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnParticipantsPrimaryContacts;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewer1;
         
         /// <summary>
-        /// btnOrgUnknownResults control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgUnknownResults;
-        
-        /// <summary>
-        /// btnPublicUsers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPublicUsers;
-        
-        /// <summary>
-        /// btnSamples control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSamples;
-        
-        /// <summary>
-        /// btnStations control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStations;
-        
-        /// <summary>
-        /// btnStationsWithGauges control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStationsWithGauges;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
     }
 }
