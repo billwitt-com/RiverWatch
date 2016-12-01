@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <title><%: Page.Title %> </title>
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <%--    <asp:PlaceHolder runat="server">        
         <script src="<%: ResolveUrl("~/Scripts/modernizr-2.6.2.js") %>"></script>
@@ -92,6 +93,9 @@
                             </li>
                             <li>
                                 <a id="Admin"  runat="server" href="~/admin/admin.aspx">Admin</a> 
+                            </li>
+                             <li>
+                                <a id="Videos"  runat="server" href="~/video/training.aspx">Videos</a> 
                             </li>
                         </ul>
                     </nav>

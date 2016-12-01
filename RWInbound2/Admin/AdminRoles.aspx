@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Roles" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdminRoles.aspx.cs" Inherits="RWInbound2.Admin.AdminRoles" %>
+﻿<%@ Page Title="Edit Roles" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdminRoles.aspx.cs" Inherits="RWInbound2.Admin.AdminRoles" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -17,7 +17,7 @@
         <p>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-                    Search By Description:
+                    Search By Name:
                     <asp:TextBox ID="nameSearch" 
                         AutoPostBack="true"
                         runat="server"></asp:TextBox>

@@ -77,5 +77,15 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("ParticipantsPrimaryContacts.aspx");
         }
+
+        protected void btnMailingList_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MailingLabels.aspx");
+        }
+
+        protected void btnOrgUnknownResults_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgUnknownResults.aspx");
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="State" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditState.aspx.cs" Inherits="RWInbound2.Edit.EditState" %>
+﻿<%@ Page Title="Edit States" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditState.aspx.cs" Inherits="RWInbound2.Edit.EditState" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -15,25 +15,29 @@
             <br />            
         </div>
         <p>
-        Search By Description:
-        <asp:TextBox ID="descriptionSearch" 
-            AutoPostBack="true"
-            runat="server"></asp:TextBox>
-        <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
-        <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
-        <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
-        <ajaxToolkit:AutoCompleteExtender 
-            ID="tbSearch_AutoCompleteExtender" 
-            runat="server" 
-            BehaviorID="tbSearch_AutoCompleteExtender" 
-            DelimiterCharacters=""  
-            ServiceMethod="SearchForStatesDescription"             
-            TargetControlID="descriptionSearch"
-            MinimumPrefixLength="2"
-            CompletionInterval="100" 
-            EnableCaching="false" 
-            CompletionSetCount="10">
-        </ajaxToolkit:AutoCompleteExtender> 
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                Search By Description:
+                <asp:TextBox ID="descriptionSearch" 
+                    AutoPostBack="true"
+                    runat="server"></asp:TextBox>
+                <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
+                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
+                <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
+                <ajaxToolkit:AutoCompleteExtender 
+                    ID="tbSearch_AutoCompleteExtender" 
+                    runat="server" 
+                    BehaviorID="tbSearch_AutoCompleteExtender" 
+                    DelimiterCharacters=""  
+                    ServiceMethod="SearchForStatesDescription"             
+                    TargetControlID="descriptionSearch"
+                    MinimumPrefixLength="2"
+                    CompletionInterval="100" 
+                    EnableCaching="false" 
+                    CompletionSetCount="10">
+                </ajaxToolkit:AutoCompleteExtender> 
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </p>
         <asp:GridView ID="StatesGridView" runat="server"
             DataKeyNames="ID"

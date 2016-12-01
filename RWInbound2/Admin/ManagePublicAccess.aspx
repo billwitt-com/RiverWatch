@@ -56,7 +56,7 @@
                             </FooterTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
-                        <asp:TemplateField HeaderText="Email" SortExpression="Email"  ItemStyle-VerticalAlign="Middle">
+                        <asp:TemplateField HeaderText="Email" SortExpression="Email"  ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-manage-public-users-width">
                             <EditItemTemplate >
                                 <asp:TextBox ID="txtEmail" runat="server" TextMode="MultiLine" Text='<%# Bind("Email") %>' CssClass="grid-manage-public-users-width"></asp:TextBox>
                                 <asp:RequiredFieldValidator 
@@ -76,7 +76,9 @@
                                 </asp:RegularExpressionValidator>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblEmail" runat="server" Text='<%# Bind("Email") %>' CssClass="grid-manage-public-users-width"></asp:Label>
+                                <div class="grid-manage-public-users-width-view-email">
+                                    <asp:Label ID="lblEmail" runat="server" Text='<%# Bind("Email") %>' CssClass="grid-manage-public-users-width"></asp:Label>
+                                </div>
                             </ItemTemplate>
                             <FooterTemplate>
                                 <asp:TextBox ID="NewEmail" runat="server" TextMode="MultiLine" CssClass="grid-manage-public-users-width-new-email"></asp:TextBox>

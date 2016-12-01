@@ -423,8 +423,9 @@ namespace RWInbound2.Admin
 
         protected void PublicUsersGridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            selectedState = ((DropDownList)PublicUsersGridView.Rows[e.RowIndex]
-                                                              .FindControl("updateStateDropDown")).SelectedItem.Value;
+            selectedState = 
+                ((DropDownList)PublicUsersGridView.Rows[e.RowIndex]
+                                                  .FindControl("updateStateDropDown")).SelectedItem.Value;
         }
     }
 }
