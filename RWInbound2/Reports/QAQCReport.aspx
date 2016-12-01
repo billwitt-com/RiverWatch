@@ -18,7 +18,6 @@
             </td>
             <td style="width: 260px">
                 <asp:TextBox ID="tbOrgName" runat="server"  Width="240px"></asp:TextBox>
-
                 
             <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
                 TargetControlID="tbOrgName"
@@ -59,7 +58,7 @@
                 <asp:TextBox ID="tbStnNumber" runat="server"></asp:TextBox>
             </td>
             <td style="width: 75px">
-                <asp:Button ID="btnStnNumber"  CssClass="adminButton" runat="server" Text="Select" />
+                <asp:Button ID="btnStnNumber"  CssClass="adminButton" runat="server" Text="Select" OnClick="btnStnNumber_Click" />
             </td>
             <td>
                 <asp:Label ID="lblStnNumMsg" runat="server"></asp:Label>
@@ -70,10 +69,26 @@
 
 
     <br />
+
+<%--      SelectCommand="SELECT top 1 * FROM [QAQCView]">--%>
+   <%-- <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" SelectCommand="SELECT * FROM [QAQCView]"></asp:SqlDataSource>
+   --%> <br />
+    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="Smaller" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1103px">
+        <LocalReport ReportPath="Reports\Report2.rdlc">
+            <DataSources>
+                <rsweb:ReportDataSource DataSourceId="QAQCDataSource" Name="DataSet1" />
+            </DataSources>
+        </LocalReport>
+    </rsweb:ReportViewer>
+    <asp:SqlDataSource ID="QAQCDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
+        SelectCommand="SELECT top 0 * FROM [QAQCView]">
+    </asp:SqlDataSource>
+      
+    <br />
     <br />
     <asp:GridView ID="GridView1" runat="server">
     </asp:GridView>
-    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>
+<%--    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>--%>
     <br />
     <br />
     <br />

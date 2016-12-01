@@ -46,7 +46,7 @@ namespace RWInbound2.Admin
             }
         }
 
-        public IQueryable<PublicUsers> GetPublicUsers([QueryString]int? seeOnlyApprovedUsers = 0,
+        public IQueryable<PublicUser> GetPublicUsers([QueryString]int? seeOnlyApprovedUsers = 0,
                                                               [QueryString]string successLabelMessage = "")
         {
             try
@@ -65,7 +65,7 @@ namespace RWInbound2.Admin
                               .OrderBy(c => c.Email);
                 }
 
-                IQueryable<PublicUsers> publicUsers = _db.PublicUsers
+                IQueryable<PublicUser> publicUsers = _db.PublicUsers
                                                      .OrderBy(c => c.Email);
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
@@ -84,7 +84,7 @@ namespace RWInbound2.Admin
             }
         }
 
-        public void UpdatePublicUser(PublicUsers model, [Control("updateStateDropDown")] string text)
+        public void UpdatePublicUser(PublicUser model, [Control("updateStateDropDown")] string text)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace RWInbound2.Admin
             }
         }
 
-        public void DeletePublicUser(PublicUsers model)
+        public void DeletePublicUser(PublicUser model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
@@ -191,7 +191,7 @@ namespace RWInbound2.Admin
 
                     bool receiveEmailUpdates = ((CheckBox)PublicUsersGridView.FooterRow.FindControl("NewReceiveEmailUpdates")).Checked;
 
-                    var newPublicUser = new PublicUsers()
+                    var newPublicUser = new PublicUser()
                     {
                         Email = email,
                         FirstName = firstName,
@@ -409,7 +409,7 @@ namespace RWInbound2.Admin
                     updateStateDropDown.Items.Clear();
                     updateStateDropDown.DataSource = GetAllStates();
                     updateStateDropDown.DataBind();
-                    var item = e.Row.DataItem as PublicUsers;
+                    var item = e.Row.DataItem as PublicUser;
                     updateStateDropDown.Items.FindByValue(item.State).Selected = true;
                 }
             }                

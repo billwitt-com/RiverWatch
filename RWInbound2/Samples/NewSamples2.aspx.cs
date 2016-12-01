@@ -820,12 +820,11 @@ namespace RWInbound2.Samples
                     NEW.orgN = null;
                     NEW.PH = null;
                     NEW.PHEN_ALK = null;
-                    NEW.Rep = null;
                     NEW.SampleDate = TS.DateCollected; // ts.DateCollected; // this is date part only, no time and may be junk XXXX
                     if (TS.TimeCollected.Value.Year > 1970)  // likely a real value - otherwise, leave blank
                     {
-                        NEW.SampleDate.AddHours(TS.TimeCollected.Value.Hour); // add in pieces
-                        NEW.SampleDate.AddMinutes(TS.TimeCollected.Value.Minute);
+                        NEW.SampleDate.Value.AddHours(TS.TimeCollected.Value.Hour); // add in pieces
+                        NEW.SampleDate.Value.AddMinutes(TS.TimeCollected.Value.Minute);
                     }
 
                     NEW.StationNumber = (short)stationNumber;
@@ -834,7 +833,7 @@ namespace RWInbound2.Samples
                                select s).FirstOrDefault();
 
                     NEW.StationName = STN.StationName;
-                    NEW.River_CD = null;
+
                     NEW.RiverName = STN.River;
                     NEW.WaterShed = STN.RWWaterShed; 
 

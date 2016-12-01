@@ -20,7 +20,7 @@ namespace RWInbound2
         public string StackTrace { get; set; }
         public Nullable<int> Severity { get; set; }
         public string LoggedInUser { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public System.DateTime Date { get; set; }
         public string Comment { get; set; }
     }
 }

@@ -18,20 +18,20 @@ namespace RWInbound2
         public Nullable<int> tblSampleID { get; set; }
         public string SampleNumber { get; set; }
         public string Event { get; set; }
+        public string TypeCode { get; set; }
         public string WaterShed { get; set; }
-        public Nullable<double> River_CD { get; set; }
         public string RiverName { get; set; }
         public Nullable<int> KitNumber { get; set; }
         public string OrganizationName { get; set; }
         public Nullable<int> OrganizationID { get; set; }
-        public Nullable<short> StationNumber { get; set; }
-        public string TypeCode { get; set; }
+        public Nullable<int> StationID { get; set; }
+        public Nullable<int> StationNumber { get; set; }
         public string StationName { get; set; }
         public string MetalsBarCode { get; set; }
         public string NutrientBarCode { get; set; }
         public string FieldBarCode { get; set; }
         public string BugsBarCode { get; set; }
-        public System.DateTime SampleDate { get; set; }
+        public Nullable<System.DateTime> SampleDate { get; set; }
         public Nullable<double> USGS_Flow { get; set; }
         public Nullable<double> PH { get; set; }
         public Nullable<double> TempC { get; set; }
@@ -39,7 +39,7 @@ namespace RWInbound2
         public Nullable<double> TOTAL_ALK { get; set; }
         public Nullable<double> TOTAL_HARD { get; set; }
         public Nullable<double> DO_MGL { get; set; }
-        public Nullable<short> DOSAT { get; set; }
+        public Nullable<int> DOSAT { get; set; }
         public Nullable<decimal> AL_D { get; set; }
         public Nullable<decimal> AL_T { get; set; }
         public Nullable<decimal> AS_D { get; set; }
@@ -66,7 +66,6 @@ namespace RWInbound2
         public Nullable<decimal> NA_T { get; set; }
         public Nullable<decimal> K_D { get; set; }
         public Nullable<decimal> K_T { get; set; }
-        public Nullable<int> Rep { get; set; }
         public Nullable<double> Ammonia { get; set; }
         public Nullable<double> Chloride { get; set; }
         public Nullable<double> ChlorophyllA { get; set; }

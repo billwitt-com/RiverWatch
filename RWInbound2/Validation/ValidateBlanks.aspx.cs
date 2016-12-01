@@ -728,13 +728,12 @@ namespace RWInbound2.Validation
                         NEW.orgN = null;
                         NEW.PH = null;
                         NEW.PHEN_ALK = null;
-                        NEW.Rep = null;
 
                         NEW.SampleDate = ts.DateCollected; // this is date part only, no time and may be junk XXXX
                         if (ts.TimeCollected.Value.Year > 1970)  // likely a real value - otherwise, leave blank
                         {
-                            NEW.SampleDate.AddHours(ts.TimeCollected.Value.Hour); // add in pieces
-                            NEW.SampleDate.AddMinutes(ts.TimeCollected.Value.Minute);
+                            NEW.SampleDate.Value.AddHours(ts.TimeCollected.Value.Hour); // add in pieces
+                            NEW.SampleDate.Value.AddMinutes(ts.TimeCollected.Value.Minute);
                         }
 
                         NEW.SampleNumber = ts.SampleNumber; // this is the big string of station id + date time - build at sample entry
@@ -745,7 +744,6 @@ namespace RWInbound2.Validation
 
                         //   ts.StationID
                         NEW.StationName = STN.StationName;
-                        NEW.River_CD = null;
                         NEW.RiverName = STN.River;
                         NEW.StationNumber = (short)ts.StationID;   // XXXX hope this gets working soon and we can get rid of shorts
                         NEW.Sulfate = null;
