@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
-namespace RWInbound2.Admin
+namespace RWInbound2.Video
 {
-	public partial class AdminOrgStatus : System.Web.UI.Page
+    public partial class Training : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-
     }
 }

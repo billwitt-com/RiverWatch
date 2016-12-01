@@ -284,7 +284,7 @@ ul.RW-hmenu, ul.RW-hmenu ul
 ul.RW-hmenu {
     display: inline-block;
     vertical-align: bottom;
-    width: 897px;
+    width: 1000px;
 }
 
 /*used*/
@@ -1357,6 +1357,7 @@ fieldset {
 
 .grid-larger-editor-columns-center input[type="text"]{
     text-align:center; 
+    text-overflow: ellipsis;
 }
 
 table#MainContent_Table1.edit-table{
@@ -1520,6 +1521,7 @@ input#Cancel.multiselect-cancel{
     height: 100%;
     width: 100%;
     top: 0;
+    left: 0;
     background-color: Black;
     filter: alpha(opacity=60);
     opacity: 0.6;
@@ -1541,6 +1543,13 @@ input#Cancel.multiselect-cancel{
 {
     height: 128px;
     width: 128px;
+}
+
+.label-loading{
+    font-size: 10px;
+    font-family: sans-serif;
+    color: #468847;
+    font-weight: bold;
 }
 
 /*Control Permissions Page*/
@@ -1848,10 +1857,50 @@ input.public-button-reports{
 .public-request-access{
     padding-left:5px;
 }
+/*Edit Water Codes*/
+.edit-water-codes-zoom-message{
+    font-size: 0.6em;
+    background-color: whitesmoke;
+    color:brown;
+    padding-left: 15px;
+}
+
+.grid-edit-water-codes-header{
+    font-weight:bold;
+    font-size: 1.0em;
+    background-color:ActiveCaption;
+}
+
+.grid-larger-editor-columns-edit-water-codes{
+    font-size: 0.53em;
+    margin-left: -20px;  
+}
+
+.grid-edit-water-codes-small-textbox {
+    width: 30px;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
+
+.grid-edit-water-codes-medium-textbox {
+    width: 55px;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
+
+.grid-edit-water-codes-medium-item-width{
+    width: 70px;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
 
 /*Manage Public Access*/
 .grid-larger-editor-columns-manage-public-users{
     font-size: 10px;
+    width: 50px;
 }
 
 .grid-manage-public-users-width{
@@ -1869,6 +1918,13 @@ input.public-button-reports{
 .grid-manage-public-users-width-new-zip{
     width: 40px;
     resize: vertical;
+}
+
+.grid-manage-public-users-width-view-email{
+    width: 80px;    
+    text-align:center;
+    overflow-wrap:break-word;
+    padding: 3px;
 }
 
 .grid-manage-public-users-width-new-email{

@@ -148,6 +148,7 @@
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
     <Content Include="Admin\EditWaterCodes.aspx" />
+    <Content Include="Admin\OLDEditWaterCodes.aspx" />
     <Content Include="Admin\ManagePublicAccess.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
@@ -214,6 +215,9 @@
     <Content Include="Edit\EditSubPara.aspx" />
     <Content Include="Edit\EditSubSamp.aspx" />
     <Content Include="Edit\EditWaterBodyID.aspx" />
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Help\HelpInboundICP.aspx" />
     <Content Include="Images\Bucketdrop.jpg" />
     <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
@@ -294,7 +298,7 @@
     <Content Include="Reports\QAQCReport.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
-    <Content Include="favicon.ico" />
+    <Content Include="OLDfavicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Edit\Web.config" />
@@ -319,7 +323,10 @@
     <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ColoradoRiverWatch.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
+    <None Include="Properties\PublishProfiles\dev-coloradoriverwatchwest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\Samples.aspx" />
@@ -603,7 +610,7 @@
     <Content Include="Validation\ValidateNutrients.aspx" />
     <Content Include="Validation\ValidateUnknowns.aspx" />
     <Content Include="Validation\Validation.aspx" />
-    <Content Include="Video\Create and validate ICP data.mp4" />
+    <Content Include="Video\Training.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -669,6 +676,7 @@
     </Compile>
     <Compile Include="Admin\AdminOrgStatus.aspx.cs">
       <DependentUpon>AdminOrgStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\AdminOrgStatus.aspx.designer.cs">
       <DependentUpon>AdminOrgStatus.aspx</DependentUpon>
@@ -749,6 +757,13 @@
     </Compile>
     <Compile Include="Admin\EditWaterCodes.aspx.designer.cs">
       <DependentUpon>EditWaterCodes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\OLDEditWaterCodes.aspx.cs">
+      <DependentUpon>OLDEditWaterCodes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\OLDEditWaterCodes.aspx.designer.cs">
+      <DependentUpon>OLDEditWaterCodes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ManagePublicAccess.aspx.cs">
       <DependentUpon>ManagePublicAccess.aspx</DependentUpon>
@@ -1787,6 +1802,13 @@
     </Compile>
     <Compile Include="Validation\Validation.aspx.designer.cs">
       <DependentUpon>Validation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Video\Training.aspx.cs">
+      <DependentUpon>Training.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Video\Training.aspx.designer.cs">
+      <DependentUpon>Training.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSoloNutrientDup.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
