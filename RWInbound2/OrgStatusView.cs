@@ -58,9 +58,5 @@ namespace RWInbound2
         public string HardshipComment { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string UserCreated { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
-        public string UserLastModified { get; set; }
-        public Nullable<int> NumberOfMetalsBlank { get; set; }
-        public Nullable<int> NumberOfMetalsDuplicate { get; set; }
     }
 }

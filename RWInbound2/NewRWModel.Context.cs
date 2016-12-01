@@ -82,11 +82,9 @@ namespace RWInbound2
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
         public virtual DbSet<tblTrainee> tblTrainees { get; set; }
-        public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
         public virtual DbSet<NutrientData> NutrientDatas { get; set; }
         public virtual DbSet<NutrientLimit> NutrientLimits { get; set; }
         public virtual DbSet<tlkNutrientLimit> tlkNutrientLimits { get; set; }
-        public virtual DbSet<OrgStatusView> OrgStatusViews { get; set; }
         public virtual DbSet<ParticipantswithOrgName> ParticipantswithOrgNames { get; set; }
         public virtual DbSet<ViewSoloNutrientDup> ViewSoloNutrientDups { get; set; }
         public virtual DbSet<Project> Project { get; set; }
@@ -96,13 +94,17 @@ namespace RWInbound2
         public virtual DbSet<tblBenthics> tblBenthics { get; set; }
         public virtual DbSet<tblPhysHab> tblPhysHab { get; set; }
         public virtual DbSet<tlkPhysHabPara> tlkPhysHabPara { get; set; }
-        public virtual DbSet<PublicUsers> PublicUsers { get; set; }
         public virtual DbSet<tlkSubPara> tlkSubPara { get; set; }
         public virtual DbSet<tblSubSamp> tblSubSamp { get; set; }
         public virtual DbSet<tlkSection> tlkSection { get; set; }
         public virtual DbSet<InboundSamples> InboundSamples { get; set; }
         public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
+        public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
+        public virtual DbSet<OrgStationsView> OrgStationsViews { get; set; }
+        public virtual DbSet<QAQCView> QAQCViews { get; set; }
         public virtual DbSet<OrgStatu> OrgStatus { get; set; }
+        public virtual DbSet<OrgStatusView> OrgStatusViews { get; set; }
+        public virtual DbSet<PublicUser> PublicUsers { get; set; }
     }
 }

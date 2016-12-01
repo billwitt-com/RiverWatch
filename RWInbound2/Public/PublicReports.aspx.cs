@@ -87,7 +87,7 @@ namespace RWInbound2.Public
             try
             {                
                 string verified = ((HiddenField)PublicUserFormView.FindControl("verified")).Value;
-                var model = new PublicUsers();
+                var model = new PublicUser();
                 TryUpdateModel(model);
                                 
                 if (!string.IsNullOrEmpty(verified) && verified.Equals("verified"))

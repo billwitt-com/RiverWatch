@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="QAQCDataSet" targetNamespace="http://tempuri.org/QAQCDataSet.xsd" xmlns:mstns="http://tempuri.org/QAQCDataSet.xsd" xmlns="http://tempuri.org/QAQCDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="RiverwatchDEV" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RiverwatchDEV (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.RiverwatchDEV.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="QAQCViewTableAdapter" GeneratorDataComponentClassName="QAQCViewTableAdapter" Name="QAQCView" UserDataComponentName="QAQCViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="RiverwatchDEV (Web.config)" DbObjectName="RiverWatch.dbo.QAQCView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT TypeCode, SampleNumber, AL_D, AL_T, AS_D, AS_T, CA_D, CA_T, CD_D, CD_T, CU_D, CU_T, FE_D, FE_T, MG_D, MG_T, MN_D, MN_T, PB_D, PB_T, SE_D, SE_T, ZN_D, ZN_T, NA_D, NA_T, K_D, K_T FROM dbo.QAQCView</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="TypeCode" DataSetColumn="TypeCode" />
+              <Mapping SourceColumn="SampleNumber" DataSetColumn="SampleNumber" />
+              <Mapping SourceColumn="AL_D" DataSetColumn="AL_D" />
+              <Mapping SourceColumn="AL_T" DataSetColumn="AL_T" />
+              <Mapping SourceColumn="AS_D" DataSetColumn="AS_D" />
+              <Mapping SourceColumn="AS_T" DataSetColumn="AS_T" />
+              <Mapping SourceColumn="CA_D" DataSetColumn="CA_D" />
+              <Mapping SourceColumn="CA_T" DataSetColumn="CA_T" />
+              <Mapping SourceColumn="CD_D" DataSetColumn="CD_D" />
+              <Mapping SourceColumn="CD_T" DataSetColumn="CD_T" />
+              <Mapping SourceColumn="CU_D" DataSetColumn="CU_D" />
+              <Mapping SourceColumn="CU_T" DataSetColumn="CU_T" />
+              <Mapping SourceColumn="FE_D" DataSetColumn="FE_D" />
+              <Mapping SourceColumn="FE_T" DataSetColumn="FE_T" />
+              <Mapping SourceColumn="MG_D" DataSetColumn="MG_D" />
+              <Mapping SourceColumn="MG_T" DataSetColumn="MG_T" />
+              <Mapping SourceColumn="MN_D" DataSetColumn="MN_D" />
+              <Mapping SourceColumn="MN_T" DataSetColumn="MN_T" />
+              <Mapping SourceColumn="PB_D" DataSetColumn="PB_D" />
+              <Mapping SourceColumn="PB_T" DataSetColumn="PB_T" />
+              <Mapping SourceColumn="SE_D" DataSetColumn="SE_D" />
+              <Mapping SourceColumn="SE_T" DataSetColumn="SE_T" />
+              <Mapping SourceColumn="ZN_D" DataSetColumn="ZN_D" />
+              <Mapping SourceColumn="ZN_T" DataSetColumn="ZN_T" />
+              <Mapping SourceColumn="NA_D" DataSetColumn="NA_D" />
+              <Mapping SourceColumn="NA_T" DataSetColumn="NA_T" />
+              <Mapping SourceColumn="K_D" DataSetColumn="K_D" />
+              <Mapping SourceColumn="K_T" DataSetColumn="K_T" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="QAQCDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="QAQCDataSet" msprop:Generator_UserDSName="QAQCDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="QAQCView" msprop:Generator_TableClassName="QAQCViewDataTable" msprop:Generator_TableVarName="tableQAQCView" msprop:Generator_TablePropName="QAQCView" msprop:Generator_RowDeletingName="QAQCViewRowDeleting" msprop:Generator_RowChangingName="QAQCViewRowChanging" msprop:Generator_RowEvHandlerName="QAQCViewRowChangeEventHandler" msprop:Generator_RowDeletedName="QAQCViewRowDeleted" msprop:Generator_UserTableName="QAQCView" msprop:Generator_RowChangedName="QAQCViewRowChanged" msprop:Generator_RowEvArgName="QAQCViewRowChangeEvent" msprop:Generator_RowClassName="QAQCViewRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TypeCode" msprop:Generator_ColumnVarNameInTable="columnTypeCode" msprop:Generator_ColumnPropNameInRow="TypeCode" msprop:Generator_ColumnPropNameInTable="TypeCodeColumn" msprop:Generator_UserColumnName="TypeCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SampleNumber" msprop:Generator_ColumnVarNameInTable="columnSampleNumber" msprop:Generator_ColumnPropNameInRow="SampleNumber" msprop:Generator_ColumnPropNameInTable="SampleNumberColumn" msprop:Generator_UserColumnName="SampleNumber">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AL_D" msprop:Generator_ColumnVarNameInTable="columnAL_D" msprop:Generator_ColumnPropNameInRow="AL_D" msprop:Generator_ColumnPropNameInTable="AL_DColumn" msprop:Generator_UserColumnName="AL_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AL_T" msprop:Generator_ColumnVarNameInTable="columnAL_T" msprop:Generator_ColumnPropNameInRow="AL_T" msprop:Generator_ColumnPropNameInTable="AL_TColumn" msprop:Generator_UserColumnName="AL_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AS_D" msprop:Generator_ColumnVarNameInTable="columnAS_D" msprop:Generator_ColumnPropNameInRow="AS_D" msprop:Generator_ColumnPropNameInTable="AS_DColumn" msprop:Generator_UserColumnName="AS_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AS_T" msprop:Generator_ColumnVarNameInTable="columnAS_T" msprop:Generator_ColumnPropNameInRow="AS_T" msprop:Generator_ColumnPropNameInTable="AS_TColumn" msprop:Generator_UserColumnName="AS_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_D" msprop:Generator_ColumnVarNameInTable="columnCA_D" msprop:Generator_ColumnPropNameInRow="CA_D" msprop:Generator_ColumnPropNameInTable="CA_DColumn" msprop:Generator_UserColumnName="CA_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_T" msprop:Generator_ColumnVarNameInTable="columnCA_T" msprop:Generator_ColumnPropNameInRow="CA_T" msprop:Generator_ColumnPropNameInTable="CA_TColumn" msprop:Generator_UserColumnName="CA_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CD_D" msprop:Generator_ColumnVarNameInTable="columnCD_D" msprop:Generator_ColumnPropNameInRow="CD_D" msprop:Generator_ColumnPropNameInTable="CD_DColumn" msprop:Generator_UserColumnName="CD_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CD_T" msprop:Generator_ColumnVarNameInTable="columnCD_T" msprop:Generator_ColumnPropNameInRow="CD_T" msprop:Generator_ColumnPropNameInTable="CD_TColumn" msprop:Generator_UserColumnName="CD_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CU_D" msprop:Generator_ColumnVarNameInTable="columnCU_D" msprop:Generator_ColumnPropNameInRow="CU_D" msprop:Generator_ColumnPropNameInTable="CU_DColumn" msprop:Generator_UserColumnName="CU_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CU_T" msprop:Generator_ColumnVarNameInTable="columnCU_T" msprop:Generator_ColumnPropNameInRow="CU_T" msprop:Generator_ColumnPropNameInTable="CU_TColumn" msprop:Generator_UserColumnName="CU_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FE_D" msprop:Generator_ColumnVarNameInTable="columnFE_D" msprop:Generator_ColumnPropNameInRow="FE_D" msprop:Generator_ColumnPropNameInTable="FE_DColumn" msprop:Generator_UserColumnName="FE_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FE_T" msprop:Generator_ColumnVarNameInTable="columnFE_T" msprop:Generator_ColumnPropNameInRow="FE_T" msprop:Generator_ColumnPropNameInTable="FE_TColumn" msprop:Generator_UserColumnName="FE_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MG_D" msprop:Generator_ColumnVarNameInTable="columnMG_D" msprop:Generator_ColumnPropNameInRow="MG_D" msprop:Generator_ColumnPropNameInTable="MG_DColumn" msprop:Generator_UserColumnName="MG_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MG_T" msprop:Generator_ColumnVarNameInTable="columnMG_T" msprop:Generator_ColumnPropNameInRow="MG_T" msprop:Generator_ColumnPropNameInTable="MG_TColumn" msprop:Generator_UserColumnName="MG_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MN_D" msprop:Generator_ColumnVarNameInTable="columnMN_D" msprop:Generator_ColumnPropNameInRow="MN_D" msprop:Generator_ColumnPropNameInTable="MN_DColumn" msprop:Generator_UserColumnName="MN_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MN_T" msprop:Generator_ColumnVarNameInTable="columnMN_T" msprop:Generator_ColumnPropNameInRow="MN_T" msprop:Generator_ColumnPropNameInTable="MN_TColumn" msprop:Generator_UserColumnName="MN_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PB_D" msprop:Generator_ColumnVarNameInTable="columnPB_D" msprop:Generator_ColumnPropNameInRow="PB_D" msprop:Generator_ColumnPropNameInTable="PB_DColumn" msprop:Generator_UserColumnName="PB_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PB_T" msprop:Generator_ColumnVarNameInTable="columnPB_T" msprop:Generator_ColumnPropNameInRow="PB_T" msprop:Generator_ColumnPropNameInTable="PB_TColumn" msprop:Generator_UserColumnName="PB_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SE_D" msprop:Generator_ColumnVarNameInTable="columnSE_D" msprop:Generator_ColumnPropNameInRow="SE_D" msprop:Generator_ColumnPropNameInTable="SE_DColumn" msprop:Generator_UserColumnName="SE_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SE_T" msprop:Generator_ColumnVarNameInTable="columnSE_T" msprop:Generator_ColumnPropNameInRow="SE_T" msprop:Generator_ColumnPropNameInTable="SE_TColumn" msprop:Generator_UserColumnName="SE_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ZN_D" msprop:Generator_ColumnVarNameInTable="columnZN_D" msprop:Generator_ColumnPropNameInRow="ZN_D" msprop:Generator_ColumnPropNameInTable="ZN_DColumn" msprop:Generator_UserColumnName="ZN_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ZN_T" msprop:Generator_ColumnVarNameInTable="columnZN_T" msprop:Generator_ColumnPropNameInRow="ZN_T" msprop:Generator_ColumnPropNameInTable="ZN_TColumn" msprop:Generator_UserColumnName="ZN_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NA_D" msprop:Generator_ColumnVarNameInTable="columnNA_D" msprop:Generator_ColumnPropNameInRow="NA_D" msprop:Generator_ColumnPropNameInTable="NA_DColumn" msprop:Generator_UserColumnName="NA_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NA_T" msprop:Generator_ColumnVarNameInTable="columnNA_T" msprop:Generator_ColumnPropNameInRow="NA_T" msprop:Generator_ColumnPropNameInTable="NA_TColumn" msprop:Generator_UserColumnName="NA_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="K_D" msprop:Generator_ColumnVarNameInTable="columnK_D" msprop:Generator_ColumnPropNameInRow="K_D" msprop:Generator_ColumnPropNameInTable="K_DColumn" msprop:Generator_UserColumnName="K_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="K_T" msprop:Generator_ColumnVarNameInTable="columnK_T" msprop:Generator_ColumnPropNameInRow="K_T" msprop:Generator_ColumnPropNameInTable="K_TColumn" msprop:Generator_UserColumnName="K_T" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
