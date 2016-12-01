@@ -567,7 +567,6 @@
     <Content Include="Validation\ValidateNutrients.aspx" />
     <Content Include="Validation\ValidateUnknowns.aspx" />
     <Content Include="Validation\Validation.aspx" />
-    <Content Include="Video\Create and validate ICP data.mp4" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1739,6 +1738,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Video\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
