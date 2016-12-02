@@ -38,7 +38,6 @@ namespace RWInbound2
         public virtual DbSet<tblPartInfo> tblPartInfoes { get; set; }
         public virtual DbSet<tblPhysHabPara> tblPhysHabParas { get; set; }
         public virtual DbSet<tblSampleXXXX> tblSampleXXXXes { get; set; }
-        public virtual DbSet<tblWatercode> tblWatercodes { get; set; }
         public virtual DbSet<tblWatershedGrp> tblWatershedGrps { get; set; }
         public virtual DbSet<tblWBKey> tblWBKeys { get; set; }
         public virtual DbSet<tblXSRep> tblXSReps { get; set; }
@@ -103,5 +102,6 @@ namespace RWInbound2
         public virtual DbSet<tblBenthic> tblBenthics { get; set; }
         public virtual DbSet<PublicUsers> PublicUsers { get; set; }
         public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<tblWatercode> tblWatercodes { get; set; }
     }
 }
