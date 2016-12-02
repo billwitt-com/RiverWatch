@@ -12,7 +12,7 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class PublicUser
+    public partial class PublicUsers
     {
         public int ID { get; set; }
         public string Email { get; set; }

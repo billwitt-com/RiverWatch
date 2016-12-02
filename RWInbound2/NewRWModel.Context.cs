@@ -87,7 +87,6 @@ namespace RWInbound2
         public virtual DbSet<tlkNutrientLimit> tlkNutrientLimits { get; set; }
         public virtual DbSet<ParticipantswithOrgName> ParticipantswithOrgNames { get; set; }
         public virtual DbSet<ViewSoloNutrientDup> ViewSoloNutrientDups { get; set; }
-        public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<UnknownSample> UnknownSample { get; set; }
         public virtual DbSet<tblProject> tblProject { get; set; }
         public virtual DbSet<tblBenGrid> tblBenGrid { get; set; }
@@ -100,11 +99,9 @@ namespace RWInbound2
         public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
         public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
-        public virtual DbSet<OrgStationsView> OrgStationsViews { get; set; }
-        public virtual DbSet<QAQCView> QAQCViews { get; set; }
         public virtual DbSet<OrgStatu> OrgStatus { get; set; }
         public virtual DbSet<tblBenthic> tblBenthics { get; set; }
-        public virtual DbSet<OrgStatusView> OrgStatusViews { get; set; }
-        public virtual DbSet<PublicUser> PublicUsers { get; set; }
+        public virtual DbSet<PublicUsers> PublicUsers { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
     }
 }
