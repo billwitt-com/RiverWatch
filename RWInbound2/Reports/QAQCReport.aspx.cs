@@ -120,31 +120,31 @@ namespace RWInbound2.Reports
                 int c = DT.Rows.Count;
 
 
-                for (int x = 0; x < c - 1; x++ )
+                for (int x = 0; x < c - 1; x++)
                 {
-                    var X = DT.Rows[x]["TypeCode"]; 
-                    if(X != null)
+                    var X = DT.Rows[x]["TypeCode"];
+                    if (X != null)
                     {
                         // **************
-                        if((string)X == "20")    // this is a dup - could be a '10' after this, or not
+                        if ((string)X == "20")    // this is a dup - could be a '10' after this, or not
                         {
-                            var Y = DT.Rows[x]["SampleNumber"]; 
-                            if((string)Y != null)
+                            var Y = DT.Rows[x]["SampleNumber"];
+                            if ((string)Y != null)
                             {
-                                var Z = DT.Rows[x+1]["SampleNumber"]; // look at next row to see if it is same sample
+                                var Z = DT.Rows[x + 1]["SampleNumber"]; // look at next row to see if it is same sample
 
-                                if(Z != null)
+                                if (Z != null)
                                 {
-                                    if((string)Y == (string)Z)  // same sample numbers
+                                    if ((string)Y == (string)Z)  // same sample numbers
                                     {
-                                        var Q = DT.Rows[x + 1]["TypeCode"]; 
-                                        if(Q != null)                                        
-                                        {          
+                                        var Q = DT.Rows[x + 1]["TypeCode"];
+                                        if (Q != null)
+                                        {
                                             if ((string)X == "10")   // check for 'blank' first, as '10' follows '20' 
-                                                // if this is a blank, put in Results table and inc x to see if next is normal
+                                                                     // if this is a blank, put in Results table and inc x to see if next is normal
                                             {
                                                 DataRow D1 = DT.Rows[x];
-                                                             
+
 
                                                 // round values so they present better
 
@@ -156,7 +156,7 @@ namespace RWInbound2.Reports
                                                         {
                                                             D1[y] = Math.Round((decimal)D1[y], 2);
                                                         }
-           
+
                                                     }
                                                     catch (Exception ex)
                                                     {
@@ -167,79 +167,70 @@ namespace RWInbound2.Reports
                                                 // put them in the results table and inc the counter
                                                 RES.ImportRow(D1);
                                                 x++;
-                                            }                                                                
+                                            }
+                                        }
+                                        // **************
+                                        if ((string)Q == "00")   // we have a normal for the next row
+                                        {
+
+                                            DataRow D1 = DT.Rows[x];
+                                            DataRow D2 = DT.Rows[x + 1];
+
+                                            // round values so they present better
+
+                                            for (int y = 2; y < 28; y++)
+                                            {
+                                                try
+                                                {
+                                                    if (D1[y] != null)
+                                                    {
+                                                        D1[y] = Math.Round((decimal)D1[y], 2);
+                                                    }
+                                                    if (D2[y] != null)
+                                                    {
+                                                        D2[y] = Math.Round((decimal)D2[y], 2);
+                                                    }
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    string msg = ex.Message;
+                                                }
+
+                                            }
+
+                                            RES.ImportRow(D1);
+                                            RES.ImportRow(D2);
+
+                                            DataRow DR = DT.Rows[x];
+                                            DR["TypeCode"] = "%R";
+
+                                            for (int y = 2; y < 28; y++)
+                                            {
+                                                if (DT.Rows[x][y] != null)
+                                                {
+                                                    D = (decimal)DT.Rows[x][y];
+                                                    if (DT.Rows[x + 1][y] != null)
+                                                    {
+                                                        N = (decimal)DT.Rows[x + 1][y];         // normal row, one after dup
+                                                        R = (N - D);
+                                                        if (D > .0001m)
+                                                        {
+                                                            R = R / D;              // R / N;
+                                                            R = R * 100;
+                                                            DR[y] = Math.Round(100 - R, 2);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            RES.ImportRow(DR);
+                                            x++;
                                         }
                                     }
                                 }
                             }
                         }
-
-
-
-
-
-                                            // **************
-                                            if((string)Q == "00")   // we have a normal for the next row
-                                            {
-
-                                                DataRow D1 = DT.Rows[x];
-                                                DataRow D2 = DT.Rows[x + 1]; 
-
-                                                // round values so they present better
-
-                                                for (int y = 2; y < 28; y++)
-                                                {
-                                                    try
-                                                    {
-                                                        if (D1[y] != null)
-                                                        {
-                                                            D1[y] = Math.Round((decimal)D1[y], 2);
-                                                        }
-                                                        if (D2[y] != null)
-                                                        {
-                                                            D2[y] = Math.Round((decimal)D2[y], 2);
-                                                        }
-                                                    }
-                                                    catch(Exception ex)
-                                                    {
-                                                        string msg = ex.Message; 
-                                                    }
-                                                
-                                                }
-
-                                                RES.ImportRow(D1);
-                                                RES.ImportRow(D2); 
-
-                                                DataRow DR = DT.Rows[x];
-                                                DR["TypeCode"] = "%R";
-
-                                                for (int y = 2; y < 28; y++)
-                                                {
-                                                    if (DT.Rows[x][y] != null)
-                                                    {
-                                                        D = (decimal)DT.Rows[x][y];                                                             
-                                                        if (DT.Rows[x + 1][y] != null)
-                                                        {
-                                                            N = (decimal)DT.Rows[x + 1][y];         // normal row, one after dup
-                                                            R = (N - D) ;
-                                                            if (D > .0001m)
-                                                            {
-                                                                R = R / D;              // R / N;
-                                                                R = R * 100;
-                                                                DR[y] = Math.Round(100 - R, 2);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                RES.ImportRow(DR);
-                                                x++; 
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }  
-                    }                   
+                    }
+                }                           
                 
 
                 if (RES.Rows.Count > 0)

@@ -1039,19 +1039,13 @@
     <Compile Include="NutrientLimit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrgStationsView.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OrgStatusView.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ParticipantswithOrgName.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Project.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PublicUser.cs">
+    <Compile Include="PublicUsers.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Public\FieldData.aspx.cs">
@@ -1292,9 +1286,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="QAQCView.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Reports\MailingLabels.aspx.cs">
       <DependentUpon>MailingLabels.aspx</DependentUpon>
@@ -1552,7 +1543,7 @@
     <Compile Include="tblBenSamp.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblBenthics.cs">
+    <Compile Include="tblBenthic.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblParticipant.cs">
@@ -1847,7 +1838,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Video\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
