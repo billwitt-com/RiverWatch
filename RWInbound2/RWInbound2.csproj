@@ -621,6 +621,7 @@
     <Content Include="Validation\ValidateNutrients.aspx" />
     <Content Include="Validation\ValidateUnknowns.aspx" />
     <Content Include="Validation\Validation.aspx" />
+    <Content Include="Video\Training.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
