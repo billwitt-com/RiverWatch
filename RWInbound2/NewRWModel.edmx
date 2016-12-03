@@ -1376,8 +1376,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.tb
           <Property Name="PctRecovery" Type="numeric" Precision="9" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.OrgStationsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.ParticipantswithOrgName' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ParticipantswithOrgName">
           <Key>
@@ -1944,38 +1942,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="DuplicatedCS" Type="Boolean" />
           <Property Name="Valid" Type="Boolean" />
         </EntityType>
-        <EntityType Name="tblWatercode">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="WATERCODE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="WATERNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="STREAM" Type="Boolean" />
-          <Property Name="ACRESMILES" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="LOCATION" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
-          <Property Name="DRAINAGE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="DRAINNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="HYDROCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="COUNTY" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="REGION" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="AWMAREA" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="STKCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="BIOLOGIST" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="AREABIO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="ADDLDATA" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="MAPCOORDIN" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="ATLASPAGE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="CATEGORY" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="ELEVATION" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="UT_ELEVATI" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="OWNERSHIP" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="WILDERNESS" Type="Boolean" />
-          <Property Name="BLMMAP" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="TOPOMAP" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="OBSOLETE" Type="Boolean" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="tblWatershedGrp">
           <Key>
             <PropertyRef Name="ID" />
@@ -2381,7 +2347,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <EntitySet Name="tblPartInfoes" EntityType="Self.tblPartInfo" />
           <EntitySet Name="tblPhysHabParas" EntityType="Self.tblPhysHabPara" />
           <EntitySet Name="tblSampleXXXXes" EntityType="Self.tblSampleXXXX" />
-          <EntitySet Name="tblWatercodes" EntityType="Self.tblWatercode" />
           <EntitySet Name="tblWatershedGrps" EntityType="Self.tblWatershedGrp" />
           <EntitySet Name="tblWBKeys" EntityType="Self.tblWBKey" />
           <EntitySet Name="tblXSReps" EntityType="Self.tblXSRep" />
@@ -2446,6 +2411,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <EntitySet Name="tblBenthics" EntityType="RiverWatchModel.tblBenthic" />
           <EntitySet Name="PublicUsers" EntityType="RiverWatchModel.PublicUsers" />
           <EntitySet Name="Project" EntityType="RiverWatchModel.Project" />
+          <EntitySet Name="tblWatercodes" EntityType="RiverWatchModel.tblWatercode" />
         </EntityContainer>
         <EntityType Name="tlkSubPara">
           <Key>
@@ -3107,6 +3073,38 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
           <Property Name="StoretUploaded" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
         </EntityType>
+        <EntityType Name="tblWatercode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="WATERCODE" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="WATERNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="STREAM" Type="Boolean" />
+          <Property Name="ACRESMILES" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="LOCATION" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="DRAINAGE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="DRAINNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="HYDROCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="COUNTY" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="REGION" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="AWMAREA" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="STKCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="BIOLOGIST" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="AREABIO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="ADDLDATA" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="MAPCOORDIN" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ATLASPAGE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CATEGORY" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ELEVATION" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UT_ELEVATI" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="OWNERSHIP" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="WILDERNESS" Type="Boolean" />
+          <Property Name="BLMMAP" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="TOPOMAP" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="OBSOLETE" Type="Boolean" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3472,39 +3470,6 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
                 <ScalarProperty Name="BugsQA" ColumnName="BugsQA" />
                 <ScalarProperty Name="DuplicatedCS" ColumnName="DuplicatedCS" />
                 <ScalarProperty Name="Valid" ColumnName="Valid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblWatercodes">
-            <EntityTypeMapping TypeName="RiverWatchModel.tblWatercode">
-              <MappingFragment StoreEntitySet="tblWatercodes">
-                <ScalarProperty Name="WATERCODE" ColumnName="WATERCODE" />
-                <ScalarProperty Name="WATERNAME" ColumnName="WATERNAME" />
-                <ScalarProperty Name="STREAM" ColumnName="STREAM" />
-                <ScalarProperty Name="ACRESMILES" ColumnName="ACRESMILES" />
-                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
-                <ScalarProperty Name="DRAINAGE" ColumnName="DRAINAGE" />
-                <ScalarProperty Name="DRAINNAME" ColumnName="DRAINNAME" />
-                <ScalarProperty Name="HYDROCODE" ColumnName="HYDROCODE" />
-                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
-                <ScalarProperty Name="REGION" ColumnName="REGION" />
-                <ScalarProperty Name="AWMAREA" ColumnName="AWMAREA" />
-                <ScalarProperty Name="STKCODE" ColumnName="STKCODE" />
-                <ScalarProperty Name="BIOLOGIST" ColumnName="BIOLOGIST" />
-                <ScalarProperty Name="AREABIO" ColumnName="AREABIO" />
-                <ScalarProperty Name="ADDLDATA" ColumnName="ADDLDATA" />
-                <ScalarProperty Name="MAPCOORDIN" ColumnName="MAPCOORDIN" />
-                <ScalarProperty Name="ATLASPAGE" ColumnName="ATLASPAGE" />
-                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
-                <ScalarProperty Name="ELEVATION" ColumnName="ELEVATION" />
-                <ScalarProperty Name="UT_ELEVATI" ColumnName="UT_ELEVATI" />
-                <ScalarProperty Name="OWNERSHIP" ColumnName="OWNERSHIP" />
-                <ScalarProperty Name="WILDERNESS" ColumnName="WILDERNESS" />
-                <ScalarProperty Name="BLMMAP" ColumnName="BLMMAP" />
-                <ScalarProperty Name="TOPOMAP" ColumnName="TOPOMAP" />
-                <ScalarProperty Name="OBSOLETE" ColumnName="OBSOLETE" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4617,6 +4582,39 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
               </MappingFragment>
             </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWatercodes">
+            <EntityTypeMapping TypeName="RiverWatchModel.tblWatercode">
+              <MappingFragment StoreEntitySet="tblWatercodes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="OBSOLETE" ColumnName="OBSOLETE" />
+                <ScalarProperty Name="TOPOMAP" ColumnName="TOPOMAP" />
+                <ScalarProperty Name="BLMMAP" ColumnName="BLMMAP" />
+                <ScalarProperty Name="WILDERNESS" ColumnName="WILDERNESS" />
+                <ScalarProperty Name="OWNERSHIP" ColumnName="OWNERSHIP" />
+                <ScalarProperty Name="UT_ELEVATI" ColumnName="UT_ELEVATI" />
+                <ScalarProperty Name="ELEVATION" ColumnName="ELEVATION" />
+                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+                <ScalarProperty Name="ATLASPAGE" ColumnName="ATLASPAGE" />
+                <ScalarProperty Name="MAPCOORDIN" ColumnName="MAPCOORDIN" />
+                <ScalarProperty Name="ADDLDATA" ColumnName="ADDLDATA" />
+                <ScalarProperty Name="AREABIO" ColumnName="AREABIO" />
+                <ScalarProperty Name="BIOLOGIST" ColumnName="BIOLOGIST" />
+                <ScalarProperty Name="STKCODE" ColumnName="STKCODE" />
+                <ScalarProperty Name="AWMAREA" ColumnName="AWMAREA" />
+                <ScalarProperty Name="REGION" ColumnName="REGION" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="HYDROCODE" ColumnName="HYDROCODE" />
+                <ScalarProperty Name="DRAINNAME" ColumnName="DRAINNAME" />
+                <ScalarProperty Name="DRAINAGE" ColumnName="DRAINAGE" />
+                <ScalarProperty Name="LOCATION" ColumnName="LOCATION" />
+                <ScalarProperty Name="ACRESMILES" ColumnName="ACRESMILES" />
+                <ScalarProperty Name="STREAM" ColumnName="STREAM" />
+                <ScalarProperty Name="WATERNAME" ColumnName="WATERNAME" />
+                <ScalarProperty Name="WATERCODE" ColumnName="WATERCODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
           </EntitySetMapping>          
         </EntityContainerMapping>
       </Mapping>
@@ -4632,7 +4630,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Vi
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
