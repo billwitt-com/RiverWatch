@@ -201,10 +201,9 @@
             <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" />
             &nbsp;<asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" OnClick="InsertCancelButton_Click" CommandName="Cancel" Text="Cancel" />
         </InsertItemTemplate>
-        <ItemTemplate>
-           
+        <ItemTemplate>           
             Kit Number:
-            <asp:Label ID="KitNumberLabel" runat="server" Text='<%# Bind("KitNumber") %>' />
+            <asp:Label ID="KitNumberLabel" runat="server" Text='<%# Eval("KitNumber") %>' />
             <br />
             Organization Name:
             <asp:Label ID="OrganizationNameLabel" runat="server" Text='<%# Bind("OrganizationName") %>' />
