@@ -1568,6 +1568,9 @@ td > textarea.edit-table-control-permission-cell{
 }
 
 /*Exit Exp Water Page*/
+#ExpWaterFormView td{
+    vertical-align: top;
+}
 .edit-exp-water-div{
     display:inline-block;
     margin-top: 12px;

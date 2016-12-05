@@ -46,7 +46,13 @@
         ItemType="RWInbound2.NEWexpWater" 
         SelectMethod="GetExpWater"
         UpdateMethod="UpdateExpWater"
-        DefaultMode="Edit">                
+        DefaultMode="Edit"
+        AllowPaging="true"
+        EmptyDataText="No results found."
+        PagerSettings-Position="TopAndBottom"
+        OnPageIndexChanging="ExpWaterFormView_PageIndexChanging"
+        CssClass="edit-exp-water-formview-td" >
+
         <EditItemTemplate> 
             <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" CssClass="adminButton" />
             <button class="adminButton" type="reset" value="Reset">Reset</button>
@@ -71,6 +77,8 @@
                 <asp:Label ID="OrganizationID" runat="server" Text='<%# Bind("OrganizationID") %>'></asp:Label>
                 <label>Station Number:</label>
                 <asp:Label ID="StationNumber" runat="server" Text='<%# Bind("StationNumber") %>'></asp:Label>
+                <label>Station ID:</label>
+                <asp:Label ID="StationID" runat="server" Text='<%# Bind("StationID") %>'></asp:Label>
             </div>   
             <hr class="edit-exp-water-hr" /> 
             <div class="edit-exp-water-div">
@@ -160,6 +168,12 @@
                             <asp:TextBox ID="TextBoxCD_D" runat="server" Text='<%# Bind("CD_D") %>'></asp:TextBox>                           
                             <label>CU_T:</label>
                             <asp:TextBox ID="TextBoxCU_T" runat="server" Text='<%# Bind("CU_T") %>'></asp:TextBox>                            
+                        </div>
+                        <div class="edit-exp-water-td-div">
+                            <label>CD_T:</label>
+                            <asp:TextBox ID="TextBoxCD_T" runat="server" Text='<%# Bind("CD_T") %>'></asp:TextBox>                           
+                            <label>CU_D:</label>
+                            <asp:TextBox ID="TextBoxCU_D" runat="server" Text='<%# Bind("CU_D") %>'></asp:TextBox>                            
                         </div>
                         <div class="edit-exp-water-td-div">
                             <label>FE_D:</label>
@@ -465,7 +479,6 @@
             </div>           
             
             <asp:HiddenField id="tblSampleID" runat="server" value='<%# Bind("tblSampleID") %>' />
-<%--            <asp:HiddenField id="Rep" runat="server" value='<%# Bind("Rep") %>' />--%>
             <asp:HiddenField id="BadBlank" runat="server" value='<%# Bind("BadBlank") %>' />
             <asp:HiddenField id="BadDuplicate" runat="server" value='<%# Bind("BadDuplicate") %>' />
             <asp:HiddenField id="BadSample" runat="server" value='<%# Bind("BadSample") %>' />

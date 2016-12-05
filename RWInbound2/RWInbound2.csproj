@@ -355,7 +355,9 @@
     <Content Include="Reports\Reports.aspx" />
     <Content Include="OLDfavicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Edit\Web.config" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -372,17 +374,10 @@
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\Alex_Azure.pubxml" />
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
-    <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Azure West - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\ColoradoRiverWatch.pubxml" />
-    <None Include="Properties\PublishProfiles\coloradoriverwatchwest %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
-    <None Include="Properties\PublishProfiles\dev-coloradoriverwatchwest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\Samples.aspx" />
@@ -403,8 +398,6 @@
       <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\LoveofSpeed.pubxml" />
-    <None Include="Properties\PublishProfiles\RiverWatch %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\RiverWatch.pubxml" />
     <Content Include="QAQCDataSet.xsc">
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
     </Content>
