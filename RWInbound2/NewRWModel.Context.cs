@@ -103,5 +103,12 @@ namespace RWInbound2
         public virtual DbSet<PublicUsers> PublicUsers { get; set; }
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<tblWatercode> tblWatercodes { get; set; }
+        public virtual DbSet<OrgContractStatu> OrgContractStatus { get; set; }
+        public virtual DbSet<OrgStationsView> OrgStationsViews { get; set; }
+        public virtual DbSet<OrgStatusView> OrgStatusViews { get; set; }
+        public virtual DbSet<ParticipantsView> ParticipantsViews { get; set; }
+        public virtual DbSet<SamplesView> SamplesViews { get; set; }
+        public virtual DbSet<UnknownResultsForOrgView> UnknownResultsForOrgViews { get; set; }
+        public virtual DbSet<tblEquipment> tblEquipments { get; set; }
     }
 }

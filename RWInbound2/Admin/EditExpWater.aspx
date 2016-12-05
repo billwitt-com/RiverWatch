@@ -1,4 +1,5 @@
-﻿<%@ Page Title="Edit ExpWater" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditExpWater.aspx.cs" Inherits="RWInbound2.Admin.EditExpWater" %>
+﻿<%@ Page Title="Edit ExpWater" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
+    CodeBehind="EditExpWater.aspx.cs" Inherits="RWInbound2.Admin.EditExpWater" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" ClientIDMode="Static" runat="server">
@@ -57,8 +58,6 @@
                 <asp:Label ID="SampleNumber" runat="server" Text='<%# Bind("SampleNumber") %>'></asp:Label>
                 <label>Water Shed:</label>
                 <asp:Label ID="WaterShed" runat="server" Text='<%# Bind("WaterShed") %>'></asp:Label>
-                <label>River_CD:</label>
-                <asp:Label ID="River_CD" runat="server" Text='<%# Bind("River_CD") %>'></asp:Label>
                 <label>River Name:</label>
                 <asp:Label ID="RiverName" runat="server" Text='<%# Bind("RiverName") %>'></asp:Label>
             </div>   
@@ -466,7 +465,7 @@
             </div>           
             
             <asp:HiddenField id="tblSampleID" runat="server" value='<%# Bind("tblSampleID") %>' />
-            <asp:HiddenField id="Rep" runat="server" value='<%# Bind("Rep") %>' />
+<%--            <asp:HiddenField id="Rep" runat="server" value='<%# Bind("Rep") %>' />--%>
             <asp:HiddenField id="BadBlank" runat="server" value='<%# Bind("BadBlank") %>' />
             <asp:HiddenField id="BadDuplicate" runat="server" value='<%# Bind("BadDuplicate") %>' />
             <asp:HiddenField id="BadSample" runat="server" value='<%# Bind("BadSample") %>' />
