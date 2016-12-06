@@ -4,14 +4,12 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Web;
 using System.Web.ModelBinding;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace RWInbound2.Admin
 {
-   public partial class EditWaterCodes1 : System.Web.UI.Page
+    public partial class EditWaterCodes1 : System.Web.UI.Page
     {        
         protected void Page_Load(object sender, EventArgs e)
         {
