@@ -16,14 +16,18 @@ namespace RWInbound2.Edit
         {
             if (!IsPostBack)
             {
-                SetMessages("OrgName", "", false, "");
+                //SetMessages("OrgName", "", false, "");
+                SetMessages();
+                OrganizationNamePanel.Visible = false;
+                lblOrganizationName.Text = "";
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
             }
         }
 
-        private void SetMessages(string type = "", string message = "", bool showOrgName = false, string orgName = "")
+        //private void SetMessages(string type = "", string message = "", bool showOrgName = false, string orgName = "")
+        private void SetMessages(string type = "", string message = "")
         {
             switch (type)
             {
@@ -34,16 +38,10 @@ namespace RWInbound2.Edit
                 case "Error":
                     ErrorLabel.Text = message;
                     SuccessLabel.Text = "";
-                    break;
-                case "OrgName":
-                    OrganizationNamePanel.Visible = showOrgName;
-                    lblOrganizationName.Text = orgName;
-                    break;
+                    break;             
                 default:
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "";
-                    OrganizationNamePanel.Visible = showOrgName;
-                    lblOrganizationName.Text = orgName;
                     break;
             }
         }
@@ -68,6 +66,16 @@ namespace RWInbound2.Edit
             return equipCategories;
         }
 
+        public IQueryable BindOrgnizations()
+        {
+            RiverWatchEntities _db = new RiverWatchEntities();
+            var orgnizations = (from o in _db.organizations
+                                   orderby o.OrganizationName
+                                   select o);
+
+            return orgnizations;
+        }
+
         public IQueryable<EquipmentViewModel> GetEquipment([QueryString]string orgSelected = "",
                                                       [QueryString]string successLabelMessage = "")
         {
@@ -85,10 +93,12 @@ namespace RWInbound2.Edit
                 {
                     SetMessages("Success", successLabelMessage);
                 }
-
+               
                 if (string.IsNullOrEmpty(orgSelected))
                 {
-                    SetMessages("OrgName", "", false, "");
+                    //SetMessages("OrgName", "", false, "");
+                    OrganizationNamePanel.Visible = false;
+                    lblOrganizationName.Text = "";
                     return null;
                 }
 
@@ -97,21 +107,38 @@ namespace RWInbound2.Edit
 
                 if (!orgIDIsInt)
                 {
-                    SetMessages("OrgName", "", false, "");
+                    //SetMessages("OrgName", "", false, "");
+                    OrganizationNamePanel.Visible = false;
+                    lblOrganizationName.Text = "";
                     return null;
                 }
 
+                string orgName = _db.organizations
+                                    .Where(o => o.ID == orgID)
+                                    .Select(o => o.OrganizationName)
+                                    .FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(orgName))
+                {                    
+                    //SetMessages("OrgName", "", true, orgName);
+                    OrganizationNamePanel.Visible = true;
+                    lblOrganizationName.Text = orgName;
+                }
+
                 IQueryable<EquipmentViewModel> equipment = (from e in _db.tblEquipments
-                                                            join c in _db.tlkEquipCategories on e.CategoryID equals c.ID
+                                                            join c in _db.tlkEquipCategories on e.CategoryID equals c.ID into results
+                                                            from subequip in results.DefaultIfEmpty()
+                                                            where e.OrganizationID == orgID
                                                             orderby e.ItemName
                                                            select new EquipmentViewModel
                                                            {
                                                                ID = e.ID,
                                                                OrganizationID = e.OrganizationID,
+                                                               OrganizationName = orgName,
                                                                ItemName = e.ItemName,
                                                                ItemDescription = e.ItemDescription,
-                                                               CategoryID = e.CategoryID,
-                                                               CategoryCode = c.Code,
+                                                               CategoryID = (e.CategoryID == null ? 1 : e.CategoryID),
+                                                               CategoryCode = (subequip == null ? String.Empty : subequip.Code),
                                                                Quantity = e.Quantity,
                                                                SerialNumber = e.SerialNumber,
                                                                DateReceived = e.DateReceived,
@@ -121,19 +148,12 @@ namespace RWInbound2.Edit
                                                                Comment = e.Comment
                                                            }).OrderBy(e => e.ItemName);
 
-                //var equipment = _db.tblEquipments
-                //                    .Where(e => e.OrganizationID == orgID)
-                //                    .OrderBy(e => e.ItemName);
-
-                string orgName = _db.organizations
-                                    .Where(o => o.ID == orgID)
-                                    .Select(o => o.OrganizationName)
-                                    .FirstOrDefault();
-
-                SetMessages("OrgName", "", true, orgName);
-
                 // remove
                 this.Request.QueryString.Remove("successLabelMessage");
+                if (string.IsNullOrEmpty(successLabelMessage))
+                {
+                    SetMessages("Success", "");
+                }                    
                 //this.Request.QueryString.Clear();
 
                 return equipment;
@@ -209,10 +229,7 @@ namespace RWInbound2.Edit
         {
             try
             {
-                //string kitNumber = string.Empty;
-
                 orgNameSearch.Text = "";
-                //kitNumber = kitNumberSearch.Text.Trim();
 
                 int kitNumber = 0;
                 bool kitNumberIsInt
@@ -293,6 +310,33 @@ namespace RWInbound2.Edit
             try
             {
                 SetMessages();
+
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    var equipmentToUpdate = _db.tblEquipments.Find(model.ID);
+
+                    if (equipmentToUpdate != null)
+                    {
+                        TryUpdateModel(equipmentToUpdate);  
+
+                        if (ModelState.IsValid)
+                        {
+                            _db.SaveChanges();
+                            
+                            string successLabelMessage
+                                    = string.Format("Equipment Updated: {0}", model.ItemName);
+
+                            string redirect = string.Format("EditEquipment.aspx?orgSelected={0}&successLabelMessage={1}",
+                                                             model.OrganizationID, successLabelMessage);
+
+                            Response.Redirect(redirect, false);
+                        }
+                        else
+                        {
+                            SetMessages("Error", "Complete all values");
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -304,7 +348,21 @@ namespace RWInbound2.Edit
         {
             try
             {
-                SetMessages();
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    var equipmentToDelete = _db.tblEquipments.Find(model.ID);
+                    _db.tblEquipments.Remove(equipmentToDelete);
+                    _db.SaveChanges();
+
+                    string orgName = lblOrganizationName.Text;
+                    string successLabelMessage
+                            = string.Format("Equipment item deleted: {0} Org: {1}", model.ItemName, orgName);
+
+                    string redirect = string.Format("EditEquipment.aspx?orgSelected={0}&successLabelMessage={1}", 
+                                                     model.OrganizationID, successLabelMessage);
+
+                    Response.Redirect(redirect, false);
+                }
             }
             catch (Exception ex)
             {
@@ -317,11 +375,97 @@ namespace RWInbound2.Edit
             try
             {
                 SetMessages();
+
+                var gridView = EquipmentGridView.Controls[0].Controls[0].FindControl("dropDownNewOrganizationIDs") == null ?
+                                    EquipmentGridView.FooterRow : EquipmentGridView.Controls[0].Controls[0];
+
+                var organizationID = ((DropDownList)gridView.FindControl("dropDownNewOrganizationIDs")).SelectedValue;
+                int orgID = 0;
+                bool orgIDIsInt = Int32.TryParse(organizationID, out orgID);
+
+                var itemName = ((DropDownList)gridView.FindControl("dropDownNewItemNames")).SelectedItem.Text;
+
+                string itemDescription = ((TextBox)gridView.FindControl("NewItemDescription")).Text;
+
+                var equipCategory = ((DropDownList)gridView.FindControl("dropDownNewEquipCategories")).SelectedValue;
+                int categoryID = 0;
+                bool categoryIDIsInt = Int32.TryParse(equipCategory, out categoryID);
+
+
+                string newQuantity = ((TextBox)gridView.FindControl("NewQuantity")).Text;
+                int quantity = 0;
+                bool quantityIsInt = Int32.TryParse(newQuantity, out quantity);
+
+                string serialNumber = ((TextBox)gridView.FindControl("NewSerialNumber")).Text;
+                DateTime? dateReceived = null;
+                if (!string.IsNullOrEmpty(((TextBox)gridView.FindControl("NewDateReceived")).Text))
+                {
+                    dateReceived = Convert.ToDateTime(((TextBox)gridView.FindControl("NewDateReceived")).Text);
+                }
+
+                DateTime? dateReJuv1 = null;
+                if (!string.IsNullOrEmpty(((TextBox)gridView.FindControl("NewDateReJuv1")).Text))
+                {
+                    dateReJuv1 = Convert.ToDateTime(((TextBox)gridView.FindControl("NewDateReJuv1")).Text);
+                }
+
+                DateTime? dateReJuv2 = null;
+                if (!string.IsNullOrEmpty(((TextBox)gridView.FindControl("NewDateReJuv2")).Text))
+                {
+                    dateReJuv2 = Convert.ToDateTime(((TextBox)gridView.FindControl("NewDateReJuv2")).Text);
+                }
+
+                DateTime? autoReplaceDt = null;
+                if (!string.IsNullOrEmpty(((TextBox)gridView.FindControl("NewAutoReplaceDt")).Text))
+                {
+                    autoReplaceDt = Convert.ToDateTime(((TextBox)gridView.FindControl("NewAutoReplaceDt")).Text);
+                }
+
+                string comment = ((TextBox)gridView.FindControl("NewComment")).Text;
+
+                var newEquipment = new tblEquipment()
+                {
+                    OrganizationID = orgID,
+                    ItemName = itemName,
+                    ItemDescription = itemDescription,
+                    CategoryID = categoryID,
+                    Quantity = quantity,
+                    SerialNumber = serialNumber,
+                    DateReceived = dateReceived,
+                    DateReJuv1 = dateReJuv1,
+                    DateReJuv2 = dateReJuv2,
+                    AutoReplaceDt = autoReplaceDt,
+                    Comment = comment
+                };
+
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    _db.tblEquipments.Add(newEquipment);
+                    _db.SaveChanges();
+
+                    string orgName = ((DropDownList)gridView.FindControl("dropDownNewOrganizationIDs")).SelectedItem.Text;
+                    string successLabelMessage
+                                = string.Format("New Equipment item added: {0} Org: {1}", itemName, orgName);
+
+                    string redirect = string.Format("EditEquipment.aspx?orgSelected={0}&successLabelMessage={1}", orgID, successLabelMessage);
+
+                    Response.Redirect(redirect, false);
+                }
             }
             catch (Exception ex)
             {
                 HandleErrors(ex, ex.Message, "AddNewEquipment", "", "");
             }
+        }
+
+        protected void EquipmentGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            SetMessages();
+        }
+
+        protected void EquipmentGridView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            SetMessages();
         }
 
         private void HandleErrors(Exception ex, string msg, string fromPage,

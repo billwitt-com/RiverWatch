@@ -10,6 +10,7 @@ namespace RWInbound2.View_Models
         public int ID { get; set; }
         public int OrganizationID { get; set; }
         public string ItemName { get; set; }
+        public string OrganizationName { get; set; }
         public string ItemDescription { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public string CategoryCode { get; set; }

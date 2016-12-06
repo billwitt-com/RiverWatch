@@ -1017,7 +1017,7 @@ tr.pager td {
         #login li {
             display: inline;
             list-style: none;
-            margin: 0;
+            /*margin: 0;*/
             padding: 0;
         }
 
@@ -1114,10 +1114,7 @@ tr.pager td {
             font-weight: 600;
         }
 
-    /* forms */
-    input {
-        /*width: 90%;*/
-    }
+    /* forms */    
 
     /* login page */
     #loginForm {
@@ -1860,6 +1857,83 @@ input.public-button-reports{
 .public-request-access{
     padding-left:5px;
 }
+
+/*Edit Equipment*/
+.grid-larger-editor-columns-edit-equipment{
+    font-size: 0.75em;
+    margin-left: -20px; 
+    margin-top: 10px; 
+}
+
+.grid-edit-equipment-header{    
+    font-weight:bold;
+    font-size: 1.1em;
+    background-color:ActiveCaption;
+}
+
+.grid-larger-editor-columns-edit-add-new-equipment{
+    font-size: 1.1em;
+}
+
+.grid-edit-equipment-add-new-header{    
+    font-weight:bold;
+    font-size: 1em;    background-color:ActiveCaption;
+    
+    margin-left:10px;
+}
+
+.grid-edit-equipment-small-textbox {
+    width: 35px;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
+
+.grid-edit-equipment-medium-textbox{
+    width: 70px;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
+
+.grid-edit-equipment-medium-textbox select{   
+    font-size: .8em;
+    width:auto;
+}
+
+textarea.grid-edit-equipment-medium-textbox{
+    font-size: 1.1em;   
+}
+
+select#dropDownNewOrganizationIDs.grid-edit-equipment-medium-textbox{   
+    font-size: .7em;
+    width:auto;
+}
+
+select#dropDownNewItemNames.grid-edit-equipment-medium-textbox{   
+    font-size: .7em;
+    width:auto;
+}
+
+select#dropDownNewEquipCategories.grid-edit-equipment-medium-textbox{   
+    font-size: .7em;
+    width:auto;
+}
+
+.grid-edit-equipment-noresults-td {
+    background-color:aqua;
+    text-align:center;
+    font-size:12px;
+    padding: 1px;
+}
+
+.grid-edit-equipment-dropdown {
+    width: 40px;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
+
 /*Edit Water Codes*/
 .edit-water-codes-zoom-message{
     font-size: 0.6em;
