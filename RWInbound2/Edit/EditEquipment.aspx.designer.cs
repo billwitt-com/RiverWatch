@@ -13,6 +13,15 @@ namespace RWInbound2.Edit {
     public partial class EditEquipment {
         
         /// <summary>
+        /// updatePanelOrgUnknownResults control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updatePanelOrgUnknownResults;
+        
+        /// <summary>
         /// ErrorLabel control.
         /// </summary>
         /// <remarks>
@@ -29,15 +38,6 @@ namespace RWInbound2.Edit {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label SuccessLabel;
-        
-        /// <summary>
-        /// updatePanelOrgUnknownResults control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePanelOrgUnknownResults;
         
         /// <summary>
         /// orgNameSearch control.
