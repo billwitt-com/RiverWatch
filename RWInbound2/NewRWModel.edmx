@@ -245,7 +245,6 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="tblSampleID" Type="int" />
           <Property Name="SampleNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Event" Type="varchar" MaxLength="12" Nullable="false" />
@@ -322,6 +321,7 @@
           <Property Name="BadDuplicate" Type="bit" />
           <Property Name="BadSample" Type="bit" />
           <Property Name="Valid" Type="bit" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="NutrientBarCode">
           <Key>
@@ -925,7 +925,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.tblXS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblXS">
           <Key>
             <PropertyRef Name="XSID" />
@@ -1393,7 +1393,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.tb
           <Property Name="PctRecovery" Type="numeric" Precision="9" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.OrgContractStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.OrgContractStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OrgContractStatus">
           <Key>
             <PropertyRef Name="OrganizationName" />
@@ -1418,7 +1418,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Or
           <Property Name="PrimaryContact" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.OrgStationsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.OrgStationsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OrgStationsView">
           <Key>
             <PropertyRef Name="Organization" />
@@ -1440,7 +1440,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Or
           <Property Name="StateEngineering" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.OrgStatusView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.OrgStatusView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OrgStatusView">
           <Key>
             <PropertyRef Name="OrganizationName" />
@@ -1493,7 +1493,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Or
           <Property Name="UserCreated" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.ParticipantsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.ParticipantsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ParticipantsView">
           <Key>
             <PropertyRef Name="OrganizationID" />
@@ -1530,7 +1530,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Pa
           <Property Name="ID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.ParticipantswithOrgName' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.ParticipantswithOrgName' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ParticipantswithOrgName">
           <Key>
             <PropertyRef Name="OrganizationName" />
@@ -1561,7 +1561,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Pa
           <Property Name="Valid" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.SamplesView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.SamplesView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SamplesView">
           <Key>
             <PropertyRef Name="ID" />
@@ -1617,7 +1617,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Sa
           <Property Name="Valid" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.UnknownResultsForOrgView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.UnknownResultsForOrgView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UnknownResultsForOrgView">
           <Key>
             <PropertyRef Name="OrganizationName" />
@@ -1635,7 +1635,7 @@ warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.Un
           <Property Name="PctRecovery" Type="numeric" Precision="9" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch_11.03.16_istrwest_preNew_corw_Db.dbo.ViewSoloNutrientDups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewSoloNutrientDups">
           <Key>
             <PropertyRef Name="ID" />
