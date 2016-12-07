@@ -16,28 +16,49 @@ namespace RWInbound2.Admin
         {
             if (!IsPostBack)
             {
+                SetMessages();
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
                 //ExpWaterFormView.ChangeMode(FormViewMode.Edit);
-            }
-            ErrorLabel.Text = "";
-            SuccessLabel.Text = "";
-            //ExpWaterFormView.ChangeMode(FormViewMode.Edit);
+            }            
         }
 
-        public NEWexpWater GetExpWater([QueryString]string sampleNumberSearchTerm = "",
-                                       [QueryString]string successLabelMessage = "")
+        private void SetMessages(string type = "", string message = "")
+        {
+            switch (type)
+            {
+                case "Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = message;
+                    break;
+                case "Error":
+                    ErrorLabel.Text = message;
+                    SuccessLabel.Text = "";
+                    break;
+                default:
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    break;
+            }
+        }
+
+        public IQueryable<NEWexpWater> GetExpWater([QueryString]string sampleNumberSearchTerm = "",
+                                                   [QueryString]string successLabelMessage = "")
         {
             try
             {
-                String s = Request.QueryString["sampleNumberSearchTerm"];
                 RiverWatchEntities _db = new RiverWatchEntities();
+
+                PropertyInfo isreadonly
+                   = typeof(System.Collections.Specialized.NameValueCollection)
+                           .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                // make collection editable
+                isreadonly.SetValue(this.Request.QueryString, false, null);
 
                 if (!string.IsNullOrEmpty(successLabelMessage))
                 {
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = successLabelMessage;
+                    SetMessages("Success", successLabelMessage);
                 }
                 string searchTerm = string.Empty;
 
@@ -46,19 +67,12 @@ namespace RWInbound2.Admin
                     searchTerm = sampleNumberSearchTerm;                    
                 }
 
-                var expWater = _db.NEWexpWaters
-                                  .Where(e => (e.SampleNumber.Equals(searchTerm) && e.Valid == true))
-                                  .FirstOrDefault();
-   
-                PropertyInfo isreadonly
-                   = typeof(System.Collections.Specialized.NameValueCollection)
-                           .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-                // make collection editable
-                isreadonly.SetValue(this.Request.QueryString, false, null);
+                var expWaters = _db.NEWexpWaters
+                                  .Where(e => (e.SampleNumber.Equals(searchTerm) && e.Valid == true));
                 // remove
-                this.Request.QueryString.Clear();
+                this.Request.QueryString.Remove("successLabelMessage");
 
-                return expWater;
+                return expWaters;
             }
             catch (Exception ex)
             {
@@ -123,10 +137,13 @@ namespace RWInbound2.Admin
         {
             try
             {
+
+                SetMessages();
+
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
                     var oldExpWater = _db.NEWexpWaters.Find(model.ID);
-                    oldExpWater.Valid = false;
+                                        oldExpWater.Valid = false;
 
                     var newExpWater = new NEWexpWater();
                     newExpWater = model;
@@ -146,11 +163,11 @@ namespace RWInbound2.Admin
                     _db.SaveChanges();                    
 
                     string sampleNumberSearchTerm = oldExpWater.SampleNumber;
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Exp Water " + sampleNumberSearchTerm + " Updated.";
-                    string successLabelMessage = "Exp Water " + sampleNumberSearchTerm + " Updated.";
+                    //ErrorLabel.Text = ""; 
+                    string successMsg = string.Format("Exp Water Sample Number: {0} Type Code: {1} Updated.", sampleNumberSearchTerm, newExpWater.TypeCode);
+                    //SuccessLabel.Text = successMsg;
                     string redirect = "EditExpWater.aspx?sampleNumberSearchTerm=" + sampleNumberSearchTerm +
-                                       "&successLabelMessage=" + successLabelMessage;
+                                       "&successLabelMessage=" + successMsg;
                    
                     Response.Redirect(redirect, false);
                 }
@@ -159,7 +176,7 @@ namespace RWInbound2.Admin
             {
                 HandleErrors(ex, ex.Message, "UpdateExpWater", "", "");
             }
-        }        
+        }  
 
         private void HandleErrors(Exception ex, string msg, string fromPage,
                                                 string nam, string comment)
@@ -167,7 +184,7 @@ namespace RWInbound2.Admin
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 
-            SuccessLabel.Text = "";
+            SetMessages();
 
             if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
             {
@@ -184,13 +201,17 @@ namespace RWInbound2.Admin
                             ve.ErrorMessage + Environment.NewLine);
                     }
                 }
-                ErrorLabel.Text = sb.ToString();
+                SetMessages("Error", sb.ToString());
             }
             else
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = ex.Message;
+                SetMessages("Error", ex.Message);
             }
+        }
+
+        protected void ExpWaterFormView_PageIndexChanging(object sender, FormViewPageEventArgs e)
+        {
+            SetMessages();
         }
     }
 }

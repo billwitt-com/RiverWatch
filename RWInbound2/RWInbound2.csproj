@@ -251,6 +251,7 @@
     <Content Include="Edit\EditEcoRegion.aspx" />
     <Content Include="Edit\EditEquipCategory.aspx" />
     <Content Include="Edit\EditEquipItems.aspx" />
+    <Content Include="Edit\EditEquipment.aspx" />
     <Content Include="Edit\EditFieldGear.aspx" />
     <Content Include="Edit\EditFieldProcedure.aspx" />
     <Content Include="Edit\EditGrid.aspx" />
@@ -355,7 +356,9 @@
     <Content Include="Reports\Reports.aspx" />
     <Content Include="OLDfavicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Edit\Web.config" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -372,17 +375,10 @@
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\Alex_Azure.pubxml" />
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
-    <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Azure West - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\ColoradoRiverWatch - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\ColoradoRiverWatch.pubxml" />
-    <None Include="Properties\PublishProfiles\coloradoriverwatchwest %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
-    <None Include="Properties\PublishProfiles\dev-coloradoriverwatchwest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\Samples.aspx" />
@@ -403,8 +399,6 @@
       <DependentUpon>RiverWatchDataSetOrgStations.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\LoveofSpeed.pubxml" />
-    <None Include="Properties\PublishProfiles\RiverWatch %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\RiverWatch.pubxml" />
     <Content Include="QAQCDataSet.xsc">
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
     </Content>
@@ -945,6 +939,13 @@
     </Compile>
     <Compile Include="Edit\EditEquipItems.aspx.designer.cs">
       <DependentUpon>EditEquipItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditEquipment.aspx.cs">
+      <DependentUpon>EditEquipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditEquipment.aspx.designer.cs">
+      <DependentUpon>EditEquipment.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditFieldGear.aspx.cs">
       <DependentUpon>EditFieldGear.aspx</DependentUpon>
@@ -1912,6 +1913,7 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="View_Models\EquipmentViewModel.cs" />
     <Compile Include="View_Models\ParticipantsViewModel.cs" />
     <Compile Include="View_Models\ProjectStationViewModel.cs" />
     <Compile Include="View_Models\tblWBKeyViewModel.cs" />
