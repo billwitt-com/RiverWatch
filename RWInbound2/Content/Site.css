@@ -1859,6 +1859,12 @@ input.public-button-reports{
 }
 
 /*Edit Equipment*/
+.edit-equipment-validation {
+    font-size: 0.95em;
+    background-color:ActiveBorder;
+    color:red !important;
+}
+
 .grid-larger-editor-columns-edit-equipment{
     font-size: 0.75em;
     margin-left: -20px; 
@@ -1917,6 +1923,21 @@ select#dropDownNewItemNames.grid-edit-equipment-medium-textbox{
 
 select#dropDownNewEquipCategories.grid-edit-equipment-medium-textbox{   
     font-size: .7em;
+    width:auto;
+}
+
+select#dropDownNewOrganizationIDs.grid-edit-equipment-medium-textbox.no-results{   
+    font-size: .81em;
+    width:auto;
+}
+
+select#dropDownNewItemNames.grid-edit-equipment-medium-textbox.no-results{   
+    font-size: .81em;
+    width:auto;
+}
+
+select#dropDownNewEquipCategories.grid-edit-equipment-medium-textbox.no-results{   
+    font-size: .8em;
     width:auto;
 }
 

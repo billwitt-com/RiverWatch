@@ -5,9 +5,6 @@
     <hgroup>
         <h3><%: Page.Title %></h3>
     </hgroup>
-
-    
-
         <asp:UpdatePanel ID="updatePanelOrgUnknownResults" runat="server">
             <ContentTemplate>
                 <div class="label-placement">
@@ -61,6 +58,8 @@
                         <asp:Label ID="lblOrganizationName" runat="server"></asp:Label>   
                     </div>
                 </asp:Panel>
+                  
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="edit-equipment-validation" DisplayMode="List" />
                   
                 <asp:GridView ID="EquipmentGridView" runat="server"
                     DataKeyNames="ID"
@@ -116,13 +115,13 @@
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="dropDownNewOrganizationIDs" runat="server" AutoPostBack="True" DataMember="it"
-                                            SelectMethod="BindOrgnizations" CssClass="grid-edit-equipment-medium-textbox"         
+                                            SelectMethod="BindOrgnizations" CssClass="grid-edit-equipment-medium-textbox no-results"         
                                             AppendDataBoundItems="true" DataTextField="OrganizationName" DataValueField="ID">
                                     </asp:DropDownList>   
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="dropDownNewItemNames" runat="server" AutoPostBack="True" DataMember="it"
-                                            SelectMethod="BindEquipItems" CssClass="grid-edit-equipment-medium-textbox"                                         
+                                            SelectMethod="BindEquipItems" CssClass="grid-edit-equipment-medium-textbox no-results"                                         
                                             AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
                                     </asp:DropDownList> 
                                 </td>
@@ -131,7 +130,7 @@
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="dropDownNewEquipCategories" runat="server" AutoPostBack="True" DataMember="it"
-                                            SelectMethod="BindCategories" CssClass="grid-edit-equipment-medium-textbox"                                        
+                                            SelectMethod="BindCategories" CssClass="grid-edit-equipment-medium-textbox no-results"                                        
                                             AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
                                     </asp:DropDownList> 
                                 </td>
@@ -143,31 +142,47 @@
                                 </td>
                                 <td>
                                     <asp:TextBox ID="NewDateReceived" runat="server" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>
-                                    <ajaxToolkit:CalendarExtender ID="NewDateReceived_CalendarExtender" runat="server" 
+                                    <ajaxToolkit:CalendarExtender ID="NewDateReceived_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                     BehaviorID="NewDateReceived_CalendarExtender" 
                                                                     TargetControlID="NewDateReceived">
                                     </ajaxToolkit:CalendarExtender>
+                                    <asp:CompareValidator ControlToValidate="NewDateReceived" Operator="DataTypeCheck" 
+                                                            ID="CompareValidator1" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                            Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)." CssClass="">
+                                    </asp:CompareValidator>                                    
                                 </td>
                                 <td>
                                     <asp:TextBox ID="NewDateReJuv1" runat="server" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>
-                                    <ajaxToolkit:CalendarExtender ID="NewDateReJuv1_CalendarExtender" runat="server" 
+                                    <ajaxToolkit:CalendarExtender ID="NewDateReJuv1_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                     BehaviorID="NewDateReJuv1_CalendarExtender" 
                                                                     TargetControlID="NewDateReJuv1">
                                     </ajaxToolkit:CalendarExtender>
+                                    <asp:CompareValidator ControlToValidate="NewDateReJuv1" Operator="DataTypeCheck" 
+                                                            ID="CompareValidator3" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                            Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)." CssClass="">
+                                    </asp:CompareValidator>  
                                 </td>
                                 <td>
                                     <asp:TextBox ID="NewDateReJuv2" runat="server" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>
-                                    <ajaxToolkit:CalendarExtender ID="NewDateReJuv2_CalendarExtender1" runat="server" 
+                                    <ajaxToolkit:CalendarExtender ID="NewDateReJuv2_CalendarExtender1" runat="server" Format="MM/dd/yyyy"
                                                                     BehaviorID="NewDateReJuv2_CalendarExtender" 
                                                                     TargetControlID="NewDateReJuv2">
                                     </ajaxToolkit:CalendarExtender>
+                                    <asp:CompareValidator ControlToValidate="NewDateReJuv2" Operator="DataTypeCheck" 
+                                                            ID="CompareValidator4" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                            Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)." CssClass="">
+                                    </asp:CompareValidator>  
                                 </td>
                                 <td>
                                     <asp:TextBox ID="NewAutoReplaceDt" runat="server" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>
-                                    <ajaxToolkit:CalendarExtender ID="NewAutoReplaceDt_CalendarExtender" runat="server" 
+                                    <ajaxToolkit:CalendarExtender ID="NewAutoReplaceDt_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                     BehaviorID="NewAutoReplaceDt_CalendarExtender" 
                                                                     TargetControlID="NewAutoReplaceDt">
-                                    </ajaxToolkit:CalendarExtender>                           
+                                    </ajaxToolkit:CalendarExtender> 
+                                    <asp:CompareValidator ControlToValidate="NewAutoReplaceDt" Operator="DataTypeCheck" 
+                                                            ID="CompareValidator5" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                            Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)." CssClass="">
+                                    </asp:CompareValidator>                            
                                 </td>
                                 <td>
                                     <asp:TextBox ID="NewComment" runat="server" TextMode="MultiLine" MaxLength="100" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>   
@@ -294,81 +309,113 @@
                         <asp:TemplateField HeaderText="Date Received" SortExpression="DateReceived" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-equipment-medium-textbox" 
                             ControlStyle-CssClass="grid-edit-equipment-medium-textbox" >
                             <EditItemTemplate >
-                                <asp:TextBox ID="txtDateReceived" runat="server" Text='<%# Bind("DateReceived") %>'></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="txtDateReceived_CalendarExtender" runat="server" 
+                                <asp:TextBox ID="txtDateReceived" runat="server" Text='<%# Bind("DateReceived", "{0:MM/dd/yyyy}") %>'></asp:TextBox>
+                                <ajaxToolkit:CalendarExtender ID="txtDateReceived_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                 BehaviorID="txtDateReceived_CalendarExtender" 
                                                                 TargetControlID="txtDateReceived">
-                                </ajaxToolkit:CalendarExtender>                                                        
+                                </ajaxToolkit:CalendarExtender>                                  
+                                <asp:CompareValidator ControlToValidate="txtDateReceived" Operator="DataTypeCheck" 
+                                                        ID="CompareValidator2" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                        Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)" CssClass="">
+                                </asp:CompareValidator>             
                             </EditItemTemplate>
                             <ItemTemplate>
-                               <asp:Label ID="lblDateReceived" runat="server" Text='<%# Bind("DateReceived") %>'></asp:Label>
+                               <asp:Label ID="lblDateReceived" runat="server" Text='<%#Eval("DateReceived", "{0:MM/dd/yyyy}") %>'></asp:Label>
                             </ItemTemplate>
                             <FooterTemplate>
                                 <asp:TextBox ID="NewDateReceived" runat="server" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="NewDateReceived_CalendarExtender" runat="server" 
+                                <ajaxToolkit:CalendarExtender ID="NewDateReceived_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                 BehaviorID="NewDateReceived_CalendarExtender" 
                                                                 TargetControlID="NewDateReceived">
                                 </ajaxToolkit:CalendarExtender>
+                                <asp:CompareValidator ControlToValidate="NewDateReceived" Operator="DataTypeCheck" 
+                                                            ID="CompareValidator6" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                            Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)" CssClass="">
+                                </asp:CompareValidator>  
                             </FooterTemplate>
                         </asp:TemplateField> 
                         <asp:TemplateField HeaderText="Date ReJuv1" SortExpression="DateReJuv1" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-equipment-medium-textbox" 
                             ControlStyle-CssClass="grid-edit-equipment-medium-textbox" >
                             <EditItemTemplate >
-                                <asp:TextBox ID="txtDateReJuv1" runat="server" Text='<%# Bind("DateReJuv1") %>'></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="txtDateReJuv1_CalendarExtender" runat="server" 
+                                <asp:TextBox ID="txtDateReJuv1" runat="server" Text='<%# Bind("DateReJuv1", "{0:MM/dd/yyyy}") %>'></asp:TextBox>
+                                <ajaxToolkit:CalendarExtender ID="txtDateReJuv1_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                 BehaviorID="txtDateReJuv1_CalendarExtender" 
                                                                 TargetControlID="txtDateReJuv1">
-                                </ajaxToolkit:CalendarExtender>                                                        
+                                </ajaxToolkit:CalendarExtender>  
+                                <asp:CompareValidator ControlToValidate="txtDateReJuv1" Operator="DataTypeCheck" 
+                                                        ID="CompareValidator7" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                        Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)" CssClass="">
+                                </asp:CompareValidator>                                                         
                             </EditItemTemplate>
                             <ItemTemplate>
-                               <asp:Label ID="lblDateReJuv1" runat="server" Text='<%# Bind("DateReJuv1") %>'></asp:Label>
+                               <asp:Label ID="lblDateReJuv1" runat="server" Text='<%# Bind("DateReJuv1", "{0:MM/dd/yyyy}") %>'></asp:Label>
                             </ItemTemplate>
                             <FooterTemplate>
                                 <asp:TextBox ID="NewDateReJuv1" runat="server" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="NewDateReJuv1_CalendarExtender" runat="server" 
+                                <ajaxToolkit:CalendarExtender ID="NewDateReJuv1_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                 BehaviorID="NewDateReJuv1_CalendarExtender" 
                                                                 TargetControlID="NewDateReJuv1">
                                 </ajaxToolkit:CalendarExtender>
+                                <asp:CompareValidator ControlToValidate="NewDateReJuv1" Operator="DataTypeCheck" 
+                                                        ID="CompareValidator8" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                        Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)" CssClass="">
+                                </asp:CompareValidator>
                             </FooterTemplate>
                         </asp:TemplateField> 
                         <asp:TemplateField HeaderText="Date ReJuv2" SortExpression="DateReJuv2" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-equipment-medium-textbox" 
                             ControlStyle-CssClass="grid-edit-equipment-medium-textbox" >
                             <EditItemTemplate >
-                                <asp:TextBox ID="txtDateReJuv2" runat="server" Text='<%# Bind("DateReJuv2") %>'></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="txtDateReJuv2_CalendarExtender" runat="server" 
+                                <asp:TextBox ID="txtDateReJuv2" runat="server" Text='<%# Bind("DateReJuv2", "{0:MM/dd/yyyy}") %>'></asp:TextBox>
+                                <ajaxToolkit:CalendarExtender ID="txtDateReJuv2_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                 BehaviorID="txtDateReJuv2_CalendarExtender" 
                                                                 TargetControlID="txtDateReJuv2">
-                                </ajaxToolkit:CalendarExtender>                                                        
+                                </ajaxToolkit:CalendarExtender>
+                                <asp:CompareValidator ControlToValidate="txtDateReJuv2" Operator="DataTypeCheck" 
+                                                        ID="CompareValidator9" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                        Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)" CssClass="">
+                                </asp:CompareValidator>                                                        
                             </EditItemTemplate>
                             <ItemTemplate>
-                               <asp:Label ID="lblDateReJuv2" runat="server" Text='<%# Bind("DateReJuv2") %>'></asp:Label>
+                               <asp:Label ID="lblDateReJuv2" runat="server" Text='<%# Bind("DateReJuv2", "{0:MM/dd/yyyy}") %>'></asp:Label>
                             </ItemTemplate>
                             <FooterTemplate>
                                 <asp:TextBox ID="NewDateReJuv2" runat="server" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="NewDateReJuv2_CalendarExtender" runat="server" 
+                                <ajaxToolkit:CalendarExtender ID="NewDateReJuv2_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                 BehaviorID="NewDateReJuv2_CalendarExtender" 
                                                                 TargetControlID="NewDateReJuv2">
                                 </ajaxToolkit:CalendarExtender>
+                                <asp:CompareValidator ControlToValidate="NewDateReJuv2" Operator="DataTypeCheck" 
+                                                        ID="CompareValidator10" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                        Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)" CssClass="">
+                                </asp:CompareValidator> 
                             </FooterTemplate>
                         </asp:TemplateField> 
                         <asp:TemplateField HeaderText="Auto Replace Date" SortExpression="AutoReplaceDt" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-equipment-medium-textbox" 
                             ControlStyle-CssClass="grid-edit-equipment-medium-textbox" >
                             <EditItemTemplate >
-                                <asp:TextBox ID="txtAutoReplaceDt" runat="server" Text='<%# Bind("AutoReplaceDt") %>'></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="txtAutoReplaceDt_CalendarExtender" runat="server" 
+                                <asp:TextBox ID="txtAutoReplaceDt" runat="server" Text='<%# Bind("AutoReplaceDt", "{0:MM/dd/yyyy}") %>'></asp:TextBox>
+                                <ajaxToolkit:CalendarExtender ID="txtAutoReplaceDt_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                 BehaviorID="txtAutoReplaceDt_CalendarExtender" 
                                                                 TargetControlID="txtAutoReplaceDt">
-                                </ajaxToolkit:CalendarExtender>                                                        
+                                </ajaxToolkit:CalendarExtender>
+                                <asp:CompareValidator ControlToValidate="txtAutoReplaceDt" Operator="DataTypeCheck" 
+                                                        ID="CompareValidator11" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                        Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)" CssClass="">
+                                </asp:CompareValidator>                                                         
                             </EditItemTemplate>
                             <ItemTemplate>
-                               <asp:Label ID="lblAutoReplaceDt" runat="server" Text='<%# Bind("AutoReplaceDt") %>'></asp:Label>
+                               <asp:Label ID="lblAutoReplaceDt" runat="server" Text='<%# Bind("AutoReplaceDt", "{0:MM/dd/yyyy}") %>'></asp:Label>
                             </ItemTemplate>
                             <FooterTemplate>
                                 <asp:TextBox ID="NewAutoReplaceDt" runat="server" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="NewAutoReplaceDt_CalendarExtender" runat="server" 
+                                <ajaxToolkit:CalendarExtender ID="NewAutoReplaceDt_CalendarExtender" runat="server" Format="MM/dd/yyyy"
                                                                 BehaviorID="NewAutoReplaceDt_CalendarExtender" 
                                                                 TargetControlID="NewAutoReplaceDt">
                                 </ajaxToolkit:CalendarExtender>
+                                <asp:CompareValidator ControlToValidate="NewAutoReplaceDt" Operator="DataTypeCheck" 
+                                                        ID="CompareValidator12" runat="server" Type="Date" ForeColor="Red" Font-Bold="true"
+                                                        Display="Dynamic" ErrorMessage="format (mm/dd/yyyy)" CssClass="">
+                                </asp:CompareValidator>  
                             </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Comment" SortExpression="Comment" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-equipment-medium-textbox" 
@@ -386,6 +433,7 @@
                     </Columns>
                     <EditRowStyle BackColor="#2461BF" />            
                 </asp:GridView>       
+                
             </ContentTemplate>
         </asp:UpdatePanel> 
 </asp:Content>
