@@ -41,23 +41,26 @@
 
         </table>
     </asp:Panel>
-    <br />
-    <asp:Panel ID="pnlTable" runat="server">
 
-        <table id="Table1" style="width: 917px"
-            border="0">
-            <%--<tr>
-            <td style="width: 8px">Station</td>
-            <td colspan="2"></td>
-        </tr>--%>
+    <br />
+    <table id="TableStatus" style="width: 917px" border="0">
             <tr>
                 <td style="width: 8px"></td>
                 <td colspan="2">
                     <asp:Label ID="lblStatus" runat="server" BackColor="White" ForeColor="Red" Font-Bold="true"
                         Visible="False">
 
-                    </asp:Label></td>
+                    </asp:Label>
+                    <asp:Button ID="btnOK" runat="server" OnClick="btnOK_Click" Text="OK" />
+                </td>
             </tr>
+        </table>
+    <asp:Panel ID="pnlTable" runat="server">
+
+        <table id="Table1" style="width: 917px"
+            border="0">
+
+
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">Station Name: *</td>
@@ -88,8 +91,8 @@
                 <td style="width: 8px; height: 10px"></td>
                 <td style="width: 190px; height: 10px">River:</td>
                 <td style="height: 10px">
-                    <asp:TextBox ID="txtriver" runat="server"></asp:TextBox>&nbsp; 
-							Select River:
+                    <asp:TextBox ID="txtriver" runat="server"></asp:TextBox>&nbsp;<asp:Button ID="btnSelectRiver" runat="server" OnClick="btnSelectRiver_Click" Text="Select River  " />
+                    &nbsp; River:
 							<asp:DropDownList ID="ddlRiver" runat="server" Width="152px"   OnSelectedIndexChanged="ddlRiver_SelectedIndexChanged"></asp:DropDownList></td>
             </tr>
             <tr>
