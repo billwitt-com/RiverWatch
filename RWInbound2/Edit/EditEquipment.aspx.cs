@@ -16,7 +16,6 @@ namespace RWInbound2.Edit
         {
             if (!IsPostBack)
             {
-                //SetMessages("OrgName", "", false, "");
                 SetMessages();
                 OrganizationNamePanel.Visible = false;
                 lblOrganizationName.Text = "";
@@ -26,7 +25,6 @@ namespace RWInbound2.Edit
             }
         }
 
-        //private void SetMessages(string type = "", string message = "", bool showOrgName = false, string orgName = "")
         private void SetMessages(string type = "", string message = "")
         {
             switch (type)
@@ -96,8 +94,7 @@ namespace RWInbound2.Edit
                
                 if (string.IsNullOrEmpty(orgSelected))
                 {
-                    //SetMessages("OrgName", "", false, "");
-                    OrganizationNamePanel.Visible = false;
+                     OrganizationNamePanel.Visible = false;
                     lblOrganizationName.Text = "";
                     return null;
                 }
@@ -107,7 +104,6 @@ namespace RWInbound2.Edit
 
                 if (!orgIDIsInt)
                 {
-                    //SetMessages("OrgName", "", false, "");
                     OrganizationNamePanel.Visible = false;
                     lblOrganizationName.Text = "";
                     return null;
@@ -120,7 +116,6 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(orgName))
                 {                    
-                    //SetMessages("OrgName", "", true, orgName);
                     OrganizationNamePanel.Visible = true;
                     lblOrganizationName.Text = orgName;
                 }
@@ -333,7 +328,7 @@ namespace RWInbound2.Edit
                         }
                         else
                         {
-                            SetMessages("Error", "Complete all values");
+                            SetMessages("Error", "Correct all input errors");
                         }
                     }
                 }
@@ -468,6 +463,11 @@ namespace RWInbound2.Edit
             SetMessages();
         }
 
+       
+        protected String GetTime()
+        {
+            return this == null ? "" : Convert.ToDateTime(this).ToShortDateString();
+        }
         private void HandleErrors(Exception ex, string msg, string fromPage,
                                                 string nam, string comment)
         {
@@ -497,6 +497,6 @@ namespace RWInbound2.Edit
             {
                 SetMessages("Error", ex.Message);
             }
-        }
+        }        
     }
 }
