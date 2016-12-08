@@ -12,6 +12,8 @@ namespace RWInbound2.Edit
 {
     public partial class EditEquipment : System.Web.UI.Page
     {
+        private string orgNameGlobal;
+        private string orgIDGlobal;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -23,6 +25,9 @@ namespace RWInbound2.Edit
                 // to appear before the first roundtrip.
                 Validate();
             }
+
+            //var gridView = EquipmentGridView.Controls[0].Controls[0].FindControl("dropDownNewOrganizationIDs") == null ?
+            //               EquipmentGridView.FooterRow : EquipmentGridView.Controls[0].Controls[0];
         }
 
         private void SetMessages(string type = "", string message = "")
@@ -79,6 +84,8 @@ namespace RWInbound2.Edit
         {
             try
             {
+                //var noResultsPanel = EquipmentGridView.Controls[0].Controls[0].FindControl("NoResultsPanel") == null ? null :
+                //                     EquipmentGridView.Controls[0].Controls[0].FindControl("NoResultsPanel");
                 RiverWatchEntities _db = new RiverWatchEntities();
 
                 PropertyInfo isreadonly
@@ -94,8 +101,9 @@ namespace RWInbound2.Edit
                
                 if (string.IsNullOrEmpty(orgSelected))
                 {
-                     OrganizationNamePanel.Visible = false;
+                    OrganizationNamePanel.Visible = false;
                     lblOrganizationName.Text = "";
+                    //if(noResultsPanel != null) { noResultsPanel.Visible = false; }
                     return null;
                 }
 
@@ -106,6 +114,7 @@ namespace RWInbound2.Edit
                 {
                     OrganizationNamePanel.Visible = false;
                     lblOrganizationName.Text = "";
+                    //if (noResultsPanel != null) { noResultsPanel.Visible = false; }
                     return null;
                 }
 
@@ -118,8 +127,11 @@ namespace RWInbound2.Edit
                 {                    
                     OrganizationNamePanel.Visible = true;
                     lblOrganizationName.Text = orgName;
+                    //if (noResultsPanel != null) { noResultsPanel.Visible = true; }
+                    orgNameGlobal = orgName;
+                    HiddenOrgID.Value = orgID.ToString();
                 }
-
+                
                 IQueryable<EquipmentViewModel> equipment = (from e in _db.tblEquipments
                                                             join c in _db.tlkEquipCategories on e.CategoryID equals c.ID into results
                                                             from subequip in results.DefaultIfEmpty()
@@ -354,7 +366,7 @@ namespace RWInbound2.Edit
                             = string.Format("Equipment item deleted: {0} Org: {1}", model.ItemName, orgName);
 
                     string redirect = string.Format("EditEquipment.aspx?orgSelected={0}&successLabelMessage={1}", 
-                                                     model.OrganizationID, successLabelMessage);
+                                                     HiddenOrgID.Value, successLabelMessage);
 
                     Response.Redirect(redirect, false);
                 }
@@ -371,10 +383,13 @@ namespace RWInbound2.Edit
             {
                 SetMessages();
 
-                var gridView = EquipmentGridView.Controls[0].Controls[0].FindControl("dropDownNewOrganizationIDs") == null ?
+                var gridView = EquipmentGridView.Controls[0].Controls[0].FindControl("btnAdd") == null ?
                                     EquipmentGridView.FooterRow : EquipmentGridView.Controls[0].Controls[0];
 
-                var organizationID = ((DropDownList)gridView.FindControl("dropDownNewOrganizationIDs")).SelectedValue;
+                string organizationID = HiddenOrgID.Value;
+                    //EquipmentGridView.Controls[0].Controls[0].FindControl("NewOrgName") == null ?
+                    //                ((HiddenField)EquipmentGridView.FooterRow.FindControl("NewOrganizationID")).Value : 
+                    //                HiddenOrgID.Value;               
                 int orgID = 0;
                 bool orgIDIsInt = Int32.TryParse(organizationID, out orgID);
 
@@ -438,7 +453,7 @@ namespace RWInbound2.Edit
                     _db.tblEquipments.Add(newEquipment);
                     _db.SaveChanges();
 
-                    string orgName = ((DropDownList)gridView.FindControl("dropDownNewOrganizationIDs")).SelectedItem.Text;
+                    string orgName = lblOrganizationName.Text;
                     string successLabelMessage
                                 = string.Format("New Equipment item added: {0} Org: {1}", itemName, orgName);
 
@@ -462,12 +477,18 @@ namespace RWInbound2.Edit
         {
             SetMessages();
         }
+        
 
-       
-        protected String GetTime()
+        protected void Show(object sender, EventArgs e)
         {
-            return this == null ? "" : Convert.ToDateTime(this).ToShortDateString();
+            if (!string.IsNullOrEmpty(orgNameGlobal))
+            {
+                EquipmentGridView.Controls[0].Controls[0].FindControl("NoResultsPanel").Visible = true;
+            }
+                
+            //return "";
         }
+
         private void HandleErrors(Exception ex, string msg, string fromPage,
                                                 string nam, string comment)
         {
