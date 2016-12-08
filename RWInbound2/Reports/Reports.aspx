@@ -58,6 +58,12 @@
                 <asp:Button ID="btnPublicUsers" runat="server" Text="Public Users" OnClick="btnPublicUsers_Click" 
                             CssClass="adminButton"/>
             </asp:TableCell>             
+
+                        <asp:TableCell CssClass="edit-table-cell">
+                <asp:Button ID="btnQAQC" runat="server" Text="QAQC Report" OnClick="btnQAQC_Click" 
+                            CssClass="adminButton"/>
+            </asp:TableCell>             
+
             <asp:TableCell CssClass="edit-table-cell">           
                 <asp:Button ID="btnSamples" runat="server" Text="Samples" OnClick="btnSamples_Click" 
                             CssClass="adminButton"/>
