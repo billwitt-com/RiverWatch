@@ -1322,7 +1322,8 @@ namespace RWInbound2.Admin
                 lblStatus.Text = string.Format("Station {0} saved", stationName);
                 lblStatus.Visible = true;
                 btnOK.Visible = true;
-                pnlTable.Visible = false; 
+                pnlTable.Visible = false;
+                pnlInput.Visible = false;
             }
 
             catch (Exception ex)
@@ -1986,5 +1987,49 @@ namespace RWInbound2.Admin
         {
             txtriver.Text = ddlRiver.SelectedValue; 
         }
+
+        // we must check to see if this station has any entries in samples table, if so, warn user and do not allow
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int stnNumber = -1; 
+            string stnNumString = txtStationNumber.Text.Trim();
+            bool success = int.TryParse(stnNumString, out stnNumber);
+
+            if (!success)
+            {
+                tbStnNumber.Text = "";
+                lblStatus.Visible = true;
+                lblStatus.Text = "Please select a valid station number";
+                return;
+            }
+
+            RiverWatchEntities RWE = new RiverWatchEntities();
+            Station S = (from sn in RWE.Stations
+                            where sn.StationNumber == stnNumber
+                            select sn).FirstOrDefault();
+
+            var results = from s in RWE.Samples
+                          where s.StationID == S.ID
+                          select s; 
+
+            if(results.Count() > 0) // we have entries in samples table
+            {
+                lblStatus.Text = "There are existing samples linked to this station, you may not delete it now";
+                lblStatus.Visible = true;
+                btnOK.Visible = true;
+                return;
+            }
+
+            lblStatus.Text = string.Format("Deleted Station Number {0}", S.StationNumber);
+            lblStatus.Visible = true;
+            pnlInput.Visible = false;
+            pnlTable.Visible = false;
+            btnOK.Visible = true;
+            RWE.Stations.Remove(S);
+            RWE.SaveChanges(); 
+        }
+
+
     }
 }

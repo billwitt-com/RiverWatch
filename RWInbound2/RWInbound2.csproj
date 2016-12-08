@@ -352,6 +352,7 @@
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
+    <Content Include="Reports\QAQCReport.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="OLDfavicon.ico" />
@@ -376,6 +377,8 @@
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
+    <None Include="Properties\PublishProfiles\coloradoriverwatchwest %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\coloradoriverwatchwest %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
@@ -1428,6 +1431,13 @@
     </Compile>
     <Compile Include="Reports\PublicUsers.aspx.designer.cs">
       <DependentUpon>PublicUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\QAQCReport.aspx.cs">
+      <DependentUpon>QAQCReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\QAQCReport.aspx.designer.cs">
+      <DependentUpon>QAQCReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
       <DependentUpon>ReportLachatNOTINNutrientBarcode.aspx</DependentUpon>
