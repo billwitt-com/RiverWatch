@@ -87,5 +87,11 @@ namespace RWInbound2.Reports
         {
             Response.Redirect("OrgUnknownResults.aspx");
         }
+
+        protected void btnQAQC_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("QAQCReport.aspx");
+        }
+
     }
 }
