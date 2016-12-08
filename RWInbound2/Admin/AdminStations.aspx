@@ -298,6 +298,8 @@
                 <td style="width: 8px"></td>
                 <td style="width: 190px">
                     <asp:Button ID="cmdUpdate" runat="server" Width="61px" Height="24px" Text="Save" OnClick="cmdUpdate_Click" CssClass="adminButton"></asp:Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="btnDelete" runat="server" CssClass="adminButton" Text="Delete" OnClick="btnDelete_Click" />
                 </td>
                 <td>
                     <asp:Button ID="btnCancel" runat="server" Width="80px" Text="Cancel" CausesValidation="False" CssClass="adminButton"></asp:Button></td>

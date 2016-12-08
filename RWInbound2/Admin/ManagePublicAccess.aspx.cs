@@ -356,11 +356,11 @@ namespace RWInbound2.Admin
             // Return true if strIn is in valid e-mail format.
             try
             {
-                //string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
+                //string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-SampleNumber2]{2,4}$";
                 //string input = @"handro@comcast.net";
                 //string inputs = @strIn;
 
-                //string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
+                //string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-SampleNumber2]{2,4}$";
                 //var valid = Regex.IsMatch(inputs, pattern);
                 //return valid;
                 bool valid = Regex.IsMatch(strIn,
