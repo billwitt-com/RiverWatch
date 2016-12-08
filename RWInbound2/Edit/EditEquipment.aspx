@@ -11,7 +11,7 @@
                     <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
                 </div>
                 <div class="label-placement">
-                        <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
+                    <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
                 </div>
                 <br />
                 <label>Search By Organization Name:</label>
@@ -97,7 +97,7 @@
                                     <th scope="col">Auto Replace Date</th>
                                     <th scope="col">Comment</th>
                                 </tr>
-                                <tr>
+                               <%-- <tr>
                                     <td colspan="12" class="grid-edit-equipment-noresults-td">
                                          <b>
                                              <br /> 
@@ -105,7 +105,7 @@
                                              <br /><br />
                                          </b>  
                                     </td>                                                               
-                                </tr>
+                                </tr>--%>
                                 <tr>
                                     <td>
                                         <asp:Button ID="btnAdd" runat="server" Text="Add New"
