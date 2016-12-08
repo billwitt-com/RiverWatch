@@ -272,6 +272,7 @@
     <Content Include="Edit\EditSubPara.aspx" />
     <Content Include="Edit\EditSubSamp.aspx" />
     <Content Include="Edit\EditWaterBodyID.aspx" />
+    <Content Include="ErrorPage.aspx" />
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1087,6 +1088,13 @@
     <Compile Include="Edit\EditWaterBodyID.aspx.designer.cs">
       <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Help\HelpInboundICP.aspx.cs">
       <DependentUpon>HelpInboundICP.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1097,6 +1105,7 @@
     <Compile Include="InboundSamples.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logic\ExceptionUtility.cs" />
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>

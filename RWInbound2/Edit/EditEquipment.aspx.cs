@@ -477,7 +477,6 @@ namespace RWInbound2.Edit
         {
             SetMessages();
         }
-        
 
         protected void Show(object sender, EventArgs e)
         {

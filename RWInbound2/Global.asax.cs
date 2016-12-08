@@ -26,10 +26,22 @@ namespace RWInbound2
         void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
-            string ers = "Error Here";
-            System.Type TS = sender.GetType(); 
-            System.Type TE = e.GetType(); 
+            //string ers = "Error Here";
+            //System.Type TS = sender.GetType(); 
+            //System.Type TE = e.GetType(); 
 
+            // Get last error from the server
+            Exception exc = Server.GetLastError();
+
+            if (exc is HttpUnhandledException)
+            {
+                if (exc.InnerException != null)
+                {
+                    exc = new Exception(exc.InnerException.Message);
+                    Server.Transfer("ErrorPage.aspx?handler=Application_Error%20-%20Global.asax",
+                        true);
+                }
+            }
         }
     }
 }
