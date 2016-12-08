@@ -54,7 +54,7 @@ namespace RWInbound2.Edit
             RiverWatchEntities _db = new RiverWatchEntities();
             var equipItems = (from e in _db.tlkEquipItems
                              orderby e.Description
-                             select e);
+                             select e);            
 
             return equipItems;
         }
@@ -481,7 +481,8 @@ namespace RWInbound2.Edit
 
         protected void Show(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(orgNameGlobal))
+            if (lblOrganizationName != null && !string.IsNullOrEmpty(lblOrganizationName.Text) &&
+                !EquipmentGridView.Controls[0].Controls[0].FindControl("NoResultsPanel").Visible)
             {
                 EquipmentGridView.Controls[0].Controls[0].FindControl("NoResultsPanel").Visible = true;
             }

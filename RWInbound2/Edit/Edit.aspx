@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="Edit" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Edit.aspx.cs" Inherits="RWInbound2.Edit.Edit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <p class="site-title">
-        Edit Data Tables:
-    </p>
+    <hgroup>
+        <h3>Edit Data Tables:</h3>
+    </hgroup>
+    <br />
     <asp:Table ID="Table1" 
                 runat="server" 
                 CssClass="edit-table" >

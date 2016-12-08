@@ -82,7 +82,7 @@
                     <%--Empty Data - Add a new one Start--%>                    
                     <EmptyDataTemplate>
                        <%-- <% =Show() %>--%>
-                        <asp:Panel ID="NoResultsPanel" runat="server" Visible="false" OnInit="Show" >
+                        <asp:Panel ID="NoResultsPanel" runat="server" Visible="false" OnInit="Show" OnDataBinding="Show" OnLoad="Show" >
                             <table style="color:#333333;border-collapse:collapse;">
                                 <tr class="grid-edit-equipment-add-new-header">
                                     <th scope="col">&nbsp;</th>                                    
@@ -112,7 +112,7 @@
                                                  OnClick="AddNewEquipment" />
                                     </td>                                    
                                     <td>
-                                        <asp:DropDownList ID="dropDownNewItemNames" runat="server" AutoPostBack="True" DataMember="it"
+                                        <asp:DropDownList ID="dropDownNewItemNames" runat="server" AutoPostBack="false" DataMember="it"
                                                 SelectMethod="BindEquipItems" CssClass="grid-edit-equipment-medium-textbox no-results"                                         
                                                 AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
                                         </asp:DropDownList> 
@@ -121,7 +121,7 @@
                                         <asp:TextBox ID="NewItemDescription" runat="server" TextMode="MultiLine" MaxLength="100" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>   
                                     </td>
                                     <td>
-                                        <asp:DropDownList ID="dropDownNewEquipCategories" runat="server" AutoPostBack="True" DataMember="it"
+                                        <asp:DropDownList ID="dropDownNewEquipCategories" runat="server" AutoPostBack="false" DataMember="it"
                                                 SelectMethod="BindCategories" CssClass="grid-edit-equipment-medium-textbox no-results"                                        
                                                 AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
                                         </asp:DropDownList> 
@@ -205,7 +205,7 @@
                             ControlStyle-CssClass="grid-edit-equipment-dropdown">                            
                             <EditItemTemplate>
                                 <asp:HiddenField id="OrganizationID" runat="server" value='<%# Bind("OrganizationID") %>' />
-                                <asp:DropDownList ID="dropDownItemNames" runat="server" AutoPostBack="True" DataMember="it"
+                                <asp:DropDownList ID="dropDownItemNames" runat="server" AutoPostBack="false" DataMember="it"
                                             SelectMethod="BindEquipItems"
                                             SelectedValue='<%# Bind("ItemName") %>'                                          
                                             AppendDataBoundItems="true" DataTextField="Description" DataValueField="Code">
@@ -216,7 +216,7 @@
                             </ItemTemplate>
                             <FooterTemplate>
                                 <asp:HiddenField id="NewOrganizationID" runat="server" value='<%# Bind("OrganizationID") %>' />
-                                <asp:DropDownList ID="dropDownNewItemNames" runat="server" AutoPostBack="True" DataMember="it"
+                                <asp:DropDownList ID="dropDownNewItemNames" runat="server" AutoPostBack="false" DataMember="it"
                                             SelectMethod="BindEquipItems" CssClass="grid-edit-equipment-medium-textbox"                                         
                                             AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
                                 </asp:DropDownList>
@@ -237,7 +237,7 @@
                         <asp:TemplateField HeaderText="Category" SortExpression="CategoryCode" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-equipment-medium-textbox" 
                             ControlStyle-CssClass="grid-edit-equipment-dropdown">
                             <EditItemTemplate>
-                                <asp:DropDownList ID="dropDownEquipCategories" runat="server" AutoPostBack="True" DataMember="it"
+                                <asp:DropDownList ID="dropDownEquipCategories" runat="server" AutoPostBack="false" DataMember="it"
                                             SelectMethod="BindCategories"
                                             SelectedValue='<%# Bind("CategoryID") %>'                                          
                                             AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
@@ -247,7 +247,7 @@
                                 <asp:Label ID="lblCategoryCode" runat="server" Text='<%# Bind("CategoryCode") %>'></asp:Label>
                             </ItemTemplate>
                             <FooterTemplate>
-                                <asp:DropDownList ID="dropDownNewEquipCategories" runat="server" AutoPostBack="True" DataMember="it"
+                                <asp:DropDownList ID="dropDownNewEquipCategories" runat="server" AutoPostBack="false" DataMember="it"
                                             SelectMethod="BindCategories" CssClass="grid-edit-equipment-medium-textbox"                                        
                                             AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
                                 </asp:DropDownList> 
