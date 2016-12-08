@@ -17,6 +17,7 @@ namespace RWInbound2.View_Models
         public Nullable<int> Quantity { get; set; }
         public string SerialNumber { get; set; }
         public Nullable<System.DateTime> DateReceived { get; set; }
+        //{            get { return this.DateReceived == null ? null : Convert.ToDateTime(this.DateReceived.ToShortDateString()); }set { } }
         public Nullable<System.DateTime> DateReJuv1 { get; set; }
         public Nullable<System.DateTime> DateReJuv2 { get; set; }
         public Nullable<System.DateTime> AutoReplaceDt { get; set; }

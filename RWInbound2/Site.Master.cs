@@ -74,7 +74,7 @@ namespace RWInbound2
 
         // see if sometime I can find the code to get date from a compiled file
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {            
             int role = 1;
             RiverWatchEntities RWE = new RiverWatchEntities();
             try

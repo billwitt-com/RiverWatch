@@ -63,6 +63,11 @@ namespace RWInbound2.Edit
             Response.Redirect("EditEcoRegion.aspx");
         }
 
+        protected void btnEquipment_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditEquipment.aspx");
+        }
+
         protected void btnEquipCategories_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditEquipCategory.aspx");
