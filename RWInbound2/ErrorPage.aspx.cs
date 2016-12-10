@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using RWInbound2.Logic;
+using System.Web.UI;
 
 namespace RWInbound2
 {
@@ -26,8 +27,8 @@ namespace RWInbound2
 
             // Get the last error from the server.
             Exception ex = Server.GetLastError();
-
-            // Get the error number passed as a querystring value.
+           
+                // Get the error number passed as a querystring value.
             string errorMsg = Request.QueryString["msg"];
             if (errorMsg == "404")
             {
@@ -38,7 +39,11 @@ namespace RWInbound2
             // If the exception no longer exists, create a generic exception.
             if (ex == null)
             {
-                ex = new Exception(unhandledErrorMsg);
+                ex = (Exception)Session["Error"];
+                if(ex == null)
+                {
+                    ex = new Exception(unhandledErrorMsg);
+                }
             }
 
             string userErrorMsg = ex.Message + "<br/>";
@@ -80,7 +85,7 @@ namespace RWInbound2
             }
 
             // Log the exception.
-            ExceptionUtility.LogException(ex, errorHandler);
+            //ExceptionUtility.LogException(ex, errorHandler);
 
             // Clear the error from the server.
             Server.ClearError();

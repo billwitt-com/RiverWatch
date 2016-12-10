@@ -35,15 +35,14 @@
 <body>
      
     <form runat="server">
-        <asp:ScriptManager runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Scripts>
                 <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="jquery.ui.combined" />                 
-            </Scripts>            
+            </Scripts>                       
         </asp:ScriptManager>
         <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
             <header>
-
                 <table class="headerTable ">
                     <tr>
                         <td >
@@ -138,7 +137,34 @@
 
  
         <section class="content-wrapper main-content clear-fix">
-            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+
+            <script type="text/javascript">
+                var prm = Sys.WebForms.PageRequestManager.getInstance();
+                if (prm != null) {
+                    prm.add_endRequest(function (sender, e) {
+                        if (sender._postBackSettings.panelsToUpdate != null) {
+                            if (e.get_error() != null) {
+                                
+                                var ex = e.get_error();
+                                var mesg = "A Unhandled Error has occurred on this page. Please try again.";
+                                mesg += "<br />If this error continues, please contact support.";
+                                if (ex.httpStatusCode) {
+                                    mesg += "<br /><b>HttpStatusCode: </b>" + ex.httpStatusCode;
+                                    mesg += "<br /><b>Name: </b> " + ex.name;
+                                    mesg += "<br /><b>Message: </b> " + ex.message;
+                                    mesg += "<br /><b>Description: </b> " + ex.description;
+                                }                                                          
+                                
+                                $get("<%=lblError.ClientID %>").innerHTML = mesg;
+                                e.set_errorHandled(true);
+                            }
+                        }
+                    });
+                };
+            </script> 
+            <asp:Label ID="lblError" runat="server" CssClass="master-pagep-lblerror"></asp:Label>
+
+            <asp:ContentPlaceHolder runat="server" ID="MainContent" />            
         </section>
 
         <footer>

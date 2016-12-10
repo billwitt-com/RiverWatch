@@ -52,7 +52,7 @@
         <tr>
             <td class="rowId-charid-dsorder-textbox" style="width: 32px">&nbsp;</td>
             <td style="width: 88px">
-                <asp:Label ID="Label4" runat="server" Text="Staton Num: "></asp:Label>
+                <asp:Label ID="Label4" runat="server" Text="Station Num: "></asp:Label>
             </td>
             <td style="width: 260px">
                 <asp:TextBox ID="tbStnNumber" runat="server"></asp:TextBox>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Web.ModelBinding;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
@@ -13,7 +14,7 @@ namespace RWInbound2.Edit
     public partial class EditEquipment : System.Web.UI.Page
     {
         private string orgNameGlobal;
-        private string orgIDGlobal;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -37,14 +38,17 @@ namespace RWInbound2.Edit
                 case "Success":
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = message;
+                    ((Label)Page.Master.FindControl("lblError")).Text = "";
                     break;
                 case "Error":
                     ErrorLabel.Text = message;
                     SuccessLabel.Text = "";
+                    ((Label)Page.Master.FindControl("lblError")).Text = "";
                     break;             
                 default:
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "";
+                    ((Label)Page.Master.FindControl("lblError")).Text = "";
                     break;
             }
         }
@@ -324,7 +328,7 @@ namespace RWInbound2.Edit
 
                     if (equipmentToUpdate != null)
                     {
-                        TryUpdateModel(equipmentToUpdate);  
+                        TryUpdateModel(equipmentToUpdate);                        
 
                         if (ModelState.IsValid)
                         {
@@ -387,9 +391,7 @@ namespace RWInbound2.Edit
                                     EquipmentGridView.FooterRow : EquipmentGridView.Controls[0].Controls[0];
 
                 string organizationID = HiddenOrgID.Value;
-                    //EquipmentGridView.Controls[0].Controls[0].FindControl("NewOrgName") == null ?
-                    //                ((HiddenField)EquipmentGridView.FooterRow.FindControl("NewOrganizationID")).Value : 
-                    //                HiddenOrgID.Value;               
+               
                 int orgID = 0;
                 bool orgIDIsInt = Int32.TryParse(organizationID, out orgID);
 
@@ -487,6 +489,11 @@ namespace RWInbound2.Edit
             }
                 
             //return "";
+        }
+
+        protected void ScriptManager1_AsyncPostBackError(object sender, AsyncPostBackErrorEventArgs e)
+        {
+            ScriptManager.GetCurrent(this.Page).AsyncPostBackErrorMessage = e.Exception.Message;
         }
 
         private void HandleErrors(Exception ex, string msg, string fromPage,
