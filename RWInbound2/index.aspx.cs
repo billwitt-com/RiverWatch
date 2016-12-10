@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace RWInbound2
 {
@@ -13,7 +8,7 @@ namespace RWInbound2
         protected void Page_Load(object sender, EventArgs e)
         {
       //      throw new InvalidOperationException("An InvalidOperationException " +
-      //"occurred in the Page_Load handler on the Default.aspx page.");
+      //"occurred in the Page_Load handler on the index.aspx page.");
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)

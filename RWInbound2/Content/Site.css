@@ -70,6 +70,11 @@ label.checkbox {
     font-size: 0.85em;
 }
 
+.master-pagep-lblerror{
+    color: red;
+    font-size:small;
+}
+
 /*formats tables for validation tables*/ 
 
 .DupsTable
