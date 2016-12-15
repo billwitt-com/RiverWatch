@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="Edit Equipment" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditEquipment.aspx.cs" Inherits="RWInbound2.Edit.EditEquipment" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" ClientIDMode="Static">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" ClientIDMode="Static">    
     <hgroup>
         <h3><%: Page.Title %></h3>
-    </hgroup>
+    </hgroup>    
         <asp:UpdatePanel ID="updatePanelOrgUnknownResults" runat="server">
             <ContentTemplate>
                 <div class="label-placement">

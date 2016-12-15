@@ -13,9 +13,19 @@ namespace RWInbound2.Logic
         // Log an Exception
         public static void LogException(Exception exc, string source)
         {
+
+            LogError LE = new LogError();
+            LE.logError(exc.Message, "ExceptionUtility", exc.StackTrace.ToString(), "", "Unhandled Exception caught.");
+
             // Include logic for logging exceptions
             // Get the absolute path to the log file
-            string logFile = "App_Data/ErrorLog." + DateTime.Now.ToString("MM.dd.yyyy") + ".txt";
+            string app_DataDirectory = HttpContext.Current.Server.MapPath("~/App_Data");
+            if (!Directory.Exists(app_DataDirectory))
+            {
+                Directory.CreateDirectory(app_DataDirectory);
+            }
+            
+            string logFile = "~/App_Data/ErrorLog." + DateTime.Now.ToString("MM.dd.yyyy") + ".txt";
             logFile = HttpContext.Current.Server.MapPath(logFile);
 
             string oldLogFile = logFile;
