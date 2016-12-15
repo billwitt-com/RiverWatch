@@ -139,9 +139,22 @@ namespace RWInbound2.Admin
 
         protected void btnSelectStnName_Click(object sender, EventArgs e)
         {
+
             string stationName = tbStationName.Text.Trim();
             Session["NEW"] = false;
             lblStatus.Visible = false; // hide until needed
+
+            string watershed = ""; 
+            if (ddlWatershed.SelectedIndex == 0) // no choice yet
+            {
+                lblStatus.Text = "Please select a Watershed!";
+                lblStatus.Visible = true;
+                ddlWatershed.Focus();
+                return; 
+            }
+            watershed = ddlWatershed.SelectedValue;
+            Session["WATERSHED"] = watershed;
+
             if(stationName.Length < 2)
             {
                 lblStatus.Text = "Please select a valid station name";
@@ -149,6 +162,9 @@ namespace RWInbound2.Admin
                 tbStationName.Text = "";
                 return;
             }
+
+
+
 
             RiverWatchEntities NRWE = new RiverWatchEntities();
             try
@@ -190,6 +206,16 @@ namespace RWInbound2.Admin
             int stnNumber = 0;
             Session["NEW"] = false;
             lblStatus.Visible = false; // hide if not needed
+            string watershed = "";
+            if (ddlWatershed.SelectedIndex == 0) // no choice yet
+            {
+                lblStatus.Text = "Please select a Watershed!";
+                lblStatus.Visible = true;
+                ddlWatershed.Focus();
+                return;
+            }
+            watershed = ddlWatershed.SelectedValue;
+            Session["WATERSHED"] = watershed;
             try
             {
                 // scrape station number from form
@@ -1419,9 +1445,14 @@ namespace RWInbound2.Admin
                 //string msg1 = string.Format("Started loading ddlWaterCode at {0} ", DateTime.Now);
                 //LE1.logError(msg1, "Loading Dlls", "", "DEV", "Profiling");
 
+                if(Session["WATERSHED"] == null)
+                {
+                    Response.Redirect("timedout.aspx"); 
+                }
+                string watershed = (string)Session["WATERSHED"];
                 List<string> wcList = new List<string>();
                 var l3 = (from q in NRWE.tblWatercodes
-                          where q.OBSOLETE != true
+                          where q.OBSOLETE != true 
                           orderby q.WATERNAME
                           select new
                           {
@@ -1611,6 +1642,7 @@ namespace RWInbound2.Admin
                 {
                     ListItem LI = new ListItem(v.Description, v.Code);
                     ddlRWWaterShed.Items.Add(LI);
+
                 }
                 if (isNewStation)
                 {

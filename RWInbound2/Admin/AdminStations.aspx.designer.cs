@@ -40,6 +40,24 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Panel pnlInput;
         
         /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
+        
+        /// <summary>
+        /// ddlWatershed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlWatershed;
+        
+        /// <summary>
         /// Label4 control.
         /// </summary>
         /// <remarks>

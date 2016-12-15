@@ -66,6 +66,8 @@ namespace RWInbound2.Reports
 
         protected void btnOrgName_Click(object sender, EventArgs e)
         {
+            tbKitNumber.Text = "";
+            tbStnNumber.Text = ""; 
             string orgName = tbOrgName.Text.Trim();
             lblOrgNameMsg.Visible = false; // set it so it never shows.. unless
             lblKitNumMsg.Visible = false;
@@ -351,7 +353,8 @@ namespace RWInbound2.Reports
             lblOrgNameMsg.Visible = false; // set it so it never shows.. unless
             lblKitNumMsg.Visible = false;
             lblStnNumMsg.Visible = false;
-
+            tbStnNumber.Text = "";
+            tbOrgName.Text = "";
             if(kn.Length < 1)
             {
                 lblKitNumMsg.Text = "Please choose a valid kit number";
@@ -367,7 +370,6 @@ namespace RWInbound2.Reports
                 lblKitNumMsg.BackColor = System.Drawing.Color.Red;
                 return; 
             }
-
 
             string cmdStr = string.Format("Select [TypeCode] ,[SampleNumber], [AL_D] ,[AL_T] ,[AS_D] ,[AS_T] ,[CA_D] ,[CA_T] ,[CD_D] ,[CD_T] ,[CU_D] " +
            " ,[CU_T] ,[FE_D] ,[FE_T] ,[MG_D] ,[MG_T] ,[MN_D] ,[MN_T] ,[PB_D] ,[PB_T] ,[SE_D] ,[SE_T] ,[ZN_D] ,[ZN_T] ,[NA_D] ,[NA_T] ,[K_D],[K_T] " +
@@ -410,6 +412,9 @@ namespace RWInbound2.Reports
             lblOrgNameMsg.Visible = false; // set it so it never shows.. unless
             lblKitNumMsg.Visible = false;
             lblStnNumMsg.Visible = false;
+
+            tbKitNumber.Text = "";
+            tbKitNumber.Text = ""; 
 
             if (sn.Length < 1)
             {
