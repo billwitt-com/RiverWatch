@@ -13,9 +13,21 @@
     <asp:Panel ID="pnlInput" runat="server">
         <table style="width: 100%">
             <tr>
+                <td>
+
+                </td>
+                <td style="width: 109px">
+                    <asp:Label ID="Label6" runat="server" Text="Drainage: "></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlWatershed" runat="server"></asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+
                 <td style="width: 18px">&nbsp;<asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="18px" Text="  OR"></asp:Label>
                 </td>
-                <td   >
+                <td style="width: 109px"   >
                     <asp:Label ID="Label1" runat="server" Text="Station Name: "></asp:Label>
                 </td>
                 <td >
@@ -28,7 +40,7 @@
             <tr>
                 <td style="width: 18px">&nbsp;<asp:Label ID="Label3" runat="server" Font-Bold="True" Font-Size="18px" Text="  OR"></asp:Label>
                 </td>
-                <td style="width: 91px">
+                <td style="width: 109px">
                     <asp:Label ID="Label2" runat="server" Text="Station #: "></asp:Label>
                 </td>
                 <td style="width: 156px">

@@ -193,6 +193,7 @@
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditNutrientBarcode.aspx" />
+    <Content Include="Admin\EditNutrients.aspx" />
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
     <Content Include="Admin\EditWaterCodes.aspx" />
@@ -810,6 +811,13 @@
     </Compile>
     <Compile Include="Admin\EditNutrientBarcode.aspx.designer.cs">
       <DependentUpon>EditNutrientBarcode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditNutrients.aspx.cs">
+      <DependentUpon>EditNutrients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditNutrients.aspx.designer.cs">
+      <DependentUpon>EditNutrients.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditParticipants.aspx.cs">
       <DependentUpon>EditParticipants.aspx</DependentUpon>
@@ -1992,6 +2000,7 @@
     </Content>
     <EmbeddedResource Include="Reports\MailingLabels.rdlc" />
     <EmbeddedResource Include="Reports\OrgUnknownResults.rdlc" />
+    <EmbeddedResource Include="Reports\QAQCReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

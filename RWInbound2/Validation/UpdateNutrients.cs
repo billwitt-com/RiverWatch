@@ -57,9 +57,16 @@ namespace RWInbound2.Validation
                     BC.Reverse(); // put newest elements first
                     recordsProcessed = BC.Count;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    string e = ex.Message;
+                    string name = "";
+                    if (userName.Length < 3)
+                        name = "Not logged in";
+                    else
+                        name = userName;
+                    string msg = ex.Message;
+                    LogError LE = new LogError();
+                    LE.logError(msg, "Method UpdateNutrients", ex.StackTrace.ToString(), name, "Failed query for barcodes from lachat table ");
                 }
 
 
@@ -119,6 +126,7 @@ namespace RWInbound2.Validation
                         }
 
                         // build one nutrientdata row for each group of barcodes in lachat table.
+                        // added .value to item result
                         if (D != null)
                         {
                             foreach (var item in D) // there are multiple ROWS for a barcode in the lachat table, process each one
@@ -126,57 +134,56 @@ namespace RWInbound2.Validation
                                 switch (item.Parameter.ToUpper())
                                 {
                                     case "AMMONIA":
-                                        NData.Ammonia = item.Result;
+                                        NData.Ammonia = item.Result.Value;
 
                                         NData.Ammonia_CH = item.CONHI ?? false;  
                                         break;
 
                                     case "SULFATE":
-                                        NData.Sulfate = item.Result;
+                                        NData.Sulfate = item.Result.Value;
 
                                         NData.Sulfate_CH = item.CONHI ?? false; 
                                         break;
 
                                         // NITRATE-NITRITE
                                     case "NITRATE-NITRITE":
-                                        NData.NitrateNitrite = item.Result;
-
+                                        NData.NitrateNitrite = item.Result.Value;
                                         NData.NitrateNitrite_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "ORTHOPHOS":
-                                        NData.OrthoPhos = item.Result;
+                                        NData.OrthoPhos = item.Result.Value;
        
                                         NData.OrthoPhos_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "CHLORA":
-                                        NData.ChlorA = item.Result;
+                                        NData.ChlorA = item.Result.Value;
                                         NData.ChlorA_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "CHLORIDE":
-                                        NData.Chloride = item.Result;
+                                        NData.Chloride = item.Result.Value;
                                         NData.Chloride_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "DOC":
-                                        NData.DOC = item.Result;
+                                        NData.DOC = item.Result.Value;
                                         NData.DOC_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "TOTALNITRO":
-                                        NData.TotalNitro = item.Result;
+                                        NData.TotalNitro = item.Result.Value;
                                         NData.TotalNitro_CH = item.CONHI ?? false; 
                                         break;
                                     // Total Phosphorus
                                     case "TOTAL PHOSPHORUS":
-                                        NData.TotalPhos = item.Result;
+                                        NData.TotalPhos = item.Result.Value;
                                         NData.TotalPhos_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "TSS":
-                                        NData.TSS = item.Result;
+                                        NData.TSS = item.Result.Value;
                                         NData.TSS_CH = item.CONHI ?? false; 
                                         break;
 
@@ -269,10 +276,16 @@ namespace RWInbound2.Validation
                         {
                             recordsSaved = RWE.SaveChanges();
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
-                            string stop = "stop";
-
+                            string name = "";
+                            if (userName.Length < 3)
+                                name = "Not logged in";
+                            else
+                                name = userName;
+                            string msg = ex.Message;
+                            LogError LE = new LogError();
+                            LE.logError(msg, "Method UpdateNutrients", ex.StackTrace.ToString(), name, "Failed to save changes");
                         }
                         recordsProcessed++; 
                         //msg = string.Format("Finished writing {1} Lachat to nutrient Data at {0} ", DateTime.Now, recordsProcessed);

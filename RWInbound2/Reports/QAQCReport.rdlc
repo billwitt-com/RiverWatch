@@ -2117,8 +2117,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>2in</Height>
-    <Style />
+    <Height>8in</Height>
+    <Style>
+      <BackgroundColor>White</BackgroundColor>
+    </Style>
   </Body>
   <Width>28in</Width>
   <Page>
@@ -2126,7 +2128,9 @@
     <RightMargin>1in</RightMargin>
     <TopMargin>1in</TopMargin>
     <BottomMargin>1in</BottomMargin>
-    <Style />
+    <Style>
+      <BackgroundColor>White</BackgroundColor>
+    </Style>
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
