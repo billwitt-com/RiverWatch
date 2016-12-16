@@ -17,59 +17,62 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    string cmd = SqlDataSource1.SelectCommand;
-            //    if (Session["SELECTCOMMAND"] != null)
-            //    {
-            //        string selectcommand = (string)Session["SELECTCOMMAND"];
-            //        SqlDataSource1.SelectCommand = selectcommand;
-            //        GridView1.DataBind();
-            //    }           
-            //}
-            if( Session["KITNUMBER"] != null)
+            if (!IsPostBack)
             {
-                int LocaLkitNumber = (int)Session["KITNUMBER"];
-                int sampsToValidate = 0; 
-                try
-                {
-
-                    string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples  " +
-                         "  where InboundSamples.KitNum = {0}", LocaLkitNumber);
-
-                    using (SqlCommand cmd1 = new SqlCommand())
-                    {
-                        using (SqlConnection conn = new SqlConnection())
-                        {
-                            conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // RWE.Database.Connection.ConnectionString;
-                            conn.Open();
-                            cmd1.Connection = conn;
-                            cmd1.CommandText = cmdCount;
-                            sampsToValidate = (int)cmd1.ExecuteScalar();
-                        }
-                    }
-
-                    if (sampsToValidate == 0)
-                    {
-
-                        lblNumberLeft.Text = "There are NO records to View";
-                        return;
-                    }
-                    else
-                        lblNumberLeft.Text = string.Format("There are {0} samples to View", sampsToValidate);
-                }
-                catch (Exception ex)
-                {
-                    string nam = "";
-                    if (User.Identity.Name.Length < 3)
-                        nam = "Not logged in";
-                    else
-                        nam = User.Identity.Name;
-                    string msg = ex.Message;
-                    LogError LE = new LogError();
-                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-                }
+                GridView1.Visible = false;
+                GridView1.Enabled = false;
             }
+
+            string cmd = SqlDataSource1.SelectCommand;      // for debug
+            if (Session["SELECTCOMMAND"] != null)
+            {
+                string selectcommand = (string)Session["SELECTCOMMAND"];
+                SqlDataSource1.SelectCommand = selectcommand;
+                //  GridView1.DataBind();
+            }
+            //if( Session["KITNUMBER"] != null)
+            //{
+            //    int LocaLkitNumber = (int)Session["KITNUMBER"];
+            //    int sampsToValidate = 0; 
+            //    try
+            //    {
+
+            //        string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples  " +
+            //             "  where InboundSamples.KitNum = {0}", LocaLkitNumber);
+
+            //        using (SqlCommand cmd1 = new SqlCommand())
+            //        {
+            //            using (SqlConnection conn = new SqlConnection())
+            //            {
+            //                conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // RWE.Database.Connection.ConnectionString;
+            //                conn.Open();
+            //                cmd1.Connection = conn;
+            //                cmd1.CommandText = cmdCount;
+            //                sampsToValidate = (int)cmd1.ExecuteScalar();
+            //            }
+            //        }
+
+            //        if (sampsToValidate == 0)
+            //        {
+
+            //            lblNumberLeft.Text = "There are NO records to View";
+            //            return;
+            //        }
+            //        else
+            //            lblNumberLeft.Text = string.Format("There are {0} samples to View", sampsToValidate);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        string nam = "";
+            //        if (User.Identity.Name.Length < 3)
+            //            nam = "Not logged in";
+            //        else
+            //            nam = User.Identity.Name;
+            //        string msg = ex.Message;
+            //        LogError LE = new LogError();
+            //        LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            //    }
+            //}
         }
 
 
@@ -172,16 +175,21 @@ namespace RWInbound2.Admin
             // removed [RiverWatch].[dbo]. from query string
             try
             {
-               
                 sCommand = string.Format(" select *  FROM [InboundSamples] " +
-                    " where KitNum = {0} and valid = 1 order by date desc ", LocaLkitNumber);
+                " where KitNum = {0} order by date desc ", LocaLkitNumber);
+               
+                //sCommand = string.Format(" select *  FROM [InboundSamples] " +
+                //    " where KitNum = {0} and valid = 1 order by date desc ", LocaLkitNumber);
                 Session["SELECTCOMMAND"] = sCommand;
                 SqlDataSource1.SelectCommand = sCommand;
                 Session["COMMAND"] = sCommand;
                 tbKitNumber.Text = LocaLkitNumber.ToString();
                 tbOrgName.Text = orgName; // fill in for user
+                SqlDataSource1.SelectCommand = sCommand;
                 GridView1.Visible = true;
-                GridView1.DataBind();
+                GridView1.Enabled = true;
+                //GridView1.Visible = true;
+                //GridView1.DataBind();
 
             }
             catch (Exception ex)
@@ -230,82 +238,11 @@ namespace RWInbound2.Admin
                 string nam = "Web Method Validate Unknowns";
                 string msg = ex.Message;
                 LogError LE = new LogError();
-                LE.logError(msg, "validateField.aspx", ex.StackTrace.ToString(), nam, "Web Method, no reference to page");
+                LE.logError(msg, "Edit inbound Field.aspx", ex.StackTrace.ToString(), nam, "Web Method, no reference to page");
                 return orgs;
             }
         }
 
-        protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
-        {
-            //if(Session["SELECTCOMMAND"] != null)
-            //{
-            //    string selectcommand = (string)Session["SELECTCOMMAND"];
-            //    SqlDataSource1.SelectCommand = selectcommand;
-            //    GridView1.DataBind(); 
-            //}
-        }
-
-        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            if (Session["SELECTCOMMAND"] != null)
-            {
-                string selectcommand = (string)Session["SELECTCOMMAND"];
-             //   SqlDataSource1.SelectCommand = selectcommand;
-              //  GridView1.DataBind();
-            }
-        } 
-
-        protected void GridView1_RowDeleted(object sender, GridViewDeletedEventArgs e)
-        {
-            if (Session["SELECTCOMMAND"] != null)
-            {
-                //string selectcommand = (string)Session["SELECTCOMMAND"];
-                //SqlDataSource1.SelectCommand = selectcommand;
-              //  GridView1.DataBind();
-            }
-        }
-
-        protected void SqlDataSource1_Deleting(object sender, SqlDataSourceCommandEventArgs e)
-        {
-            string delCommand = SqlDataSource1.DeleteCommand; 
-
-           
-        }
-
-        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            string updateCmd = SqlDataSource1.UpdateCommand;
-            string selCommand = SqlDataSource1.SelectCommand; 
-
-        }
-
-        protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
-        {
-            string updateCmd = SqlDataSource1.UpdateCommand;
-            string selCommand = SqlDataSource1.SelectCommand; 
-        }
-
-        protected void SqlDataSource1_Updated(object sender, SqlDataSourceStatusEventArgs e)
-        {
-            string selCommand = SqlDataSource1.SelectCommand; 
-            if (Session["SELECTCOMMAND"] != null)
-            {
-                string selectcommand = (string)Session["SELECTCOMMAND"];
-           //     SqlDataSource1.SelectCommand = selectcommand;
-             //   GridView1.DataBind();
-            }
-        }
-
-        // this seems to work OK
-        protected void SqlDataSource1_Deleted(object sender, SqlDataSourceStatusEventArgs e)
-        {
-            string selCommand = SqlDataSource1.SelectCommand; 
-            if (Session["SELECTCOMMAND"] != null)
-            {
-                string selectcommand = (string)Session["SELECTCOMMAND"];
-          //      SqlDataSource1.SelectCommand = selectcommand;
-              //  GridView1.DataBind();
-            }
-        }
+      
     }
 }
