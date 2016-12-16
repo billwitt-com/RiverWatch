@@ -24,14 +24,30 @@ namespace RWInbound2.Admin
             // fill in drop down lists... Fun
             if(!IsPostBack)
             {
+                RiverWatchEntities RWE = new RiverWatchEntities();
                 Session["NEW"] = false; 
                 lblStatus.Visible = false;
             //    pnlTable.Visible = false; // hide for now     
-                loadDropDownLists(false);
+           //     loadDropDownLists(false);
                 lblNextStnNumber.Visible = false;
                 btnOK.Visible = false;
                 pnlTable.Visible = false;
 
+                // new 12/15/'16 bwitt added lookup table to make water code list smaller when renered as ddl 
+                var A1 = from a in RWE.WaterCodeDrainages
+                         where a.Valid == true
+                         select new
+                         {
+                             a.Description,
+                             a.Code,
+                         };
+
+                foreach (var a in A1)
+                {
+                    ListItem LI = new ListItem(a.Description, a.Code);
+                    ddlDrainage.Items.Add(LI);
+                }
+                ddlDrainage.Items.Insert(0, "Choose One"); 
             }
         }
         public void resetControls()
@@ -89,7 +105,18 @@ namespace RWInbound2.Admin
             Session["NEW"] = true;
             tbStationName.Focus();
             int nextStnNumber = 0;
-            int last = 0; 
+            int last = 0;
+
+            string drainage = "";
+            if (ddlDrainage.SelectedIndex == 0) // no choice yet
+            {
+                lblStatus.Text = "Please select a Drainage!";
+                lblStatus.Visible = true;
+                ddlDrainage.Focus();
+                return;
+            }
+            drainage = ddlDrainage.SelectedValue;
+            Session["DRAINAGE"] = drainage;
 
             try
             {
@@ -143,17 +170,17 @@ namespace RWInbound2.Admin
             string stationName = tbStationName.Text.Trim();
             Session["NEW"] = false;
             lblStatus.Visible = false; // hide until needed
-
-            string watershed = ""; 
-            if (ddlWatershed.SelectedIndex == 0) // no choice yet
+            
+            string drainage = "";
+            if (ddlDrainage.SelectedIndex == 0) // no choice yet
             {
-                lblStatus.Text = "Please select a Watershed!";
+                lblStatus.Text = "Please select a Drainage!";
                 lblStatus.Visible = true;
-                ddlWatershed.Focus();
+                ddlDrainage.Focus();
                 return; 
             }
-            watershed = ddlWatershed.SelectedValue;
-            Session["WATERSHED"] = watershed;
+            drainage = ddlDrainage.SelectedValue;
+            Session["DRAINAGE"] = drainage;
 
             if(stationName.Length < 2)
             {
@@ -162,9 +189,6 @@ namespace RWInbound2.Admin
                 tbStationName.Text = "";
                 return;
             }
-
-
-
 
             RiverWatchEntities NRWE = new RiverWatchEntities();
             try
@@ -185,6 +209,7 @@ namespace RWInbound2.Admin
                 }
                 pnlTable.Visible = true; 
                 populatePage(R.Value);
+                loadDropDownLists(false);
                 
             }
             catch (Exception ex)
@@ -206,16 +231,18 @@ namespace RWInbound2.Admin
             int stnNumber = 0;
             Session["NEW"] = false;
             lblStatus.Visible = false; // hide if not needed
-            string watershed = "";
-            if (ddlWatershed.SelectedIndex == 0) // no choice yet
+
+            string drainage = "";
+            if (ddlDrainage.SelectedIndex == 0) // no choice yet
             {
-                lblStatus.Text = "Please select a Watershed!";
+                lblStatus.Text = "Please select a Drainage!";
                 lblStatus.Visible = true;
-                ddlWatershed.Focus();
+                ddlDrainage.Focus();
                 return;
             }
-            watershed = ddlWatershed.SelectedValue;
-            Session["WATERSHED"] = watershed;
+            drainage = ddlDrainage.SelectedValue;
+            Session["DRAINAGE"] = drainage;
+
             try
             {
                 // scrape station number from form
@@ -243,6 +270,7 @@ namespace RWInbound2.Admin
 
               pnlTable.Visible = true;
               populatePage(stnNumber);
+              loadDropDownLists(false); 
             }
             catch (Exception ex)
             {
@@ -1400,6 +1428,8 @@ namespace RWInbound2.Admin
                 //                   where q.Valid == true
                 //                   select q.Code).ToList<string>();
 
+
+                ddlStationStatus.Items.Clear(); 
                 var l1 = (from q in NRWE.tlkStationStatus
                           where q.Valid == true
                           select new
@@ -1419,6 +1449,7 @@ namespace RWInbound2.Admin
                 }
 
                 //  ddlStationType
+                ddlStationType.Items.Clear();
                 var l2 = (from q in NRWE.tlkStationTypes
                           select new
                           {
@@ -1445,33 +1476,40 @@ namespace RWInbound2.Admin
                 //string msg1 = string.Format("Started loading ddlWaterCode at {0} ", DateTime.Now);
                 //LE1.logError(msg1, "Loading Dlls", "", "DEV", "Profiling");
 
-                if(Session["WATERSHED"] == null)
+             //   Session["DRAINAGE"] = drainage;
+                if (Session["DRAINAGE"] == null)
                 {
                     Response.Redirect("timedout.aspx"); 
                 }
-                string watershed = (string)Session["WATERSHED"];
-                List<string> wcList = new List<string>();
-                var l3 = (from q in NRWE.tblWatercodes
-                          where q.OBSOLETE != true 
-                          orderby q.WATERNAME
-                          select new
-                          {
-                              q.WATERNAME,
-                              q.WATERCODE,
-                              q.LOCATION
-                          }).AsEnumerable();
-                foreach (var x in l3)
-                {
-                    wcList.Add(x.WATERNAME + " - " + x.LOCATION + " : " + x.WATERCODE);
-                  //  wcList.Add(x.WATERNAME +  " : " + x.WATERCODE);
-                }
-                if (isNewStation)
-                {
-                    wcList.Insert(0, "null");
-                }
 
-                ddlWaterCode.DataSource = wcList;
-                ddlWaterCode.DataBind();
+                if (Session["DRAINAGE"] != null)
+                {
+                    string drainage = (string)Session["DRAINAGE"];
+                    List<string> wcList = new List<string>();
+                    ddlWaterCode.Items.Clear();
+                    var l3 = (from q in NRWE.tblWatercodes
+                              where q.OBSOLETE != true & q.DRAINAGE == drainage
+                              orderby q.WATERNAME
+                              select new
+                              {
+                                  q.WATERNAME,
+                                  q.WATERCODE,
+                                  q.LOCATION
+                              }).AsEnumerable();
+                    foreach (var x in l3)
+                    {
+                        wcList.Add(x.WATERNAME + " - " + x.LOCATION + " : " + x.WATERCODE);
+                        //  wcList.Add(x.WATERNAME +  " : " + x.WATERCODE);
+                    }
+                    if (isNewStation)
+                    {
+                        wcList.Insert(0, "null");
+                    }
+
+
+                    ddlWaterCode.DataSource = wcList;
+                    ddlWaterCode.DataBind();
+                }
                 //DateTime ET = DateTime.Now;
 
                 //TimeSpan TS = ET - ST; 
@@ -1480,6 +1518,7 @@ namespace RWInbound2.Admin
 
               //  // // ddlWaterBodyID
 
+                ddlWaterBodyID.Items.Clear(); 
                 List<string> wbid = new List<string>();
                 var l4 = (from q in NRWE.tblWBKeys
                           orderby q.WBID
@@ -1508,6 +1547,7 @@ namespace RWInbound2.Admin
                 ddlWaterBodyID.DataBind();
 
                 // ddlQUADI
+                ddlQUADI.Items.Clear();
                 var l5 = (from q in NRWE.tlkQUADIs
                           select new
                           {
@@ -1534,6 +1574,7 @@ namespace RWInbound2.Admin
 
                 // ddlTownship
 
+                ddlTownship.Items.Clear(); 
                 var l6 = (from q in NRWE.tlkTownships
                           select new
                           {
@@ -1560,7 +1601,7 @@ namespace RWInbound2.Admin
                 //ddlTownship.DataBind();
 
                 // ddlRange
-
+                ddlRange.Items.Clear();
                 var l9 = (from q in NRWE.tlkRanges
                           select new
                           {
@@ -1588,6 +1629,7 @@ namespace RWInbound2.Admin
 
 
                 // ddlQuarterSection
+                ddlQuarterSection.Items.Clear();
                 var l7 = (from q in NRWE.tlkQuarterSections
                           select new
                           {
@@ -1613,6 +1655,7 @@ namespace RWInbound2.Admin
                 //ddlQuarterSection.DataBind();
 
                 // ddlGrid
+                ddlGrid.Items.Clear(); 
                 var l8 = (from q in NRWE.tlkGrids
                           select new
                           {
@@ -1631,6 +1674,7 @@ namespace RWInbound2.Admin
                     ddlGrid.Items.Insert(0, LI);
                 }
 
+                ddlRWWaterShed.Items.Clear();
                 var l10 = (from q in NRWE.tlkRiverWatchWaterSheds
                            orderby q.Code
                            select new
@@ -1653,6 +1697,7 @@ namespace RWInbound2.Admin
 
 
                 //ddlWQCCWaterShed
+                ddlWQCCWaterShed.Items.Clear();
                 var l11 = (from q in NRWE.tlkWQCCWaterSheds
                            orderby q.Description
                            select new
@@ -1674,7 +1719,7 @@ namespace RWInbound2.Admin
                 //ddlWQCCWaterShed.DataBind();
 
                 //ddlState
-
+                ddlState.Items.Clear(); 
                 var l12 = (from q in NRWE.tlkStates
                            where q.Description.ToUpper() != "COLORADO"
                            orderby q.Description
@@ -1700,7 +1745,7 @@ namespace RWInbound2.Admin
                 //ddlState.Items.Insert(0, "COLORADO");
 
                 //ddlHydroUnit
-
+                ddlHydroUnit.Items.Clear();
                 var l13 = (from q in NRWE.tlkHydroUnits
                            orderby q.Description
                            select new
@@ -1727,6 +1772,7 @@ namespace RWInbound2.Admin
                 //ddlHydroUnit.DataBind();
 
                 //ddlEcoRegion
+                ddlEcoRegion.Items.Clear();
                 var l14 = (from q in NRWE.tlkEcoRegions
                            orderby q.Description
                            select new
@@ -1750,7 +1796,7 @@ namespace RWInbound2.Admin
                 //ddlEcoRegion.DataBind(); 
 
                 // ddlSection
-
+                ddlSection.Items.Clear();
                 var l15 = (from q in NRWE.tlkSection
                            orderby q.Description
                            select new
@@ -1776,7 +1822,7 @@ namespace RWInbound2.Admin
                 //ddlSection.DataBind();
 
                 // ddlRange
-
+                ddlRange.Items.Clear();
                 var l16 = (from q in NRWE.tlkRanges
                            orderby q.Description
                            select new
@@ -1803,7 +1849,7 @@ namespace RWInbound2.Admin
                 //ddlRange.DataBind();
 
                 //ddlCounty
-
+                ddlCounty.Items.Clear();
                 var l17 = (from q in NRWE.tlkCounties
                            orderby q.Description
                            select new
@@ -1831,7 +1877,7 @@ namespace RWInbound2.Admin
                 //ddlCounty.DataBind();
 
                 //ddlWSR
-
+                ddlWSR.Items.Clear();
                 var l18 = (from q in NRWE.tlkWSRs
                            orderby q.Description
                            select new
@@ -1858,7 +1904,7 @@ namespace RWInbound2.Admin
                 //ddlWSR.DataBind();
 
                 //ddlRegion
-
+                ddlRegion.Items.Clear();
                 var l19 = (from q in NRWE.tlkregions
                            orderby q.Description
                            select new
@@ -1884,7 +1930,7 @@ namespace RWInbound2.Admin
                 //ddlRegion.DataBind();
 
                 //ddlStationQUAD
-
+                ddlStationQUAD.Items.Clear();
                 var l20 = (from q in NRWE.tlkStationQUADs
                            orderby q.Description
                            select new
@@ -1908,7 +1954,7 @@ namespace RWInbound2.Admin
                 //                    select q.Description).ToList<string>();
                 //ddlStationQUAD.DataSource = l20;
                 //ddlStationQUAD.DataBind();
-
+                ddlRiver.Items.Clear();
                 List<string> l21 = (from q in NRWE.Stations
                                     orderby q.River
                                     where q.River != null
