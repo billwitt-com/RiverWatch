@@ -354,9 +354,7 @@
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
-    <EmbeddedResource Include="Reports\QAQCReport.aspx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Content Include="Reports\QAQCReport.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="OLDfavicon.ico" />
@@ -367,9 +365,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Edit\Web.config" />
-    <EmbeddedResource Include="Reports\QAQCReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -1954,6 +1949,9 @@
     <Compile Include="View_Models\ParticipantsViewModel.cs" />
     <Compile Include="View_Models\ProjectStationViewModel.cs" />
     <Compile Include="View_Models\tblWBKeyViewModel.cs" />
+    <Compile Include="WaterCodeDrainage.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

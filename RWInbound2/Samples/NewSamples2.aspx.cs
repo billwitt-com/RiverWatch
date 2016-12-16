@@ -940,7 +940,10 @@ namespace RWInbound2.Samples
                      LogError LE = new LogError();
                      LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                  }
-                 populateInboundSamplesList(kitNumber, stnID);
+
+                 // incorrect we need station nummber not id
+                // populateInboundSamplesList(kitNumber, stnID);
+                 populateInboundSamplesList(kitNumber, stationNumber);
              }
         }
 
@@ -1049,7 +1052,7 @@ namespace RWInbound2.Samples
 
         // user chose an item from the list of inboundsamples that had kit and station numbers
         // XXXX if we have time, change data type from long? to string. at sampNumber
-        // XXXX we have not accepted this inbound sample yet, so hid tabs and make user
+        // XXXX we have not accepted this inbound sample yet, so hide tabs and make user
         // use the create button
 
 
