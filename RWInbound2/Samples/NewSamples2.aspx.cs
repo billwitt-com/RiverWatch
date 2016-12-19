@@ -1526,7 +1526,7 @@ namespace RWInbound2.Samples
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "MG"
                               select z.Reporting.Value).FirstOrDefault();
-                INB.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
+                INB.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Dissolved_Dups 
                 INB.MG_T = (decimal)INB.MG_D - (decimal)RAND.NextDouble() + .5m;
 
                 OR.MG_D = INB.MG_D;
@@ -1572,7 +1572,7 @@ namespace RWInbound2.Samples
                               where z.Element.ToUpper() == "ZN"
                               select z.Reporting.Value).FirstOrDefault();
 
-                INB.ZN_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
+                INB.ZN_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Dissolved_Dups 
                 INB.ZN_T = (decimal)INB.ZN_D - .5m;
 
                 OR.ZN_D = INB.ZN_D;

@@ -387,7 +387,6 @@
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
-    <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\Samples.aspx" />
     <Content Include="Reports\Stations.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
@@ -1622,13 +1621,6 @@
     </Compile>
     <Compile Include="Sample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FormViewOrgStatus.aspx.cs">
-      <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FormViewOrgStatus.aspx.designer.cs">
-      <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="SamplesView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>

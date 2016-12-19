@@ -224,19 +224,19 @@ namespace RWInbound2.Validation
 
                 // do one time from postback
 
-                if (Session["CONTROLSSET"] != null)
-                {
-                    controlsSet = (bool)Session["CONTROLSSET"];
-                    if (!controlsSet)
-                    {
-                        setControls();      // update color schemes
-                        Session["CONTROLSSET"] = true;
-                    }
-                }
-                else
-                {
-                    string whoknew = "";
-                }
+                //if (Session["CONTROLSSET"] != null)
+                //{
+                //    controlsSet = (bool)Session["CONTROLSSET"];
+                //    if (!controlsSet)
+                //    {
+                //        setControls();      // update color schemes
+                //        Session["CONTROLSSET"] = true;
+                //    }
+                //}
+                //else
+                //{
+                //    string whoknew = "";
+                //}
             }
         }
 
@@ -288,13 +288,17 @@ namespace RWInbound2.Validation
             string codeTextBoxName;
             string dupTextBoxName;
             decimal Total_Dups;
-            decimal Disolved_Dups;
-            decimal Total_Normals;
-            decimal Disolved_Normals; 
+            decimal Dissolved_Dups = 0; ;
+            decimal Total_Normals = 0;
+            decimal Dissolved_Normals = 0; 
             //   string DupsUniqueID = FormViewBlank.Controls[0].UniqueID; // CC[0].UniqueID;   // get the whole name as made up by ASP web page
             lblNote.Text = "";
             lblNote.ForeColor = Color.White;
             int pageWeAreOn = 0;
+            bool isThereANormal = false;
+            string DupsUniqueID = "";
+            string NormalsUniqueID = "";
+            string Normalbarcode = "";
 
             if (Session["OURTABLE"] == null)
                 return;
@@ -307,33 +311,54 @@ namespace RWInbound2.Validation
             // **** moved from formview data bind            
             DataTable DT = (DataTable)Session["OURTABLE"];
 
-            int idx = FormViewDup.PageIndex;
-            //  int id = (int)DT.Rows[idx]["tblSampleID"];
-            string barcode = (string)DT.Rows[idx]["NormalBarCode"];
+            pageWeAreOn = FormViewDup.PageIndex;
+            isThereANormal = (bool)DT.Rows[pageWeAreOn]["isNormalHere"];
 
-            // removed [Riverwatch].[dbo].
-            if (barcode.Length > 4)
+            //if (isThereANormal)
+            //{
+            //    lblNote.Text = "";
+            //    lblNote.Visible = false;
+            //    Normalbarcode = (string)DT.Rows[pageWeAreOn]["NormalBarCode"];
+            //    NormalsUniqueID = FormViewSample.Controls[0].UniqueID; 
+            //    // commented out 12/16
+            //    if (Normalbarcode.Length > 4)
+            //    {
+            //        // build query to get associated normal
+            //        //string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", Normalbarcode);
+            //        ////           string cmmd = string.Format("SELECT * FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where Code = '{0}'", barcode);
+            //        //SqlDataSourceNormals.SelectCommand = cmmd;
+            //        //FormViewSample.DataBind();
+            //        //FormViewSample.Visible = true;
+            //    }
+            //    else
+            //    {
+            //        lblNote.Text = "No Normal Sample";
+            //        lblNote.Visible = true;
+            //        lblNote.ForeColor = Color.Red;
+            //        FormViewSample.Visible = false; // nothing to show as no normal sample
+            //    }
+            //}
+            //else
+            //{
+            //    FormViewSample.Visible = false; // nothing to show as no normal sample
+            //}
+
+            if(!isThereANormal)
             {
-                // build query to get associated normal
-                string cmmd = string.Format("SELECT * FROM [InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
-                //           string cmmd = string.Format("SELECT * FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where Code = '{0}'", barcode);
-                //SqlDataSourceNormals.SelectCommand = cmmd;
-                //FormViewSample.DataBind();
-                FormViewSample.Visible = true;
+                lblNote.Text = "No Matching Normal Sample";
+                lblNote.Visible = true;
+                lblNote.ForeColor = Color.Red;
+                FormViewSample.Visible = false; // nothing to show as no normal sample
             }
             else
             {
-                FormViewSample.Visible = false; // nothing to show as no normal sample
+                lblNote.Visible = false;
             }
-
-            // **** end of transplanted code
             
-         //   DataTable DT = (DataTable)Session["OURTABLE"];
-
-            string DupsUniqueID = FormViewDup.Controls[0].UniqueID;
-            string NormalsUniqueID = FormViewSample.Controls[0].UniqueID; 
+            DupsUniqueID = FormViewDup.Controls[0].UniqueID;
+            NormalsUniqueID = FormViewSample.Controls[0].UniqueID; 
             // get barcode for this page as it is unique
-            codeTextBoxName = DupsUniqueID + "$" + "tbCode"; // get the text box off the page
+            codeTextBoxName = DupsUniqueID + "$" + "tbCode"; // get the BAR CODE text box off the page
             TextBox CTB = this.FindControl(codeTextBoxName) as TextBox;
             barCode = CTB.Text;
 
@@ -345,28 +370,33 @@ namespace RWInbound2.Validation
             // search datatable for this barcode and the isNormalHere 
             int count = DT.Rows.Count;
 
-            pageWeAreOn = FormViewDup.PageIndex;
-            bool isThereANormal = (bool)DT.Rows[pageWeAreOn]["isNormalHere"];
-            if (isThereANormal)
-            {
-                lblNote.Text = "";
-                lblNote.Visible = false;
-            }
-            else
-            {
-                lblNote.Text = "No Normal Sample";
-                lblNote.Visible = true;
-                lblNote.ForeColor = Color.Red;
-            }
-
             // process each metals data row to see if it falls out of 'specs' 
             foreach (string item in D2TLimits.Keys)
             {
                 tbDups_DName = DupsUniqueID + "$" + item + "_DTextBox";  // use the key value to build the name of the text box to be processed
                 tbDups_TName = DupsUniqueID + "$" + item + "_TTextBox";
 
-                tbNormals_DName = NormalsUniqueID + "$" + item + "_DTextBox";  // use the key value to build the name of the text box to be processed
-                tbNormals_TName = NormalsUniqueID + "$" + item + "_TTextBox";
+                if (isThereANormal)
+                {
+                    tbNormals_DName = NormalsUniqueID + "$" + item + "_DTextBox";  // use the key value to build the name of the text box to be processed
+                    tbNormals_TName = NormalsUniqueID + "$" + item + "_TTextBox";
+                    tbNormals_D = this.FindControl(tbNormals_DName) as TextBox;
+                    tbNormals_T = this.FindControl(tbNormals_TName) as TextBox;
+                    if (tbNormals_D == null)
+                    {
+                        break; // nothing to do here.. 
+                    }
+
+                    if (!decimal.TryParse(tbNormals_T.Text, out Total_Normals))
+                    {
+                        Total_Normals = 0;
+                    }
+
+                    if (!decimal.TryParse(tbNormals_D.Text, out Dissolved_Normals))
+                    {
+                        Dissolved_Normals = 0;
+                    }
+                }
 
                 D2Tlimit = D2TLimits[item];
 
@@ -378,68 +408,57 @@ namespace RWInbound2.Validation
                     Total_Dups = 0;
                 }
 
-                if (!decimal.TryParse(tbDups_D.Text, out Disolved_Dups))
+                if (!decimal.TryParse(tbDups_D.Text, out Dissolved_Dups))
                 {
-                    Disolved_Dups = 0;
+                    Dissolved_Dups = 0;
                 }
-
-                tbNormals_D = this.FindControl(tbNormals_DName) as TextBox;
-                tbNormals_T = this.FindControl(tbNormals_TName) as TextBox;
-
-                if (!decimal.TryParse(tbNormals_T.Text, out Total_Normals))
-                {
-                    Total_Normals = 0;
-                }
-
-                if (!decimal.TryParse(tbNormals_D.Text, out Disolved_Normals))
-                {
-                    Disolved_Normals = 0;
-                }
-
 
                 // see if the difference between the two is greater than the D2Tlimit
-                if ((Disolved_Dups - Total_Dups) >= D2Tlimit)
+                if ((Dissolved_Dups - Total_Dups) >= D2Tlimit)
                 {
                     tbDups_D.BackColor = Color.PowderBlue;
-                    tbDups_D.ToolTip = string.Format("Disolved - Total is greater than limit of {0}", D2Tlimit);
+                    tbDups_D.ToolTip = string.Format("Dissolved - Total is greater than limit of {0}", D2Tlimit);
                     tbDups_T.BackColor = Color.PowderBlue;
-                    tbDups_T.ToolTip = string.Format("Disolved - Total is greater than limit of {0}", D2Tlimit);
+                    tbDups_T.ToolTip = string.Format("Total - Total is greater than limit of {0}", D2Tlimit);
                 }
                 else
                 {
                     tbDups_D.BackColor = Color.White;
                     tbDups_T.BackColor = Color.White;
-                    tbDups_D.ToolTip = string.Format("Disolved - Total is less than limit of {0}", D2Tlimit);
-                    tbDups_T.ToolTip = string.Format("Disolved - Total is less than limit of {0}", D2Tlimit);
+                    tbDups_D.ToolTip = string.Format("Dissolved - Total is less than limit of {0}", D2Tlimit);
+                    tbDups_T.ToolTip = string.Format("Total - Total is less than limit of {0}", D2Tlimit);
                 }
 
                 // now check for samples to be within range
-                if (Total_Dups >= .0001m)    // make sure this is not too close to 0 as it may be 0
+                if (isThereANormal)
                 {
-                    if (((Total_Normals / Total_Dups) > 1.2m) | ((Total_Normals / Total_Dups) < 0.80m))
+                    if (Total_Dups >= .0001m)    // make sure this is not too close to 0 as it may be 0
                     {
-                        tbDups_T.ForeColor = Color.Red;
-                        tbDups_T.ToolTip = string.Format("Totals differ by more than 120% or less than 80%");
+                        if (((Total_Normals / Total_Dups) > 1.2m) | ((Total_Normals / Total_Dups) < 0.80m))
+                        {
+                            tbDups_T.ForeColor = Color.Red;
+                            tbDups_T.ToolTip = string.Format("Totals differ by more than 120% or less than 80%");
+                        }
+                        else
+                        {
+                            tbDups_T.ForeColor = Color.Black;
+                            tbDups_T.ToolTip = string.Format("Totals are within range of 80% - 120%");
+                        }
                     }
-                    else
-                    {
-                        tbDups_T.ForeColor = Color.Black;
-                        tbDups_T.ToolTip = string.Format("Totals are within range of 80% - 120%");
-                    }
-                }
 
-                if (Disolved_Dups >= .0001m)
-                {
-                    if (((Disolved_Normals / Disolved_Dups) > 1.2m) | ((Disolved_Normals / Disolved_Dups) < 0.80m))
+                    if (Dissolved_Dups >= .0001m)
                     {
+                        if (((Dissolved_Normals / Dissolved_Dups) > 1.2m) | ((Dissolved_Normals / Dissolved_Dups) < 0.80m))
+                        {
 
-                        tbDups_D.ForeColor = Color.Red;
-                        tbDups_D.ToolTip = string.Format("Disolveds differ by more than 120% or less than 80%");
-                    }
-                    else
-                    {
-                        tbDups_D.ForeColor = Color.Black;
-                        tbDups_D.ToolTip = string.Format("Disolveds are within range of 80% - 120%");
+                            tbDups_D.ForeColor = Color.Red;
+                            tbDups_D.ToolTip = string.Format("Dissolveds differ by more than 120% or less than 80%");
+                        }
+                        else
+                        {
+                            tbDups_D.ForeColor = Color.Black;
+                            tbDups_D.ToolTip = string.Format("Dissolveds are within range of 80% - 120%");
+                        }
                     }
                 }
             }
@@ -462,28 +481,29 @@ namespace RWInbound2.Validation
         // ez
         protected void FormViewDup_DataBound(object sender, EventArgs e)
         {
-     //       if (Session["OURTABLE"] == null)
-     //           return; 
+            // XXXX undid this as we need to update only one time, when formview loads
+            if (Session["OURTABLE"] == null)
+                return;
 
-     //       DataTable DT = (DataTable)Session["OURTABLE"];
+            DataTable DT = (DataTable)Session["OURTABLE"];
 
-     //       int idx = FormViewDup.PageIndex;
-     //     //  int id = (int)DT.Rows[idx]["tblSampleID"];
-     //       string barcode = (string)DT.Rows[idx]["NormalBarCode"];  
+            int idx = FormViewDup.PageIndex;
+            //  int id = (int)DT.Rows[idx]["tblSampleID"];
+            string barcode = (string)DT.Rows[idx]["NormalBarCode"];
 
-     //       if (barcode.Length > 4)
-     //       {
-     //           // build query to get associated normal
-     //           string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
-     ////           string cmmd = string.Format("SELECT * FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where Code = '{0}'", barcode);
-     //           SqlDataSourceNormals.SelectCommand = cmmd;
-     //           FormViewSample.DataBind();
-     //           FormViewSample.Visible = true;
-     //       }
-     //       else
-     //       {
-     //           FormViewSample.Visible = false; // nothing to show as no normal sample
-     //       }
+            if (barcode.Length > 4)
+            {
+                // build query to get associated normal
+                string cmmd = string.Format("SELECT * FROM [Riverwatch].[dbo].[InboundICPFinal] where Code = '{0}'  and valid = 1 and saved = 0 ", barcode);
+                //           string cmmd = string.Format("SELECT * FROM [dbRiverwatchWaterData].[dbo].[tblInboundICP] where Code = '{0}'", barcode);
+                SqlDataSourceNormals.SelectCommand = cmmd;
+                FormViewSample.DataBind();
+                FormViewSample.Visible = true;
+            }
+            else
+            {
+                FormViewSample.Visible = false; // nothing to show as no normal sample
+            }
             setControls(); // update color schemes
         }
 
@@ -504,7 +524,7 @@ namespace RWInbound2.Validation
 
         }
 
-        // user has edited (or just accepts) the blank and now we will save it to table
+        // user has edited (or just accepts) the DUP and now we will save it to table
         // must update page as there will one fewer blanks to process
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
@@ -541,7 +561,7 @@ namespace RWInbound2.Validation
 
             string barCode = CTB.Text;
 
-            string sampleType = uniqueID + "$" + "tbType";
+            string sampleType = uniqueID + "$" + "tbType";  // bound to 'duplicate' 
             TextBox ST = this.FindControl(sampleType) as TextBox;
             string typeCode = ST.Text.Trim();
 
@@ -558,7 +578,6 @@ namespace RWInbound2.Validation
                 isbad = true;
             else
                 isbad = false;
-
 
             // XXXX check to see if a record already exists, it may if field data was entered first.... 
             // will create a method for this, I think, so we can reuse
@@ -645,8 +664,7 @@ namespace RWInbound2.Validation
                         NEW.OrganizationName = "";
                         NEW.orgN = null;
                         NEW.PH = null;
-                        NEW.PHEN_ALK = null;
- 
+                        NEW.PHEN_ALK = null; 
 
                         NEW.SampleDate = ts.DateCollected; // this is date part only, no time and may be junk XXXX
                         if (ts.TimeCollected.Value.Year > 1970)  // likely a real value - otherwise, leave blank

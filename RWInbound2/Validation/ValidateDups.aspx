@@ -211,11 +211,11 @@
                         SampleID:
                         <asp:TextBox ID="tblSampleIDTextBox"  ReadOnly="true" runat="server" Text='<%# Bind("tblSampleID") %>' />
                         <br />
-                     <%--   <asp:Button ID="Button1" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />--%>
-                        <asp:Button ID="NormalUpdateButton"  runat="server" CssClass="adminButton" CausesValidation="True" CommandName="Update" Text="Accept" />
+                        <asp:Button ID="UpdateButton" CssClass="adminButton" runat="server" CausesValidation="True" OnClick="UpdateButton_Click"  Text="Accept" />
+                       
                        <asp:Button ID="btnBadNormal" Width="80px" runat="server" CssClass="adminButton"  OnClick="btnBadNormal_Click" CausesValidation="True" Text="BAD" />
 
-<%--                        &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
+<%--                       &nbsp;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />--%>
                     </EditItemTemplate>
                 </asp:FormView>
 
@@ -432,15 +432,16 @@
     </asp:SqlDataSource>
 
     <asp:SqlDataSource ID="SqlDataSourceDups" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDev %>"
-        DeleteCommand="DELETE FROM [tblInboundICP] WHERE [inbICPID] = @inbICPID"
-        InsertCommand="INSERT INTO [tblInboundICP] ([CODE], [DUPLICATE], [AL_D], [AL_T], [AS_D], [AS_T], [CA_D], [CA_T], [CD_D], [CD_T], [CU_D], [CU_T], [FE_D], [FE_T], [PB_D], [PB_T], [MG_D], [MG_T], [MN_D], [MN_T], [SE_D], [SE_T], [ZN_D], [ZN_T], [NA_D], [NA_T], [K_D], [K_T], [ANADATE], [COMPLETE], [DATE_SENT], [Comments], [PassValStep], [Reviewed], [FailedChems], [tblSampleID]) VALUES (@CODE, @DUPLICATE, @AL_D, @AL_T, @AS_D, @AS_T, @CA_D, @CA_T, @CD_D, @CD_T, @CU_D, @CU_T, @FE_D, @FE_T, @PB_D, @PB_T, @MG_D, @MG_T, @MN_D, @MN_T, @SE_D, @SE_T, @ZN_D, @ZN_T, @NA_D, @NA_T, @K_D, @K_T, @ANADATE, @COMPLETE, @DATE_SENT, @Comments, @PassValStep, @Reviewed, @FailedChems, @tblSampleID)"
-        UpdateCommand="UPDATE [tblInboundICP] SET [CODE] = @CODE, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, [NA_D] = @NA_D, [NA_T] = @NA_T, [K_D] = @K_D, [K_T] = @K_T, [ANADATE] = @ANADATE, [COMPLETE] = @COMPLETE, [DATE_SENT] = @DATE_SENT, [Comments] = @Comments, [PassValStep] = @PassValStep, [Reviewed] = @Reviewed, [FailedChems] = @FailedChems, [tblSampleID] = @tblSampleID WHERE [inbICPID] = @inbICPID">
-        <DeleteParameters>
-            <asp:Parameter Name="inbICPID" Type="Int32" />
-        </DeleteParameters>
-
+        UpdateCommand="UPDATE [InboundICPFinal] SET [CODE] = @CODE, [tblSampleID] = @tblSampleID, [DUPLICATE] = @DUPLICATE, [AL_D] = @AL_D, [AL_T] = @AL_T, 
+        [AS_D] = @AS_D, [AS_T] = @AS_T, [CA_D] = @CA_D, [CA_T] = @CA_T, [CD_D] = @CD_D, [CD_T] = @CD_T, [CU_D] = @CU_D, [CU_T] = @CU_T, [FE_D] = @FE_D, [FE_T] = @FE_T, 
+        [PB_D] = @PB_D, [PB_T] = @PB_T, [MG_D] = @MG_D, [MG_T] = @MG_T, [MN_D] = @MN_D, [MN_T] = @MN_T, [SE_D] = @SE_D, [SE_T] = @SE_T, [ZN_D] = @ZN_D, [ZN_T] = @ZN_T, 
+        [NA_D] = @NA_D, [NA_T] = @NA_T, [K_D] = @K_D, [K_T] = @K_T, [ANADATE] = @ANADATE, [COMPLETE] = @COMPLETE, [DATE_SENT] = @DATE_SENT, [Comments] = @Comments       
+        WHERE [ID] = @ID">
+<%-- we fill these in in code  [CreatedBy] = @CreatedBy, [CreatedDate] = @CreatedDate, [Valid] = @Valid, [Edited] = @Edited, [Saved] = @Saved --%>
+       
         <UpdateParameters>
             <asp:Parameter Name="CODE" Type="String" />
+            <asp:Parameter Name="tblSampleID" Type="Int32" />
             <asp:Parameter Name="DUPLICATE" Type="String" />
             <asp:Parameter Name="AL_D" Type="Decimal" />
             <asp:Parameter Name="AL_T" Type="Decimal" />
@@ -472,11 +473,12 @@
             <asp:Parameter Name="COMPLETE" Type="Boolean" />
             <asp:Parameter Name="DATE_SENT" Type="DateTime" />
             <asp:Parameter Name="Comments" Type="String" />
-            <asp:Parameter Name="PassValStep" Type="Decimal" />
-            <asp:Parameter Name="Reviewed" Type="Boolean" />
-            <asp:Parameter Name="FailedChems" Type="String" />
-            <asp:Parameter Name="tblSampleID" Type="Int32" />
-            <asp:Parameter Name="inbICPID" Type="Int32" />
+            <asp:Parameter Name="CreatedBy" Type="String" />
+            <asp:Parameter Name="CreatedDate" Type="DateTime" />
+            <asp:Parameter Name="Valid" Type="Boolean" />
+            <asp:Parameter Name="Edited" Type="Boolean" />
+            <asp:Parameter Name="Saved" Type="Boolean" />
+            <asp:Parameter Name="ID" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
 
