@@ -426,18 +426,6 @@ namespace RWInbound2.Validation
             int count = DT.Rows.Count;
 
             pageWeAreOn  = FormViewBlank.PageIndex;
-            bool isThereANormal = (bool)DT.Rows[pageWeAreOn]["isNormalHere"];
-            if (isThereANormal)
-            {
-                lblNote.Text = "";
-                lblNote.Visible = false;                  
-            }
-            else
-            {
-                lblNote.Text = "No Normal Sample";
-                lblNote.Visible = true;
-                lblNote.ForeColor = Color.Red; 
-            }
 
             bool isThereDup = (bool)DT.Rows[pageWeAreOn]["isDuplicateHere"];
             if (isThereDup)
@@ -451,6 +439,18 @@ namespace RWInbound2.Validation
                 lblNote.Visible = true;
                 lblNote.ForeColor = Color.Red;
             }
+            bool isThereANormal = (bool)DT.Rows[pageWeAreOn]["isNormalHere"];
+            if (isThereANormal)
+            {
+                lblNote.Text = "";
+                lblNote.Visible = false;                  
+            }
+            else
+            {
+                lblNote.Text = "No Normal Sample";
+                lblNote.Visible = true;
+                lblNote.ForeColor = Color.Red; 
+            }            
 
             // process each metals data row to see if it falls out of 'specs' 
             foreach (string item in D2TLimits.Keys)
@@ -494,26 +494,28 @@ namespace RWInbound2.Validation
                 {
                     // use item from this loop to find limit for this comparison
                     MeasureLimit = MeasurementLimits[item];
+                    tbT.ToolTip = "";
+                    tbD.ToolTip = "";
 
                     if (Total > (MeasureLimit))
                     {
                         tbT.ForeColor = Color.Black;
-                        tbT.ToolTip += string.Format("Total is greater than limit of {0}", MeasureLimit); // this is good
+                        tbT.ToolTip += string.Format(" Total is greater than MDL of {0}", MeasureLimit); // this is good
                     }
                     else
                     {
                         tbT.ForeColor = Color.Red;
-                        tbT.ToolTip += string.Format("Total is under limit of {0}", MeasureLimit); 
+                        tbT.ToolTip += string.Format(" Total is under MDL of {0}", MeasureLimit); 
                     }
                     if (Disolved > (MeasureLimit))
                     {
                         tbD.ForeColor = Color.Black;
-                        tbD.ToolTip += string.Format("Dissolved is greater than limit of {0}", MeasureLimit); 
+                        tbD.ToolTip += string.Format(" Dissolved is greater than MDL of {0}", MeasureLimit); 
                     }
                     else
                     {
                         tbD.ForeColor = Color.Red; 
-                        tbD.ToolTip += string.Format("Dissolved is under limit of {0}", MeasureLimit); 
+                        tbD.ToolTip += string.Format(" Dissolved is under MDL of {0}", MeasureLimit); 
                     }
                 }
             }
