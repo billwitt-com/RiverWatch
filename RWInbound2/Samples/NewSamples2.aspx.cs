@@ -1174,18 +1174,19 @@ namespace RWInbound2.Samples
             bool duplicate = true;
             string typ = "";
 
+
             // check to see if barcode is in use, if so, warn user and return to page
 
             var query = from q in NRWDE.MetalBarCodes
-                        where q.LabID.ToUpper() == barcode
+                        where q.LabID.ToUpper() == barcode 
                         select q;
 
             if (query.Count() > 0)   // code in use
             {
                 // lblCodeInUse
-                lblBarcodeUsed.Text = "NOT SAVED !! CODE IN USE!";
+                lblBarcodeUsed.Text = string.Format("Barcode: {0} NOT SAVED - IN USE!", barcode);
                 lblBarcodeUsed.ForeColor = System.Drawing.Color.Red;
-                lblCodeInUse.Text = "NOT SAVED !! CODE IN USE!";
+                lblCodeInUse.Text = lblBarcodeUsed.Text; // "NOT SAVED !! CODE IN USE!";
                 lblCodeInUse.ForeColor = System.Drawing.Color.Red;
                 return;
             }
@@ -1364,14 +1365,16 @@ namespace RWInbound2.Samples
         {
             // scrape table
             string barcode = tbBarcode.Text.Trim().ToUpper();
+           // string type = rbListSampleTypes.SelectedValue; // get user choice for type
+
             var query = from q in NRWDE.MetalBarCodes
-                        where q.LabID.ToUpper() == barcode
+                        where q.LabID.ToUpper() == barcode // & q.Code == type.Substring(0, 2)
                         select q;
 
             if (query.Count() > 0)   // code in use
             {
                 // lblCodeInUse
-                lblBarcodeUsed.Text = "CODE IN USE!";
+                lblBarcodeUsed.Text = string.Format("Barcode: {0} IN USE!", barcode);
                 lblBarcodeUsed.ForeColor = System.Drawing.Color.Red;
                 lblCodeInUse.Text = "";
             }
