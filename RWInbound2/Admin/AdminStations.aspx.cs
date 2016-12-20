@@ -1275,7 +1275,6 @@ namespace RWInbound2.Admin
                     STN.WaterBodyID = tmpString.Trim(); // ddlWaterBodyID.SelectedValue;
                 }
 
-
                 idx = 0;
                 tmpString = ""; // just in case... 
 
@@ -1564,6 +1563,7 @@ namespace RWInbound2.Admin
                 {
                     ListItem LI = new ListItem("null");
                     ddlQUADI.Items.Insert(0, LI);
+                    ddlQUADI.BackColor = System.Drawing.Color.White; 
                 }
 
                 //                   orderby q.Description
