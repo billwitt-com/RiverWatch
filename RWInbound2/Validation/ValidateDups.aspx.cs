@@ -419,14 +419,14 @@ namespace RWInbound2.Validation
                     tbDups_D.BackColor = Color.PowderBlue;
                     tbDups_D.ToolTip = string.Format("Dissolved - Total is greater than limit of {0}", D2Tlimit);
                     tbDups_T.BackColor = Color.PowderBlue;
-                    tbDups_T.ToolTip = string.Format("Total - Total is greater than limit of {0}", D2Tlimit);
+                    tbDups_T.ToolTip = string.Format("Dissolved - Total is greater than limit of {0}", D2Tlimit);
                 }
                 else
                 {
                     tbDups_D.BackColor = Color.White;
                     tbDups_T.BackColor = Color.White;
                     tbDups_D.ToolTip = string.Format("Dissolved - Total is less than limit of {0}", D2Tlimit);
-                    tbDups_T.ToolTip = string.Format("Total - Total is less than limit of {0}", D2Tlimit);
+                    tbDups_T.ToolTip = string.Format("Dissolved - Total is less than limit of {0}", D2Tlimit);
                 }
 
                 // now check for samples to be within range
@@ -464,7 +464,7 @@ namespace RWInbound2.Validation
             }
         }
 
-        // this may be junk or there is a typo that is easier to correct here
+        // this is a typo that is easier to leave here - same as below handler
         protected void AL_DTextBox_TextChanged(object sender, EventArgs e)
         {
             setControls(); // update color schemes
@@ -538,7 +538,6 @@ namespace RWInbound2.Validation
         {
             updateDup("BAD");
         }
-
 
         public void updateDup(string type)
         {
