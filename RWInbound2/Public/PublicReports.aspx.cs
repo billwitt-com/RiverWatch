@@ -55,7 +55,63 @@ namespace RWInbound2.Public
             {
                 HandleErrors(ex, ex.Message, "Page_Load", "", "");
             }
-        }       
+        }
+
+        protected void btnOrgUnknownResults_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Public/OrgUnknownResults.aspx");
+        }
+
+        protected void btnQAQC_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Public/QAQCReport.aspx");
+        }
+
+        protected void btnStationsWithGauges_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Public/ViewStationsWithGauges.aspx");
+        }
+
+        protected void btnOrgStatus_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Public/OrgStatus.aspx");
+        }
+
+        protected void btnOrgStations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Reports/OrgStations.aspx");
+        }
+
+        protected void btnOrganizations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Reports/Organizations.aspx");
+        }
+
+        protected void btnParticipants_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Reports/Participants.aspx");
+        }
+
+        protected void btnStations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Reports/Stations.aspx");
+        }
+
+        protected void btnSamples_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Reports/Samples.aspx");
+        }
+
+        protected void btnMetalBarCodes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Reports/MetalBarCodes.aspx");
+        }
+
+        protected void btnStationsByProject_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Reports/StationsByProject.aspx");
+        }
+
 
         private void SetMessages(string type = "", string message = "")
         {
@@ -159,55 +215,7 @@ namespace RWInbound2.Public
             }
         }
 
-        protected void btnErrorLogReport_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/ViewErrorLog.aspx");
-        }
-
-        protected void btnStationsWithGauges_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/ViewStationsWithGauges.aspx");
-        }
-
-        protected void btnLachatNoBC_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/ReportLachatNOTINNutrientBarcode.aspx");
-        }
-
-        protected void btnOrgStatus_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/OrgStatus.aspx");
-        }
-
-        protected void btnOrgStations_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/OrgStations.aspx");
-        }
-
-        protected void btnOrganizations_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/Organizations.aspx");
-        }
-
-        protected void btnParticipants_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/Participants.aspx");
-        }
-
-        protected void btnStations_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/Stations.aspx");
-        }
-
-        protected void btnSamples_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/Samples.aspx");
-        }
-
-        protected void btnMetalBarCodes_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/MetalBarCodes.aspx");
-        }
+       
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
@@ -354,11 +362,5 @@ namespace RWInbound2.Public
                 SetMessages("Error", ex.Message);
             }
         }
-
-        protected void btnStationsByProject_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/StationsByProject.aspx");
-        }
-        
     }
 }

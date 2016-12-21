@@ -343,18 +343,18 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
+    <Content Include="Public\OrgStatus.aspx" />
     <Content Include="Public\PublicReports.aspx" />
     <Content Include="Public\UnknownData.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Reports\Organizations.aspx" />
     <Content Include="Reports\OrgStations.aspx" />
-    <Content Include="Reports\OrgStatus.aspx" />
-    <Content Include="Reports\OrgUnknownResults.aspx" />
+    <Content Include="Public\OrgUnknownResults.aspx" />
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
-    <Content Include="Reports\QAQCReport.aspx" />
+    <Content Include="Public\QAQCReport.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="OLDfavicon.ico" />
@@ -391,7 +391,7 @@
     <Content Include="Reports\Stations.aspx" />
     <Content Include="Reports\StationsByProject.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
-    <Content Include="Reports\ViewStationsWithGauges.aspx" />
+    <Content Include="Public\ViewStationsWithGauges.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
     <Content Include="RiverWatchStationsWithGauges.xsc">
       <DependentUpon>RiverWatchStationsWithGauges.xsd</DependentUpon>
@@ -1391,6 +1391,13 @@
     <Compile Include="ProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Public\OrgStatus.aspx.cs">
+      <DependentUpon>OrgStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\OrgStatus.aspx.designer.cs">
+      <DependentUpon>OrgStatus.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Public\PublicReports.aspx.cs">
       <DependentUpon>PublicReports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1443,18 +1450,11 @@
     <Compile Include="Reports\OrgStations.aspx.designer.cs">
       <DependentUpon>OrgStations.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\OrgStatus.aspx.cs">
-      <DependentUpon>OrgStatus.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\OrgStatus.aspx.designer.cs">
-      <DependentUpon>OrgStatus.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\OrgUnknownResults.aspx.cs">
+    <Compile Include="Public\OrgUnknownResults.aspx.cs">
       <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports\OrgUnknownResults.aspx.designer.cs">
+    <Compile Include="Public\OrgUnknownResults.aspx.designer.cs">
       <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
@@ -1478,13 +1478,12 @@
     <Compile Include="Reports\PublicUsers.aspx.designer.cs">
       <DependentUpon>PublicUsers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\QAQCReport.aspx.cs">
+    <Compile Include="Public\QAQCReport.aspx.cs">
       <DependentUpon>QAQCReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Reports\QAQCReport.aspx.designer.cs">
-      <DependentUpon>QAQCReport.aspx</DependentUpon>
+    <Compile Include="Public\QAQCReport.aspx.designer.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
@@ -1529,11 +1528,11 @@
     <Compile Include="Reports\ViewErrorLog.aspx.designer.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\ViewStationsWithGauges.aspx.cs">
+    <Compile Include="Public\ViewStationsWithGauges.aspx.cs">
       <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports\ViewStationsWithGauges.aspx.designer.cs">
+    <Compile Include="Public\ViewStationsWithGauges.aspx.designer.cs">
       <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchDataParticipants.Designer.cs">
@@ -2006,13 +2005,10 @@
     <Content Include="Reports\LachatNoBC.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\OrgStatus.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Reports\OrgStations.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\StationsWithGauges.rdlc">
+    <Content Include="Public\StationsWithGauges.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\OrganizationsAll.rdlc">
@@ -2036,10 +2032,17 @@
     <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Reports\MailingLabels.rdlc" />
-    <EmbeddedResource Include="Reports\OrgUnknownResults.rdlc" />
-    <EmbeddedResource Include="Reports\QAQCReport.rdlc" />
-    <EmbeddedResource Include="Reports\stationsByProject.rdlc" />
+    <Content Include="Public\OrgStatus.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\MailingLabels.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
+    <EmbeddedResource Include="Public\QAQCReport.rdlc" />
+    <Content Include="Reports\stationsByProject.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

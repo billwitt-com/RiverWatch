@@ -146,6 +146,10 @@
                     <br />
                     <asp:Button ID="btnStationsByProject" runat="server" Text="Stations By Project" OnClick="btnStationsByProject_Click" CssClass="public-button-reports"/>
                     <br />
+                    <asp:Button ID="btnQAQC" runat="server" CssClass="public-button-reports" OnClick="btnQAQC_Click" Text="QAQC Report" />
+                    <br />
+                     <asp:Button ID="btnOrgUnknownResults" runat="server" Text="Organization Unknown Results" OnClick="btnOrgUnknownResults_Click"
+                            CssClass="public-button-reports"/>  
                 </asp:Panel>
             </ContentTemplate>
         </asp:UpdatePanel>    
