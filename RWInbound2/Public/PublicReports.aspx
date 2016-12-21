@@ -143,6 +143,9 @@
                     <asp:Button ID="btnOrgStations" runat="server" Text="Organization Stations" OnClick="btnOrgStations_Click" CssClass="public-button-reports"/>
                     <br />
                     <asp:Button ID="btnOrganizations" runat="server" Text="All Organizations" OnClick="btnOrganizations_Click" CssClass="public-button-reports"/>
+                    <br />
+                    <asp:Button ID="btnStationsByProject" runat="server" Text="Stations By Project" OnClick="btnStationsByProject_Click" CssClass="public-button-reports"/>
+                    <br />
                 </asp:Panel>
             </ContentTemplate>
         </asp:UpdatePanel>    
