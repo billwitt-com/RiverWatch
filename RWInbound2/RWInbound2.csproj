@@ -389,6 +389,7 @@
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="Reports\Samples.aspx" />
     <Content Include="Reports\Stations.aspx" />
+    <Content Include="Reports\StationsByProject.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Reports\ViewStationsWithGauges.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
@@ -415,6 +416,17 @@
     </None>
     <Content Include="QAQCDataSet.xss">
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportStationsByProject.xsc">
+      <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportStationsByProject.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportStationsByProject.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportStationsByProject.xss">
+      <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchDataSetOrgStations.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -693,6 +705,17 @@
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="StationsByProject.xsc">
+      <DependentUpon>StationsByProject.xsd</DependentUpon>
+    </Content>
+    <None Include="StationsByProject.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StationsByProject.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="StationsByProject.xss">
+      <DependentUpon>StationsByProject.xsd</DependentUpon>
+    </Content>
     <None Include="Web.config.ajaxissue">
       <SubType>Designer</SubType>
     </None>
@@ -1387,6 +1410,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ReportStationsByProject.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MailingLabels.aspx.cs">
       <DependentUpon>MailingLabels.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1486,6 +1514,13 @@
     </Compile>
     <Compile Include="Reports\Stations.aspx.designer.cs">
       <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\StationsByProject.aspx.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\StationsByProject.aspx.designer.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
@@ -1634,6 +1669,11 @@
     </Compile>
     <Compile Include="Station.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StationsByProject.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationsByProject.xsd</DependentUpon>
     </Compile>
     <Compile Include="tblBenGrid.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1999,6 +2039,7 @@
     <EmbeddedResource Include="Reports\MailingLabels.rdlc" />
     <EmbeddedResource Include="Reports\OrgUnknownResults.rdlc" />
     <EmbeddedResource Include="Reports\QAQCReport.rdlc" />
+    <EmbeddedResource Include="Reports\stationsByProject.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="StationsByProject" targetNamespace="http://tempuri.org/StationsByProject.xsd" xmlns:mstns="http://tempuri.org/StationsByProject.xsd" xmlns="http://tempuri.org/StationsByProject.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="RiverWatchDEV" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RiverWatchDEV (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.RiverWatchDEV.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ViewStationsByProjectTableAdapter" GeneratorDataComponentClassName="ViewStationsByProjectTableAdapter" Name="ViewStationsByProject" UserDataComponentName="ViewStationsByProjectTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="RiverWatchDEV (Web.config)" DbObjectName="RiverWatch.dbo.ViewStationsByProject" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ProjectName, ProjectDescription, StationNumber, StationName, River, AquaticModelIndex, WaterCode, WaterBodyID, RWWaterShed, WQCCWaterShed, StationType, Elevation, Longtitude, Latitude, County, State, USGS FROM dbo.ViewStationsByProject</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ProjectName" DataSetColumn="ProjectName" />
+              <Mapping SourceColumn="ProjectDescription" DataSetColumn="ProjectDescription" />
+              <Mapping SourceColumn="StationNumber" DataSetColumn="StationNumber" />
+              <Mapping SourceColumn="StationName" DataSetColumn="StationName" />
+              <Mapping SourceColumn="River" DataSetColumn="River" />
+              <Mapping SourceColumn="AquaticModelIndex" DataSetColumn="AquaticModelIndex" />
+              <Mapping SourceColumn="WaterCode" DataSetColumn="WaterCode" />
+              <Mapping SourceColumn="WaterBodyID" DataSetColumn="WaterBodyID" />
+              <Mapping SourceColumn="RWWaterShed" DataSetColumn="RWWaterShed" />
+              <Mapping SourceColumn="WQCCWaterShed" DataSetColumn="WQCCWaterShed" />
+              <Mapping SourceColumn="StationType" DataSetColumn="StationType" />
+              <Mapping SourceColumn="Elevation" DataSetColumn="Elevation" />
+              <Mapping SourceColumn="Longtitude" DataSetColumn="Longtitude" />
+              <Mapping SourceColumn="Latitude" DataSetColumn="Latitude" />
+              <Mapping SourceColumn="County" DataSetColumn="County" />
+              <Mapping SourceColumn="State" DataSetColumn="State" />
+              <Mapping SourceColumn="USGS" DataSetColumn="USGS" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="StationsByProject" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="StationsByProject" msprop:Generator_UserDSName="StationsByProject">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ViewStationsByProject" msprop:Generator_TableClassName="ViewStationsByProjectDataTable" msprop:Generator_TableVarName="tableViewStationsByProject" msprop:Generator_TablePropName="ViewStationsByProject" msprop:Generator_RowDeletingName="ViewStationsByProjectRowDeleting" msprop:Generator_RowChangingName="ViewStationsByProjectRowChanging" msprop:Generator_RowEvHandlerName="ViewStationsByProjectRowChangeEventHandler" msprop:Generator_RowDeletedName="ViewStationsByProjectRowDeleted" msprop:Generator_UserTableName="ViewStationsByProject" msprop:Generator_RowChangedName="ViewStationsByProjectRowChanged" msprop:Generator_RowEvArgName="ViewStationsByProjectRowChangeEvent" msprop:Generator_RowClassName="ViewStationsByProjectRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProjectName" msprop:Generator_ColumnVarNameInTable="columnProjectName" msprop:Generator_ColumnPropNameInRow="ProjectName" msprop:Generator_ColumnPropNameInTable="ProjectNameColumn" msprop:Generator_UserColumnName="ProjectName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ProjectDescription" msprop:Generator_ColumnVarNameInTable="columnProjectDescription" msprop:Generator_ColumnPropNameInRow="ProjectDescription" msprop:Generator_ColumnPropNameInTable="ProjectDescriptionColumn" msprop:Generator_UserColumnName="ProjectDescription" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="StationNumber" msprop:Generator_ColumnVarNameInTable="columnStationNumber" msprop:Generator_ColumnPropNameInRow="StationNumber" msprop:Generator_ColumnPropNameInTable="StationNumberColumn" msprop:Generator_UserColumnName="StationNumber" type="xs:int" minOccurs="0" />
+              <xs:element name="StationName" msprop:Generator_ColumnVarNameInTable="columnStationName" msprop:Generator_ColumnPropNameInRow="StationName" msprop:Generator_ColumnPropNameInTable="StationNameColumn" msprop:Generator_UserColumnName="StationName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="River" msprop:Generator_ColumnVarNameInTable="columnRiver" msprop:Generator_ColumnPropNameInRow="River" msprop:Generator_ColumnPropNameInTable="RiverColumn" msprop:Generator_UserColumnName="River" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="17" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AquaticModelIndex" msprop:Generator_ColumnVarNameInTable="columnAquaticModelIndex" msprop:Generator_ColumnPropNameInRow="AquaticModelIndex" msprop:Generator_ColumnPropNameInTable="AquaticModelIndexColumn" msprop:Generator_UserColumnName="AquaticModelIndex" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WaterCode" msprop:Generator_ColumnVarNameInTable="columnWaterCode" msprop:Generator_ColumnPropNameInRow="WaterCode" msprop:Generator_ColumnPropNameInTable="WaterCodeColumn" msprop:Generator_UserColumnName="WaterCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WaterBodyID" msprop:Generator_ColumnVarNameInTable="columnWaterBodyID" msprop:Generator_ColumnPropNameInRow="WaterBodyID" msprop:Generator_ColumnPropNameInTable="WaterBodyIDColumn" msprop:Generator_UserColumnName="WaterBodyID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RWWaterShed" msprop:Generator_ColumnVarNameInTable="columnRWWaterShed" msprop:Generator_ColumnPropNameInRow="RWWaterShed" msprop:Generator_ColumnPropNameInTable="RWWaterShedColumn" msprop:Generator_UserColumnName="RWWaterShed" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WQCCWaterShed" msprop:Generator_ColumnVarNameInTable="columnWQCCWaterShed" msprop:Generator_ColumnPropNameInRow="WQCCWaterShed" msprop:Generator_ColumnPropNameInTable="WQCCWaterShedColumn" msprop:Generator_UserColumnName="WQCCWaterShed" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="StationType" msprop:Generator_ColumnVarNameInTable="columnStationType" msprop:Generator_ColumnPropNameInRow="StationType" msprop:Generator_ColumnPropNameInTable="StationTypeColumn" msprop:Generator_UserColumnName="StationType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Elevation" msprop:Generator_ColumnVarNameInTable="columnElevation" msprop:Generator_ColumnPropNameInRow="Elevation" msprop:Generator_ColumnPropNameInTable="ElevationColumn" msprop:Generator_UserColumnName="Elevation" type="xs:double" minOccurs="0" />
+              <xs:element name="Longtitude" msprop:Generator_ColumnVarNameInTable="columnLongtitude" msprop:Generator_ColumnPropNameInRow="Longtitude" msprop:Generator_ColumnPropNameInTable="LongtitudeColumn" msprop:Generator_UserColumnName="Longtitude" type="xs:double" minOccurs="0" />
+              <xs:element name="Latitude" msprop:Generator_ColumnVarNameInTable="columnLatitude" msprop:Generator_ColumnPropNameInRow="Latitude" msprop:Generator_ColumnPropNameInTable="LatitudeColumn" msprop:Generator_UserColumnName="Latitude" type="xs:double" minOccurs="0" />
+              <xs:element name="County" msprop:Generator_ColumnVarNameInTable="columnCounty" msprop:Generator_ColumnPropNameInRow="County" msprop:Generator_ColumnPropNameInTable="CountyColumn" msprop:Generator_UserColumnName="County" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="State" msprop:Generator_ColumnVarNameInTable="columnState" msprop:Generator_ColumnPropNameInRow="State" msprop:Generator_ColumnPropNameInTable="StateColumn" msprop:Generator_UserColumnName="State" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="USGS" msprop:Generator_ColumnVarNameInTable="columnUSGS" msprop:Generator_ColumnPropNameInRow="USGS" msprop:Generator_ColumnPropNameInTable="USGSColumn" msprop:Generator_UserColumnName="USGS" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

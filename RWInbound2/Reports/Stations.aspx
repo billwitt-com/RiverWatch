@@ -27,46 +27,46 @@
                 <td style="width: 8px; height: 10px"></td>
                 <td style="width: 190px; height: 10px">River:</td>
                 <td style="height: 10px">
-				<asp:DropDownList ID="ddlRiver" runat="server" Width="152px"></asp:DropDownList></td>
+				<asp:DropDownList ID="ddlRiver" runat="server" Width="352px"></asp:DropDownList></td>
             </tr>
          <tr>
                 <td style="width: 8px; height: 16px"></td>
                 <td style="width: 190px; height: 16px">Eco Region:</td>
                 <td style="height: 16px">
-                    <asp:DropDownList ID="ddlEcoRegion"  runat="server" Width="619px" Height="22px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlEcoRegion"  runat="server" Width="400px" Height="22px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 18px"></td>
                 <td style="width: 190px; height: 18px">Station Type:</td>
                 <td style="height: 18px">
-                    <asp:DropDownList ID="ddlStationType" runat="server"  Width="700px" Height="22px"></asp:DropDownList>&nbsp;
+                    <asp:DropDownList ID="ddlStationType" runat="server"  Width="400px" Height="22px"></asp:DropDownList>&nbsp;
                 </td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 4px"></td>
                 <td style="width: 190px; height: 4px">Station Status:</td>
                 <td style="height: 4px">
-                    <asp:DropDownList ID="ddlStationStatus" runat="server"  Width="152px"></asp:DropDownList>&nbsp;
+                    <asp:DropDownList ID="ddlStationStatus" runat="server"  Width="352px"></asp:DropDownList>&nbsp;
                 </td>
             </tr>
             <tr>
                 <td style="width: 8px; height: 18px"></td>
                 <td style="width: 190px; height: 18px">Water Body ID:</td>
                 <td style="height: 18px">
-                    <asp:DropDownList ID="ddlWaterBodyID" runat="server"   Height="22px"></asp:DropDownList>&nbsp;
+                    <asp:DropDownList ID="ddlWaterBodyID" runat="server" Width="352px"  Height="22px"></asp:DropDownList>&nbsp;
                 </td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">RiverWatch Watershed:</td>
                 <td>
-                    <asp:DropDownList ID="ddlRWWaterShed"  runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlRWWaterShed"  runat="server" Width="352px"></asp:DropDownList></td>
             </tr>
             <tr>
                 <td style="width: 8px"></td>
                 <td style="width: 190px">WQCC Watershed:</td>
                 <td>
-                    <asp:DropDownList ID="ddlWQCCWaterShed" runat="server" Width="616px" Height="22px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlWQCCWaterShed" runat="server" Width="352px" Height="22px"></asp:DropDownList></td>
             </tr>
         <tr>
                 <td style="width: 8px"></td>
@@ -79,7 +79,7 @@
                 <td style="width: 8px; height: 12px"></td>
                 <td style="width: 190px; height: 12px">County:</td>
                 <td style="height: 12px">
-                    <asp:DropDownList ID="ddlCounty" runat="server" Width="152px"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ddlCounty" runat="server" Width="352px"></asp:DropDownList></td>
             </tr>
         <tr>
                 <td style="width: 8px; height: 12px"></td>
@@ -92,7 +92,7 @@
            
 
     </table>
-    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1072px" Height="551px">
+    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="12pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1072px" Height="551px">
         <LocalReport ReportPath="Reports\Stations.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
