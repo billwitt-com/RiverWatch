@@ -10,7 +10,8 @@ using System.Web.UI.WebControls;
 namespace RWInbound2.Admin
 {
     public partial class EditWaterCodes1 : System.Web.UI.Page
-    {        
+    {
+        private string selectedDrainage = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -44,12 +45,20 @@ namespace RWInbound2.Admin
         public IQueryable BindDrainages()
         {
             RiverWatchEntities _db = new RiverWatchEntities();
-            var drainages = (from d in _db.tblWatercodes
-                             where d.DRAINAGE != null
-                             group d by d.DRAINAGE into newD
-                             orderby newD.Key
-                             select newD);
+            var drainages = (from d in _db.WaterCodeDrainages 
+                             orderby d.Description
+                             select d);
                             
+            return drainages;
+        }
+
+        public List<WaterCodeDrainage> BindDrainagesToList()
+        {
+            RiverWatchEntities _db = new RiverWatchEntities();
+            var drainages = (from d in _db.WaterCodeDrainages
+                             orderby d.Description
+                             select d).ToList<WaterCodeDrainage>();
+
             return drainages;
         }
 
@@ -78,7 +87,7 @@ namespace RWInbound2.Admin
                                                            .Where(wc => wc.WATERCODE.Equals(waterCodeSelected))
                                                            .OrderBy(wc => wc.WATERNAME);
                     DrainageDropDown.Items.FindByValue("0").Selected = true;
-                    //this.Request.QueryString.Remove("successLabelMessage");
+         
                     return waterCodesFilteredByWaterCode;
                 }
 
@@ -113,7 +122,7 @@ namespace RWInbound2.Admin
             if (!selectedValue.Equals("0"))
             {
                 drainageSelected
-                    = DrainageDropDown.SelectedItem.Text;
+                    = DrainageDropDown.SelectedItem.Value;
             }
             
             string redirect = "EditWaterCodes.aspx?drainageSelected=" + drainageSelected;
@@ -132,6 +141,8 @@ namespace RWInbound2.Admin
                     var waterCodeToUpdate = _db.tblWatercodes.Find(model.ID);
 
                     TryUpdateModel(waterCodeToUpdate);
+
+                    waterCodeToUpdate.DRAINAGE = selectedDrainage;
 
                     _db.SaveChanges();
 
@@ -172,7 +183,8 @@ namespace RWInbound2.Admin
                 SetMessages();
 
                 string wATERCODE = ((TextBox)WaterCodeGridView.FooterRow.FindControl("NewWATERCODE")).Text;
-                string dRAINAGE = ((TextBox)WaterCodeGridView.FooterRow.FindControl("NewDRAINAGE")).Text;
+                string dRAINAGE
+                            = ((DropDownList)WaterCodeGridView.FooterRow.FindControl("NewDrainageDropDown")).SelectedItem.Value;
 
                 if (string.IsNullOrEmpty(wATERCODE))
                 {
@@ -295,7 +307,7 @@ namespace RWInbound2.Admin
 
         protected void WaterCodeGridView_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            SetMessages();
+            SetMessages();            
         }
 
         protected void WaterCodeGridView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -338,7 +350,6 @@ namespace RWInbound2.Admin
                 string waterCodeSelected = string.Empty;
 
                 waterCodeSelected = WaterCodeSearchTextBox.Text;
-                //DrainageDropDown.Items.FindByValue("0").Selected = true;
 
                 string redirect = string.Empty;
                 if (string.IsNullOrEmpty(waterCodeSelected))
@@ -387,6 +398,30 @@ namespace RWInbound2.Admin
             {
                 SetMessages("Error", ex.Message);
             }
+        }
+
+        protected void WaterCodeGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if ((e.Row.RowState & DataControlRowState.Edit) > 0)
+                {
+                    DropDownList updateDrainageDropDown
+                        = (DropDownList)e.Row.FindControl("updateDrainageDropDown");
+                    updateDrainageDropDown.Items.Clear();
+                    updateDrainageDropDown.DataSource = BindDrainagesToList();
+                    updateDrainageDropDown.DataBind();
+                    var item = e.Row.DataItem as tblWatercode;
+                    updateDrainageDropDown.Items.FindByValue(item.DRAINAGE).Selected = true;
+                }
+            }
+        }
+
+        protected void WaterCodeGridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            selectedDrainage = 
+                ((DropDownList)WaterCodeGridView.Rows[e.RowIndex]
+                                                      .FindControl("updateDrainageDropDown")).SelectedItem.Value;
         }
     }
 }
