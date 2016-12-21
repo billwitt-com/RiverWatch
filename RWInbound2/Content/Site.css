@@ -1951,6 +1951,14 @@ select#dropDownNewEquipCategories.grid-edit-equipment-medium-textbox.no-results{
 }
 
 /*Edit Water Codes*/
+.grid-edit-water-drainage-dropdown{
+    margin-left: 4px !important;
+    margin-top: 4px !important;
+    height: 20px !important;
+    border-color:gray !important;
+    font-size:9px !important;
+}
+
 .edit-water-codes-zoom-message{
     font-size: 0.6em;
     background-color: whitesmoke;
