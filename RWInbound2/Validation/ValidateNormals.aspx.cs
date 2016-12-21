@@ -378,50 +378,21 @@ namespace RWInbound2.Validation
                     Disolved = 0;
                 }
 
-                // see if the difference between the two is greater than 2 times the D2Tlimit
+                // see if the difference between the two is greater than the D2Tlimit
                 if ((Disolved - Total) >= D2Tlimit)
                 {
                     tbD.BackColor = Color.PowderBlue;
-                    tbD.ToolTip = string.Format("Disolved - Total is greater than limit of {0}", D2Tlimit);
+                    tbD.ToolTip = string.Format("Dissolved - Total is greater than limit of {0}", D2Tlimit);
                     tbT.BackColor = Color.PowderBlue;
-                    tbT.ToolTip = string.Format("Disolved - Total is greater than limit of {0}", D2Tlimit);
+                    tbT.ToolTip = string.Format("Dissolved - Total is greater than limit of {0}", D2Tlimit);
                 }
                 else
                 {
                     tbD.BackColor = Color.White;
                     tbT.BackColor = Color.White;
-                    tbD.ToolTip = string.Format("Disolved - Total is less than limit of {0}", D2Tlimit);
-                    tbT.ToolTip = string.Format("Disolved - Total is less than limit of {0}", D2Tlimit);
-                }
-
-                //// now see if this is a blank, then test for out of range
-
-                //if (dupCode.Substring(0, 1) == "1")   // we have a blank
-                //{
-                //    // use item from this loop to find limit for this comparison
-                //    MeasureLimit = LowLimit[item];
-
-                //    if (Total > (MeasureLimit))
-                //    {
-                //        tbT.ForeColor = Color.Red;
-                //        tbT.ToolTip = string.Format("Total_Dups is greater than limit of {0}", MeasureLimit);
-                //    }
-                //    else
-                //    {
-                //        tbT.ForeColor = Color.Black;
-                //        tbT.ToolTip = string.Format("Total_Dups is under limit of {0}", MeasureLimit);
-                //    }
-                //    if (Disolved > (MeasureLimit))
-                //    {
-                //        tbD.ForeColor = Color.Red;
-                //        tbD.ToolTip = string.Format("Dissolved is greater than limit of {0}", MeasureLimit);
-                //    }
-                //    else
-                //    {
-                //        tbD.ForeColor = Color.Black;
-                //        tbD.ToolTip = string.Format("Dissolved is under limit of {0}", MeasureLimit);
-                //    }
-                //}
+                    tbD.ToolTip = string.Format("Dissolved - Total is less than limit of {0}", D2Tlimit);
+                    tbT.ToolTip = string.Format("Dissolved - Total is less than limit of {0}", D2Tlimit);
+                }                
             }
         }
 

@@ -193,6 +193,7 @@
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditNutrientBarcode.aspx" />
+    <Content Include="Admin\EditNutrients.aspx" />
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
     <Content Include="Admin\EditWaterCodes.aspx" />
@@ -353,9 +354,7 @@
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
-    <EmbeddedResource Include="Reports\QAQCReport.aspx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Content Include="Reports\QAQCReport.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="OLDfavicon.ico" />
@@ -366,9 +365,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Edit\Web.config" />
-    <EmbeddedResource Include="Reports\QAQCReport.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -391,9 +387,9 @@
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
-    <Content Include="FormViewOrgStatus.aspx" />
     <Content Include="Reports\Samples.aspx" />
     <Content Include="Reports\Stations.aspx" />
+    <Content Include="Reports\StationsByProject.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Reports\ViewStationsWithGauges.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
@@ -420,6 +416,17 @@
     </None>
     <Content Include="QAQCDataSet.xss">
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportStationsByProject.xsc">
+      <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportStationsByProject.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportStationsByProject.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportStationsByProject.xss">
+      <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
     </Content>
     <None Include="RiverWatchDataSetOrgStations.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -698,6 +705,17 @@
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="StationsByProject.xsc">
+      <DependentUpon>StationsByProject.xsd</DependentUpon>
+    </Content>
+    <None Include="StationsByProject.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StationsByProject.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="StationsByProject.xss">
+      <DependentUpon>StationsByProject.xsd</DependentUpon>
+    </Content>
     <None Include="Web.config.ajaxissue">
       <SubType>Designer</SubType>
     </None>
@@ -817,6 +835,13 @@
     </Compile>
     <Compile Include="Admin\EditNutrientBarcode.aspx.designer.cs">
       <DependentUpon>EditNutrientBarcode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditNutrients.aspx.cs">
+      <DependentUpon>EditNutrients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditNutrients.aspx.designer.cs">
+      <DependentUpon>EditNutrients.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditParticipants.aspx.cs">
       <DependentUpon>EditParticipants.aspx</DependentUpon>
@@ -1385,6 +1410,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ReportStationsByProject.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MailingLabels.aspx.cs">
       <DependentUpon>MailingLabels.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1484,6 +1514,13 @@
     </Compile>
     <Compile Include="Reports\Stations.aspx.designer.cs">
       <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\StationsByProject.aspx.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\StationsByProject.aspx.designer.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
@@ -1620,13 +1657,6 @@
     <Compile Include="Sample.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FormViewOrgStatus.aspx.cs">
-      <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FormViewOrgStatus.aspx.designer.cs">
-      <DependentUpon>FormViewOrgStatus.aspx</DependentUpon>
-    </Compile>
     <Compile Include="SamplesView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -1639,6 +1669,11 @@
     </Compile>
     <Compile Include="Station.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StationsByProject.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationsByProject.xsd</DependentUpon>
     </Compile>
     <Compile Include="tblBenGrid.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1946,6 +1981,9 @@
     <Compile Include="View_Models\ParticipantsViewModel.cs" />
     <Compile Include="View_Models\ProjectStationViewModel.cs" />
     <Compile Include="View_Models\tblWBKeyViewModel.cs" />
+    <Compile Include="WaterCodeDrainage.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -2000,6 +2038,8 @@
     </Content>
     <EmbeddedResource Include="Reports\MailingLabels.rdlc" />
     <EmbeddedResource Include="Reports\OrgUnknownResults.rdlc" />
+    <EmbeddedResource Include="Reports\QAQCReport.rdlc" />
+    <EmbeddedResource Include="Reports\stationsByProject.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

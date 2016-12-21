@@ -13,13 +13,29 @@
     <asp:Panel ID="pnlInput" runat="server">
         <table style="width: 100%">
             <tr>
+                <td>
+
+                </td>
+                <td style="width: 109px">
+                    <asp:Label ID="Label6" runat="server" Text="Drainage: "></asp:Label>
+                </td>
+                <td style="width: 94px">
+                    <asp:DropDownList ID="ddlDrainage" runat="server"></asp:DropDownList>
+                </td>
+                <td>
+
+                    <asp:Label ID="Label7" runat="server" Text="Drainage selection is used to create water code list"></asp:Label>
+                    , below</td>
+            </tr>
+            <tr>
+
                 <td style="width: 18px">&nbsp;<asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="18px" Text="  OR"></asp:Label>
                 </td>
-                <td   >
+                <td style="width: 109px"   >
                     <asp:Label ID="Label1" runat="server" Text="Station Name: "></asp:Label>
                 </td>
-                <td >
-                    <asp:TextBox ID="tbStationName" runat="server" Height="22px" Width="335px"></asp:TextBox>
+                <td style="width: 144px" >
+                    <asp:TextBox ID="tbStationName" runat="server" Height="22px" Width="175px"></asp:TextBox>
                 </td>
                 <td >
                     <asp:Button ID="btnSelectStnName" runat="server" Text="Select" OnClick="btnSelectStnName_Click" CssClass="adminButton" />
@@ -28,10 +44,10 @@
             <tr>
                 <td style="width: 18px">&nbsp;<asp:Label ID="Label3" runat="server" Font-Bold="True" Font-Size="18px" Text="  OR"></asp:Label>
                 </td>
-                <td style="width: 91px">
+                <td >
                     <asp:Label ID="Label2" runat="server" Text="Station #: "></asp:Label>
                 </td>
-                <td style="width: 156px">
+                <td style="width: 94px">
                     <asp:TextBox ID="tbStnNumber" runat="server" Height="22px"></asp:TextBox>
                 </td>
                 <td>
