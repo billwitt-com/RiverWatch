@@ -2125,3 +2125,11 @@ div#updatePanelOrgUnknownResults{
 .org-unknown-results-reset-search{
     margin-left: 50px !important;
 }
+
+/*Edit Water Code Drainage*/
+.grid-edit-water-code-drainage-textbox-comments{
+    text-align:center;
+    padding: 5px;
+    width: 150px;
+    resize: vertical;
+}

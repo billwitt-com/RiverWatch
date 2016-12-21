@@ -273,6 +273,7 @@
     <Content Include="Edit\EditSubPara.aspx" />
     <Content Include="Edit\EditSubSamp.aspx" />
     <Content Include="Edit\EditWaterBodyID.aspx" />
+    <Content Include="Edit\EditWaterCodeDrainage.aspx" />
     <Content Include="ErrorPage.aspx" />
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1122,6 +1123,13 @@
     </Compile>
     <Compile Include="Edit\EditWaterBodyID.aspx.designer.cs">
       <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditWaterCodeDrainage.aspx.cs">
+      <DependentUpon>EditWaterCodeDrainage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditWaterCodeDrainage.aspx.designer.cs">
+      <DependentUpon>EditWaterCodeDrainage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ErrorPage.aspx.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
