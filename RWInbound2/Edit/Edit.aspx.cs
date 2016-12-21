@@ -183,6 +183,11 @@ namespace RWInbound2.Edit
             Response.Redirect("EditWSG.aspx");
         }
 
+        protected void btnWaterCodeDrainage_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditWaterCodeDrainage.aspx");
+        }
+
         protected void btnWSR_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditWSR.aspx");
