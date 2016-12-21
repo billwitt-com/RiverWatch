@@ -23,40 +23,40 @@ namespace RWInbound2.Reports
             Response.Redirect("~/Reports/ViewErrorLog.aspx");
         }
 
-        protected void btnStationsWithGauges_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/ViewStationsWithGauges.aspx");
-        }
+        //protected void btnStationsWithGauges_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("~/Reports/ViewStationsWithGauges.aspx");
+        //}
 
         protected void btnLachatNoBC_Click(object sender, EventArgs e)
         {
             Response.Redirect("ReportLachatNOTINNutrientBarcode.aspx");
         }
 
-        protected void btnOrgStatus_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("OrgStatus.aspx");
-        }
+        //protected void btnOrgStatus_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("OrgStatus.aspx");
+        //}
 
-        protected void btnOrgStations_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("OrgStations.aspx");
-        }
+        //protected void btnOrgStations_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("OrgStations.aspx");
+        //}
 
-        protected void btnOrganizations_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Organizations.aspx");
-        }
+        //protected void btnOrganizations_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("Organizations.aspx");
+        //}
 
         protected void btnParticipants_Click(object sender, EventArgs e)
         {
             Response.Redirect("Participants.aspx");
         }
 
-        protected void btnStations_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Stations.aspx");
-        }
+        //protected void btnStations_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("Stations.aspx");
+        //}
 
         protected void btnSamples_Click(object sender, EventArgs e)
         {

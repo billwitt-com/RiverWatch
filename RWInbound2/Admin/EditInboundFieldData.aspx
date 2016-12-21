@@ -38,7 +38,7 @@
             <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ButtonType="Button" />
             <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
             <asp:BoundField DataField="StationNum" HeaderText="StationNum" SortExpression="StationNum" />
-            <asp:BoundField DataField="Sample#" HeaderText="SampleID" SortExpression="SampleID" />
+            <asp:BoundField DataField="SampleID" HeaderText="SampleID" SortExpression="SampleID" />
             <asp:BoundField DataField="txtSampleID" HeaderText="txtSampleID" SortExpression="txtSampleID" />
             <asp:BoundField DataField="KitNum" HeaderText="KitNum" SortExpression="KitNum" />
             <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date" />

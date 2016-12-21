@@ -12,7 +12,7 @@
     <div class="label-placement">
             <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
     </div>
-    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1072px" Height="551px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
+    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" ShowPrintButton="False" Font-Size="8pt" Width="1072px" Height="551px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
         <LocalReport ReportPath="Reports\ParticipantsPrimaryContacts.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
@@ -21,6 +21,6 @@
     </rsweb:ReportViewer>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="Data Source=tcp:corw.database.windows.net,1433;Initial Catalog=RiverWatch;Persist Security Info=False;User ID=riverwatchadmin;Password=XkYZk2ul6fp4%;MultipleActiveResultSets=False;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False" 
-        SelectCommand="SELECT * FROM [ParticipantsView] WHERE Active=1 AND PrimaryContact=1 ORDER BY FirstName"
+        SelectCommand="SELECT * FROM [ParticipantsView] WHERE Active=1 AND PrimaryContact=1 ORDER BY LastName"
         ProviderName="System.Data.SqlClient" ></asp:SqlDataSource>
 </asp:Content>

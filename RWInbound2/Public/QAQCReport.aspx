@@ -73,7 +73,7 @@
 <%--      SelectCommand="SELECT top 1 * FROM [QAQCView]">--%>
    <%-- <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" SelectCommand="SELECT * FROM [QAQCView]"></asp:SqlDataSource>
    --%> <br />
-    <rsweb:ReportViewer ID="ReportViewer1"   runat="server" Font-Names="Verdana" BackColor="White" Font-Size="12px" WaitMessageFont-Names="Verdana" Height="1200px" WaitMessageFont-Size="14pt" Width="953px">
+    <rsweb:ReportViewer ID="ReportViewer1"   runat="server" Font-Names="Verdana" BackColor="White" Font-Size="12px" WaitMessageFont-Names="Verdana" ShowPrintButton="False" Height="1200px" WaitMessageFont-Size="14pt" Width="1072px">
         <LocalReport ReportPath="Reports\QAQCReport.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="QAQCDataSource" Name="DataSet1" />
