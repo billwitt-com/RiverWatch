@@ -275,7 +275,6 @@ namespace RWInbound2.Data
         {
             FileUpload FU = (FileUpload)sender;
             pnlUploadComplete.Visible = true;     
-
         }
 
         // forgot to name this correctly but it is button that loads drop down list to show all used batch numbers for reference

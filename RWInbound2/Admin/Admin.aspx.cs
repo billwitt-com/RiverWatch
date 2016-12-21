@@ -11,19 +11,9 @@ namespace RWInbound2.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //pnlQuickview.GroupingText = "Quick View";
-            //pnlQuickview.HorizontalAlign = HorizontalAlign.Center;
-        }
-
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
 
         }
 
-        protected void btnSearchStationName_Click(object sender, EventArgs e)
-        {
-
-        }
 
         protected void btnSearchOrgName_Click(object sender, EventArgs e)
         {
@@ -100,11 +90,6 @@ namespace RWInbound2.Admin
             Response.Redirect("AdminUsers.aspx"); 
         }
 
-        protected void btnPermissions_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnEditNutrientBarcodes_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditNutrientBarcode.aspx"); 
@@ -118,6 +103,16 @@ namespace RWInbound2.Admin
         protected void btnManageOrgStatus_Click(object sender, EventArgs e)
         {
             Response.Redirect("AdminOrgstatus.aspx");
+        }
+
+        protected void btnEditNutrients_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditNutrients.aspx");
+        }
+
+        protected void btnPermissions_Click(object sender, EventArgs e)
+        {
+            // no code for this yet?
         }
     }
 }

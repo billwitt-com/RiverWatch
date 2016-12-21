@@ -940,7 +940,10 @@ namespace RWInbound2.Samples
                      LogError LE = new LogError();
                      LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                  }
-                 populateInboundSamplesList(kitNumber, stnID);
+
+                 // incorrect we need station nummber not id
+                // populateInboundSamplesList(kitNumber, stnID);
+                 populateInboundSamplesList(kitNumber, stationNumber);
              }
         }
 
@@ -1049,7 +1052,7 @@ namespace RWInbound2.Samples
 
         // user chose an item from the list of inboundsamples that had kit and station numbers
         // XXXX if we have time, change data type from long? to string. at sampNumber
-        // XXXX we have not accepted this inbound sample yet, so hid tabs and make user
+        // XXXX we have not accepted this inbound sample yet, so hide tabs and make user
         // use the create button
 
 
@@ -1171,18 +1174,19 @@ namespace RWInbound2.Samples
             bool duplicate = true;
             string typ = "";
 
+
             // check to see if barcode is in use, if so, warn user and return to page
 
             var query = from q in NRWDE.MetalBarCodes
-                        where q.LabID.ToUpper() == barcode
+                        where q.LabID.ToUpper() == barcode 
                         select q;
 
             if (query.Count() > 0)   // code in use
             {
                 // lblCodeInUse
-                lblBarcodeUsed.Text = "NOT SAVED !! CODE IN USE!";
+                lblBarcodeUsed.Text = string.Format("Barcode: {0} NOT SAVED - IN USE!", barcode);
                 lblBarcodeUsed.ForeColor = System.Drawing.Color.Red;
-                lblCodeInUse.Text = "NOT SAVED !! CODE IN USE!";
+                lblCodeInUse.Text = lblBarcodeUsed.Text; // "NOT SAVED !! CODE IN USE!";
                 lblCodeInUse.ForeColor = System.Drawing.Color.Red;
                 return;
             }
@@ -1361,14 +1365,16 @@ namespace RWInbound2.Samples
         {
             // scrape table
             string barcode = tbBarcode.Text.Trim().ToUpper();
+           // string type = rbListSampleTypes.SelectedValue; // get user choice for type
+
             var query = from q in NRWDE.MetalBarCodes
-                        where q.LabID.ToUpper() == barcode
+                        where q.LabID.ToUpper() == barcode // & q.Code == type.Substring(0, 2)
                         select q;
 
             if (query.Count() > 0)   // code in use
             {
                 // lblCodeInUse
-                lblBarcodeUsed.Text = "CODE IN USE!";
+                lblBarcodeUsed.Text = string.Format("Barcode: {0} IN USE!", barcode);
                 lblBarcodeUsed.ForeColor = System.Drawing.Color.Red;
                 lblCodeInUse.Text = "";
             }
@@ -1523,7 +1529,7 @@ namespace RWInbound2.Samples
                 V = (decimal)(from z in NRWDE.tlkLimits
                               where z.Element.ToUpper() == "MG"
                               select z.Reporting.Value).FirstOrDefault();
-                INB.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
+                INB.MG_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Dissolved_Dups 
                 INB.MG_T = (decimal)INB.MG_D - (decimal)RAND.NextDouble() + .5m;
 
                 OR.MG_D = INB.MG_D;
@@ -1569,7 +1575,7 @@ namespace RWInbound2.Samples
                               where z.Element.ToUpper() == "ZN"
                               select z.Reporting.Value).FirstOrDefault();
 
-                INB.ZN_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Disolved_Dups 
+                INB.ZN_D = (decimal)RAND.NextDouble() * V * mult; ; // make Total_Dups smaller than Dissolved_Dups 
                 INB.ZN_T = (decimal)INB.ZN_D - .5m;
 
                 OR.ZN_D = INB.ZN_D;
