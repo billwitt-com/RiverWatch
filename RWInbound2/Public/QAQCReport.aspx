@@ -74,7 +74,7 @@
    <%-- <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" SelectCommand="SELECT * FROM [QAQCView]"></asp:SqlDataSource>
    --%> <br />
     <rsweb:ReportViewer ID="ReportViewer1"   runat="server" Font-Names="Verdana" BackColor="White" Font-Size="12px" WaitMessageFont-Names="Verdana" ShowPrintButton="False" Height="1200px" WaitMessageFont-Size="14pt" Width="1072px">
-        <LocalReport ReportPath="Reports\QAQCReport.rdlc">
+        <LocalReport ReportPath="Public\QAQCReport.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="QAQCDataSource" Name="DataSet1" />
             </DataSources>

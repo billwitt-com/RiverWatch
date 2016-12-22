@@ -345,11 +345,12 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Public\OrgStatus.aspx" />
     <Content Include="Public\PublicReports.aspx" />
+    <Content Include="Public\RawSamplesAll.aspx" />
     <Content Include="Public\UnknownData.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
-    <Content Include="Reports\Organizations.aspx" />
-    <Content Include="Reports\OrgStations.aspx" />
+    <Content Include="Public\Organizations.aspx" />
+    <Content Include="Public\OrgStations.aspx" />
     <Content Include="Public\OrgUnknownResults.aspx" />
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
@@ -388,8 +389,8 @@
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="Reports\Samples.aspx" />
-    <Content Include="Reports\Stations.aspx" />
-    <Content Include="Reports\StationsByProject.aspx" />
+    <Content Include="Public\Stations.aspx" />
+    <Content Include="Public\StationsByProject.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Public\ViewStationsWithGauges.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
@@ -1405,6 +1406,13 @@
     <Compile Include="Public\PublicReports.aspx.designer.cs">
       <DependentUpon>PublicReports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Public\RawSamplesAll.aspx.cs">
+      <DependentUpon>RawSamplesAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\RawSamplesAll.aspx.designer.cs">
+      <DependentUpon>RawSamplesAll.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Public\UnknownData.aspx.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1436,18 +1444,18 @@
     <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Organizations.aspx.cs">
+    <Compile Include="Public\Organizations.aspx.cs">
       <DependentUpon>Organizations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports\Organizations.aspx.designer.cs">
+    <Compile Include="Public\Organizations.aspx.designer.cs">
       <DependentUpon>Organizations.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\OrgStations.aspx.cs">
+    <Compile Include="Public\OrgStations.aspx.cs">
       <DependentUpon>OrgStations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports\OrgStations.aspx.designer.cs">
+    <Compile Include="Public\OrgStations.aspx.designer.cs">
       <DependentUpon>OrgStations.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\OrgUnknownResults.aspx.cs">
@@ -1507,18 +1515,18 @@
     <Compile Include="Reports\Samples.aspx.designer.cs">
       <DependentUpon>Samples.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Stations.aspx.cs">
+    <Compile Include="Public\Stations.aspx.cs">
       <DependentUpon>Stations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports\Stations.aspx.designer.cs">
+    <Compile Include="Public\Stations.aspx.designer.cs">
       <DependentUpon>Stations.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\StationsByProject.aspx.cs">
+    <Compile Include="Public\StationsByProject.aspx.cs">
       <DependentUpon>StationsByProject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports\StationsByProject.aspx.designer.cs">
+    <Compile Include="Public\StationsByProject.aspx.designer.cs">
       <DependentUpon>StationsByProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
@@ -1629,6 +1637,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchStations1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RiverWatchStationsDataSet.cs">
+      <DependentUpon>RiverWatchStationsDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="RiverWatchStationsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2005,13 +2017,13 @@
     <Content Include="Reports\LachatNoBC.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\OrgStations.rdlc">
+    <Content Include="Public\OrgStations.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Public\StationsWithGauges.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\OrganizationsAll.rdlc">
+    <Content Include="Public\OrganizationsAll.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\Participants.rdlc">
@@ -2023,7 +2035,7 @@
     <Content Include="Reports\Samples.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\Stations.rdlc">
+    <Content Include="Public\Stations.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\PublicUsers.rdlc">
@@ -2040,7 +2052,7 @@
     </Content>
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
     <EmbeddedResource Include="Public\QAQCReport.rdlc" />
-    <Content Include="Reports\stationsByProject.rdlc">
+    <Content Include="Public\stationsByProject.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

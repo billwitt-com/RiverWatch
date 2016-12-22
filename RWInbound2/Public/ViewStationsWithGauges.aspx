@@ -5,7 +5,7 @@
         <p > <span class="PageLabel">Stations With Guages</span> </p>
 
     <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1072px" Height="551px">
-        <LocalReport ReportPath="Reports\StationsWithGauges.rdlc">
+        <LocalReport ReportPath="Public\StationsWithGauges.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
             </DataSources>

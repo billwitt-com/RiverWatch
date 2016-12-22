@@ -10,43 +10,7 @@
 namespace RWInbound2.Public {
     
     
-    public partial class PublicReports {
-        
-        /// <summary>
-        /// UpdatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
-        /// <summary>
-        /// pnlLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLogin;
-        
-        /// <summary>
-        /// tbEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmail;
-        
-        /// <summary>
-        /// btnLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+    public partial class RawSamplesAll {
         
         /// <summary>
         /// Label1 control.
@@ -56,15 +20,6 @@ namespace RWInbound2.Public {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
-        /// btnRequestAccess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRequestAccess;
         
         /// <summary>
         /// ErrorLabel control.
@@ -85,111 +40,201 @@ namespace RWInbound2.Public {
         protected global::System.Web.UI.WebControls.Label SuccessLabel;
         
         /// <summary>
-        /// pnlRequest control.
+        /// ddlRiver control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlRequest;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRiver;
         
         /// <summary>
-        /// PublicUserFormView control.
+        /// ddlRWWaterShed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FormView PublicUserFormView;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRWWaterShed;
         
         /// <summary>
-        /// pnlReports control.
+        /// ddlWQCCWaterShed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlReports;
+        protected global::System.Web.UI.WebControls.DropDownList ddlWQCCWaterShed;
         
         /// <summary>
-        /// btnStations control.
+        /// ddlWaterCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStations;
+        protected global::System.Web.UI.WebControls.DropDownList ddlWaterCode;
         
         /// <summary>
-        /// btnStationsWithGauges control.
+        /// ddlWaterBodyID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStationsWithGauges;
+        protected global::System.Web.UI.WebControls.DropDownList ddlWaterBodyID;
         
         /// <summary>
-        /// btnStationsByProject control.
+        /// ddlWSR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStationsByProject;
+        protected global::System.Web.UI.WebControls.DropDownList ddlWSR;
         
         /// <summary>
-        /// btnOrganizations control.
+        /// ddlCounty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrganizations;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCounty;
         
         /// <summary>
-        /// btnOrgStatus control.
+        /// ddlProject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgStatus;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProject;
         
         /// <summary>
-        /// btnOrgStations control.
+        /// tbOrgName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgStations;
+        protected global::System.Web.UI.WebControls.TextBox tbOrgName;
         
         /// <summary>
-        /// btnOrgUnknownResults control.
+        /// TextBoxWatermarkExtender1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgUnknownResults;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
         
         /// <summary>
-        /// btnQAQC control.
+        /// tbSearch_AutoCompleteExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnQAQC;
+        protected global::AjaxControlToolkit.AutoCompleteExtender tbSearch_AutoCompleteExtender;
         
         /// <summary>
-        /// btnAllSampleData control.
+        /// tbKitNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAllSampleData;
+        protected global::System.Web.UI.WebControls.TextBox tbKitNumber;
+        
+        /// <summary>
+        /// tbKitNumber_TextBoxWatermarkExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender tbKitNumber_TextBoxWatermarkExtender;
+        
+        /// <summary>
+        /// tbStationNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbStationNumber;
+        
+        /// <summary>
+        /// tbStationNumber_TextBoxWatermarkExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender tbStationNumber_TextBoxWatermarkExtender;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// RadioButtonList1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList1;
+        
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
+        /// RadioButtonList2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList2;
+        
+        /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
+        /// RadioButtonList3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList3;
+        
+        /// <summary>
+        /// btnGO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGO;
     }
 }

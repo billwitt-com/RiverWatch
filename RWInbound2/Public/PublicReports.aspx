@@ -12,10 +12,21 @@
                     </div>            
                     <asp:TextBox ID="tbEmail" runat="server" CssClass="public-textbox"></asp:TextBox>
                     <asp:Button ID="btnLogin" runat="server" CssClass="public-button" Text="Login" OnClick="btnLogin_Click" CausesValidation="false" />
-                    <div class="public-request-access-link">
-                        <asp:LinkButton ID="btnRequestAccess" runat="server" OnClick="btnRequestAccess_Click" CssClass="public-request-access" 
-                                        CausesValidation="false">Request Access?</asp:LinkButton>
-                    </div>                        
+
+
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 180px">
+                                    <asp:Label ID="Label1" runat="server" Text="No Login? Request one: "></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnRequestAccess" runat="server" CausesValidation="false" CssClass="adminButton" OnClick="btnRequestAccess_Click" Text="Request Login" />
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                     
                 </asp:Panel>                
                 
                 <div class="label-placement">
@@ -134,22 +145,62 @@
                 </asp:Panel>
                 <br />
                 <asp:Panel ID="pnlReports" runat="server" CssClass="public-panel-reports">                                
-                    <asp:Button ID="btnStations" runat="server" Text="All Stations" OnClick="btnStations_Click" CssClass="public-button-reports"/>
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 21px">&nbsp;</td>
+                            <td>
+                                <asp:Button ID="btnStations" runat="server" CssClass="public-button-reports" OnClick="btnStations_Click" Text="All Stations" />
+                            </td>
+                            <td>
+                                <asp:Button ID="btnStationsWithGauges" runat="server" CssClass="public-button-reports" OnClick="btnStationsWithGauges_Click" Text="Stations With Gauges" />
+                            </td>
+                            <td>
+                                <asp:Button ID="btnStationsByProject" runat="server" CssClass="public-button-reports" OnClick="btnStationsByProject_Click" Text="Stations By Project" />
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 21px">&nbsp;</td>
+                            <td>
+                                <asp:Button ID="btnOrganizations" runat="server" CssClass="public-button-reports" OnClick="btnOrganizations_Click" Text="All Organizations" />
+                            </td>
+                            <td>
+                                <asp:Button ID="btnOrgStatus" runat="server" CssClass="public-button-reports" OnClick="btnOrgStatus_Click" Text="Organization Status" />
+                            </td>
+                            <td>
+                                <asp:Button ID="btnOrgStations" runat="server" CssClass="public-button-reports" OnClick="btnOrgStations_Click" Text="Organization Stations" />
+                            </td>
+                            <td>
+                                <asp:Button ID="btnOrgUnknownResults" runat="server" CssClass="public-button-reports" OnClick="btnOrgUnknownResults_Click" Text="Organization Unknown Results" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 21px">&nbsp;</td>
+                            <td>
+                                <asp:Button ID="btnQAQC" runat="server" CssClass="public-button-reports" OnClick="btnQAQC_Click" Text="QAQC Report" />
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 21px">&nbsp;</td>
+                            <td>
+                                <asp:Button ID="btnAllSampleData" runat="server" CssClass="public-button-reports" Text="All Sample Results" OnClick="btnAllSampleData_Click" />
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
                     <br />
-                    <asp:Button ID="btnStationsWithGauges" runat="server" Text="Stations With Gauges" OnClick="btnStationsWithGauges_Click" CssClass="public-button-reports" />                    
+                    <br />
                     <br />    
-                    <asp:Button ID="btnOrgStatus" runat="server" Text="Organization Status" OnClick="btnOrgStatus_Click" CssClass="public-button-reports"/>
                     <br />
-                    <asp:Button ID="btnOrgStations" runat="server" Text="Organization Stations" OnClick="btnOrgStations_Click" CssClass="public-button-reports"/>
                     <br />
-                    <asp:Button ID="btnOrganizations" runat="server" Text="All Organizations" OnClick="btnOrganizations_Click" CssClass="public-button-reports"/>
                     <br />
-                    <asp:Button ID="btnStationsByProject" runat="server" Text="Stations By Project" OnClick="btnStationsByProject_Click" CssClass="public-button-reports"/>
                     <br />
-                    <asp:Button ID="btnQAQC" runat="server" CssClass="public-button-reports" OnClick="btnQAQC_Click" Text="QAQC Report" />
                     <br />
-                     <asp:Button ID="btnOrgUnknownResults" runat="server" Text="Organization Unknown Results" OnClick="btnOrgUnknownResults_Click"
-                            CssClass="public-button-reports"/>  
                 </asp:Panel>
             </ContentTemplate>
         </asp:UpdatePanel>    
