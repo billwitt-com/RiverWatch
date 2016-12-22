@@ -79,37 +79,22 @@ namespace RWInbound2.Public
 
         protected void btnOrgStations_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Reports/OrgStations.aspx");
+            Response.Redirect("~/Public/OrgStations.aspx");
         }
 
         protected void btnOrganizations_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Reports/Organizations.aspx");
+            Response.Redirect("~/Public/Organizations.aspx");
         }
 
-        protected void btnParticipants_Click(object sender, EventArgs e)
+         protected void btnStations_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Reports/Participants.aspx");
-        }
-
-        protected void btnStations_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/Stations.aspx");
-        }
-
-        protected void btnSamples_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/Samples.aspx");
-        }
-
-        protected void btnMetalBarCodes_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Reports/MetalBarCodes.aspx");
-        }
+            Response.Redirect("~/Public/Stations.aspx");
+        } 
 
         protected void btnStationsByProject_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Reports/StationsByProject.aspx");
+            Response.Redirect("~/Public/StationsByProject.aspx");
         }
 
 
@@ -361,6 +346,11 @@ namespace RWInbound2.Public
             {
                 SetMessages("Error", ex.Message);
             }
+        }
+
+        protected void btnAllSampleData_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

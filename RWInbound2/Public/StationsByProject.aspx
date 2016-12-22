@@ -12,13 +12,14 @@
     <div class="label-placement">
             <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
     </div>
-    Select By:<asp:DropDownList ID="ddlProjects" runat="server">
+    Select By:
+    <asp:DropDownList ID="ddlProjects" runat="server">
         </asp:DropDownList>
         <asp:Button ID="btnSelect" runat="server" Text="Select" OnClick="btnSelect_Click" />
         <br />
         <br />
         <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" ShowPrintButton="False" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1109px">
-            <LocalReport ReportPath="Reports\StationsByProject.rdlc">
+            <LocalReport ReportPath="Public\StationsByProject.rdlc">
                 <DataSources>
                     <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
                 </DataSources>

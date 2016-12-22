@@ -41,7 +41,7 @@
     </p>
 <br />
 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" ShowPrintButton="False" Font-Size="8pt" Width="1072px" Height="551px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
-    <LocalReport ReportPath="Reports\OrgStations.rdlc">
+    <LocalReport ReportPath="Public\OrgStations.rdlc">
         <DataSources>
             <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
         </DataSources>
