@@ -278,6 +278,7 @@
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Files\StationImages.aspx" />
     <Content Include="Help\HelpInboundICP.aspx" />
     <Content Include="Images\Bucketdrop.jpg" />
     <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
@@ -1138,6 +1139,13 @@
     <Compile Include="ErrorPage.aspx.designer.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Files\StationImages.aspx.cs">
+      <DependentUpon>StationImages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Files\StationImages.aspx.designer.cs">
+      <DependentUpon>StationImages.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Help\HelpInboundICP.aspx.cs">
       <DependentUpon>HelpInboundICP.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1993,7 +2001,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Files\uploads\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
@@ -2044,10 +2054,18 @@
     <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Reports\MailingLabels.rdlc" />
-    <EmbeddedResource Include="Reports\OrgUnknownResults.rdlc" />
-    <EmbeddedResource Include="Reports\QAQCReport.rdlc" />
-    <EmbeddedResource Include="Reports\stationsByProject.rdlc" />
+    <Content Include="Reports\MailingLabels.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\OrgUnknownResults.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\QAQCReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\StationsByProject.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

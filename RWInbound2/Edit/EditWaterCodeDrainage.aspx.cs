@@ -80,61 +80,6 @@ namespace RWInbound2.Edit
             }
         }
 
-        [System.Web.Script.Services.ScriptMethod()]
-        [System.Web.Services.WebMethod]
-        //public static List<string> SearchForSampleID(string prefixText, int count)
-        //{
-        //    List<string> sampleIDs = new List<string>();
-
-        //    try
-        //    {
-        //        using (RiverWatchEntities _db = new RiverWatchEntities())
-        //        {
-        //            sampleIDs = _db.tblSubSamp
-        //                                .Where(s => s.SampleID.ToString().StartsWith(prefixText))
-        //                                .OrderBy(s => s.SampleID.ToString())
-        //                                .Select(s => s.SampleID.ToString()).Distinct().ToList();
-
-        //            sampleIDs.Sort();
-
-        //            return sampleIDs;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        EditSubSamp editSubSamp = new EditSubSamp();
-        //        editSubSamp.HandleErrors(ex, ex.Message, "SearchForSampleID", "", "");
-        //        return sampleIDs;
-        //    }
-        //}
-
-        //protected void btnSearch_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        string sampleIDSearchSearchTerm = sampleIDSearch.Text;
-        //        string redirect = "EditSubSamp.aspx?sampleIDSearchSearchTerm=" + sampleIDSearchSearchTerm;
-
-        //        Response.Redirect(redirect, false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        HandleErrors(ex, ex.Message, "btnSearch_Click", "", "");
-        //    }
-        //}
-
-        //protected void btnSearchRefresh_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        Response.Redirect("EditSubSamp.aspx", false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        HandleErrors(ex, ex.Message, "btnSearchRefresh_Click", "", "");
-        //    }
-        //}
-
         public void UpdateWaterCodeDrainage(WaterCodeDrainage model)
         {
             try
