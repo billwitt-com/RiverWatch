@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="RawSamplesDataSet" targetNamespace="http://tempuri.org/RawSamplesDataSet.xsd" xmlns:mstns="http://tempuri.org/RawSamplesDataSet.xsd" xmlns="http://tempuri.org/RawSamplesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="RiverWatchDEV" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RiverWatchDEV (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.RiverWatchDEV.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="viewRawSamplesAllTableAdapter" GeneratorDataComponentClassName="viewRawSamplesAllTableAdapter" Name="viewRawSamplesAll" UserDataComponentName="viewRawSamplesAllTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="RiverWatchDEV (Web.config)" DbObjectName="RiverWatch.dbo.viewRawSamplesAll" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT SampleNumber, Event, TypeCode, WaterShed, RiverName, KitNumber, OrganizationName, StationNumber, StationName, SampleDate, RWWaterShed, WQCCWaterShed, WaterCode, WaterBodyID, WaterShedRegion, County, WaterShedGathering, ProjectName, ProjectID, USGS_Flow, PH, TempC, PHEN_ALK, TOTAL_ALK, TOTAL_HARD, DO_MGL, DOSAT, AL_D, AL_T, AS_D, AS_T, CA_D, CA_T, CD_D, CD_T, CU_D, CU_T, FE_D, FE_T, MG_D, MG_T, MN_D, MN_T, PB_D, PB_T, SE_D, SE_T, ZN_D, ZN_T, NA_D, NA_T, K_D, K_T, Ammonia, Chloride, ChlorophyllA, DOC, NN, OP, Sulfate, totN, totP, TKN, orgN, TSS, Valid FROM dbo.viewRawSamplesAll</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="SampleNumber" DataSetColumn="SampleNumber" />
+              <Mapping SourceColumn="Event" DataSetColumn="Event" />
+              <Mapping SourceColumn="TypeCode" DataSetColumn="TypeCode" />
+              <Mapping SourceColumn="WaterShed" DataSetColumn="WaterShed" />
+              <Mapping SourceColumn="RiverName" DataSetColumn="RiverName" />
+              <Mapping SourceColumn="KitNumber" DataSetColumn="KitNumber" />
+              <Mapping SourceColumn="OrganizationName" DataSetColumn="OrganizationName" />
+              <Mapping SourceColumn="StationNumber" DataSetColumn="StationNumber" />
+              <Mapping SourceColumn="StationName" DataSetColumn="StationName" />
+              <Mapping SourceColumn="SampleDate" DataSetColumn="SampleDate" />
+              <Mapping SourceColumn="RWWaterShed" DataSetColumn="RWWaterShed" />
+              <Mapping SourceColumn="WQCCWaterShed" DataSetColumn="WQCCWaterShed" />
+              <Mapping SourceColumn="WaterCode" DataSetColumn="WaterCode" />
+              <Mapping SourceColumn="WaterBodyID" DataSetColumn="WaterBodyID" />
+              <Mapping SourceColumn="WaterShedRegion" DataSetColumn="WaterShedRegion" />
+              <Mapping SourceColumn="County" DataSetColumn="County" />
+              <Mapping SourceColumn="WaterShedGathering" DataSetColumn="WaterShedGathering" />
+              <Mapping SourceColumn="ProjectName" DataSetColumn="ProjectName" />
+              <Mapping SourceColumn="ProjectID" DataSetColumn="ProjectID" />
+              <Mapping SourceColumn="USGS_Flow" DataSetColumn="USGS_Flow" />
+              <Mapping SourceColumn="PH" DataSetColumn="PH" />
+              <Mapping SourceColumn="TempC" DataSetColumn="TempC" />
+              <Mapping SourceColumn="PHEN_ALK" DataSetColumn="PHEN_ALK" />
+              <Mapping SourceColumn="TOTAL_ALK" DataSetColumn="TOTAL_ALK" />
+              <Mapping SourceColumn="TOTAL_HARD" DataSetColumn="TOTAL_HARD" />
+              <Mapping SourceColumn="DO_MGL" DataSetColumn="DO_MGL" />
+              <Mapping SourceColumn="DOSAT" DataSetColumn="DOSAT" />
+              <Mapping SourceColumn="AL_D" DataSetColumn="AL_D" />
+              <Mapping SourceColumn="AL_T" DataSetColumn="AL_T" />
+              <Mapping SourceColumn="AS_D" DataSetColumn="AS_D" />
+              <Mapping SourceColumn="AS_T" DataSetColumn="AS_T" />
+              <Mapping SourceColumn="CA_D" DataSetColumn="CA_D" />
+              <Mapping SourceColumn="CA_T" DataSetColumn="CA_T" />
+              <Mapping SourceColumn="CD_D" DataSetColumn="CD_D" />
+              <Mapping SourceColumn="CD_T" DataSetColumn="CD_T" />
+              <Mapping SourceColumn="CU_D" DataSetColumn="CU_D" />
+              <Mapping SourceColumn="CU_T" DataSetColumn="CU_T" />
+              <Mapping SourceColumn="FE_D" DataSetColumn="FE_D" />
+              <Mapping SourceColumn="FE_T" DataSetColumn="FE_T" />
+              <Mapping SourceColumn="MG_D" DataSetColumn="MG_D" />
+              <Mapping SourceColumn="MG_T" DataSetColumn="MG_T" />
+              <Mapping SourceColumn="MN_D" DataSetColumn="MN_D" />
+              <Mapping SourceColumn="MN_T" DataSetColumn="MN_T" />
+              <Mapping SourceColumn="PB_D" DataSetColumn="PB_D" />
+              <Mapping SourceColumn="PB_T" DataSetColumn="PB_T" />
+              <Mapping SourceColumn="SE_D" DataSetColumn="SE_D" />
+              <Mapping SourceColumn="SE_T" DataSetColumn="SE_T" />
+              <Mapping SourceColumn="ZN_D" DataSetColumn="ZN_D" />
+              <Mapping SourceColumn="ZN_T" DataSetColumn="ZN_T" />
+              <Mapping SourceColumn="NA_D" DataSetColumn="NA_D" />
+              <Mapping SourceColumn="NA_T" DataSetColumn="NA_T" />
+              <Mapping SourceColumn="K_D" DataSetColumn="K_D" />
+              <Mapping SourceColumn="K_T" DataSetColumn="K_T" />
+              <Mapping SourceColumn="Ammonia" DataSetColumn="Ammonia" />
+              <Mapping SourceColumn="Chloride" DataSetColumn="Chloride" />
+              <Mapping SourceColumn="ChlorophyllA" DataSetColumn="ChlorophyllA" />
+              <Mapping SourceColumn="DOC" DataSetColumn="DOC" />
+              <Mapping SourceColumn="NN" DataSetColumn="NN" />
+              <Mapping SourceColumn="OP" DataSetColumn="OP" />
+              <Mapping SourceColumn="Sulfate" DataSetColumn="Sulfate" />
+              <Mapping SourceColumn="totN" DataSetColumn="totN" />
+              <Mapping SourceColumn="totP" DataSetColumn="totP" />
+              <Mapping SourceColumn="TKN" DataSetColumn="TKN" />
+              <Mapping SourceColumn="orgN" DataSetColumn="orgN" />
+              <Mapping SourceColumn="TSS" DataSetColumn="TSS" />
+              <Mapping SourceColumn="Valid" DataSetColumn="Valid" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="RawSamplesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="RawSamplesDataSet" msprop:Generator_UserDSName="RawSamplesDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="viewRawSamplesAll" msprop:Generator_TableClassName="viewRawSamplesAllDataTable" msprop:Generator_TableVarName="tableviewRawSamplesAll" msprop:Generator_TablePropName="viewRawSamplesAll" msprop:Generator_RowDeletingName="viewRawSamplesAllRowDeleting" msprop:Generator_RowChangingName="viewRawSamplesAllRowChanging" msprop:Generator_RowEvHandlerName="viewRawSamplesAllRowChangeEventHandler" msprop:Generator_RowDeletedName="viewRawSamplesAllRowDeleted" msprop:Generator_UserTableName="viewRawSamplesAll" msprop:Generator_RowChangedName="viewRawSamplesAllRowChanged" msprop:Generator_RowEvArgName="viewRawSamplesAllRowChangeEvent" msprop:Generator_RowClassName="viewRawSamplesAllRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SampleNumber" msprop:Generator_ColumnVarNameInTable="columnSampleNumber" msprop:Generator_ColumnPropNameInRow="SampleNumber" msprop:Generator_ColumnPropNameInTable="SampleNumberColumn" msprop:Generator_UserColumnName="SampleNumber">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Event" msprop:Generator_ColumnVarNameInTable="columnEvent" msprop:Generator_ColumnPropNameInRow="Event" msprop:Generator_ColumnPropNameInTable="EventColumn" msprop:Generator_UserColumnName="Event">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TypeCode" msprop:Generator_ColumnVarNameInTable="columnTypeCode" msprop:Generator_ColumnPropNameInRow="TypeCode" msprop:Generator_ColumnPropNameInTable="TypeCodeColumn" msprop:Generator_UserColumnName="TypeCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WaterShed" msprop:Generator_ColumnVarNameInTable="columnWaterShed" msprop:Generator_ColumnPropNameInRow="WaterShed" msprop:Generator_ColumnPropNameInTable="WaterShedColumn" msprop:Generator_UserColumnName="WaterShed" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RiverName" msprop:Generator_ColumnVarNameInTable="columnRiverName" msprop:Generator_ColumnPropNameInRow="RiverName" msprop:Generator_ColumnPropNameInTable="RiverNameColumn" msprop:Generator_UserColumnName="RiverName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="17" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KitNumber" msprop:Generator_ColumnVarNameInTable="columnKitNumber" msprop:Generator_ColumnPropNameInRow="KitNumber" msprop:Generator_ColumnPropNameInTable="KitNumberColumn" msprop:Generator_UserColumnName="KitNumber" type="xs:int" minOccurs="0" />
+              <xs:element name="OrganizationName" msprop:Generator_ColumnVarNameInTable="columnOrganizationName" msprop:Generator_ColumnPropNameInRow="OrganizationName" msprop:Generator_ColumnPropNameInTable="OrganizationNameColumn" msprop:Generator_UserColumnName="OrganizationName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="StationNumber" msprop:Generator_ColumnVarNameInTable="columnStationNumber" msprop:Generator_ColumnPropNameInRow="StationNumber" msprop:Generator_ColumnPropNameInTable="StationNumberColumn" msprop:Generator_UserColumnName="StationNumber" type="xs:int" minOccurs="0" />
+              <xs:element name="StationName" msprop:Generator_ColumnVarNameInTable="columnStationName" msprop:Generator_ColumnPropNameInRow="StationName" msprop:Generator_ColumnPropNameInTable="StationNameColumn" msprop:Generator_UserColumnName="StationName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SampleDate" msprop:Generator_ColumnVarNameInTable="columnSampleDate" msprop:Generator_ColumnPropNameInRow="SampleDate" msprop:Generator_ColumnPropNameInTable="SampleDateColumn" msprop:Generator_UserColumnName="SampleDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="RWWaterShed" msprop:Generator_ColumnVarNameInTable="columnRWWaterShed" msprop:Generator_ColumnPropNameInRow="RWWaterShed" msprop:Generator_ColumnPropNameInTable="RWWaterShedColumn" msprop:Generator_UserColumnName="RWWaterShed" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WQCCWaterShed" msprop:Generator_ColumnVarNameInTable="columnWQCCWaterShed" msprop:Generator_ColumnPropNameInRow="WQCCWaterShed" msprop:Generator_ColumnPropNameInTable="WQCCWaterShedColumn" msprop:Generator_UserColumnName="WQCCWaterShed" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WaterCode" msprop:Generator_ColumnVarNameInTable="columnWaterCode" msprop:Generator_ColumnPropNameInRow="WaterCode" msprop:Generator_ColumnPropNameInTable="WaterCodeColumn" msprop:Generator_UserColumnName="WaterCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WaterBodyID" msprop:Generator_ColumnVarNameInTable="columnWaterBodyID" msprop:Generator_ColumnPropNameInRow="WaterBodyID" msprop:Generator_ColumnPropNameInTable="WaterBodyIDColumn" msprop:Generator_UserColumnName="WaterBodyID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WaterShedRegion" msprop:Generator_ColumnVarNameInTable="columnWaterShedRegion" msprop:Generator_ColumnPropNameInRow="WaterShedRegion" msprop:Generator_ColumnPropNameInTable="WaterShedRegionColumn" msprop:Generator_UserColumnName="WaterShedRegion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="County" msprop:Generator_ColumnVarNameInTable="columnCounty" msprop:Generator_ColumnPropNameInRow="County" msprop:Generator_ColumnPropNameInTable="CountyColumn" msprop:Generator_UserColumnName="County" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WaterShedGathering" msprop:Generator_ColumnVarNameInTable="columnWaterShedGathering" msprop:Generator_ColumnPropNameInRow="WaterShedGathering" msprop:Generator_ColumnPropNameInTable="WaterShedGatheringColumn" msprop:Generator_UserColumnName="WaterShedGathering" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ProjectName" msprop:Generator_ColumnVarNameInTable="columnProjectName" msprop:Generator_ColumnPropNameInRow="ProjectName" msprop:Generator_ColumnPropNameInTable="ProjectNameColumn" msprop:Generator_UserColumnName="ProjectName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ProjectID" msprop:Generator_ColumnVarNameInTable="columnProjectID" msprop:Generator_ColumnPropNameInRow="ProjectID" msprop:Generator_ColumnPropNameInTable="ProjectIDColumn" msprop:Generator_UserColumnName="ProjectID" type="xs:int" />
+              <xs:element name="USGS_Flow" msprop:Generator_ColumnVarNameInTable="columnUSGS_Flow" msprop:Generator_ColumnPropNameInRow="USGS_Flow" msprop:Generator_ColumnPropNameInTable="USGS_FlowColumn" msprop:Generator_UserColumnName="USGS_Flow" type="xs:double" minOccurs="0" />
+              <xs:element name="PH" msprop:Generator_ColumnVarNameInTable="columnPH" msprop:Generator_ColumnPropNameInRow="PH" msprop:Generator_ColumnPropNameInTable="PHColumn" msprop:Generator_UserColumnName="PH" type="xs:double" minOccurs="0" />
+              <xs:element name="TempC" msprop:Generator_ColumnVarNameInTable="columnTempC" msprop:Generator_ColumnPropNameInRow="TempC" msprop:Generator_ColumnPropNameInTable="TempCColumn" msprop:Generator_UserColumnName="TempC" type="xs:double" minOccurs="0" />
+              <xs:element name="PHEN_ALK" msprop:Generator_ColumnVarNameInTable="columnPHEN_ALK" msprop:Generator_ColumnPropNameInRow="PHEN_ALK" msprop:Generator_ColumnPropNameInTable="PHEN_ALKColumn" msprop:Generator_UserColumnName="PHEN_ALK" type="xs:double" minOccurs="0" />
+              <xs:element name="TOTAL_ALK" msprop:Generator_ColumnVarNameInTable="columnTOTAL_ALK" msprop:Generator_ColumnPropNameInRow="TOTAL_ALK" msprop:Generator_ColumnPropNameInTable="TOTAL_ALKColumn" msprop:Generator_UserColumnName="TOTAL_ALK" type="xs:double" minOccurs="0" />
+              <xs:element name="TOTAL_HARD" msprop:Generator_ColumnVarNameInTable="columnTOTAL_HARD" msprop:Generator_ColumnPropNameInRow="TOTAL_HARD" msprop:Generator_ColumnPropNameInTable="TOTAL_HARDColumn" msprop:Generator_UserColumnName="TOTAL_HARD" type="xs:double" minOccurs="0" />
+              <xs:element name="DO_MGL" msprop:Generator_ColumnVarNameInTable="columnDO_MGL" msprop:Generator_ColumnPropNameInRow="DO_MGL" msprop:Generator_ColumnPropNameInTable="DO_MGLColumn" msprop:Generator_UserColumnName="DO_MGL" type="xs:double" minOccurs="0" />
+              <xs:element name="DOSAT" msprop:Generator_ColumnVarNameInTable="columnDOSAT" msprop:Generator_ColumnPropNameInRow="DOSAT" msprop:Generator_ColumnPropNameInTable="DOSATColumn" msprop:Generator_UserColumnName="DOSAT" type="xs:int" minOccurs="0" />
+              <xs:element name="AL_D" msprop:Generator_ColumnVarNameInTable="columnAL_D" msprop:Generator_ColumnPropNameInRow="AL_D" msprop:Generator_ColumnPropNameInTable="AL_DColumn" msprop:Generator_UserColumnName="AL_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AL_T" msprop:Generator_ColumnVarNameInTable="columnAL_T" msprop:Generator_ColumnPropNameInRow="AL_T" msprop:Generator_ColumnPropNameInTable="AL_TColumn" msprop:Generator_UserColumnName="AL_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AS_D" msprop:Generator_ColumnVarNameInTable="columnAS_D" msprop:Generator_ColumnPropNameInRow="AS_D" msprop:Generator_ColumnPropNameInTable="AS_DColumn" msprop:Generator_UserColumnName="AS_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AS_T" msprop:Generator_ColumnVarNameInTable="columnAS_T" msprop:Generator_ColumnPropNameInRow="AS_T" msprop:Generator_ColumnPropNameInTable="AS_TColumn" msprop:Generator_UserColumnName="AS_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_D" msprop:Generator_ColumnVarNameInTable="columnCA_D" msprop:Generator_ColumnPropNameInRow="CA_D" msprop:Generator_ColumnPropNameInTable="CA_DColumn" msprop:Generator_UserColumnName="CA_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_T" msprop:Generator_ColumnVarNameInTable="columnCA_T" msprop:Generator_ColumnPropNameInRow="CA_T" msprop:Generator_ColumnPropNameInTable="CA_TColumn" msprop:Generator_UserColumnName="CA_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CD_D" msprop:Generator_ColumnVarNameInTable="columnCD_D" msprop:Generator_ColumnPropNameInRow="CD_D" msprop:Generator_ColumnPropNameInTable="CD_DColumn" msprop:Generator_UserColumnName="CD_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CD_T" msprop:Generator_ColumnVarNameInTable="columnCD_T" msprop:Generator_ColumnPropNameInRow="CD_T" msprop:Generator_ColumnPropNameInTable="CD_TColumn" msprop:Generator_UserColumnName="CD_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CU_D" msprop:Generator_ColumnVarNameInTable="columnCU_D" msprop:Generator_ColumnPropNameInRow="CU_D" msprop:Generator_ColumnPropNameInTable="CU_DColumn" msprop:Generator_UserColumnName="CU_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CU_T" msprop:Generator_ColumnVarNameInTable="columnCU_T" msprop:Generator_ColumnPropNameInRow="CU_T" msprop:Generator_ColumnPropNameInTable="CU_TColumn" msprop:Generator_UserColumnName="CU_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FE_D" msprop:Generator_ColumnVarNameInTable="columnFE_D" msprop:Generator_ColumnPropNameInRow="FE_D" msprop:Generator_ColumnPropNameInTable="FE_DColumn" msprop:Generator_UserColumnName="FE_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FE_T" msprop:Generator_ColumnVarNameInTable="columnFE_T" msprop:Generator_ColumnPropNameInRow="FE_T" msprop:Generator_ColumnPropNameInTable="FE_TColumn" msprop:Generator_UserColumnName="FE_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MG_D" msprop:Generator_ColumnVarNameInTable="columnMG_D" msprop:Generator_ColumnPropNameInRow="MG_D" msprop:Generator_ColumnPropNameInTable="MG_DColumn" msprop:Generator_UserColumnName="MG_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MG_T" msprop:Generator_ColumnVarNameInTable="columnMG_T" msprop:Generator_ColumnPropNameInRow="MG_T" msprop:Generator_ColumnPropNameInTable="MG_TColumn" msprop:Generator_UserColumnName="MG_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MN_D" msprop:Generator_ColumnVarNameInTable="columnMN_D" msprop:Generator_ColumnPropNameInRow="MN_D" msprop:Generator_ColumnPropNameInTable="MN_DColumn" msprop:Generator_UserColumnName="MN_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MN_T" msprop:Generator_ColumnVarNameInTable="columnMN_T" msprop:Generator_ColumnPropNameInRow="MN_T" msprop:Generator_ColumnPropNameInTable="MN_TColumn" msprop:Generator_UserColumnName="MN_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PB_D" msprop:Generator_ColumnVarNameInTable="columnPB_D" msprop:Generator_ColumnPropNameInRow="PB_D" msprop:Generator_ColumnPropNameInTable="PB_DColumn" msprop:Generator_UserColumnName="PB_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PB_T" msprop:Generator_ColumnVarNameInTable="columnPB_T" msprop:Generator_ColumnPropNameInRow="PB_T" msprop:Generator_ColumnPropNameInTable="PB_TColumn" msprop:Generator_UserColumnName="PB_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SE_D" msprop:Generator_ColumnVarNameInTable="columnSE_D" msprop:Generator_ColumnPropNameInRow="SE_D" msprop:Generator_ColumnPropNameInTable="SE_DColumn" msprop:Generator_UserColumnName="SE_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SE_T" msprop:Generator_ColumnVarNameInTable="columnSE_T" msprop:Generator_ColumnPropNameInRow="SE_T" msprop:Generator_ColumnPropNameInTable="SE_TColumn" msprop:Generator_UserColumnName="SE_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ZN_D" msprop:Generator_ColumnVarNameInTable="columnZN_D" msprop:Generator_ColumnPropNameInRow="ZN_D" msprop:Generator_ColumnPropNameInTable="ZN_DColumn" msprop:Generator_UserColumnName="ZN_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ZN_T" msprop:Generator_ColumnVarNameInTable="columnZN_T" msprop:Generator_ColumnPropNameInRow="ZN_T" msprop:Generator_ColumnPropNameInTable="ZN_TColumn" msprop:Generator_UserColumnName="ZN_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NA_D" msprop:Generator_ColumnVarNameInTable="columnNA_D" msprop:Generator_ColumnPropNameInRow="NA_D" msprop:Generator_ColumnPropNameInTable="NA_DColumn" msprop:Generator_UserColumnName="NA_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NA_T" msprop:Generator_ColumnVarNameInTable="columnNA_T" msprop:Generator_ColumnPropNameInRow="NA_T" msprop:Generator_ColumnPropNameInTable="NA_TColumn" msprop:Generator_UserColumnName="NA_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="K_D" msprop:Generator_ColumnVarNameInTable="columnK_D" msprop:Generator_ColumnPropNameInRow="K_D" msprop:Generator_ColumnPropNameInTable="K_DColumn" msprop:Generator_UserColumnName="K_D" type="xs:decimal" minOccurs="0" />
+              <xs:element name="K_T" msprop:Generator_ColumnVarNameInTable="columnK_T" msprop:Generator_ColumnPropNameInRow="K_T" msprop:Generator_ColumnPropNameInTable="K_TColumn" msprop:Generator_UserColumnName="K_T" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Ammonia" msprop:Generator_ColumnVarNameInTable="columnAmmonia" msprop:Generator_ColumnPropNameInRow="Ammonia" msprop:Generator_ColumnPropNameInTable="AmmoniaColumn" msprop:Generator_UserColumnName="Ammonia" type="xs:double" minOccurs="0" />
+              <xs:element name="Chloride" msprop:Generator_ColumnVarNameInTable="columnChloride" msprop:Generator_ColumnPropNameInRow="Chloride" msprop:Generator_ColumnPropNameInTable="ChlorideColumn" msprop:Generator_UserColumnName="Chloride" type="xs:double" minOccurs="0" />
+              <xs:element name="ChlorophyllA" msprop:Generator_ColumnVarNameInTable="columnChlorophyllA" msprop:Generator_ColumnPropNameInRow="ChlorophyllA" msprop:Generator_ColumnPropNameInTable="ChlorophyllAColumn" msprop:Generator_UserColumnName="ChlorophyllA" type="xs:double" minOccurs="0" />
+              <xs:element name="DOC" msprop:Generator_ColumnVarNameInTable="columnDOC" msprop:Generator_ColumnPropNameInRow="DOC" msprop:Generator_ColumnPropNameInTable="DOCColumn" msprop:Generator_UserColumnName="DOC" type="xs:double" minOccurs="0" />
+              <xs:element name="NN" msprop:Generator_ColumnVarNameInTable="columnNN" msprop:Generator_ColumnPropNameInRow="NN" msprop:Generator_ColumnPropNameInTable="NNColumn" msprop:Generator_UserColumnName="NN" type="xs:double" minOccurs="0" />
+              <xs:element name="OP" msprop:Generator_ColumnVarNameInTable="columnOP" msprop:Generator_ColumnPropNameInRow="OP" msprop:Generator_ColumnPropNameInTable="OPColumn" msprop:Generator_UserColumnName="OP" type="xs:double" minOccurs="0" />
+              <xs:element name="Sulfate" msprop:Generator_ColumnVarNameInTable="columnSulfate" msprop:Generator_ColumnPropNameInRow="Sulfate" msprop:Generator_ColumnPropNameInTable="SulfateColumn" msprop:Generator_UserColumnName="Sulfate" type="xs:double" minOccurs="0" />
+              <xs:element name="totN" msprop:Generator_ColumnVarNameInTable="columntotN" msprop:Generator_ColumnPropNameInRow="totN" msprop:Generator_ColumnPropNameInTable="totNColumn" msprop:Generator_UserColumnName="totN" type="xs:double" minOccurs="0" />
+              <xs:element name="totP" msprop:Generator_ColumnVarNameInTable="columntotP" msprop:Generator_ColumnPropNameInRow="totP" msprop:Generator_ColumnPropNameInTable="totPColumn" msprop:Generator_UserColumnName="totP" type="xs:double" minOccurs="0" />
+              <xs:element name="TKN" msprop:Generator_ColumnVarNameInTable="columnTKN" msprop:Generator_ColumnPropNameInRow="TKN" msprop:Generator_ColumnPropNameInTable="TKNColumn" msprop:Generator_UserColumnName="TKN" type="xs:double" minOccurs="0" />
+              <xs:element name="orgN" msprop:Generator_ColumnVarNameInTable="columnorgN" msprop:Generator_ColumnPropNameInRow="orgN" msprop:Generator_ColumnPropNameInTable="orgNColumn" msprop:Generator_UserColumnName="orgN" type="xs:double" minOccurs="0" />
+              <xs:element name="TSS" msprop:Generator_ColumnVarNameInTable="columnTSS" msprop:Generator_ColumnPropNameInRow="TSS" msprop:Generator_ColumnPropNameInTable="TSSColumn" msprop:Generator_UserColumnName="TSS" type="xs:double" minOccurs="0" />
+              <xs:element name="Valid" msprop:Generator_ColumnVarNameInTable="columnValid" msprop:Generator_ColumnPropNameInRow="Valid" msprop:Generator_ColumnPropNameInTable="ValidColumn" msprop:Generator_UserColumnName="Valid" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:viewRawSamplesAll" />
+      <xs:field xpath="mstns:ProjectID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

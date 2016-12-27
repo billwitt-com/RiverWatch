@@ -350,7 +350,7 @@ namespace RWInbound2.Public
 
         protected void btnAllSampleData_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("~/Public/RAWSamplesAll.aspx");
         }
     }
 }

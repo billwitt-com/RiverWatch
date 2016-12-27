@@ -421,6 +421,28 @@
     <Content Include="ReportStationsByProject.xsc">
       <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
     </Content>
+    <Content Include="RawSamplesAll.xsc">
+      <DependentUpon>RawSamplesAll.xsd</DependentUpon>
+    </Content>
+    <None Include="RawSamplesAll.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RawSamplesAll.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RawSamplesAll.xss">
+      <DependentUpon>RawSamplesAll.xsd</DependentUpon>
+    </Content>
+    <Content Include="RawSamplesDataSet.xsc">
+      <DependentUpon>RawSamplesDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="RawSamplesDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RawSamplesDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="RawSamplesDataSet.xss">
+      <DependentUpon>RawSamplesDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="ReportStationsByProject.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ReportStationsByProject.Designer.cs</LastGenOutput>
@@ -1425,6 +1447,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="RawSamplesAll.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RawSamplesAll.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RawSamplesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RawSamplesDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportStationsByProject.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2055,6 +2087,9 @@
     <Content Include="Public\stationsByProject.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Public\Report2.rdlc" />
+    <EmbeddedResource Include="Public\Report3.rdlc" />
+    <EmbeddedResource Include="Public\RawSamplesAll.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
