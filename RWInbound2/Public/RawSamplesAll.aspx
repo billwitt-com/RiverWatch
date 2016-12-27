@@ -1,17 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="RawSamplesAll.aspx.cs" Inherits="RWInbound2.Public.RawSamplesAll" %>
+<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
         <br />
-    <asp:Label ID="Label1" runat="server"  CssClass="PageLabel" Text="Sample Data - ALL"></asp:Label>  
-    <br />
-        <div class="label-placement">
-        <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
-    </div>
-    <div class="label-placement">
-            <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
-    </div>
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Sample Data"></asp:Label>
+            <br />
+
+    <asp:Label ID="MSGLabel" runat="server" />
+
+            <br />
     Select one option below to subset export, multiple selections must align (station must be in WS, etc.):<br />
     <table>
 
@@ -48,9 +47,15 @@
             </tr>
                 <tr>
                 <td style="width: 8px"></td>
-                <td style="width: 190px">Watershed Report:</td>
+                <td style="width: 190px">Watershed Region:</td>
                 <td>
                     <asp:DropDownList ID="ddlWSR" runat="server"  Width="152px"></asp:DropDownList></td>
+            </tr>
+                <tr>
+                <td style="width: 8px"></td>
+                <td style="width: 190px">Watershed Gathering:</td>
+                <td>
+                    <asp:DropDownList ID="ddlWSG" runat="server"  Width="152px"></asp:DropDownList></td>
             </tr>
 
             <tr>
@@ -114,11 +119,11 @@
             &nbsp;
                 <asp:RadioButtonList ID="RadioButtonList1" runat="server" RepeatDirection="Horizontal" BorderColor="White" BorderStyle="Solid" BorderWidth="3px" Width="698px">
                     <asp:ListItem>None</asp:ListItem>
-                    <asp:ListItem>Sample Date</asp:ListItem>
-                    <asp:ListItem>Water Shed</asp:ListItem>
-                    <asp:ListItem>River Name</asp:ListItem>
-                    <asp:ListItem>Org Name</asp:ListItem>
-                    <asp:ListItem>Station Number</asp:ListItem>
+                    <asp:ListItem Value="SampleDate desc">Sample Date</asp:ListItem>
+                    <asp:ListItem Value="WaterShed desc">Water Shed</asp:ListItem>
+                    <asp:ListItem Value="RiverName desc">River Name</asp:ListItem>
+                    <asp:ListItem Value="OrganizationName desc">Org Name</asp:ListItem>
+                    <asp:ListItem Value="StationNumber desc">Station Number</asp:ListItem>
                 </asp:RadioButtonList>
                     </tr>
 
@@ -126,44 +131,56 @@
                 <td style="width: 8px; height: 12px"></td>
                 <td style="width: 190px; height: 12px">
 
-                    <asp:Label ID="Label3" runat="server" Text="Second Order By: "></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Text="Next Order By: "></asp:Label>
 
                 <td style="height: 14px; width: 662px;">&nbsp;
                 <asp:RadioButtonList ID="RadioButtonList2" runat="server" RepeatDirection="Horizontal" BorderColor="White" BorderStyle="Solid" BorderWidth="3px" Width="698px">
                     <asp:ListItem>None</asp:ListItem>
-                    <asp:ListItem>Sample Date</asp:ListItem>
-                    <asp:ListItem>Water Shed</asp:ListItem>
-                    <asp:ListItem>River Name</asp:ListItem>
-                    <asp:ListItem>Org Name</asp:ListItem>
-                    <asp:ListItem>Station Number</asp:ListItem>
+                    <asp:ListItem Value="SampleDate desc">Sample Date</asp:ListItem>
+                    <asp:ListItem Value="WaterShed desc">Water Shed</asp:ListItem>
+                    <asp:ListItem Value="RiverName desc">River Name</asp:ListItem>
+                    <asp:ListItem Value="OrganizationName desc">Org Name</asp:ListItem>
+                    <asp:ListItem Value="StationNumber desc">Station Number</asp:ListItem>
                 </asp:RadioButtonList>
             </tr>
             <tr>
                 <td style="width: 8px; height: 12px"></td>
                 <td style="width: 190px; height: 12px">
 
-                    <asp:Label ID="Label4" runat="server" Text="Third Order By: "></asp:Label>
+                    <asp:Label ID="Label4" runat="server" Text="Next Order By: "></asp:Label>
 
                 <td style="height: 14px; width: 662px;">&nbsp;
                 <asp:RadioButtonList ID="RadioButtonList3" runat="server" RepeatDirection="Horizontal" BorderColor="White" BorderStyle="Solid" BorderWidth="3px" Width="698px">
                     <asp:ListItem>None</asp:ListItem>
-                    <asp:ListItem>Sample Date</asp:ListItem>
-                    <asp:ListItem>Water Shed</asp:ListItem>
-                    <asp:ListItem>River Name</asp:ListItem>
-                    <asp:ListItem>Org Name</asp:ListItem>
-                    <asp:ListItem>Station Number</asp:ListItem>
+                    <asp:ListItem Value="SampleDate desc">Sample Date</asp:ListItem>
+                    <asp:ListItem Value="WaterShed desc">Water Shed</asp:ListItem>
+                    <asp:ListItem Value="RiverName desc">River Name</asp:ListItem>
+                    <asp:ListItem Value="OrganizationName desc">Org Name</asp:ListItem>
+                    <asp:ListItem Value="StationNumber desc">Station Number</asp:ListItem>
                 </asp:RadioButtonList>
             </tr>
         <tr>
             <td style="width: 8px; height: 12px"></td>
             <td style="width: 190px; height: 12px">
                 <asp:Button ID="btnGO" runat="server" Text="SELECT" OnClick="btnGO_Click" />
+
             </td>
             <td style="height: 12px; width: 662px;">
             &nbsp;
         </tr>
-
-
 </table>
+
+                <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="908px" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" 
+                    WaitMessageFont-Size="14pt" ShowPrintButton="False">
+                    <LocalReport ReportPath="Public\RawSamplesAll.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" >
+
+        </asp:SqlDataSource>
 
 </asp:Content>
