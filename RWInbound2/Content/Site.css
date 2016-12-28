@@ -1,4 +1,12 @@
 ﻿
+.formviewText
+{
+    font-family:Calibri;
+        font-size: 14px;
+    font-weight:normal;
+   
+}
+
 .PageLabel {
     font-family: Arial;
     font-size: 14px;
@@ -435,97 +443,6 @@ ul.RW-hmenu li li ul > li:last-child {
     margin-bottom: 0;
 }
 
-/*.RW-hmenu ul a
-{
-   display: block;
-   white-space: nowrap;
-   height: 24px;
-   min-width: 7em;
-   border: 0 solid transparent;
-   text-align: left;
-   line-height: 24px;
-   color: #6A7D90;
-   font-size: 13px; 
-   font-family: Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
-   text-decoration: none;
-   margin:0;
-}*/
-
-/*.RW-hmenu ul a:link, 
-.RW-hmenu ul a:visited, 
-.RW-hmenu ul a.active, 
-.RW-hmenu ul a:hover
-{
-   text-align: left;
-   line-height: 13px; 
-   color: #6A7D90;
-   font-size: 18px;
-   font-family: Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
-   text-decoration: none;
-   margin:0;
-}*/
-
-/*ul.RW-hmenu ul li a:hover, .desktop ul.RW-hmenu ul li:hover>a
-{
-   background: #FFFFFF;
-   -webkit-border-radius:4px;
-   -moz-border-radius:4px;
-   border-radius:4px;
-   margin:0 auto;
-}
-.RW-hmenu ul a:hover
-{
-   text-decoration: none;
-   color: #F05305;
-}*/
-
-/*.desktop .RW-hmenu ul li:hover>a
-{
-   color: #F05305;
-}*/
-
-/*ul.RW-hmenu ul:before
-{
-   background: #EFF2F5;
-   -webkit-border-radius:4px;
-   -moz-border-radius:4px;
-   border-radius:4px;
-   border:1px solid #CFD8E2;
-   margin:0 auto;
-   display: block;
-   position: absolute;
-   content: ' ';
-   z-index: 1;
-}
-.desktop ul.RW-hmenu li:hover>ul {
-   visibility: visible;
-   top: 100%;
-}
-.desktop ul.RW-hmenu li li:hover>ul {
-   top: 0;
-   left: 100%;
-}
-
-ul.RW-hmenu ul
-{
-   visibility: hidden;
-   position: absolute;
-   z-index: 10;
-   left: 0;
-   top: 0;
-   background-image: url('images/spacer.gif');
-}*/
-
-
-
-
-
-
-
-
-
-
-
 a {
     color: #333;
     outline: none;
@@ -674,35 +591,6 @@ footer {
     }
 
 
-/* menu NOT used here
-----------------------------------------------------------*/
-/*ul#menu {
-    font-size: 1.3em;
-    font-weight: 600;
-    margin: 0 0 5px;
-    padding: 0;
-    text-align: right;
-}
-
-    ul#menu li {
-        display: inline;
-        list-style: none;
-        padding-left: 15px;
-    }
-
-        ul#menu li a {
-            background: none;
-            color: #999;
-            text-decoration: none;
-        }
-
-        ul#menu li a:hover {
-            color: #333;
-            text-decoration: none;
-        }*/
-
-
-/* page elements
 ----------------------------------------------------------*/
 /* featured */
 .featured {
@@ -925,67 +813,7 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-/* tables
-----------------------------------------------------------*/
-/*table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    margin-top: 0.25em;
-    border: 0 none;
-}
 
-th {
-	font-size: 1.2em;
-    text-align: left;
-    border: none 0px;
-    padding-left: 0;
-}
-
-    th a {
-        display: block;
-        position: relative;
-        
-    }
-
-	th a:link, th a:visited, th a:active, th a:hover {
-		color: #333;
-		font-weight: 600;
-		text-decoration: none;
-        padding: 0;
-	}
-
-	th a:hover {
-		color: #000;
-	}
-
-    th.asc a, th.desc a {
-        margin-right: .75em;
-    }
-    
-    th.asc a:after, th.desc a:after {
-		display: block;
-        position: absolute;
-        right: 0em;
-        top: 0;
-        font-size: 0.75em;
-	}
-
-	th.asc a:after {
-		content: '▲';
-	}
-
-	th.desc a:after {
-		content: '▼';
-	}
-
-td {
-    padding: 0em 2em 0em 0em;
-    border: 0 none;
-}
-
-tr.pager td {
-    padding: 0 0.25em 0 0;
-}*/
 
 
 /********************
@@ -1181,125 +1009,6 @@ legend {
 /* END: Mobile Styles */
 
 
-/*These are not used*/
-/*.RW-headline,
-.RW-headline a,
-.RW-headline a:link,
-.RW-headline a:visited,
-.RW-headline a:hover 
-{
-    display: inline-block;
-    position: absolute;
-    font-size: 72px;
-    color: white;
-    background: none;
-    font-family: 'Lucida Sans Unicode', 'Lucida Grande', Arial, Helvetica, Sans-Serif;
-    font-weight: normal;
-    font-style: normal;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px rgba(23, 23, 23, 0.82);
-    padding: 0;
-    margin: 0;
-    color: #FFFFFF !important;
-    white-space: nowrap;
-    top: 30px;
-    left: 110px;
-}
-
-.RW-slogan {
-    color: white;
-    display: inline-block;
-    position: absolute;
-    min-width: 50px;
-    top: 165px;
-    left: 41%;
-    line-height: 100%;
-    margin-left: -161px !important;
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
-    z-index: 102;
-    white-space: nowrap;
-}
-    
-.bannerLarge {
-    font-family: 'Franklin Gothic';
-    font-weight: lighter;
-    font-size: 55px;
-    color: white;
-}
-
-.bannerSmall {
-    font-family: 'Franklin Gothic';
-    font-size: 17px;
-    color: white;
-}
-    
-
-fieldset {
-    border-style: none;
-    border-color: inherit;
-    border-width: medium;
-    margin: 0;
-    padding: 0;
-    width: 607px;
-}
-
-    fieldset legend {
-        display: none;
-    }
-
-    fieldset ol {
-        padding: 0;
-        list-style: none;
-    }
-
-        fieldset ol li {
-            padding-bottom: 5px;
-        }
-    
-.RW-nav:before 
-{
-   content:' ';
-}
-
-.RW-hmenu-extra1
-{
-   position: relative;
-   display: block;
-   float: left;
-   width: auto;
-   height: auto;
-   background-position: center;
-}
-
-.RW-hmenu-extra2
-{
-   position: relative;
-   display: block;
-   float: right;
-   width: auto;
-   height: auto;
-   background-position: center;
-}   
-    
- .site-title {
-    color: #c8c8c8;
-    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
-    font-size: 2.3em;
-    margin: 0;
-}
-
-    .site-title a, .site-title a:hover, .site-title a:active {
-        background: none;
-        color: #c8c8c8;
-        outline: none;
-        text-decoration: none;
-    }   
-    
-*/
 .pageHeader {
     font-family: "Courier New", Courier, monospace;
     font-size: 22px;
@@ -1951,6 +1660,14 @@ select#dropDownNewEquipCategories.grid-edit-equipment-medium-textbox.no-results{
 }
 
 /*Edit Water Codes*/
+.grid-edit-water-drainage-dropdown{
+    margin-left: 4px !important;
+    margin-top: 4px !important;
+    height: 20px !important;
+    border-color:gray !important;
+    font-size:9px !important;
+}
+
 .edit-water-codes-zoom-message{
     font-size: 0.6em;
     background-color: whitesmoke;
@@ -2116,4 +1833,15 @@ div#updatePanelOrgUnknownResults{
 
 .org-unknown-results-reset-search{
     margin-left: 50px !important;
+}
+
+/*Edit Water Code Drainage*/
+.grid-edit-water-code-drainage-textbox-comments{
+    text-align:center;
+    padding: 5px;
+    width: 150px;
+    resize: vertical;
+}
+.EditTabTable {
+    table-layout: fixed;
 }

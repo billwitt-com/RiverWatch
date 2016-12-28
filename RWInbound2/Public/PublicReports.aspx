@@ -149,35 +149,35 @@
                         <tr>
                             <td style="width: 21px">&nbsp;</td>
                             <td>
-                                <asp:Button ID="btnStations" runat="server" CssClass="public-button-reports" OnClick="btnStations_Click" Text="All Stations" />
+                                <asp:Button ID="btnStations" runat="server" CssClass="adminButton" OnClick="btnStations_Click" Text="All Stations" />
                             </td>
                             <td>
-                                <asp:Button ID="btnStationsWithGauges" runat="server" CssClass="public-button-reports" OnClick="btnStationsWithGauges_Click" Text="Stations With Gauges" />
+                                <asp:Button ID="btnStationsWithGauges" runat="server" CssClass="adminButton" OnClick="btnStationsWithGauges_Click" Text="Stations With Gauges" />
                             </td>
                             <td>
-                                <asp:Button ID="btnStationsByProject" runat="server" CssClass="public-button-reports" OnClick="btnStationsByProject_Click" Text="Stations By Project" />
+                                <asp:Button ID="btnStationsByProject" runat="server" CssClass="adminButton" OnClick="btnStationsByProject_Click" Text="Stations By Project" />
                             </td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td style="width: 21px">&nbsp;</td>
                             <td>
-                                <asp:Button ID="btnOrganizations" runat="server" CssClass="public-button-reports" OnClick="btnOrganizations_Click" Text="All Organizations" />
+                                <asp:Button ID="btnOrganizations" runat="server" CssClass="adminButton" OnClick="btnOrganizations_Click" Text="All Organizations" />
                             </td>
                             <td>
-                                <asp:Button ID="btnOrgStatus" runat="server" CssClass="public-button-reports" OnClick="btnOrgStatus_Click" Text="Organization Status" />
+                                <asp:Button ID="btnOrgStatus" runat="server" CssClass="adminButton" OnClick="btnOrgStatus_Click" Text="Organization Status" />
                             </td>
                             <td>
-                                <asp:Button ID="btnOrgStations" runat="server" CssClass="public-button-reports" OnClick="btnOrgStations_Click" Text="Organization Stations" />
+                                <asp:Button ID="btnOrgStations" runat="server" CssClass="adminButton" OnClick="btnOrgStations_Click" Text="Organization Stations" />
                             </td>
                             <td>
-                                <asp:Button ID="btnOrgUnknownResults" runat="server" CssClass="public-button-reports" OnClick="btnOrgUnknownResults_Click" Text="Organization Unknown Results" />
+                                <asp:Button ID="btnOrgUnknownResults" runat="server" CssClass="adminButton" OnClick="btnOrgUnknownResults_Click" Text="Organization Unknown Results" />
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 21px">&nbsp;</td>
                             <td>
-                                <asp:Button ID="btnQAQC" runat="server" CssClass="public-button-reports" OnClick="btnQAQC_Click" Text="QAQC Report" />
+                                <asp:Button ID="btnQAQC" runat="server" CssClass="adminButton" OnClick="btnQAQC_Click" Text="QAQC Report" />
                             </td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -186,7 +186,7 @@
                         <tr>
                             <td style="width: 21px">&nbsp;</td>
                             <td>
-                                <asp:Button ID="btnAllSampleData" runat="server" CssClass="public-button-reports" Text="All Sample Results" OnClick="btnAllSampleData_Click" />
+                                <asp:Button ID="btnAllSampleData" runat="server" CssClass="adminButton" Text="All Sample Results" OnClick="btnAllSampleData_Click" />
                             </td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>

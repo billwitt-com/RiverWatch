@@ -13,13 +13,13 @@ namespace RWInbound2.Edit {
     public partial class Edit {
         
         /// <summary>
-        /// Table1 control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table Table1;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// btnActivityCategories control.
@@ -175,6 +175,15 @@ namespace RWInbound2.Edit {
         protected global::System.Web.UI.WebControls.Button btnMetalBarCodeType;
         
         /// <summary>
+        /// btnMetalLimits control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMetalLimits;
+        
+        /// <summary>
         /// btnNutrientBarCodeType control.
         /// </summary>
         /// <remarks>
@@ -182,6 +191,15 @@ namespace RWInbound2.Edit {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNutrientBarCodeType;
+        
+        /// <summary>
+        /// btnNutrientLimits control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNutrientLimits;
         
         /// <summary>
         /// btnOrganizations control.
@@ -362,6 +380,15 @@ namespace RWInbound2.Edit {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btntblWBKey;
+        
+        /// <summary>
+        /// btnWaterCodeDrainage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnWaterCodeDrainage;
         
         /// <summary>
         /// btnWQCCWaterShed control.

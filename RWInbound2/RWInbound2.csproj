@@ -259,7 +259,9 @@
     <Content Include="Edit\EditHydroUnit.aspx" />
     <Content Include="Edit\EditInboundField.aspx" />
     <Content Include="Edit\EditMetalBarCodeType.aspx" />
+    <Content Include="Edit\EditMetalValidationLimits.aspx" />
     <Content Include="Edit\EditNutrientBarCodeType.aspx" />
+    <Content Include="Edit\EditNutrientValidationLimits.aspx" />
     <Content Include="Edit\EditOrganizationType.aspx" />
     <Content Include="Edit\EditPhysHab.aspx" />
     <Content Include="Edit\EditPhysHabPara.aspx" />
@@ -291,7 +293,6 @@
     <Content Include="Edit\EditBioResultsType.aspx" />
     <Content Include="Edit\EditCommunities.aspx" />
     <Content Include="Edit\EditCounty.aspx" />
-    <Content Include="Admin\EditLimits.aspx" />
     <Content Include="Edit\EditOrgFormView.aspx" />
     <Content Include="Edit\EditQUADI.aspx" />
     <Content Include="Edit\EditQuarterSection.aspx" />
@@ -1048,12 +1049,26 @@
     <Compile Include="Edit\EditMetalBarCodeType.aspx.designer.cs">
       <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditMetalValidationLimits.aspx.cs">
+      <DependentUpon>EditMetalValidationLimits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditMetalValidationLimits.aspx.designer.cs">
+      <DependentUpon>EditMetalValidationLimits.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditNutrientBarCodeType.aspx.cs">
       <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditNutrientBarCodeType.aspx.designer.cs">
       <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditNutrientValidationLimits.aspx.cs">
+      <DependentUpon>EditNutrientValidationLimits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditNutrientValidationLimits.aspx.designer.cs">
+      <DependentUpon>EditNutrientValidationLimits.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditOrganizationType.aspx.cs">
       <DependentUpon>EditOrganizationType.aspx</DependentUpon>
@@ -1249,13 +1264,6 @@
     </Compile>
     <Compile Include="Edit\EditCounty.aspx.designer.cs">
       <DependentUpon>EditCounty.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\EditLimits.aspx.cs">
-      <DependentUpon>EditLimits.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\EditLimits.aspx.designer.cs">
-      <DependentUpon>EditLimits.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditOrgFormView.aspx.cs">
       <DependentUpon>EditOrgFormView.aspx</DependentUpon>
@@ -2089,7 +2097,9 @@
     </Content>
     <EmbeddedResource Include="Public\Report2.rdlc" />
     <EmbeddedResource Include="Public\Report3.rdlc" />
-    <EmbeddedResource Include="Public\RawSamplesAll.rdlc" />
+    <Content Include="Public\RawSamplesAll.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
