@@ -33,7 +33,7 @@
                 Select a Drainage:
                 <asp:DropDownList ID="DrainageDropDown" runat="server" AutoPostBack="True"
                     AppendDataBoundItems="true" SelectMethod="BindDrainages" 
-                    DataTextField="Key" DataValueField="Key" 
+                    DataTextField="Description" DataValueField="Code" 
                     OnSelectedIndexChanged="DrainageDropDown_SelectedIndexChanged">
                     <asp:ListItem Value="0">Select One:</asp:ListItem>
                 </asp:DropDownList>
@@ -67,6 +67,8 @@
                     AutoGenerateColumns="False" CssClass="grid-columns-center grid-larger-editor-columns-edit-water-codes"
                     GridLines="Vertical" ForeColor="#333333"
                     AllowPaging="True" Pagesize="10"
+                    OnRowUpdating="WaterCodeGridView_RowUpdating"
+                    OnRowDataBound="WaterCodeGridView_RowDataBound"
                     OnRowEditing="WaterCodeGridView_RowEditing"
                     OnRowCancelingEdit="WaterCodeGridView_RowCancelingEdit"
                     HeaderStyle-CssClass="grid-edit-water-codes-header" OnSelectedIndexChanged="WaterCodeGridView_SelectedIndexChanged" >
@@ -86,8 +88,6 @@
                                 <asp:Button ID="btnAdd" runat="server" Text="Add" CausesValidation="false"
                                             OnClick="AddNewWaterCode" />
                             </FooterTemplate>
-                           <%-- <ControlStyle CssClass="controls-manage-public-users" />
-                            <ItemStyle VerticalAlign="Middle" />--%>
                         </asp:TemplateField>
                         <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
                         <asp:TemplateField HeaderText="Water Code" SortExpression="WATERCODE" ItemStyle-VerticalAlign="Middle" ControlStyle-CssClass="grid-edit-water-codes-small-textbox">
@@ -170,23 +170,18 @@
                         <asp:TemplateField HeaderText="Drainage" SortExpression="DRAINAGE" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-water-codes-small-textbox" 
                             ControlStyle-CssClass="grid-edit-water-codes-small-textbox">
                             <EditItemTemplate >
-                                <asp:TextBox ID="txtDRAINAGE" runat="server" MaxLength="2" Text='<%# Bind("DRAINAGE") %>'></asp:TextBox>  
-                                <asp:RequiredFieldValidator 
-                                        id="RequiredFieldValidator3" runat="server" 
-                                        CssClass="edit-inboundicp-required"
-                                        Display="Dynamic"
-                                        ErrorMessage="Required!" 
-                                        ControlToValidate="txtDRAINAGE">
-                                </asp:RequiredFieldValidator>                                                          
+                                <asp:DropDownList ID="updateDrainageDropDown" runat="server"                                     
+                                    DataTextField="Code" DataValueField="Code" Font-Size="8px" Height="20px" Width="40px" >
+                                </asp:DropDownList>                                                                                  
                             </EditItemTemplate>
                             <ItemTemplate>
                                <asp:Label ID="lblDRAINAGE" runat="server" Text='<%# Bind("DRAINAGE") %>'></asp:Label>
                             </ItemTemplate>
                             <FooterTemplate>
-                                <asp:TextBox ID="NewDRAINAGE" runat="server" MaxLength="2" CssClass="grid-edit-water-codes-small-textbox"></asp:TextBox> 
-                                <asp:Label ID="lblDRAINAGERequired" runat="server" Visible="false" CssClass="edit-inboundicp-required">
-                                    Required!
-                                </asp:Label>  
+                                <asp:DropDownList ID="NewDrainageDropDown" runat="server"
+                                    SelectMethod="BindDrainages" CssClass="grid-edit-water-drainage-dropdown" 
+                                    DataTextField="Code" DataValueField="Code">                            
+                            </asp:DropDownList>                          
                             </FooterTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Drain Name" SortExpression="DRAINNAME" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-water-codes-medium-textbox" 

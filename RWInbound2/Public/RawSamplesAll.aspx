@@ -47,7 +47,7 @@
             </tr>
                 <tr>
                 <td style="width: 8px"></td>
-                <td style="width: 190px">Watershed Region:</td>
+                <td style="width: 190px">Watershed Report:</td>
                 <td>
                     <asp:DropDownList ID="ddlWSR" runat="server"  Width="152px"></asp:DropDownList></td>
             </tr>
