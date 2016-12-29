@@ -528,7 +528,7 @@ namespace RWInbound2.Validation
         // must update page as there will one fewer blanks to process
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
-            updateDup("UPDATE");
+            CommitDup("UPDATE");
 
         }
 
@@ -536,10 +536,10 @@ namespace RWInbound2.Validation
         // must update page as there will one fewer blanks to process
         protected void btnBadDup_Click(object sender, EventArgs e)
         {
-            updateDup("BAD");
+            CommitDup("BAD");
         }
 
-        public void updateDup(string type)
+        public void CommitDup(string type)
         {
             RiverWatchEntities NewRWE = new RiverWatchEntities(); // new database RiverWatch 
             NEWexpWater NEW = null;
@@ -548,48 +548,64 @@ namespace RWInbound2.Validation
             decimal Total;
             decimal Disolved;
             bool isbad = false;
+            string barCode = "";
+            string typeCode = "";
+            string comment = "";
+            int sID = 0;
+            int orgID = 0;
+            int stnID = 0;
+            string uniqueID = "";
+            
+            try
+            {
+                uniqueID = FormViewDup.Controls[0].UniqueID;
 
-            string uniqueID = FormViewDup.Controls[0].UniqueID;
+                // XXXX another WTF moment, why is the uniqueid different here, just because we pressed a button
+                // note that the data is correct when we have the correct string
+                uniqueID = uniqueID.Replace("$ctl00", "");
+                // scrape text box strings, which will never be null, but can be zero length
+                string codeTextBoxName = uniqueID + "$" + "tbCode"; // get the text box off the page
+                TextBox CTB = this.FindControl(codeTextBoxName) as TextBox;
 
-            // XXXX another WTF moment, why is the uniqueid different here, just because we pressed a button
-            // note that the data is correct when we have the correct string
-            uniqueID = uniqueID.Replace("$ctl00", "");
-            // scrape text box strings, which will never be null, but can be zero length
-            string codeTextBoxName = uniqueID + "$" + "tbCode"; // get the text box off the page
-            TextBox CTB = this.FindControl(codeTextBoxName) as TextBox;
+                barCode = CTB.Text;
 
-            string barCode = CTB.Text;
+                string sampleType = uniqueID + "$" + "tbType";
+                TextBox ST = this.FindControl(sampleType) as TextBox;
+                typeCode = ST.Text.Trim();
 
-            string sampleType = uniqueID + "$" + "tbType";  // bound to 'duplicate' 
-            TextBox ST = this.FindControl(sampleType) as TextBox;
-            string typeCode = ST.Text.Trim();
+                string co = uniqueID + "$" + "CommentsTextBox";
+                TextBox Com = this.FindControl(co) as TextBox;
+                comment = Com.Text.Trim();
 
-            string co = uniqueID + "$" + "CommentsTextBox";
-            TextBox Com = this.FindControl(co) as TextBox;
-            string comment = Com.Text.Trim();
+                // tblSampleIDTextBox
+                string sampID = uniqueID + "$" + "tblSampleIDTextBox";
+                TextBox SID = this.FindControl(sampID) as TextBox;
+                sID = int.Parse(SID.Text.Trim());
 
-            // tblSampleIDTextBox
-            string sampID = uniqueID + "$" + "tblSampleIDTextBox";
-            TextBox SID = this.FindControl(sampID) as TextBox;
-            int sID = int.Parse(SID.Text.Trim());
+                if (type.ToUpper().Equals("BAD"))
+                    isbad = true;
+                else
+                    isbad = false;
+            }
 
-            if (type.ToUpper().Equals("BAD"))
-                isbad = true;
-            else
-                isbad = false;
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
 
-            // XXXX check to see if a record already exists, it may if field data was entered first.... 
-            // will create a method for this, I think, so we can reuse
-            // note new master summary table
+            // check to see if a record already exists, it may if field data was entered first.... 
 
             try
             {
-                //NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
-                //                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
-                //                    select t).FirstOrDefault();
-
                 NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
-                                    where t.Valid == true & t.MetalsBarCode == barCode
+                                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
                                     select t).FirstOrDefault();
                 if (TEST != null)
                 {
@@ -615,96 +631,104 @@ namespace RWInbound2.Validation
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-            // no existing record, so we are first
-            if (!existingRecord)
+            if (!existingRecord) // no existing record, so we are first
             {
-                NEW.BadDuplicate = false;
+                NEW.CreateDate = DateTime.Now;
+                NEW.CreatedBy = User.Identity.Name;
+                NEW.BadDuplicate = false;   // fill in all the stuff that should have some value... 
                 NEW.BadSample = false;
+
+                // this is not really necessary as the values will default to null 
                 NEW.BenthicsComments = null;
+                NEW.NutrientBarCode = null;
+                NEW.NutrientComment = null;
+
                 NEW.BugsBarCode = null;
                 NEW.BugsComments = null;
                 NEW.Chloride = null;
                 NEW.ChlorophyllA = null;
-                NEW.CreateDate = DateTime.Now;
-                NEW.CreatedBy = User.Identity.Name;
+
                 NEW.DO_MGL = null;
                 NEW.DOC = null;
                 NEW.DOSAT = null;
                 NEW.FieldBarCode = null;
                 NEW.FieldComment = null;
+                NEW.OP = null;
+                NEW.orgN = null;
+                NEW.PH = null;
+                NEW.PHEN_ALK = null;
+                NEW.Sulfate = null;
+                NEW.TempC = null;
+                NEW.TKN = null;
+                NEW.TOTAL_ALK = null;
+                NEW.TOTAL_HARD = null;
+            }
 
-                NEW.TypeCode = typeCode;
-                NEW.MetalsComment = comment;
-                NEW.MetalsBarCode = barCode;
-                NEW.tblSampleID = sID; // FK to tblSample
+            // existing record - now write stuff we do know, may overwrite a few fields but data should be the same... 
+            NEW.TypeCode = typeCode;
+            NEW.MetalsComment = comment;
+            NEW.MetalsBarCode = barCode;
+            NEW.tblSampleID = sID; // FK to tblSample
 
-                // get some detail from the sample table, which already exists (mostly...)
-                // note: use new table, not origional
-                // XXXX this may not work well as we have changed samples to use ID as identity and I don't think SampleID will change
-                try
+            // get some detail from the sample table, which already exists (mostly...)
+            // note: use new table, not origional
+            try
+            {
+                Sample ts = (from t in NewRWE.Samples
+                             where t.SampleID == sID & t.Valid == true
+                             select t).FirstOrDefault(); // should be only one copy
+                if (ts != null)
                 {
-                    Sample ts = (from t in NewRWE.Samples
-                                    where t.SampleID == sID & t.Valid == true
-                                    select t).FirstOrDefault(); // should be only one copy
-                    if (ts != null)
+                    NEW.Event = ts.NumberSample;  // string like 10.095  
+                    NEW.OrganizationID = ts.OrganizationID;
+
+
+                    NEW.tblSampleID = ts.SampleID;
+                    if (ts.DateCollected.Year > 1900)
                     {
-                        // make kit number 
-                        string numS = ts.NumberSample; // looks weird and is, this is the string like 44.096 and kit # is on the right of decimal place
-                        int idx = numS.IndexOf(".");
-                        string numS1 = numS.Substring(0, idx);  // get chars to right of decimal point
-
-                        NEW.KitNumber = short.Parse(numS1);
-                        NEW.Event = numS; // string like above, 10.095
-
-                        NEW.NutrientBarCode = null;
-                        NEW.NutrientComment = null;
-                        NEW.OP = null;
-
-                        NEW.OrganizationName = "";
-                        NEW.orgN = null;
-                        NEW.PH = null;
-                        NEW.PHEN_ALK = null; 
-
                         NEW.SampleDate = ts.DateCollected; // this is date part only, no time and may be junk XXXX
                         if (ts.TimeCollected.Value.Year > 1970)  // likely a real value - otherwise, leave blank
                         {
                             NEW.SampleDate.Value.AddHours(ts.TimeCollected.Value.Hour); // add in pieces
                             NEW.SampleDate.Value.AddMinutes(ts.TimeCollected.Value.Minute);
                         }
-
-                        NEW.SampleNumber = ts.SampleNumber; // this is the big string of station id + date time - build at sample entry
-                        // tblSample has station id 
-                        var STN = (from s in NRWDE.Stations
-                                   where s.ID == ts.StationID
-                                   select s).FirstOrDefault();
-
-                        //   ts.StationID
-                        NEW.StationName = STN.StationName;
-
-                        NEW.RiverName = STN.River;
-                        NEW.StationNumber = (short)ts.StationID;   // XXXX hope this gets working soon and we can get rid of shorts
-                        NEW.Sulfate = null;
-
-                        NEW.tblSampleID = ts.SampleID;
-                        NEW.TempC = null;
-                        NEW.TKN = null;
-                        NEW.TOTAL_ALK = null;
-                        NEW.TOTAL_HARD = null;
-                        NEW.BadBlank = isbad; // record value from type passed in by caller
-                        NEW.Valid = true;
                     }
+
+                    NEW.SampleNumber = ts.SampleNumber; // this is the big string of station id + date time - build at sample entry
+                    // tblSample has station id 
+                    var STN = (from s in NRWDE.Stations
+                               where s.ID == ts.StationID
+                               select s).FirstOrDefault();
+
+                    NEW.StationID = ts.StationID;
+                    NEW.StationName = STN.StationName;
+                    NEW.RiverName = STN.River;
+                    NEW.StationNumber = (short)ts.StationID;   // XXXX hope this gets working soon and we can get rid of shorts
+                    NEW.WaterShed = STN.WQCCWaterShed;
+
+                    // now get org detail
+
+                    var ORG = (from o in NewRWE.organizations
+                               where o.ID == ts.OrganizationID.Value
+                               select o).FirstOrDefault();
+
+                    NEW.OrganizationName = ORG.OrganizationName;
+                    NEW.KitNumber = ORG.KitNumber;
+
+                    NEW.BadBlank = isbad; // record value from type passed in by caller
+                    NEW.Valid = true;
                 }
-                catch (Exception ex)
-                {
-                    string nam = "";
-                    if (User.Identity.Name.Length < 3)
-                        nam = "Not logged in";
-                    else
-                        nam = User.Identity.Name;
-                    string msg = ex.Message;
-                    LogError LE = new LogError();
-                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
             // now add in the chemistry from ICP
@@ -819,7 +843,10 @@ namespace RWInbound2.Validation
                 F.Edited = true;
                 F.Valid = true;
 
-                NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                if (!existingRecord)
+                {
+                    NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                }
 
                 int cnt = NewRWE.SaveChanges(); // update final table as it is 'attached' we don't need to refer to it
 
@@ -938,7 +965,7 @@ namespace RWInbound2.Validation
 
         protected void btnBadNormal_Click(object sender, EventArgs e)
         {
-            updateDup("BAD");
+            CommitDup("BAD");
         }
 
 

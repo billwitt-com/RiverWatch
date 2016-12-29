@@ -1768,7 +1768,7 @@ namespace RWInbound2.Samples
             NBC.TotalNitro = chksNutrients.Items.FindByValue("TotalNitro").Selected;
             NBC.TotalPhos = chksNutrients.Items.FindByValue("TotalPhos").Selected;
             NBC.TSS = chksNutrients.Items.FindByValue("TSS").Selected;
-
+            NBC.Done = chkDone.Checked; 
             NBC.DateCreated = DateTime.Now;
             NBC.LogDate = DateTime.Now;
 

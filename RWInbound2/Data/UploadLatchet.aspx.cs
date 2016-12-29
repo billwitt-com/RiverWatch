@@ -39,8 +39,6 @@ namespace RWInbound2.Data
 
             // run this regardless 
 
-
-
             if (FileUpload1.HasFile)
             {
                 try

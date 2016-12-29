@@ -303,7 +303,7 @@
                     <tr>
                         <td style="width: 121px">Done:</td>
                         <td>
-                            <asp:CheckBox ID="chkDone" runat="server" Enabled="False"></asp:CheckBox></td>
+                            <asp:CheckBox ID="chkDone" runat="server"  Checked="true" ></asp:CheckBox></td>
                     </tr>
                     <tr>
                         <td style="width: 121px">Comments:</td>

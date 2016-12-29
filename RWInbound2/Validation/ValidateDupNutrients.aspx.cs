@@ -561,8 +561,20 @@ namespace RWInbound2.Validation
                 NW.SampleNumber = sampleNumber; // if existing record, this will be the same... 
                 if (!existingRecord) // no existing record, so we are first
                 {
-                    NW.Event = "";
-                    NW.SampleDate = DateTime.Now; // what else to do?
+                    var NS = (from ns in RWE.Samples
+                                 where ns.SampleNumber == sampleNumber
+                                 select new 
+                                 { ns.NumberSample,
+                                     ns.DateCollected
+                                 }).FirstOrDefault();
+                    if (NS.NumberSample.Length > 3)
+                        NW.Event = NS.NumberSample; // fill in as this is the first
+                    else
+                        NW.Event = "";
+                    if (NS.DateCollected.Year > 1900)
+                        NW.SampleDate = NS.DateCollected; 
+                    else
+                        NW.SampleDate = DateTime.Now; // what else to do?
                     RWE.NEWexpWaters.Add(NW);
                 }
                 RWE.SaveChanges();

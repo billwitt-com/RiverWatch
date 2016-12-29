@@ -3,9 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <hgroup>
-        <h3><%: Page.Title %></h3>
-    </hgroup>
+        <br />
+    <asp:Label ID="Label1" runat="server"  CssClass="PageLabel" Text="Organization Status"></asp:Label>
+        <br />
 
     <div class="label-placement">
         <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
@@ -17,12 +17,13 @@
 
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                Search By Organization Name:
+                <asp:Label ID="Label2" runat="server" Text="Search By Organization Name: "></asp:Label>
+                
                 <asp:TextBox ID="orgNameSearch" 
                     AutoPostBack="true"
                     runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
-                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
+                <asp:Button ID="btnSearch" runat="server" Text="Search"  CssClass="adminButton" OnClick="btnSearch_Click" />
+                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search"  CssClass="adminButton"   OnClick="btnSearchRefresh_Click" />
                 <ajaxToolkit:AutoCompleteExtender 
                     ID="tbSearch_AutoCompleteExtender" 
                     runat="server" 
