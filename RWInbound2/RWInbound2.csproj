@@ -202,6 +202,7 @@
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
     <Content Include="Applications\PageRenderTest.aspx" />
+    <Content Include="Content\faq.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -382,6 +383,7 @@
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\RWdatainfodownloadv1.pdf" />
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest %283%29.pubxml" />

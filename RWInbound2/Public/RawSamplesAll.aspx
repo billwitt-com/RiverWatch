@@ -5,10 +5,26 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
         <br />
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 137px">
     <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Sample Data"></asp:Label>
-            <br />
+                </td>
+                <td class="rowId-charid-dsorder-textbox" style="width: 185px">New Users, check out this FAQ about this data:</td>
+                <td>
+                    <asp:ImageButton ID="btnFAQ" runat="server" BorderColor="#3399FF" BorderStyle="Double" Height="73px" ImageUrl="~/Content/faq.png" OnClick="btnFAQ_Click" Width="72px" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 137px">&nbsp;</td>
+                <td class="rowId-charid-dsorder-textbox" style="width: 185px">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
 
     <asp:Label ID="MSGLabel" runat="server" />
+
+            <br />
 
             <br />
     Select one option below to subset export, multiple selections must align (station must be in WS, etc.):<br />

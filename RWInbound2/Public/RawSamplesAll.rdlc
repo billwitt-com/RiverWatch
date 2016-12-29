@@ -3454,6 +3454,7 @@
                               <Value>=Sum(Fields!AL_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3473,6 +3474,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -3487,6 +3489,7 @@
                               <Value>=Sum(Fields!AL_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3520,6 +3523,7 @@
                               <Value>=Sum(Fields!AS_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3553,6 +3557,7 @@
                               <Value>=Sum(Fields!AS_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3586,6 +3591,7 @@
                               <Value>=Sum(Fields!CA_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3619,6 +3625,7 @@
                               <Value>=Sum(Fields!CA_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3652,6 +3659,7 @@
                               <Value>=Sum(Fields!CD_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3685,6 +3693,7 @@
                               <Value>=Sum(Fields!CD_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3718,6 +3727,7 @@
                               <Value>=Sum(Fields!CU_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3751,6 +3761,7 @@
                               <Value>=Sum(Fields!CU_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3784,6 +3795,7 @@
                               <Value>=Sum(Fields!FE_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3817,6 +3829,7 @@
                               <Value>=Sum(Fields!FE_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3850,6 +3863,7 @@
                               <Value>=Sum(Fields!MG_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3883,6 +3897,7 @@
                               <Value>=Sum(Fields!MG_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3916,6 +3931,7 @@
                               <Value>=Sum(Fields!MN_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3949,6 +3965,7 @@
                               <Value>=Sum(Fields!MN_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -3982,6 +3999,7 @@
                               <Value>=Sum(Fields!PB_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4015,6 +4033,7 @@
                               <Value>=Sum(Fields!PB_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4048,6 +4067,7 @@
                               <Value>=Sum(Fields!SE_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4081,6 +4101,7 @@
                               <Value>=Sum(Fields!SE_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4114,6 +4135,7 @@
                               <Value>=Sum(Fields!ZN_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4147,6 +4169,7 @@
                               <Value>=Sum(Fields!ZN_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4180,6 +4203,7 @@
                               <Value>=Sum(Fields!NA_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4213,6 +4237,7 @@
                               <Value>=Sum(Fields!NA_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4246,6 +4271,7 @@
                               <Value>=Sum(Fields!K_D.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4279,6 +4305,7 @@
                               <Value>=Sum(Fields!K_T.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4312,6 +4339,7 @@
                               <Value>=Sum(Fields!Ammonia.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4345,6 +4373,7 @@
                               <Value>=Sum(Fields!Chloride.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4378,6 +4407,7 @@
                               <Value>=Sum(Fields!ChlorophyllA.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4411,6 +4441,7 @@
                               <Value>=Sum(Fields!DOC.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4444,6 +4475,7 @@
                               <Value>=Sum(Fields!NN.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4477,6 +4509,7 @@
                               <Value>=Sum(Fields!OP.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4510,6 +4543,7 @@
                               <Value>=Sum(Fields!Sulfate.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4543,6 +4577,7 @@
                               <Value>=Sum(Fields!totN.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4576,6 +4611,7 @@
                               <Value>=Sum(Fields!totP.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4609,6 +4645,7 @@
                               <Value>=Sum(Fields!TKN.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4642,6 +4679,7 @@
                               <Value>=Sum(Fields!orgN.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
@@ -4675,6 +4713,7 @@
                               <Value>=Sum(Fields!TSS.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>F2</Format>
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
