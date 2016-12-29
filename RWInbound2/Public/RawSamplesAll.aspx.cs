@@ -532,5 +532,10 @@ namespace RWInbound2.Public
             ReportViewer1.Visible = true;           
 
         }
+
+        protected void btnFAQ_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("~/content/RWdatainfodownloadv1.pdf");
+        }
     }
 }
