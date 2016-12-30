@@ -560,6 +560,8 @@ namespace RWInbound2.Validation
             }
 
             // check to see if a record already exists, it may if field data was entered first.... 
+            // XXXX 12/29 should never update this from valdation.. 
+            // XXXX create new row for each barcode and add needed detail
 
             try
             {
@@ -597,7 +599,7 @@ namespace RWInbound2.Validation
                 NEW.BadDuplicate = false;   // fill in all the stuff that should have some value... 
                 NEW.BadSample = false;
                
-                // this is not really necessary as the values will default to null 
+                // this is not really necessary as the values will default to null but...
                 NEW.BenthicsComments = null;
                 NEW.NutrientBarCode = null;
                 NEW.NutrientComment = null;
@@ -624,6 +626,7 @@ namespace RWInbound2.Validation
             }
 
             // existing record - now write stuff we do know, may overwrite a few fields but data should be the same... 
+            // XXXX we should never overwrite... 
             NEW.TypeCode = typeCode;
             NEW.MetalsComment = comment;
             NEW.MetalsBarCode = barCode;
