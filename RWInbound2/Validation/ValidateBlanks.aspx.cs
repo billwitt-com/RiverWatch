@@ -654,6 +654,7 @@ namespace RWInbound2.Validation
                 else
                 {
                     NEW = new NEWexpWater(); // create new entity as there is not one yet
+                    existingRecord = false;
                 }
             }
             catch (Exception ex)
@@ -885,7 +886,10 @@ namespace RWInbound2.Validation
                 F.Edited = true;
                 F.Valid = true;
 
-                NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                if (!existingRecord)    // should always happen as there can be no existing record unless there is an error
+                {
+                    NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                }
 
                 int cnt =  NewRWE.SaveChanges(); // update final table as it is 'attached' we don't need to refer to it
                
