@@ -603,12 +603,10 @@ namespace RWInbound2.Validation
                 NEW.BenthicsComments = null;
                 NEW.NutrientBarCode = null;
                 NEW.NutrientComment = null;
-
                 NEW.BugsBarCode = null;
                 NEW.BugsComments = null;
                 NEW.Chloride = null;
                 NEW.ChlorophyllA = null;
-
                 NEW.DO_MGL = null;
                 NEW.DOC = null;
                 NEW.DOSAT = null;

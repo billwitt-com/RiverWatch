@@ -39,7 +39,7 @@ namespace RWInbound2.Admin
         [System.Web.Services.WebMethod]
         public static List<string> SearchOrgs(string prefixText, int count)
         {
-            List<string> customers = new List<string>();
+            List<string> orgs = new List<string>();
             try
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
@@ -57,11 +57,11 @@ namespace RWInbound2.Admin
                         {
                             while (sdr.Read())
                             {
-                                customers.Add(sdr["OrganizationName"].ToString());
+                                orgs.Add(sdr["OrganizationName"].ToString());
                             }
                         }
                         conn.Close();
-                        return customers;
+                        return orgs;
                     }
                 }
             }
@@ -71,7 +71,7 @@ namespace RWInbound2.Admin
                 string msg = ex.Message;
                 LogError LE = new LogError();
                 LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
-                return customers;
+                return orgs;
             }
         }
 
