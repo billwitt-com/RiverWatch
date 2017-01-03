@@ -11,6 +11,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Sql;
 
+//Field Data:
+//Is there any data for this Sample Number (SN) ?
+//  No – put this row in NEW and mark valid 
+//  Yes – Add this data to each existing row where SN is the same.
+// updated jan 2/2017 to reflect the aboue choices, which are three bwitt
+
+
 namespace RWInbound2.Validation
 {
     public partial class ValidateField : System.Web.UI.Page
@@ -89,6 +96,8 @@ namespace RWInbound2.Validation
             compareTextBoxes(uniqueID);
         }
 
+        // apply rules to values and add label comments as needed. 
+        // call for each page
         public void compareTextBoxes(string UID)
         {
             TextBox tb1;
@@ -117,6 +126,7 @@ namespace RWInbound2.Validation
             string Pmsg2 = ""; 
 
             // hook up controls from formview1 what a PITA
+            // test all the labels first, not too sure why.... 
 
             lblTempC = this.FindControl(UID + "$" + "lblTempC") as Label;
             if (lblTempC == null)
@@ -498,12 +508,14 @@ namespace RWInbound2.Validation
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
         {
             e.Command.Parameters["@PassValStep"].Value = 1; // mark record as validated
-            e.Command.Parameters["@Valid"].Value = true; 
+            e.Command.Parameters["@Valid"].Value = true;
 
             RiverWatchEntities RWE = new RiverWatchEntities();
             NEWexpWater NEW = new NEWexpWater();
 
-            bool existingRecord = false; 
+            bool existingRecord = false;
+            bool manyRecords = false;
+
             TextBox tb1;
             DateTime sampleDate = DateTime.Now;
             bool isSampleDate = false;
@@ -514,13 +526,13 @@ namespace RWInbound2.Validation
             decimal TotalAlk = 0;
             bool isTotalAlk = false;
             decimal DO = 0;
-            bool isDO = false; 
+            bool isDO = false;
             decimal DOSat = 0;
             bool isDOSat = false;
             decimal Hardness = 0;
             bool isHardness = false;
             decimal TempC = 0;
-            bool isTempC = false; 
+            bool isTempC = false;
             string FieldComments = "";
             string SampleNumber = ""; // sampleid
             decimal Flow = 0;
@@ -538,25 +550,25 @@ namespace RWInbound2.Validation
             if (tb1.Text.Length > 0)
             {
                 if (DateTime.TryParse(tb1.Text, out sampleDate))
-                    isSampleDate = true;                
+                    isSampleDate = true;
             }
 
             tb1 = this.FindControl(UID + "USGSFlowTextBox") as TextBox;
             if (tb1 == null)
                 return;
-            if(tb1.Text.Length > 0)
+            if (tb1.Text.Length > 0)
             {
                 if (decimal.TryParse(tb1.Text, out Flow)) // pH      
-                    isFlow = true; 
+                    isFlow = true;
             }
 
-            tb1 = this.FindControl(UID +"TempCTextBox") as TextBox;
+            tb1 = this.FindControl(UID + "TempCTextBox") as TextBox;
             if (tb1 == null)
                 return;
             if (tb1.Text.Length > 0)
             {
                 if (decimal.TryParse(tb1.Text, out TempC))
-                    isTempC = true; 
+                    isTempC = true;
             }
 
             tb1 = this.FindControl(UID + "PHTextBox") as TextBox;
@@ -592,7 +604,7 @@ namespace RWInbound2.Validation
             if (tb1.Text.Length > 0)
             {
                 if (decimal.TryParse(tb1.Text, out Hardness))
-                    isHardness = true; 
+                    isHardness = true;
             }
 
             tb1 = this.FindControl(UID + "DOSatTextBox") as TextBox;
@@ -601,7 +613,7 @@ namespace RWInbound2.Validation
             if (tb1.Text.Length > 0)
             {
                 if (decimal.TryParse(tb1.Text, out DOSat))
-                    isDOSat = true; 
+                    isDOSat = true;
             }
 
             tb1 = this.FindControl(UID + "DOTextBox") as TextBox;
@@ -625,20 +637,46 @@ namespace RWInbound2.Validation
                 return;
             SampleNumber = tb1.Text.Trim();
 
-              try
+            try
             {
-                NEWexpWater TEST = (from t in RWE.NEWexpWaters
-                                    where t.Valid == true & t.SampleNumber == SampleNumber
-                                    select t).FirstOrDefault();
-                if (TEST != null)
+                // update inbound to mark valided
+                var IBS = from i in RWE.InboundSamples
+                          where i.SampleID == SampleNumber & i.Valid == true
+                          select i;
+                if (IBS.Count() > 0) // will always happen... :)
                 {
-                    // skip these as they are not our business to insert into a row that already exists
-                    // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
-                    NEW = TEST; // keep the name common to this method
-                    existingRecord = true; // flag for later
+                    foreach (var z in IBS)
+                    {
+                        z.PassValStep = 1;
+                    }
+                    RWE.SaveChanges();
+                }
+                //NEWexpWater TEST = (from t in RWE.NEWexpWaters
+                //                    where t.Valid == true & t.SampleNumber == SampleNumber
+                //                    select t).FirstOrDefault();
+
+                // get all matching rows
+                var T = (from t in RWE.NEWexpWaters
+                         where t.Valid == true & t.SampleNumber == SampleNumber
+                         select t);
+
+                if (T != null)
+                {
+                    if (T.Count() == 1)
+                    {
+                        NEW = T.FirstOrDefault(); // keep the name common to this method
+                        existingRecord = true; // flag for later
+                    }
+                    else
+                    {
+                        manyRecords = true; // flag for later
+                    }
                 }
                 else
                 {
+                    existingRecord = false; // just in case
+                    manyRecords = false;
+
                     NEW = new NEWexpWater(); // create new entity as there is not one yet
                     // now we must get eventID or numberSample from Samples table
 
@@ -646,7 +684,74 @@ namespace RWInbound2.Validation
                              where q.SampleNumber == SampleNumber & q.Valid == true
                              select q).FirstOrDefault();
                     eventID = (string)Q.NumberSample;
-                    tblSampleID = Q.ID; 
+                    tblSampleID = Q.ID;
+                }
+
+                // RWE.Database.ExecuteSqlCommand()
+                if (manyRecords)     // we have multiple rows to update, will use linq, even thought it is slower....
+                {
+                    foreach (NEWexpWater n in T) // update each existing row 
+                    {
+                        n.SampleNumber = SampleNumber;
+                        n.Event = eventID;
+                        n.tblSampleID = tblSampleID;
+
+                        if (ispH)
+                            n.PH = (double)pH;
+                        if (isPhenolAlk)
+                            n.PHEN_ALK = (double)PhenolAlk;
+                        if (isFlow)
+                            n.USGS_Flow = (double)Flow;
+                        if (isTempC)
+                            n.TempC = (double)TempC;
+                        if (isTotalAlk)
+                            n.TOTAL_ALK = (double)TotalAlk;
+                        if (isHardness)
+                            n.TOTAL_HARD = (double)Hardness;
+                        if (isDO)
+                            n.DO_MGL = (double)DO;
+                        if (isDOSat)
+                            n.DOSAT = (short)DOSat;
+                        if (isSampleDate)
+                            n.SampleDate = sampleDate;
+                        n.FieldComment = FieldComments;
+                    }
+
+                    RWE.SaveChanges();
+                }
+                else  // one or new row to update
+                {
+                    if (!existingRecord) // no existing record, so we are first
+                    {
+                        NEW.SampleNumber = SampleNumber;
+                        NEW.Event = eventID;
+                        NEW.tblSampleID = tblSampleID;
+                    }
+
+                    if (ispH)
+                        NEW.PH = (double)pH;
+                    if (isPhenolAlk)
+                        NEW.PHEN_ALK = (double)PhenolAlk;
+                    if (isFlow)
+                        NEW.USGS_Flow = (double)Flow;
+                    if (isTempC)
+                        NEW.TempC = (double)TempC;
+                    if (isTotalAlk)
+                        NEW.TOTAL_ALK = (double)TotalAlk;
+                    if (isHardness)
+                        NEW.TOTAL_HARD = (double)Hardness;
+                    if (isDO)
+                        NEW.DO_MGL = (double)DO;
+                    if (isDOSat)
+                        NEW.DOSAT = (short)DOSat;
+                    if (isSampleDate)
+                        NEW.SampleDate = sampleDate;
+                    NEW.FieldComment = FieldComments;
+                    if (!existingRecord)
+                    {
+                        RWE.NEWexpWaters.Add(NEW);
+                    }
+                    RWE.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -661,75 +766,14 @@ namespace RWInbound2.Validation
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-              try
-              {
+            if (Session["KITNUMBER"] != null)
+            {
+                int kitNumber = (int)Session["KITNUMBER"];
 
-                  if (!existingRecord) // Should not happen - no existing record, so we are first
-                  {
-                      NEW.SampleNumber = SampleNumber;
-                      NEW.Event = eventID;
-                      NEW.tblSampleID = tblSampleID; 
-                  }
-
-                  if(ispH)
-                    NEW.PH = (double)pH;
-                  if(isPhenolAlk)
-                    NEW.PHEN_ALK = (double)PhenolAlk;
-                  if(isFlow)
-                    NEW.USGS_Flow = (double)Flow;
-                  if(isTempC)
-                    NEW.TempC = (double)TempC;
-                  if(isTotalAlk)
-                    NEW.TOTAL_ALK = (double)TotalAlk;
-                  if(isHardness)
-                    NEW.TOTAL_HARD = (double)Hardness;
-                  if(isDO)
-                    NEW.DO_MGL = (double)DO;
-                  if(isDOSat)
-                    NEW.DOSAT = (short)DOSat;
-                  if (isSampleDate)
-                      NEW.SampleDate = sampleDate; 
-                  NEW.FieldComment = FieldComments;
-                  if (!existingRecord)
-                  {
-                      RWE.NEWexpWaters.Add(NEW);
-                  }
-                  RWE.SaveChanges();
-
-            // now update inbound to mark valided
-                  
-                      var IBS = from i in RWE.InboundSamples
-                                where i.SampleID == SampleNumber & i.Valid == true
-                                select i;
-                      if (IBS.Count() > 0) // will always happen... :)
-                      {
-                          foreach (var z in IBS)
-                          {
-                              z.PassValStep = 1;
-                          }
-                          RWE.SaveChanges();
-                      }                  
-              }
-              catch (Exception ex)
-              {
-                  string nam = "";
-                  if (User.Identity.Name.Length < 3)
-                      nam = "Not logged in";
-                  else
-                      nam = User.Identity.Name;
-                  string msg = ex.Message;
-                  LogError LE = new LogError();
-                  LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-              }
-
-              if (Session["KITNUMBER"] != null)
-              {
-                  int kitNumber = (int)Session["KITNUMBER"];
-
-                  if (!countSamples(kitNumber))
-                      return;
-              }
-        }
+                if (!countSamples(kitNumber))
+                    return;
+            }
+        } 
 
         protected void FormView1_DataBound(object sender, EventArgs e)
         {
@@ -757,31 +801,44 @@ namespace RWInbound2.Validation
         }
         public bool countSamples(int kitNumber)
         {
-            int sampsToValidate = 0; 
+            int sampsToValidate = 0;
+            RiverWatchEntities RWE = new RiverWatchEntities();
 
-            string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
-            " Samples.SampleNumber where InboundSamples.Valid = 1 and Samples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum = {0}", kitNumber);
+            //msg = string.Format("Starting Validation nutrient counts process at {0}", DateTime.Now);
+            //LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, "", name, "Profiling");
 
-            using (SqlCommand cmd = new SqlCommand())
+            // added sample number to query 
+            var C = from c in RWE.NutrientDatas
+                    where c.Valid == true & c.TypeCode.Contains("05") & c.Validated == false & c.SampleNumber != null
+                    select c;
+            if (C.Count() > 0)
             {
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // RWE.Database.Connection.ConnectionString;
-                    conn.Open();
-                    cmd.Connection = conn;
-                    cmd.CommandText = cmdCount;
-                    sampsToValidate = (int)cmd.ExecuteScalar();
-                }
+                sampsToValidate = C.Count();
             }
 
-            if (sampsToValidate < 0)
+            //string cmdCount = string.Format("SELECT count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
+            //" Samples.SampleNumber where InboundSamples.Valid = 1 and Samples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum = {0}", kitNumber);
+
+            //using (SqlCommand cmd = new SqlCommand())
+            //{
+            //    using (SqlConnection conn = new SqlConnection())
+            //    {
+            //        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // RWE.Database.Connection.ConnectionString;
+            //        conn.Open();
+            //        cmd.Connection = conn;
+            //        cmd.CommandText = cmdCount;
+            //        sampsToValidate = (int)cmd.ExecuteScalar();
+            //    }
+            //}
+
+            if (sampsToValidate <= 0)
             {
 
-                lblNumberLeft.Text = "There are NO records to validate";
+                lblNumberLeft.Text = "There are NO Nutrient samples to validate";
                 return false; 
             }
             else
-                lblNumberLeft.Text = string.Format("There are {0} samples to validate", sampsToValidate);
+                lblNumberLeft.Text = string.Format("There are {0} Nutrient samples to validate", sampsToValidate);
             return true; 
         }
     }
