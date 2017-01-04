@@ -53,14 +53,6 @@ namespace RWInbound2.Edit
                     SetMessages("Success", successLabelMessage);
                 }
 
-                //if (!string.IsNullOrEmpty(sampleIDSearchSearchTerm))
-                //{
-                //    int sampleID = Convert.ToInt32(sampleIDSearchSearchTerm);
-                //    return _db.tblSubSamp
-                //              .Where(s => s.SampleID == sampleID)
-                //               .OrderBy(s => s.SampleID);
-                //}
-
                 IQueryable<WaterCodeDrainage> waterCodeDrainages = _db.WaterCodeDrainages
                                                      .OrderBy(w => w.Description);
                 PropertyInfo isreadonly
@@ -140,7 +132,7 @@ namespace RWInbound2.Edit
                 }
                 if (errors)
                 {
-                    SetMessages("Error", "Can't create new wWater Code Drainage because Required fields are blank.");
+                    SetMessages("Error", "Can't create new Water Code Drainage because Required fields are blank.");
                     ((Button)WaterCodeDrainageGridView.FooterRow.FindControl("btnAdd")).Focus();
                 }
                 else

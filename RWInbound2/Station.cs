@@ -14,6 +14,11 @@ namespace RWInbound2
     
     public partial class Station
     {
+        public Station()
+        {
+            this.StationImages = new HashSet<StationImage>();
+        }
+    
         public int ID { get; set; }
         public Nullable<int> StationNumber { get; set; }
         public string River { get; set; }
@@ -54,5 +59,7 @@ namespace RWInbound2
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
         public string StoretUploaded { get; set; }
+    
+        public virtual ICollection<StationImage> StationImages { get; set; }
     }
 }
