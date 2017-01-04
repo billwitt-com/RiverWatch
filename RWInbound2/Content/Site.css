@@ -2133,3 +2133,14 @@ div#updatePanelOrgUnknownResults{
     width: 150px;
     resize: vertical;
 }
+
+/*Station Images*/
+.grid-station-images-image-size{
+    height: 100px;
+    width: 100px;
+}
+
+.grid-station-images-upload-comment{
+    font-size: 0.8em;
+    font-weight:bold;
+}
