@@ -73,6 +73,7 @@
             DataKeyNames="ID"
             ItemType="RWInbound2.StationImage" 
             SelectMethod="GetStationImages"
+            UpdateMethod="UpdateStationImage"
             DeleteMethod="DeleteStationImage" 
             InsertItemPosition="LastItem"  
             ShowFooter="True"
@@ -80,14 +81,19 @@
             AutoGenerateColumns="False" CssClass="grid-larger-editor-columns-center"
             GridLines="None" ForeColor="#333333" Height="238px"
             AllowPaging="True" Pagesize="15">
-            <AlternatingRowStyle BackColor="White" />            
+            <AlternatingRowStyle BackColor="White" />
+                    
             <Columns>  
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <%--<asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />--%>
+                        <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />
                         <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
                                     OnClientClick="return confirm('Are you certain you want to delete this?');"/>
-                    </ItemTemplate>                    
+                    </ItemTemplate>
+                     <EditItemTemplate>
+                        <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
+                        <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
+                    </EditItemTemplate>                    
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
                                     OnClick="AddNewStationImage" />
@@ -107,8 +113,8 @@
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:FileUpload id="FileUploadStationImages" accept="image/*" multiple="false"                 
-                            runat="server" >
-                        </asp:FileUpload>
+                            runat="server">
+                        </asp:FileUpload>                       
                         <p class="grid-station-images-upload-comment">
                             Max Image Size: 1 MB (1000KB) <br />
                             Only Image file types allowed <br />
@@ -119,14 +125,20 @@
                         <asp:Label ID="lblFileUploadStationImagesFileType" runat="server" Visible="false" CssClass="required">
                             Invalid Image file type!
                         </asp:Label>
+                        <asp:Label ID="lblFileUploadStationImagesFileExists" runat="server" Visible="false" CssClass="required">
+                            File already exists for this station!
+                        </asp:Label>
                     </FooterTemplate>
                 </asp:TemplateField>               
                 <asp:TemplateField HeaderText="Primary Image" SortExpression="Primary">
+                    <EditItemTemplate>
+                        <asp:CheckBox ID="checkBoxPrimary" runat="server" Checked='<%# Bind("Primary") %>' />
+                    </EditItemTemplate>
                    <ItemTemplate>
-                        <asp:CheckBox ID="checkBoxPrimary" runat="server" Checked='<%# Bind("Primary") %>' Enabled="false" />
+                        <asp:CheckBox ID="checkPrimary" runat="server" Checked='<%# Bind("Primary") %>' Enabled="false" />
                     </ItemTemplate>
                     <FooterTemplate>
-                       <asp:CheckBox ID="NewPrimary" runat="server" />
+                       <asp:CheckBox ID="NewCheckBoxPrimary" runat="server" />                        
                     </FooterTemplate>
                 </asp:TemplateField> 
             </Columns>

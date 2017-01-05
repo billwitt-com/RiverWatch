@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using RWInbound2.HelperModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -127,21 +129,86 @@ namespace RWInbound2.Files
         {
             try
             {
-                using (RiverWatchEntities _db = new RiverWatchEntities())
+                SetMessages();
+
+                if (!ModelState.IsValid)
                 {
-                    var stationImageToDelete = _db.StationImages.Find(model.ID);
-                    _db.StationImages.Remove(stationImageToDelete);
-                    _db.SaveChanges();
+                    SetMessages("Error", "Correct all input errors");
+                }
+                else
+                {
+                    using (var client = new HttpClient())
+                    {
+                        string deleteStationImageBaseAddress
+                                = string.Format("{0}/{1}/{2}", webApiBaseUrl, webApiStationImageController,
+                                                                       "DeleteStationImage");
 
-                    //string stationName = lblStationName.Text;
-                    string successLabelMessage
-                            = string.Format("Station File deleted. Station Name: {0} Image: {1}", model.Station.StationName, model.FileName);
+                        DeleteStationImageModel deleteStationImageModel = new DeleteStationImageModel()
+                        {
+                            ID = model.ID,
+                            FileName = model.FileName,
+                            FileUrl = model.FileUrl,
+                            Deleted = true,
+                            ErrorMessage = ""
+                        };
 
-                    string redirect = string.Format("StationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
+                        DeleteStationImageModel deleteStationImageModelResult = null;
+                       
+                        bool fileDeleted = false;
+                        string errorMessage = string.Empty;
+
+                        Task taskDeleteStationImage = client.PostAsJsonAsync(deleteStationImageBaseAddress, deleteStationImageModel).ContinueWith(task =>
+                        {
+                            if (task.Status == TaskStatus.RanToCompletion)
+                            {
+                                var response = task.Result;
+
+                                if (response.IsSuccessStatusCode)
+                                {
+                                    var result = response.Content.ReadAsAsync<DeleteStationImageModel>().Result;
+
+                                    if (result != null)
+                                    {
+                                        fileDeleted = true;
+                                        deleteStationImageModelResult = result;
+                                    }
+
+                                    // Read other header values if you want..
+                                    foreach (var header in response.Content.Headers)
+                                    {
+                                        Debug.WriteLine("{0}: {1}", header.Key, string.Join(",", header.Value));
+                                    }
+                                }
+                                else if(response.StatusCode == HttpStatusCode.BadRequest)
+                                {
+                                    var result = response.Content.ReadAsAsync<DeleteStationImageModel>().Result;
+                                    errorMessage = result.ErrorMessage;
+                                }
+                                else
+                                {
+                                    Debug.WriteLine("Status Code: {0} - {1}", response.StatusCode, response.ReasonPhrase);
+                                    Debug.WriteLine("Response Body: {0}", response.Content.ReadAsStringAsync().Result);
+                                }
+                            }
+                        });
+
+                        taskDeleteStationImage.Wait();
+                        if (fileDeleted)
+                        {
+                            string successLabelMessage
+                                = string.Format("Station Image Deleted. Station: {0}, Image: {1}", lblStationName.Text, deleteStationImageModelResult.FileName);
+
+                            string redirect = string.Format("StationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
                                                      HiddenStationID.Value, successLabelMessage);
 
-                    Response.Redirect(redirect, false);
-                }
+                            Response.Redirect(redirect, false);
+                        }
+                        else
+                        {
+                            SetMessages("Error", errorMessage);
+                        }
+                    }
+                }                                    
             }
             catch (Exception ex)
             {
@@ -153,6 +220,8 @@ namespace RWInbound2.Files
         { 
             try
             {
+                SetMessages();                
+
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -171,12 +240,54 @@ namespace RWInbound2.Files
                             }
                         }
 
+                        string image = string.Empty;
+                        //bool primaryImageExists = false;
+                        bool primaryChecked = false;
+
+                        using (RiverWatchEntities _db = new RiverWatchEntities())
+                        {
+                            string hiddenStatID = HiddenStationID.Value;
+                            int statID = 0;
+                            bool statIDIsInt = Int32.TryParse(hiddenStatID, out statID);
+
+                            image = _db.StationImages
+                                        .Where(s => s.FileName.Equals(file.FileName) && s.StationID == statID)
+                                        .Select(s => s.FileName)
+                                        .FirstOrDefault();
+
+                            //primaryImageExists = _db.StationImages
+                            //                        .Where(s => s.StationID == statID && s.Primary == true)
+                            //                        .ToList().Count() > 0;
+
+                            //primaryChecked = ((CheckBox)StationImagesGridView.FooterRow.FindControl("NewCheckBoxPrimary")).Checked;
+                            //if (primaryChecked && primaryImageExists)
+                            //{
+                            //    //((Label)StationImagesGridView.FooterRow.FindControl("lblNewPrimaryExists")).Visible = true;
+                            //    //errors = true;
+                            //    var stationImages = _db.StationImages
+                            //                   .Where(si => si.StationID == statID &&
+                            //                          !si.FileName.Equals(newStationImage.FileName))
+                            //                   .ToList<StationImage>();
+
+                            //    foreach (var stationImage in stationImages)
+                            //    {
+                            //        stationImage.Primary = false;
+                            //        _db.SaveChanges();
+                            //    }
+                            //}
+                        }
+                        if (!string.IsNullOrEmpty(image))
+                        {
+                            ((Label)StationImagesGridView.FooterRow.FindControl("lblFileUploadStationImagesFileExists")).Visible = true;
+                            errors = true;
+                        }
+
                         int iFileSize = file.ContentLength;
                         if (iFileSize > 1048576)  // 1MB
                         {
                             ((Label)StationImagesGridView.FooterRow.FindControl("lblFileUploadStationImagesMaxSize")).Visible = true;
                             errors = true;
-                        }                       
+                        }                        
                         if (errors)
                         {
                             return;
@@ -202,16 +313,18 @@ namespace RWInbound2.Files
                             createdBy = HttpContext.Current.User.Identity.Name;
                         }
 
-                        string uploadServiceBaseAddress 
-                            = string.Format("{0}/{1}/{2}/{3}/{4}", webApiBaseUrl, webApiStationImageController,
-                                                                   "PostStationImage", stationID, createdBy);
+                        primaryChecked = ((CheckBox)StationImagesGridView.FooterRow.FindControl("NewCheckBoxPrimary")).Checked;
+
+                        string uploadStationImageBaseAddress 
+                            = string.Format("{0}/{1}/{2}/{3}/{4}/{5}", webApiBaseUrl, webApiStationImageController,
+                                                                   "PostStationImage", stationID, createdBy, primaryChecked);
 
                         //var result = client.PostAsync(uploadServiceBaseAddress, content).Result;
-                        BlobUploadModel uploadResult = null;
+                        StationImageUploadModel uploadResult = null;
                         //uploadResult = result.Content.ReadAsAsync<BlobUploadModel>().Result;
                         bool fileUploaded = false;
 
-                        Task taskUpload = client.PostAsync(uploadServiceBaseAddress, content).ContinueWith(task =>
+                        Task taskUpload = client.PostAsync(uploadStationImageBaseAddress, content).ContinueWith(task =>
                         {
                             if (task.Status == TaskStatus.RanToCompletion)
                             {
@@ -219,7 +332,7 @@ namespace RWInbound2.Files
 
                                 if (response.IsSuccessStatusCode)
                                 {
-                                    var result = response.Content.ReadAsAsync<List<BlobUploadModel>>().Result;
+                                    var result = response.Content.ReadAsAsync<List<StationImageUploadModel>>().Result;
                                                                   
                                     if (result != null && result.Count > 0)
                                     {
@@ -235,19 +348,20 @@ namespace RWInbound2.Files
                                 }
                                 else
                                 {
+                                    string responseError
+                                        = string.Format("Unable to save the image. Contact an administrator if the problem consists.\r\n Status Code: {0} - {1}\r\n Response Body: {2}",
+                                                    response.StatusCode, response.ReasonPhrase, response.Content.ReadAsStringAsync().Result);
                                     Debug.WriteLine("Status Code: {0} - {1}", response.StatusCode, response.ReasonPhrase);
                                     Debug.WriteLine("Response Body: {0}", response.Content.ReadAsStringAsync().Result);
                                 }
-                            }
-                            
+                            }                            
                         });
 
                         taskUpload.Wait();
                         if (fileUploaded)
                         {
-                            string successLabelMessage =  uploadResult.FileName + " with length " + uploadResult.FileSizeInBytes
-                                            + " has been uploaded at " + uploadResult.FileUrl;
-                            //SetMessages("Success", successMessage);
+                            string successLabelMessage
+                                = string.Format("Station Image Added.  Station: {0},  Image: {1}", lblStationName.Text, uploadResult.FileName);
 
                             string redirect = string.Format("StationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
                                                      HiddenStationID.Value, successLabelMessage);
@@ -267,6 +381,93 @@ namespace RWInbound2.Files
         {
             //Checks for image type... you could also do filename extension checks and other things
             return ((file != null) && System.Text.RegularExpressions.Regex.IsMatch(file.ContentType, "image/\\S+") && (file.ContentLength > 0));
+        }
+
+        public void UpdateStationImage(StationImage model)
+        {
+            SetMessages();
+            if (!ModelState.IsValid)
+            {
+                SetMessages("Error", "Correct all input errors");
+            }
+            else
+            {
+                using (var client = new HttpClient())
+                {
+                    string updateStationImageBaseAddress
+                            = string.Format("{0}/{1}/{2}", webApiBaseUrl, webApiStationImageController,
+                                                                   "UpdateStationImagePrimaryStatus");
+
+                    string hiddenStatID = HiddenStationID.Value;
+                    int statID = 0;
+                    bool statIDIsInt = Int32.TryParse(hiddenStatID, out statID);
+
+                    UpdatePrimaryStationImageModel updatePrimaryStationImageModel = new UpdatePrimaryStationImageModel()
+                    {
+                        ID = model.ID,
+                        StationID = statID,
+                        Primary = model.Primary,
+                        Updated = true,
+                        ErrorMessage = ""
+                    };
+
+                    UpdatePrimaryStationImageModel updatePrimaryStationImageModelResult = null;
+
+                    bool fileUpdated = false;
+                    string errorMessage = string.Empty;
+
+                    Task taskUpdateStationImage = client.PostAsJsonAsync(updateStationImageBaseAddress, updatePrimaryStationImageModel).ContinueWith(task =>
+                    {
+                        if (task.Status == TaskStatus.RanToCompletion)
+                        {
+                            var response = task.Result;
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                var result = response.Content.ReadAsAsync<UpdatePrimaryStationImageModel>().Result;
+
+                                if (result != null)
+                                {
+                                    fileUpdated = true;
+                                    updatePrimaryStationImageModelResult = result;
+                                }
+
+                                // Read other header values if you want..
+                                foreach (var header in response.Content.Headers)
+                                {
+                                    Debug.WriteLine("{0}: {1}", header.Key, string.Join(",", header.Value));
+                                }
+                            }
+                            else if (response.StatusCode == HttpStatusCode.BadRequest)
+                            {
+                                var result = response.Content.ReadAsAsync<DeleteStationImageModel>().Result;
+                                errorMessage = result.ErrorMessage;
+                            }
+                            else
+                            {
+                                Debug.WriteLine("Status Code: {0} - {1}", response.StatusCode, response.ReasonPhrase);
+                                Debug.WriteLine("Response Body: {0}", response.Content.ReadAsStringAsync().Result);
+                            }
+                        }
+                    });
+
+                    taskUpdateStationImage.Wait();
+                    if (fileUpdated)
+                    {
+                        string successLabelMessage
+                            = string.Format("Station Image Updated. Station: {0}, Image: {1}", lblStationName.Text, model.FileName);
+
+                        string redirect = string.Format("StationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
+                                                 HiddenStationID.Value, successLabelMessage);
+
+                        Response.Redirect(redirect, false);
+                    }
+                    else
+                    {
+                        SetMessages("Error", errorMessage);
+                    }
+                }
+            }
         }
 
         [System.Web.Script.Services.ScriptMethod()]
@@ -409,14 +610,6 @@ namespace RWInbound2.Files
             {
                 SetMessages("Error", ex.Message);
             }
-        }
-    }
-
-    public class BlobUploadModel
-    {
-        public string FileName { get; set; }
-        public string FileUrl { get; set; }
-        public long FileSizeInBytes { get; set; }
-        public long FileSizeInKb { get { return (long)Math.Ceiling((double)FileSizeInBytes / 1024); } }       
-    }
+        }        
+    }    
 }
