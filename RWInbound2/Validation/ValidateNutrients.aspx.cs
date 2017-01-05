@@ -301,7 +301,8 @@ namespace RWInbound2.Validation
                         NW.SampleDate = NS.DateCollected;
                     else
                         NW.SampleDate = DateTime.Now; 
-                    if(NS.StationID != null)
+
+                  //  if(NS.StationID != null)
                         NW.StationID = NS.StationID;
                     if (NS.OrganizationID != null)
                         NW.OrganizationID = NS.OrganizationID;
