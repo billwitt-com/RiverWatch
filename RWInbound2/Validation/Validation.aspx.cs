@@ -242,7 +242,8 @@ namespace RWInbound2.Validation
 
                     string cmdCount = "select count(*) from [FieldNOTInSamples]";
                     //string totalField = "select count(*) from [FieldINSamples]";
-                    string totalField = "EXEC GetFieldINSamples";
+                    string totalFieldNotValidated = "select count(*) from [FieldNOTInSamples] WHERE [PassValStep] < 0 ";
+                        //"EXEC GetFieldINSamples";
                     using (SqlConnection conn = new SqlConnection())
                     {
                         using (SqlCommand cmd = new SqlCommand())
@@ -253,7 +254,7 @@ namespace RWInbound2.Validation
                             cmd.CommandText = cmdCount;
                             FieldNotRecorded = (int)cmd.ExecuteScalar();
 
-                            cmd.CommandText = totalField;
+                            cmd.CommandText = totalFieldNotValidated;
                             FieldCount = (int)cmd.ExecuteScalar();
                         }
                     }
