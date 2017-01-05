@@ -1146,6 +1146,7 @@
     <Compile Include="Files\StationImages.aspx.designer.cs">
       <DependentUpon>StationImages.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HelperModels\StationImageModels.cs" />
     <Compile Include="Help\HelpInboundICP.aspx.cs">
       <DependentUpon>HelpInboundICP.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
