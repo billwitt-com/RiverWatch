@@ -76,8 +76,25 @@
                <td style="width: 262px">                    
                     <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />               
                 </td>                    
-                <td>                    
-                </td> 
+               <td style="width: 262px">                    
+                    <asp:Button ID="btnBulkEditOrgActive" runat="server" Text="OrgActiveBulkEdit" CssClass="adminButton" Width="176px" OnClick="btnBulkEditOrgActive_Click"  />               
+                </td>     
             </tr>   
+
+            <tr>
+                <td>&nbsp;</td>               
+                <td style="width: 262px">    
+                                   
+                </td>
+                 <td style="width: 262px">                   
+                
+                </td>
+               <td style="width: 262px">                    
+            
+                </td>                    
+               <td style="width: 262px">                    
+                    <asp:Button ID="btnResetAllOrgActive" BorderColor="Red" BorderStyle="Solid" BorderWidth="4px" runat="server" Text="Set All Orgs INACTIVE" CssClass="adminButton" Width="176px" ForeColor="Red" OnClick="btnResetAllOrgActive_Click"   />               
+                </td>     
+            </tr>
         </table>  
 </asp:Content>
