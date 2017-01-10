@@ -24,15 +24,22 @@
         PagerSettings-Mode="NumericFirstLast"  
         PagerSettings-Position="Bottom" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="467px">
         <EditItemTemplate>
-
             Kit Number:
-            <asp:TextBox ID="KitNumberTextBox" runat="server" Text='<%# Bind("KitNumber") %>' />
+            <asp:TextBox ID="KitNumberTextBox" ReadOnly="true" runat="server" Text='<%# Bind("KitNumber") %>' />
             <br />
             Organization Name:
             <asp:TextBox ID="OrganizationNameTextBox" runat="server" Text='<%# Bind("OrganizationName") %>' />
             <br />
             Organization Type:
-            <asp:TextBox ID="OrganizationTypeTextBox" runat="server" Text='<%# Bind("OrganizationType") %>' />
+                <asp:DropDownList ID="ddlOrgType" runat="server" 
+                    OnDataBinding="PreventErrorsOn_DataBinding"
+                    DataTextField = "Description"
+                    DataValueField = "Code"
+                    SelectedValue = '<%# Bind("OrganizationType") %>'
+                    DataSourceID ="SqlDataSourceOrgType">
+               </asp:DropDownList>
+
+<%--            <asp:TextBox ID="OrganizationTypeTextBox" runat="server" Text='<%# Bind("OrganizationType") %>' />--%>
             <br />
             Email:
             <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# Bind("Email") %>' />
@@ -125,7 +132,14 @@
             <asp:TextBox ID="OrganizationNameTextBox" runat="server" Text='<%# Bind("OrganizationName") %>' />
             <br />
             Organization Type:
-            <asp:TextBox ID="OrganizationTypeTextBox" runat="server" Text='<%# Bind("OrganizationType") %>' />
+<%--            <asp:TextBox ID="OrganizationTypeTextBox" runat="server" Text='<%# Bind("OrganizationType") %>' />--%>
+             <asp:DropDownList ID="ddlOrgType" runat="server" 
+                OnDataBinding="PreventErrorsOn_DataBinding"
+                DataTextField = "Description"
+                DataValueField = "Code"
+                SelectedValue = '<%# Bind("OrganizationType") %>'
+                DataSourceID = "SqlDataSourceOrgType">
+            </asp:DropDownList> 
             <br />
             Email:
             <asp:TextBox ID="EmailTextBox" runat="server" Text='<%# Bind("Email") %>' />
@@ -286,6 +300,14 @@
     <asp:SqlDataSource ID="SqlDataSourceWaterShed" runat="server"
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
         SelectCommand="SELECT [Description], [Code] FROM [tlkWQCCWaterShed] where valid = 1"></asp:SqlDataSource>
+
+    <asp:SqlDataSource ID="SqlDataSourceOrgType"  runat="server"
+                ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>"
+        SelectCommand="SELECT [Description], [Code] FROM [tlkOrganizationType] where valid = 1"
+        ></asp:SqlDataSource>
+
+
+
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server"  OnInserted="SqlDataSource1_Inserted"  OnUpdating="SqlDataSource1_Updating" OnInserting="SqlDataSource1_Inserting"
         ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
