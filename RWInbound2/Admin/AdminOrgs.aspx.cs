@@ -148,6 +148,7 @@ namespace RWInbound2.Admin
         { 
             DropDownList theDropDownList = (DropDownList)sender;
             theDropDownList.DataBinding -= new EventHandler(PreventErrorsOn_DataBinding);
+            theDropDownList.Items.Clear(); 
             theDropDownList.AppendDataBoundItems = true;
 
             selectedValue = "";
