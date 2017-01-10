@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="OrgStatusBulklUpdate.aspx.cs" Inherits="RWInbound2.Admin.OrgStatusBulklUpdate" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="OrgStatusBulklUpdate.aspx.cs" Inherits="RWInbound2.Admin.OrgStatusBulklUpdate" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -7,7 +7,7 @@
         <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Org Status Bulk Update (click on column name to sort)"></asp:Label>
             <br />
                 <br />
-    <asp:GridView ID="GridView1" runat="server"  AllowSorting="True" AutoGenerateColumns="False" s DataKeyNames="ID" DataSourceID="SqlDataSource1">
+    <asp:GridView ID="GridView1"  runat="server"  AllowSorting="True" AutoGenerateColumns="False" s DataKeyNames="ID" DataSourceID="SqlDataSource1">
         <Columns>
             <asp:CommandField ShowEditButton="True" ButtonType="Button" />
             <asp:BoundField DataField="KitNumber" HeaderText="KitNumber" SortExpression="KitNumber" />
