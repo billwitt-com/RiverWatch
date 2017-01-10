@@ -283,6 +283,15 @@ namespace RWInbound2.Samples {
         protected global::System.Web.UI.WebControls.TextBox txtNumSmp;
         
         /// <summary>
+        /// lblErrorMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMsg;
+        
+        /// <summary>
         /// TabContainer1 control.
         /// </summary>
         /// <remarks>
@@ -749,6 +758,15 @@ namespace RWInbound2.Samples {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSizer;
+        
+        /// <summary>
+        /// btnAddNewOrgStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddNewOrgStatus;
         
         /// <summary>
         /// FormView1 control.

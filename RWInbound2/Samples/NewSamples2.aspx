@@ -124,6 +124,7 @@
         </table>
     </asp:Panel>
 
+    <asp:Label ID="lblErrorMsg" runat="server" Text="Label"></asp:Label>
     <ajaxToolkit:TabContainer ID="TabContainer1" ActiveTabIndex="0" runat="server" UseVerticalStripPlacement="False">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -327,8 +328,7 @@
         <ajaxToolkit:TabPanel runat="server" HeaderText="Update Org" ID="TabUpdateOrg">
             <ContentTemplate>
                 <div runat="server" id="divSizer" style="border-left: 12px">
-                   <%-- <asp:Label ID="Label3" runat="server" Text="Samples Collected:"></asp:Label>--%>
-                    
+                    <asp:Button ID="btnAddNewOrgStatus" Visible="false" runat="server" Text="Add new org status"  OnClick="btnAddNewOrgStatus_Click"/>
                     <asp:FormView ID="FormView1" runat="server" AllowPaging="false" DataKeyNames="ID" DefaultMode="Edit" DataSourceID="SqlDataSourceOrgStatus">
                         <EditItemTemplate>
                             Status ID:
@@ -421,7 +421,7 @@
                             <asp:TextBox ID="OrganizationIDTextBox"  ForeColor="White" runat="server" Text='<%# Bind("OrganizationID") %>' />
                             <br />
 
-                            <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" CssClass="samplesButton" CommandName="Update" Text="Update" />&#160;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" /></EditItemTemplate>
+                            <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateORGStatusButton_Click" CausesValidation="True" CssClass="samplesButton" CommandName="Update" Text="Update" />&#160;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" /></EditItemTemplate>
                     </asp:FormView>
                 </div>
             </ContentTemplate>
