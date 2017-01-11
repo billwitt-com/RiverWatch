@@ -301,17 +301,20 @@
                             <asp:TextBox ID="tbAnalyzeDate" runat="server"></asp:TextBox></td>
                         <ajaxToolkit:CalendarExtender ID="CalendarExtenderAnalyzeDate" TargetControlID="tbAnalyzeDate" runat="server" />
                     </tr>
-                    <tr>
+                   <%-- <tr>
                         <td style="width: 121px">Done:</td>
                         <td>
                             <asp:CheckBox ID="chkDone" runat="server"  Checked="true" ></asp:CheckBox></td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td style="width: 121px">Comments:</td>
                         <td>
                             <asp:TextBox ID="tbComments" runat="server" TextMode="MultiLine" Width="420px"></asp:TextBox></td>
                     </tr>
-                    <tr>
+
+ 
+
+                        
                         <td>
                             <asp:Button ID="btnSaveNutrient" runat="server" OnClick="btnSaveNutrient_Click" CssClass="samplesButton" Text="Save" Width="60px" /></td>
                         <td>
@@ -319,6 +322,12 @@
                         <td style="width: 121px"></td>
                         <td></td>
                     </tr>
+                        <tr>
+                        <td>
+                           <asp:GridView ID="GridViewNutrientBarCodes" runat="server" CellPadding="2"></asp:GridView>
+                        </td>
+                    </tr>
+                    <tr>
                 </table>
             </ContentTemplate>
         </ajaxToolkit:TabPanel>

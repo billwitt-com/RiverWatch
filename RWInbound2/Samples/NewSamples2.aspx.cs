@@ -383,6 +383,7 @@ namespace RWInbound2.Samples
         {
             // get drop down list of inbound samples that have this station and kit numbers 
             // added valid bit 09/11
+            Panel1.Visible = true;
             try
             {
                 var query = from i in NRWDE.InboundSamples
@@ -441,6 +442,7 @@ namespace RWInbound2.Samples
         private void populateOrgStatus(int orgID, DateTime statusYear)
         {
             // save the page number so we can get back here...
+            Panel1.Visible = true;
             int page = FormView1.PageIndex;
             // first, check to see if there is a status for this year
             DateTime locStatusYear = statusYear;    // will be like 201X/07/01 which is start date of status year 
@@ -538,6 +540,7 @@ namespace RWInbound2.Samples
         private void updateSamplesPage(string locEvent)
         {
           //  string tstr = locStnNumber;
+            Panel1.Visible = true;
             string orgName = "";
             string locStnNumber = "";
             string eventNumber = "";
@@ -639,6 +642,7 @@ namespace RWInbound2.Samples
 
         protected void lstSamples_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Panel1.Visible = true;
             string locStnNumber, savedEvent;
             int index = 0;
             locStnNumber = lstSamples.SelectedItem.Value;
@@ -1272,6 +1276,12 @@ namespace RWInbound2.Samples
             bool duplicate = true;
             string typ = "";
 
+            smpNum = txtSmpNum.Text.Trim();
+            if(smpNum.Length < 8)
+            {
+                lblBarcodeUsed.Text = "You must have a valid sample number before saving this barcode";
+                return; 
+            }
 
             // check to see if barcode is in use, if so, warn user and return to page
 
@@ -1302,7 +1312,7 @@ namespace RWInbound2.Samples
             blank = type.Substring(0, 1) == "1";
             duplicate = type.Substring(0, 1) == "2";
 
-            smpNum = txtSmpNum.Text.Trim();
+
 
             if (normal)
                 typ = "N";
@@ -1341,12 +1351,11 @@ namespace RWInbound2.Samples
         }
 
         // add link button 
-        // removed [Riverwatch].[dbo].
+    // added nutrient bar code gridview too 
         protected void FillTabPanelBarcode(string EventNumber)
         {
-
+            string smpNum = txtSmpNum.Text.Trim();
             string queryString = string.Format("SELECT [LabID] ,[Code] ,[Type] ,[Filtered] ,[BoxNumber] " +
-
                         " FROM [MetalBarCode] " +
                         " where NumberSample like '{0}'", EventNumber.Trim());
 
@@ -1373,6 +1382,26 @@ namespace RWInbound2.Samples
                             else
                             {
                                 GridViewBarCodes.Visible = false;
+                            }
+                        }
+
+                        // create new query for nutrient bar code
+                        
+                        queryString = string.Format("SELECT [LabID] ,[SampleNumber] ,[Batch] ,[LogDate]   FROM [dbo].[NutrientBarCode] where [SampleNumber] = '{0}'", smpNum);
+
+                        cmd.CommandText = queryString;
+                        
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                GridViewNutrientBarCodes.DataSource = rdr;
+                                GridViewNutrientBarCodes.DataBind();
+                                GridViewNutrientBarCodes.Visible = true;
+                            }
+                            else
+                            {
+                                GridViewNutrientBarCodes.Visible = false;
                             }
                         }
                     }
@@ -1839,8 +1868,17 @@ namespace RWInbound2.Samples
                 tbNutrientCode.Text = "";
                 return;
             }
+
             string sampNum = txtSmpNum.Text.Trim();
             string numSamp = txtNumSmp.Text.Trim();
+
+            if(numSamp.Length < 8)
+            {
+                lblNutBarcodeMsg.Text = "There is no Sample selected, so you can not save this barcode";
+                tbNutrientCode.Text = "";
+                return; 
+            }
+
             // we presume good barcode here, so get to it... 
 
             NutrientBarCode NBC = new NutrientBarCode(); // create an empty data set
@@ -1866,7 +1904,7 @@ namespace RWInbound2.Samples
             NBC.TotalNitro = chksNutrients.Items.FindByValue("TotalNitro").Selected;
             NBC.TotalPhos = chksNutrients.Items.FindByValue("TotalPhos").Selected;
             NBC.TSS = chksNutrients.Items.FindByValue("TSS").Selected;
-            NBC.Done = chkDone.Checked; 
+            NBC.Done = true;   // chkDone.Checked; 
             NBC.DateCreated = DateTime.Now;
             NBC.LogDate = DateTime.Now;
 

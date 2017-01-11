@@ -100,7 +100,7 @@ namespace RWInbound2.Admin
                 }
                 lblMsg.Text = "";
                 orgID = C.ID;
-                lblOrgName.Text = C.OrganizationName;
+                lblOrgName.Text = string.Format("Organization: {0}", C.OrganizationName);
 
                 Session["ORGID"] = orgID; 
 
