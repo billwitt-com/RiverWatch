@@ -201,6 +201,8 @@
     <Content Include="Admin\ManagePublicAccess.aspx" />
     <Content Include="Admin\OrgStatusBulklUpdate.aspx" />
     <Content Include="Admin\ResetOrgActive.aspx" />
+    <Content Include="Admin\ResetStationActive.aspx" />
+    <Content Include="Admin\StationStatusBulklUpdate.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
     <Content Include="Applications\PageRenderTest.aspx" />
@@ -919,6 +921,20 @@
     </Compile>
     <Compile Include="Admin\ResetOrgActive.aspx.designer.cs">
       <DependentUpon>ResetOrgActive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ResetStationActive.aspx.cs">
+      <DependentUpon>ResetStationActive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ResetStationActive.aspx.designer.cs">
+      <DependentUpon>ResetStationActive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\StationStatusBulklUpdate.aspx.cs">
+      <DependentUpon>StationStatusBulklUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\StationStatusBulklUpdate.aspx.designer.cs">
+      <DependentUpon>StationStatusBulklUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Applications\Applications.aspx.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
