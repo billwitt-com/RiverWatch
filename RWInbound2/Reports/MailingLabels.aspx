@@ -22,5 +22,6 @@
             </DataSources>
         </LocalReport>
     </rsweb:ReportViewer>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" SelectCommand="SELECT * FROM [ParticipantswithOrgName] WHERE Active=1 AND PrimaryContact=1 ORDER BY FirstName"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
+        SelectCommand="SELECT * FROM [ParticipantswithOrgName] WHERE Active=1 AND PrimaryContact=1 "></asp:SqlDataSource>
 </asp:Content>

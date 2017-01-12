@@ -816,7 +816,7 @@ namespace RWInbound2.Validation
             try
             {
                 InboundICPFinal F = (from f in NewRWE.InboundICPFinals
-                                     where f.CODE == barCode    // changed 7/8/16
+                                     where f.CODE == barCode    
                                      select f).FirstOrDefault();
 
                 string workString = "";

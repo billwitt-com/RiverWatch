@@ -20,7 +20,8 @@
         </LocalReport>
     </rsweb:ReportViewer>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="Data Source=tcp:corw.database.windows.net,1433;Initial Catalog=RiverWatch;Persist Security Info=False;User ID=riverwatchadmin;Password=XkYZk2ul6fp4%;MultipleActiveResultSets=False;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False" 
-        SelectCommand="SELECT * FROM [ParticipantsView] WHERE Active=1 AND PrimaryContact=1 ORDER BY LastName"
-        ProviderName="System.Data.SqlClient" ></asp:SqlDataSource>
+        ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
+        SelectCommand = "SELECT * FROM [ParticipantsView] WHERE Active=1 AND PrimaryContact=1 ORDER BY LastName" >
+
+    </asp:SqlDataSource>
 </asp:Content>
