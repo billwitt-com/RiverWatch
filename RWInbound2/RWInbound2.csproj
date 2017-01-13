@@ -191,6 +191,7 @@
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
+    <Content Include="Admin\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditNutrientBarcode.aspx" />
     <Content Include="Admin\EditNutrients.aspx" />
@@ -206,7 +207,6 @@
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
     <Content Include="Applications\PageRenderTest.aspx" />
-    <Content Include="Content\faq.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -264,9 +264,7 @@
     <Content Include="Edit\EditHydroUnit.aspx" />
     <Content Include="Edit\EditInboundField.aspx" />
     <Content Include="Edit\EditMetalBarCodeType.aspx" />
-    <Content Include="Edit\EditMetalValidationLimits.aspx" />
     <Content Include="Edit\EditNutrientBarCodeType.aspx" />
-    <Content Include="Edit\EditNutrientValidationLimits.aspx" />
     <Content Include="Edit\EditOrganizationType.aspx" />
     <Content Include="Edit\EditPhysHab.aspx" />
     <Content Include="Edit\EditPhysHabPara.aspx" />
@@ -280,10 +278,12 @@
     <Content Include="Edit\EditSubPara.aspx" />
     <Content Include="Edit\EditSubSamp.aspx" />
     <Content Include="Edit\EditWaterBodyID.aspx" />
+    <Content Include="Edit\EditWaterCodeDrainage.aspx" />
     <Content Include="ErrorPage.aspx" />
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Files\StationImages.aspx" />
     <Content Include="Help\HelpInboundICP.aspx" />
     <Content Include="Images\Bucketdrop.jpg" />
     <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
@@ -349,19 +349,22 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="Public\OrgStatus.aspx" />
-    <Content Include="Public\PublicReports.aspx" />
-    <Content Include="Public\RawSamplesAll.aspx" />
-    <Content Include="Public\UnknownData.aspx" />
-    <Content Include="Reports\MailingLabels.aspx" />
-    <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Public\Organizations.aspx" />
     <Content Include="Public\OrgStations.aspx" />
+    <Content Include="Public\OrgStatus.aspx" />
     <Content Include="Public\OrgUnknownResults.aspx" />
+    <Content Include="Public\PublicReports.aspx" />
+    <Content Include="Public\QAQCReport.aspx" />
+    <Content Include="Public\RawSamplesAll.aspx" />
+    <Content Include="Public\Stations.aspx" />
+    <Content Include="Public\StationsByProject.aspx" />
+    <Content Include="Public\UnknownData.aspx" />
+    <Content Include="Public\ViewStationsWithGauges.aspx" />
+    <Content Include="Reports\MailingLabels.aspx" />
+    <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
-    <Content Include="Public\QAQCReport.aspx" />
     <Content Include="Reports\ReportLachatNOTINNutrientBarcode.aspx" />
     <Content Include="Reports\Reports.aspx" />
     <Content Include="OLDfavicon.ico" />
@@ -387,7 +390,6 @@
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\RWdatainfodownloadv1.pdf" />
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest %283%29.pubxml" />
@@ -396,10 +398,7 @@
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="Reports\Samples.aspx" />
-    <Content Include="Public\Stations.aspx" />
-    <Content Include="Public\StationsByProject.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
-    <Content Include="Public\ViewStationsWithGauges.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
     <Content Include="RiverWatchStationsWithGauges.xsc">
       <DependentUpon>RiverWatchStationsWithGauges.xsd</DependentUpon>
@@ -427,28 +426,6 @@
     </Content>
     <Content Include="ReportStationsByProject.xsc">
       <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
-    </Content>
-    <Content Include="RawSamplesAll.xsc">
-      <DependentUpon>RawSamplesAll.xsd</DependentUpon>
-    </Content>
-    <None Include="RawSamplesAll.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>RawSamplesAll.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="RawSamplesAll.xss">
-      <DependentUpon>RawSamplesAll.xsd</DependentUpon>
-    </Content>
-    <Content Include="RawSamplesDataSet.xsc">
-      <DependentUpon>RawSamplesDataSet.xsd</DependentUpon>
-    </Content>
-    <None Include="RawSamplesDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>RawSamplesDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="RawSamplesDataSet.xss">
-      <DependentUpon>RawSamplesDataSet.xsd</DependentUpon>
     </Content>
     <None Include="ReportStationsByProject.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -852,6 +829,13 @@
     <Compile Include="Admin\EditInboundFieldData.aspx.designer.cs">
       <DependentUpon>EditInboundFieldData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\EditLimits.aspx.cs">
+      <DependentUpon>EditLimits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditLimits.aspx.designer.cs">
+      <DependentUpon>EditLimits.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\EditMetalBarCode.aspx.cs">
       <DependentUpon>EditMetalBarCode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -910,28 +894,24 @@
     </Compile>
     <Compile Include="Admin\OrgStatusBulklUpdate.aspx.cs">
       <DependentUpon>OrgStatusBulklUpdate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\OrgStatusBulklUpdate.aspx.designer.cs">
       <DependentUpon>OrgStatusBulklUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ResetOrgActive.aspx.cs">
       <DependentUpon>ResetOrgActive.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\ResetOrgActive.aspx.designer.cs">
       <DependentUpon>ResetOrgActive.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ResetStationActive.aspx.cs">
       <DependentUpon>ResetStationActive.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\ResetStationActive.aspx.designer.cs">
       <DependentUpon>ResetStationActive.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\StationStatusBulklUpdate.aspx.cs">
       <DependentUpon>StationStatusBulklUpdate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\StationStatusBulklUpdate.aspx.designer.cs">
       <DependentUpon>StationStatusBulklUpdate.aspx</DependentUpon>
@@ -1083,26 +1063,12 @@
     <Compile Include="Edit\EditMetalBarCodeType.aspx.designer.cs">
       <DependentUpon>EditMetalBarCodeType.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Edit\EditMetalValidationLimits.aspx.cs">
-      <DependentUpon>EditMetalValidationLimits.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditMetalValidationLimits.aspx.designer.cs">
-      <DependentUpon>EditMetalValidationLimits.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Edit\EditNutrientBarCodeType.aspx.cs">
       <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditNutrientBarCodeType.aspx.designer.cs">
       <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditNutrientValidationLimits.aspx.cs">
-      <DependentUpon>EditNutrientValidationLimits.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditNutrientValidationLimits.aspx.designer.cs">
-      <DependentUpon>EditNutrientValidationLimits.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditOrganizationType.aspx.cs">
       <DependentUpon>EditOrganizationType.aspx</DependentUpon>
@@ -1195,6 +1161,13 @@
     <Compile Include="Edit\EditWaterBodyID.aspx.designer.cs">
       <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditWaterCodeDrainage.aspx.cs">
+      <DependentUpon>EditWaterCodeDrainage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditWaterCodeDrainage.aspx.designer.cs">
+      <DependentUpon>EditWaterCodeDrainage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ErrorPage.aspx.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1202,6 +1175,14 @@
     <Compile Include="ErrorPage.aspx.designer.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Files\StationImages.aspx.cs">
+      <DependentUpon>StationImages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Files\StationImages.aspx.designer.cs">
+      <DependentUpon>StationImages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HelperModels\StationImageModels.cs" />
     <Compile Include="Help\HelpInboundICP.aspx.cs">
       <DependentUpon>HelpInboundICP.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1456,12 +1437,29 @@
     <Compile Include="ProjectStation.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Public\Organizations.aspx.cs">
+      <DependentUpon>Organizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\Organizations.aspx.designer.cs">
+      <DependentUpon>Organizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\OrgStations.aspx.cs">
+      <DependentUpon>OrgStations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\OrgStations.aspx.designer.cs">
+      <DependentUpon>OrgStations.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Public\OrgStatus.aspx.cs">
       <DependentUpon>OrgStatus.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\OrgStatus.aspx.designer.cs">
       <DependentUpon>OrgStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\OrgUnknownResults.aspx.cs">
+      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\OrgUnknownResults.aspx.designer.cs">
+      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\PublicReports.aspx.cs">
       <DependentUpon>PublicReports.aspx</DependentUpon>
@@ -1470,12 +1468,29 @@
     <Compile Include="Public\PublicReports.aspx.designer.cs">
       <DependentUpon>PublicReports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Public\QAQCReport.aspx.cs">
+      <DependentUpon>QAQCReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\QAQCReport.aspx.designer.cs">
+      <DependentUpon>QAQCReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Public\RawSamplesAll.aspx.cs">
       <DependentUpon>RawSamplesAll.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\RawSamplesAll.aspx.designer.cs">
       <DependentUpon>RawSamplesAll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\Stations.aspx.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\Stations.aspx.designer.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\StationsByProject.aspx.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\StationsByProject.aspx.designer.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\UnknownData.aspx.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
@@ -1484,20 +1499,16 @@
     <Compile Include="Public\UnknownData.aspx.designer.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Public\ViewStationsWithGauges.aspx.cs">
+      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\ViewStationsWithGauges.aspx.designer.cs">
+      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
+    </Compile>
     <Compile Include="QAQCDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QAQCDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="RawSamplesAll.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RawSamplesAll.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="RawSamplesDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RawSamplesDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ReportStationsByProject.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1517,27 +1528,6 @@
     </Compile>
     <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\Organizations.aspx.cs">
-      <DependentUpon>Organizations.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Public\Organizations.aspx.designer.cs">
-      <DependentUpon>Organizations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\OrgStations.aspx.cs">
-      <DependentUpon>OrgStations.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Public\OrgStations.aspx.designer.cs">
-      <DependentUpon>OrgStations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\OrgUnknownResults.aspx.cs">
-      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Public\OrgUnknownResults.aspx.designer.cs">
-      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
@@ -1560,14 +1550,6 @@
     <Compile Include="Reports\PublicUsers.aspx.designer.cs">
       <DependentUpon>PublicUsers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Public\QAQCReport.aspx.cs">
-      <DependentUpon>QAQCReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Public\QAQCReport.aspx.designer.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
       <DependentUpon>ReportLachatNOTINNutrientBarcode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1589,33 +1571,12 @@
     <Compile Include="Reports\Samples.aspx.designer.cs">
       <DependentUpon>Samples.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Public\Stations.aspx.cs">
-      <DependentUpon>Stations.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Public\Stations.aspx.designer.cs">
-      <DependentUpon>Stations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\StationsByProject.aspx.cs">
-      <DependentUpon>StationsByProject.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Public\StationsByProject.aspx.designer.cs">
-      <DependentUpon>StationsByProject.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.designer.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\ViewStationsWithGauges.aspx.cs">
-      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Public\ViewStationsWithGauges.aspx.designer.cs">
-      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchDataParticipants.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1712,10 +1673,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverWatchStations1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="RiverWatchStationsDataSet.cs">
-      <DependentUpon>RiverWatchStationsDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="RiverWatchStationsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1753,6 +1710,9 @@
       <DependentUpon>NewSamples2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Station.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StationImage.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StationsByProject.Designer.cs">
@@ -2070,7 +2030,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Files\uploads\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
@@ -2091,15 +2053,6 @@
     <Content Include="Reports\LachatNoBC.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Public\OrgStations.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Public\StationsWithGauges.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Public\OrganizationsAll.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Reports\Participants.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2109,31 +2062,25 @@
     <Content Include="Reports\Samples.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Public\Stations.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Reports\PublicUsers.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Public\OrgStatus.rdlc">
+    <Content Include="Reports\MailingLabels.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\MailingLabels.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Public\OrgStations.rdlc" />
+    <EmbeddedResource Include="Public\OrgStatus.rdlc" />
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
     <EmbeddedResource Include="Public\QAQCReport.rdlc" />
-    <Content Include="Public\stationsByProject.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Public\RawSamplesAll.rdlc" />
     <EmbeddedResource Include="Public\Report2.rdlc" />
     <EmbeddedResource Include="Public\Report3.rdlc" />
-    <Content Include="Public\RawSamplesAll.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Public\Stations.rdlc" />
+    <EmbeddedResource Include="Public\stationsByProject.rdlc" />
+    <EmbeddedResource Include="Public\StationsWithGauges.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

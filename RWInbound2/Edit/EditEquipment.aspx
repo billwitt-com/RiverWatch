@@ -96,16 +96,7 @@
                                     <th scope="col">Date ReJuv2</th>
                                     <th scope="col">Auto Replace Date</th>
                                     <th scope="col">Comment</th>
-                                </tr>
-                               <%-- <tr>
-                                    <td colspan="12" class="grid-edit-equipment-noresults-td">
-                                         <b>
-                                             <br /> 
-                                             No Equipment was found.                                         
-                                             <br /><br />
-                                         </b>  
-                                    </td>                                                               
-                                </tr>--%>
+                                </tr>                              
                                 <tr>
                                     <td>
                                         <asp:Button ID="btnAdd" runat="server" Text="Add New"
