@@ -96,6 +96,15 @@ namespace RWInbound2.Public
         {
             Response.Redirect("~/Public/StationsByProject.aspx");
         }
+        protected void btnAllSampleData_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Public/RAWSamplesAll.aspx");
+        }
+
+        protected void btnOrgsByProject_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Public/OrgsByProject.aspx");
+        }
 
 
         private void SetMessages(string type = "", string message = "")
@@ -348,9 +357,6 @@ namespace RWInbound2.Public
             }
         }
 
-        protected void btnAllSampleData_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Public/RAWSamplesAll.aspx");
-        }
+
     }
 }

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="RiverWatchDEV" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RiverWatchDEV (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.RiverWatchDEV.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ViewOrgsByProjectTableAdapter" GeneratorDataComponentClassName="ViewOrgsByProjectTableAdapter" Name="ViewOrgsByProject" UserDataComponentName="ViewOrgsByProjectTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="RiverWatchDEV (Web.config)" DbObjectName="RiverWatch.dbo.ViewOrgsByProject" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ProjectName, ProjectDescription, OrganizationName, OrganizationType, KitNumber, WaterShed, WaterShedGathering FROM dbo.ViewOrgsByProject</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ProjectName" DataSetColumn="ProjectName" />
+              <Mapping SourceColumn="ProjectDescription" DataSetColumn="ProjectDescription" />
+              <Mapping SourceColumn="OrganizationName" DataSetColumn="OrganizationName" />
+              <Mapping SourceColumn="OrganizationType" DataSetColumn="OrganizationType" />
+              <Mapping SourceColumn="KitNumber" DataSetColumn="KitNumber" />
+              <Mapping SourceColumn="WaterShed" DataSetColumn="WaterShed" />
+              <Mapping SourceColumn="WaterShedGathering" DataSetColumn="WaterShedGathering" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ViewOrgsByProject" msprop:Generator_TableClassName="ViewOrgsByProjectDataTable" msprop:Generator_TableVarName="tableViewOrgsByProject" msprop:Generator_TablePropName="ViewOrgsByProject" msprop:Generator_RowDeletingName="ViewOrgsByProjectRowDeleting" msprop:Generator_RowChangingName="ViewOrgsByProjectRowChanging" msprop:Generator_RowEvHandlerName="ViewOrgsByProjectRowChangeEventHandler" msprop:Generator_RowDeletedName="ViewOrgsByProjectRowDeleted" msprop:Generator_UserTableName="ViewOrgsByProject" msprop:Generator_RowChangedName="ViewOrgsByProjectRowChanged" msprop:Generator_RowEvArgName="ViewOrgsByProjectRowChangeEvent" msprop:Generator_RowClassName="ViewOrgsByProjectRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProjectName" msprop:Generator_ColumnVarNameInTable="columnProjectName" msprop:Generator_ColumnPropNameInRow="ProjectName" msprop:Generator_ColumnPropNameInTable="ProjectNameColumn" msprop:Generator_UserColumnName="ProjectName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ProjectDescription" msprop:Generator_ColumnVarNameInTable="columnProjectDescription" msprop:Generator_ColumnPropNameInRow="ProjectDescription" msprop:Generator_ColumnPropNameInTable="ProjectDescriptionColumn" msprop:Generator_UserColumnName="ProjectDescription" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OrganizationName" msprop:Generator_ColumnVarNameInTable="columnOrganizationName" msprop:Generator_ColumnPropNameInRow="OrganizationName" msprop:Generator_ColumnPropNameInTable="OrganizationNameColumn" msprop:Generator_UserColumnName="OrganizationName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OrganizationType" msprop:Generator_ColumnVarNameInTable="columnOrganizationType" msprop:Generator_ColumnPropNameInRow="OrganizationType" msprop:Generator_ColumnPropNameInTable="OrganizationTypeColumn" msprop:Generator_UserColumnName="OrganizationType">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KitNumber" msprop:Generator_ColumnVarNameInTable="columnKitNumber" msprop:Generator_ColumnPropNameInRow="KitNumber" msprop:Generator_ColumnPropNameInTable="KitNumberColumn" msprop:Generator_UserColumnName="KitNumber" type="xs:int" minOccurs="0" />
+              <xs:element name="WaterShed" msprop:Generator_ColumnVarNameInTable="columnWaterShed" msprop:Generator_ColumnPropNameInRow="WaterShed" msprop:Generator_ColumnPropNameInTable="WaterShedColumn" msprop:Generator_UserColumnName="WaterShed" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WaterShedGathering" msprop:Generator_ColumnVarNameInTable="columnWaterShedGathering" msprop:Generator_ColumnPropNameInRow="WaterShedGathering" msprop:Generator_ColumnPropNameInTable="WaterShedGatheringColumn" msprop:Generator_UserColumnName="WaterShedGathering" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

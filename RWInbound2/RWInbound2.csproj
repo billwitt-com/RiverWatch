@@ -350,6 +350,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Public\Organizations.aspx" />
+    <Content Include="Public\OrgsByProject.aspx" />
     <Content Include="Public\OrgStations.aspx" />
     <Content Include="Public\OrgStatus.aspx" />
     <Content Include="Public\OrgUnknownResults.aspx" />
@@ -389,6 +390,17 @@
     </EntityDeploy>
     <Content Include="NewRWModel.edmx.diagram">
       <DependentUpon>NewRWModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest %282%29.pubxml" />
@@ -894,24 +906,28 @@
     </Compile>
     <Compile Include="Admin\OrgStatusBulklUpdate.aspx.cs">
       <DependentUpon>OrgStatusBulklUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\OrgStatusBulklUpdate.aspx.designer.cs">
       <DependentUpon>OrgStatusBulklUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ResetOrgActive.aspx.cs">
       <DependentUpon>ResetOrgActive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\ResetOrgActive.aspx.designer.cs">
       <DependentUpon>ResetOrgActive.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ResetStationActive.aspx.cs">
       <DependentUpon>ResetStationActive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\ResetStationActive.aspx.designer.cs">
       <DependentUpon>ResetStationActive.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\StationStatusBulklUpdate.aspx.cs">
       <DependentUpon>StationStatusBulklUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\StationStatusBulklUpdate.aspx.designer.cs">
       <DependentUpon>StationStatusBulklUpdate.aspx</DependentUpon>
@@ -949,6 +965,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ControlPermission.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\Data.aspx.cs">
       <DependentUpon>Data.aspx</DependentUpon>
@@ -1439,24 +1460,35 @@
     </Compile>
     <Compile Include="Public\Organizations.aspx.cs">
       <DependentUpon>Organizations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\Organizations.aspx.designer.cs">
       <DependentUpon>Organizations.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Public\OrgsByProject.aspx.cs">
+      <DependentUpon>OrgsByProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\OrgsByProject.aspx.designer.cs">
+      <DependentUpon>OrgsByProject.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Public\OrgStations.aspx.cs">
       <DependentUpon>OrgStations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\OrgStations.aspx.designer.cs">
       <DependentUpon>OrgStations.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\OrgStatus.aspx.cs">
       <DependentUpon>OrgStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\OrgStatus.aspx.designer.cs">
       <DependentUpon>OrgStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\OrgUnknownResults.aspx.cs">
       <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\OrgUnknownResults.aspx.designer.cs">
       <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
@@ -1470,18 +1502,21 @@
     </Compile>
     <Compile Include="Public\QAQCReport.aspx.cs">
       <DependentUpon>QAQCReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\QAQCReport.aspx.designer.cs">
       <DependentUpon>QAQCReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\RawSamplesAll.aspx.cs">
       <DependentUpon>RawSamplesAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\RawSamplesAll.aspx.designer.cs">
       <DependentUpon>RawSamplesAll.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\Stations.aspx.cs">
       <DependentUpon>Stations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\Stations.aspx.designer.cs">
       <DependentUpon>Stations.aspx</DependentUpon>
@@ -1501,6 +1536,7 @@
     </Compile>
     <Compile Include="Public\ViewStationsWithGauges.aspx.cs">
       <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\ViewStationsWithGauges.aspx.designer.cs">
       <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
@@ -2078,6 +2114,9 @@
     <EmbeddedResource Include="Public\RawSamplesAll.rdlc" />
     <EmbeddedResource Include="Public\Report2.rdlc" />
     <EmbeddedResource Include="Public\Report3.rdlc" />
+    <Compile Include="Public\OrgsByProject.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <EmbeddedResource Include="Public\Stations.rdlc" />
     <EmbeddedResource Include="Public\stationsByProject.rdlc" />
     <EmbeddedResource Include="Public\StationsWithGauges.rdlc" />

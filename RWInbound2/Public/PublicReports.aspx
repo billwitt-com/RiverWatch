@@ -155,9 +155,11 @@
                                 <asp:Button ID="btnStationsWithGauges" runat="server" CssClass="adminButton" OnClick="btnStationsWithGauges_Click" Text="Stations With Gauges" />
                             </td>
                             <td>
+                                <asp:Button ID="btnOrgsByProject" runat="server" CssClass="adminButton" OnClick="btnOrgsByProject_Click" Text="Organizations By Project" />
+                            </td>
+                            <td>
                                 <asp:Button ID="btnStationsByProject" runat="server" CssClass="adminButton" OnClick="btnStationsByProject_Click" Text="Stations By Project" />
                             </td>
-                            <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td style="width: 21px">&nbsp;</td>
@@ -179,15 +181,16 @@
                             <td>
                                 <asp:Button ID="btnQAQC" runat="server" CssClass="adminButton" OnClick="btnQAQC_Click" Text="QAQC Report" />
                             </td>
-                            <td>&nbsp;</td>
+                            <td>
+                                <asp:Button ID="btnAllSampleData" runat="server" CssClass="adminButton" OnClick="btnAllSampleData_Click" Text="All Sample Results" />
+                            </td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td style="width: 21px">&nbsp;</td>
                             <td>
-                                <asp:Button ID="btnAllSampleData" runat="server" CssClass="adminButton" Text="All Sample Results" OnClick="btnAllSampleData_Click" />
-                            </td>
+                                &nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
