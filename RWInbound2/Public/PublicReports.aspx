@@ -12,8 +12,6 @@
                     </div>            
                     <asp:TextBox ID="tbEmail" runat="server" CssClass="public-textbox"></asp:TextBox>
                     <asp:Button ID="btnLogin" runat="server" CssClass="public-button" Text="Login" OnClick="btnLogin_Click" CausesValidation="false" />
-
-
                         <table style="width: 100%">
                             <tr>
                                 <td style="width: 180px">
@@ -25,8 +23,7 @@
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                             </tr>
-                        </table>
-                     
+                        </table>                     
                 </asp:Panel>                
                 
                 <div class="label-placement">
