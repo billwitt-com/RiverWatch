@@ -115,6 +115,11 @@ namespace RWInbound2.Admin
             // no code for this yet?
         }
 
+        protected void btnStationImages_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(this.ResolveClientUrl("~/Files/StationImages.aspx"));
+        }
+
         protected void btnBulkEditOrgActive_Click(object sender, EventArgs e)
         {
             Response.Redirect("OrgStatusBulklUpdate.aspx");

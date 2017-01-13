@@ -1197,59 +1197,6 @@
     <Compile Include="InboundSamples.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Edit\EditSubPara.aspx.designer.cs">
-      <DependentUpon>EditSubPara.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditSubSamp.aspx.cs">
-      <DependentUpon>EditSubSamp.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditSubSamp.aspx.designer.cs">
-      <DependentUpon>EditSubSamp.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditWaterBodyID.aspx.cs">
-      <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditWaterBodyID.aspx.designer.cs">
-      <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Edit\EditWaterCodeDrainage.aspx.cs">
-      <DependentUpon>EditWaterCodeDrainage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Edit\EditWaterCodeDrainage.aspx.designer.cs">
-      <DependentUpon>EditWaterCodeDrainage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ErrorPage.aspx.cs">
-      <DependentUpon>ErrorPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ErrorPage.aspx.designer.cs">
-      <DependentUpon>ErrorPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Files\StationImages.aspx.cs">
-      <DependentUpon>StationImages.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Files\StationImages.aspx.designer.cs">
-      <DependentUpon>StationImages.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="HelperModels\StationImageModels.cs" />
-    <Compile Include="Help\HelpInboundICP.aspx.cs">
-      <DependentUpon>HelpInboundICP.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Help\HelpInboundICP.aspx.designer.cs">
-      <DependentUpon>HelpInboundICP.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="InboundSamples.cs">
-        <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Logic\ExceptionUtility.cs" />
-    <Compile Include="NEWexpWater.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Logic\ExceptionUtility.cs" />
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1557,24 +1504,6 @@
     <Compile Include="Public\StationsByProject.aspx.designer.cs">
       <DependentUpon>StationsByProject.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Public\RawSamplesAll.aspx.cs">
-      <DependentUpon>RawSamplesAll.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\RawSamplesAll.aspx.designer.cs">
-      <DependentUpon>RawSamplesAll.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\Stations.aspx.cs">
-      <DependentUpon>Stations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\Stations.aspx.designer.cs">
-      <DependentUpon>Stations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\StationsByProject.aspx.cs">
-      <DependentUpon>StationsByProject.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\StationsByProject.aspx.designer.cs">
-      <DependentUpon>StationsByProject.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Public\UnknownData.aspx.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1610,39 +1539,8 @@
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Public\ViewStationsWithGauges.aspx.designer.cs">
-      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="QAQCDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QAQCDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ReportStationsByProject.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\MailingLabels.aspx.cs">
-      <DependentUpon>MailingLabels.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\MailingLabels.aspx.designer.cs">
-      <DependentUpon>MailingLabels.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\MetalBarCodes.aspx.cs">
-      <DependentUpon>MetalBarCodes.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\OrgUnknownResults.aspx.cs">
-      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\OrgUnknownResults.aspx.designer.cs">
-      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
@@ -1665,15 +1563,6 @@
     <Compile Include="Reports\PublicUsers.aspx.designer.cs">
       <DependentUpon>PublicUsers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\QAQCReport.aspx.cs">
-      <DependentUpon>QAQCReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Reports\QAQCReport.aspx.designer.cs">
-      <DependentUpon>QAQCReport.aspx</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
       <DependentUpon>ReportLachatNOTINNutrientBarcode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1694,20 +1583,6 @@
     </Compile>
     <Compile Include="Reports\Samples.aspx.designer.cs">
       <DependentUpon>Samples.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\Stations.aspx.cs">
-      <DependentUpon>Stations.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\Stations.aspx.designer.cs">
-      <DependentUpon>Stations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\StationsByProject.aspx.cs">
-      <DependentUpon>StationsByProject.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\StationsByProject.aspx.designer.cs">
-      <DependentUpon>StationsByProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
@@ -2194,18 +2069,6 @@
     <Content Include="Reports\LachatNoBC.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\OrgStatus.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\OrgStations.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\StationsWithGauges.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\OrganizationsAll.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Reports\Participants.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2213,9 +2076,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\Samples.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\Stations.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\PublicUsers.rdlc">
