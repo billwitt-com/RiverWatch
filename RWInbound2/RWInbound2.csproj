@@ -1197,6 +1197,57 @@
     <Compile Include="InboundSamples.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditSubPara.aspx.designer.cs">
+      <DependentUpon>EditSubPara.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditSubSamp.aspx.cs">
+      <DependentUpon>EditSubSamp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditSubSamp.aspx.designer.cs">
+      <DependentUpon>EditSubSamp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditWaterBodyID.aspx.cs">
+      <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditWaterBodyID.aspx.designer.cs">
+      <DependentUpon>EditWaterBodyID.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditWaterCodeDrainage.aspx.cs">
+      <DependentUpon>EditWaterCodeDrainage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditWaterCodeDrainage.aspx.designer.cs">
+      <DependentUpon>EditWaterCodeDrainage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Files\StationImages.aspx.cs">
+      <DependentUpon>StationImages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Files\StationImages.aspx.designer.cs">
+      <DependentUpon>StationImages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HelperModels\StationImageModels.cs" />
+    <Compile Include="Help\HelpInboundICP.aspx.cs">
+      <DependentUpon>HelpInboundICP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help\HelpInboundICP.aspx.designer.cs">
+      <DependentUpon>HelpInboundICP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InboundSamples.cs">
+    <Compile Include="Logic\ExceptionUtility.cs" />
+    <Compile Include="NEWexpWater.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Logic\ExceptionUtility.cs" />
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1504,6 +1555,24 @@
     <Compile Include="Public\StationsByProject.aspx.designer.cs">
       <DependentUpon>StationsByProject.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Public\RawSamplesAll.aspx.cs">
+      <DependentUpon>RawSamplesAll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\RawSamplesAll.aspx.designer.cs">
+      <DependentUpon>RawSamplesAll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\Stations.aspx.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\Stations.aspx.designer.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\StationsByProject.aspx.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\StationsByProject.aspx.designer.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Public\UnknownData.aspx.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1539,29 +1608,32 @@
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Public\ViewStationsWithGauges.aspx.designer.cs">
+      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QAQCDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QAQCDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportStationsByProject.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MailingLabels.aspx.cs">
+      <DependentUpon>MailingLabels.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MailingLabels.aspx.designer.cs">
+      <DependentUpon>MailingLabels.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MetalBarCodes.aspx.cs">
+      <DependentUpon>MetalBarCodes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\Organizations.aspx.cs">
-      <DependentUpon>Organizations.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\Organizations.aspx.designer.cs">
-      <DependentUpon>Organizations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\OrgStations.aspx.cs">
-      <DependentUpon>OrgStations.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\OrgStations.aspx.designer.cs">
-      <DependentUpon>OrgStations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\OrgStatus.aspx.cs">
-      <DependentUpon>OrgStatus.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\OrgStatus.aspx.designer.cs">
-      <DependentUpon>OrgStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\OrgUnknownResults.aspx.cs">
       <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
@@ -1641,13 +1713,6 @@
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.designer.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\ViewStationsWithGauges.aspx.cs">
-      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\ViewStationsWithGauges.aspx.designer.cs">
-      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchDataParticipants.Designer.cs">
       <AutoGen>True</AutoGen>
