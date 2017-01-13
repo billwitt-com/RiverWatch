@@ -1244,6 +1244,8 @@
       <DependentUpon>HelpInboundICP.aspx</DependentUpon>
     </Compile>
     <Compile Include="InboundSamples.cs">
+        <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Logic\ExceptionUtility.cs" />
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
