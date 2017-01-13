@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
      <div class="site-title">
-        <asp:Label ID="Label1" runat="server" CssClass =" PageLabel" Text="Stations By Project"></asp:Label>
+        <asp:Label ID="Label1" runat="server" CssClass =" PageLabel" Text="Organizations By Project"></asp:Label>
     </div>
         <div class="label-placement">
         <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
@@ -21,17 +21,16 @@
         <br />
         <br />
 
-    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="997px">
-        <LocalReport ReportPath="Public\OrgsByProject.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
-            </DataSources>
-        </LocalReport>
-     </rsweb:ReportViewer>
-
 <%--    SelectCommand="SELECT * FROM [ViewStationsByProject]"--%>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
             ></asp:SqlDataSource>
+        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1103px">
+            <LocalReport ReportPath="Public\OrgsByProject.rdlc">
+                <DataSources>
+                    <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
+                </DataSources>
+            </LocalReport>
+     </rsweb:ReportViewer>
         <br />
 
 </asp:Content>

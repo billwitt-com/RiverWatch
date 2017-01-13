@@ -2114,9 +2114,7 @@
     <EmbeddedResource Include="Public\RawSamplesAll.rdlc" />
     <EmbeddedResource Include="Public\Report2.rdlc" />
     <EmbeddedResource Include="Public\Report3.rdlc" />
-    <Compile Include="Public\OrgsByProject.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    <EmbeddedResource Include="Public\OrgsByProject.rdlc" />
     <EmbeddedResource Include="Public\Stations.rdlc" />
     <EmbeddedResource Include="Public\stationsByProject.rdlc" />
     <EmbeddedResource Include="Public\StationsWithGauges.rdlc" />

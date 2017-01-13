@@ -6,16 +6,10 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.20833in</Width>
+              <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.875in</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2in</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>1.32292in</Width>
+              <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1in</Width>
@@ -24,7 +18,13 @@
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.9375in</Width>
+              <Width>1in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -148,7 +148,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Org Type</Value>
+                              <Value>Organization Type</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontSize>11pt</FontSize>
@@ -546,7 +546,7 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Height>0.5in</Height>
-        <Width>11.34375in</Width>
+        <Width>7in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -557,7 +557,7 @@
     <Height>2in</Height>
     <Style />
   </Body>
-  <Width>11.34375in</Width>
+  <Width>10.17708in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
@@ -572,7 +572,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>9a7cf637-b86b-472c-a233-734628ab4008</rd:DataSourceID>
+      <rd:DataSourceID>c4409d0e-1bb9-49f7-89bf-62eafa310bbc</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -622,5 +622,5 @@
     </DataSet>
   </DataSets>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>6d42914b-43d4-44af-8628-d3c3657023f1</rd:ReportID>
+  <rd:ReportID>2cff4ce6-d7f9-4fd3-94ae-d798ca8565e3</rd:ReportID>
 </Report>

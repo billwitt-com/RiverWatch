@@ -67,6 +67,6 @@
    
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                        ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
-                       SelectCommand="SELECT [KitNumber], [OrganizationName], [SampleType], [SampleNumber], [DateSent], [Value1], [Value2], [MeanValue], [PctRecovery], [Round], [TrueValue] FROM [UnknownResultsForOrgView] ORDER BY [DateSent] desc"></asp:SqlDataSource>
+                       SelectCommand="SELECT [KitNumber], [OrganizationName], [SampleType], [SampleNumber], [DateSent], [Value1], [Value2], [MeanValue], [PctRecovery], [Round], [TrueValue] FROM [UnknownResultsForOrgView] ORDER BY [OrganizationName], [DateSent] desc"></asp:SqlDataSource>
    
 </asp:Content>

@@ -167,7 +167,7 @@
                                 <asp:Button ID="btnOrganizations" runat="server" CssClass="adminButton" OnClick="btnOrganizations_Click" Text="All Organizations" />
                             </td>
                             <td>
-                                <asp:Button ID="btnOrgStatus" runat="server" CssClass="adminButton" OnClick="btnOrgStatus_Click" Text="Organization Status" />
+                                <asp:Button ID="btnOrgStatus" runat="server" CssClass="adminButton" OnClick="btnOrgStatus_Click" Text="Organization Performance" />
                             </td>
                             <td>
                                 <asp:Button ID="btnOrgStations" runat="server" CssClass="adminButton" OnClick="btnOrgStations_Click" Text="Organization Stations" />
