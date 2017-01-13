@@ -49,7 +49,7 @@ namespace RWInbound2.Reports
 
                 kitNumberSearch.Text = "";
                 orgName = orgNameSearch.Text.Trim();
-                cmdStr = string.Format("SELECT * FROM UnknownResultsForOrgView WHERE OrganizationName = '{0}' ORDER BY OrganizationName", orgName);
+                cmdStr = string.Format("SELECT * FROM UnknownResultsForOrgView WHERE OrganizationName = '{0}' ORDER BY [DateSent] desc", orgName);
 
                 SqlDataSource1.SelectCommand = cmdStr;
                 ReportDataSource rd1 = new ReportDataSource("DataSet1", SqlDataSource1);
@@ -101,7 +101,7 @@ namespace RWInbound2.Reports
 
                 orgNameSearch.Text = "";
                 kitNumber = kitNumberSearch.Text.Trim();
-                cmdStr = string.Format("SELECT * FROM UnknownResultsForOrgView WHERE Kitnumber = {0} ORDER BY OrganizationName", kitNumber);
+                cmdStr = string.Format("SELECT * FROM UnknownResultsForOrgView WHERE Kitnumber = {0} ORDER BY [DateSent] desc", kitNumber);
 
                 SqlDataSource1.SelectCommand = cmdStr;
                 ReportDataSource rd1 = new ReportDataSource("DataSet1", SqlDataSource1);

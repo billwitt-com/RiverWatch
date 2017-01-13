@@ -59,26 +59,27 @@
             <br />   
             <div class="edit-exp-water-div">
                 <label>Event:</label>
-                <asp:Label ID="Event" runat="server" Text='<%# Bind("Event") %>'></asp:Label> 
+                <asp:Label ID="Event" runat="server" ReadOnly="true" Text='<%# Bind("Event") %>'></asp:Label> 
                 <label>Sample Number:</label>
-                <asp:Label ID="SampleNumber" runat="server" Text='<%# Bind("SampleNumber") %>'></asp:Label>
+                <asp:TextBox ID="tbSampleNumber"  ReadOnly="true" runat="server" Text='<%# Bind("SampleNumber") %>'></asp:TextBox>
+
                 <label>Water Shed:</label>
-                <asp:Label ID="WaterShed" runat="server" Text='<%# Bind("WaterShed") %>'></asp:Label>
+                <asp:TextBox ID="WaterShed" runat="server" Text='<%# Bind("WaterShed") %>'></asp:TextBox>
                 <label>River Name:</label>
-                <asp:Label ID="RiverName" runat="server" Text='<%# Bind("RiverName") %>'></asp:Label>
+                <asp:TextBox ID="RiverName" runat="server" Text='<%# Bind("RiverName") %>'></asp:TextBox>
             </div>   
             <hr class="edit-exp-water-hr" />  
             <div class="edit-exp-water-div">
                 <label>Kit Number:</label>
-                <asp:Label ID="KitNumber" runat="server" Text='<%# Bind("KitNumber") %>'></asp:Label>
+                <asp:TextBox ID="KitNumber" runat="server" Text='<%# Bind("KitNumber") %>'></asp:TextBox>
                 <label>Organization Name:</label>
-                <asp:Label ID="OrganizationName" runat="server" Text='<%# Bind("OrganizationName") %>'></asp:Label>
+                <asp:TextBox ID="OrganizationName" runat="server" Text='<%# Bind("OrganizationName") %>'></asp:TextBox>
                 <label>Organization ID:</label>
-                <asp:Label ID="OrganizationID" runat="server" Text='<%# Bind("OrganizationID") %>'></asp:Label>
+                <asp:TextBox ID="OrganizationID" runat="server" Text='<%# Bind("OrganizationID") %>'></asp:TextBox>
                 <label>Station Number:</label>
-                <asp:Label ID="StationNumber" runat="server" Text='<%# Bind("StationNumber") %>'></asp:Label>
+                <asp:TextBox ID="StationNumber" runat="server" Text='<%# Bind("StationNumber") %>'></asp:TextBox>
                 <label>Station ID:</label>
-                <asp:Label ID="StationID" runat="server" Text='<%# Bind("StationID") %>'></asp:Label>
+                <asp:TextBox ID="StationID" runat="server" Text='<%# Bind("StationID") %>'></asp:TextBox>
             </div>   
             <hr class="edit-exp-water-hr" /> 
             <div class="edit-exp-water-div">

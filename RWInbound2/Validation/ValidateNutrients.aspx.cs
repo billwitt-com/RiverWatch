@@ -90,12 +90,6 @@ namespace RWInbound2.Validation
                 {
                     lblNumberLeft.Text = string.Format("For All Batchs There are NO samples left to validate");
                 }
-                // now, for no reason I can figure out, we need to set the command string for sql command, Why this does not happen automatic I am not sure...
-
-            //    string cmdStr = string.Format("SELECT * FROM [NutrientData]  where valid = 1 and validated = 0 and typecode LIKE '05' ");
-
-                //SqlDataSource1.SelectCommand = cmdStr;
-                //FormView1.DataBind();
             }
         }
         protected void FormView1_DataBound(object sender, EventArgs e)
@@ -105,28 +99,28 @@ namespace RWInbound2.Validation
 
         // can get text box here, so get all values 
         // this is the validate button !!
+        // we should have valid data in text boxes... 
+        // also, may be a number of rows in newExpWater table to update with this data, or none yet - this could be first or one of many
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
-            // TotalPhosTextBox
-            // OrthoPhosTextBox            
-            // TotalNitroTextBox
-            // NitrateNitriteTextBox
-            // AmmoniaTextBox
-            // DOCTextBox
-            // ChlorideTextBox
-            // SulfateTextBox
-            // TSSTextBox
-            // ChlorATextBox
-
-            RiverWatchEntities RWE = new RiverWatchEntities();
- 
             TextBox TB;
             double dVal = 0; 
             string barcode = "";
             string sampleNumber = "";
-            bool existingRecord = false; 
+            bool existingRecord = false;
 
+            double? totP = null;
+            double? OP = null;
+            double? totN = null;
+            double? NN = null;
+            double? Ammonia = null;
+            double? DOC = null;
+            double? Chloride = null;
+            double? Sulfate = null;
+            double? TSS = null;
+            double? ChlorA = null;
             NEWexpWater NW = null ;
+            RiverWatchEntities RWE = new RiverWatchEntities(); 
 
             string uniqueID = FormView1.Controls[0].UniqueID;
             string tbName = uniqueID + "$" + "BARCODETextBox";  // use the key value to build the name of the text box to be processed   
@@ -145,20 +139,22 @@ namespace RWInbound2.Validation
             }
             try
             {
-                NEWexpWater TEST = (from t in RWE.NEWexpWaters
-                                    where t.SampleNumber == sampleNumber & t.Valid == true // & t.NutrientBarCode == barcode
-                                    select t).FirstOrDefault();
-                if (TEST != null)
-                {
-                    NW = TEST; // keep the name common to this method
-                    existingRecord = true; // flag for later
-                }
-                else
+                // get all rows 
+                var T = (from t in RWE.NEWexpWaters
+                         where t.SampleNumber == sampleNumber & t.Valid == true // & t.NutrientBarCode == barcode
+                         select t); 
+
+                if (T == null)  // no current record, so we are first and must add all detail
                 {
                     NW = new NEWexpWater(); // create new entity as there is not one yet
                     existingRecord = false;
                 }
+                else
+                {
+                    existingRecord = true; 
+                }
             }
+
             catch (Exception ex)
             {
                 string nam = "";
@@ -171,12 +167,13 @@ namespace RWInbound2.Validation
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
             
+            // scrape values off of page for updating 
             TB = FormView1.Controls[0].FindControl("TotalPhosTextBox") as TextBox;
             if(TB.Text.Length > 0)
             {
                 if (double.TryParse(TB.Text, out dVal ))
                 {
-                    NW.totP = dVal; 
+                    totP = dVal; 
                 }
             }
             TB = FormView1.Controls[0].FindControl("OrthoPhosTextBox") as TextBox;
@@ -184,7 +181,7 @@ namespace RWInbound2.Validation
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.OP = dVal;
+                    OP = dVal;
                 }
             }
 
@@ -193,7 +190,7 @@ namespace RWInbound2.Validation
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.totN = dVal;
+                    totN = dVal;
                 }
             }
             TB = FormView1.Controls[0].FindControl("NitrateNitriteTextBox") as TextBox;
@@ -201,7 +198,7 @@ namespace RWInbound2.Validation
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.NN = dVal;
+                    NN = dVal;
                 }
             }
             TB = FormView1.Controls[0].FindControl("AmmoniaTextBox") as TextBox;
@@ -209,7 +206,7 @@ namespace RWInbound2.Validation
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.Ammonia = dVal;
+                    Ammonia = dVal;
                 }
             }
             TB = FormView1.Controls[0].FindControl("DOCTextBox") as TextBox;
@@ -217,21 +214,16 @@ namespace RWInbound2.Validation
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.DOC = dVal;
+                    DOC = dVal;
                 }
             }
-
-            // ChlorideTextBox
-            // SulfateTextBox
-            // TSSTextBox
-            // ChlorATextBox
 
             TB = FormView1.Controls[0].FindControl("ChlorideTextBox") as TextBox;
             if (TB.Text.Length > 0)
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.Chloride = dVal;
+                    Chloride = dVal;
                 }
             }
             TB = FormView1.Controls[0].FindControl("SulfateTextBox") as TextBox;
@@ -239,7 +231,7 @@ namespace RWInbound2.Validation
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.Sulfate = dVal;
+                    Sulfate = dVal;
                 }
             }
             TB = FormView1.Controls[0].FindControl("TSSTextBox") as TextBox;
@@ -247,7 +239,7 @@ namespace RWInbound2.Validation
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.TSS = dVal;
+                    TSS = dVal;
                 }
             }
             TB = FormView1.Controls[0].FindControl("ChlorATextBox") as TextBox;
@@ -255,26 +247,145 @@ namespace RWInbound2.Validation
             {
                 if (double.TryParse(TB.Text, out dVal))
                 {
-                    NW.ChlorophyllA = dVal;
+                    ChlorA = dVal;
                 }
             }
-            NW.CreateDate = DateTime.Now;
-            string namm = "";
-            if (User.Identity.Name.Length < 3)
-                namm = "Not logged in";
-            else
-                namm = User.Identity.Name;
-            NW.CreatedBy = namm;  
-            NW.NutrientBarCode = barcode; // we will overwrite if there is already a bar code. Should be the same if there is one. 
-            NW.SampleNumber = sampleNumber; // if existing record, this will be the same... 
+
+            if (existingRecord == false)
+            {    
+                try
+                {
+                    NW.CreateDate = DateTime.Now;
+                    string namm = "";
+                    if (User.Identity.Name.Length < 3)
+                        namm = "Not logged in";
+                    else
+                        namm = User.Identity.Name;
+
+                    NW.CreatedBy = namm;  
+                    NW.NutrientBarCode = barcode; // we will overwrite if there is already a bar code. Should be the same if there is one. 
+                    NW.SampleNumber = sampleNumber; // if existing record, this will be the same... 
+                    
+                    // fill in analytical data:
+
+                    NW.totP = totP;
+                    NW.OP = OP;
+                    NW.totN = totN;
+                    NW.NN = NN;
+                    NW.Ammonia = Ammonia;
+                    NW.DOC = DOC;
+                    NW.Chloride = Chloride;
+                    NW.Sulfate = Sulfate ;
+                    NW.TSS = TSS;
+                    NW.ChlorophyllA = ChlorA;
+                    NW.NutrientBarCode = barcode;
+                    // must get event number from samples table
+                    //var NS = (from ns in RWE.Samples
+                    //          where ns.SampleNumber == sampleNumber
+                    //          select new
+                    //          {
+                    //              ns.NumberSample,
+                    //              ns.DateCollected
+                    //          }).FirstOrDefault();
+
+                    // fill in sample details
+                    var NS = (from ns in RWE.Samples
+                              where ns.SampleNumber == sampleNumber
+                              select ns
+                              ).FirstOrDefault();
+                    if (NS.NumberSample.Length > 3)
+                        NW.Event = NS.NumberSample; // fill in as this is the first
+                    else
+                        NW.Event = "";
+                    if (NS.DateCollected.Year > 1900)
+                        NW.SampleDate = NS.DateCollected;
+                    else
+                        NW.SampleDate = DateTime.Now; 
+
+                  //  if(NS.StationID != null)
+                        NW.StationID = NS.StationID;
+                    if (NS.OrganizationID != null)
+                        NW.OrganizationID = NS.OrganizationID;
+                    if (NS.Comment.Length > 0)
+                        NW.SampleComments = NS.Comment;
+
+                    // fill in org details
+
+                    var ORG = (from org in RWE.organizations
+                               where org.ID == NW.OrganizationID.Value & NW.Valid == true
+                               select org
+                               ).FirstOrDefault(); 
+                               
+                    if(ORG != null)
+                    {
+                        NW.OrganizationName = ORG.OrganizationName;
+                        NW.KitNumber = ORG.KitNumber;
+                    }  
+                     
+                    // now add station detail
+
+                    var STN = (from stn in RWE.Stations
+                               where stn.ID == NW.StationID.Value
+                               select stn).FirstOrDefault(); 
+                    if(STN != null)
+                    {
+                        NW.StationName = STN.StationName;
+                        NW.StationNumber = STN.StationNumber;
+                        NW.WaterShed = STN.RWWaterShed;   
+                    }
+                    RWE.NEWexpWaters.Add(NW);
+                    RWE.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    string msg = ex.Message;
+                    LogError LE = new LogError();
+                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                }
+            }
+            else  // there is one or more existing rows, so update nutrient data in them
+            {
+                try
+                {
+                    var T = (from t in RWE.NEWexpWaters
+                    where t.SampleNumber == sampleNumber & t.Valid == true // & t.NutrientBarCode == barcode
+                    select t); 
+                
+                    foreach(NEWexpWater n in T) // may be one or more but we just update our data, the rest must be there
+                    {
+                        n.totP = totP;
+                        NW.OP = OP;
+                        NW.totN = totN;
+                        NW.NN = NN;
+                        NW.Ammonia = Ammonia;
+                        NW.DOC = DOC;
+                        NW.Chloride = Chloride;
+                        NW.Sulfate = Sulfate ;
+                        NW.TSS = TSS;
+                        NW.ChlorophyllA = ChlorA;
+                        NW.NutrientBarCode = barcode; 
+                    }
+                    RWE.SaveChanges(); // update all records
+                }
+                catch (Exception ex)
+                {
+                    string nam = "";
+                    if (User.Identity.Name.Length < 3)
+                        nam = "Not logged in";
+                    else
+                        nam = User.Identity.Name;
+                    string msg = ex.Message;
+                    LogError LE = new LogError();
+                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                }
+            }
             try
             {
-                if (!existingRecord) // no existing record, so we are first
-                {
-                    RWE.NEWexpWaters.Add(NW);
-                }
-                RWE.SaveChanges();
-
                 // update all rows that have this barcode in lachet table
                 var L = from l in RWE.Lachats
                         where l.SampleType.ToUpper() == barcode.ToUpper()
@@ -285,6 +396,7 @@ namespace RWInbound2.Validation
                     {
                         l.Validated = true;
                         l.Valid = true;
+                        l.PassValStep = 2.0m; // just in case
                     }
                     RWE.SaveChanges();
                 }
@@ -296,7 +408,7 @@ namespace RWInbound2.Validation
                           select nd).FirstOrDefault();
                 if (ND != null)
                 {
-                    ND.Validated = true;
+                    ND.Validated = true; 
                     RWE.SaveChanges();
                 }
             }
@@ -312,12 +424,13 @@ namespace RWInbound2.Validation
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
             updateCounts();
-            SqlDataSource1.Update(); // refresh the data as we just edited it... 
+
             if(Session["CMDSTR"] != null)
             {
                 string cmdStr = (string)Session["CMDSTR"];
                 SqlDataSource1.SelectCommand = cmdStr;  // keep it current
             }
+            SqlDataSource1.Update(); // refresh the data as we just edited it... 
         }
 
         // TextBox_TextChanged called by all text box changes

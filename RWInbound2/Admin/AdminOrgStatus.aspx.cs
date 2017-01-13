@@ -39,7 +39,7 @@ namespace RWInbound2.Admin
         [System.Web.Services.WebMethod]
         public static List<string> SearchOrgs(string prefixText, int count)
         {
-            List<string> customers = new List<string>();
+            List<string> orgs = new List<string>();
             try
             {
                 using (SqlConnection conn = new SqlConnection())    // make single instance of these, so we don't have to worry about closing connections
@@ -57,11 +57,11 @@ namespace RWInbound2.Admin
                         {
                             while (sdr.Read())
                             {
-                                customers.Add(sdr["OrganizationName"].ToString());
+                                orgs.Add(sdr["OrganizationName"].ToString());
                             }
                         }
                         conn.Close();
-                        return customers;
+                        return orgs;
                     }
                 }
             }
@@ -71,7 +71,7 @@ namespace RWInbound2.Admin
                 string msg = ex.Message;
                 LogError LE = new LogError();
                 LE.logError(msg, "Method, no page related detail", ex.StackTrace.ToString(), nam, "");
-                return customers;
+                return orgs;
             }
         }
 
@@ -100,7 +100,7 @@ namespace RWInbound2.Admin
                 }
                 lblMsg.Text = "";
                 orgID = C.ID;
-                lblOrgName.Text = C.OrganizationName;
+                lblOrgName.Text = string.Format("Organization: {0}", C.OrganizationName);
 
                 Session["ORGID"] = orgID; 
 
@@ -128,24 +128,7 @@ namespace RWInbound2.Admin
             }
         }       
      
-        protected void SqlDataSource1_Inserting(object sender, SqlDataSourceCommandEventArgs e)
-        {
-            int orgID = 0;
-            if (Session["ORGID"] != null)
-            {
-                orgID = (int)Session["ORGID"];
-                string user = User.Identity.Name;
-                e.Command.Parameters["@UserCreated"].Value = user;
-                e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
-                e.Command.Parameters["@OrganizationID"].Value = orgID;
-            }
-            else
-            {
-                lblMsg.Text = "Please select a valid Organization";
-                return;
-            }
-
-        }
+       
 
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
         {
@@ -162,14 +145,119 @@ namespace RWInbound2.Admin
             {
                 orgID = (int)Session["ORGID"];
                 SqlDataSource1.InsertParameters["UserCreated"].DefaultValue = user;
-                SqlDataSource1.InsertParameters["DateCreated"].DefaultValue = DateTime.Now.ToString(); 
-                SqlDataSource1.InsertParameters[0].DefaultValue = orgID.ToString(); 
+                SqlDataSource1.InsertParameters["DateCreated"].DefaultValue = DateTime.Now.ToString();
+                SqlDataSource1.InsertParameters[0].DefaultValue = orgID.ToString();
             }
             else
             {
                 lblMsg.Text = "Please select a valid Organization";
                 return;
             }
+        }
+
+        //protected void SqlDataSource1_Inserting(object sender, SqlDataSourceCommandEventArgs e)
+        //{
+        //    int orgID = 0;
+        //    if (Session["ORGID"] != null)
+        //    {
+        //        orgID = (int)Session["ORGID"];
+        //        string user = User.Identity.Name;
+        //        e.Command.Parameters["@UserCreated"].Value = user;
+        //        e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+        //        e.Command.Parameters["@OrganizationID"].Value = orgID;
+        //    }
+        //    else
+        //    {
+        //        lblMsg.Text = "Please select a valid Organization";
+        //        return;
+        //    }
+
+        //}
+        protected void SqlDataSource1_Inserting1(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            int statusYear = 0;
+            DateTime SRDate; 
+            string srString = ""; 
+            TextBox TB;
+            string TBstring = "";
+            string orgName = ""; 
+
+            string uniqueID = FormView1.Controls[0].UniqueID;
+            try
+            {
+                TBstring = uniqueID + "$" + "ContractStartDateTextBox"; // get the text box off the page
+                TB = this.FindControl(TBstring) as TextBox;
+                if (TB != null)
+                {
+                    orgName = tbOrgName.Text.Trim(); 
+                    srString = TB.Text.Trim();
+
+                    if(DateTime.TryParse(srString, out SRDate))
+                    {
+                        statusYear = SRDate.Year; 
+                        RiverWatchEntities RWE = new RiverWatchEntities();
+
+                        var O = (from o in RWE.organizations
+                                      where o.OrganizationName.ToUpper() == orgName.ToUpper()
+                                      select o ).FirstOrDefault();
+
+                        if (O != null)   // we have correct org
+                        {
+                            // now check to see if we have org status for this date and org id if so, issues message 
+
+                            var S = (from s in RWE.OrgStatus
+                                     where s.OrganizationID == O.ID & s.ContractStartDate.Value.Year == statusYear
+                                     select s).FirstOrDefault();
+                            if (S != null)
+                            {
+
+                                lblMsg.Text = string.Format("There is an existing org status for {0} for year {1}", O.OrganizationName, statusYear); 
+                                lblMsg.Visible = true;
+                                lblMsg.ForeColor = System.Drawing.Color.Red;
+                                TB.Focus();
+                                e.Cancel = true;
+                                FormView1.DefaultMode = FormViewMode.Insert;
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            lblMsg.Text = "";
+                        }
+                    }
+                }
+                else
+                {
+                    return; // nothing else to do ... 
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+            int orgID = 0;
+            if (Session["ORGID"] != null)
+            {
+                orgID = (int)Session["ORGID"];
+                string user = User.Identity.Name;
+                e.Command.Parameters["@UserCreated"].Value = user;
+                e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+                e.Command.Parameters["@OrganizationID"].Value = orgID;
+            }
+            else
+            {
+                lblMsg.Text = "Please select a valid Organization";
+                return;
+            }
+
         }       
     }
 }

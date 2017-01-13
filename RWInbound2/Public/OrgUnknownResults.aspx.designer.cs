@@ -13,6 +13,15 @@ namespace RWInbound2.Reports {
     public partial class OrgUnknownResults {
         
         /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
         /// ErrorLabel control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace RWInbound2.Reports {
         protected global::System.Web.UI.UpdatePanel updatePanelOrgUnknownResults;
         
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// orgNameSearch control.
         /// </summary>
         /// <remarks>
@@ -65,6 +83,15 @@ namespace RWInbound2.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender tbSearch_AutoCompleteExtender;
+        
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
         /// kitNumberSearch control.

@@ -124,6 +124,7 @@
         </table>
     </asp:Panel>
 
+    <asp:Label ID="lblErrorMsg" runat="server" Text="Label"></asp:Label>
     <ajaxToolkit:TabContainer ID="TabContainer1" ActiveTabIndex="0" runat="server" UseVerticalStripPlacement="False">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -300,17 +301,20 @@
                             <asp:TextBox ID="tbAnalyzeDate" runat="server"></asp:TextBox></td>
                         <ajaxToolkit:CalendarExtender ID="CalendarExtenderAnalyzeDate" TargetControlID="tbAnalyzeDate" runat="server" />
                     </tr>
-                    <tr>
+                   <%-- <tr>
                         <td style="width: 121px">Done:</td>
                         <td>
-                            <asp:CheckBox ID="chkDone" runat="server" Enabled="False"></asp:CheckBox></td>
-                    </tr>
+                            <asp:CheckBox ID="chkDone" runat="server"  Checked="true" ></asp:CheckBox></td>
+                    </tr>--%>
                     <tr>
                         <td style="width: 121px">Comments:</td>
                         <td>
                             <asp:TextBox ID="tbComments" runat="server" TextMode="MultiLine" Width="420px"></asp:TextBox></td>
                     </tr>
-                    <tr>
+
+ 
+
+                        
                         <td>
                             <asp:Button ID="btnSaveNutrient" runat="server" OnClick="btnSaveNutrient_Click" CssClass="samplesButton" Text="Save" Width="60px" /></td>
                         <td>
@@ -318,6 +322,12 @@
                         <td style="width: 121px"></td>
                         <td></td>
                     </tr>
+                        <tr>
+                        <td>
+                           <asp:GridView ID="GridViewNutrientBarCodes" runat="server" CellPadding="2"></asp:GridView>
+                        </td>
+                    </tr>
+                    <tr>
                 </table>
             </ContentTemplate>
         </ajaxToolkit:TabPanel>
@@ -327,8 +337,7 @@
         <ajaxToolkit:TabPanel runat="server" HeaderText="Update Org" ID="TabUpdateOrg">
             <ContentTemplate>
                 <div runat="server" id="divSizer" style="border-left: 12px">
-                   <%-- <asp:Label ID="Label3" runat="server" Text="Samples Collected:"></asp:Label>--%>
-                    
+                    <asp:Button ID="btnAddNewOrgStatus" Visible="false" runat="server" Text="Add new org status"  OnClick="btnAddNewOrgStatus_Click"/>
                     <asp:FormView ID="FormView1" runat="server" AllowPaging="false" DataKeyNames="ID" DefaultMode="Edit" DataSourceID="SqlDataSourceOrgStatus">
                         <EditItemTemplate>
                             Status ID:
@@ -421,7 +430,7 @@
                             <asp:TextBox ID="OrganizationIDTextBox"  ForeColor="White" runat="server" Text='<%# Bind("OrganizationID") %>' />
                             <br />
 
-                            <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" CssClass="samplesButton" CommandName="Update" Text="Update" />&#160;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" /></EditItemTemplate>
+                            <asp:Button ID="UpdateButton" runat="server" OnClick="UpdateORGStatusButton_Click" CausesValidation="True" CssClass="samplesButton" CommandName="Update" Text="Update" />&#160;<asp:LinkButton ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" /></EditItemTemplate>
                     </asp:FormView>
                 </div>
             </ContentTemplate>

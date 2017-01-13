@@ -117,7 +117,6 @@ namespace RWInbound2.Reports
                           }).AsEnumerable();
                 foreach (var x in l4)
                 {
-
                     ListItem LI = new ListItem(x.WBID, x.WBID);
                     ddlWaterBodyID.Items.Add(LI); 
 

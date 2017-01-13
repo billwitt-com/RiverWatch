@@ -16,9 +16,14 @@ using System.Web.Providers.Entities;
 namespace RWInbound2.Admin
 {
     public partial class EditNutrientBarcode : System.Web.UI.Page
-    {
+    {   //  [Done] ,
         protected void Page_Load(object sender, EventArgs e)
         {
+            string selCmd = "SELECT [ID] ,[SampleID],[SampleNumber] ,[LabID] ,[Batch] ,[LogDate] ,[AnalyzeDate] " +
+                " ,[Comment] ,[DateCreated] ,[UserCreated] ,[DateLastModified] ,[UserLastModified] ,[TotalPhos] ,[OrthoPhos] ,[TotalNitro] ,[NitrateNitrite] ,[Ammonia] " +
+                " ,[DOC] ,[Chloride] ,[Sulfate] ,[TSS] ,[ChlorA] FROM [dbo].[NutrientBarCode]";
+            SqlDataSource1.SelectCommand = selCmd;
+
             if(!IsPostBack)
             {
                 FormView1.Visible = false; 
@@ -121,6 +126,11 @@ namespace RWInbound2.Admin
             tbSelectBarcode.Text = "";
             tbSelectSampleNumber.Text = ""; 
             FormView1.Visible = true;
+        }
+
+        protected void SqlDataSource1_DataBinding(object sender, EventArgs e)
+        {
+            
         }
     }
 }

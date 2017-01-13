@@ -278,6 +278,8 @@ namespace RWInbound2.Samples
                     lblEndDate.Text = string.Format("End Date: {0:M/d/yyyy}", endDate);
 
                 lblOrganization.Text = string.Format("Organization: {0}", orgName);
+                lblOrganization.Font.Bold = false;
+
                 lblRiver.Text = string.Format("River: {0}", RE.FirstOrDefault().riverName);
                 lblBlankForNow.Text = string.Format("Active: {0}", active.ToString());
                 lblWatershed.Text = string.Format("Watershed: {0}", RE.FirstOrDefault().watershed);
@@ -381,6 +383,7 @@ namespace RWInbound2.Samples
         {
             // get drop down list of inbound samples that have this station and kit numbers 
             // added valid bit 09/11
+            Panel1.Visible = true;
             try
             {
                 var query = from i in NRWDE.InboundSamples
@@ -439,6 +442,7 @@ namespace RWInbound2.Samples
         private void populateOrgStatus(int orgID, DateTime statusYear)
         {
             // save the page number so we can get back here...
+            Panel1.Visible = true;
             int page = FormView1.PageIndex;
             // first, check to see if there is a status for this year
             DateTime locStatusYear = statusYear;    // will be like 201X/07/01 which is start date of status year 
@@ -453,82 +457,130 @@ namespace RWInbound2.Samples
                      where q.ContractStartDate.Value.Year == locStatusYear.Year & q.OrganizationID == locOrgID
                      select q;
 
+            string ORname = (from or in NRWDE.organizations
+                     where or.ID == locOrgID
+                     select or.OrganizationName).FirstOrDefault();
+
             if (QQ.Count() == 0) // there are no entries
             {
-                OrgStatu OS = new OrgStatu();   // not sure why this name lacks trailing 'S' XXXX 
+                lblErrorMsg.Text = string.Format("There is no current Org Status for Org {0} for Status Year {1}", ORname, statusYear.Year);
+                lblErrorMsg.ForeColor = System.Drawing.Color.Red; 
+                lblErrorMsg.Visible = true; 
 
-                OS.OrganizationID = locOrgID;
-                OS.ContractStartDate = DateTime.Now.AddYears(-50); // make not believeable    //locStatusYear;
-                OS.NoteComment = "Created by Samples Update in code";
-                OS.DateCreated = DateTime.Now;
-                // load bools that cause issue with formview
-                OS.ContractSigned = false;
-                OS.SiteVisited = false;
-                OS.BugCollected = false;
-                OS.VolunteerTimeSheet1 = false;
-                OS.VolunteerTimeShee2 = false;
-                OS.VolunteerTimeSheet3 = false;
-                OS.VolunteerTimeSheet4 = false;
-                OS.DataEnteredElectronically1 = false;
-                OS.DataEnteredElectronically2 = false;
-                OS.DataEnteredElectronically3 = false;
-                OS.DataEnteredElectronically4 = false;
-                OS.SampleShipped1 = false;
-                OS.SampleShipped2 = false;
-                OS.SampleShipped3 = false;
-                OS.SampleShipped4 = false;
-                OS.Nutrient1Collected = false;
-                OS.Nutrient2Collected = false;
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                OS.UserCreated = nam;
+                    //if (LM != null)
+                    //{
+                    //    LM.Text = string.Format("There is no current Org Status for Status Year {0}", statusYear);
+                    //    LM.Visible = true;
+                    //    SqlDataSourceOrgStatus.SelectCommand = ""; // select nothing
+                    //    SqlDataSourceOrgStatus.Select(ARGS);
+                    //}
 
-                NRWDE.OrgStatus.Add(OS);
-                NRWDE.SaveChanges();
-                newStatusID = OS.ID; // capture new id we just created
+                    SqlDataSourceOrgStatus.SelectCommand = ""; // select nothing
+                    SqlDataSourceOrgStatus.Select(ARGS);
+
+                //lblErrorMsg.Text = string.Format("There is no current Org Status for Status Year {0}", statusYear);
+                //lblErrorMsg.Visible = true;
+
+                //OrgStatu OS = new OrgStatu();   // not sure why this name lacks trailing 'S' XXXX 
+
+                //OS.OrganizationID = locOrgID;
+                //OS.ContractStartDate = DateTime.Now.AddYears(-50); // make not believeable    //locStatusYear;
+                //OS.NoteComment = "Created by Samples Update in code";
+                //OS.DateCreated = DateTime.Now;
+                //// load bools that cause issue with formview
+                //OS.ContractSigned = false;
+                //OS.SiteVisited = false;
+                //OS.BugCollected = false;
+                //OS.VolunteerTimeSheet1 = false;
+                //OS.VolunteerTimeShee2 = false;
+                //OS.VolunteerTimeSheet3 = false;
+                //OS.VolunteerTimeSheet4 = false;
+                //OS.DataEnteredElectronically1 = false;
+                //OS.DataEnteredElectronically2 = false;
+                //OS.DataEnteredElectronically3 = false;
+                //OS.DataEnteredElectronically4 = false;
+                //OS.SampleShipped1 = false;
+                //OS.SampleShipped2 = false;
+                //OS.SampleShipped3 = false;
+                //OS.SampleShipped4 = false;
+                //OS.Nutrient1Collected = false;
+                //OS.Nutrient2Collected = false;
+                //string nam = "";
+                //if (User.Identity.Name.Length < 3)
+                //    nam = "Not logged in";
+                //else
+                //    nam = User.Identity.Name;
+                //OS.UserCreated = nam;
+
+                //NRWDE.OrgStatus.Add(OS);
+                //NRWDE.SaveChanges();
+                //newStatusID = OS.ID; // capture new id we just created
             }
+            //else
+            //{
+            //    newStatusID = QQ.FirstOrDefault().ID;
+            //}
+
+          //  Session["NEWSTATUSID"] = newStatusID;
+            // now, set up query for org status tab
             else
             {
+                lblErrorMsg.Visible = false;
                 newStatusID = QQ.FirstOrDefault().ID;
+                Session["NEWSTATUSID"] = newStatusID;
+                SqlDataSourceOrgStatus.SelectCommand = string.Format("SELECT * FROM [OrgStatus] where [OrganizationID] = {0} and Year([ContractStartDate]) = '{1}' ", orgID, statusYear.Year);
+                SqlDataSourceOrgStatus.Select(ARGS);
             }
-
-            Session["NEWSTATUSID"] = newStatusID;
-            // now, set up query for org status tab
-
-            SqlDataSourceOrgStatus.SelectCommand = string.Format("SELECT * FROM [OrgStatus] where ID = {0}", newStatusID);
-            SqlDataSourceOrgStatus.Select(ARGS);
             //   FormView1.PageIndex = page; // restore page
         }
 
         // common utility to update values on the samples page
-        private void updateSamplesPage(string EventNumber)
+            //    private void updateSamplesPage(string locStnNumber)
+        
+        private void updateSamplesPage(string locEvent)
         {
-            //Sample TS;
-      //      string tstr = stationSample + "."; // we need the period so 51 is not the same as 512, etc.
-            string tstr = EventNumber;  // + "."; // we need the period so 51 is not the same as 512, etc.
+          //  string tstr = locStnNumber;
+            Panel1.Visible = true;
+            string orgName = "";
+            string locStnNumber = "";
+            string eventNumber = "";
+            int index = 0;
+
+            int orgID = 0;
             try
             {
-                //TS = (Sample)(from r in NRWDE.Samples
-                //              where r.NumberSample.StartsWith(tstr) & r.Valid == true
-                //              select r).FirstOrDefault();   // get most recent
-
                 var TS = (from r in NRWDE.Samples
-                              where r.NumberSample == tstr & r.Valid == true
+                          where r.NumberSample == locEvent & r.Valid == true 
                               select r).FirstOrDefault();   // get most recent
 
+                eventNumber = TS.NumberSample;
                 // populate the screen 
                 txtSmpNum.Text = TS.SampleNumber;
                 txtNumSmp.Text = TS.NumberSample;
                 txtDateCollected.Text = TS.DateCollected.ToShortDateString();
+                
                 // calc time collected, which is not in table... What a deal
                 // it is in last 4 digits of samplenumber
 
                 string sampHours = TS.SampleNumber.Substring(TS.SampleNumber.Length - 4, 2); // get first 2 chars of last 4 chars
                 string sampMins = TS.SampleNumber.Substring(TS.SampleNumber.Length - 2);
                 txtTimeCollected.Text = string.Format("{0:D2}:{1:D2}", sampHours, sampMins);
+
+                // update upper header since org may have changed 
+                
+                orgID = TS.OrganizationID.Value;    // must have value...
+
+                var ORG = (from o in NRWDE.organizations
+                           where o.ID == orgID
+                           select o).FirstOrDefault();
+
+                orgName = ORG.OrganizationName;
+                tbOrg.Text = orgName;
+                tbKitNumber.Text = ORG.KitNumber.ToString(); 
+
+                lblOrganization.Text = string.Format("Organization: {0}", orgName);
+                lblOrganization.Font.Bold = true; 
+                Session["ORGID"] = orgID ; // reset this value 
 
                 chkCOC.Checked = TS.ChainOfCustody;
                 chkDataSheet.Checked = TS.DataSheetIncluded;
@@ -569,8 +621,14 @@ namespace RWInbound2.Samples
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-            FillTabPanelICPdata(EventNumber);
-            FillTabPanelBarcode(EventNumber);
+            // now update rest of page using station number which is first part of eventNumber
+
+            index = eventNumber.IndexOf(".");
+
+            locStnNumber = eventNumber.Substring(0, index); // all to left of colon
+            locStnNumber = locStnNumber.Trim();    
+            FillTabPanelICPdata(locStnNumber);
+            FillTabPanelBarcode(locStnNumber);
 
             // clean up barcode page - and nutrient page too XXXX
             lblBarcodeUsed.Text = "";
@@ -580,17 +638,22 @@ namespace RWInbound2.Samples
 
         // user has chosen a current sample
         // need to get year of this sample
+        // bw 01 09 2016 ADDED UPDATE TO HEADERS SO WHEN ORG ID CHANGES, ALL IS UPDATED
+
         protected void lstSamples_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string locStnNumber;
+            Panel1.Visible = true;
+            string locStnNumber, savedEvent;
             int index = 0;
             locStnNumber = lstSamples.SelectedItem.Value;
+            savedEvent = locStnNumber; 
             // select out the station event which is all digits to the left of the colon
 
             index = locStnNumber.IndexOf(":");
             locStnNumber = locStnNumber.Substring(0, index); // all to left of colon
             locStnNumber = locStnNumber.Trim();             // remove any spaces, etc.
             updateSamplesPage(locStnNumber);
+         //   updateSamplesPage(locStnNumber);
 
             if (Session["ORGID"] == null)
                 Response.Redirect("~/timedout.aspx");
@@ -954,10 +1017,17 @@ namespace RWInbound2.Samples
         {
             DateTime newdate;
             string sampnum = "";
+            string numbersample = "";
+
             string timestr = "";
             int hours = 0;
             int mins = 0;
             string newEvent = "";
+            string resString = "";
+
+            // first, check to see if there is an existing sample #, if so, just return
+            // do not create a new sample... 
+           
 
             // see if we have an event, if so, just show tabs
             bool success = DateTime.TryParse(txtDateCollected.Text, out newdate);
@@ -999,6 +1069,40 @@ namespace RWInbound2.Samples
                 hours,
                 mins);
 
+            // see if this sample is used, if so, return as there is nothing to do... 
+            try
+            {
+
+                if (sampnum.Length > 10)
+                {
+                    resString = (from r in NRWDE.Samples
+                                 where r.SampleNumber == sampnum
+                                 select r.SampleNumber).FirstOrDefault();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
+            if (resString != null)
+            {
+                if (resString.Length > 10)
+                {
+                    return; // do nothing... 
+                }
+            }
+
+            // we have new sample here, so process
+
             txtSmpNum.Text = sampnum;
 
             // now build Event number (number sample in current db table)
@@ -1012,7 +1116,6 @@ namespace RWInbound2.Samples
 
                 if (result == null) // no entry yet, first sample
                 {
-
                     newEvent = string.Format("{0}.{1:D3}", tbSite.Text, 000);   // build 'fresh' event number
                     txtNumSmp.Text = newEvent;
                 }
@@ -1025,7 +1128,6 @@ namespace RWInbound2.Samples
                     newEvent = string.Format("{0}.{1:D3}", site, stp);
                     txtNumSmp.Text = newEvent;
                 }
-
             }
 
 
@@ -1174,6 +1276,12 @@ namespace RWInbound2.Samples
             bool duplicate = true;
             string typ = "";
 
+            smpNum = txtSmpNum.Text.Trim();
+            if(smpNum.Length < 8)
+            {
+                lblBarcodeUsed.Text = "You must have a valid sample number before saving this barcode";
+                return; 
+            }
 
             // check to see if barcode is in use, if so, warn user and return to page
 
@@ -1204,7 +1312,7 @@ namespace RWInbound2.Samples
             blank = type.Substring(0, 1) == "1";
             duplicate = type.Substring(0, 1) == "2";
 
-            smpNum = txtSmpNum.Text.Trim();
+
 
             if (normal)
                 typ = "N";
@@ -1243,12 +1351,11 @@ namespace RWInbound2.Samples
         }
 
         // add link button 
-        // removed [Riverwatch].[dbo].
+    // added nutrient bar code gridview too 
         protected void FillTabPanelBarcode(string EventNumber)
         {
-
+            string smpNum = txtSmpNum.Text.Trim();
             string queryString = string.Format("SELECT [LabID] ,[Code] ,[Type] ,[Filtered] ,[BoxNumber] " +
-
                         " FROM [MetalBarCode] " +
                         " where NumberSample like '{0}'", EventNumber.Trim());
 
@@ -1275,6 +1382,26 @@ namespace RWInbound2.Samples
                             else
                             {
                                 GridViewBarCodes.Visible = false;
+                            }
+                        }
+
+                        // create new query for nutrient bar code
+                        
+                        queryString = string.Format("SELECT [LabID] ,[SampleNumber] ,[Batch] ,[LogDate]   FROM [dbo].[NutrientBarCode] where [SampleNumber] = '{0}'", smpNum);
+
+                        cmd.CommandText = queryString;
+                        
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                GridViewNutrientBarCodes.DataSource = rdr;
+                                GridViewNutrientBarCodes.DataBind();
+                                GridViewNutrientBarCodes.Visible = true;
+                            }
+                            else
+                            {
+                                GridViewNutrientBarCodes.Visible = false;
                             }
                         }
                     }
@@ -1741,8 +1868,17 @@ namespace RWInbound2.Samples
                 tbNutrientCode.Text = "";
                 return;
             }
+
             string sampNum = txtSmpNum.Text.Trim();
             string numSamp = txtNumSmp.Text.Trim();
+
+            if(numSamp.Length < 8)
+            {
+                lblNutBarcodeMsg.Text = "There is no Sample selected, so you can not save this barcode";
+                tbNutrientCode.Text = "";
+                return; 
+            }
+
             // we presume good barcode here, so get to it... 
 
             NutrientBarCode NBC = new NutrientBarCode(); // create an empty data set
@@ -1768,7 +1904,7 @@ namespace RWInbound2.Samples
             NBC.TotalNitro = chksNutrients.Items.FindByValue("TotalNitro").Selected;
             NBC.TotalPhos = chksNutrients.Items.FindByValue("TotalPhos").Selected;
             NBC.TSS = chksNutrients.Items.FindByValue("TSS").Selected;
-
+            NBC.Done = true;   // chkDone.Checked; 
             NBC.DateCreated = DateTime.Now;
             NBC.LogDate = DateTime.Now;
 
@@ -1893,7 +2029,7 @@ namespace RWInbound2.Samples
         }
 
         // user has updated org status detail and we want to return to the same but updated form
-        protected void UpdateButton_Click(object sender, EventArgs e)
+        protected void UpdateORGStatusButton_Click(object sender, EventArgs e)
         {
             if (Session["NEWSTATUSID"] == null)
                 Response.Redirect("~/timedout.aspx");
@@ -1929,6 +2065,11 @@ namespace RWInbound2.Samples
             TabNutrientBarcode.Visible = false;
             TabUpdateOrg.Visible = false;
             TabUpdateOrg.Enabled = false;
+        }
+
+        protected void btnAddNewOrgStatus_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

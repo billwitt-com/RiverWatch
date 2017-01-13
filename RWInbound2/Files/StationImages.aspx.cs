@@ -24,8 +24,8 @@ namespace RWInbound2.Files
         private string webApiBaseUrl = WebConfigurationManager.AppSettings["WebAPI_BaseUrl"];
         private static string webApi_username = WebConfigurationManager.AppSettings["WebAPI_UserName"];
         private static string webApi_password = WebConfigurationManager.AppSettings["WebAPI_Password"];
-        
-        byte[] byteArray = Encoding.ASCII.GetBytes(webApi_username + ":" + webApi_password);  
+
+        byte[] byteArray = Encoding.ASCII.GetBytes(webApi_username + ":" + webApi_password);
 
         private string webApiStationImageController = "StationImage";
 
@@ -75,7 +75,7 @@ namespace RWInbound2.Files
                                                      [QueryString]string successLabelMessage = "")
         {
             try
-            {                
+            {
                 RiverWatchEntities _db = new RiverWatchEntities();
 
                 PropertyInfo isreadonly
@@ -142,7 +142,7 @@ namespace RWInbound2.Files
 
 
         protected void AddNewStationImage(object sender, EventArgs e)
-        { 
+        {
             try
             {
                 SetMessages();
@@ -167,7 +167,7 @@ namespace RWInbound2.Files
                         {
                             if (IsImage(file) == false)
                             {
-                                fileErrorMessage += "<br>Invalid Image file type! ";                              
+                                fileErrorMessage += "<br>Invalid Image file type! ";
                                 errors = true;
                             }
                         }
@@ -175,7 +175,7 @@ namespace RWInbound2.Files
                         string image = string.Empty;
                         //bool primaryImageExists = false;
                         bool primaryChecked = false;
-                      
+
                         using (RiverWatchEntities _db = new RiverWatchEntities())
                         {
                             string hiddenStatID = HiddenStationID.Value;
@@ -185,37 +185,37 @@ namespace RWInbound2.Files
                             image = _db.StationImages
                                         .Where(s => s.FileName.Equals(file.FileName) && s.StationID == statID)
                                         .Select(s => s.FileName)
-                                        .FirstOrDefault();                          
+                                        .FirstOrDefault();
                         }
                         if (!string.IsNullOrEmpty(image))
                         {
-                            fileErrorMessage += "<br>File already exists for this station! ";                           
+                            fileErrorMessage += "<br>File already exists for this station! ";
                             errors = true;
                         }
 
                         int iFileSize = file.ContentLength;
                         if (iFileSize > 1048576)  // 1MB
                         {
-                            fileErrorMessage += "<br>Image exceeds maximum Image size! ";                          
+                            fileErrorMessage += "<br>Image exceeds maximum Image size! ";
                             errors = true;
                         }
                         if (errors)
                         {
                             SetMessages("Error", fileErrorMessage);
                             ((Button)gridView.FindControl("btnAdd")).Focus();
-                        }                        
+                        }
                         else
-                        {  
+                        {
                             var fileContent = new ByteArrayContent(uploadedFile.FileBytes);
                             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                             {
                                 FileName = uploadedFile.FileName,
-                                Name = "file"                                
+                                Name = "file"
                             };
 
                             fileContent.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(uploadedFile.FileName));
                             content.Add(fileContent);
-                            
+
                             string hiddenStationID = HiddenStationID.Value;
                             int stationID = 0;
                             bool stationIDIsInt = Int32.TryParse(hiddenStationID, out stationID);
@@ -239,7 +239,7 @@ namespace RWInbound2.Files
                                                                        "PostStationImage");
 
                             StationImageUploadModel uploadResult = null;
-                            
+
                             bool fileUploaded = false;
 
                             var stationImageUploadModel = new StationImageUploadModel
@@ -301,7 +301,7 @@ namespace RWInbound2.Files
                                                         response.StatusCode);
                                         string logError
                                             = string.Format("Unable to save the image. \r\n Status Code: {0} - {1}\r\n Response Body: {2}",
-                                                        response.StatusCode, response.ReasonPhrase, response.Content.ReadAsStringAsync().Result);                                       
+                                                        response.StatusCode, response.ReasonPhrase, response.Content.ReadAsStringAsync().Result);
 
                                         SetMessages("Error", responseError);
 
@@ -321,7 +321,7 @@ namespace RWInbound2.Files
                                     {
                                         throw task.Exception;
                                     }
-                                }                                
+                                }
                             });
 
                             taskUpload.Wait();
@@ -341,13 +341,13 @@ namespace RWInbound2.Files
                             }
                         }
                     }
-                }              
+                }
             }
             catch (Exception ex)
             {
                 HandleErrors(ex, ex.Message, "UploadBtn_Click", "", "");
             }
-        }
+        }        
 
         private bool IsImage(HttpPostedFile file)
         {
@@ -436,8 +436,8 @@ namespace RWInbound2.Files
                                 }
                                 else
                                 {
-                                    errorMessage = string.Format("There was a problem Updating the Image. Station: {0}, Image: {1}, Status Code: {2} - {3}", 
-                                                                lblStationName.Text, model.FileName, response.StatusCode, response.ReasonPhrase);                                   
+                                    errorMessage = string.Format("There was a problem Updating the Image. Station: {0}, Image: {1}, Status Code: {2} - {3}",
+                                                                lblStationName.Text, model.FileName, response.StatusCode, response.ReasonPhrase);
                                 }
                             }
                             if (task.IsFaulted || task.IsCanceled)
@@ -475,7 +475,7 @@ namespace RWInbound2.Files
                 catch (Exception ex)
                 {
                     HandleErrors(ex, ex.Message, "UpdateStationImage", "", "");
-                }                
+                }
             }
         }
 
@@ -510,7 +510,7 @@ namespace RWInbound2.Files
                         };
 
                         DeleteStationImageModel deleteStationImageModelResult = null;
-                       
+
                         bool fileDeleted = false;
                         string errorMessage = string.Empty;
 
@@ -582,7 +582,7 @@ namespace RWInbound2.Files
                             SetMessages("Error", errorMessage);
                         }
                     }
-                }                                    
+                }
             }
             catch (Exception ex)
             {
@@ -684,8 +684,8 @@ namespace RWInbound2.Files
             {
                 stationNameSearch.Text = "";
 
-                int stationNumber = 0; 
-                               
+                int stationNumber = 0;
+
                 bool stationNumberIsInt
                         = Int32.TryParse(stationNumberSearch.Text.Trim(), out stationNumber);
                 if (stationNumberIsInt)
@@ -706,7 +706,7 @@ namespace RWInbound2.Files
 
                         Response.Redirect(redirect, false);
                     }
-                }                  
+                }
             }
             catch (Exception ex)
             {
@@ -724,7 +724,6 @@ namespace RWInbound2.Files
                 string redirect = "StationImages.aspx";
 
                 Response.Redirect(redirect, false);
-
             }
             catch (Exception ex)
             {
@@ -786,7 +785,6 @@ namespace RWInbound2.Files
             {
                 SetMessages("Error", ex.Message);
             }
-        }        
-    }   
-   
+        }
+    }
 }

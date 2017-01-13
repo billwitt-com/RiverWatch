@@ -11,6 +11,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Sql;
 using System.Web.Providers.Entities;
+using System.Runtime.Serialization;
+using System.IO;
 
 namespace RWInbound2.Validation
 {
@@ -110,7 +112,7 @@ namespace RWInbound2.Validation
                         conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
                         using (SqlCommand cmd = new SqlCommand())
                         {
-                            cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [tlkLimits]");
+                            cmd.CommandText = string.Format("select distinct Element, DvsTDifference, MDL from  [tlkLimits] where valid = 1");
                             cmd.Connection = conn;
                             conn.Open();
 
@@ -462,6 +464,11 @@ namespace RWInbound2.Validation
                 tbD = this.FindControl(tbDName) as TextBox;
                 tbT = this.FindControl(tbTName) as TextBox;
 
+                if (tbD == null)    // skip any junk that does not result in text box
+                    continue;
+                if (tbT == null)
+                    continue; 
+
                 if (!decimal.TryParse(tbT.Text, out Total))
                 {
                     Total = 0;
@@ -598,7 +605,10 @@ namespace RWInbound2.Validation
             bool isbad = false;
             int OrgID = 0;
             int KitNumber = 0;
-
+            bool haveCurrentBarcode = false;
+            bool haveOtherBarcode = false;
+            List<string> EsistingBarCodes = new List<string>();
+            int NewExpWaterRows = 0;
 
             string uniqueID = FormViewBlank.Controls[0].UniqueID;
 
@@ -634,26 +644,97 @@ namespace RWInbound2.Validation
             // will create a method for this, I think, so we can reuse
             // note new master summary table
 
+            //try
+            //{
+            //    //NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
+            //    //                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
+            //    //                    select t).FirstOrDefault();
+
+            //    // changed query to use barcode 
+            //    NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
+            //                        where t.Valid == true & t.MetalsBarCode == barCode
+            //                        select t).FirstOrDefault();
+            //    if (TEST != null)
+            //    {
+            //        // skip these as they are not our business to insert into a row that already exists
+            //        // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
+            //        NEW = TEST; // keep the name common to this method
+            //        existingRecord = true; // flag for later
+            //    }
+            //    else
+            //    {
+            //        NEW = new NEWexpWater(); // create new entity as there is not one yet
+            //        existingRecord = false;
+            //    }
+           // }
+
             try
             {
                 //NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
                 //                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
                 //                    select t).FirstOrDefault();
 
-                // changed query to use barcode 
-                NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
-                                    where t.Valid == true & t.MetalsBarCode == barCode
-                                    select t).FirstOrDefault();
-                if (TEST != null)
+                // see if we have any entries in the table with this sample id 
+                var TEST = from t in NewRWE.NEWexpWaters
+                           where t.tblSampleID == sID & t.Valid == true
+                           select t;
+
+                NewExpWaterRows = TEST.Count();
+                if (NewExpWaterRows > 0)     // we have at least one matching record 
                 {
-                    // skip these as they are not our business to insert into a row that already exists
-                    // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
-                    NEW = TEST; // keep the name common to this method
-                    existingRecord = true; // flag for later
+                    foreach (NEWexpWater NW in TEST)
+                    {
+                        if (NW.MetalsBarCode == barCode)
+                        {
+                            haveCurrentBarcode = true;
+                            break;
+                        }
+                        if (NW.MetalsBarCode != null)
+                        {
+                            haveOtherBarcode = true;
+                            EsistingBarCodes.Add(NW.MetalsBarCode); // make a list of barcodes that may exist
+                        }
+                    }
+                }
+                else   // no results from query, no existing record 
+                {
+                    NEW = new NEWexpWater(); // create new entity as there is not one yet
+                    existingRecord = false;
+                }
+
+                // here we have one or more existing records 
+                if (haveCurrentBarcode)
+                {
+                    // not sure what to do... Update this entry or move on as this may be an error
+
+                    NEWexpWater T = (from t in NewRWE.NEWexpWaters
+                                     where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
+                                     select t).FirstOrDefault();
+                    if (T != null)
+                    {
+                        // skip these as they are not our business to insert into a row that already exists
+                        // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
+                        NEW = T; // keep the name common to this method
+                        existingRecord = true; // flag for later
+                    }
+                    haveOtherBarcode = false; // don't process another bar code if we have 'ours' 
+                }
+
+                else if (haveOtherBarcode)   // we have at least one row with another bar code, we can copy and reuse
+                {
+                    string bc = EsistingBarCodes.FirstOrDefault();
+                    // create a detached row that we can update and put back in as new
+                    NEWexpWater N = (from t in NewRWE.NEWexpWaters
+                           where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == bc
+                           select t).FirstOrDefault();
+                    NEW = CloneNewExpWater(N); 
+                    existingRecord = true;  // we just want to update this record for our current bc and mark bad
+                  
                 }
                 else
                 {
                     NEW = new NEWexpWater(); // create new entity as there is not one yet
+                    existingRecord = false;
                 }
             }
             catch (Exception ex)
@@ -666,11 +747,11 @@ namespace RWInbound2.Validation
                 string msg = ex.Message;
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }     
+            }      
 
             // no existing record, so we are first
             if (!existingRecord)
-            {   
+            {
                 NEW.BadDuplicate = false;
                 NEW.BadSample = false;
                 NEW.BenthicsComments = null;
@@ -685,6 +766,7 @@ namespace RWInbound2.Validation
                 NEW.DOSAT = null;
                 NEW.FieldBarCode = null;
                 NEW.FieldComment = null;
+            }
 
                 NEW.TypeCode = typeCode;
                 NEW.MetalsComment = comment;
@@ -693,7 +775,6 @@ namespace RWInbound2.Validation
 
                 // get some detail from the sample table, which already exists (mostly...)
                 // note: use new table, not origional
-
                 try
                 {
                     //   where t.SampleID == sID & t.Valid == true
@@ -770,7 +851,7 @@ namespace RWInbound2.Validation
                     LogError LE = new LogError();
                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
                 }     
-            }
+            
 
             // now add in the chemistry from ICP
             // XXXX is this easier and or more accurate than using Datatable ?
@@ -885,7 +966,16 @@ namespace RWInbound2.Validation
                 F.Edited = true;
                 F.Valid = true;
 
-                NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                if (!existingRecord)    // should always happen as there can be no existing record unless there is an error
+                {
+                    NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                }
+
+                if (haveOtherBarcode)    // we are inserting a clone
+                {                    
+                    NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                }
+                
 
                 int cnt =  NewRWE.SaveChanges(); // update final table as it is 'attached' we don't need to refer to it
                
@@ -1173,5 +1263,14 @@ namespace RWInbound2.Validation
         }
 
 
+        private static NEWexpWater CloneNewExpWater(NEWexpWater obj)
+        {
+            DataContractSerializer dcSer = new DataContractSerializer(obj.GetType());
+            MemoryStream memoryStream = new MemoryStream();
+            dcSer.WriteObject(memoryStream, obj);
+            memoryStream.Position = 0;
+            NEWexpWater newObject = (NEWexpWater)dcSer.ReadObject(memoryStream);
+            return newObject;
+        }
     }
 }

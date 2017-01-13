@@ -22,15 +22,6 @@ namespace RWInbound2.Reports {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// Table1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table Table1;
-        
-        /// <summary>
         /// btnErrorLogReport control.
         /// </summary>
         /// <remarks>
@@ -67,33 +58,6 @@ namespace RWInbound2.Reports {
         protected global::System.Web.UI.WebControls.Button btnMetalBarCodes;
         
         /// <summary>
-        /// btnOrganizations control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrganizations;
-        
-        /// <summary>
-        /// btnOrgStations control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgStations;
-        
-        /// <summary>
-        /// btnOrgStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgStatus;
-        
-        /// <summary>
         /// btnParticipants control.
         /// </summary>
         /// <remarks>
@@ -112,15 +76,6 @@ namespace RWInbound2.Reports {
         protected global::System.Web.UI.WebControls.Button btnParticipantsPrimaryContacts;
         
         /// <summary>
-        /// btnOrgUnknownResults control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOrgUnknownResults;
-        
-        /// <summary>
         /// btnPublicUsers control.
         /// </summary>
         /// <remarks>
@@ -130,15 +85,6 @@ namespace RWInbound2.Reports {
         protected global::System.Web.UI.WebControls.Button btnPublicUsers;
         
         /// <summary>
-        /// btnQAQC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnQAQC;
-        
-        /// <summary>
         /// btnSamples control.
         /// </summary>
         /// <remarks>
@@ -146,23 +92,5 @@ namespace RWInbound2.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSamples;
-        
-        /// <summary>
-        /// btnStations control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStations;
-        
-        /// <summary>
-        /// btnStationsWithGauges control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStationsWithGauges;
     }
 }

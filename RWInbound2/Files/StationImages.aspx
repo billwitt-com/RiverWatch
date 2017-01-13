@@ -11,7 +11,7 @@
             <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
         </div>
         <div class="label-placement">
-                <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
+            <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
         </div>
         <br />            
     </div>

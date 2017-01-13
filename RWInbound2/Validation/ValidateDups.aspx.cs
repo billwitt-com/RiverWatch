@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Sql;
+using System.Runtime.Serialization;
+using System.IO;
  
 // updated around line 562 to make sure a barcode that is not yet in new expwater will be created as new item and not overwrite another bar code
 // thus we could have three bar codes in newEXPwater for a single sample event
@@ -92,10 +94,10 @@ namespace RWInbound2.Validation
                 Session["CONTROLSSET"] = false;
                 pnlHelp.Visible = false; // make sure user does not see this unless requested
 
-                // removed  [Riverwatch].[dbo].
                 try
                 {
                     // changed this to use tlkLimits as they seem to correspond to Barb's note. 
+                    // load limit data from db
                     using (SqlConnection conn = new SqlConnection())
                     {
                         conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;  // GlobalSite.RiverWatchDev;
@@ -124,7 +126,6 @@ namespace RWInbound2.Validation
                                     }
                                 }
                             }
-
                             conn.Close();
                         }
                     }
@@ -382,10 +383,11 @@ namespace RWInbound2.Validation
                     tbNormals_TName = NormalsUniqueID + "$" + item + "_TTextBox";
                     tbNormals_D = this.FindControl(tbNormals_DName) as TextBox;
                     tbNormals_T = this.FindControl(tbNormals_TName) as TextBox;
-                    if (tbNormals_D == null)
-                    {
-                        break; // nothing to do here.. 
-                    }
+
+                    if (tbNormals_D == null)    // skip any junk that does not result in text box
+                        continue;
+                    if (tbNormals_T == null)
+                        continue; 
 
                     if (!decimal.TryParse(tbNormals_T.Text, out Total_Normals))
                     {
@@ -528,7 +530,7 @@ namespace RWInbound2.Validation
         // must update page as there will one fewer blanks to process
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
-            updateDup("UPDATE");
+            CommitDup("UPDATE");
 
         }
 
@@ -536,10 +538,10 @@ namespace RWInbound2.Validation
         // must update page as there will one fewer blanks to process
         protected void btnBadDup_Click(object sender, EventArgs e)
         {
-            updateDup("BAD");
+            CommitDup("BAD");
         }
 
-        public void updateDup(string type)
+        public void CommitDup(string type)
         {
             RiverWatchEntities NewRWE = new RiverWatchEntities(); // new database RiverWatch 
             NEWexpWater NEW = null;
@@ -548,59 +550,149 @@ namespace RWInbound2.Validation
             decimal Total;
             decimal Disolved;
             bool isbad = false;
+            string barCode = "";
+            string typeCode = "";
+            string comment = "";
+            int sID = 0;
+            int orgID = 0;
+            int stnID = 0;
+            string uniqueID = "";
+            bool haveCurrentBarcode = false;
+            bool haveOtherBarcode = false;
+            List<string> EsistingBarCodes = new List<string>();
 
-            string uniqueID = FormViewDup.Controls[0].UniqueID;
+            int NewExpWaterRows = 0;
+            
+            try
+            {
+                uniqueID = FormViewDup.Controls[0].UniqueID;
 
-            // XXXX another WTF moment, why is the uniqueid different here, just because we pressed a button
-            // note that the data is correct when we have the correct string
-            uniqueID = uniqueID.Replace("$ctl00", "");
-            // scrape text box strings, which will never be null, but can be zero length
-            string codeTextBoxName = uniqueID + "$" + "tbCode"; // get the text box off the page
-            TextBox CTB = this.FindControl(codeTextBoxName) as TextBox;
+                // XXXX another WTF moment, why is the uniqueid different here, just because we pressed a button
+                // note that the data is correct when we have the correct string
+                uniqueID = uniqueID.Replace("$ctl00", "");
+                // scrape text box strings, which will never be null, but can be zero length
+                string codeTextBoxName = uniqueID + "$" + "tbCode"; // get the text box off the page
+                TextBox CTB = this.FindControl(codeTextBoxName) as TextBox;
 
-            string barCode = CTB.Text;
+                barCode = CTB.Text;
 
-            string sampleType = uniqueID + "$" + "tbType";  // bound to 'duplicate' 
-            TextBox ST = this.FindControl(sampleType) as TextBox;
-            string typeCode = ST.Text.Trim();
+                string sampleType = uniqueID + "$" + "tbType";
+                TextBox ST = this.FindControl(sampleType) as TextBox;
+                typeCode = ST.Text.Trim();
 
-            string co = uniqueID + "$" + "CommentsTextBox";
-            TextBox Com = this.FindControl(co) as TextBox;
-            string comment = Com.Text.Trim();
+                string co = uniqueID + "$" + "CommentsTextBox";
+                TextBox Com = this.FindControl(co) as TextBox;
+                comment = Com.Text.Trim();
 
-            // tblSampleIDTextBox
-            string sampID = uniqueID + "$" + "tblSampleIDTextBox";
-            TextBox SID = this.FindControl(sampID) as TextBox;
-            int sID = int.Parse(SID.Text.Trim());
+                // tblSampleIDTextBox
+                string sampID = uniqueID + "$" + "tblSampleIDTextBox";
+                TextBox SID = this.FindControl(sampID) as TextBox;
+                sID = int.Parse(SID.Text.Trim());
 
-            if (type.ToUpper().Equals("BAD"))
-                isbad = true;
-            else
-                isbad = false;
+                if (type.ToUpper().Equals("BAD"))
+                    isbad = true;
+                else
+                    isbad = false;
+            }
 
-            // XXXX check to see if a record already exists, it may if field data was entered first.... 
-            // will create a method for this, I think, so we can reuse
-            // note new master summary table
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
 
+            // check to see if a record already exists, it may if field data was entered first.... 
+
+            //try
+            //{
+            //    NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
+            //                        where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
+            //                        select t).FirstOrDefault();
+            //    if (TEST != null)
+            //    {
+            //        // skip these as they are not our business to insert into a row that already exists
+            //        // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
+            //        NEW = TEST; // keep the name common to this method
+            //        existingRecord = true; // flag for later
+            //    }
+            //    else
+            //    {
+            //        NEW = new NEWexpWater(); // create new entity as there is not one yet
+            //    }
+            //}
             try
             {
                 //NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
                 //                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
                 //                    select t).FirstOrDefault();
 
-                NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
-                                    where t.Valid == true & t.MetalsBarCode == barCode
-                                    select t).FirstOrDefault();
-                if (TEST != null)
+                // see if we have any entries in the table with this sample id 
+                var TEST = from t in NewRWE.NEWexpWaters
+                           where t.tblSampleID == sID & t.Valid == true
+                           select t;
+
+                NewExpWaterRows = TEST.Count();
+                if (NewExpWaterRows > 0)     // we have at least one matching record 
                 {
-                    // skip these as they are not our business to insert into a row that already exists
-                    // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
-                    NEW = TEST; // keep the name common to this method
-                    existingRecord = true; // flag for later
+                    foreach (NEWexpWater NW in TEST)
+                    {
+                        if (NW.MetalsBarCode == barCode)
+                        {
+                            haveCurrentBarcode = true;
+                            break;
+                        }
+                        if (NW.MetalsBarCode != null)
+                        {
+                            haveOtherBarcode = true;
+                            EsistingBarCodes.Add(NW.MetalsBarCode); // make a list of barcodes that may exist
+                        }
+                    }
+                }
+                else   // no results from query, no existing record 
+                {
+                    NEW = new NEWexpWater(); // create new entity as there is not one yet
+                    existingRecord = false;
+                }
+
+                // here we have one or more existing records 
+                if (haveCurrentBarcode)
+                {
+                    // not sure what to do... Update this entry or move on as this may be an error
+
+                    NEWexpWater T = (from t in NewRWE.NEWexpWaters
+                                     where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
+                                     select t).FirstOrDefault();
+                    if (T != null)
+                    {
+                        // skip these as they are not our business to insert into a row that already exists
+                        // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
+                        NEW = T; // keep the name common to this method
+                        existingRecord = true; // flag for later
+                    }
+                    haveOtherBarcode = false; // don't process another bar code if we have 'ours' 
+                }
+
+                else if (haveOtherBarcode)   // we have at least one row with another bar code, we can copy and reuse
+                {
+                    string bc = EsistingBarCodes.FirstOrDefault();
+                    // create a detached row that we can update and put back in as new
+                    NEWexpWater N = (from t in NewRWE.NEWexpWaters
+                                     where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == bc
+                                     select t).FirstOrDefault();
+                    NEW = CloneNewExpWater(N);
+                    existingRecord = true;  // we just want to update this record for our current bc and mark bad
+
                 }
                 else
                 {
                     NEW = new NEWexpWater(); // create new entity as there is not one yet
+                    existingRecord = false;
                 }
             }
             catch (Exception ex)
@@ -615,96 +707,104 @@ namespace RWInbound2.Validation
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
-            // no existing record, so we are first
-            if (!existingRecord)
+            if (!existingRecord) // no existing record, so we are first
             {
-                NEW.BadDuplicate = false;
+                NEW.CreateDate = DateTime.Now;
+                NEW.CreatedBy = User.Identity.Name;
+                NEW.BadDuplicate = false;   // fill in all the stuff that should have some value... 
                 NEW.BadSample = false;
+
+                // this is not really necessary as the values will default to null 
                 NEW.BenthicsComments = null;
+                NEW.NutrientBarCode = null;
+                NEW.NutrientComment = null;
+
                 NEW.BugsBarCode = null;
                 NEW.BugsComments = null;
                 NEW.Chloride = null;
                 NEW.ChlorophyllA = null;
-                NEW.CreateDate = DateTime.Now;
-                NEW.CreatedBy = User.Identity.Name;
+
                 NEW.DO_MGL = null;
                 NEW.DOC = null;
                 NEW.DOSAT = null;
                 NEW.FieldBarCode = null;
                 NEW.FieldComment = null;
+                NEW.OP = null;
+                NEW.orgN = null;
+                NEW.PH = null;
+                NEW.PHEN_ALK = null;
+                NEW.Sulfate = null;
+                NEW.TempC = null;
+                NEW.TKN = null;
+                NEW.TOTAL_ALK = null;
+                NEW.TOTAL_HARD = null;
+            }
 
-                NEW.TypeCode = typeCode;
-                NEW.MetalsComment = comment;
-                NEW.MetalsBarCode = barCode;
-                NEW.tblSampleID = sID; // FK to tblSample
+            // existing record - now write stuff we do know, may overwrite a few fields but data should be the same... 
+            NEW.TypeCode = typeCode;
+            NEW.MetalsComment = comment;
+            NEW.MetalsBarCode = barCode;
+            NEW.tblSampleID = sID; // FK to tblSample
 
-                // get some detail from the sample table, which already exists (mostly...)
-                // note: use new table, not origional
-                // XXXX this may not work well as we have changed samples to use ID as identity and I don't think SampleID will change
-                try
+            // get some detail from the sample table, which already exists (mostly...)
+            // note: use new table, not origional
+            try
+            {
+                Sample ts = (from t in NewRWE.Samples
+                             where t.SampleID == sID & t.Valid == true
+                             select t).FirstOrDefault(); // should be only one copy
+                if (ts != null)
                 {
-                    Sample ts = (from t in NewRWE.Samples
-                                    where t.SampleID == sID & t.Valid == true
-                                    select t).FirstOrDefault(); // should be only one copy
-                    if (ts != null)
+                    NEW.Event = ts.NumberSample;  // string like 10.095  
+                    NEW.OrganizationID = ts.OrganizationID;
+
+
+                    NEW.tblSampleID = ts.SampleID;
+                    if (ts.DateCollected.Year > 1900)
                     {
-                        // make kit number 
-                        string numS = ts.NumberSample; // looks weird and is, this is the string like 44.096 and kit # is on the right of decimal place
-                        int idx = numS.IndexOf(".");
-                        string numS1 = numS.Substring(0, idx);  // get chars to right of decimal point
-
-                        NEW.KitNumber = short.Parse(numS1);
-                        NEW.Event = numS; // string like above, 10.095
-
-                        NEW.NutrientBarCode = null;
-                        NEW.NutrientComment = null;
-                        NEW.OP = null;
-
-                        NEW.OrganizationName = "";
-                        NEW.orgN = null;
-                        NEW.PH = null;
-                        NEW.PHEN_ALK = null; 
-
                         NEW.SampleDate = ts.DateCollected; // this is date part only, no time and may be junk XXXX
                         if (ts.TimeCollected.Value.Year > 1970)  // likely a real value - otherwise, leave blank
                         {
                             NEW.SampleDate.Value.AddHours(ts.TimeCollected.Value.Hour); // add in pieces
                             NEW.SampleDate.Value.AddMinutes(ts.TimeCollected.Value.Minute);
                         }
-
-                        NEW.SampleNumber = ts.SampleNumber; // this is the big string of station id + date time - build at sample entry
-                        // tblSample has station id 
-                        var STN = (from s in NRWDE.Stations
-                                   where s.ID == ts.StationID
-                                   select s).FirstOrDefault();
-
-                        //   ts.StationID
-                        NEW.StationName = STN.StationName;
-
-                        NEW.RiverName = STN.River;
-                        NEW.StationNumber = (short)ts.StationID;   // XXXX hope this gets working soon and we can get rid of shorts
-                        NEW.Sulfate = null;
-
-                        NEW.tblSampleID = ts.SampleID;
-                        NEW.TempC = null;
-                        NEW.TKN = null;
-                        NEW.TOTAL_ALK = null;
-                        NEW.TOTAL_HARD = null;
-                        NEW.BadBlank = isbad; // record value from type passed in by caller
-                        NEW.Valid = true;
                     }
+
+                    NEW.SampleNumber = ts.SampleNumber; // this is the big string of station id + date time - build at sample entry
+                    // tblSample has station id 
+                    var STN = (from s in NRWDE.Stations
+                               where s.ID == ts.StationID
+                               select s).FirstOrDefault();
+
+                    NEW.StationID = ts.StationID;
+                    NEW.StationName = STN.StationName;
+                    NEW.RiverName = STN.River;
+                    NEW.StationNumber = (short)ts.StationID;   // XXXX hope this gets working soon and we can get rid of shorts
+                    NEW.WaterShed = STN.WQCCWaterShed;
+
+                    // now get org detail
+
+                    var ORG = (from o in NewRWE.organizations
+                               where o.ID == ts.OrganizationID.Value
+                               select o).FirstOrDefault();
+
+                    NEW.OrganizationName = ORG.OrganizationName;
+                    NEW.KitNumber = ORG.KitNumber;
+
+                    NEW.BadBlank = isbad; // record value from type passed in by caller
+                    NEW.Valid = true;
                 }
-                catch (Exception ex)
-                {
-                    string nam = "";
-                    if (User.Identity.Name.Length < 3)
-                        nam = "Not logged in";
-                    else
-                        nam = User.Identity.Name;
-                    string msg = ex.Message;
-                    LogError LE = new LogError();
-                    LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
             // now add in the chemistry from ICP
@@ -716,7 +816,7 @@ namespace RWInbound2.Validation
             try
             {
                 InboundICPFinal F = (from f in NewRWE.InboundICPFinals
-                                     where f.CODE == barCode    // changed 7/8/16
+                                     where f.CODE == barCode    
                                      select f).FirstOrDefault();
 
                 string workString = "";
@@ -819,7 +919,15 @@ namespace RWInbound2.Validation
                 F.Edited = true;
                 F.Valid = true;
 
-                NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                if (!existingRecord)    // should always happen as there can be no existing record unless there is an error
+                {
+                    NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                }
+
+                if (haveOtherBarcode)    // we are inserting a clone
+                {
+                    NewRWE.NEWexpWaters.Add(NEW); // add or update record - we will overwrite the old record since this is not an EDIT but an update
+                }
 
                 int cnt = NewRWE.SaveChanges(); // update final table as it is 'attached' we don't need to refer to it
 
@@ -938,7 +1046,17 @@ namespace RWInbound2.Validation
 
         protected void btnBadNormal_Click(object sender, EventArgs e)
         {
-            updateDup("BAD");
+            CommitDup("BAD");
+        }
+
+        private static NEWexpWater CloneNewExpWater(NEWexpWater obj)
+        {
+            DataContractSerializer dcSer = new DataContractSerializer(obj.GetType());
+            MemoryStream memoryStream = new MemoryStream();
+            dcSer.WriteObject(memoryStream, obj);
+            memoryStream.Position = 0;
+            NEWexpWater newObject = (NEWexpWater)dcSer.ReadObject(memoryStream);
+            return newObject;
         }
 
 

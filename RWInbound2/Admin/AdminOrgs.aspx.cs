@@ -23,7 +23,7 @@ namespace RWInbound2.Admin
             //allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             //if (!allowed)
             //    Response.Redirect("~/index.aspx");
-
+            Label2.Visible = true;
             string sCommand = "";
             if (!IsPostBack)
             {
@@ -148,6 +148,7 @@ namespace RWInbound2.Admin
         { 
             DropDownList theDropDownList = (DropDownList)sender;
             theDropDownList.DataBinding -= new EventHandler(PreventErrorsOn_DataBinding);
+            theDropDownList.Items.Clear(); 
             theDropDownList.AppendDataBoundItems = true;
 
             selectedValue = "";
@@ -174,7 +175,9 @@ namespace RWInbound2.Admin
             btnAddNew.Visible = false;
             int item = 0;
             int last = 0; 
-            int nextKitNumber = 0; 
+            int nextKitNumber = 0;
+
+            Label2.Visible = false; 
 
             try
             {
@@ -255,8 +258,7 @@ namespace RWInbound2.Admin
                         RWE.SaveChanges();
                         lblMsg.Text = "New Org Status created";
                         chbStatusAdd.Checked = false; // just in case
-                    }
-                   
+                    }                   
                 }
             }
             // new record inserted, turn off all messages, etc
@@ -312,12 +314,71 @@ namespace RWInbound2.Admin
             e.Command.Parameters["@Valid"].Value = 1;
         }
 
+        // this catches dup kit numbers 
         protected void SqlDataSource1_Inserting(object sender, SqlDataSourceCommandEventArgs e)
         {
+             int newKitnumber = 0;
+            string kitNumberString = "";
+            string kn = "";
+            // KitNumberTextBox
+
+            string uniqueID = FormView1.Controls[0].UniqueID;
+            try
+            {
+                // get barcode for this page as it is unique
+                kitNumberString = uniqueID + "$" + "KitNumberTextBox"; // get the text box off the page
+                TextBox KNTB = this.FindControl(kitNumberString) as TextBox;
+                if (KNTB != null)
+                {
+                    kn = KNTB.Text.Trim();
+                    if (int.TryParse(kn, out newKitnumber))
+                    {
+
+                        RiverWatchEntities RWE = new RiverWatchEntities();
+
+                        int K = (int)(from k in RWE.organizations
+                                      where k.KitNumber == newKitnumber
+                                      select k.KitNumber).FirstOrDefault();
+
+                        if (K != null)   // existing kit number 
+                        {
+                            lblMsg.Text = string.Format("Kit Number {0} is used, please select another", newKitnumber);
+                            lblMsg.Visible = true;
+                            lblMsg.ForeColor = System.Drawing.Color.Red; 
+                            KNTB.Focus();
+                            e.Cancel = true;
+                            FormView1.DefaultMode = FormViewMode.Insert;
+                         //   FormView1.DataBind(); 
+                            return;
+                        }
+                        else
+                        {
+                            lblMsg.Text = "";
+                        }
+                    }
+                }
+                else
+                {
+                    return; // nothing else to do ... 
+                }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+            
+     
             string user = User.Identity.Name;
             e.Command.Parameters["@UserCreated"].Value = user;
             e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
             e.Command.Parameters["@Valid"].Value = 1;
-        }   
+        }       
     }
 }

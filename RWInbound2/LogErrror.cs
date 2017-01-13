@@ -15,7 +15,7 @@ namespace RWInbound2
         {      
             RiverWatchEntities NRWE = new RiverWatchEntities(); 
             ErrorLog EL = new ErrorLog();
-            EL.Date = DateTime.Now;
+            EL.Date = DateTime.Now.ToLocalTime();   // Changed 12/29 to get better time info
             EL.Message = msg; 
             EL.Comment = comment;
             EL.StackTrace = stackTrace;

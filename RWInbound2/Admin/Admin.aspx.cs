@@ -114,5 +114,27 @@ namespace RWInbound2.Admin
         {
             // no code for this yet?
         }
+
+        protected void btnBulkEditOrgActive_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgStatusBulklUpdate.aspx");
+        }
+
+        protected void btnResetAllOrgActive_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ResetOrgActive.aspx");
+        }
+
+        protected void btnBulkEditStnActive_Click(object sender, EventArgs e)
+        {
+            // StationStatusBulklUpdate
+            Response.Redirect("StationStatusBulklUpdate.aspx");
+        }
+
+        protected void btnResetAllStnActive_Click(object sender, EventArgs e)
+        {
+            // ResetStationActive
+            Response.Redirect("ResetStationActive.aspx");
+        }
     }
 }

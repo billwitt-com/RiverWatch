@@ -4,10 +4,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" ClientIDMode="Static">
-    <hgroup>
-        <h3><%: Page.Title %></h3>
-    </hgroup>
-
+        <br />
+    <asp:Label ID="Label1" runat="server"  CssClass="PageLabel" Text="Organization Unknown Sample Results"></asp:Label>
+        <br />
     <div class="label-placement">
         <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
     </div>
@@ -18,11 +17,11 @@
 
         <asp:UpdatePanel ID="updatePanelOrgUnknownResults" runat="server">
             <ContentTemplate>
-                <label>Search By Organization Name:</label>
+                <asp:Label ID="Label2" runat="server" Text="Search By Organization Name:"></asp:Label>
                 <asp:TextBox ID="orgNameSearch" 
                     AutoPostBack="true"
-                    runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearchOrgName" runat="server" Text="Select" Height="31px" OnClick="btnSearchOrgName_Click" CssClass="adminButton" />
+                    runat="server" Height="16px"></asp:TextBox>
+                <asp:Button ID="btnSearchOrgName" runat="server" Text="Select"  OnClick="btnSearchOrgName_Click" CssClass="adminButton" />
                 <ajaxToolkit:AutoCompleteExtender 
                     ID="tbSearch_AutoCompleteExtender" 
                     runat="server" 
@@ -36,11 +35,11 @@
                     CompletionSetCount="10">
                 </ajaxToolkit:AutoCompleteExtender> 
                 <div class="org-unknown-results-or"><label>OR</label></div>
-                <label>Search By Kit Number:</label>                
+                <asp:Label ID="Label3" runat="server" Text="Search By Kit Number: "></asp:Label>             
                 <asp:TextBox ID="kitNumberSearch" 
                     AutoPostBack="true"
                     runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearchKitNumber" runat="server" Text="Select" Height="31px" OnClick="btnSearchKitNumber_Click" CssClass="adminButton" />                
+                <asp:Button ID="btnSearchKitNumber" runat="server" Text="Select" OnClick="btnSearchKitNumber_Click" CssClass="adminButton" />                
                 <ajaxToolkit:AutoCompleteExtender 
                     ID="AutoCompleteExtender1" 
                     runat="server" 
@@ -53,13 +52,13 @@
                     EnableCaching="false" 
                     CompletionSetCount="10">
                 </ajaxToolkit:AutoCompleteExtender>
-                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" CssClass="adminButton org-unknown-results-reset-search" />                
+                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" OnClick="btnSearchRefresh_Click" CssClass="adminButton org-unknown-results-reset-search" />                
             </ContentTemplate>
         </asp:UpdatePanel> 
     <br />  
     <br />    
-    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" Width="1072px" Height="551px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
-        <LocalReport ReportPath="Reports\OrgUnknownResults.rdlc">
+    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" ShowPrintButton="False" Font-Size="8pt" Width="1072px" Height="551px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
+        <LocalReport ReportPath="Public\OrgUnknownResults.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
             </DataSources>
@@ -68,6 +67,6 @@
    
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                        ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
-                       SelectCommand="SELECT [KitNumber], [OrganizationName], [SampleType], [SampleNumber], [DateSent], [Value1], [Value2], [MeanValue], [PctRecovery], [Round], [TrueValue] FROM [UnknownResultsForOrgView] ORDER BY [OrganizationName]"></asp:SqlDataSource>
+                       SelectCommand="SELECT [KitNumber], [OrganizationName], [SampleType], [SampleNumber], [DateSent], [Value1], [Value2], [MeanValue], [PctRecovery], [Round], [TrueValue] FROM [UnknownResultsForOrgView] ORDER BY [DateSent] desc"></asp:SqlDataSource>
    
 </asp:Content>

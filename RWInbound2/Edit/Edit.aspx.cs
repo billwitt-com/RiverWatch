@@ -227,5 +227,15 @@ namespace RWInbound2.Edit
         {
             Response.Redirect("EditBenthics.aspx");
         }
+
+        protected void btnMetalLimits_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditMetalValidationLimits.aspx"); 
+        }
+
+        protected void btnNutrientLimits_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditNutrientValidationLimits.aspx"); 
+        }
     }
 }

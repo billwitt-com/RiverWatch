@@ -53,10 +53,9 @@
             <br />
             Batch:
             <asp:TextBox ID="BatchTextBox" runat="server" Text='<%# Bind("Batch") %>' />
-            <br />
-            Done:
-            <asp:CheckBox ID="DoneCheckBox" runat="server" Checked='<%# Bind("Done") %>' />
-            <br />
+            <br />            
+
+
             Log Date:
             <asp:TextBox ID="LogDateTextBox" runat="server" Text='<%# Bind("LogDate") %>' />
             <br />
@@ -125,9 +124,7 @@
             Batch:
             <asp:Label ID="BatchLabel" runat="server" Text='<%# Bind("Batch") %>' />
             <br />
-            Done:
-            <asp:CheckBox ID="DoneCheckBox" runat="server" Checked='<%# Bind("Done") %>' Enabled="false" />
-            <br />
+
             Log Date:
             <asp:Label ID="LogDateLabel" runat="server" Text='<%# Bind("LogDate") %>' />
             <br />
@@ -171,8 +168,14 @@
             &nbsp;<asp:Button ID="DeleteButton" CssClass="adminButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
             &nbsp;<asp:Button ID="NewButton" CssClass="adminButton" runat="server" CausesValidation="False" CommandName="New" Text="New" />
         </ItemTemplate>
+
     </asp:FormView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" DeleteCommand="DELETE FROM [NutrientBarCode] WHERE [ID] = @ID" InsertCommand="INSERT INTO [NutrientBarCode] ([SampleID], [SampleNumber], [LabID], [Batch], [Done], [LogDate], [AnalyzeDate], [Comment], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [TotalPhos], [OrthoPhos], [TotalNitro], [NitrateNitrite], [Ammonia], [DOC], [Chloride], [Sulfate], [TSS], [ChlorA]) VALUES (@SampleID, @SampleNumber, @LabID, @Batch, @Done, @LogDate, @AnalyzeDate, @Comment, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @TotalPhos, @OrthoPhos, @TotalNitro, @NitrateNitrite, @Ammonia, @DOC, @Chloride, @Sulfate, @TSS, @ChlorA)" SelectCommand="SELECT * FROM [NutrientBarCode]" UpdateCommand="UPDATE [NutrientBarCode] SET [SampleID] = @SampleID, [SampleNumber] = @SampleNumber, [LabID] = @LabID, [Batch] = @Batch, [Done] = @Done, [LogDate] = @LogDate, [AnalyzeDate] = @AnalyzeDate, [Comment] = @Comment, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified, [TotalPhos] = @TotalPhos, [OrthoPhos] = @OrthoPhos, [TotalNitro] = @TotalNitro, [NitrateNitrite] = @NitrateNitrite, [Ammonia] = @Ammonia, [DOC] = @DOC, [Chloride] = @Chloride, [Sulfate] = @Sulfate, [TSS] = @TSS, [ChlorA] = @ChlorA WHERE [ID] = @ID">
+    <asp:SqlDataSource ID="SqlDataSource1" OnDataBinding="SqlDataSource1_DataBinding" runat="server" ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
+        DeleteCommand="DELETE FROM [NutrientBarCode] WHERE [ID] = @ID" 
+        InsertCommand="INSERT INTO [NutrientBarCode] ([SampleID], [SampleNumber], [LabID], [Batch],  [LogDate], [AnalyzeDate], [Comment], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [TotalPhos], [OrthoPhos], [TotalNitro], [NitrateNitrite], [Ammonia], [DOC], [Chloride], [Sulfate], [TSS], [ChlorA]) VALUES (@SampleID, @SampleNumber, @LabID, @Batch, @LogDate, @AnalyzeDate, @Comment, @DateCreated, @UserCreated, @DateLastModified, @UserLastModified, @TotalPhos, @OrthoPhos, @TotalNitro, @NitrateNitrite, @Ammonia, @DOC, @Chloride, @Sulfate, @TSS, @ChlorA)" 
+
+
+        UpdateCommand="UPDATE [NutrientBarCode] SET [SampleID] = @SampleID, [SampleNumber] = @SampleNumber, [LabID] = @LabID, [Batch] = @Batch, [LogDate] = @LogDate, [AnalyzeDate] = @AnalyzeDate, [Comment] = @Comment, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [DateLastModified] = @DateLastModified, [UserLastModified] = @UserLastModified, [TotalPhos] = @TotalPhos, [OrthoPhos] = @OrthoPhos, [TotalNitro] = @TotalNitro, [NitrateNitrite] = @NitrateNitrite, [Ammonia] = @Ammonia, [DOC] = @DOC, [Chloride] = @Chloride, [Sulfate] = @Sulfate, [TSS] = @TSS, [ChlorA] = @ChlorA WHERE [ID] = @ID">
         <DeleteParameters>
             <asp:Parameter Name="ID" Type="Int32" />
         </DeleteParameters>
@@ -181,7 +184,7 @@
             <asp:Parameter Name="SampleNumber" Type="String" />
             <asp:Parameter Name="LabID" Type="String" />
             <asp:Parameter Name="Batch" Type="String" />
-            <asp:Parameter Name="Done" Type="Boolean" />
+
             <asp:Parameter Name="LogDate" Type="DateTime" />
             <asp:Parameter Name="AnalyzeDate" Type="DateTime" />
             <asp:Parameter Name="Comment" Type="String" />
@@ -205,7 +208,7 @@
             <asp:Parameter Name="SampleNumber" Type="String" />
             <asp:Parameter Name="LabID" Type="String" />
             <asp:Parameter Name="Batch" Type="String" />
-            <asp:Parameter Name="Done" Type="Boolean" />
+
             <asp:Parameter Name="LogDate" Type="DateTime" />
             <asp:Parameter Name="AnalyzeDate" Type="DateTime" />
             <asp:Parameter Name="Comment" Type="String" />

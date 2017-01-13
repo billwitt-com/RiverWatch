@@ -103,39 +103,30 @@ namespace RWInbound2.Files {
         protected global::System.Web.UI.WebControls.Button btnSearchRefresh;
         
         /// <summary>
-        /// StationNamePanel control.
+        /// FileUploadStationImages control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel StationNamePanel;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadStationImages;
         
         /// <summary>
-        /// lblStationName control.
+        /// UploadBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStationName;
+        protected global::System.Web.UI.WebControls.Button UploadBtn;
         
         /// <summary>
-        /// HiddenStationID control.
+        /// UploadStatusLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenStationID;
-        
-        /// <summary>
-        /// StationImagesGridView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView StationImagesGridView;
+        protected global::System.Web.UI.WebControls.Label UploadStatusLabel;
     }
 }
