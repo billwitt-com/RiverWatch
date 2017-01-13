@@ -112,5 +112,6 @@ namespace RWInbound2
         public virtual DbSet<tblEquipment> tblEquipments { get; set; }
         public virtual DbSet<WaterCodeDrainage> WaterCodeDrainages { get; set; }
         public virtual DbSet<StationImage> StationImages { get; set; }
+        public virtual DbSet<StationImageType> StationImageTypes { get; set; }
     }
 }
