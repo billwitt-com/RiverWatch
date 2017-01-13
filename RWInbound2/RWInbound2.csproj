@@ -1542,6 +1542,34 @@
     <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Organizations.aspx.cs">
+      <DependentUpon>Organizations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Organizations.aspx.designer.cs">
+      <DependentUpon>Organizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OrgStations.aspx.cs">
+      <DependentUpon>OrgStations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgStations.aspx.designer.cs">
+      <DependentUpon>OrgStations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OrgStatus.aspx.cs">
+      <DependentUpon>OrgStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgStatus.aspx.designer.cs">
+      <DependentUpon>OrgStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OrgUnknownResults.aspx.cs">
+      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgUnknownResults.aspx.designer.cs">
+      <DependentUpon>OrgUnknownResults.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1562,6 +1590,15 @@
     </Compile>
     <Compile Include="Reports\PublicUsers.aspx.designer.cs">
       <DependentUpon>PublicUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\QAQCReport.aspx.cs">
+      <DependentUpon>QAQCReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\QAQCReport.aspx.designer.cs">
+      <DependentUpon>QAQCReport.aspx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\ReportLachatNOTINNutrientBarcode.aspx.cs">
       <DependentUpon>ReportLachatNOTINNutrientBarcode.aspx</DependentUpon>
@@ -1584,12 +1621,33 @@
     <Compile Include="Reports\Samples.aspx.designer.cs">
       <DependentUpon>Samples.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Stations.aspx.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Stations.aspx.designer.cs">
+      <DependentUpon>Stations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\StationsByProject.aspx.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\StationsByProject.aspx.designer.cs">
+      <DependentUpon>StationsByProject.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.designer.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ViewStationsWithGauges.aspx.cs">
+      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ViewStationsWithGauges.aspx.designer.cs">
+      <DependentUpon>ViewStationsWithGauges.aspx</DependentUpon>
     </Compile>
     <Compile Include="RiverWatchDataParticipants.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2069,6 +2127,18 @@
     <Content Include="Reports\LachatNoBC.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reports\OrgStatus.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\OrgStations.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\StationsWithGauges.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\OrganizationsAll.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Reports\Participants.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2076,6 +2146,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\Samples.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Stations.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\PublicUsers.rdlc">
