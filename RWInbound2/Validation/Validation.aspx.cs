@@ -20,6 +20,7 @@ namespace RWInbound2.Validation
             int normalCount = 0;
             int nutrientCount = 0;
             int nutrientDupCount = 0;
+            int nutrientSoloDupCount = 0;
             int lachatNotRecorded = 0;
             int unknownCount = 0;
             int FieldNotRecorded = 0;
@@ -104,6 +105,14 @@ namespace RWInbound2.Validation
                 if (C1.Count() > 0)
                 {
                     nutrientDupCount = C1.Count();
+                }
+
+                var C2 = from c2 in RWE.NutrientDatas
+                         where c2.Valid == true & c2.TypeCode.Contains("35") & c2.Validated == false
+                         select c2;
+                if (C2.Count() > 0)
+                {
+                    nutrientSoloDupCount = C2.Count();
                 }
             }
             catch (Exception ex)
@@ -215,6 +224,16 @@ namespace RWInbound2.Validation
                         lblLachatDups.Text = "There are no nutrient dup samples to Validate";
                     }
 
+                    // nutrientSoloDupCount
+                    if (nutrientSoloDupCount > 0)
+                    {
+                        lblSoloLachatDups.Text = string.Format("There are {0} nutrient Solo dup samples to validate", nutrientDupCount);
+                    }
+                    else
+                    {
+                        lblSoloLachatDups.Text = "There are no nutrient Solo dup samples to Validate";
+                    }
+
                     if(lachatNotRecorded > 0)
                     {
                         lblLachatMessage.Text = string.Format("NOTE: There are {0} unrecorded Lachat barcodes - view under Reports", lachatNotRecorded);
@@ -240,9 +259,9 @@ namespace RWInbound2.Validation
 
                     // now do field data 
 
-                    string cmdCount = "select count(*) from [FieldNOTInSamples]";
+                    string cmdCount = "select count(*) from [FieldNOTInSamples]";   // field not recorded in samples this seems good 01/16 bw
                     //string totalField = "select count(*) from [FieldINSamples]";
-                    string totalFieldNotValidated = "select count(*) from [FieldNOTInSamples] WHERE [PassValStep] < 0 ";
+                    string totalFieldNotValidated = " select count(*) FROM [InboundSamples] where [PassValStep] < 0  "; // updated 01/16
                         //"EXEC GetFieldINSamples";
                     using (SqlConnection conn = new SqlConnection())
                     {
@@ -264,7 +283,7 @@ namespace RWInbound2.Validation
 
                     if(FieldNotRecorded > 0)
                     {
-                        lblFieldNotRecorded.Text = string.Format("There are {0} unrecorded Field Data Records - view under Reports", FieldNotRecorded);
+                        lblFieldNotRecorded.Text = string.Format("There are {0} unrecorded Field Data Records ", FieldNotRecorded);
                         lblFieldNotRecorded.ForeColor = System.Drawing.Color.Red; 
                     }
                     else

@@ -40,6 +40,13 @@
         <tr>
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 209px">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 27px">&nbsp;</td>
+            <td style="width: 209px">
                 <asp:Button ID="btnLachet" runat="server"  Text="Step #1 Lachat Normals"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnLachet_Click"   />
             </td>
             <td>
@@ -60,19 +67,20 @@
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 209px">
                
+                <asp:Button ID="btnLachatHangingDups" runat="server"  Text="Step #3 Lachat Solo Dups"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnLachatDups_Click"   />
+               
             </td>
             <td>
-                <asp:Label ID="lblLachatMessage" runat="server"></asp:Label>
+                <asp:Label ID="lblSoloLachatDups" runat="server"></asp:Label>
             </td>
         </tr>
 
          <tr>
             <td style="width: 27px">&nbsp;</td>
             <td style="width: 209px">
-                <asp:Button ID="btnLachatHangingDups" runat="server"  Text="Step #3 Lachat Solo Dups"  Width="190px" Font-Bold="True" Font-Names="Calibri" Font-Size="16px" OnClick="btnLachatDups_Click"   />
-            </td>
+                &nbsp;</td>
             <td>
-                <asp:Label ID="lblSoloLachatDups" runat="server"></asp:Label>
+                <asp:Label ID="lblLachatMessage" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>

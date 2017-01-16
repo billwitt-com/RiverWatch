@@ -643,6 +643,12 @@ namespace RWInbound2.Validation
 
             try
             {
+                var Q = (from q in RWE.Samples
+                         where q.SampleNumber == SampleNumber & q.Valid == true
+                         select q).FirstOrDefault();
+                eventID = (string)Q.NumberSample;
+                tblSampleID = Q.ID;
+
                 // update inbound to mark valided
                 var IBS = from i in RWE.InboundSamples
                           where i.SampleID == SampleNumber & i.Valid == true
@@ -652,6 +658,7 @@ namespace RWInbound2.Validation
                     foreach (var z in IBS)
                     {
                         z.PassValStep = 2.0M;
+                        z.tblSampleID = Q.ID;   // fill this in too
                     }
                     RWE.SaveChanges();
                 }
@@ -705,11 +712,11 @@ namespace RWInbound2.Validation
                     NEW = new NEWexpWater(); // create new entity as there is not one yet
                     // now we must get eventID or numberSample from Samples table
 
-                    var Q = (from q in RWE.Samples
+                    var SP = (from q in RWE.Samples
                              where q.SampleNumber == SampleNumber & q.Valid == true
                              select q).FirstOrDefault();
-                    eventID = (string)Q.NumberSample;
-                    tblSampleID = Q.ID;
+                    eventID = (string)SP.NumberSample;
+                    tblSampleID = SP.ID;
 
 
                     NEW.SampleNumber = SampleNumber;

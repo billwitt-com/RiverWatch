@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditInboundFieldData.aspx.cs" Inherits="RWInbound2.Admin.EditInboundFieldData" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true"  CodeBehind="EditInboundFieldData.aspx.cs" Inherits="RWInbound2.Admin.EditInboundFieldData" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -33,7 +33,7 @@
     <asp:Label ID="lblMsg" runat="server"></asp:Label>
     <br />
     <br />
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="1000px">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="1000px" BackColor="White">
         <Columns>
             <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ButtonType="Button" />
             <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
@@ -41,7 +41,7 @@
             <asp:BoundField DataField="SampleID" HeaderText="SampleID" SortExpression="SampleID" />
             <asp:BoundField DataField="txtSampleID" HeaderText="txtSampleID" SortExpression="txtSampleID" />
             <asp:BoundField DataField="KitNum" HeaderText="KitNum" SortExpression="KitNum" />
-            <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date" />
+            <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date" DataFormatString="{0:d}" />
             <asp:BoundField DataField="Time" HeaderText="Time" SortExpression="Time" />
             <asp:BoundField DataField="USGSFlow" HeaderText="USGSFlow" SortExpression="USGSFlow" />
             <asp:BoundField DataField="PH" HeaderText="PH" SortExpression="PH" />
@@ -80,6 +80,7 @@
             <asp:BoundField DataField="tblSampleID" HeaderText="tblSampleID" SortExpression="tblSampleID" />
             <asp:CheckBoxField DataField="Valid" HeaderText="Valid" SortExpression="Valid" />
         </Columns>
+        <EditRowStyle BackColor="#999999" />
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
         DeleteCommand="DELETE FROM [InboundSamples] WHERE [ID] = @ID" 

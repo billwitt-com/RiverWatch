@@ -18,7 +18,7 @@
                     <asp:Button ID="btnExpWater" runat="server" Text="Edit ExpWater" CssClass="adminButton" Width="176px" OnClick="btnExpWaters_Click" />
                 </td>                    
                 <td>
-                    <asp:Button ID="btnEditIncoming" runat="server" Text="EditInbound Field Data" CssClass="adminButton" Width="176px" OnClick="btnEditIncoming_Click" />
+                    <asp:Button ID="btnEditIncoming" runat="server" Text="Edit Inbound Field Data" CssClass="adminButton" Width="176px" OnClick="btnEditIncoming_Click" />
                 </td> 
             </tr>
             <tr>

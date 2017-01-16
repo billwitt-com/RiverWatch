@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ValidateSoloNutrients.aspx.cs" Inherits="RWInbound2.Validation.ValidateSoloNutrients" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
-    <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Validate Nutrients"></asp:Label>
+    <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Validate Solo Dup Nutrients"></asp:Label>
 
     <br />
     <br />
