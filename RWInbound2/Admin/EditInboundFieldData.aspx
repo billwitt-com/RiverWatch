@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="View - Delete Inbound Field Data"></asp:Label>
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Edit - Delete Unvalidated Inbound Field Data"></asp:Label>
 
     <table>
         <tr>
