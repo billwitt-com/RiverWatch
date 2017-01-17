@@ -2112,16 +2112,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Public\OrgStations.rdlc" />
-    <EmbeddedResource Include="Public\OrgStatus.rdlc" />
-    <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
-    <EmbeddedResource Include="Public\QAQCReport.rdlc" />
-    <EmbeddedResource Include="Public\RawSamplesAll.rdlc" />
+    <Content Include="Public\OrgStatus.rdlc" />
+    <Content Include="Public\OrgUnknownResults.rdlc" />
+    <Content Include="Public\QAQCReport.rdlc" />
+    <Content Include="Public\RawSamplesAll.rdlc" />
     <EmbeddedResource Include="Public\Report2.rdlc" />
     <EmbeddedResource Include="Public\Report3.rdlc" />
-    <EmbeddedResource Include="Public\OrgsByProject.rdlc" />
-    <EmbeddedResource Include="Public\Stations.rdlc" />
-    <EmbeddedResource Include="Public\stationsByProject.rdlc" />
-    <EmbeddedResource Include="Public\StationsWithGauges.rdlc" />
+    <Content Include="Public\OrgsByProject.rdlc" />
+    <Content Include="Public\Stations.rdlc" />
+    <Content Include="Public\stationsByProject.rdlc" />
+    <Content Include="Public\StationsWithGauges.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
