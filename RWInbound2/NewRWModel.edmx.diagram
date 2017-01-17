@@ -92,6 +92,8 @@
         <EntityTypeShape EntityType="RiverWatchModel.UnknownResultsForOrgView" Width="1.5" PointX="29.375" PointY="0.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tblEquipment" Width="1.5" PointX="9.375" PointY="30.75" />
         <EntityTypeShape EntityType="RiverWatchModel.WaterCodeDrainage" Width="1.5" PointX="31.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.StationImage" Width="1.5" PointX="15" PointY="37.5" />
+        <AssociationConnector Association="RiverWatchModel.FK_StationImage_StationImage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

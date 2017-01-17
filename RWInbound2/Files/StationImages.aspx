@@ -59,25 +59,90 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-    <div>
-        <h4>Select a file to upload:</h4>
+    <asp:Panel ID="StationNamePanel" runat="server">
+        <div>
+            <b>Station Name:</b>
+            <asp:Label ID="lblStationName" runat="server"></asp:Label>   
+            <asp:HiddenField id="HiddenStationID" runat="server" />
+        </div>
+    </asp:Panel>
+    <br />
+    <br />
 
-        <asp:FileUpload id="FileUploadStationImages"                 
-            runat="server">
-        </asp:FileUpload>
-
-        <br/><br/>
-
-        <asp:Button id="UploadBtn" 
-            Text="Upload file"
-            OnClick="UploadBtn_Click"
-            runat="server">
-        </asp:Button>    
-
-        <hr />
-
-        <asp:Label id="UploadStatusLabel"
-            runat="server">
-        </asp:Label>     
-    </div>
+    <asp:GridView ID="StationImagesGridView" runat="server"
+            DataKeyNames="ID"
+            ItemType="RWInbound2.StationImage" 
+            SelectMethod="GetStationImages"
+            UpdateMethod="UpdateStationImage"
+            DeleteMethod="DeleteStationImage" 
+            InsertItemPosition="LastItem"  
+            ShowFooter="True"
+            CellPadding="4"
+            AutoGenerateColumns="False" CssClass="grid-larger-editor-columns-center"
+            GridLines="None" ForeColor="#333333" Height="238px"
+            AllowPaging="True" Pagesize="15">
+            <AlternatingRowStyle BackColor="White" />
+                    
+            <Columns>  
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />
+                        <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
+                                    OnClientClick="return confirm('Are you certain you want to delete this?');"/>
+                    </ItemTemplate>
+                     <EditItemTemplate>
+                        <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
+                        <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
+                    </EditItemTemplate>                    
+                    <FooterTemplate>
+                        <asp:Button ID="btnAdd" runat="server" Text="Add"
+                                    OnClick="AddNewStationImage" />
+                    </FooterTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />                
+                <asp:TemplateField HeaderText="Image Name" SortExpression="FileName">                    
+                    <ItemTemplate>
+                        <asp:Label ID="lblFileName" runat="server" Text='<%# Bind("FileName") %>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>                         
+                    </FooterTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Image" SortExpression="Image">                    
+                    <ItemTemplate>
+                        <asp:Image runat="server" ImageUrl='<%# Eval("FileUrl") %>' CssClass="grid-station-images-image-size" />  
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:FileUpload id="FileUploadStationImages" accept="image/*" multiple="false"                 
+                            runat="server">
+                        </asp:FileUpload>                       
+                        <p class="grid-station-images-upload-comment">
+                            Max Image Size: 1 MB (1000KB) <br />
+                            Only Image file types allowed <br />
+                        </p>
+                        <asp:Label ID="lblFileUploadStationImagesMaxSize" runat="server" Visible="false" CssClass="required">
+                            Image exceeds maximum Image size!
+                        </asp:Label>
+                        <asp:Label ID="lblFileUploadStationImagesFileType" runat="server" Visible="false" CssClass="required">
+                            Invalid Image file type!
+                        </asp:Label>
+                        <asp:Label ID="lblFileUploadStationImagesFileExists" runat="server" Visible="false" CssClass="required">
+                            File already exists for this station!
+                        </asp:Label>
+                    </FooterTemplate>
+                </asp:TemplateField>               
+                <asp:TemplateField HeaderText="Primary Image" SortExpression="Primary">
+                    <EditItemTemplate>
+                        <asp:CheckBox ID="checkBoxPrimary" runat="server" Checked='<%# Bind("Primary") %>' />
+                    </EditItemTemplate>
+                   <ItemTemplate>
+                        <asp:CheckBox ID="checkPrimary" runat="server" Checked='<%# Bind("Primary") %>' Enabled="false" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                       <asp:CheckBox ID="NewCheckBoxPrimary" runat="server" />                        
+                    </FooterTemplate>
+                </asp:TemplateField> 
+            </Columns>
+            <EditRowStyle BackColor="#2461BF" />            
+        </asp:GridView>      
+    
 </asp:Content>

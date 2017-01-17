@@ -111,5 +111,6 @@ namespace RWInbound2
         public virtual DbSet<UnknownResultsForOrgView> UnknownResultsForOrgViews { get; set; }
         public virtual DbSet<tblEquipment> tblEquipments { get; set; }
         public virtual DbSet<WaterCodeDrainage> WaterCodeDrainages { get; set; }
+        public virtual DbSet<StationImage> StationImages { get; set; }
     }
 }
