@@ -59,9 +59,10 @@
             <br />   
             <div class="edit-exp-water-div">
                 <label>Event:</label>
-                <asp:Label ID="Event" runat="server" ReadOnly="true" Text='<%# Bind("Event") %>'></asp:Label> 
+                <asp:Label ID="Event" runat="server" Text='<%# Bind("Event") %>'></asp:Label> 
                 <label>Sample Number:</label>
-                <asp:TextBox ID="tbSampleNumber"  ReadOnly="true" runat="server" Text='<%# Bind("SampleNumber") %>'></asp:TextBox>
+                <asp:Label ID="SampleNumber" runat="server" Text='<%# Bind("SampleNumber") %>'></asp:Label>
+                <%--<asp:TextBox ID="tbSampleNumber"  ReadOnly="true" runat="server" Text='<%# Bind("SampleNumber") %>'></asp:TextBox>--%>
 
                 <label>Water Shed:</label>
                 <asp:TextBox ID="WaterShed" runat="server" Text='<%# Bind("WaterShed") %>'></asp:TextBox>
@@ -76,11 +77,13 @@
                 <asp:TextBox ID="OrganizationName" runat="server" Text='<%# Bind("OrganizationName") %>'></asp:TextBox>
                 <label>Organization ID:</label>
                 <asp:TextBox ID="OrganizationID" runat="server" Text='<%# Bind("OrganizationID") %>'></asp:TextBox>
+            </div>
+             <div class="edit-exp-water-div">
                 <label>Station Number:</label>
                 <asp:TextBox ID="StationNumber" runat="server" Text='<%# Bind("StationNumber") %>'></asp:TextBox>
                 <label>Station ID:</label>
                 <asp:TextBox ID="StationID" runat="server" Text='<%# Bind("StationID") %>'></asp:TextBox>
-            </div>   
+             </div>   
             <hr class="edit-exp-water-hr" /> 
             <div class="edit-exp-water-div">
                 <label>Type Code:</label>
@@ -484,6 +487,8 @@
             <asp:HiddenField id="BadDuplicate" runat="server" value='<%# Bind("BadDuplicate") %>' />
             <asp:HiddenField id="BadSample" runat="server" value='<%# Bind("BadSample") %>' />
             <asp:HiddenField id="Valid" runat="server" value='<%# Bind("Valid") %>' />
+             <asp:HiddenField id="HiddenEvent" runat="server" value='<%# Bind("Event") %>' />
+             <asp:HiddenField id="HiddenSampleNumber" runat="server" value='<%# Bind("SampleNumber") %>' />
         </EditItemTemplate>            
     </asp:FormView>            
 </asp:Content>

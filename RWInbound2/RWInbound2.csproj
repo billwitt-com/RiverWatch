@@ -403,11 +403,7 @@
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
-    <None Include="Properties\PublishProfiles\coloradoriverwatchwest %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\coloradoriverwatchwest %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <Content Include="Reports\Samples.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />

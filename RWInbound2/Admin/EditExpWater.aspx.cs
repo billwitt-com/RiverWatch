@@ -120,7 +120,7 @@ namespace RWInbound2.Admin
                 {
                     sampleNumbers = _db.NEWexpWaters
                                         .Where(e => e.SampleNumber.StartsWith(prefixText) && e.Valid == true)
-                                        .Select(c => c.SampleNumber).ToList();
+                                        .Select(c => c.SampleNumber).Distinct().ToList();
 
                     return sampleNumbers;
                 }

@@ -160,3 +160,4 @@ $RECYCLE.BIN/
 /RWInbound2/App_Data/ErrorLog.12.12.2016.txt
 /RWInbound2.zip
 /bfg-1.12.14.jar
+*.txt
