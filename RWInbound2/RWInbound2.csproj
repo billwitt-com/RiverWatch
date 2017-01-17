@@ -1523,6 +1523,7 @@
     </Compile>
     <Compile Include="Public\StationsByProject.aspx.cs">
       <DependentUpon>StationsByProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Public\StationsByProject.aspx.designer.cs">
       <DependentUpon>StationsByProject.aspx</DependentUpon>
@@ -1749,6 +1750,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StationImage.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StationImageType.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StationsByProject.Designer.cs">

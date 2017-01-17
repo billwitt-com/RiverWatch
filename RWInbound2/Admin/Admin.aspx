@@ -77,7 +77,8 @@
                     <asp:Button ID="btnRoles" runat="server" Text="Roles" CssClass="adminButton" Width="176px" OnClick="btnRoles_Click" />               
                 </td>                    
                <td style="width: 262px">                    
-                    &nbsp;</td>     
+                    <asp:Button ID="btnStationImages" runat="server" Text="Station Images" CssClass="adminButton" Width="176px" OnClick="btnStationImages_Click" />     
+               </td>     
             </tr>   
 
             <tr>

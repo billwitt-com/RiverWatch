@@ -11,7 +11,7 @@
             <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
         </div>
         <div class="label-placement">
-                <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
+            <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
         </div>
         <br />            
     </div>
@@ -74,7 +74,9 @@
             ItemType="RWInbound2.StationImage" 
             SelectMethod="GetStationImages"
             UpdateMethod="UpdateStationImage"
-            DeleteMethod="DeleteStationImage" 
+            DeleteMethod="DeleteStationImage"
+            OnRowEditing="StationImagesGridView_RowEditing" 
+            OnRowCancelingEdit="StationImagesGridView_RowCancelingEdit"
             InsertItemPosition="LastItem"  
             ShowFooter="True"
             CellPadding="4"
@@ -82,7 +84,49 @@
             GridLines="None" ForeColor="#333333" Height="238px"
             AllowPaging="True" Pagesize="15">
             <AlternatingRowStyle BackColor="White" />
-                    
+            <EmptyDataTemplate>
+                 <asp:Panel ID="NoResultsPanel" runat="server" Visible="false" OnInit="Show" OnDataBinding="Show" OnLoad="Show" >
+                    <table style="color:#333333; border-collapse:collapse;" class="grid-station-images-upload-no-results-table">
+                        <tr class="grid-edit-station-images-emptydata-template" >
+                            <th scope="col" class="grid-edit-station-images-emptydata-template">&nbsp;</th> 
+                            <th scope="col" class="grid-edit-station-images-emptydata-template">Image Type</th> 
+                            <th scope="col" class="grid-edit-station-images-emptydata-template">Image</th>
+                            <th scope="col" class="grid-edit-station-images-emptydata-template">
+                                Primary Station Photo <br />
+                                <small>(Only applies to Station Photos)</small>
+                            </th>
+                            <th scope="col" class="grid-edit-station-images-emptydata-template">Description</th>
+                        </tr>
+                        <tr class="grid-edit-station-images-emptydata-template">
+                            <td>
+                                <asp:Button ID="btnAdd" runat="server" Text="Add New"
+                                                 OnClick="AddNewStationImage" />
+                            </td>
+                            <td class="grid-edit-station-images-emptydata-template">
+                                <asp:DropDownList ID="dropDownNewStationImageTypes" runat="server" AutoPostBack="false" DataMember="it"
+                                    SelectMethod="BindStationImageTypes" CssClass="grid-edit-station-images-dropdown"                                         
+                                    AppendDataBoundItems="true" DataTextField="Type" DataValueField="ID">
+                                </asp:DropDownList>
+                            </td>                         
+                            <td class="grid-edit-station-images-emptydata-template">
+                                <asp:FileUpload id="FileUploadStationImages" accept="image/*" multiple="false"                 
+                                    runat="server">
+                                </asp:FileUpload>                       
+                                <p class="grid-station-images-upload-rules">
+                                    Max Image Size: 1 MB (1000KB) <br />
+                                    Only Image file types allowed <br />
+                                </p>                               
+                            </td>
+                            <td class="grid-edit-station-images-emptydata-template">
+                                <asp:CheckBox ID="NewCheckBoxPrimary" runat="server" />   
+                            </td>   
+                            <td class="grid-edit-station-images-emptydata-template">
+                                <asp:TextBox ID="NewDescription" runat="server" TextMode="MultiLine" MaxLength="200" CssClass="grid-edit-station-images-medium-textbox"></asp:TextBox>   
+                            </td>                         
+                        </tr>                        
+                    </table>
+                 </asp:Panel>
+            </EmptyDataTemplate>        
             <Columns>  
                 <asp:TemplateField>
                     <ItemTemplate>
@@ -99,7 +143,26 @@
                                     OnClick="AddNewStationImage" />
                     </FooterTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />                
+                <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />  
+                <asp:TemplateField HeaderText="Image Type" SortExpression="ImageType" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-station-images-medium-textbox" 
+                    ControlStyle-CssClass="grid-edit-station-images-dropdown">                            
+                    <EditItemTemplate>
+                        <asp:DropDownList ID="dropDownStationImageTypes" runat="server" AutoPostBack="false" DataMember="it"
+                                    SelectMethod="BindStationImageTypes"
+                                    SelectedValue='<%# Bind("ImageType") %>'                                          
+                                    AppendDataBoundItems="true" DataTextField="Type" DataValueField="ID">
+                        </asp:DropDownList>                                 
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblStationImageType" runat="server" Text='<%# Bind("StationImageType.Type") %>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>                        
+                        <asp:DropDownList ID="dropDownNewStationImageTypes" runat="server" AutoPostBack="false" DataMember="it"
+                                    SelectMethod="BindStationImageTypes" CssClass="grid-edit-station-images-dropdown"                                         
+                                    AppendDataBoundItems="true" DataTextField="Type" DataValueField="ID">
+                        </asp:DropDownList>
+                    </FooterTemplate>
+                </asp:TemplateField>              
                 <asp:TemplateField HeaderText="Image Name" SortExpression="FileName">                    
                     <ItemTemplate>
                         <asp:Label ID="lblFileName" runat="server" Text='<%# Bind("FileName") %>'></asp:Label>
@@ -118,19 +181,10 @@
                         <p class="grid-station-images-upload-comment">
                             Max Image Size: 1 MB (1000KB) <br />
                             Only Image file types allowed <br />
-                        </p>
-                        <asp:Label ID="lblFileUploadStationImagesMaxSize" runat="server" Visible="false" CssClass="required">
-                            Image exceeds maximum Image size!
-                        </asp:Label>
-                        <asp:Label ID="lblFileUploadStationImagesFileType" runat="server" Visible="false" CssClass="required">
-                            Invalid Image file type!
-                        </asp:Label>
-                        <asp:Label ID="lblFileUploadStationImagesFileExists" runat="server" Visible="false" CssClass="required">
-                            File already exists for this station!
-                        </asp:Label>
+                        </p>                        
                     </FooterTemplate>
                 </asp:TemplateField>               
-                <asp:TemplateField HeaderText="Primary Image" SortExpression="Primary">
+                <asp:TemplateField HeaderText="Primary Station Photo<br /><small>(Only applies to Station Photos)</small>" SortExpression="Primary">
                     <EditItemTemplate>
                         <asp:CheckBox ID="checkBoxPrimary" runat="server" Checked='<%# Bind("Primary") %>' />
                     </EditItemTemplate>
@@ -141,8 +195,19 @@
                        <asp:CheckBox ID="NewCheckBoxPrimary" runat="server" />                        
                     </FooterTemplate>
                 </asp:TemplateField> 
+                <asp:TemplateField HeaderText="Description" SortExpression="Description" >
+                    <EditItemTemplate >
+                        <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" MaxLength="100" Text='<%# Bind("Description") %>' CssClass="grid-edit-station-images-medium-textbox"></asp:TextBox>                                                          
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblDescription" runat="server" Text='<%# Bind("Description") %>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:TextBox ID="NewDescription" runat="server" TextMode="MultiLine" MaxLength="200" CssClass="grid-edit-station-images-medium-textbox"></asp:TextBox>   
+                    </FooterTemplate>
+                </asp:TemplateField> 
             </Columns>
-            <EditRowStyle BackColor="#2461BF" />            
+            <EditRowStyle BackColor="#2461BF" ForeColor="White" />            
         </asp:GridView>      
     
 </asp:Content>

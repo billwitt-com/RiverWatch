@@ -1842,6 +1842,47 @@ div#updatePanelOrgUnknownResults{
     width: 150px;
     resize: vertical;
 }
-.EditTabTable {
-    table-layout: fixed;
+
+/*Station Images*/
+.grid-station-images-image-size{
+    height: 100px;
+    width: 100px;
+}
+
+.grid-station-images-upload-rules{
+    font-size: 0.8em;
+    font-weight:bold;
+}
+
+.grid-station-images-upload-no-results-table{
+    width: 900px;
+}
+
+.grid-edit-station-images-medium-textbox{
+    width: 120px;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
+
+.grid-edit-station-images-dropdown {
+    width: auto;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
+
+.grid-edit-station-images-emptydata-template td{
+    border: 1px solid #dddddd;    
+    padding: 8px;
+}
+
+.grid-edit-station-images-emptydata-template th{
+    border: 1px solid #dddddd;    
+    padding: 8px;
+}
+
+.grid-edit-station-images-emptydata-template > tr:nth-child(even){
+    border: 1px solid #dddddd;    
+    padding: 8px;
 }

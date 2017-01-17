@@ -14,7 +14,6 @@ namespace RWInbound2.Admin
 
         }
 
-
         protected void btnSearchOrgName_Click(object sender, EventArgs e)
         {
 
@@ -79,6 +78,7 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("ManagePublicAccess.aspx");
         }
+
         protected void Button7_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditUnknowns.aspx");
@@ -113,6 +113,11 @@ namespace RWInbound2.Admin
         protected void btnPermissions_Click(object sender, EventArgs e)
         {
             // no code for this yet?
+        }
+
+        protected void btnStationImages_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(this.ResolveClientUrl("~/Files/StationImages.aspx"));
         }
 
         protected void btnBulkEditOrgActive_Click(object sender, EventArgs e)

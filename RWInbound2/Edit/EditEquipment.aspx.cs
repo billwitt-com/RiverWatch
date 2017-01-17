@@ -26,9 +26,6 @@ namespace RWInbound2.Edit
                 // to appear before the first roundtrip.
                 Validate();
             }
-
-            //var gridView = EquipmentGridView.Controls[0].Controls[0].FindControl("dropDownNewOrganizationIDs") == null ?
-            //               EquipmentGridView.FooterRow : EquipmentGridView.Controls[0].Controls[0];
         }
 
         private void SetMessages(string type = "", string message = "")
@@ -87,9 +84,7 @@ namespace RWInbound2.Edit
                                                       [QueryString]string successLabelMessage = "")
         {
             try
-            {
-                //var noResultsPanel = EquipmentGridView.Controls[0].Controls[0].FindControl("NoResultsPanel") == null ? null :
-                //                     EquipmentGridView.Controls[0].Controls[0].FindControl("NoResultsPanel");
+            {                
                 RiverWatchEntities _db = new RiverWatchEntities();
 
                 PropertyInfo isreadonly
@@ -107,7 +102,7 @@ namespace RWInbound2.Edit
                 {
                     OrganizationNamePanel.Visible = false;
                     lblOrganizationName.Text = "";
-                    //if(noResultsPanel != null) { noResultsPanel.Visible = false; }
+                    
                     return null;
                 }
 
@@ -118,7 +113,7 @@ namespace RWInbound2.Edit
                 {
                     OrganizationNamePanel.Visible = false;
                     lblOrganizationName.Text = "";
-                    //if (noResultsPanel != null) { noResultsPanel.Visible = false; }
+                    
                     return null;
                 }
 
@@ -131,7 +126,7 @@ namespace RWInbound2.Edit
                 {                    
                     OrganizationNamePanel.Visible = true;
                     lblOrganizationName.Text = orgName;
-                    //if (noResultsPanel != null) { noResultsPanel.Visible = true; }
+                    
                     orgNameGlobal = orgName;
                     HiddenOrgID.Value = orgID.ToString();
                 }
@@ -487,8 +482,6 @@ namespace RWInbound2.Edit
             {
                 EquipmentGridView.Controls[0].Controls[0].FindControl("NoResultsPanel").Visible = true;
             }
-                
-            //return "";
         }
 
         protected void ScriptManager1_AsyncPostBackError(object sender, AsyncPostBackErrorEventArgs e)
