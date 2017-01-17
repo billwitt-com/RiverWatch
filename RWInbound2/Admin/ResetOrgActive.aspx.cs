@@ -20,17 +20,33 @@ namespace RWInbound2.Admin
         protected void Button1_Click(object sender, EventArgs e)
         {
             int rowcount = 0;
-            using(SqlCommand cmd = new SqlCommand())
+            try
             {
-                using(SqlConnection conn = new SqlConnection())
+
+
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;
-                    cmd.Connection = conn;
-                    conn.Open(); 
-                    cmd.CommandText = "  UPDATE [dbo].[organization] SET ACTIVE = 0 ";
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    rowcount = cmd.ExecuteNonQuery(); 
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString;
+                        cmd.Connection = conn;
+                        conn.Open();
+                        cmd.CommandText = "  UPDATE [dbo].[organization] SET ACTIVE = 0 ";
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        rowcount = cmd.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
 
             LblResults.Text = string.Format("Set {0} Orgs to inactive", rowcount);
