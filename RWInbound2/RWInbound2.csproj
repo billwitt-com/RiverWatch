@@ -288,6 +288,7 @@
     <Content Include="Images\Bucketdrop.jpg" />
     <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
     <Content Include="Images\Clear Creek High School.JPG" />
+    <Content Include="Images\faq.png" />
     <Content Include="Images\loader.gif" />
     <Content Include="Images\RWsciencefairawards.jpg" />
     <Content Include="Public\FieldData.aspx" />
@@ -401,6 +402,18 @@
     </None>
     <Content Include="DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <Content Include="Images\RWdatainfodownloadv1.pdf" />
+    <Content Include="PartsWithOrgs.xsc">
+      <DependentUpon>PartsWithOrgs.xsd</DependentUpon>
+    </Content>
+    <None Include="PartsWithOrgs.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PartsWithOrgs.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PartsWithOrgs.xss">
+      <DependentUpon>PartsWithOrgs.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest %282%29.pubxml" />
@@ -1238,6 +1251,11 @@
     </Compile>
     <Compile Include="ParticipantswithOrgName.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartsWithOrgs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartsWithOrgs.xsd</DependentUpon>
     </Compile>
     <Compile Include="Project.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -2108,9 +2126,6 @@
     <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\MailingLabels.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <EmbeddedResource Include="Public\OrgStations.rdlc" />
     <EmbeddedResource Include="Public\OrgStatus.rdlc" />
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
@@ -2122,6 +2137,7 @@
     <EmbeddedResource Include="Public\Stations.rdlc" />
     <EmbeddedResource Include="Public\stationsByProject.rdlc" />
     <EmbeddedResource Include="Public\StationsWithGauges.rdlc" />
+    <EmbeddedResource Include="Reports\MLables.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -41,6 +41,7 @@
             </ContentTemplate>
         </asp:UpdatePanel>  
     </div>       
+<%--                   <asp:Label ID="Event" runat="server" ReadOnly="true" Text='<%# Bind("Event") %>'></asp:Label> --%>
     <asp:FormView ID="ExpWaterFormView" runat="server" 
         DataKeyNames="ID"
         ItemType="RWInbound2.NEWexpWater" 
@@ -59,7 +60,7 @@
             <br />   
             <div class="edit-exp-water-div">
                 <label>Event:</label>
-                <asp:Label ID="Event" runat="server" ReadOnly="true" Text='<%# Bind("Event") %>'></asp:Label> 
+                <asp:TextBox ID="tbEvent" runat="server" ReadOnly="true" Text='<%# Bind("Event") %>'></asp:TextBox>
                 <label>Sample Number:</label>
                 <asp:TextBox ID="tbSampleNumber"  ReadOnly="true" runat="server" Text='<%# Bind("SampleNumber") %>'></asp:TextBox>
 

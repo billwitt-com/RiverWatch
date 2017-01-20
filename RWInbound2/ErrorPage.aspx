@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Error:</h2>
     <p></p>
-    <asp:Label ID="FriendlyErrorMsg" runat="server" Text="Label" Font-Size="Large" style="color: red"></asp:Label>
+    <asp:Label ID="FriendlyErrorMsg" runat="server" Text="Label" Font-Size="Small" style="color: red"></asp:Label>
     <br />
     <h4>Detailed Error:</h4>
         <p>

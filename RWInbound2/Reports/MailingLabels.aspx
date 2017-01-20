@@ -4,24 +4,35 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <hgroup>
-        <h3><%: Page.Title %></h3>
-    </hgroup>
 
-    <div class="label-placement">
-        <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
-    </div>
-    <div class="label-placement">
-            <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
-    </div>
     <br />
-    <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Width="1072px" Height="551px" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" ShowPrintButton="False">
-        <LocalReport ReportPath="Reports\MailingLabels.rdlc">
+
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Mail Labels"></asp:Label>
+    <br />
+
+    <asp:RadioButtonList ID="RadioButtonList1"   runat="server">
+         <asp:ListItem   Selected="True">All Participants</asp:ListItem>
+        <asp:ListItem>Active Orgs and Their Active Primary Contacts</asp:ListItem>
+        <asp:ListItem>Participants - Active Only</asp:ListItem>         
+    </asp:RadioButtonList>
+
+
+    <asp:Button ID="btnSelect" runat="server" CssClass="adminButton" Text="Select" OnClick="btnSelect_Click" />
+
+
+    <br />
+
+
+    <br />
+    <rsweb:ReportViewer ID="ReportViewer1" PageCountMode="Actual" runat="server" Width="918px" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
+        <LocalReport ReportPath="Reports\MLables.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
             </DataSources>
         </LocalReport>
     </rsweb:ReportViewer>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
-        SelectCommand="SELECT * FROM [ParticipantswithOrgName] WHERE Active=1 AND PrimaryContact=1 "></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" >
+        </asp:SqlDataSource>
 </asp:Content>
+
+<%--SelectCommand="SELECT * FROM [ParticipantswithOrgName] WHERE Active=1 AND PrimaryContact=1 ">--%>
