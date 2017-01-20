@@ -4,9 +4,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <hgroup>
-        <h3><%: Page.Title %></h3>
-    </hgroup>
+
+    <br />
+
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Participants Table"></asp:Label>
+
+    <br />
 
     <div class="label-placement">
         <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
@@ -23,5 +26,5 @@
     </LocalReport>
 </rsweb:ReportViewer>
 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
-    SelectCommand="SELECT [OrganizationName], [LastName], [FirstName], [Title], [YearSignedOn], [Phone], [Email], [Active], [MailPreference], [HomeEmail], [HomePhone], [Zip], [State], [City], [Address2], [Address1], [PrimaryContact], [Training], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [Valid] FROM [ParticipantsView] ORDER BY [LastName]"></asp:SqlDataSource>
+    SelectCommand="SELECT [OrganizationName], [LastName], [FirstName], [Title], [YearSignedOn], [Phone], [Email], [Active], [MailPreference], [HomeEmail], [HomePhone], [Zip], [State], [City], [Address2], [Address1], [PrimaryContact], [Training], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [Valid] FROM [ParticipantsView] ORDER BY [OrganizationName],[LastName]"></asp:SqlDataSource>
 </asp:Content>
