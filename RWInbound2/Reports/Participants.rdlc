@@ -960,13 +960,7 @@
                                 <Color>#4d4d4d</Color>
                               </Style>
                             </TextRun>
-                            <TextRun>
-                              <Value>Participants</Value>
-                              <Style>
-                                <FontFamily>Tahoma</FontFamily>
-                                <Color>#4d4d4d</Color>
-                              </Style>
-                            </TextRun>
+                            
                           </TextRuns>
                           <Style />
                         </Paragraph>
