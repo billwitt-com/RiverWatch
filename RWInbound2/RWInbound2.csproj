@@ -456,7 +456,6 @@
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
-    <Content Include="Reports\Samples.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
     <Content Include="RiverWatchStationsWithGauges.xsc">
@@ -1675,13 +1674,6 @@
     <Compile Include="Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\Samples.aspx.cs">
-      <DependentUpon>Samples.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\Samples.aspx.designer.cs">
-      <DependentUpon>Samples.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2170,15 +2162,13 @@
     <Content Include="Reports\MetalBarCodes.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\Samples.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Reports\PublicUsers.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Public\OrgStations.rdlc" />
     <EmbeddedResource Include="Public\OrgStatus.rdlc" />
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
     <EmbeddedResource Include="Public\QAQCReport.rdlc" />
