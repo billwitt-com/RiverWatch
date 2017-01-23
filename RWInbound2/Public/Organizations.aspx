@@ -4,11 +4,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <hgroup>
-        <h3><%: Page.Title %></h3>
-    </hgroup>
 
-    <div class="label-placement">
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="All Organizations"></asp:Label>
+   
+     <div class="label-placement">
         <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
     </div>
     <div class="label-placement">
@@ -16,11 +15,14 @@
     </div>
     <br />
     <rsweb:ReportViewer ID="ReportViewer1" runat="server" ShowPrintButton="False" Font-Names="Verdana" Font-Size="8pt" Width="1072px" Height="551px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
-        <LocalReport ReportPath="Public\OrganizationsAll.rdlc">
+        <LocalReport ReportPath="Public\AllOrgs.rdlc">
             <DataSources>
-                <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
+                <rsweb:ReportDataSource DataSourceId="SqlDataSourceAllOrgs" Name="DataSet1" />
             </DataSources>
         </LocalReport>
+ 
 </rsweb:ReportViewer>
-<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" SelectCommand="SELECT [KitNumber], [OrganizationName], [OrganizationType], [Email], [MailingAddress], [ShippingAddress], [City], [Active], [Password], [WaterShedGathering], [WaterShed], [YearStarted], [Fax], [Phone], [Zip], [State], [DateCreated], [UserCreated], [DateLastModified], [UserLastModified], [Valid] FROM [organization] ORDER BY [OrganizationName]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSourceAllOrgs" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
+        SelectCommand="SELECT  [OrganizationName], [OrganizationType], [City], [State], [Zip], [WaterShed] FROM [organization] order by OrganizationName"></asp:SqlDataSource>
 </asp:Content>

@@ -161,7 +161,7 @@
                         <tr>
                             <td style="width: 21px">&nbsp;</td>
                             <td>
-                                <asp:Button ID="btnOrganizations" runat="server" CssClass="adminButton" OnClick="btnOrganizations_Click" Text="All Organizations" />
+                                <asp:Button ID="btnOrganizations" runat="server" CssClass="adminButton" OnClick="btnOrganizations_Click" Text="RW Organizations" />
                             </td>
                             <td>
                                 <asp:Button ID="btnOrgStatus" runat="server" CssClass="adminButton" OnClick="btnOrgStatus_Click" Text="Organization Performance" />

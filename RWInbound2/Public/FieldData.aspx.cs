@@ -20,7 +20,6 @@ namespace RWInbound2.Data
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             bool allowed = false;
             allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             if (!allowed)
@@ -526,8 +525,6 @@ namespace RWInbound2.Data
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
             }
-
-
         }
 
         protected void btnCreateNew_Click(object sender, EventArgs e)

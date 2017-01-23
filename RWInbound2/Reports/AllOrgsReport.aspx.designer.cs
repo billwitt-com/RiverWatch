@@ -10,7 +10,7 @@
 namespace RWInbound2.Reports {
     
     
-    public partial class Organizations {
+    public partial class AllOrgsReport {
         
         /// <summary>
         /// Label1 control.
@@ -22,24 +22,6 @@ namespace RWInbound2.Reports {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// ErrorLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ErrorLabel;
-        
-        /// <summary>
-        /// SuccessLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SuccessLabel;
-        
-        /// <summary>
         /// ReportViewer1 control.
         /// </summary>
         /// <remarks>
@@ -49,12 +31,12 @@ namespace RWInbound2.Reports {
         protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewer1;
         
         /// <summary>
-        /// SqlDataSourceAllOrgs control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceAllOrgs;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
     }
 }

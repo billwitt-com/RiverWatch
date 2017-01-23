@@ -362,6 +362,7 @@
     <Content Include="Public\StationsByProject.aspx" />
     <Content Include="Public\UnknownData.aspx" />
     <Content Include="Public\ViewStationsWithGauges.aspx" />
+    <Content Include="Reports\AllOrgsReport.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Reports\Participants.aspx" />
@@ -395,6 +396,28 @@
     <Content Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
+    <Content Include="AllOrgs.xsc">
+      <DependentUpon>AllOrgs.xsd</DependentUpon>
+    </Content>
+    <None Include="AllOrgs.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AllOrgs.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AllOrgs.xss">
+      <DependentUpon>AllOrgs.xsd</DependentUpon>
+    </Content>
+    <Content Include="AllOrgsDataSet.xsc">
+      <DependentUpon>AllOrgsDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="AllOrgsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AllOrgsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AllOrgsDataSet.xss">
+      <DependentUpon>AllOrgsDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="DataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
@@ -406,6 +429,17 @@
     <Content Include="Images\RWdatainfodownloadv1.pdf" />
     <Content Include="PartsWithOrgs.xsc">
       <DependentUpon>PartsWithOrgs.xsd</DependentUpon>
+    </Content>
+    <Content Include="MailList.xsc">
+      <DependentUpon>MailList.xsd</DependentUpon>
+    </Content>
+    <None Include="MailList.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MailList.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MailList.xss">
+      <DependentUpon>MailList.xsd</DependentUpon>
     </Content>
     <None Include="PartsWithOrgs.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -945,6 +979,16 @@
     <Compile Include="Admin\StationStatusBulklUpdate.aspx.designer.cs">
       <DependentUpon>StationStatusBulklUpdate.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AllOrgs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllOrgs.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AllOrgsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllOrgsDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Applications\Applications.aspx.cs">
       <DependentUpon>Applications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1228,6 +1272,11 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Logic\ExceptionUtility.cs" />
+    <Compile Include="MailList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailList.xsd</DependentUpon>
+    </Compile>
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -1569,6 +1618,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportStationsByProject.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\AllOrgsReport.aspx.cs">
+      <DependentUpon>AllOrgsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\AllOrgsReport.aspx.designer.cs">
+      <DependentUpon>AllOrgsReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\MailingLabels.aspx.cs">
       <DependentUpon>MailingLabels.aspx</DependentUpon>
@@ -2102,9 +2158,6 @@
     <EmbeddedResource Include="Data\Org.rdlc" />
     <EmbeddedResource Include="Data\Participants.rdlc" />
     <EmbeddedResource Include="Data\Stations.rdlc" />
-    <Content Include="Reports\Report1.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Reports\ErrorLog.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2126,7 +2179,6 @@
     <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Public\OrgStations.rdlc" />
     <EmbeddedResource Include="Public\OrgStatus.rdlc" />
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
     <EmbeddedResource Include="Public\QAQCReport.rdlc" />
@@ -2137,7 +2189,8 @@
     <EmbeddedResource Include="Public\Stations.rdlc" />
     <EmbeddedResource Include="Public\stationsByProject.rdlc" />
     <EmbeddedResource Include="Public\StationsWithGauges.rdlc" />
-    <EmbeddedResource Include="Reports\MLables.rdlc" />
+    <EmbeddedResource Include="Reports\Report4.rdlc" />
+    <EmbeddedResource Include="Reports\Mlables.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

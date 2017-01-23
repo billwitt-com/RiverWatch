@@ -25,11 +25,12 @@
 
     <br />
     <rsweb:ReportViewer ID="ReportViewer1" PageCountMode="Actual" runat="server" Width="918px" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
-        <LocalReport ReportPath="Reports\MLables.rdlc">
+        <LocalReport ReportPath="Reports\Mlables.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="DataSet1" />
             </DataSources>
         </LocalReport>
+
     </rsweb:ReportViewer>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" >
         </asp:SqlDataSource>

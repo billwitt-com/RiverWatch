@@ -85,7 +85,7 @@
                         <tr>
                             <td>
                                 <asp:Label ID="lblCollectionDate" runat="server" Text="Collection Date: "></asp:Label></td>
-                            <td>
+                            <td style="width: 146px">
                                 <asp:TextBox ID="txtDateCollected" BorderColor="#66CCFF" BorderStyle="Solid" BorderWidth="1px" runat="server" Width="80px"></asp:TextBox>
 
                                 <ajaxToolkit:CalendarExtender ID="txtDateCollected_CalendarExtender" runat="server" BehaviorID="txtDateCollected_CalendarExtender" TargetControlID="txtDateCollected"></ajaxToolkit:CalendarExtender>
@@ -116,15 +116,28 @@
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td></td>
+                            <td style="width: 146px"></td>
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
     </asp:Panel>
-
+    <asp:Panel ID="pnlOK" runat="server">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 60px">&nbsp;</td>
+                <td style="width: 82px">
+                    <asp:Label ID="lblSaved" runat="server" Font-Size="18px" ForeColor="Red" Text=" Saved  !"></asp:Label>
+                </td>
+                <td>
+                    <asp:Button ID="btnSaved" runat="server" CssClass="adminButton" OnClick="btnSaved_Click" Text="OK" />
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
     <asp:Label ID="lblErrorMsg" runat="server" Text="Label"></asp:Label>
+    
     <ajaxToolkit:TabContainer ID="TabContainer1" ActiveTabIndex="0" runat="server" UseVerticalStripPlacement="False">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 

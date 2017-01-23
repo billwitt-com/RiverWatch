@@ -58,19 +58,21 @@ namespace RWInbound2.Data
             Response.Redirect("~/Data/UploadLatchet.aspx"); // this is spelled wrong
         }
 
-        protected void btnOrganization_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Data/organizations.aspx");
-        }
+        // below are leftovers from another time, now moved to public menu
 
-        protected void btnStation_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Data/Stations.aspx");
-        }
+        //protected void btnOrganization_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("~/Data/organizations.aspx");
+        //}
 
-        protected void btnUnknownSample_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Public/UnknownData.aspx"); 
-        }
+        //protected void btnStation_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("~/Data/Stations.aspx");
+        //}
+
+        //protected void btnUnknownSample_Click(object sender, EventArgs e)
+        //{
+        //    Response.Redirect("~/Public/UnknownData.aspx"); 
+        //}
     }
 }

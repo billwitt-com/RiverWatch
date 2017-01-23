@@ -93,5 +93,10 @@ namespace RWInbound2.Reports
             Response.Redirect("QAQCReport.aspx");
         }
 
+        protected void btnOrganizations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AllOrgsReport.aspx");
+        }
+
     }
 }

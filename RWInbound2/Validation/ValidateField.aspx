@@ -23,7 +23,7 @@
     </td>
           <td>
 
-    <asp:Button ID="btnSelectOrg" runat="server" Text="Select" OnClick="btnSelectOrg_Click"/>
+    <asp:Button ID="btnSelectOrg" runat="server" CssClass="adminButton" Text="Select" OnClick="btnSelectOrg_Click"/>
 
           </td>
             </tr>
@@ -42,6 +42,14 @@
         Width="808px">
         <EditItemTemplate>
             <table>
+                                <tr>
+                    <td>SampleID:
+                    </td>
+                    <td>
+                        <asp:TextBox ID="SampleIDTextBox" runat="server" ReadOnly="true" Text='<%# Bind("SampleID") %>' />
+                    </td>
+
+                </tr>
                 <tr>
                     <td>StationNum:
                     </td>
@@ -56,7 +64,7 @@
                 <tr>
             <td>
             KitNum:</td>
-           <td> <asp:TextBox ID="KitNumTextBox" runat="server" Text='<%# Bind("KitNum") %>' />
+           <td> <asp:TextBox ID="KitNumTextBox" runat="server" ReadOnly="true"  Text='<%# Bind("KitNum") %>' />
                </td>
                 </tr>
                 <tr>
@@ -248,14 +256,7 @@
                         <asp:TextBox ID="CommentsTextBox" runat="server" Text='<%# Bind("Comments") %>' TextMode="MultiLine" Width="360" Height="44" />
                     </td>
                 </tr>
-                <tr>
-                    <td>SampleID:
-                    </td>
-                    <td>
-                        <asp:TextBox ID="SampleIDTextBox" runat="server" ReadOnly="true" Text='<%# Bind("SampleID") %>' />
-                    </td>
 
-                </tr>
 
 
 
@@ -367,13 +368,15 @@
                 <tr>
                     <td style="width: 20px;"></td>
                     <td>
-                        <asp:Button ID="UpdateButton" ClientIDMode="Static" runat="server" CausesValidation="True" CommandName="Update" Text="Validate" />
-                        <asp:Button ID="btnBAD" ClientIDMode="Static" runat="server" OnClick="btnBAD_Click" CausesValidation="True" Text="BAD" />
+                        <asp:Button ID="UpdateButton" ClientIDMode="Static" CssClass="adminButton" runat="server" CausesValidation="True" CommandName="Update" Text="Validate" />
+                        <asp:Button ID="btnBAD" ClientIDMode="Static" CssClass="adminButton"  runat="server" OnClick="btnBAD_Click" CausesValidation="True" Text="BAD" />
                     </td>
 
                 </tr>
             </table>
         </EditItemTemplate>
+
+        <PagerSettings PageButtonCount="20" Position="TopAndBottom" />
 
     </asp:FormView>
 

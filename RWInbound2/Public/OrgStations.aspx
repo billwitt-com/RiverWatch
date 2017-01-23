@@ -50,5 +50,5 @@
 <asp:SqlDataSource ID="SqlDataSource1" 
                     runat="server" 
                     ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
-                    SelectCommand="SELECT [Organization], [StationName], [Number], [WaterCode], [WBID], [Description], [River], [StateEngineering], [USGS], [NearCity], [County], [Lat], [Long] FROM [OrgStationsView] ORDER BY [Organization], [StationName]"></asp:SqlDataSource>
+                    SelectCommand="SELECT [Organization], [StationName], [Number], [WaterCode], [WBID], [Description], [River], [StateEngineering], [USGS], [NearCity], [County], [Lat], [Long] FROM [OrgStationsView] ORDER BY [Number] desc "></asp:SqlDataSource>
 </asp:Content>

@@ -47,7 +47,7 @@ namespace RWInbound2.Validation
             {
                 int kitNumber = (int)Session["KITNUMBER"];
 
-                if (!countSamples())
+                if (!countSamples(kitNumber))
                     return;   
             }
         }
@@ -246,13 +246,34 @@ namespace RWInbound2.Validation
                         lblPhenol.ForeColor = System.Drawing.Color.Black;
                     }
                 }
+                // new rule 01/20 bwitt
+                if ((PhenolAlk < .001m) & (pH >= 8.3M))
+                {
+                    Pmsg1 = "PhenAlk = 0 while pH >= 8.3";
+                    lblPhenol.Text = Pmsg1;
+                    lblPhenol.ForeColor = System.Drawing.Color.Red;
+                }
+                else  // we are removing msg1 but not msg2, if it exists
+                {
+                    if (Pmsg2.Length > 5)
+                    {
+                        lblPhenol.Text = Pmsg2;
+                    }
+                    else
+                    {
+                        Pmsg1 = "";
+                        lblPhenol.Text = "";
+                        lblPhenol.ForeColor = System.Drawing.Color.Black;
+                    }
+                }
             }
 
             // rule: TotalAlk > Hardness + 10
             // rule: Hardness - TotalAlk > 10
             if (isTotalAlk & isHardness)
             {
-                if (Hardness - TotalAlk > 10)
+               // if (Hardness - TotalAlk > 10)
+                    if (TotalAlk - Hardness  >= 10)
                 {
                     lblHardness.Text = "Hardness - TotalAlk > 10";
                     lblHardness.ForeColor = System.Drawing.Color.Red;
@@ -431,19 +452,20 @@ namespace RWInbound2.Validation
 
             // valid kit number here... 
 
-            if(!countSamples())
-                return;           
+            //if(!countSamples())
+            //    return;           
 
             // we have some samples to validate, so set up the query and bind to formview
             // removed [RiverWatch].[dbo].
+
+            // old query, maybe did not work... 
+    //        sCommand = string.Format(" select *  FROM [InboundSamples] JOIN Samples on InboundSamples.SampleID = " +
+    //   " Samples.SampleNumber " +
+    //" where KitNum = {0} and [InboundSamples].[valid] = 1 and Samples.Valid = 1 and passValStep < 0 order by date desc ", LocaLkitNumber);
             try
             {
-                sCommand = string.Format(" select *  FROM [InboundSamples] JOIN Samples on InboundSamples.SampleID = " +
-                       " Samples.SampleNumber " +
-                    " where KitNum = {0} and [InboundSamples].[valid] = 1 and Samples.Valid = 1 and passValStep < 0 order by date desc ", LocaLkitNumber);
-
-                //string cmdCount = string.Format("SELECT  count(InboundSamples.KitNum) FROM InboundSamples JOIN Samples on InboundSamples.SampleID = " +
-                //   " Samples.SampleNumber where InboundSamples.Valid = 1 and PassValStep = -1 and InboundSamples.KitNum  {0}", kitNumber);
+                sCommand = string.Format(" select *  FROM [InboundSamples]  " +
+                    " where KitNum = {0} and [InboundSamples].[valid] = 1 and passValStep < 0 order by date desc ", LocaLkitNumber);
 
                 SqlDataSource1.SelectCommand = sCommand;
                 Session["COMMAND"] = sCommand;
@@ -810,7 +832,7 @@ namespace RWInbound2.Validation
             {
                 int kitNumber = (int)Session["KITNUMBER"];
 
-                if (!countSamples())
+                if (!countSamples(kitNumber))
                     return;
             }
         } 
@@ -837,15 +859,27 @@ namespace RWInbound2.Validation
                     string tm = TB.Text.Substring(TB.Text.Length - 4);
                     T.Text = string.Format("{0:D4}", tm);
                 }
+                if (Session["KITNUMBER"] != null)
+                {
+                    int kitNumber = (int)Session["KITNUMBER"];
+
+                    if (!countSamples(kitNumber))
+                        return;
+                }
+                string uniqueID = FormView1.Controls[0].UniqueID;
+                compareTextBoxes(uniqueID);
+                
             }
         }
-        public bool countSamples()
+        public bool countSamples(int kitNumber)
         {
             int sampsToValidate = 0;
             RiverWatchEntities RWE = new RiverWatchEntities();
 
+            //KitNum = {0} and [InboundSamples].[valid] = 1 and Samples.Valid = 1 and passValStep < 0
+
             var C = from c in RWE.InboundSamples
-                    where c.Valid == true & c.PassValStep < 0 
+                    where c.Valid == true & c.PassValStep < 0  & c.KitNum == kitNumber
                     select c; 
 
             if (C.Count() > 0)

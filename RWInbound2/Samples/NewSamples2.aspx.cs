@@ -36,6 +36,7 @@ namespace RWInbound2.Samples
 
             if (!IsPostBack)
             {
+                pnlOK.Visible = false; 
                 Panel1.Visible = false;
                 lstSamples.Visible = false;
                 Session["NEWSAMPLE"] = null;
@@ -369,6 +370,34 @@ namespace RWInbound2.Samples
 
             currentYear = (DateTime)Session["CURRENTYEAR"];
             populateSamplesList(NumberSamplePrefix, currentYear); // populate ddl on right side of samples page      
+
+            // clean up text boxes since this is first time here 
+
+            ddlInboundSamplePick.Items.Clear();
+            txtDateCollected.Text = "";
+            tbAnalyzeDate.Text = "";
+            txtSmpNum.Text = "";
+            txtNumSmp.Text = "";
+            txtComment.Text = "";
+            txtDateCollected.Text = "";
+            txtTimeCollected.Text = "";
+            chkCOC.Checked = false;
+            chkBlkMtls.Checked = false;
+            chkBugQA.Checked = false;
+            chkBugs.Checked = false;
+            chkCS.Checked = false;
+            chkCSDupe.Checked = false;
+            chkDataSheet.Checked = false;
+            chkDupeMtls.Checked = false;
+            chkMDSR.Checked = false;
+            chkNoMtls.Checked = false;
+            chkNoNut.Checked = false;
+            chkNP.Checked = false;
+            chkNPDupe.Checked = false;
+            chkPhysHab.Checked = false;
+            chkTSS.Checked = false;
+            chkTSSDupe.Checked = false;
+            tbComments.Text = "";            
 
             if (Session["ORGID"] == null)
                 Response.Redirect("~/timedout.aspx");
@@ -1006,8 +1035,10 @@ namespace RWInbound2.Samples
 
                  // incorrect we need station nummber not id
                 // populateInboundSamplesList(kitNumber, stnID);
-                 populateInboundSamplesList(kitNumber, stationNumber);
+
              }
+             populateInboundSamplesList(kitNumber, stationNumber);
+             pnlOK.Visible = true; // show user that the sample is saved
         }
 
         // we are making a new, fresh sample set with new dates, etc.
@@ -1348,6 +1379,7 @@ namespace RWInbound2.Samples
 
             FillTabPanelBarcode(txtNumSmp.Text.Trim());
             FillTabPanelICPdata(txtNumSmp.Text.Trim());
+            pnlOK.Visible = true; // show user that the sample is saved
         }
 
         // add link button 
@@ -1872,7 +1904,7 @@ namespace RWInbound2.Samples
             string sampNum = txtSmpNum.Text.Trim();
             string numSamp = txtNumSmp.Text.Trim();
 
-            if(numSamp.Length < 8)
+            if(numSamp.Length < 3)
             {
                 lblNutBarcodeMsg.Text = "There is no Sample selected, so you can not save this barcode";
                 tbNutrientCode.Text = "";
@@ -1956,8 +1988,10 @@ namespace RWInbound2.Samples
                 LogError LE = new LogError();
                 LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), n, comment);
             }
+            
+            pnlOK.Visible = true; // show user that the sample is saved
         }
-
+        
         // used to search on org name 
         // moved this from working code in fielddata.cs
         // no help, copied and pasted aspx code, no help
@@ -2069,6 +2103,12 @@ namespace RWInbound2.Samples
 
         protected void btnAddNewOrgStatus_Click(object sender, EventArgs e)
         {
+
+        }
+
+        protected void btnSaved_Click(object sender, EventArgs e)
+        {
+            pnlOK.Visible = false;
 
         }
     }

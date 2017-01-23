@@ -25,7 +25,7 @@
             <tr>
                 <td class="rowId-charid-dsorder-textbox" style="width: 15px">&nbsp;</td>
                 <td>
-                    <asp:Button ID="btnParticipants" runat="server" Text="Participants" OnClick="btnParticipants_Click"
+                    <asp:Button ID="btnParticipants" runat="server" Text="Participants Table" OnClick="btnParticipants_Click"
                         CssClass="adminButton" /></td>
                 <td style="width: 340px">
                     <asp:Button ID="btnParticipantsPrimaryContacts" runat="server" Text="Participants - Primary Contacts" OnClick="btnParticipantsPrimaryContacts_Click"
@@ -39,7 +39,9 @@
             </tr>
             <tr>
                 <td class="rowId-charid-dsorder-textbox" style="width: 15px">&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:Button ID="btnOrganizations" runat="server" Text="Organization Table" 
+                        CssClass="adminButton" OnClick="btnOrganizations_Click" /></td>
                 <td style="width: 340px">&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
