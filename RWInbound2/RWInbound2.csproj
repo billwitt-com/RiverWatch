@@ -265,6 +265,7 @@
     <Content Include="Edit\EditInboundField.aspx" />
     <Content Include="Edit\EditMetalBarCodeType.aspx" />
     <Content Include="Edit\EditNutrientBarCodeType.aspx" />
+    <Content Include="Edit\EditNutrientValidationLimits.aspx" />
     <Content Include="Edit\EditOrganizationType.aspx" />
     <Content Include="Edit\EditPhysHab.aspx" />
     <Content Include="Edit\EditPhysHabPara.aspx" />
@@ -1146,6 +1147,12 @@
     </Compile>
     <Compile Include="Edit\EditNutrientBarCodeType.aspx.designer.cs">
       <DependentUpon>EditNutrientBarCodeType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditNutrientValidationLimits.aspx.cs">
+      <DependentUpon>EditNutrientValidationLimits.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditNutrientValidationLimits.aspx.designer.cs">
+      <DependentUpon>EditNutrientValidationLimits.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditOrganizationType.aspx.cs">
       <DependentUpon>EditOrganizationType.aspx</DependentUpon>
