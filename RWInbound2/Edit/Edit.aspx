@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="Edit" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Edit.aspx.cs" Inherits="RWInbound2.Edit.Edit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
         <br />
-    <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Edit Data Tables:"></asp:Label>
+    <asp:Label ID="Label1" CssClass="PageLabel" runat="server" Text="Edit Lookup Tables:"></asp:Label>
     <br />
-    <table class="EditTabTable" >
+    <table   >
         <tr >
             <td>
                 <asp:Button ID="btnActivityCategories" runat="server" OnClick="btnActivityCategories_Click" Text="Activity Categories"
@@ -20,7 +20,7 @@
                             CssClass="adminButton"/>
 
                 </td>
-            <td>
+            <td >
 
                 <asp:Button ID="btnBioResultsTypes" runat="server" OnClick="btnBioResultsTypes_Click" Text="Bio Results Types" 
                             CssClass="adminButton"/>
@@ -56,10 +56,10 @@
                             CssClass="adminButton"/>
 
                 </td>
-            <td>
+            <td >
 
                 <asp:Button ID="btnEquipCategories" runat="server" OnClick="btnEquipCategories_Click" Text="Equipment Categories" 
-                            CssClass="adminButton"/>
+                            CssClass="adminButton" Height="26px" Width="182px"/>
 
                 </td>
             <td>
@@ -92,7 +92,7 @@
                             CssClass="adminButton"/> 
 
                 </td>
-            <td> 
+            <td > 
 
                 <asp:Button ID="btnGrid" runat="server" OnClick="btnGrid_Click" Text="Grids"
                             CssClass="adminButton"/>
@@ -113,7 +113,7 @@
 
 
 
-                <asp:Button ID="brnLimits" runat="server" OnClick="brnLimits_Click" Text="Measurement Limits" 
+                <asp:Button ID="brnLimits" runat="server" OnClick="brnLimits_Click" Text="Metals Val Limits" 
                             CssClass="adminButton"/> 
 
                 </td>
@@ -125,12 +125,11 @@
                 </td>
             <td>
 
-                <asp:Button ID="btnMetalLimits" runat="server" Text="Metal Val Limits" CssClass="adminButton" OnClick="btnMetalLimits_Click"/>
-            </td>
-            <td>
+                &nbsp;</td>
+            <td >
 
                 <asp:Button ID="btnNutrientBarCodeType" runat="server" OnClick="btnNutrientBarCodeType_Click" Text="Nutrient Barcode Types" 
-                            CssClass="adminButton" Width="195px"/>
+                            CssClass="adminButton" Height="26px" Width="174px"/>
 
                 </td>
             <td>
@@ -155,7 +154,7 @@
                             CssClass="adminButton"/>              
 
                 </td>
-            <td>
+            <td >
 
                 <asp:Button ID="btnEditPhysHab" runat="server" OnClick="btnEditPhysHab_Click" Text="Phys Hab" 
                             CssClass="adminButton"/>
@@ -187,7 +186,7 @@
                             CssClass="adminButton"/>
 
               </td>
-            <td>
+            <td >
 
               <asp:Button ID="btnRegion" runat="server" OnClick="btnRegion_Click" Text="Regions" 
                             CssClass="adminButton"/>
@@ -219,7 +218,7 @@
                             CssClass="adminButton"/>
  
                 </td>
-            <td>
+            <td >
 
                <asp:Button ID="btnStationQUAD" runat="server" OnClick="btnStationQUAD_Click" Text="Station QUADs" 
                             CssClass="adminButton"/>
@@ -251,7 +250,7 @@
                             CssClass="adminButton"/>
 
                 </td>
-            <td>
+            <td >
 
                 <asp:Button ID="btnTownship" runat="server" OnClick="btnTownship_Click" Text="Townships" 
                             CssClass="adminButton"/>
@@ -279,37 +278,41 @@
             </td>
             <td>
 
+                    <asp:Button ID="btnEditWaterCodes" runat="server" Text="Water Codes" CssClass="adminButton" Width="121px" OnClick="btnEditWaterCodes_Click" Height="26px"  />                
+               
+                </td>
+            <td >
+               
                 <asp:Button ID="btnWSG" runat="server" OnClick="btnWSG_Click" Text="WSGs" 
                             CssClass="adminButton"/>
                
-                </td>
+            </td>
             <td>
                
                 <asp:Button ID="btnWSR" runat="server" OnClick="btnWSR_Click" Text="WSRs" 
                             CssClass="adminButton"/>
 
             </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td >&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td >&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td >&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
     </table>

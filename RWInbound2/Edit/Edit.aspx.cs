@@ -237,5 +237,10 @@ namespace RWInbound2.Edit
         {
             Response.Redirect("EditNutrientValidationLimits.aspx"); 
         }
+
+        protected void btnEditWaterCodes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditWatercodes.aspx"); 
+        }
     }
 }

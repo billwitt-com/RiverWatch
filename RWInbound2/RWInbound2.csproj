@@ -191,13 +191,13 @@
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
-    <Content Include="Admin\EditLimits.aspx" />
+    <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditNutrientBarcode.aspx" />
     <Content Include="Admin\EditNutrients.aspx" />
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
-    <Content Include="Admin\EditWaterCodes.aspx" />
+    <Content Include="Edit\EditWaterCodes.aspx" />
     <Content Include="Admin\OLDEditWaterCodes.aspx" />
     <Content Include="Admin\ManagePublicAccess.aspx" />
     <Content Include="Admin\OrgStatusBulklUpdate.aspx" />
@@ -888,11 +888,11 @@
     <Compile Include="Admin\EditInboundFieldData.aspx.designer.cs">
       <DependentUpon>EditInboundFieldData.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\EditLimits.aspx.cs">
+    <Compile Include="Edit\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\EditLimits.aspx.designer.cs">
+    <Compile Include="Edit\EditLimits.aspx.designer.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditMetalBarCode.aspx.cs">
@@ -930,11 +930,11 @@
     <Compile Include="Admin\EditUnknowns.aspx.designer.cs">
       <DependentUpon>EditUnknowns.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\EditWaterCodes.aspx.cs">
+    <Compile Include="Edit\EditWaterCodes.aspx.cs">
       <DependentUpon>EditWaterCodes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\EditWaterCodes.aspx.designer.cs">
+    <Compile Include="Edit\EditWaterCodes.aspx.designer.cs">
       <DependentUpon>EditWaterCodes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\OLDEditWaterCodes.aspx.cs">

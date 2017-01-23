@@ -32,7 +32,7 @@
                     <asp:Button ID="btnEditNutrientBarcodes" CssClass="adminButton" Width="176px" runat="server" Text="Edit Nutrient Barcodes" OnClick="btnEditNutrientBarcodes_Click" />                   
                 </td>                    
                 <td>    
-                     <asp:Button ID="btnNutrientLimits" runat="server" Text="Edit Nutrient Limits" CssClass="adminButton" Width="176px" OnClick="btnNutrientLimits_Click" />
+<%--                     <asp:Button ID="btnNutrientLimits" runat="server" Text="Edit Nutrient Limits" CssClass="adminButton" Width="176px" OnClick="btnNutrientLimits_Click" />--%>
                 </td> 
             </tr> 
             <tr>
