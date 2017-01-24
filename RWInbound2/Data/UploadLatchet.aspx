@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UploadLatchet.aspx.cs" Inherits="RWInbound2.Data.UploadLatchet" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UploadLatchet.aspx.cs"  Inherits="RWInbound2.Data.UploadLatchet" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="Label2" runat="server" Text="Upload Latchet Data from CSV file"  CssClass="PageLabel"></asp:Label>

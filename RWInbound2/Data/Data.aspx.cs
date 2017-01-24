@@ -50,13 +50,15 @@ namespace RWInbound2.Data
         // Field Data button is default to everyone 
         protected void btnFieldData_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Public/FieldData.aspx"); 
+            Response.Redirect("~/Data/FieldData.aspx"); 
         }
 
         protected void btnUploadLatchat_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Data/UploadLatchet.aspx"); // this is spelled wrong
         }
+
+
 
         // below are leftovers from another time, now moved to public menu
 
@@ -70,9 +72,9 @@ namespace RWInbound2.Data
         //    Response.Redirect("~/Data/Stations.aspx");
         //}
 
-        //protected void btnUnknownSample_Click(object sender, EventArgs e)
-        //{
-        //    Response.Redirect("~/Public/UnknownData.aspx"); 
-        //}
+        protected void btnUnknownSample_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Data/UnknownData.aspx");
+        }
     }
 }

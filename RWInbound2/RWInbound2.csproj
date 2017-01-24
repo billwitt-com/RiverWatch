@@ -249,9 +249,6 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Data\Data.aspx" />
-    <Content Include="Data\Organizations.aspx" />
-    <Content Include="Data\Participants.aspx" />
-    <Content Include="Data\Stations.aspx" />
     <Content Include="Edit\EditBenGrid.aspx" />
     <Content Include="Edit\EditBenthics.aspx" />
     <Content Include="Edit\EditEcoRegion.aspx" />
@@ -292,7 +289,7 @@
     <Content Include="Images\faq.png" />
     <Content Include="Images\loader.gif" />
     <Content Include="Images\RWsciencefairawards.jpg" />
-    <Content Include="Public\FieldData.aspx" />
+    <Content Include="Data\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
     <Content Include="Edit\EditActivityCategory.aspx" />
@@ -361,7 +358,7 @@
     <Content Include="Public\RawSamplesAll.aspx" />
     <Content Include="Public\Stations.aspx" />
     <Content Include="Public\StationsByProject.aspx" />
-    <Content Include="Public\UnknownData.aspx" />
+    <Content Include="Data\UnknownData.aspx" />
     <Content Include="Public\ViewStationsWithGauges.aspx" />
     <Content Include="Reports\AllOrgsReport.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
@@ -1036,27 +1033,6 @@
       <DependentUpon>Data.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Code\ExamplePermissionCode.cs" />
-    <Compile Include="Data\Organizations.aspx.cs">
-      <DependentUpon>Organizations.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Data\Organizations.aspx.designer.cs">
-      <DependentUpon>Organizations.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Participants.aspx.cs">
-      <DependentUpon>Participants.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Data\Participants.aspx.designer.cs">
-      <DependentUpon>Participants.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Stations.aspx.cs">
-      <DependentUpon>Stations.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Data\Stations.aspx.designer.cs">
-      <DependentUpon>Stations.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Edit\EditBenGrid.aspx.cs">
       <DependentUpon>EditBenGrid.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1318,11 +1294,11 @@
     <Compile Include="PublicUsers.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Public\FieldData.aspx.cs">
+    <Compile Include="Data\FieldData.aspx.cs">
       <DependentUpon>FieldData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Public\FieldData.aspx.designer.cs">
+    <Compile Include="Data\FieldData.aspx.designer.cs">
       <DependentUpon>FieldData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Data\UploadLatchet.aspx.cs">
@@ -1601,11 +1577,11 @@
     <Compile Include="Public\StationsByProject.aspx.designer.cs">
       <DependentUpon>StationsByProject.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Public\UnknownData.aspx.cs">
+    <Compile Include="Data\UnknownData.aspx.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Public\UnknownData.aspx.designer.cs">
+    <Compile Include="Data\UnknownData.aspx.designer.cs">
       <DependentUpon>UnknownData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\ViewStationsWithGauges.aspx.cs">
