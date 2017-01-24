@@ -30,7 +30,7 @@
             </li>
         </ol>
         <%--<asp:Button runat="server"  id="btnLogin" Text="Log in" OnClick="btnLogin_Click" BackColor="#6699FF" Font-Bold="True" Font-Size="Large"  />  --%> 
-    <asp:Button runat="server"  id="btnLogin" Text="Log in" OnClick="btnLogin_Click" CssClass="login-button"  />  
+    <asp:Button runat="server"  id="btnLogin" Text="Enter Application" OnClick="btnLogin_Click" CssClass="login-button"  />  
 
        <%-- <p>
             <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled">Register</asp:HyperLink>

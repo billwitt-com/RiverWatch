@@ -134,56 +134,86 @@ namespace RWInbound2.Validation
                                 switch (item.Parameter.ToUpper())
                                 {
                                     case "AMMONIA":
-                                        NData.Ammonia = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.Ammonia = item.Result.Value;
+                                        }
 
                                         NData.Ammonia_CH = item.CONHI ?? false;  
                                         break;
 
                                     case "SULFATE":
-                                        NData.Sulfate = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.Sulfate = item.Result.Value;
+                                        }
 
                                         NData.Sulfate_CH = item.CONHI ?? false; 
                                         break;
 
                                         // NITRATE-NITRITE
                                     case "NITRATE-NITRITE":
-                                        NData.NitrateNitrite = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.NitrateNitrite = item.Result.Value;
+                                        }
                                         NData.NitrateNitrite_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "ORTHOPHOS":
-                                        NData.OrthoPhos = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.OrthoPhos = item.Result.Value;
+                                        }
        
                                         NData.OrthoPhos_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "CHLORA":
-                                        NData.ChlorA = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.ChlorA = item.Result.Value;
+                                        }
                                         NData.ChlorA_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "CHLORIDE":
-                                        NData.Chloride = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.Chloride = item.Result.Value;
+                                        }
                                         NData.Chloride_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "DOC":
-                                        NData.DOC = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.DOC = item.Result.Value;
+                                        }
                                         NData.DOC_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "TOTALNITRO":
-                                        NData.TotalNitro = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.TotalNitro = item.Result.Value;
+                                        }
                                         NData.TotalNitro_CH = item.CONHI ?? false; 
                                         break;
                                     // Total Phosphorus
                                     case "TOTAL PHOSPHORUS":
-                                        NData.TotalPhos = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.TotalPhos = item.Result.Value;
+                                        }
                                         NData.TotalPhos_CH = item.CONHI ?? false; 
                                         break;
 
                                     case "TSS":
-                                        NData.TSS = item.Result.Value;
+                                        if (item.Result != null)
+                                        {
+                                            NData.TSS = item.Result.Value;
+                                        }
                                         NData.TSS_CH = item.CONHI ?? false; 
                                         break;
 

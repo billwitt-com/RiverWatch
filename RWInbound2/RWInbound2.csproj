@@ -1126,6 +1126,7 @@
     </Compile>
     <Compile Include="Edit\EditNutrientValidationLimits.aspx.cs">
       <DependentUpon>EditNutrientValidationLimits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Edit\EditNutrientValidationLimits.aspx.designer.cs">
       <DependentUpon>EditNutrientValidationLimits.aspx</DependentUpon>

@@ -269,7 +269,7 @@
                     </tr>
                 </table>
                 <asp:Button ID="btnMetalsSave" runat="server" Text="Save" OnClick="btnSaveMetals_Click" CssClass="samplesButton" /><asp:Label ID="lblCodeInUse" runat="server" Text=""></asp:Label><asp:Panel ID="pnlBarcodeTab" CssClass="pnlBarcodeTab" runat="server">
-                    <asp:GridView ID="GridViewBarCodes" runat="server" CellPadding="2"></asp:GridView>
+                    <asp:GridView ID="GridViewBarCodes" runat="server" CellPadding="2" Width="800"></asp:GridView>
                 </asp:Panel>
             </ContentTemplate>
         </ajaxToolkit:TabPanel>
@@ -337,7 +337,7 @@
                     </tr>
                         <tr>
                         <td>
-                           <asp:GridView ID="GridViewNutrientBarCodes" runat="server" CellPadding="2"></asp:GridView>
+                           <asp:GridView ID="GridViewNutrientBarCodes" runat="server" CellPadding="2" Width="800"></asp:GridView>
                         </td>
                     </tr>
                     <tr>
