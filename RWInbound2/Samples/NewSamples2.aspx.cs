@@ -652,12 +652,15 @@ namespace RWInbound2.Samples
 
             // now update rest of page using station number which is first part of eventNumber
 
-            index = eventNumber.IndexOf(".");
+            //index = eventNumber.IndexOf(".");
 
-            locStnNumber = eventNumber.Substring(0, index); // all to left of colon
-            locStnNumber = locStnNumber.Trim();    
-            FillTabPanelICPdata(locStnNumber);
-            FillTabPanelBarcode(locStnNumber);
+            //locStnNumber = eventNumber.Substring(0, index); // all to left of colon
+            //locStnNumber = locStnNumber.Trim();    
+            //FillTabPanelICPdata(locStnNumber);
+            //FillTabPanelBarcode(locStnNumber);
+
+            FillTabPanelICPdata(eventNumber);
+            FillTabPanelBarcode(eventNumber);
 
             // clean up barcode page - and nutrient page too XXXX
             lblBarcodeUsed.Text = "";

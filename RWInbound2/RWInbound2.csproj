@@ -2130,9 +2130,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\Org.rdlc" />
-    <EmbeddedResource Include="Data\Participants.rdlc" />
-    <EmbeddedResource Include="Data\Stations.rdlc" />
     <Content Include="Reports\ErrorLog.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
