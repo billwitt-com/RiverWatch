@@ -18,7 +18,7 @@ namespace RWInbound2.Validation
     {
         Dictionary<string, decimal> HighLimit = new Dictionary<string, decimal>(); 
         Dictionary<string, decimal> LowLimit = new Dictionary<string, decimal>(); 
- //       RiverWatchEntities NRWDE = new RiverWatchEntities();
+ //       RiverWatchEntities NRWDE = new RiverWatchEntities(); 
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -356,19 +356,19 @@ namespace RWInbound2.Validation
                     where t.SampleNumber == sampleNumber & t.Valid == true // & t.NutrientBarCode == barcode
                     select t); 
                 
-                    foreach(NEWexpWater n in T) // may be one or more but we just update our data, the rest must be there
+                    foreach(NEWexpWater n in T) // may be one or more but we just updated our data, the rest must be there
                     {
                         n.totP = totP;
-                        NW.OP = OP;
-                        NW.totN = totN;
-                        NW.NN = NN;
-                        NW.Ammonia = Ammonia;
-                        NW.DOC = DOC;
-                        NW.Chloride = Chloride;
-                        NW.Sulfate = Sulfate ;
-                        NW.TSS = TSS;
-                        NW.ChlorophyllA = ChlorA;
-                        NW.NutrientBarCode = barcode; 
+                        n.OP = OP;
+                        n.totN = totN;
+                        n.NN = NN;
+                        n.Ammonia = Ammonia;
+                        n.DOC = DOC;
+                        n.Chloride = Chloride;
+                        n.Sulfate = Sulfate ;
+                        n.TSS = TSS;
+                        n.ChlorophyllA = ChlorA;
+                        n.NutrientBarCode = barcode; 
                     }
                     RWE.SaveChanges(); // update all records
                 }

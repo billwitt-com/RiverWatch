@@ -135,7 +135,7 @@ namespace RWInbound2.Data
                             Startindex = Endindex + 1; // reposition                   
                             Endindex = line.IndexOf(",", Startindex);
                             tstr = line.Substring(Startindex, Endindex - Startindex);         //,[Result]
-                            if (tstr.Length > 1)
+                            if (tstr.Length > 0)
                                 LACHAT.Result = decimal.Parse(tstr);
 
                             Startindex = Endindex + 1; // reposition                   
