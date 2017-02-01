@@ -170,14 +170,14 @@
                         <div class="edit-exp-water-td-div">
                             <label>CD_D:</label>
                             <asp:TextBox ID="TextBoxCD_D" runat="server" Text='<%# Bind("CD_D") %>'></asp:TextBox>                           
-                            <label>CU_T:</label>
-                            <asp:TextBox ID="TextBoxCU_T" runat="server" Text='<%# Bind("CU_T") %>'></asp:TextBox>                            
-                        </div>
-                        <div class="edit-exp-water-td-div">
                             <label>CD_T:</label>
                             <asp:TextBox ID="TextBoxCD_T" runat="server" Text='<%# Bind("CD_T") %>'></asp:TextBox>                           
+                        </div>
+                        <div class="edit-exp-water-td-div">
                             <label>CU_D:</label>
                             <asp:TextBox ID="TextBoxCU_D" runat="server" Text='<%# Bind("CU_D") %>'></asp:TextBox>                            
+                            <label>CU_T:</label>
+                            <asp:TextBox ID="TextBoxCU_T" runat="server" Text='<%# Bind("CU_T") %>'></asp:TextBox>                            
                         </div>
                         <div class="edit-exp-water-td-div">
                             <label>FE_D:</label>
@@ -188,49 +188,46 @@
                         <div class="edit-exp-water-td-div">
                             <label>MG_D:</label>
                             <asp:TextBox ID="TextBoxMG_D" runat="server" Text='<%# Bind("MG_D") %>'></asp:TextBox>                            
-                            <label>CA_D:</label>
-                            <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("CA_D") %>'></asp:TextBox>                            
+                            <label>MG_T:</label>
+                            <asp:TextBox ID="TextBoxMG_T" runat="server" Text='<%# Bind("MG_T") %>'></asp:TextBox> 
                         </div>
                         <div class="edit-exp-water-td-div">
-                            <label>MG_T:</label>
-                            <asp:TextBox ID="TextBoxMG_T" runat="server" Text='<%# Bind("MG_T") %>'></asp:TextBox>                            
                             <label>MN_D:</label>
                             <asp:TextBox ID="TextBoxMN_D" runat="server" Text='<%# Bind("MN_D") %>'></asp:TextBox>                            
-                        </div>
-                        <div class="edit-exp-water-td-div">
                             <label>MN_T:</label>
                             <asp:TextBox ID="TextBoxMN_T" runat="server" Text='<%# Bind("MN_T") %>'></asp:TextBox>                            
+                        </div>
+                        <div class="edit-exp-water-td-div">
                             <label>PB_D:</label>
                             <asp:TextBox ID="TextBoxPB_D" runat="server" Text='<%# Bind("PB_D") %>'></asp:TextBox>                            
-                        </div>
-                        <div class="edit-exp-water-td-div">
                             <label>PB_T:</label>
                             <asp:TextBox ID="TextBoxPB_T" runat="server" Text='<%# Bind("PB_T") %>'></asp:TextBox>                            
+                        </div>
+                        <div class="edit-exp-water-td-div">
                             <label>SE_D:</label>
                             <asp:TextBox ID="TextBoxSE_D" runat="server" Text='<%# Bind("SE_D") %>'></asp:TextBox>                            
-                        </div>
-                        <div class="edit-exp-water-td-div">
                             <label>SE_T:</label>
                             <asp:TextBox ID="TextBoxSE_T" runat="server" Text='<%# Bind("SE_T") %>'></asp:TextBox>                            
+                        </div>
+                        <div class="edit-exp-water-td-div">
                             <label>ZN_D:</label>
                             <asp:TextBox ID="TextBoxZN_D" runat="server" Text='<%# Bind("ZN_D") %>'></asp:TextBox>                            
-                        </div>
-                        <div class="edit-exp-water-td-div">
                             <label>ZN_T:</label>
                             <asp:TextBox ID="TextBoxZN_T" runat="server" Text='<%# Bind("ZN_T") %>'></asp:TextBox>  
-                            <label>NA_D:</label>
-                            <asp:TextBox ID="TextBoxNA_D" runat="server" Text='<%# Bind("NA_D") %>'></asp:TextBox>                            
-                        </div>                       
-                        <div class="edit-exp-water-td-div">
-                            <label>NA_T:</label>
-                            <asp:TextBox ID="TextBoxNA_T" runat="server" Text='<%# Bind("NA_T") %>'></asp:TextBox>                            
-                            <label>K_D:</label>
-                            <asp:TextBox ID="TextBoxK_D" runat="server" Text='<%# Bind("K_D") %>'></asp:TextBox>                            
                         </div>
                         <div class="edit-exp-water-td-div">
-                            <label>K_T:</label>
+                            <label>NA_D:</label>
+                            <asp:TextBox ID="TextBoxNA_D" runat="server" Text='<%# Bind("NA_D") %>'></asp:TextBox>                            
+                            <label>NA_T:</label>
+                            <asp:TextBox ID="TextBoxNA_T" runat="server" Text='<%# Bind("NA_T") %>'></asp:TextBox>                            
+                        </div>                       
+                        <div class="edit-exp-water-td-div">
+                            <label>K_D:</label>
+                            <asp:TextBox ID="TextBoxK_D" runat="server" Text='<%# Bind("K_D") %>'></asp:TextBox> 
+                                                       
+                            <label>&nbsp;K_T:</label>
                             <asp:TextBox ID="TextBoxK_T" runat="server" Text='<%# Bind("K_T") %>'></asp:TextBox> 
-                        </div>                                                           
+                        </div>                                                                            
                     </td>
                     <td>
                         <div class="edit-exp-water-td-div">
