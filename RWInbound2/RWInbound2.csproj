@@ -757,6 +757,7 @@
     <Content Include="Validation\ValidateField.aspx" />
     <Content Include="Validation\ValidateNormals.aspx" />
     <Content Include="Validation\ValidateNutrients.aspx" />
+    <Content Include="Validation\ValidateSoloNutrients.aspx" />
     <Content Include="Validation\ValidateUnknowns.aspx" />
     <Content Include="Validation\Validation.aspx" />
     <Content Include="Video\Training.aspx" />
@@ -2080,6 +2081,13 @@
     </Compile>
     <Compile Include="Validation\ValidateNutrients.aspx.designer.cs">
       <DependentUpon>ValidateNutrients.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\ValidateSoloNutrients.aspx.cs">
+      <DependentUpon>ValidateSoloNutrients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Validation\ValidateSoloNutrients.aspx.designer.cs">
+      <DependentUpon>ValidateSoloNutrients.aspx</DependentUpon>
     </Compile>
     <Compile Include="Validation\ValidateUnknowns.aspx.cs">
       <DependentUpon>ValidateUnknowns.aspx</DependentUpon>

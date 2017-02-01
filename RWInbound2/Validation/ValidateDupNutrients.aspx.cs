@@ -460,7 +460,9 @@ namespace RWInbound2.Validation
                          where t.SampleNumber == sampleNumber & t.Valid == true // & t.NutrientBarCode == barcode
                          select t); 
 
-                if (T == null)  // no current record, so we are first and must add all detail
+              //  if (T == null)  // no current record, so we are first and must add all detail
+                   
+                if (T.Count() == 0) // updated 1/27 bwitt
                 {
                     NW = new NEWexpWater(); // create new entity as there is not one yet
                     existingRecord = false;
@@ -674,16 +676,16 @@ namespace RWInbound2.Validation
                     foreach(NEWexpWater n in T) // may be one or more but we just update our data, the rest must be there
                     {
                         n.totP = totP;
-                        NW.OP = OP;
-                        NW.totN = totN;
-                        NW.NN = NN;
-                        NW.Ammonia = Ammonia;
-                        NW.DOC = DOC;
-                        NW.Chloride = Chloride;
-                        NW.Sulfate = Sulfate ;
-                        NW.TSS = TSS;
-                        NW.ChlorophyllA = ChlorA;
-                        NW.NutrientBarCode = barcode; 
+                        n.OP = OP;
+                        n.totN = totN;
+                        n.NN = NN;
+                        n.Ammonia = Ammonia;
+                        n.DOC = DOC;
+                        n.Chloride = Chloride;
+                        n.Sulfate = Sulfate;
+                        n.TSS = TSS;
+                        n.ChlorophyllA = ChlorA;
+                        n.NutrientBarCode = barcode; 
                     }
                     RWE.SaveChanges(); // update all records
                 }
