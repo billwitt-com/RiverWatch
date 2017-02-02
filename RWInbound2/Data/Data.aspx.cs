@@ -76,5 +76,10 @@ namespace RWInbound2.Data
         {
             Response.Redirect("~/Data/UnknownData.aspx");
         }
+
+        protected void btnEnterBenthicsPhysHab_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Data/EnterBenthicsPhysHab.aspx");
+        }
     }
 }
