@@ -51,7 +51,7 @@ namespace RWInbound2.Validation
             int DUPnutrientCount = 0;
             RiverWatchEntities RWE = new RiverWatchEntities();
             var C = from c in RWE.NutrientDatas
-                    where c.Valid == true & (c.TypeCode.Contains("25") | c.TypeCode.Contains("35")) & c.Validated == false
+                    where c.Valid == true & c.TypeCode.Contains("25") & c.Validated == false
                     select c;
             if (C.Count() > 0)
             {
@@ -60,11 +60,11 @@ namespace RWInbound2.Validation
 
             if (DUPnutrientCount > 0)
             {
-                lblNumberLeft.Text = string.Format("There are {0} 'NormalDUP' samples left to validate", DUPnutrientCount);
+                lblNumberLeft.Text = string.Format("There are {0} 'Nutrient DUP' samples left to validate", DUPnutrientCount);
             }
             else
             {
-                lblNumberLeft.Text = "There are NO samples left to validate";
+                lblNumberLeft.Text = "There are NO Nutrient DUP samples left to validate";
             }
         }
 
@@ -878,14 +878,23 @@ namespace RWInbound2.Validation
             string query = "";
             TextBox TB = FormView1.Controls[0].FindControl("SampleNumberTextBox") as TextBox;
             lblError.Visible = false;
-            if (TB == null)
+            
+            if (TB == null) // this happens when page opens, so may be OK
             {
-                lblError.Text = "There is no valid sample number for this barcode";
-                lblError.Visible = true;
+                //lblError.Text = "There is no valid sample number for this barcode";
+                //lblError.Visible = true;
                 return;
                 // do something here, not sure what yet
             }
+            if(TB.Text.Length < 1)
+            {
+                lblError.Text = "There is no valid sample number for this data";
+                lblError.Visible = true;
+                return;
+            }
+
             sampleNumber = TB.Text.Trim();
+           
             // check to see if there is an entry for this sample number, should be..
 
             string BC = (from s in RWE.NutrientDatas

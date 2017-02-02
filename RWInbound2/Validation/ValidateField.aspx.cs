@@ -419,7 +419,14 @@ namespace RWInbound2.Validation
                     if (C == null)
                     {
                         lblMsg.Text = "Please choose a valid Kit Number";
+                        Session["KITNUMBER"] = null;
+                        FormView1.Visible = false;
+                        lblNumberLeft.Text = "";
                         return;
+                    }
+                    else
+                    {
+                        lblMsg.Text = ""; 
                     }
                     orgName = C.OrganizationName;
                     Session["KITNUMBER"] = LocaLkitNumber;
@@ -431,7 +438,14 @@ namespace RWInbound2.Validation
                 if (orgName.Length < 3)
                 {
                     lblMsg.Text = "Please choose an organization or kit number";
+                    Session["KITNUMBER"] = null;
+                    FormView1.Visible = false;
+                    lblNumberLeft.Text = "";
                     return;
+                }
+                else
+                {
+                    lblMsg.Text = "";
                 }
 
                 // get the org id and then set up a count of unknowns to work with
@@ -441,6 +455,9 @@ namespace RWInbound2.Validation
                 if (C == null)
                 {
                     lblMsg.Text = "Please choose a valid organization";
+                    Session["KITNUMBER"] = null;
+                    FormView1.Visible = false;
+                    lblNumberLeft.Text = "";
                     return;
                 }
 
@@ -452,16 +469,9 @@ namespace RWInbound2.Validation
 
             // valid kit number here... 
 
-            //if(!countSamples())
-            //    return;           
+            if(!countSamples( LocaLkitNumber))
+                return;           
 
-            // we have some samples to validate, so set up the query and bind to formview
-            // removed [RiverWatch].[dbo].
-
-            // old query, maybe did not work... 
-    //        sCommand = string.Format(" select *  FROM [InboundSamples] JOIN Samples on InboundSamples.SampleID = " +
-    //   " Samples.SampleNumber " +
-    //" where KitNum = {0} and [InboundSamples].[valid] = 1 and Samples.Valid = 1 and passValStep < 0 order by date desc ", LocaLkitNumber);
             try
             {
                 sCommand = string.Format(" select *  FROM [InboundSamples]  " +
@@ -889,11 +899,11 @@ namespace RWInbound2.Validation
 
             if (sampsToValidate <= 0)
             {
-                lblNumberLeft.Text = "There is NO Field Data to validate";
+                lblNumberLeft.Text = string.Format("There is NO Field Data to validate for Kit Number {0}", kitNumber);
                 return false; 
             }
             else
-                lblNumberLeft.Text = string.Format("There are {0} Field Data entries to validate", sampsToValidate);
+                lblNumberLeft.Text = string.Format("There are {0} Field Data entries to validate for Kit Number {1}", sampsToValidate, kitNumber);
             return true; 
         }
     }
