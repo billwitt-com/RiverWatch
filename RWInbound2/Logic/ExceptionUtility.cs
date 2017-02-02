@@ -13,7 +13,6 @@ namespace RWInbound2.Logic
         // Log an Exception
         public static void LogException(Exception exc, string source)
         {
-
             LogError LE = new LogError();
             LE.logError(exc.Message, "ExceptionUtility", exc.StackTrace.ToString(), "", "Unhandled Exception caught.");
 

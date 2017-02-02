@@ -60,9 +60,11 @@ namespace RWInbound2
 
             // Get last error from the server
             Exception exc = Server.GetLastError();
+            
 
             if (exc is HttpUnhandledException)
-            {          
+            {
+                string name = User.Identity.Name; 
                 string errorHandler = "Application_Error - Global.asax";
                 ExceptionUtility.LogException(exc, errorHandler);
                 Session["Error"] = exc;
