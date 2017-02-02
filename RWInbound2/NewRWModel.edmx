@@ -1147,6 +1147,15 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="UserCreated" Type="nvarchar" MaxLength="200" />
           <Property Name="Valid" Type="bit" />
         </EntityType>
+        <EntityType Name="tlkMedium">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="DateLastModified" Type="smalldatetime" />
+          <Property Name="UserLastModified" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="tlkMetalBarCodeType">
           <Key>
             <PropertyRef Name="ID" />
@@ -1579,8 +1588,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ParticipantsView' does not have a p
           <Property Name="ID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'RiverWatch.dbo.ParticipantswithOrgName' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'RiverWatch.dbo.SamplesView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SamplesView">
           <Key>
@@ -1773,6 +1780,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <EntitySet Name="tlkHydroUnit" EntityType="Self.tlkHydroUnit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkIntent" EntityType="Self.tlkIntent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkLimits" EntityType="Self.tlkLimits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tlkMedium" EntityType="Self.tlkMedium" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkMetalBarCodeType" EntityType="Self.tlkMetalBarCodeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkNutrientBarCodeType" EntityType="Self.tlkNutrientBarCodeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkNutrientLimits" EntityType="Self.tlkNutrientLimits" Schema="dbo" store:Type="Tables" />
@@ -2859,6 +2867,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             <End Role="StationImage" EntitySet="StationImages" />
           </AssociationSet>
           <EntitySet Name="tlkIntents" EntityType="RiverWatchModel.tlkIntent" />
+          <EntitySet Name="tlkMediums" EntityType="RiverWatchModel.tlkMedium" />
         </EntityContainer>
         <EntityType Name="tlkSubPara">
           <Key>
@@ -3814,6 +3823,15 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tlkMedium">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="0" />
+          <Property Name="UserLastModified" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5544,6 +5562,16 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <EntitySetMapping Name="tlkIntents">
             <EntityTypeMapping TypeName="RiverWatchModel.tlkIntent">
               <MappingFragment StoreEntitySet="tlkIntent">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkMediums">
+            <EntityTypeMapping TypeName="RiverWatchModel.tlkMedium">
+              <MappingFragment StoreEntitySet="tlkMedium">
                 <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

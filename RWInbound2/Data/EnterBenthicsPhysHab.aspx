@@ -3,9 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" ClientIDMode="Static">
     <div>
-    <hgroup>
-        <h3>Select a Station to Enter Benthics or Physical Habitat Data to a Sample</h3>
-    </hgroup>    
+        <hgroup>
+            <h3>Select a Station to Enter Benthics or Physical Habitat Data to a Sample</h3>
+        </hgroup>
+    </div>    
     <div>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
@@ -18,7 +19,7 @@
                     <br />            
                 </div>
                 Search By Station#:
-                <asp:TextBox ID="stationNumberSearch" 
+                <asp:TextBox ID="stationNumberSearch"
                     AutoPostBack="true"
                     runat="server"></asp:TextBox>
                     <asp:Button ID="btnSearch" runat="server" Text="Select" Height="31px" OnClick="btnSearchStationNumber_Click" CausesValidation="False" CssClass="adminButton" />               
