@@ -467,6 +467,8 @@ namespace RWInbound2.Validation
                         {
                             if (sdr.HasRows)
                             {
+                                HighLimit.Clear();
+                                LowLimit.Clear(); 
                                 while (sdr.Read())
                                 {
                                     if (sdr["Element"].GetType() != typeof(System.DBNull))      // is this crap or what???

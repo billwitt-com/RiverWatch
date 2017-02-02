@@ -15,7 +15,19 @@ namespace RWInbound2
         {      
             RiverWatchEntities NRWE = new RiverWatchEntities(); 
             ErrorLog EL = new ErrorLog();
-            EL.Date = DateTime.Now.ToLocalTime();   // Changed 12/29 to get better time info
+
+            // added 02/02 bwitt to try to get accurate times for log
+            TimeZoneInfo timeZoneInfo;
+            DateTime dateTime;
+            //Set the time zone information to US Mountain Standard Time 
+
+            timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("US Mountain Standard Time");
+
+            //Get date and time in US Mountain Standard Time 
+            dateTime = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo);
+
+            EL.Date = dateTime; // DateTime.Now.ToLocalTime();   // Changed 12/29 to get better time info
+
             EL.Message = msg; 
             EL.Comment = comment;
             EL.StackTrace = stackTrace;
