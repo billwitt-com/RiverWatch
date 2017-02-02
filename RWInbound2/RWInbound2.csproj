@@ -1960,6 +1960,9 @@
     <Compile Include="tlkHydroUnit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tlkIntent.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tlkLimit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>

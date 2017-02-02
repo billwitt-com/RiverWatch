@@ -35,5 +35,7 @@ namespace RWInbound2
         public bool Training { get; set; }
         public string UserCreated { get; set; }
         public Nullable<bool> Valid { get; set; }
+        public bool OrgActive { get; set; }
+        public bool ParticpantActive { get; set; }
     }
 }
