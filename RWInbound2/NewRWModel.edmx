@@ -5,7 +5,7 @@
     <!-- test line -->
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiverWatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiverWatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ControlPermissions">
           <Key>
             <PropertyRef Name="ID" />
@@ -1124,6 +1124,15 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="tlkIntent">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tlkLimits">
           <Key>
             <PropertyRef Name="ID" />
@@ -1571,35 +1580,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ParticipantsView' does not have a p
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'RiverWatch.dbo.ParticipantswithOrgName' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ParticipantswithOrgName">
-          <Key>
-            <PropertyRef Name="OrganizationName" />
-            <PropertyRef Name="Active" />
-            <PropertyRef Name="PrimaryContact" />
-            <PropertyRef Name="Training" />
-          </Key>
-          <Property Name="OrganizationName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="KitNumber" Type="int" />
-          <Property Name="LastName" Type="varchar" MaxLength="25" />
-          <Property Name="FirstName" Type="varchar" MaxLength="25" />
-          <Property Name="Title" Type="varchar" MaxLength="25" />
-          <Property Name="YearSignedOn" Type="int" />
-          <Property Name="Phone" Type="varchar" MaxLength="30" />
-          <Property Name="Email" Type="varchar" MaxLength="50" />
-          <Property Name="Address1" Type="varchar" MaxLength="50" />
-          <Property Name="Address2" Type="varchar" MaxLength="50" />
-          <Property Name="City" Type="varchar" MaxLength="25" />
-          <Property Name="State" Type="varchar" MaxLength="2" />
-          <Property Name="Zip" Type="varchar" MaxLength="10" />
-          <Property Name="HomePhone" Type="varchar" MaxLength="30" />
-          <Property Name="HomeEmail" Type="varchar" MaxLength="50" />
-          <Property Name="MailPreference" Type="varchar" MaxLength="50" />
-          <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="PrimaryContact" Type="bit" Nullable="false" />
-          <Property Name="Training" Type="bit" Nullable="false" />
-          <Property Name="UserCreated" Type="varchar" MaxLength="25" />
-          <Property Name="Valid" Type="bit" />
-        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'RiverWatch.dbo.SamplesView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SamplesView">
@@ -1791,6 +1771,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <EntitySet Name="tlkGearConfig" EntityType="Self.tlkGearConfig" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkGrid" EntityType="Self.tlkGrid" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkHydroUnit" EntityType="Self.tlkHydroUnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tlkIntent" EntityType="Self.tlkIntent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkLimits" EntityType="Self.tlkLimits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkMetalBarCodeType" EntityType="Self.tlkMetalBarCodeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tlkNutrientBarCodeType" EntityType="Self.tlkNutrientBarCodeType" Schema="dbo" store:Type="Tables" />
@@ -1941,31 +1922,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
     [ParticipantsView].[Valid] AS [Valid], 
     [ParticipantsView].[ID] AS [ID]
     FROM [dbo].[ParticipantsView] AS [ParticipantsView]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ParticipantswithOrgName" EntityType="Self.ParticipantswithOrgName" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ParticipantswithOrgName].[OrganizationName] AS [OrganizationName], 
-    [ParticipantswithOrgName].[KitNumber] AS [KitNumber], 
-    [ParticipantswithOrgName].[LastName] AS [LastName], 
-    [ParticipantswithOrgName].[FirstName] AS [FirstName], 
-    [ParticipantswithOrgName].[Title] AS [Title], 
-    [ParticipantswithOrgName].[YearSignedOn] AS [YearSignedOn], 
-    [ParticipantswithOrgName].[Phone] AS [Phone], 
-    [ParticipantswithOrgName].[Email] AS [Email], 
-    [ParticipantswithOrgName].[Address1] AS [Address1], 
-    [ParticipantswithOrgName].[Address2] AS [Address2], 
-    [ParticipantswithOrgName].[City] AS [City], 
-    [ParticipantswithOrgName].[State] AS [State], 
-    [ParticipantswithOrgName].[Zip] AS [Zip], 
-    [ParticipantswithOrgName].[HomePhone] AS [HomePhone], 
-    [ParticipantswithOrgName].[HomeEmail] AS [HomeEmail], 
-    [ParticipantswithOrgName].[MailPreference] AS [MailPreference], 
-    [ParticipantswithOrgName].[Active] AS [Active], 
-    [ParticipantswithOrgName].[PrimaryContact] AS [PrimaryContact], 
-    [ParticipantswithOrgName].[Training] AS [Training], 
-    [ParticipantswithOrgName].[UserCreated] AS [UserCreated], 
-    [ParticipantswithOrgName].[Valid] AS [Valid]
-    FROM [dbo].[ParticipantswithOrgName] AS [ParticipantswithOrgName]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="SamplesView" EntityType="Self.SamplesView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2866,7 +2822,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <EntitySet Name="NutrientDatas" EntityType="RiverWatchModel.NutrientData" />
           <EntitySet Name="NutrientLimits" EntityType="RiverWatchModel.NutrientLimit" />
           <EntitySet Name="tlkNutrientLimits" EntityType="RiverWatchModel.tlkNutrientLimit" />
-          <EntitySet Name="ParticipantswithOrgNames" EntityType="RiverWatchModel.ParticipantswithOrgName" />
           <EntitySet Name="ViewSoloNutrientDups" EntityType="RiverWatchModel.ViewSoloNutrientDup" />
           <EntitySet Name="UnknownSample" EntityType="RiverWatchModel.UnknownSample" />
           <EntitySet Name="tblProject" EntityType="RiverWatchModel.tblProject" />          
@@ -2903,6 +2858,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             <End Role="StationImageType" EntitySet="StationImageTypes" />
             <End Role="StationImage" EntitySet="StationImages" />
           </AssociationSet>
+          <EntitySet Name="tlkIntents" EntityType="RiverWatchModel.tlkIntent" />
         </EntityContainer>
         <EntityType Name="tlkSubPara">
           <Key>
@@ -3124,35 +3080,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="DvsTDifference" Type="Decimal" Precision="16" Scale="4" />
           <Property Name="DateCreated" Type="DateTime" Precision="0" />
           <Property Name="UserCreated" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Valid" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="ParticipantswithOrgName">
-          <Key>
-            <PropertyRef Name="OrganizationName" />
-            <PropertyRef Name="Active" />
-            <PropertyRef Name="PrimaryContact" />
-            <PropertyRef Name="Training" />
-          </Key>
-          <Property Name="OrganizationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="KitNumber" Type="Int32" />
-          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="YearSignedOn" Type="Int32" />
-          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="HomePhone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="HomeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MailPreference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="PrimaryContact" Type="Boolean" Nullable="false" />
-          <Property Name="Training" Type="Boolean" Nullable="false" />
-          <Property Name="UserCreated" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
         </EntityType>
         <EntityType Name="ViewSoloNutrientDup">
@@ -3879,6 +3806,15 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tlkIntent">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4878,33 +4814,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ParticipantswithOrgNames">
-            <EntityTypeMapping TypeName="RiverWatchModel.ParticipantswithOrgName">
-              <MappingFragment StoreEntitySet="ParticipantswithOrgName">
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
-                <ScalarProperty Name="Training" ColumnName="Training" />
-                <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="MailPreference" ColumnName="MailPreference" />
-                <ScalarProperty Name="HomeEmail" ColumnName="HomeEmail" />
-                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="YearSignedOn" ColumnName="YearSignedOn" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="KitNumber" ColumnName="KitNumber" />
-                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ViewSoloNutrientDups">
             <EntityTypeMapping TypeName="RiverWatchModel.ViewSoloNutrientDup">
               <MappingFragment StoreEntitySet="ViewSoloNutrientDups">
@@ -5629,6 +5538,16 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
                 <ScalarProperty Name="EnforcePrimary" ColumnName="EnforcePrimary" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkIntents">
+            <EntityTypeMapping TypeName="RiverWatchModel.tlkIntent">
+              <MappingFragment StoreEntitySet="tlkIntent">
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>          

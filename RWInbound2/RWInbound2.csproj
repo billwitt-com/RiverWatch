@@ -191,6 +191,7 @@
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
+    <Content Include="Data\EnterBenthicsPhysHab.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditNutrientBarcode.aspx" />
@@ -450,6 +451,7 @@
     <None Include="Properties\PublishProfiles\Alex_Local.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\coloradoriverwatchwest - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
@@ -886,6 +888,13 @@
     <Compile Include="Admin\EditInboundFieldData.aspx.designer.cs">
       <DependentUpon>EditInboundFieldData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Data\EnterBenthicsPhysHab.aspx.cs">
+      <DependentUpon>EnterBenthicsPhysHab.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Data\EnterBenthicsPhysHab.aspx.designer.cs">
+      <DependentUpon>EnterBenthicsPhysHab.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1280,9 +1289,6 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ParticipantsView.cs">
-      <DependentUpon>NewRWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ParticipantswithOrgName.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PartsWithOrgs.Designer.cs">
@@ -1949,6 +1955,9 @@
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tlkHydroUnit.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tlkIntent.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tlkLimit.cs">

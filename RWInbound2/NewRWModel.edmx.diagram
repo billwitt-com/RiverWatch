@@ -64,7 +64,6 @@
         <EntityTypeShape EntityType="RiverWatchModel.NutrientData" Width="1.5" PointX="27.375" PointY="0.75" />
         <EntityTypeShape EntityType="RiverWatchModel.NutrientLimit" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkNutrientLimit" Width="1.5" PointX="7.75" PointY="18.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.ParticipantswithOrgName" Width="1.5" PointX="27.375" PointY="22.75" />
         <EntityTypeShape EntityType="RiverWatchModel.ViewSoloNutrientDup" Width="1.5" PointX="23.375" PointY="27.75" />
         <EntityTypeShape EntityType="RiverWatchModel.UnknownSample" Width="1.5" PointX="0.75" PointY="27.75" />
         <EntityTypeShape EntityType="RiverWatchModel.InboundSamples" Width="1.5" PointX="13.375" PointY="26.75" />
@@ -96,6 +95,7 @@
         <AssociationConnector Association="RiverWatchModel.FK_StationImage_StationImage" />
         <EntityTypeShape EntityType="RiverWatchModel.StationImageType" Width="1.5" PointX="5.375" PointY="15.875" />
         <AssociationConnector Association="RiverWatchModel.FK_StationImage_ImageType" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkIntent" Width="1.5" PointX="31.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
