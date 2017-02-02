@@ -144,7 +144,7 @@ namespace RWInbound2.Validation
                          where t.SampleNumber == sampleNumber & t.Valid == true // & t.NutrientBarCode == barcode
                          select t); 
 
-                if (T == null)  // no current record, so we are first and must add all detail
+                if (T.Count() == 0)  // no current record, so we are first and must add all detail
                 {
                     NW = new NEWexpWater(); // create new entity as there is not one yet
                     existingRecord = false;

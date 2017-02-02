@@ -51,7 +51,7 @@ namespace RWInbound2.Validation
             int DUPnutrientCount = 0;
             RiverWatchEntities RWE = new RiverWatchEntities();
             var C = from c in RWE.NutrientDatas
-                    where c.Valid == true & (c.TypeCode.Contains("25") | c.TypeCode.Contains("35")) & c.Validated == false
+                    where c.Valid == true & c.TypeCode.Contains("25") & c.Validated == false
                     select c;
             if (C.Count() > 0)
             {
@@ -60,11 +60,11 @@ namespace RWInbound2.Validation
 
             if (DUPnutrientCount > 0)
             {
-                lblNumberLeft.Text = string.Format("There are {0} 'NormalDUP' samples left to validate", DUPnutrientCount);
+                lblNumberLeft.Text = string.Format("There are {0} 'Nutrient DUP' samples left to validate", DUPnutrientCount);
             }
             else
             {
-                lblNumberLeft.Text = "There are NO samples left to validate";
+                lblNumberLeft.Text = "There are NO Nutrient DUP samples left to validate";
             }
         }
 
@@ -460,7 +460,9 @@ namespace RWInbound2.Validation
                          where t.SampleNumber == sampleNumber & t.Valid == true // & t.NutrientBarCode == barcode
                          select t); 
 
-                if (T == null)  // no current record, so we are first and must add all detail
+              //  if (T == null)  // no current record, so we are first and must add all detail
+                   
+                if (T.Count() == 0) // updated 1/27 bwitt
                 {
                     NW = new NEWexpWater(); // create new entity as there is not one yet
                     existingRecord = false;
@@ -674,16 +676,16 @@ namespace RWInbound2.Validation
                     foreach(NEWexpWater n in T) // may be one or more but we just update our data, the rest must be there
                     {
                         n.totP = totP;
-                        NW.OP = OP;
-                        NW.totN = totN;
-                        NW.NN = NN;
-                        NW.Ammonia = Ammonia;
-                        NW.DOC = DOC;
-                        NW.Chloride = Chloride;
-                        NW.Sulfate = Sulfate ;
-                        NW.TSS = TSS;
-                        NW.ChlorophyllA = ChlorA;
-                        NW.NutrientBarCode = barcode; 
+                        n.OP = OP;
+                        n.totN = totN;
+                        n.NN = NN;
+                        n.Ammonia = Ammonia;
+                        n.DOC = DOC;
+                        n.Chloride = Chloride;
+                        n.Sulfate = Sulfate;
+                        n.TSS = TSS;
+                        n.ChlorophyllA = ChlorA;
+                        n.NutrientBarCode = barcode; 
                     }
                     RWE.SaveChanges(); // update all records
                 }
@@ -876,14 +878,23 @@ namespace RWInbound2.Validation
             string query = "";
             TextBox TB = FormView1.Controls[0].FindControl("SampleNumberTextBox") as TextBox;
             lblError.Visible = false;
-            if (TB == null)
+            
+            if (TB == null) // this happens when page opens, so may be OK
             {
-                lblError.Text = "There is no valid sample number for this barcode";
-                lblError.Visible = true;
+                //lblError.Text = "There is no valid sample number for this barcode";
+                //lblError.Visible = true;
                 return;
                 // do something here, not sure what yet
             }
+            if(TB.Text.Length < 1)
+            {
+                lblError.Text = "There is no valid sample number for this data";
+                lblError.Visible = true;
+                return;
+            }
+
             sampleNumber = TB.Text.Trim();
+           
             // check to see if there is an entry for this sample number, should be..
 
             string BC = (from s in RWE.NutrientDatas
