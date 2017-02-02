@@ -5,18 +5,18 @@
     <div>
     <hgroup>
         <h3>Select a Station to Enter Benthics or Physical Habitat Data</h3>
-    </hgroup>
-    <div class="label-placement">
-            <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
-        </div>
-        <div class="label-placement">
-            <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
-        </div>
-        <br />            
-    </div>
+    </hgroup>    
     <div>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
+                <div class="label-placement">
+                        <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
+                    </div>
+                    <div class="label-placement">
+                        <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
+                    </div>
+                    <br />            
+                </div>
                 Search By Station#:
                 <asp:TextBox ID="stationNumberSearch" 
                     AutoPostBack="true"
@@ -88,8 +88,8 @@
         <Columns>  
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:Button ID="BenthicsButton" runat="server" Text="Benthics" />
-                    <asp:Button ID="PhysHabButton" runat="server" Text="Phys Hab" />
+                    <asp:Button ID="BenthicsButton" runat="server" Text="Benthics" OnClientClick="return alert('Not Implmented Yet!');" />
+                    <asp:Button ID="PhysHabButton" runat="server" Text="Phys Hab" OnClientClick="return alert('Not Implmented Yet!');" />
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Sample Number" SortExpression="SampleNumber">
