@@ -38,7 +38,7 @@
         <br />
    
     <br />
-    <asp:FormView ID="FormView1" runat="server"  OnDataBound="FormView1_DataBound" DefaultMode="Edit" AllowPaging="True" DataKeyNames="ID" DataSourceID="SqlDataSource1"
+    <asp:FormView ID="FormView1" runat="server"   OnDataBound="FormView1_DataBound" DefaultMode="Edit" AllowPaging="True" DataKeyNames="ID" DataSourceID="SqlDataSource1"
         Width="808px">
         <EditItemTemplate>
             <table>
@@ -368,7 +368,7 @@
                 <tr>
                     <td style="width: 20px;"></td>
                     <td>
-                        <asp:Button ID="UpdateButton" ClientIDMode="Static" CssClass="adminButton" runat="server" CausesValidation="True" CommandName="Update" Text="Validate" />
+                        <asp:Button ID="UpdateButton" ClientIDMode="Static" CssClass="adminButton" runat="server" OnClick="UpdateButton_Click" CausesValidation="True" CommandName="Update" Text="Validate" />
                         <asp:Button ID="btnBAD" ClientIDMode="Static" CssClass="adminButton"  runat="server" OnClick="btnBAD_Click" CausesValidation="True" Text="BAD" />
                     </td>
 

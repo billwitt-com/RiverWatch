@@ -30,13 +30,14 @@ namespace RWInbound2.Validation
 
             allowed = App_Code.Permissions.Test(Page.ToString(), "PAGE");
             if (!allowed)
-                Response.Redirect("~/index.aspx"); 
+                Response.Redirect("~/index.aspx");
 
             if (Session["COMMAND"] != null) // reset the command each time
             {
                 string sCommand = (string)Session["COMMAND"];
                 SqlDataSource1.SelectCommand = sCommand;
-                FormView1.Visible = true; 
+                FormView1.DataBind();
+                FormView1.Visible = true;
             }
             else
             {
@@ -48,15 +49,13 @@ namespace RWInbound2.Validation
                 int kitNumber = (int)Session["KITNUMBER"];
 
                 if (!countSamples(kitNumber))
-                    return;   
+                {
+                    FormView1.Visible = false;
+                    return;
+                } 
             }
         }
-
-        protected void InsertButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         // mark record invalid and move on
         protected void btnBAD_Click(object sender, EventArgs e)
         {
@@ -470,7 +469,10 @@ namespace RWInbound2.Validation
             // valid kit number here... 
 
             if(!countSamples( LocaLkitNumber))
-                return;           
+            {
+                FormView1.Visible = false;
+                return;
+            }          
 
             try
             {
@@ -543,9 +545,15 @@ namespace RWInbound2.Validation
 
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
         {
-            e.Command.Parameters["@PassValStep"].Value = 1; // mark record as validated
+            e.Command.Parameters["@PassValStep"].Value = 2.0; // mark record as validated
             e.Command.Parameters["@Valid"].Value = true;
+        }
+    
+        protected void UpdateButton_Click(object sender, EventArgs e)
+        {
+            SqlDataSource1.Update(); // force update 
 
+            // now add to newexpWater table, or update if needed
             RiverWatchEntities RWE = new RiverWatchEntities();
             NEWexpWater NEW = new NEWexpWater();
 
@@ -843,7 +851,10 @@ namespace RWInbound2.Validation
                 int kitNumber = (int)Session["KITNUMBER"];
 
                 if (!countSamples(kitNumber))
+                {
+                    FormView1.Visible = false;
                     return;
+                }                 
             }
         } 
 
@@ -874,7 +885,10 @@ namespace RWInbound2.Validation
                     int kitNumber = (int)Session["KITNUMBER"];
 
                     if (!countSamples(kitNumber))
+                    {
+                        FormView1.Visible = false; 
                         return;
+                    }
                 }
                 string uniqueID = FormView1.Controls[0].UniqueID;
                 compareTextBoxes(uniqueID);
@@ -900,11 +914,17 @@ namespace RWInbound2.Validation
             if (sampsToValidate <= 0)
             {
                 lblNumberLeft.Text = string.Format("There is NO Field Data to validate for Kit Number {0}", kitNumber);
+                FormView1.Visible = false; 
                 return false; 
             }
             else
                 lblNumberLeft.Text = string.Format("There are {0} Field Data entries to validate for Kit Number {1}", sampsToValidate, kitNumber);
             return true; 
         }
+
+        //protected void UpdateButton_Click(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }

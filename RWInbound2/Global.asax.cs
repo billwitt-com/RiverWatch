@@ -43,12 +43,26 @@ namespace RWInbound2
         void page_Error(object sender, EventArgs e)
         {
             //log error as you want
-            Exception exc = Server.GetLastError();
+           // Exception exc = Server.GetLastError();
+            
+            //string requestPage = Request.UrlReferrer.AbsoluteUri; 
+           
 
-            if (exc is HttpUnhandledException)
-            {
-                string test = string.Empty;
-            }
+           
+
+            //    string nam = "";
+            //    if (User.Identity.Name.Length < 3)
+            //        nam = "Unknown User";
+            //    else
+            //        nam = User.Identity.Name;
+            //    string msg = exc.Message;
+            //    LogError LE = new LogError();
+            //    LE.logError(msg, requestPage, exc.StackTrace.ToString(), nam, "Unhandled Exception - Global.asax");
+
+            //if (exc is HttpUnhandledException)
+            //{
+            //    string test = string.Empty;
+            //}
         }
 
         void Application_Error(object sender, EventArgs e)
@@ -59,21 +73,23 @@ namespace RWInbound2
             //System.Type TE = e.GetType(); 
 
             // Get last error from the server
-            Exception exc = Server.GetLastError();
+
+            // removed this until it passes actionable information to error log... 
+        //    Exception exc = Server.GetLastError();
             
 
-            if (exc is HttpUnhandledException)
-            {
-                string name = User.Identity.Name; 
-                string errorHandler = "Application_Error - Global.asax";
-                ExceptionUtility.LogException(exc, errorHandler);
-                Session["Error"] = exc;
-                Response.Redirect("~/ErrorPage.aspx?handler=Application_Error%20-%20Global.asax",
-                    false);
-                Server.ClearError();
-                //Server.Transfer("~/ErrorPage.aspx?handler=Application_Error%20-%20Global.asax",
-                //    true);               
-            }            
+            //if (exc is HttpUnhandledException)
+            //{
+            //    string name = User.Identity.Name; 
+            //    string errorHandler = "Application_Error - Global.asax";
+            //    ExceptionUtility.LogException(exc, errorHandler);
+            //    Session["Error"] = exc;
+            //    Response.Redirect("~/ErrorPage.aspx?handler=Application_Error%20-%20Global.asax",
+            //        false);
+            //    Server.ClearError();
+            //    //Server.Transfer("~/ErrorPage.aspx?handler=Application_Error%20-%20Global.asax",
+            //    //    true);               
+            //}            
         }
     }
 }

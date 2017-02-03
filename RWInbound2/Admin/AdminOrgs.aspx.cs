@@ -320,6 +320,7 @@ namespace RWInbound2.Admin
              int newKitnumber = 0;
             string kitNumberString = "";
             string kn = "";
+           
             // KitNumberTextBox
 
             string uniqueID = FormView1.Controls[0].UniqueID;
@@ -336,9 +337,9 @@ namespace RWInbound2.Admin
 
                         RiverWatchEntities RWE = new RiverWatchEntities();
 
-                        int K = (int)(from k in RWE.organizations
-                                      where k.KitNumber == newKitnumber
-                                      select k.KitNumber).FirstOrDefault();
+                        var K = (from k in RWE.organizations
+                                 where k.KitNumber == newKitnumber
+                                 select k).FirstOrDefault(); 
 
                         if (K != null)   // existing kit number 
                         {
@@ -371,7 +372,7 @@ namespace RWInbound2.Admin
                     nam = User.Identity.Name;
                 string msg = ex.Message;
                 LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Inserting new Org");
             }
             
      

@@ -800,7 +800,5 @@ namespace RWInbound2.Validation
             NEWexpWater newObject = (NEWexpWater)dcSer.ReadObject(memoryStream);
             return newObject;
         }
-
-
     }
 }
