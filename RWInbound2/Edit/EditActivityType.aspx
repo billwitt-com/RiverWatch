@@ -46,6 +46,7 @@
             UpdateMethod="UpdateActivityType"
             DeleteMethod="DeleteActivityType" 
             InsertItemPosition="LastItem"  
+            OnRowEditing="ActivityTypeGridView_RowEditing"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"

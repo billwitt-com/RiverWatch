@@ -204,13 +204,13 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
                 string code = ((TextBox)ActivityTypeGridView.FooterRow.FindControl("NewCode")).Text;
                 string description = ((TextBox)ActivityTypeGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
-                    SuccessLabel.Text = "";
-                    ErrorLabel.Text = "Code field is required.";
+                    SetMessages("Error", "Code field is required.");
                 }
                 else
                 {
@@ -236,7 +236,6 @@ namespace RWInbound2.Edit
                     {
                         _db.tlkActivityTypes.Add(newActivityType);
                         _db.SaveChanges();
-                        ErrorLabel.Text = "";
 
                         string successLabelText = "New Activity Type Added: " + newActivityType.Description;
                         string redirect = "EditActivityType.aspx?successLabelMessage=" + successLabelText;
@@ -281,6 +280,11 @@ namespace RWInbound2.Edit
                 SuccessLabel.Text = "";
                 ErrorLabel.Text = ex.Message;
             }
+        }
+
+        protected void ActivityTypeGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            SetMessages();
         }
     }
 }

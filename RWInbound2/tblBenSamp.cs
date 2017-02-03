@@ -33,5 +33,6 @@ namespace RWInbound2
         public int ActivityTypeID { get; set; }
     
         public virtual tlkActivityType tlkActivityType { get; set; }
+        public virtual tlkBioResultsType tlkBioResultsType { get; set; }
     }
 }
