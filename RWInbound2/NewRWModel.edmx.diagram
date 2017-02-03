@@ -22,7 +22,6 @@
         <EntityTypeShape EntityType="RiverWatchModel.tblWBKey" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tblXSRep" Width="1.5" PointX="18.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkActivityCategory" Width="1.5" PointX="18.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RiverWatchModel.tlkActivityType" Width="1.5" PointX="10.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkBioResultsType" Width="1.5" PointX="18.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkCommunity" Width="1.5" PointX="12.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkCounty" Width="1.5" PointX="18.75" PointY="14.75" IsExpanded="true" />
@@ -77,7 +76,6 @@
         <EntityTypeShape EntityType="RiverWatchModel.SamplesView" Width="1.5" PointX="15.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tblBenGrid" Width="1.5" PointX="17.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkSection" Width="1.5" PointX="13.375" PointY="26.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="19.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.organization" Width="1.5" PointX="25.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.NEWexpWater" Width="1.5" PointX="27.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.OrgStatu" Width="1.5" PointX="3.375" PointY="10.75" />
@@ -97,6 +95,9 @@
         <AssociationConnector Association="RiverWatchModel.FK_StationImage_ImageType" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkIntent" Width="1.5" PointX="31.375" PointY="4.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkMedium" Width="1.5" PointX="31.375" PointY="15.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkActivityType" Width="1.5" PointX="31.375" PointY="20.25" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="19.25" />
+        <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

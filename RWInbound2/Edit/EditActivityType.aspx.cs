@@ -16,12 +16,30 @@ namespace RWInbound2.Edit
         {
             if (!IsPostBack)
             {
+                SetMessages();
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
+            }           
+        }
+
+        private void SetMessages(string type = "", string message = "")
+        {
+            switch (type)
+            {
+                case "Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = message;
+                    break;
+                case "Error":
+                    ErrorLabel.Text = message;
+                    SuccessLabel.Text = "";
+                    break;
+                default:
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    break;
             }
-            ErrorLabel.Text = "";
-            SuccessLabel.Text = "";
         }
 
         public IQueryable<tlkActivityType> GetActivityTypes([QueryString]string descriptionSearchTerm = "",
@@ -33,8 +51,7 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(successLabelMessage))
                 {
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = successLabelMessage;
+                    SetMessages("Success", successLabelMessage);
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
@@ -117,9 +134,11 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
+
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var activityTypeToUpdate = _db.tlkActivityTypes.Find(model.ID);
+                    var activityTypeToUpdate = _db.tlkActivityTypes.Find(model.Code);
 
                     activityTypeToUpdate.Code = model.Code;
                     activityTypeToUpdate.Description = model.Description;
@@ -137,8 +156,8 @@ namespace RWInbound2.Edit
                     activityTypeToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Activity Type Updated";
+                    string successMsg = string.Format("Activity Type Updated: {0}", model.Code);                        
+                    SetMessages("Success", successMsg);                 
                 }
             }
             catch (Exception ex)
@@ -153,11 +172,26 @@ namespace RWInbound2.Edit
             {
                 try
                 {
-                    var activityTypeToDelete = _db.tlkActivityTypes.Find(model.ID);
-                    _db.tlkActivityTypes.Remove(activityTypeToDelete);
-                    _db.SaveChanges();
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Activity Type Deleted";
+                    var tblBenSampSampleNumber = (from bs in _db.tblBenSamps
+                                                  join s in _db.Samples on bs.SampleID equals s.ID
+                                                  where bs.ActivityTypeID == model.ID
+                                                  select s.SampleNumber).FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
+                    {
+                        string errorMsg
+                            = string.Format("Activity Type {0} can not be deleted because it is assigned to the a Benthic Sample for Sample Number: {1}", model.Code, tblBenSampSampleNumber);
+                        SetMessages("Error", errorMsg);
+                    }
+                    else
+                    {
+                        var activityTypeToDelete = _db.tlkActivityTypes.Find(model.ID);
+                        _db.tlkActivityTypes.Remove(activityTypeToDelete);
+                        _db.SaveChanges();
+
+                        string successMsg = string.Format("Activity Type Deleted: {0}", model.Code);
+                        SetMessages("Success", successMsg);
+                    }                  
                 }
                 catch (Exception ex)
                 {

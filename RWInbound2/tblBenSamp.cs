@@ -21,7 +21,6 @@ namespace RWInbound2
         public Nullable<int> CollMeth { get; set; }
         public string FieldGearID { get; set; }
         public Nullable<int> GearConfigID { get; set; }
-        public string ActivityType { get; set; }
         public Nullable<System.DateTime> CollTime { get; set; }
         public Nullable<int> Medium { get; set; }
         public Nullable<int> Intent { get; set; }
@@ -31,5 +30,8 @@ namespace RWInbound2
         public string Comments { get; set; }
         public Nullable<System.DateTime> EnterDate { get; set; }
         public Nullable<bool> Valid { get; set; }
+        public int ActivityTypeID { get; set; }
+    
+        public virtual tlkActivityType tlkActivityType { get; set; }
     }
 }
