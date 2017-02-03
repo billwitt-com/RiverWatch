@@ -15,7 +15,7 @@ namespace RWInbound2
     public partial class tblBenSamp
     {
         public int ID { get; set; }
-        public Nullable<int> SampleID { get; set; }
+        public int SampleID { get; set; }
         public Nullable<int> ActivityID { get; set; }
         public Nullable<System.DateTime> CollDate { get; set; }
         public Nullable<int> CollMeth { get; set; }

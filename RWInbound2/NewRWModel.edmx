@@ -660,7 +660,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SampleID" Type="int" />
+          <Property Name="SampleID" Type="int" Nullable="false" />
           <Property Name="ActivityID" Type="int" />
           <Property Name="CollDate" Type="datetime" />
           <Property Name="CollMeth" Type="int" />
@@ -3837,7 +3837,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SampleID" Type="Int32" />
+          <Property Name="SampleID" Type="Int32" Nullable="false" />
           <Property Name="ActivityID" Type="Int32" />
           <Property Name="CollDate" Type="DateTime" Precision="3" />
           <Property Name="CollMeth" Type="Int32" />
