@@ -40,11 +40,13 @@ namespace RWInbound2.Data
                 {
                     lblPassword.Visible = false;
                     tbOrgPwd.Visible = false;
+                    btnLogin.Text = "GO";
                 }
                 else
                 {
                     lblPassword.Visible = true;
                     tbOrgPwd.Visible = true;
+                    btnLogin.Text = "Log In";
                 }
             }
         }
@@ -333,6 +335,49 @@ namespace RWInbound2.Data
         {
             int stationNumber = 0;
             int kitNumber = 0;
+            int hours = 0;
+            int mins = 0;
+            int? collectionTime = 0; 
+            string timestr = "";
+            int sampTime = 0;
+
+                timestr = tbTimeCollected.Text;
+                
+            if(!int.TryParse(timestr.Substring(0, 2), out hours))
+            {
+                lblErrorMsg.Text = "Please Enter Valid Hour value 00 - 23";
+                lblErrorMsg.Visible = true;
+                lblErrorMsg.ForeColor = System.Drawing.Color.Red;
+                Panel1.Visible = false;
+                return;
+            }
+            if(!int.TryParse(timestr.Substring(3, 2), out mins))
+            {
+                lblErrorMsg.Text = "Please Enter Valid Minute value 00 - 59";
+                lblErrorMsg.Visible = true;
+                lblErrorMsg.ForeColor = System.Drawing.Color.Red;
+                Panel1.Visible = false;
+                return;
+            }
+            if((hours > 23) | (hours < 1))
+
+            {
+                lblErrorMsg.Text = "Please Enter Valid Hour value 00 - 23";
+                lblErrorMsg.Visible = true;
+                lblErrorMsg.ForeColor = System.Drawing.Color.Red;
+                Panel1.Visible = false;
+                return;
+            }
+            if((mins <1) | (mins > 59))
+            {
+                lblErrorMsg.Text = "Please Enter Valid Minute value 00 - 59";
+                lblErrorMsg.Visible = true;
+                lblErrorMsg.ForeColor = System.Drawing.Color.Red;
+                Panel1.Visible = false;
+                return;
+            }
+
+            collectionTime = (hours * 100) + mins; 
             DateTime thisyear = DateTime.Now;
    
             DateTime dateCollected;
@@ -373,14 +418,16 @@ namespace RWInbound2.Data
             FormView1.Visible = true;
 
             var Exists = from ex in NRWDE.InboundSamples
-                         where ex.KitNum == kitNumber & ex.StationNum == stationNumber & ex.Date.Value.Year == dateCollected.Year
+                         where ex.KitNum == kitNumber & ex.StationNum == stationNumber & ex.Date.Value.Year == dateCollected.Year & ex.Time == collectionTime
                          & ex.Date.Value.Month == dateCollected.Month & ex.Date.Value.Day == dateCollected.Day & ex.Valid == true
                          select ex; 
 
             if(Exists.Count() > 0)  // we have same date already
             {
                 pnlExisting.Visible = true;
-                lblWarnExisting.Text = string.Format("NOTICE: there is an existing data entry for this station on this date {0:MM/dd/yyyy} You can choose to update the existing record or create a new one", dateCollected);
+                lblWarnExisting.Text = string.Format("NOTICE: there is an existing data entry for this station on this date {0:MM/dd/yyyy} and Time. You can choose to update the existing record or create a new one using a different time", dateCollected);
+                sampTime = Exists.FirstOrDefault().Time.Value;
+                Session["SAMPLETIME"] = sampTime;
             }
             else
             {
@@ -389,7 +436,8 @@ namespace RWInbound2.Data
             // enable the save button
             Button IB = (Button)FormView1.FindControl("InsertButton");
             IB.Enabled = true;
- 
+
+            btnLogin.Visible = false; // turn off as we dont need it 
 
         }
       
@@ -529,7 +577,15 @@ namespace RWInbound2.Data
 
         protected void btnCreateNew_Click(object sender, EventArgs e)
         {
-            // nothing to do so just return
+            int sampleTime = 0;
+            if (Session["SAMPLETIME"] != null)
+            {
+                sampleTime = (int)Session["SAMPLETIME"]; 
+                lblErrorMsg.Text = string.Format("Please Enter a different time for this sample as time {0} is in use", sampleTime);
+                tbTimeCollected.Text = "";
+                tbTimeCollected.Focus();
+                lblErrorMsg.Visible = true;
+            }
             pnlExisting.Visible = false;
             return; 
         }      
