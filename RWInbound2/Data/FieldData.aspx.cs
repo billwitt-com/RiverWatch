@@ -526,6 +526,7 @@ namespace RWInbound2.Data
           //  SqlDataSourceInBoundSample
             int kitNumber;
             int stationNumber;
+            int colTime = 0;
             DateTime colDate;
             try
             {
@@ -533,30 +534,35 @@ namespace RWInbound2.Data
 
                 if (Session["STATIONNUMBER"] == null)
                 {
-                    Response.Redirect("TimeedOut.aspx");
+                    Response.Redirect("TimedOut.aspx");
                 }
 
                 if (Session["KITNUMBER"] == null)
                 {
-                    Response.Redirect("TimeedOut.aspx");
+                    Response.Redirect("TimedOut.aspx");
                 }
 
                 if (Session["COLLECTIONDATE"] == null)
                 {
-                    Response.Redirect("TimeedOut.aspx");
+                    Response.Redirect("TimedOut.aspx");
                 }
 
+                if (Session["SAMPLETIME"] == null)
+                {
+                    Response.Redirect("TimedOut.aspx");
+                }
                 kitNumber = (int)Session["KITNUMBER"];
                 stationNumber = (int)Session["STATIONNUMBER"];
                 colDate = (DateTime)Session["COLLECTIONDATE"];
+                colTime = (int)Session["SAMPLETIME"]; 
 
                 Button IB = (Button)FormView1.FindControl("InsertButton");
                 IB.Enabled = true; 
 
                 FormView1.ChangeMode(FormViewMode.Edit);
 
-                string smdStr = string.Format("SELECT * FROM [InboundSamples] where  [KitNum] = {0} AND [StationNum] = {1} and [Date] = '{2}'",
-                    kitNumber, stationNumber, colDate.Date);
+                string smdStr = string.Format("SELECT * FROM [InboundSamples] where  [KitNum] = {0} AND [StationNum] = {1} and [Date] = '{2}' and [Time] = {3}",
+                    kitNumber, stationNumber, colDate.Date, colTime);
                 SqlDataSourceInBoundSample.SelectCommand = smdStr;
                 FormView1.DataBind();
             }

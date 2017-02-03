@@ -130,7 +130,7 @@
         </table>
 
 
-        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSourceInBoundSample" DefaultMode="Insert" DataKeyNames="inbSampleID"  Width="974px">
+        <asp:FormView ID="FormView1" runat="server" DataSourceID="SqlDataSourceInBoundSample" DefaultMode="Insert" DataKeyNames="ID" Width="974px">
 
             <InsertItemTemplate>
 <%--                 StationNum:
@@ -634,20 +634,20 @@
         </asp:FormView>
 
 
-     <%--   <asp:SqlDataSource ID="SqlDataSource1" runat="server" --%>
+     <%--   <asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server" --%>
 
         <asp:SqlDataSource ID="SqlDataSourceInBoundSample" runat="server"  OnInserting="SqlDataSourceInBoundSample_Inserting" OnUpdating="SqlDataSourceInBoundSample_Updating"
-            ConnectionString="<%$ ConnectionStrings:RiverwatchDEV %>" 
-            DeleteCommand="DELETE FROM [InboundSamples] WHERE [inbSampleID] = @inbSampleID" 
+            ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
+            DeleteCommand="DELETE FROM [InboundSamples] WHERE [ID] = @ID" 
             InsertCommand="INSERT INTO [InboundSamples] ([StationNum], [SampleID], [txtSampleID], [KitNum], [Date], [Time], [USGSFlow], [PH], [TempC], [PhenAlk], [TotalAlk], [TotalHard], [DO], [DOsat], [Tag], [Chk], [EntryType], [EntryStaff], [MetalsNormal], [MetalsBlnk], [MetalsDupe], [Bugs], [BugsQA], [TSS], [CS], [NP], [TSSDupe], [CSDupe], [NPDupe], [FieldValid], [MetalsStat], [FinalCheck], [Method], [Comments], [DateReceived], [DataSheetIncluded], [MissingDataSheetReqDate], [ChainOfCustody], [MissingDataSheetReceived], [PassValStep], [tblSampleID], [Valid]) VALUES (@StationNum, @SampleID, @txtSampleID, @KitNum, @Date, @Time, @USGSFlow, @PH, @TempC, @PhenAlk, @TotalAlk, @TotalHard, @DO, @DOsat, @Tag, @Chk, @EntryType, @EntryStaff, @MetalsNormal, @MetalsBlnk, @MetalsDupe, @Bugs, @BugsQA, @TSS, @CS, @NP, @TSSDupe, @CSDupe, @NPDupe, @FieldValid, @MetalsStat, @FinalCheck, @Method, @Comments, @DateReceived, @DataSheetIncluded, @MissingDataSheetReqDate, @ChainOfCustody, @MissingDataSheetReceived, @PassValStep, @tblSampleID, @Valid)" 
-            SelectCommand="SELECT * FROM [InboundSamples] where [Valid] = 1" 
-            UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID, [Valid] = @Valid WHERE [inbSampleID] = @inbSampleID">
+            SelectCommand="SELECT * FROM [InboundSamples]" 
+            UpdateCommand="UPDATE [InboundSamples] SET [StationNum] = @StationNum, [SampleID] = @SampleID, [txtSampleID] = @txtSampleID, [KitNum] = @KitNum, [Date] = @Date, [Time] = @Time, [USGSFlow] = @USGSFlow, [PH] = @PH, [TempC] = @TempC, [PhenAlk] = @PhenAlk, [TotalAlk] = @TotalAlk, [TotalHard] = @TotalHard, [DO] = @DO, [DOsat] = @DOsat, [Tag] = @Tag, [Chk] = @Chk, [EntryType] = @EntryType, [EntryStaff] = @EntryStaff, [MetalsNormal] = @MetalsNormal, [MetalsBlnk] = @MetalsBlnk, [MetalsDupe] = @MetalsDupe, [Bugs] = @Bugs, [BugsQA] = @BugsQA, [TSS] = @TSS, [CS] = @CS, [NP] = @NP, [TSSDupe] = @TSSDupe, [CSDupe] = @CSDupe, [NPDupe] = @NPDupe, [FieldValid] = @FieldValid, [MetalsStat] = @MetalsStat, [FinalCheck] = @FinalCheck, [Method] = @Method, [Comments] = @Comments, [DateReceived] = @DateReceived, [DataSheetIncluded] = @DataSheetIncluded, [MissingDataSheetReqDate] = @MissingDataSheetReqDate, [ChainOfCustody] = @ChainOfCustody, [MissingDataSheetReceived] = @MissingDataSheetReceived, [PassValStep] = @PassValStep, [tblSampleID] = @tblSampleID, [Valid] = @Valid WHERE [ID] = @ID">
             <DeleteParameters>
-                <asp:Parameter Name="inbSampleID" Type="Int32" />
+                <asp:Parameter Name="ID" Type="Int32" />
             </DeleteParameters>
             <InsertParameters>
                 <asp:Parameter Name="StationNum" Type="Int32" />
-                <asp:Parameter Name="SampleID" Type="Int64" />
+                <asp:Parameter Name="SampleID" Type="String" />
                 <asp:Parameter Name="txtSampleID" Type="String" />
                 <asp:Parameter Name="KitNum" Type="Int32" />
                 <asp:Parameter Name="Date" Type="DateTime" />
@@ -691,7 +691,7 @@
             </InsertParameters>
             <UpdateParameters>
                 <asp:Parameter Name="StationNum" Type="Int32" />
-                <asp:Parameter Name="SampleID" Type="Int64" />
+                <asp:Parameter Name="SampleID" Type="String" />
                 <asp:Parameter Name="txtSampleID" Type="String" />
                 <asp:Parameter Name="KitNum" Type="Int32" />
                 <asp:Parameter Name="Date" Type="DateTime" />
@@ -732,7 +732,7 @@
                 <asp:Parameter Name="PassValStep" Type="Decimal" />
                 <asp:Parameter Name="tblSampleID" Type="Int32" />
                 <asp:Parameter Name="Valid" Type="Boolean" />
-                <asp:Parameter Name="inbSampleID" Type="Int32" />
+                <asp:Parameter Name="ID" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
 
