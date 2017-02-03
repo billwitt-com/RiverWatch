@@ -1963,6 +1963,9 @@
     <Compile Include="tlkLimit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tlkMedium.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tlkMetalBarCodeType.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>

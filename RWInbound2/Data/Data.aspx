@@ -14,7 +14,7 @@
     <br />
 
     <asp:Button ID="btnUploadLatchat" runat="server" Text="Upload Latchat" CssClass="adminButton" Width="218px" OnClick="btnUploadLatchat_Click" />
-
-   
+    <br />
+    <asp:Button ID="btnEnterBenthicsPhysHab" runat="server" Text="Enter Bug & Physical Habitat Data" CssClass="adminButton" Width="218px" OnClick="btnEnterBenthicsPhysHab_Click" /> 
 
 </asp:Content>
