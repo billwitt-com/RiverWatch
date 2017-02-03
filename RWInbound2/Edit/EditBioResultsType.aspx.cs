@@ -156,7 +156,7 @@ namespace RWInbound2.Edit
                     bioResultsTypeToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
-                    string successMsg = string.Format("Eco Region Updated: {0}", model.Code);
+                    string successMsg = string.Format("Eco Region Updated: {0}", model.Description);
                     SetMessages("Success", successMsg);
                 }
             }

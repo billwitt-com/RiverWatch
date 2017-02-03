@@ -1711,6 +1711,18 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tblBenSam__Activ__5F492382">
+          <End Role="tlkActivityCategory" Type="Self.tlkActivityCategory" Multiplicity="0..1" />
+          <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkActivityCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamps">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tblBenSam__BioRe__5E54FF49">
           <End Role="tlkBioResultsType" Type="Self.tlkBioResultsType" Multiplicity="0..1" />
           <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
@@ -2043,6 +2055,10 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           </EntitySet>
           <AssociationSet Name="FK__tblBenSam__Activ__5B78929E" Association="Self.FK__tblBenSam__Activ__5B78929E">
             <End Role="tlkActivityType" EntitySet="tlkActivityType" />
+            <End Role="tblBenSamps" EntitySet="tblBenSamps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblBenSam__Activ__5F492382" Association="Self.FK__tblBenSam__Activ__5F492382">
+            <End Role="tlkActivityCategory" EntitySet="tlkActivityCategory" />
             <End Role="tblBenSamps" EntitySet="tblBenSamps" />
           </AssociationSet>
           <AssociationSet Name="FK__tblBenSam__BioRe__5E54FF49" Association="Self.FK__tblBenSam__BioRe__5E54FF49">
@@ -2461,6 +2477,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__Activ__5F492382" FromRole="tlkActivityCategory" ToRole="tblBenSamp" />
         </EntityType>
         <EntityType Name="tlkBioResultsType">
           <Key>
@@ -2894,11 +2911,15 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             <End Role="tlkActivityType" EntitySet="tlkActivityTypes" />
             <End Role="tblBenSamp" EntitySet="tblBenSamps" />
           </AssociationSet>
+          <AssociationSet Name="FK__tblBenSam__Activ__5F492382" Association="RiverWatchModel.FK__tblBenSam__Activ__5F492382">
+            <End Role="tlkActivityCategory" EntitySet="tlkActivityCategories" />
+            <End Role="tblBenSamp" EntitySet="tblBenSamps" />
+          </AssociationSet>
           <AssociationSet Name="FK__tblBenSam__BioRe__5E54FF49" Association="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49">
             <End Role="tlkBioResultsType" EntitySet="tlkBioResultsTypes" />
             <End Role="tblBenSamp" EntitySet="tblBenSamps" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="tlkSubPara">
           <Key>
             <PropertyRef Name="SubParaID" />
@@ -3875,6 +3896,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ActivityTypeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tlkActivityType" Relationship="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" FromRole="tblBenSamp" ToRole="tlkActivityType" />
+          <NavigationProperty Name="tlkActivityCategory" Relationship="RiverWatchModel.FK__tblBenSam__Activ__5F492382" FromRole="tblBenSamp" ToRole="tlkActivityCategory" />
           <NavigationProperty Name="tlkBioResultsType" Relationship="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49" FromRole="tblBenSamp" ToRole="tlkBioResultsType" />
         </EntityType>
         <Association Name="FK__tblBenSam__Activ__5B78929E">
@@ -3886,6 +3908,18 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             </Principal>
             <Dependent Role="tblBenSamp">
               <PropertyRef Name="ActivityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__Activ__5F492382">
+          <End Type="RiverWatchModel.tlkActivityCategory" Role="tlkActivityCategory" Multiplicity="0..1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkActivityCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="ActivityID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3901,7 +3935,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

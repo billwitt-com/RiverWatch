@@ -47,6 +47,7 @@
             UpdateMethod="UpdateActivityCategory"
             DeleteMethod="DeleteActivityCategory" 
             InsertItemPosition="LastItem"  
+            OnRowEditing="ActivityCategoriesGridView_RowEditing"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
@@ -92,8 +93,7 @@
                     <FooterTemplate>
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
-                </asp:TemplateField>
-                <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
+                </asp:TemplateField>             
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       

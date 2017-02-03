@@ -14,11 +14,18 @@ namespace RWInbound2
     
     public partial class tlkActivityCategory
     {
+        public tlkActivityCategory()
+        {
+            this.tblBenSamps = new HashSet<tblBenSamp>();
+        }
+    
         public int Code { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
         public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
+    
+        public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
     }
 }
