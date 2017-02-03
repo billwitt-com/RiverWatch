@@ -416,28 +416,45 @@ namespace RWInbound2.Data
             // test to see if there is existing record for this date, and if so, warn user. 
             // nasty query... 
             FormView1.Visible = true;
-
-            var Exists = from ex in NRWDE.InboundSamples
-                         where ex.KitNum == kitNumber & ex.StationNum == stationNumber & ex.Date.Value.Year == dateCollected.Year & ex.Time == collectionTime
-                         & ex.Date.Value.Month == dateCollected.Month & ex.Date.Value.Day == dateCollected.Day & ex.Valid == true
-                         select ex; 
-
-            if(Exists.Count() > 0)  // we have same date already
+            try
             {
-                pnlExisting.Visible = true;
-                lblWarnExisting.Text = string.Format("NOTICE: there is an existing data entry for this station on this date {0:MM/dd/yyyy} and Time. You can choose to update the existing record or create a new one using a different time", dateCollected);
-                sampTime = Exists.FirstOrDefault().Time.Value;
-                Session["SAMPLETIME"] = sampTime;
-            }
-            else
-            {
-                pnlExisting.Visible = false; 
-            }
-            // enable the save button
-            Button IB = (Button)FormView1.FindControl("InsertButton");
-            IB.Enabled = true;
+                var Exists = from ex in NRWDE.InboundSamples
+                             where ex.KitNum == kitNumber & ex.StationNum == stationNumber & ex.Date.Value.Year == dateCollected.Year & ex.Time == collectionTime
+                             & ex.Date.Value.Month == dateCollected.Month & ex.Date.Value.Day == dateCollected.Day & ex.Valid == true
+                             select ex;
 
-            btnLogin.Visible = false; // turn off as we dont need it 
+                if (Exists.Count() > 0)  // we have same date already
+                {
+                    pnlExisting.Visible = true;
+                    lblWarnExisting.Text = string.Format("NOTICE: there is an existing data entry for this station on this date {0:MM/dd/yyyy} and Time. You can choose to update the existing record or create a new one using a different time", dateCollected);
+                    sampTime = Exists.FirstOrDefault().Time.Value;
+                    Session["SAMPLETIME"] = sampTime;
+                }
+                else
+                {
+                    pnlExisting.Visible = false;
+                }
+                // enable the save button
+                Button IB = (Button)FormView1.FindControl("InsertButton");
+                if (IB != null)
+                    IB.Enabled = true;
+
+                btnLogin.Visible = false; // turn off as we dont need it 
+            }
+            catch (Exception ex)
+            {
+                Panel1.Visible = false; // clean up and then report error
+
+                string nam = "";
+                if (User.Identity.Name.Length < 3)
+                    nam = "Not logged in";
+                else
+                    nam = User.Identity.Name;
+                string msg = ex.Message;
+                LogError LE = new LogError();
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+            }
+
 
         }
       
