@@ -16,12 +16,30 @@ namespace RWInbound2.Edit
         {
             if (!IsPostBack)
             {
+                SetMessages();
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
+            }           
+        }
+
+        private void SetMessages(string type = "", string message = "")
+        {
+            switch (type)
+            {
+                case "Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = message;
+                    break;
+                case "Error":
+                    ErrorLabel.Text = message;
+                    SuccessLabel.Text = "";
+                    break;
+                default:
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    break;
             }
-            ErrorLabel.Text = "";
-            SuccessLabel.Text = "";
         }
 
         public IQueryable<tlkBioResultsType> GetBioResultsTypes([QueryString]string descriptionSearchTerm = "",
@@ -33,8 +51,7 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(successLabelMessage))
                 {
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = successLabelMessage;
+                    SetMessages("Success", successLabelMessage);
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
@@ -117,6 +134,8 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
+
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
                     var bioResultsTypeToUpdate = _db.tlkBioResultsTypes.Find(model.ID);
@@ -137,8 +156,8 @@ namespace RWInbound2.Edit
                     bioResultsTypeToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Eco Region Updated";
+                    string successMsg = string.Format("Eco Region Updated: {0}", model.Description);
+                    SetMessages("Success", successMsg);
                 }
             }
             catch (Exception ex)
@@ -153,11 +172,26 @@ namespace RWInbound2.Edit
             {
                 try
                 {
-                    var bioResultsTypeToDelete = _db.tlkBioResultsTypes.Find(model.ID);
-                    _db.tlkBioResultsTypes.Remove(bioResultsTypeToDelete);
-                    _db.SaveChanges();
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Eco Region Deleted";
+                    var tblBenSampSampleNumber = (from bs in _db.tblBenSamps
+                                                  join s in _db.Samples on bs.SampleID equals s.ID
+                                                  where bs.BioResultGroupID == model.ID
+                                                  select s.SampleNumber).FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
+                    {
+                        string errorMsg
+                            = string.Format("Eco Region {0} can not be deleted because it is assigned to the a Benthic Sample for Sample Number: {1}", model.Code, tblBenSampSampleNumber);
+                        SetMessages("Error", errorMsg);
+                    }
+                    else
+                    {
+                        var bioResultsTypeToDelete = _db.tlkBioResultsTypes.Find(model.ID);
+                        _db.tlkBioResultsTypes.Remove(bioResultsTypeToDelete);
+                        _db.SaveChanges();
+
+                        string successMsg = string.Format("Eco Region Deleted: {0}", model.Description);
+                        SetMessages("Success", successMsg);
+                    }                    
                 }
                 catch (Exception ex)
                 {
@@ -170,13 +204,13 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
                 string strCode = ((TextBox)BioResultsTypeGridView.FooterRow.FindControl("NewCode")).Text;
                 string description = ((TextBox)BioResultsTypeGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(strCode))
                 {
-                    SuccessLabel.Text = "";
-                    ErrorLabel.Text = "Code field is required.";
+                    SetMessages("Error", "Code field is required.");
                 }
                 else
                 {
@@ -184,8 +218,7 @@ namespace RWInbound2.Edit
                     bool convertToInt = int.TryParse(strCode, out code);
                     if (!convertToInt)
                     {
-                        SuccessLabel.Text = "";
-                        ErrorLabel.Text = "Code field must be an integer number.";
+                        SetMessages("Error", "Code field must be an integer number.");
                     }
                     else
                     {
@@ -211,7 +244,6 @@ namespace RWInbound2.Edit
                         {
                             _db.tlkBioResultsTypes.Add(newBioResultsType);
                             _db.SaveChanges();
-                            ErrorLabel.Text = "";
 
                             string successLabelText = "New Bio Results Type Added: " + newBioResultsType.Description;
                             string redirect = "EditBioResultsType.aspx?successLabelMessage=" + successLabelText;
@@ -233,7 +265,7 @@ namespace RWInbound2.Edit
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 
-            SuccessLabel.Text = "";
+            SetMessages();
 
             if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
             {
@@ -250,13 +282,17 @@ namespace RWInbound2.Edit
                             ve.ErrorMessage + Environment.NewLine);
                     }
                 }
-                ErrorLabel.Text = sb.ToString();
+                SetMessages("Error", sb.ToString());
             }
             else
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = ex.Message;
+                SetMessages("Error", ex.Message);
             }
+        }
+
+        protected void BioResultsTypeGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            SetMessages();
         }
     }
 }

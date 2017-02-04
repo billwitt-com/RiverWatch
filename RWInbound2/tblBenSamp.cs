@@ -15,13 +15,12 @@ namespace RWInbound2
     public partial class tblBenSamp
     {
         public int ID { get; set; }
-        public Nullable<int> SampleID { get; set; }
+        public int SampleID { get; set; }
         public Nullable<int> ActivityID { get; set; }
         public Nullable<System.DateTime> CollDate { get; set; }
         public Nullable<int> CollMeth { get; set; }
         public string FieldGearID { get; set; }
         public Nullable<int> GearConfigID { get; set; }
-        public string ActivityType { get; set; }
         public Nullable<System.DateTime> CollTime { get; set; }
         public Nullable<int> Medium { get; set; }
         public Nullable<int> Intent { get; set; }
@@ -31,5 +30,11 @@ namespace RWInbound2
         public string Comments { get; set; }
         public Nullable<System.DateTime> EnterDate { get; set; }
         public Nullable<bool> Valid { get; set; }
+        public int ActivityTypeID { get; set; }
+    
+        public virtual tlkActivityType tlkActivityType { get; set; }
+        public virtual tlkActivityCategory tlkActivityCategory { get; set; }
+        public virtual tlkBioResultsType tlkBioResultsType { get; set; }
+        public virtual tlkFieldProcedure tlkFieldProcedure { get; set; }
     }
 }

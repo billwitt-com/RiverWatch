@@ -46,6 +46,7 @@
             UpdateMethod="UpdateActivityType"
             DeleteMethod="DeleteActivityType" 
             InsertItemPosition="LastItem"  
+            OnRowEditing="ActivityTypeGridView_RowEditing"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
@@ -68,7 +69,7 @@
                                     OnClick = "AddNewActivityType" />
                     </FooterTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
+               <%-- <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />--%>
                 <asp:TemplateField HeaderText="Code" SortExpression="Code">
                     <EditItemTemplate>
                         <asp:TextBox ID="txtCode" runat="server" Text='<%# Bind("Code") %>'></asp:TextBox>
@@ -91,8 +92,7 @@
                     <FooterTemplate>
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
-                </asp:TemplateField>
-                <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
+                </asp:TemplateField>                         
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       

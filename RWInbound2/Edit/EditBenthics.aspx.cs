@@ -175,6 +175,8 @@ namespace RWInbound2.Edit
 
         public void DeletetblBenthic(tblBenthic model)
         {
+            SetMessages();
+
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
                 try

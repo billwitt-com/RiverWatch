@@ -16,12 +16,30 @@ namespace RWInbound2.Edit
         {
             if (!IsPostBack)
             {
+                SetMessages();
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
+            }           
+        }
+
+        private void SetMessages(string type = "", string message = "")
+        {
+            switch (type)
+            {
+                case "Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = message;
+                    break;
+                case "Error":
+                    ErrorLabel.Text = message;
+                    SuccessLabel.Text = "";
+                    break;
+                default:
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    break;
             }
-            ErrorLabel.Text = "";
-            SuccessLabel.Text = "";
         }
 
         public IQueryable<tlkActivityCategory> GetActivityCategories([QueryString]string descriptionSearchTerm = "",
@@ -33,8 +51,7 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(successLabelMessage))
                 {
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = successLabelMessage;
+                    SetMessages("Success", successLabelMessage);
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
@@ -117,6 +134,7 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
                     var activityCategoryToUpdate = _db.tlkActivityCategories.Find(model.ID);
@@ -137,8 +155,8 @@ namespace RWInbound2.Edit
                     activityCategoryToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Activity Category Updated";
+                    string successMsg = string.Format("Activity Category Updated: {0}", model.Description);
+                    SetMessages("Success", successMsg);
                 }
             }
             catch (Exception ex)
@@ -153,11 +171,28 @@ namespace RWInbound2.Edit
             {
                 try
                 {
-                    var activityCategoryToDelete = _db.tlkActivityCategories.Find(model.ID);
-                    _db.tlkActivityCategories.Remove(activityCategoryToDelete);
-                    _db.SaveChanges();
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Activity Category Deleted";
+                    SetMessages();
+
+                    var tblBenSampSampleNumber = (from bs in _db.tblBenSamps
+                                                  join s in _db.Samples on bs.SampleID equals s.ID
+                                                  where bs.ActivityID == model.ID
+                                                  select s.SampleNumber).FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
+                    {
+                        string errorMsg
+                            = string.Format("Activity Category {0} can not be deleted because it is assigned to the a Benthic Sample for Sample Number: {1}", model.Description, tblBenSampSampleNumber);
+                        SetMessages("Error", errorMsg);
+                    }
+                    else
+                    {
+                        var activityCategoryToDelete = _db.tlkActivityCategories.Find(model.ID);
+                        _db.tlkActivityCategories.Remove(activityCategoryToDelete);
+                        _db.SaveChanges();
+
+                        string successMsg = string.Format("Activity Category Deleted: {0}", model.Description);
+                        SetMessages("Success", successMsg);
+                    }                   
                 }
                 catch (Exception ex)
                 {
@@ -170,13 +205,13 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
                 string strCode = ((TextBox)ActivityCategoriesGridView.FooterRow.FindControl("NewCode")).Text;
                 string description = ((TextBox)ActivityCategoriesGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(strCode))
                 {
-                    SuccessLabel.Text = "";
-                    ErrorLabel.Text = "Code field is required.";
+                    SetMessages("Error", "Code field is required.");
                 }
                 else
                 {
@@ -184,8 +219,7 @@ namespace RWInbound2.Edit
                     bool convertToInt = int.TryParse(strCode, out code);
                     if (!convertToInt)
                     {
-                        SuccessLabel.Text = "";
-                        ErrorLabel.Text = "Code field must be an integer number.";
+                        SetMessages("Error", "Code field must be an integer number.");
                     }
                     else
                     {
@@ -211,7 +245,6 @@ namespace RWInbound2.Edit
                         {
                             _db.tlkActivityCategories.Add(newActivityCategory);
                             _db.SaveChanges();
-                            ErrorLabel.Text = "";
 
                             string successLabelText = "New Activity Category Added: " + newActivityCategory.Description;
                             string redirect = "EditActivityCategory.aspx?successLabelMessage=" + successLabelText;
@@ -233,7 +266,7 @@ namespace RWInbound2.Edit
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 
-            SuccessLabel.Text = "";
+            SetMessages();
 
             if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
             {
@@ -250,13 +283,17 @@ namespace RWInbound2.Edit
                             ve.ErrorMessage + Environment.NewLine);
                     }
                 }
-                ErrorLabel.Text = sb.ToString();
+                SetMessages("Error", sb.ToString());
             }
             else
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = ex.Message;
+                SetMessages("Error", ex.Message);
             }
+        }
+
+        protected void ActivityCategoriesGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            SetMessages();
         }
     }
 }

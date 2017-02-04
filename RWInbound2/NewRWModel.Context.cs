@@ -42,7 +42,6 @@ namespace RWInbound2
         public virtual DbSet<tblWBKey> tblWBKeys { get; set; }
         public virtual DbSet<tblXSRep> tblXSReps { get; set; }
         public virtual DbSet<tlkActivityCategory> tlkActivityCategories { get; set; }
-        public virtual DbSet<tlkActivityType> tlkActivityTypes { get; set; }
         public virtual DbSet<tlkBioResultsType> tlkBioResultsTypes { get; set; }
         public virtual DbSet<tlkCommunity> tlkCommunities { get; set; }
         public virtual DbSet<tlkCounty> tlkCounties { get; set; }
@@ -94,7 +93,6 @@ namespace RWInbound2
         public virtual DbSet<tblSubSamp> tblSubSamp { get; set; }
         public virtual DbSet<tlkSection> tlkSection { get; set; }
         public virtual DbSet<InboundSamples> InboundSamples { get; set; }
-        public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<organization> organizations { get; set; }
         public virtual DbSet<NEWexpWater> NEWexpWaters { get; set; }
         public virtual DbSet<OrgStatu> OrgStatus { get; set; }
@@ -114,5 +112,7 @@ namespace RWInbound2
         public virtual DbSet<StationImageType> StationImageTypes { get; set; }
         public virtual DbSet<tlkIntent> tlkIntents { get; set; }
         public virtual DbSet<tlkMedium> tlkMediums { get; set; }
+        public virtual DbSet<tlkActivityType> tlkActivityTypes { get; set; }
+        public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
     }
 }
