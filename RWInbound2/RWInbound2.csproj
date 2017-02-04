@@ -191,6 +191,8 @@
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
+    <Content Include="Applications\Applications.aspx" />
+    <Content Include="Applications\AWQMSChems.aspx" />
     <Content Include="Data\EnterBenthicsPhysHab.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
@@ -205,7 +207,6 @@
     <Content Include="Admin\ResetOrgActive.aspx" />
     <Content Include="Admin\ResetStationActive.aspx" />
     <Content Include="Admin\StationStatusBulklUpdate.aspx" />
-    <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\DBSpeedTest.aspx" />
     <Content Include="Applications\PageRenderTest.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -888,6 +889,20 @@
     <Compile Include="Admin\EditInboundFieldData.aspx.designer.cs">
       <DependentUpon>EditInboundFieldData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Applications\Applications.aspx.cs">
+      <DependentUpon>Applications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Applications\Applications.aspx.designer.cs">
+      <DependentUpon>Applications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\AWQMSChems.aspx.cs">
+      <DependentUpon>AWQMSChems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Applications\AWQMSChems.aspx.designer.cs">
+      <DependentUpon>AWQMSChems.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Data\EnterBenthicsPhysHab.aspx.cs">
       <DependentUpon>EnterBenthicsPhysHab.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -995,13 +1010,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AllOrgsDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Applications\Applications.aspx.cs">
-      <DependentUpon>Applications.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Applications\Applications.aspx.designer.cs">
-      <DependentUpon>Applications.aspx</DependentUpon>
     </Compile>
     <Compile Include="Applications\DBSpeedTest.aspx.cs">
       <DependentUpon>DBSpeedTest.aspx</DependentUpon>

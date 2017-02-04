@@ -1,26 +1,44 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Applications.aspx.cs" Inherits="RWInbound2.Applications" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Applications.aspx.cs" Inherits="RWInbound2.Applications.Applications" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <p class="site-title">
-    Applications
-        </p>
-    <p>
-        <asp:Button ID="btnLatchet" runat="server" Text="STORET" />
-    </p>
-    <p>
-        <asp:Button ID="Button1" runat="server" Text="AWQMS" />
-    </p>
-    <p>
-        <asp:Button ID="Button2" runat="server" Enabled="False" Text="Gap Exports" />
-    </p>
-    <p>
-        <asp:Button ID="Button3" runat="server" Enabled="False" Text="EDAS" />
-    </p>
-    <p>
-        <asp:Button ID="Button4" runat="server" Text="More" />
-    </p>
-    <p>
-        &nbsp;</p>
+    
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Applications - Downloads"></asp:Label>
+    <br />
+
+
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 328px">&nbsp;</td>
+            <td style="width: 296px">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 328px">
+                <asp:Button ID="btnAWQMSChems" runat="server" Text="AWQMS Chemicals Download " CssClass="adminButton" OnClick="btnAWQMSChems_Click" />
+            </td>
+            <td style="width: 296px">
+                <asp:Button ID="Button1" runat="server" CssClass="adminButton" Text="AWQMS Field Download" Enabled="False" />
+            </td>
+            <td>
+                <asp:Button ID="Button2" runat="server" CssClass="adminButton" Text="AWQMS Stations Download" Enabled="False" />
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 328px">
+                <asp:Button ID="Button3" runat="server" CssClass="adminButton" Text="AWQMS PhysHab Download" Enabled="False" />
+            </td>
+            <td style="width: 296px">
+                <asp:Button ID="Button4" runat="server" Text="AWQMS Bugs Download " CssClass="adminButton" OnClick="btnAWQMSChems_Click" Enabled="False" />
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
 
 
 </asp:Content>
