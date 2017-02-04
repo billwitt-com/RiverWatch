@@ -17,12 +17,30 @@ namespace RWInbound2.Edit
         {           
             if (!IsPostBack)
             {
-             // Validate initially to force asterisks
+                SetMessages();
+                // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();                
             }
-            ErrorLabel.Text = "";
-            SuccessLabel.Text = "";
+        }
+
+        private void SetMessages(string type = "", string message = "")
+        {
+            switch (type)
+            {
+                case "Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = message;
+                    break;
+                case "Error":
+                    ErrorLabel.Text = message;
+                    SuccessLabel.Text = "";
+                    break;
+                default:
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    break;
+            }
         }
 
         public IQueryable<tlkFieldProcedure> GetFieldProcedures([QueryString]string descriptionSearchTerm = "",
@@ -34,8 +52,7 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(successLabelMessage))
                 {
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = successLabelMessage;
+                    SetMessages("Success", successLabelMessage);
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
@@ -118,6 +135,8 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
+
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
                     var fieldProcedureToUpdate = _db.tlkFieldProcedures.Find(model.ID);
@@ -138,8 +157,8 @@ namespace RWInbound2.Edit
                     fieldProcedureToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
-                    ErrorLabel.Text = "";                   
-                    SuccessLabel.Text = "Field Procedure Updated";
+                    string successMsg = string.Format("Field Procedure Updated: {0}", model.Description);
+                    SetMessages("Success", successMsg);
                 }
             }
             catch (Exception ex)
@@ -154,11 +173,26 @@ namespace RWInbound2.Edit
             {
                 try
                 {
+                    SetMessages();
+
+                    var tblBenSampSampleNumber = (from bs in _db.tblBenSamps
+                                                  join s in _db.Samples on bs.SampleID equals s.ID
+                                                  where bs.CollMeth == model.ID
+                                                  select s.SampleNumber).FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
+                    {
+                        string errorMsg
+                            = string.Format("Field Procedure {0} can not be deleted because it is assigned to the a Benthic Sample for Sample Number: {1}", model.Code, tblBenSampSampleNumber);
+                        SetMessages("Error", errorMsg);
+                    }
+
                     var fieldProcedureToDelete = _db.tlkFieldProcedures.Find(model.ID);
                     _db.tlkFieldProcedures.Remove(fieldProcedureToDelete);
                     _db.SaveChanges();
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Field Procedure Deleted";
+                   
+                    string successMsg = string.Format("Field Procedure Deleted: {0}", model.Description);
+                    SetMessages("Success", successMsg);
                 }
                 catch (Exception ex)
                 {
@@ -171,13 +205,13 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
                 string strCode = ((TextBox)FieldProceduresGridView.FooterRow.FindControl("NewCode")).Text;
                 string description = ((TextBox)FieldProceduresGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(strCode))
                 {
-                    SuccessLabel.Text = "";
-                    ErrorLabel.Text = "Code field is required.";
+                    SetMessages("Error", "Code field is required.");
                 }
                 else
                 {
@@ -185,8 +219,7 @@ namespace RWInbound2.Edit
                     bool convertToInt = int.TryParse(strCode, out code);
                     if (!convertToInt)
                     {
-                        SuccessLabel.Text = "";
-                        ErrorLabel.Text = "Code field must be an integer number.";
+                        SetMessages("Error", "Code field must be an integer number.");
                     }
                     else
                     {
@@ -212,7 +245,6 @@ namespace RWInbound2.Edit
                         {
                             _db.tlkFieldProcedures.Add(newFieldProcedure);
                             _db.SaveChanges();
-                            ErrorLabel.Text = "";
 
                             string successLabelText = "New Field Procedure Added: " + newFieldProcedure.Description;
                             string redirect = "EditFieldProcedure.aspx?successLabelMessage=" + successLabelText;
@@ -234,7 +266,7 @@ namespace RWInbound2.Edit
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 
-            SuccessLabel.Text = "";
+            SetMessages();
 
             if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
             {
@@ -251,13 +283,17 @@ namespace RWInbound2.Edit
                             ve.ErrorMessage + Environment.NewLine);
                     }
                 }
-                ErrorLabel.Text = sb.ToString();
+                SetMessages("Error", sb.ToString());
             }
             else
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = ex.Message;
+                SetMessages("Error", ex.Message);
             }
+        }
+
+        protected void FieldProceduresGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            SetMessages();
         }
     }
 }

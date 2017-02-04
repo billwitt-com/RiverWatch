@@ -46,6 +46,7 @@
             UpdateMethod="UpdateFieldProcedure"
             DeleteMethod="DeleteFieldProcedure" 
             InsertItemPosition="LastItem"  
+            OnRowEditing="FieldProceduresGridView_RowEditing"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
@@ -92,7 +93,6 @@
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>
-                <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       

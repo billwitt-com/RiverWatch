@@ -189,7 +189,7 @@ namespace RWInbound2.Edit
                         _db.tlkBioResultsTypes.Remove(bioResultsTypeToDelete);
                         _db.SaveChanges();
 
-                        string successMsg = string.Format("Eco Region Deleted: {0}", model.Code);
+                        string successMsg = string.Format("Eco Region Deleted: {0}", model.Description);
                         SetMessages("Success", successMsg);
                     }                    
                 }

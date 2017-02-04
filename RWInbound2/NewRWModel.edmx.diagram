@@ -96,10 +96,11 @@
         <EntityTypeShape EntityType="RiverWatchModel.tlkIntent" Width="1.5" PointX="31.375" PointY="4.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkMedium" Width="1.5" PointX="31.375" PointY="15.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkActivityType" Width="1.5" PointX="31.375" PointY="20.25" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="15.25" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="15.125" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5F492382" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49" />
+        <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__CollM__603D47BB" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

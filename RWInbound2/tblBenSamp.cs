@@ -35,5 +35,6 @@ namespace RWInbound2
         public virtual tlkActivityType tlkActivityType { get; set; }
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
         public virtual tlkBioResultsType tlkBioResultsType { get; set; }
+        public virtual tlkFieldProcedure tlkFieldProcedure { get; set; }
     }
 }
