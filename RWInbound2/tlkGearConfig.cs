@@ -14,13 +14,21 @@ namespace RWInbound2
     
     public partial class tlkGearConfig
     {
+        public tlkGearConfig()
+        {
+            this.tblBenSamps = new HashSet<tblBenSamp>();
+        }
+    
         public int Code { get; set; }
         public string Description { get; set; }
         public string Type { get; set; }
-        public string FieldGearID { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
         public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
+        public int FieldGearID { get; set; }
+    
+        public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
+        public virtual tlkFieldGear tlkFieldGear { get; set; }
     }
 }

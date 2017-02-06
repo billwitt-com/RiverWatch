@@ -17,6 +17,7 @@ namespace RWInbound2
         public tlkFieldGear()
         {
             this.tblBenSamps = new HashSet<tblBenSamp>();
+            this.tlkGearConfigs = new HashSet<tlkGearConfig>();
         }
     
         public string Code { get; set; }
@@ -28,5 +29,6 @@ namespace RWInbound2
         public int ID { get; set; }
     
         public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
+        public virtual ICollection<tlkGearConfig> tlkGearConfigs { get; set; }
     }
 }

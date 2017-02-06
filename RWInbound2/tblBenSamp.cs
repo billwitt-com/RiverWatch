@@ -37,5 +37,6 @@ namespace RWInbound2
         public virtual tlkBioResultsType tlkBioResultsType { get; set; }
         public virtual tlkFieldProcedure tlkFieldProcedure { get; set; }
         public virtual tlkFieldGear tlkFieldGear { get; set; }
+        public virtual tlkGearConfig tlkGearConfig { get; set; }
     }
 }

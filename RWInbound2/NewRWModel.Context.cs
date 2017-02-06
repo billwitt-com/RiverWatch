@@ -48,7 +48,6 @@ namespace RWInbound2
         public virtual DbSet<tlkEquipItem> tlkEquipItems { get; set; }
         public virtual DbSet<tlkFieldGear> tlkFieldGears { get; set; }
         public virtual DbSet<tlkFieldProcedure> tlkFieldProcedures { get; set; }
-        public virtual DbSet<tlkGearConfig> tlkGearConfigs { get; set; }
         public virtual DbSet<tlkGrid> tlkGrids { get; set; }
         public virtual DbSet<tlkHydroUnit> tlkHydroUnits { get; set; }
         public virtual DbSet<tlkLimit> tlkLimits { get; set; }
@@ -114,5 +113,6 @@ namespace RWInbound2
         public virtual DbSet<tlkMedium> tlkMediums { get; set; }
         public virtual DbSet<tlkActivityType> tlkActivityTypes { get; set; }
         public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
+        public virtual DbSet<tlkGearConfig> tlkGearConfigs { get; set; }
     }
 }

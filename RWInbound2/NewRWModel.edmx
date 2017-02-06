@@ -1096,11 +1096,11 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="Code" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
-          <Property Name="FieldGearID" Type="varchar" MaxLength="10" />
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
           <Property Name="Valid" Type="bit" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldGearID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tlkGrid">
           <Key>
@@ -1759,6 +1759,30 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tblBenSam__GearC__6319B466">
+          <End Role="tlkGearConfig" Type="Self.tlkGearConfig" Multiplicity="0..1" />
+          <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkGearConfig">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamps">
+              <PropertyRef Name="GearConfigID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tlkGearCo__Field__6501FCD8">
+          <End Role="tlkFieldGear" Type="Self.tlkFieldGear" Multiplicity="1" />
+          <End Role="tlkGearConfig" Type="Self.tlkGearConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkFieldGear">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tlkGearConfig">
+              <PropertyRef Name="FieldGearID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StationImage_ImageType">
           <End Role="StationImageType" Type="Self.StationImageType" Multiplicity="1" />
           <End Role="StationImage" Type="Self.StationImage" Multiplicity="*" />
@@ -2096,6 +2120,14 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <AssociationSet Name="FK__tblBenSam__Field__6225902D" Association="Self.FK__tblBenSam__Field__6225902D">
             <End Role="tlkFieldGear" EntitySet="tlkFieldGear" />
             <End Role="tblBenSamps" EntitySet="tblBenSamps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblBenSam__GearC__6319B466" Association="Self.FK__tblBenSam__GearC__6319B466">
+            <End Role="tlkGearConfig" EntitySet="tlkGearConfig" />
+            <End Role="tblBenSamps" EntitySet="tblBenSamps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tlkGearCo__Field__6501FCD8" Association="Self.FK__tlkGearCo__Field__6501FCD8">
+            <End Role="tlkFieldGear" EntitySet="tlkFieldGear" />
+            <End Role="tlkGearConfig" EntitySet="tlkGearConfig" />
           </AssociationSet>
           <AssociationSet Name="FK_StationImage_ImageType" Association="Self.FK_StationImage_ImageType">
             <End Role="StationImageType" EntitySet="StationImageType" />
@@ -2571,6 +2603,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__Field__6225902D" FromRole="tlkFieldGear" ToRole="tblBenSamp" />
+          <NavigationProperty Name="tlkGearConfigs" Relationship="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8" FromRole="tlkFieldGear" ToRole="tlkGearConfig" />
         </EntityType>
         <EntityType Name="tlkFieldProcedure">
           <Key>
@@ -2583,19 +2616,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__CollM__603D47BB" FromRole="tlkFieldProcedure" ToRole="tblBenSamp" />
-        </EntityType>
-        <EntityType Name="tlkGearConfig">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="Code" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FieldGearID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="tlkGrid">
           <Key>
@@ -2867,7 +2887,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <EntitySet Name="tlkEquipItems" EntityType="Self.tlkEquipItem" />
           <EntitySet Name="tlkFieldGears" EntityType="Self.tlkFieldGear" />
           <EntitySet Name="tlkFieldProcedures" EntityType="Self.tlkFieldProcedure" />
-          <EntitySet Name="tlkGearConfigs" EntityType="Self.tlkGearConfig" />
           <EntitySet Name="tlkGrids" EntityType="Self.tlkGrid" />
           <EntitySet Name="tlkHydroUnits" EntityType="Self.tlkHydroUnit" />
           <EntitySet Name="tlkLimits" EntityType="Self.tlkLimit" />
@@ -2941,6 +2960,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <EntitySet Name="tlkMediums" EntityType="RiverWatchModel.tlkMedium" />
           <EntitySet Name="tlkActivityTypes" EntityType="RiverWatchModel.tlkActivityType" />
           <EntitySet Name="tblBenSamps" EntityType="RiverWatchModel.tblBenSamp" />
+          <EntitySet Name="tlkGearConfigs" EntityType="RiverWatchModel.tlkGearConfig" />
           <AssociationSet Name="FK__tblBenSam__Activ__5B78929E" Association="RiverWatchModel.FK__tblBenSam__Activ__5B78929E">
             <End Role="tlkActivityType" EntitySet="tlkActivityTypes" />
             <End Role="tblBenSamp" EntitySet="tblBenSamps" />
@@ -2960,6 +2980,14 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <AssociationSet Name="FK__tblBenSam__Field__6225902D" Association="RiverWatchModel.FK__tblBenSam__Field__6225902D">
             <End Role="tlkFieldGear" EntitySet="tlkFieldGears" />
             <End Role="tblBenSamp" EntitySet="tblBenSamps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblBenSam__GearC__6319B466" Association="RiverWatchModel.FK__tblBenSam__GearC__6319B466">
+            <End Role="tlkGearConfig" EntitySet="tlkGearConfigs" />
+            <End Role="tblBenSamp" EntitySet="tblBenSamps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tlkGearCo__Field__6501FCD8" Association="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8">
+            <End Role="tlkFieldGear" EntitySet="tlkFieldGears" />
+            <End Role="tlkGearConfig" EntitySet="tlkGearConfigs" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tlkSubPara">
@@ -3942,6 +3970,22 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <NavigationProperty Name="tlkBioResultsType" Relationship="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49" FromRole="tblBenSamp" ToRole="tlkBioResultsType" />
           <NavigationProperty Name="tlkFieldProcedure" Relationship="RiverWatchModel.FK__tblBenSam__CollM__603D47BB" FromRole="tblBenSamp" ToRole="tlkFieldProcedure" />
           <NavigationProperty Name="tlkFieldGear" Relationship="RiverWatchModel.FK__tblBenSam__Field__6225902D" FromRole="tblBenSamp" ToRole="tlkFieldGear" />
+          <NavigationProperty Name="tlkGearConfig" Relationship="RiverWatchModel.FK__tblBenSam__GearC__6319B466" FromRole="tblBenSamp" ToRole="tlkGearConfig" />
+        </EntityType>
+        <EntityType Name="tlkGearConfig">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FieldGearID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__GearC__6319B466" FromRole="tlkGearConfig" ToRole="tblBenSamp" />
+          <NavigationProperty Name="tlkFieldGear" Relationship="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8" FromRole="tlkGearConfig" ToRole="tlkFieldGear" />
         </EntityType>
         <Association Name="FK__tblBenSam__Activ__5B78929E">
           <End Type="RiverWatchModel.tlkActivityType" Role="tlkActivityType" Multiplicity="1" />
@@ -3999,6 +4043,30 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="tblBenSamp">
+              <PropertyRef Name="FieldGearID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__GearC__6319B466">
+          <End Type="RiverWatchModel.tlkGearConfig" Role="tlkGearConfig" Multiplicity="0..1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkGearConfig">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="GearConfigID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tlkGearCo__Field__6501FCD8">
+          <End Type="RiverWatchModel.tlkFieldGear" Role="tlkFieldGear" Multiplicity="1" />
+          <End Type="RiverWatchModel.tlkGearConfig" Role="tlkGearConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkFieldGear">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tlkGearConfig">
               <PropertyRef Name="FieldGearID" />
             </Dependent>
           </ReferentialConstraint>
@@ -4495,20 +4563,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
               <MappingFragment StoreEntitySet="tlkFieldProcedure">
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tlkGearConfigs">
-            <EntityTypeMapping TypeName="RiverWatchModel.tlkGearConfig">
-              <MappingFragment StoreEntitySet="tlkGearConfig">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="FieldGearID" ColumnName="FieldGearID" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
                 <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
                 <ScalarProperty Name="Valid" ColumnName="Valid" />
@@ -5746,6 +5800,20 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
                 <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
                 <ScalarProperty Name="SampleID" ColumnName="SampleID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkGearConfigs">
+            <EntityTypeMapping TypeName="RiverWatchModel.tlkGearConfig">
+              <MappingFragment StoreEntitySet="tlkGearConfig">
+                <ScalarProperty Name="FieldGearID" ColumnName="FieldGearID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>          
