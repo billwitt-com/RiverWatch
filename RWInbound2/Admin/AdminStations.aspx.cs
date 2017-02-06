@@ -304,8 +304,7 @@ namespace RWInbound2.Admin
                 if (SN == null)
                     return;
             try
-            {
-             
+            {            
 
              //   resetControls(); // make them all default state so if values below do not match the selected value, they are at default values
 
@@ -406,7 +405,10 @@ namespace RWInbound2.Admin
                         listCount = ddlStationType.Items.Count;
                         for (z = 0; z < listCount; z++)
                         {
-                            if (ddlStationType.Items[z].Value.Contains(SN.StationType))
+                            // if (ddlStationType.Items[z].Value.Contains(SN.StationType))
+
+                                if (ddlStationType.Items[z].Value.ToUpper().Equals(SN.StationType.ToUpper()))
+
                             {
                                 ddlStationType.SelectedIndex = z;
                                 ddlStationType.BackColor = Color.White;
@@ -1259,6 +1261,7 @@ namespace RWInbound2.Admin
                     STN.StationStatus = ddlStationStatus.SelectedValue;
                 if (ddlStationType.SelectedItem.Value != "null")
                     STN.StationType = ddlStationType.SelectedItem.Value; // ddlStationType.SelectedValue;
+
                 if (ddlTownship.SelectedValue != "null")
                     STN.Township = ddlTownship.SelectedValue;
                 STN.AquaticModelIndex = tbAquaticModelIndex.Text.Trim();
