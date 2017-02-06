@@ -14,6 +14,11 @@ namespace RWInbound2
     
     public partial class tlkFieldGear
     {
+        public tlkFieldGear()
+        {
+            this.tblBenSamps = new HashSet<tblBenSamp>();
+        }
+    
         public string Code { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
@@ -21,5 +26,7 @@ namespace RWInbound2
         public string F5 { get; set; }
         public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
+    
+        public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
     }
 }

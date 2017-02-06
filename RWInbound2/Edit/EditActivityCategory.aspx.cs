@@ -181,7 +181,7 @@ namespace RWInbound2.Edit
                     if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
                     {
                         string errorMsg
-                            = string.Format("Activity Category {0} can not be deleted because it is assigned to the a Benthic Sample for Sample Number: {1}", model.Description, tblBenSampSampleNumber);
+                            = string.Format("Activity Category {0} can not be deleted because it is assigned to one or more Benthic Samples. One Sample Number is: {1}", model.Description, tblBenSampSampleNumber);
                         SetMessages("Error", errorMsg);
                     }
                     else

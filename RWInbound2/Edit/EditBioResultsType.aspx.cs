@@ -180,7 +180,7 @@ namespace RWInbound2.Edit
                     if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
                     {
                         string errorMsg
-                            = string.Format("Eco Region {0} can not be deleted because it is assigned to the a Benthic Sample for Sample Number: {1}", model.Code, tblBenSampSampleNumber);
+                            = string.Format("Eco Region {0} can not be deleted because it is assigned to one or more Benthic Samples. One Sample Number is: {1}", model.Code, tblBenSampSampleNumber);
                         SetMessages("Error", errorMsg);
                     }
                     else
