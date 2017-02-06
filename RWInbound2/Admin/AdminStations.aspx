@@ -63,10 +63,8 @@
             <tr>
                 <td style="width: 8px"></td>
                 <td colspan="2">
-                    <asp:Label ID="lblStatus" runat="server" BackColor="White" ForeColor="Red" Font-Bold="true"
-                        Visible="False">
-
-                    </asp:Label>
+                    <asp:Label ID="lblStatus" runat="server" BackColor="White" ForeColor="Red" Font-Bold="True"
+                        Visible="False" Width="261px"></asp:Label>
                     <asp:Button ID="btnOK" runat="server" OnClick="btnOK_Click" Text="OK" />
                 </td>
             </tr>
