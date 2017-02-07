@@ -98,5 +98,10 @@ namespace RWInbound2.Reports
             Response.Redirect("AllOrgsReport.aspx");
         }
 
+        protected void btnICPBlanksAndDups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ICPBlanksAndDups.aspx");
+        }
+
     }
 }
