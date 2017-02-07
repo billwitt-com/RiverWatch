@@ -22,8 +22,7 @@
                     AutoPostBack="true"
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
-                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
-                <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
+                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />                
                 <ajaxToolkit:AutoCompleteExtender 
                     ID="tbSearch_AutoCompleteExtender" 
                     runat="server" 
@@ -46,6 +45,7 @@
             UpdateMethod="UpdateFieldGear"
             DeleteMethod="DeleteFieldGear" 
             InsertItemPosition="LastItem"  
+            OnRowEditing="FieldGearGridView_RowEditing"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
@@ -103,8 +103,7 @@
                     <FooterTemplate>
                         <asp:TextBox ID="NewF5" runat="server"></asp:TextBox>
                     </FooterTemplate>
-                </asp:TemplateField>
-                <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
+                </asp:TemplateField>                         
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       

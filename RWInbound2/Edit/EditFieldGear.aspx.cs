@@ -17,12 +17,30 @@ namespace RWInbound2.Edit
         {
             if (!IsPostBack)
             {
+                SetMessages();
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
+            }            
+        }
+
+        private void SetMessages(string type = "", string message = "")
+        {
+            switch (type)
+            {
+                case "Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = message;
+                    break;
+                case "Error":
+                    ErrorLabel.Text = message;
+                    SuccessLabel.Text = "";
+                    break;
+                default:
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    break;
             }
-            ErrorLabel.Text = "";
-            SuccessLabel.Text = "";
         }
 
         public IQueryable<tlkFieldGear> GetFieldGear([QueryString]string descriptionSearchTerm = "",
@@ -34,8 +52,7 @@ namespace RWInbound2.Edit
 
                 if (!string.IsNullOrEmpty(successLabelMessage))
                 {
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = successLabelMessage;
+                    SetMessages("Success", successLabelMessage);
                 }
 
                 if (!string.IsNullOrEmpty(descriptionSearchTerm))
@@ -118,6 +135,8 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
+
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
                     var fieldGearToUpdate = _db.tlkFieldGears.Find(model.ID);
@@ -139,8 +158,8 @@ namespace RWInbound2.Edit
                     fieldGearToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Field Gear Updated";
+                    string successMsg = string.Format("Field Gear Updated: {0}", model.Description);
+                    SetMessages("Success", successMsg);                  
                 }
             }
             catch (Exception ex)
@@ -155,11 +174,26 @@ namespace RWInbound2.Edit
             {
                 try
                 {
-                    var fieldGearToDelete = _db.tlkFieldGears.Find(model.ID);
-                    _db.tlkFieldGears.Remove(fieldGearToDelete);
-                    _db.SaveChanges();
-                    ErrorLabel.Text = "";
-                    SuccessLabel.Text = "Field Gear Deleted";
+                    var tblBenSampSampleNumber = (from bs in _db.tblBenSamps
+                                                  join s in _db.Samples on bs.SampleID equals s.ID
+                                                  where bs.FieldGearID == model.ID
+                                                  select s.SampleNumber).FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
+                    {
+                        string errorMsg
+                            = string.Format("Field Gear {0} can not be deleted because it is assigned to one or more Benthic Samples. One Sample Number is: {1}", model.Code, tblBenSampSampleNumber);
+                        SetMessages("Error", errorMsg);
+                    }
+                    else
+                    {
+                        var fieldGearToDelete = _db.tlkFieldGears.Find(model.ID);
+                        _db.tlkFieldGears.Remove(fieldGearToDelete);
+                        _db.SaveChanges();
+
+                        string successMsg = string.Format("Field Gear Deleted: {0}", model.Description);
+                        SetMessages("Success", successMsg);
+                    }                    
                 }
                 catch (Exception ex)
                 {
@@ -172,14 +206,14 @@ namespace RWInbound2.Edit
         {
             try
             {
+                SetMessages();
                 string code = ((TextBox)FieldGearGridView.FooterRow.FindControl("NewCode")).Text;
                 string description = ((TextBox)FieldGearGridView.FooterRow.FindControl("NewDescription")).Text;
                 string f5 = ((TextBox)FieldGearGridView.FooterRow.FindControl("NewF5")).Text;
 
                 if (string.IsNullOrEmpty(code))
                 {
-                    SuccessLabel.Text = "";
-                    ErrorLabel.Text = "Code field is required.";
+                    SetMessages("Error", "Code field is required.");
                 }
                 else
                 {
@@ -206,7 +240,6 @@ namespace RWInbound2.Edit
                     {
                         _db.tlkFieldGears.Add(newFieldGear);
                         _db.SaveChanges();
-                        ErrorLabel.Text = "";
 
                         string successLabelText = "New Field Gear Added: " + newFieldGear.Description;
                         string redirect = "EditFieldGear.aspx?successLabelMessage=" + successLabelText;
@@ -227,7 +260,7 @@ namespace RWInbound2.Edit
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 
-            SuccessLabel.Text = "";
+            SetMessages();
 
             if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
             {
@@ -244,13 +277,17 @@ namespace RWInbound2.Edit
                             ve.ErrorMessage + Environment.NewLine);
                     }
                 }
-                ErrorLabel.Text = sb.ToString();
+                SetMessages("Error", sb.ToString());
             }
             else
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = ex.Message;
+                SetMessages("Error", ex.Message);
             }
+        }
+
+        protected void FieldGearGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            SetMessages();
         }
     }
 }

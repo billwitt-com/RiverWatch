@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.ModelBinding;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
@@ -183,16 +182,18 @@ namespace RWInbound2.Edit
                     if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
                     {
                         string errorMsg
-                            = string.Format("Field Procedure {0} can not be deleted because it is assigned to the a Benthic Sample for Sample Number: {1}", model.Code, tblBenSampSampleNumber);
+                            = string.Format("Field Procedure {0} can not be deleted because it is assigned to one or more Benthic Samples. One Sample Number is: {1}", model.Code, tblBenSampSampleNumber);
                         SetMessages("Error", errorMsg);
                     }
+                    else
+                    {
+                        var fieldProcedureToDelete = _db.tlkFieldProcedures.Find(model.ID);
+                        _db.tlkFieldProcedures.Remove(fieldProcedureToDelete);
+                        _db.SaveChanges();
 
-                    var fieldProcedureToDelete = _db.tlkFieldProcedures.Find(model.ID);
-                    _db.tlkFieldProcedures.Remove(fieldProcedureToDelete);
-                    _db.SaveChanges();
-                   
-                    string successMsg = string.Format("Field Procedure Deleted: {0}", model.Description);
-                    SetMessages("Success", successMsg);
+                        string successMsg = string.Format("Field Procedure Deleted: {0}", model.Description);
+                        SetMessages("Success", successMsg);
+                    }                    
                 }
                 catch (Exception ex)
                 {
