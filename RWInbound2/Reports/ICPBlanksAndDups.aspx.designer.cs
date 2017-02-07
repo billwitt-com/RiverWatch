@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RWInbound2.Applications {
+namespace RWInbound2.Reports {
     
     
-    public partial class Applications {
+    public partial class ICPBlanksAndDups {
         
         /// <summary>
         /// Label1 control.
@@ -22,48 +22,30 @@ namespace RWInbound2.Applications {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// btnAWQMSChems control.
+        /// btnRun control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAWQMSChems;
+        protected global::System.Web.UI.WebControls.Button btnRun;
         
         /// <summary>
-        /// btnAWQMSField control.
+        /// ReportViewer1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAWQMSField;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewer1;
         
         /// <summary>
-        /// btnAWQMSStations control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAWQMSStations;
-        
-        /// <summary>
-        /// btnAWQMSPhysHab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAWQMSPhysHab;
-        
-        /// <summary>
-        /// btnAWQMSBugs control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAWQMSBugs;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
     }
 }

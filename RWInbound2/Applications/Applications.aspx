@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     
-    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Applications - Downloads"></asp:Label>
+    <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Applications"></asp:Label>
     <br />
 
 
@@ -17,23 +17,23 @@
         </tr>
         <tr>
             <td style="width: 328px">
-                <asp:Button ID="btnAWQMSChems" runat="server" Text="AWQMS Chemicals Download " CssClass="adminButton" OnClick="btnAWQMSChems_Click" />
+                <asp:Button ID="btnAWQMSChems" runat="server" Text="AWQMS Chemicals Download" CssClass="adminButton" OnClick="btnAWQMSChems_Click" />
             </td>
             <td style="width: 296px">
-                <asp:Button ID="Button1" runat="server" CssClass="adminButton" Text="AWQMS Field Download" Enabled="False" />
+                <asp:Button ID="btnAWQMSField" runat="server" CssClass="adminButton" Text="AWQMS Field Download" Enabled="False" />
             </td>
             <td>
-                <asp:Button ID="Button2" runat="server" CssClass="adminButton" Text="AWQMS Stations Download" Enabled="False" />
+                <asp:Button ID="btnAWQMSStations" runat="server" CssClass="adminButton" Text="AWQMS Stations Download" Enabled="False" />
             </td>
             <td>
                 &nbsp;</td>
         </tr>
         <tr>
             <td style="width: 328px">
-                <asp:Button ID="Button3" runat="server" CssClass="adminButton" Text="AWQMS PhysHab Download" Enabled="False" />
+                <asp:Button ID="btnAWQMSPhysHab" runat="server" CssClass="adminButton" Text="AWQMS PhysHab Download"  Enabled="False" />
             </td>
             <td style="width: 296px">
-                <asp:Button ID="Button4" runat="server" Text="AWQMS Bugs Download " CssClass="adminButton" OnClick="btnAWQMSChems_Click" Enabled="False" />
+                <asp:Button ID="btnAWQMSBugs" runat="server" Text="AWQMS Bugs Download " CssClass="adminButton"   Enabled="False"  />
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>

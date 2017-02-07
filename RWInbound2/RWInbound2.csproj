@@ -363,6 +363,7 @@
     <Content Include="Data\UnknownData.aspx" />
     <Content Include="Public\ViewStationsWithGauges.aspx" />
     <Content Include="Reports\AllOrgsReport.aspx" />
+    <Content Include="Reports\ICPBlanksAndDups.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Reports\Participants.aspx" />
@@ -1623,6 +1624,13 @@
     </Compile>
     <Compile Include="Reports\AllOrgsReport.aspx.designer.cs">
       <DependentUpon>AllOrgsReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ICPBlanksAndDups.aspx.cs">
+      <DependentUpon>ICPBlanksAndDups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ICPBlanksAndDups.aspx.designer.cs">
+      <DependentUpon>ICPBlanksAndDups.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\MailingLabels.aspx.cs">
       <DependentUpon>MailingLabels.aspx</DependentUpon>

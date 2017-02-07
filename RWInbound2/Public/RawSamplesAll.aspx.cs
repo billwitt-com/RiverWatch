@@ -248,7 +248,7 @@ namespace RWInbound2.Public
           " ,[WQCCWaterShed] ,[WaterCode] ,[WaterBodyID] ,[WaterShedRegion] ,[County] ,[WaterShedGathering] ,[ProjectName] ,[ProjectID] ,[USGS_Flow] ,[PH] ,[TempC] ,[PHEN_ALK] ,[TOTAL_ALK] " +
           " ,[TOTAL_HARD] ,[DO_MGL] ,[DOSAT] ,[AL_D] ,[AL_T] ,[AS_D] ,[AS_T] ,[CA_D] ,[CA_T] ,[CD_D] ,[CD_T] ,[CU_D] ,[CU_T] ,[FE_D] ,[FE_T] ,[MG_D] ,[MG_T] ,[MN_D] ,[MN_T] ,[PB_D] " +
           " ,[PB_T] ,[SE_D] ,[SE_T] ,[ZN_D] ,[ZN_T] ,[NA_D] ,[NA_T] ,[K_D] ,[K_T] ,[Ammonia] ,[Chloride] ,[ChlorophyllA] ,[DOC] ,[NN] ,[OP] ,[Sulfate] ,[totN] ,[totP] ,[TKN] " +
-          " ,[orgN] ,[TSS] ,[Valid] FROM [RiverWatch].[dbo].[viewRawSamplesAll]") ;
+          " ,[orgN] ,[TSS] ,[Valid] FROM [RiverWatch].[dbo].[viewRawSamplesAll]");
 
              qs = QRY.ToString(); // just for testing
             if (ddlRiver.SelectedIndex != 0)
@@ -516,6 +516,19 @@ namespace RWInbound2.Public
                     }
                 }
             }
+
+            // add last filter for only showing type '00'
+
+            if (isFirst)
+            {
+                QRY.Append(" WHERE ");
+                Addedto = true;
+            }
+            if (Addedto)
+            {
+                QRY.Append(" And typecode <> '10' and typecode <> '20' ");                
+            }
+           
 
             qs = QRY.ToString();
 
