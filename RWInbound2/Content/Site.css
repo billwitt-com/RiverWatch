@@ -2,9 +2,8 @@
 .formviewText
 {
     font-family:Calibri;
-        font-size: 14px;
+    font-size: 14px;
     font-weight:normal;
-   
 }
 
 .PageLabel {
@@ -16,7 +15,6 @@ td
 {
  border-bottom: 1px solid #ddd;
   /*vertical-align:top;*/
-
 }
 tr
 {
@@ -229,6 +227,33 @@ button {
         margin-right: 8px;*/
 }
 
+td>input.button-list-button { 
+    background-color:lightblue !important;
+    border: 1px solid #787878 !important; 
+    border-radius:3px !important;
+    cursor: pointer;
+    font-size: .95em !important;
+    font-weight: 600 !important;
+    width: 176px !important;
+}
+
+table.button-list-table-adminpage{
+    width:100%;
+}
+
+table.button-list-table-editpage{
+    width:100%;
+}
+
+/*table.button-list-table-editpage  tr{
+    height: 40px;
+}*/
+
+tr>td.button-list-td{
+    width: 262px !important;
+    padding-right: 40px !important;
+}
+
 .samplesButton { 
     background-color:lightblue !important;
     border: 1px solid #787878 !important; /*this works*/
@@ -238,8 +263,6 @@ button {
     font-weight: 600 !important;
     height: 24px;
 }
-
-
 
 .RW-nav /*builds grey bar behind the menu items*/ 
 {
