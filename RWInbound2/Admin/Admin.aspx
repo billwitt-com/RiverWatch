@@ -89,7 +89,9 @@
             </td>     
         </tr>
         <tr>         
-            <td class="button-list-td">&nbsp;</td>        
+            <td class="button-list-td">  
+                <asp:Button ID="btnEnterBenthicsPhysHab" runat="server" Text="Enter Bug & Phys Hab Data" CssClass="button-list-button" OnClick="btnEnterBenthicsPhysHab_Click" />            
+            </td>        
             <td class="button-list-td">&nbsp;</td>    
             <td class="button-list-td"> 
                 <asp:Button ID="btnBulkEditStnActive" runat="server" Text="StnActiveBulkEdit" CssClass="button-list-button" OnClick="btnBulkEditStnActive_Click"   />               

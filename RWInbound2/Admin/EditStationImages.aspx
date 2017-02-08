@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Station Images" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StationImages.aspx.cs" Inherits="RWInbound2.Files.StationImages" %>
+﻿<%@ Page Title="Edit Station Images" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditStationImages.aspx.cs" Inherits="RWInbound2.Admin.EditStationImages" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
