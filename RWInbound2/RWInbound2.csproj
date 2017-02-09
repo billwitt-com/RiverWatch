@@ -289,9 +289,7 @@
     <Content Include="Images\Bucketdrop.jpg" />
     <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
     <Content Include="Images\Clear Creek High School.JPG" />
-    <Content Include="Images\faq.png" />
     <Content Include="Images\loader.gif" />
-    <Content Include="Images\RWsciencefairawards.jpg" />
     <Content Include="Data\FieldData.aspx" />
     <Content Include="Data\UploadLatchet.aspx" />
     <Content Include="Edit\Edit.aspx" />
