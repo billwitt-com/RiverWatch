@@ -1662,6 +1662,58 @@ warning 6002: The table/view 'RiverWatch.dbo.UnknownResultsForOrgView' does not 
           <Property Name="PctRecovery" Type="numeric" Precision="9" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'RiverWatch.dbo.viewAWQMSData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewAWQMSData">
+          <Key>
+            <PropertyRef Name="Event" />
+            <PropertyRef Name="Valid" />
+          </Key>
+          <Property Name="Event" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="TypeCode" Type="varchar" MaxLength="5" />
+          <Property Name="SampleDate" Type="datetime" />
+          <Property Name="StationNumber" Type="int" />
+          <Property Name="Ammonia" Type="float" />
+          <Property Name="Chloride" Type="float" />
+          <Property Name="AL_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AL_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AS_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="AS_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CA_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CA_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CD_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CD_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CU_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="CU_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FE_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="FE_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MG_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MG_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MN_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="MN_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="PB_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="PB_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="SE_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="SE_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="NA_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="NA_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="K_D" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="K_T" Type="decimal" Precision="28" Scale="10" />
+          <Property Name="ChlorophyllA" Type="float" />
+          <Property Name="DOC" Type="float" />
+          <Property Name="NN" Type="float" />
+          <Property Name="OP" Type="float" />
+          <Property Name="Sulfate" Type="float" />
+          <Property Name="totN" Type="float" />
+          <Property Name="totP" Type="float" />
+          <Property Name="TKN" Type="float" />
+          <Property Name="orgN" Type="float" />
+          <Property Name="TSS" Type="float" />
+          <Property Name="Valid" Type="bit" Nullable="false" />
+          <Property Name="WaterBodyID" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewSoloNutrientDups">
           <Key>
@@ -2067,6 +2119,54 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
     [UnknownResultsForOrgView].[Round] AS [Round], 
     [UnknownResultsForOrgView].[PctRecovery] AS [PctRecovery]
     FROM [dbo].[UnknownResultsForOrgView] AS [UnknownResultsForOrgView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewAWQMSData" EntityType="Self.viewAWQMSData" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewAWQMSData].[Event] AS [Event], 
+    [viewAWQMSData].[TypeCode] AS [TypeCode], 
+    [viewAWQMSData].[SampleDate] AS [SampleDate], 
+    [viewAWQMSData].[StationNumber] AS [StationNumber], 
+    [viewAWQMSData].[Ammonia] AS [Ammonia], 
+    [viewAWQMSData].[Chloride] AS [Chloride], 
+    [viewAWQMSData].[AL_D] AS [AL_D], 
+    [viewAWQMSData].[AL_T] AS [AL_T], 
+    [viewAWQMSData].[AS_D] AS [AS_D], 
+    [viewAWQMSData].[AS_T] AS [AS_T], 
+    [viewAWQMSData].[CA_D] AS [CA_D], 
+    [viewAWQMSData].[CA_T] AS [CA_T], 
+    [viewAWQMSData].[CD_D] AS [CD_D], 
+    [viewAWQMSData].[CD_T] AS [CD_T], 
+    [viewAWQMSData].[CU_D] AS [CU_D], 
+    [viewAWQMSData].[CU_T] AS [CU_T], 
+    [viewAWQMSData].[FE_D] AS [FE_D], 
+    [viewAWQMSData].[FE_T] AS [FE_T], 
+    [viewAWQMSData].[MG_D] AS [MG_D], 
+    [viewAWQMSData].[MG_T] AS [MG_T], 
+    [viewAWQMSData].[MN_D] AS [MN_D], 
+    [viewAWQMSData].[MN_T] AS [MN_T], 
+    [viewAWQMSData].[PB_D] AS [PB_D], 
+    [viewAWQMSData].[PB_T] AS [PB_T], 
+    [viewAWQMSData].[SE_D] AS [SE_D], 
+    [viewAWQMSData].[SE_T] AS [SE_T], 
+    [viewAWQMSData].[ZN_D] AS [ZN_D], 
+    [viewAWQMSData].[ZN_T] AS [ZN_T], 
+    [viewAWQMSData].[NA_D] AS [NA_D], 
+    [viewAWQMSData].[NA_T] AS [NA_T], 
+    [viewAWQMSData].[K_D] AS [K_D], 
+    [viewAWQMSData].[K_T] AS [K_T], 
+    [viewAWQMSData].[ChlorophyllA] AS [ChlorophyllA], 
+    [viewAWQMSData].[DOC] AS [DOC], 
+    [viewAWQMSData].[NN] AS [NN], 
+    [viewAWQMSData].[OP] AS [OP], 
+    [viewAWQMSData].[Sulfate] AS [Sulfate], 
+    [viewAWQMSData].[totN] AS [totN], 
+    [viewAWQMSData].[totP] AS [totP], 
+    [viewAWQMSData].[TKN] AS [TKN], 
+    [viewAWQMSData].[orgN] AS [orgN], 
+    [viewAWQMSData].[TSS] AS [TSS], 
+    [viewAWQMSData].[Valid] AS [Valid], 
+    [viewAWQMSData].[WaterBodyID] AS [WaterBodyID]
+    FROM [dbo].[viewAWQMSData] AS [viewAWQMSData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewSoloNutrientDups" EntityType="Self.ViewSoloNutrientDups" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2989,6 +3089,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             <End Role="tlkFieldGear" EntitySet="tlkFieldGears" />
             <End Role="tlkGearConfig" EntitySet="tlkGearConfigs" />
           </AssociationSet>
+          <EntitySet Name="viewAWQMSDatas" EntityType="RiverWatchModel.viewAWQMSData" />
           </EntityContainer>
         <EntityType Name="tlkSubPara">
           <Key>
@@ -4071,6 +4172,56 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="viewAWQMSData">
+          <Key>
+            <PropertyRef Name="Event" />
+            <PropertyRef Name="Valid" />
+          </Key>
+          <Property Name="Event" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="TypeCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SampleDate" Type="DateTime" Precision="3" />
+          <Property Name="StationNumber" Type="Int32" />
+          <Property Name="Ammonia" Type="Double" />
+          <Property Name="Chloride" Type="Double" />
+          <Property Name="AL_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AL_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AS_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="AS_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CA_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CA_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CD_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CD_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CU_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="CU_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FE_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="FE_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MG_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MG_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MN_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="MN_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PB_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="PB_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="SE_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="SE_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ZN_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NA_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="NA_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="K_D" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="K_T" Type="Decimal" Precision="28" Scale="10" />
+          <Property Name="ChlorophyllA" Type="Double" />
+          <Property Name="DOC" Type="Double" />
+          <Property Name="NN" Type="Double" />
+          <Property Name="OP" Type="Double" />
+          <Property Name="Sulfate" Type="Double" />
+          <Property Name="totN" Type="Double" />
+          <Property Name="totP" Type="Double" />
+          <Property Name="TKN" Type="Double" />
+          <Property Name="orgN" Type="Double" />
+          <Property Name="TSS" Type="Double" />
+          <Property Name="Valid" Type="Boolean" Nullable="false" />
+          <Property Name="WaterBodyID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5814,6 +5965,56 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewAWQMSDatas">
+            <EntityTypeMapping TypeName="RiverWatchModel.viewAWQMSData">
+              <MappingFragment StoreEntitySet="viewAWQMSData">
+                <ScalarProperty Name="WaterBodyID" ColumnName="WaterBodyID" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="TSS" ColumnName="TSS" />
+                <ScalarProperty Name="orgN" ColumnName="orgN" />
+                <ScalarProperty Name="TKN" ColumnName="TKN" />
+                <ScalarProperty Name="totP" ColumnName="totP" />
+                <ScalarProperty Name="totN" ColumnName="totN" />
+                <ScalarProperty Name="Sulfate" ColumnName="Sulfate" />
+                <ScalarProperty Name="OP" ColumnName="OP" />
+                <ScalarProperty Name="NN" ColumnName="NN" />
+                <ScalarProperty Name="DOC" ColumnName="DOC" />
+                <ScalarProperty Name="ChlorophyllA" ColumnName="ChlorophyllA" />
+                <ScalarProperty Name="K_T" ColumnName="K_T" />
+                <ScalarProperty Name="K_D" ColumnName="K_D" />
+                <ScalarProperty Name="NA_T" ColumnName="NA_T" />
+                <ScalarProperty Name="NA_D" ColumnName="NA_D" />
+                <ScalarProperty Name="ZN_T" ColumnName="ZN_T" />
+                <ScalarProperty Name="ZN_D" ColumnName="ZN_D" />
+                <ScalarProperty Name="SE_T" ColumnName="SE_T" />
+                <ScalarProperty Name="SE_D" ColumnName="SE_D" />
+                <ScalarProperty Name="PB_T" ColumnName="PB_T" />
+                <ScalarProperty Name="PB_D" ColumnName="PB_D" />
+                <ScalarProperty Name="MN_T" ColumnName="MN_T" />
+                <ScalarProperty Name="MN_D" ColumnName="MN_D" />
+                <ScalarProperty Name="MG_T" ColumnName="MG_T" />
+                <ScalarProperty Name="MG_D" ColumnName="MG_D" />
+                <ScalarProperty Name="FE_T" ColumnName="FE_T" />
+                <ScalarProperty Name="FE_D" ColumnName="FE_D" />
+                <ScalarProperty Name="CU_T" ColumnName="CU_T" />
+                <ScalarProperty Name="CU_D" ColumnName="CU_D" />
+                <ScalarProperty Name="CD_T" ColumnName="CD_T" />
+                <ScalarProperty Name="CD_D" ColumnName="CD_D" />
+                <ScalarProperty Name="CA_T" ColumnName="CA_T" />
+                <ScalarProperty Name="CA_D" ColumnName="CA_D" />
+                <ScalarProperty Name="AS_T" ColumnName="AS_T" />
+                <ScalarProperty Name="AS_D" ColumnName="AS_D" />
+                <ScalarProperty Name="AL_T" ColumnName="AL_T" />
+                <ScalarProperty Name="AL_D" ColumnName="AL_D" />
+                <ScalarProperty Name="Chloride" ColumnName="Chloride" />
+                <ScalarProperty Name="Ammonia" ColumnName="Ammonia" />
+                <ScalarProperty Name="StationNumber" ColumnName="StationNumber" />
+                <ScalarProperty Name="SampleDate" ColumnName="SampleDate" />
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="Event" ColumnName="Event" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>          

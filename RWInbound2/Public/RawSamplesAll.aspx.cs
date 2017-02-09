@@ -494,6 +494,15 @@ namespace RWInbound2.Public
                 }
             }
 
+            if (isFirst)
+            {
+                QRY.Append(" WHERE ");
+                Addedto = true;
+            }
+            if (Addedto)
+            {
+                QRY.Append(" And typecode <> '10' and typecode <> '20' ");
+            }
 
             string oblist = "";
             if(RadioButtonList1.SelectedIndex != 0)
@@ -517,17 +526,7 @@ namespace RWInbound2.Public
                 }
             }
 
-            // add last filter for only showing type '00'
-
-            if (isFirst)
-            {
-                QRY.Append(" WHERE ");
-                Addedto = true;
-            }
-            if (Addedto)
-            {
-                QRY.Append(" And typecode <> '10' and typecode <> '20' ");                
-            }
+            // add last filter for only showing type '00'           
            
 
             qs = QRY.ToString();
@@ -548,7 +547,7 @@ namespace RWInbound2.Public
 
         protected void btnFAQ_Click(object sender, ImageClickEventArgs e)
         {
-            Response.Redirect("~/content/RWdatainfodownloadv1.pdf");
+            Response.Redirect("~/content/RWdatainfodownload.pdf");
         }
     }
 }

@@ -193,6 +193,7 @@
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\AWQMSChems.aspx" />
+    <Content Include="Content\faq.png" />
     <Content Include="Data\EnterBenthicsPhysHab.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
@@ -288,7 +289,9 @@
     <Content Include="Images\Bucketdrop.jpg" />
     <Content Include="Images\Cheyenne Creek Conservation Club.jpg" />
     <Content Include="Images\Clear Creek High School.JPG" />
-    <Content Include="Images\faq.png" />
+    <Content Include="Images\faq.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\loader.gif" />
     <Content Include="Images\RWsciencefairawards.jpg" />
     <Content Include="Data\FieldData.aspx" />
@@ -419,6 +422,7 @@
     <Content Include="AllOrgsDataSet.xss">
       <DependentUpon>AllOrgsDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Content\RWdatainfodownload.pdf" />
     <None Include="DataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
@@ -427,12 +431,22 @@
     <Content Include="DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
-    <Content Include="Images\RWdatainfodownloadv1.pdf" />
     <Content Include="PartsWithOrgs.xsc">
       <DependentUpon>PartsWithOrgs.xsd</DependentUpon>
     </Content>
     <Content Include="MailList.xsc">
       <DependentUpon>MailList.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSetAllOrgs.xsc">
+      <DependentUpon>DataSetAllOrgs.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSetAllOrgs.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetAllOrgs.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSetAllOrgs.xss">
+      <DependentUpon>DataSetAllOrgs.xsd</DependentUpon>
     </Content>
     <None Include="MailList.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -441,6 +455,17 @@
     </None>
     <Content Include="MailList.xss">
       <DependentUpon>MailList.xsd</DependentUpon>
+    </Content>
+    <Content Include="OrgReportDataSet.xsc">
+      <DependentUpon>OrgReportDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="OrgReportDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrgReportDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="OrgReportDataSet.xss">
+      <DependentUpon>OrgReportDataSet.xsd</DependentUpon>
     </Content>
     <None Include="PartsWithOrgs.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -768,6 +793,7 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
@@ -789,10 +815,12 @@
     </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -903,6 +931,11 @@
     </Compile>
     <Compile Include="Applications\AWQMSChems.aspx.designer.cs">
       <DependentUpon>AWQMSChems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetAllOrgs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetAllOrgs.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\EnterBenthicsPhysHab.aspx.cs">
       <DependentUpon>EnterBenthicsPhysHab.aspx</DependentUpon>
@@ -1290,6 +1323,11 @@
     </Compile>
     <Compile Include="OrgContractStatu.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrgReportDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="OrgStationsView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -2138,6 +2176,9 @@
     <Compile Include="Video\Training.aspx.designer.cs">
       <DependentUpon>Training.aspx</DependentUpon>
     </Compile>
+    <Compile Include="viewAWQMSData.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewSoloNutrientDup.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -2185,6 +2226,9 @@
     <Content Include="Reports\ParticipantsPrimaryContacts.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Public\AllOrgs.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Public\OrgStations.rdlc" />
     <EmbeddedResource Include="Public\OrgStatus.rdlc" />
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
@@ -2196,8 +2240,12 @@
     <EmbeddedResource Include="Public\Stations.rdlc" />
     <EmbeddedResource Include="Public\stationsByProject.rdlc" />
     <EmbeddedResource Include="Public\StationsWithGauges.rdlc" />
+    <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
     <EmbeddedResource Include="Reports\Report4.rdlc" />
-    <EmbeddedResource Include="Reports\Mlables.rdlc" />
+    <Compile Include="Reports\Mlables.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <EmbeddedResource Include="Reports\ReportAllOrgs.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -114,5 +114,6 @@ namespace RWInbound2
         public virtual DbSet<tlkActivityType> tlkActivityTypes { get; set; }
         public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<tlkGearConfig> tlkGearConfigs { get; set; }
+        public virtual DbSet<viewAWQMSData> viewAWQMSDatas { get; set; }
     }
 }

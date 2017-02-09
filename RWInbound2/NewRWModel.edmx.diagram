@@ -104,6 +104,7 @@
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Field__6225902D" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__GearC__6319B466" />
         <AssociationConnector Association="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8" />
+        <EntityTypeShape EntityType="RiverWatchModel.viewAWQMSData" Width="1.5" PointX="19.375" PointY="28.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
