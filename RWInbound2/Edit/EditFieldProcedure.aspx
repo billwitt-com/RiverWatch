@@ -47,6 +47,7 @@
             DeleteMethod="DeleteFieldProcedure" 
             InsertItemPosition="LastItem"  
             OnRowEditing="FieldProceduresGridView_RowEditing"
+            OnRowCommand="FieldProceduresGridView_RowCommand"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
@@ -92,6 +93,12 @@
                     <FooterTemplate>
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField>                   
+                    <ItemTemplate>
+                        <asp:Button ID="GetAssignedSamplesButton" runat="server" Text="Download Assigned Samples"
+                                    CommandName="GetAssignedSamples" CommandArgument='<%# Bind("ID") %>' />
+                    </ItemTemplate>                   
                 </asp:TemplateField>
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            

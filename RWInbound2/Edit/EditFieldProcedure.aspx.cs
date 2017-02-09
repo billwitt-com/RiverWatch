@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -174,16 +177,18 @@ namespace RWInbound2.Edit
                 {
                     SetMessages();
 
-                    var tblBenSampSampleNumber = (from bs in _db.tblBenSamps
+                    var tblBenSampSampleNumbers = (from bs in _db.tblBenSamps
                                                   join s in _db.Samples on bs.SampleID equals s.ID
                                                   where bs.CollMeth == model.ID
-                                                  select s.SampleNumber).FirstOrDefault();
+                                                  orderby s.SampleNumber
+                                                  select s.SampleNumber).ToList();
 
-                    if (!string.IsNullOrEmpty(tblBenSampSampleNumber))
+                    if (tblBenSampSampleNumbers.Count > 0)
                     {
                         string errorMsg
-                            = string.Format("Field Procedure {0} can not be deleted because it is assigned to one or more Benthic Samples. One Sample Number is: {1}", model.Code, tblBenSampSampleNumber);
-                        SetMessages("Error", errorMsg);
+                            = string.Format("Field Procedure {1} can not be deleted because it is assigned to one or more Benthic Samples. {0}",
+                                            "\r\n Click the Download Assigned Samples button to get a list of the samples.", model.Code);
+                        SetMessages("Error", errorMsg);                         
                     }
                     else
                     {
@@ -259,6 +264,61 @@ namespace RWInbound2.Edit
             {
                 HandleErrors(ex, ex.Message, "AddNewFieldProcedure", "", "");
             }
+        }             
+
+        protected void FieldProceduresGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "GetAssignedSamples")
+                {
+                    using (RiverWatchEntities _db = new RiverWatchEntities())
+                    {
+                        if (e.CommandName == "GetAssignedSamples")
+                        {
+                            int iD = Convert.ToInt32(e.CommandArgument);
+
+                            // Retrieve the row that contains the button 
+                            // from the Rows collection.
+                            //GridViewRow row = FieldProceduresGridView.Rows[iD];
+
+                            var tblBenSampSampleNumbers = (from bs in _db.tblBenSamps
+                                                           join s in _db.Samples on bs.SampleID equals s.ID
+                                                           where bs.CollMeth == iD
+                                                           orderby s.SampleNumber
+                                                           select s.SampleNumber).Distinct().ToList();
+
+
+
+                            if (tblBenSampSampleNumbers.Count > 0)
+                            {
+                                //return csv to show Assigned Sample numbers
+                                Response.ClearContent();
+                                Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "Assigned_SampleNumbers.csv"));
+                                Response.ContentType = "application/text";
+                                string csvContents = GetSamplesCSVData(tblBenSampSampleNumbers);
+                                Response.Write(csvContents);
+                                Response.End();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "FieldProceduresGridView_RowCommand", "", "");
+            }            
+        }
+
+        private string GetSamplesCSVData(List<string> listOfSamples)
+        {
+            StringBuilder strbldr = new StringBuilder();
+            foreach (var sample in listOfSamples)
+            {
+                strbldr.AppendLine(sample);
+                //strbldr.Append("\n");
+            }
+            return strbldr.ToString();
         }
 
         private void HandleErrors(Exception ex, string msg, string fromPage,
@@ -296,5 +356,5 @@ namespace RWInbound2.Edit
         {
             SetMessages();
         }
-    }
+    }        
 }
