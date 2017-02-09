@@ -312,6 +312,7 @@
     <Content Include="Edit\GearConfigNewRow.aspx" />
     <Content Include="Images\Colorado_River_Rocky_Mountains crop 877x135.jpg" />
     <Content Include="Images\Colorado_River_Rocky_Mountains with text.jpg" />
+    <Content Include="Images\RWsciencefairawards.jpg" />
     <Content Include="index.aspx" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

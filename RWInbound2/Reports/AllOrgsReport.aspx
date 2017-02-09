@@ -6,9 +6,6 @@
 
         <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="All organizations Report"></asp:Label>
     <br />
-
-
-
         <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1063px">
             <LocalReport ReportPath="Reports\ReportAllOrgs.rdlc">
                 <DataSources>
