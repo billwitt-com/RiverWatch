@@ -548,6 +548,7 @@ namespace RWInbound2.Public
         protected void btnFAQ_Click(object sender, ImageClickEventArgs e)
         {
             Response.Redirect("~/content/RWdatainfodownload.pdf");
+            // touch
         }
     }
 }

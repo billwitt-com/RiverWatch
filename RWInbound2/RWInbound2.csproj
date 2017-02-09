@@ -194,6 +194,7 @@
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\AWQMSChems.aspx" />
     <Content Include="Admin\EnterBenthicsPhysHab.aspx" />
+    <Content Include="Content\faq.png" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditNutrientBarcode.aspx" />
