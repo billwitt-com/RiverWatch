@@ -18,7 +18,4 @@
         </rsweb:ReportViewer>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
             SelectCommand="SELECT * FROM [organization] ORDER BY [OrganizationName]"></asp:SqlDataSource>
-
-
-
 </asp:Content>
