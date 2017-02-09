@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Enter Benthics PhysHab" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EnterBenthicsPhysHab.aspx.cs" Inherits="RWInbound2.Data.EnterBenthicsPhysHab" %>
+﻿<%@ Page Title="Enter Benthics PhysHab" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EnterBenthicsPhysHab.aspx.cs" Inherits="RWInbound2.Admin.EnterBenthicsPhysHab" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" ClientIDMode="Static">

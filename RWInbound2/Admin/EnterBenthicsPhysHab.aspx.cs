@@ -10,7 +10,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace RWInbound2.Data
+namespace RWInbound2.Admin
 {
     public partial class EnterBenthicsPhysHab : System.Web.UI.Page
     {

@@ -117,7 +117,7 @@ namespace RWInbound2.Admin
 
         protected void btnStationImages_Click(object sender, EventArgs e)
         {
-            Response.Redirect(this.ResolveClientUrl("~/Files/StationImages.aspx"));
+            Response.Redirect("EditStationImages.aspx");
         }
 
         protected void btnBulkEditOrgActive_Click(object sender, EventArgs e)
@@ -140,6 +140,11 @@ namespace RWInbound2.Admin
         {
             // ResetStationActive
             Response.Redirect("ResetStationActive.aspx");
+        }
+
+        protected void btnEnterBenthicsPhysHab_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EnterBenthicsPhysHab.aspx");
         }
     }
 }

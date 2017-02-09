@@ -17,9 +17,9 @@ using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace RWInbound2.Files
+namespace RWInbound2.Admin
 {
-    public partial class StationImages : System.Web.UI.Page
+    public partial class EditStationImages : System.Web.UI.Page
     {
         private string webApiBaseUrl = WebConfigurationManager.AppSettings["WebAPI_BaseUrl"];
         private static string webApi_username = WebConfigurationManager.AppSettings["WebAPI_UserName"];
@@ -330,7 +330,7 @@ namespace RWInbound2.Files
                                 string successLabelMessage
                                     = string.Format("Station Image Added.  Station: {0},  Image: {1}", lblStationName.Text, uploadResult.FileName);
 
-                                string redirect = string.Format("StationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
+                                string redirect = string.Format("EditStationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
                                                          HiddenStationID.Value, successLabelMessage);
 
                                 Response.Redirect(redirect, false);
@@ -461,7 +461,7 @@ namespace RWInbound2.Files
                             string successLabelMessage
                                 = string.Format("Station Image Updated. Station: {0}, Image: {1}", lblStationName.Text, model.FileName);
 
-                            string redirect = string.Format("StationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
+                            string redirect = string.Format("EditStationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
                                                      HiddenStationID.Value, successLabelMessage);
 
                             Response.Redirect(redirect, false);
@@ -572,7 +572,7 @@ namespace RWInbound2.Files
                             string successLabelMessage
                                 = string.Format("Station Image Deleted. Station: {0}, Image: {1}", lblStationName.Text, deleteStationImageModelResult.FileName);
 
-                            string redirect = string.Format("StationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
+                            string redirect = string.Format("EditStationImages.aspx?stationIDSelected={0}&successLabelMessage={1}",
                                                      HiddenStationID.Value, successLabelMessage);
 
                             Response.Redirect(redirect, false);
@@ -612,7 +612,7 @@ namespace RWInbound2.Files
             }
             catch (Exception ex)
             {
-                StationImages stationImages = new StationImages();
+                EditStationImages stationImages = new EditStationImages();
                 stationImages.HandleErrors(ex, ex.Message, "SearchForStationName", "", "");
                 return stationNames;
             }
@@ -639,7 +639,7 @@ namespace RWInbound2.Files
 
                 if (stationIDSelected > 0)
                 {
-                    string redirect = "StationImages.aspx?stationIDSelected=" + stationIDSelected;
+                    string redirect = "EditStationImages.aspx?stationIDSelected=" + stationIDSelected;
 
                     Response.Redirect(redirect, false);
                 }
@@ -672,7 +672,7 @@ namespace RWInbound2.Files
             }
             catch (Exception ex)
             {
-                StationImages stationImages = new StationImages();
+                EditStationImages stationImages = new EditStationImages();
                 stationImages.HandleErrors(ex, ex.Message, "SearchForStationNumber", "", "");
                 return stationNumbers;
             }
@@ -702,7 +702,7 @@ namespace RWInbound2.Files
 
                     if (stationIDSelected > 0)
                     {
-                        string redirect = "StationImages.aspx?stationIDSelected=" + stationIDSelected;
+                        string redirect = "EditStationImages.aspx?stationIDSelected=" + stationIDSelected;
 
                         Response.Redirect(redirect, false);
                     }
@@ -721,7 +721,7 @@ namespace RWInbound2.Files
                 stationNameSearch.Text = "";
                 stationNumberSearch.Text = "";
 
-                string redirect = "StationImages.aspx";
+                string redirect = "EditStationImages.aspx";
 
                 Response.Redirect(redirect, false);
             }

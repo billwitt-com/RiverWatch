@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RWInbound2.Files {
+namespace RWInbound2.Admin {
     
     
-    public partial class StationImages {
+    public partial class EditStationImages {
         
         /// <summary>
         /// ErrorLabel control.

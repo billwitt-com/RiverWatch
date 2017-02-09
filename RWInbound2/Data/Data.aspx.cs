@@ -58,8 +58,6 @@ namespace RWInbound2.Data
             Response.Redirect("~/Data/UploadLatchet.aspx"); // this is spelled wrong
         }
 
-
-
         // below are leftovers from another time, now moved to public menu
 
         //protected void btnOrganization_Click(object sender, EventArgs e)
@@ -75,11 +73,6 @@ namespace RWInbound2.Data
         protected void btnUnknownSample_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Data/UnknownData.aspx");
-        }
-
-        protected void btnEnterBenthicsPhysHab_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Data/EnterBenthicsPhysHab.aspx");
-        }
+        }        
     }
 }

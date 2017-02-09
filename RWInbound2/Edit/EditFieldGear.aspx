@@ -5,7 +5,6 @@
             <hgroup>
                 <h3><%: Page.Title %></h3>
             </hgroup>
-
             <div class="label-placement">
                 <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
             </div>

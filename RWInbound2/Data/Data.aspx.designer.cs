@@ -13,15 +13,6 @@ namespace RWInbound2.Data {
     public partial class Data {
         
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
         /// btnFieldData control.
         /// </summary>
         /// <remarks>
@@ -47,14 +38,5 @@ namespace RWInbound2.Data {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUploadLatchat;
-        
-        /// <summary>
-        /// btnEnterBenthicsPhysHab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnterBenthicsPhysHab;
     }
 }

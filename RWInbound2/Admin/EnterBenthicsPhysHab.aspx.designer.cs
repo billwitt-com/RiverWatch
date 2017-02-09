@@ -7,8 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RWInbound2.Data {
-    
+namespace RWInbound2.Admin
+{   
     
     public partial class EnterBenthicsPhysHab {
         
