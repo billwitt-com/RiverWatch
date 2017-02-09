@@ -2216,8 +2216,8 @@
     <EmbeddedResource Include="Public\OrgStations.rdlc" />
     <EmbeddedResource Include="Public\OrgStatus.rdlc" />
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
-    <EmbeddedResource Include="Public\QAQCReport.rdlc" />
-    <EmbeddedResource Include="Public\RawSamplesAll.rdlc" />
+    <Content Include="Public\QAQCReport.rdlc" />
+    <Content Include="Public\RawSamplesAll.rdlc" />
     <EmbeddedResource Include="Public\Report2.rdlc" />
     <EmbeddedResource Include="Public\Report3.rdlc" />
     <EmbeddedResource Include="Public\OrgsByProject.rdlc" />
@@ -2227,7 +2227,7 @@
     <Content Include="Reports\MLables.rdlc" />
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
     <EmbeddedResource Include="Reports\Report4.rdlc" />
-    <EmbeddedResource Include="Reports\ReportAllOrgs.rdlc" />
+    <Content Include="Reports\ReportAllOrgs.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
