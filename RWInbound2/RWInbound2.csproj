@@ -2213,7 +2213,7 @@
     <Content Include="Public\AllOrgs.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Public\OrgStations.rdlc" />
+    <Content Include="Public\OrgStations.rdlc" />
     <EmbeddedResource Include="Public\OrgStatus.rdlc" />
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
     <Content Include="Public\QAQCReport.rdlc" />
