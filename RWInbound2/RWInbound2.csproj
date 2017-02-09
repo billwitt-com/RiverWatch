@@ -790,7 +790,6 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
@@ -812,12 +811,10 @@
     </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -2227,6 +2224,7 @@
     <EmbeddedResource Include="Public\Stations.rdlc" />
     <EmbeddedResource Include="Public\stationsByProject.rdlc" />
     <EmbeddedResource Include="Public\StationsWithGauges.rdlc" />
+    <Content Include="Reports\MLables.rdlc" />
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
     <EmbeddedResource Include="Reports\Report4.rdlc" />
     <EmbeddedResource Include="Reports\ReportAllOrgs.rdlc" />
