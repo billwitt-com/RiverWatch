@@ -195,6 +195,7 @@
     <Content Include="Applications\AWQMSChems.aspx" />
     <Content Include="Admin\EnterBenthicsPhysHab.aspx" />
     <Content Include="Content\faq.png" />
+    <Content Include="Edit\EditIntent.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
     <Content Include="Admin\EditNutrientBarcode.aspx" />
@@ -932,6 +933,13 @@
     </Compile>
     <Compile Include="Admin\EnterBenthicsPhysHab.aspx.designer.cs">
       <DependentUpon>EnterBenthicsPhysHab.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditIntent.aspx.cs">
+      <DependentUpon>EditIntent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditIntent.aspx.designer.cs">
+      <DependentUpon>EditIntent.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditLimits.aspx.cs">
       <DependentUpon>EditLimits.aspx</DependentUpon>

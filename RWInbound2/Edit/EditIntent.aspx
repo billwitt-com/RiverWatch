@@ -1,6 +1,8 @@
-﻿<%@ Page Title="Edit Field Procedure" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditFieldProcedure.aspx.cs" Inherits="RWInbound2.Edit.EditFieldProcedure" %>
-<asp:Content ID="FieldProcedureContent" ContentPlaceHolderID="MainContent" runat="server">
-    <section spellcheck="true">
+﻿<%@ Page Title="Edit Intent" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditIntent.aspx.cs" Inherits="RWInbound2.Edit.EditIntent" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<section spellcheck="true">
         <div>
             <hgroup>
                 <h3><%: Page.Title %></h3>
@@ -13,41 +15,16 @@
                  <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" Text=""/>
             </div>
             <br />            
-        </div>
-        <p>
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                <ContentTemplate>
-                Search By Description:
-                <asp:TextBox ID="descriptionSearch" 
-                    AutoPostBack="true"
-                    runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
-                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
-                <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
-                <ajaxToolkit:AutoCompleteExtender 
-                    ID="tbSearch_AutoCompleteExtender" 
-                    runat="server" 
-                    BehaviorID="tbSearch_AutoCompleteExtender" 
-                    DelimiterCharacters=""  
-                    ServiceMethod="SearchForFieldProceduresDescription"             
-                    TargetControlID="descriptionSearch"
-                    MinimumPrefixLength="2"
-                    CompletionInterval="100" 
-                    EnableCaching="false" 
-                    CompletionSetCount="10">
-                </ajaxToolkit:AutoCompleteExtender> 
-            </ContentTemplate>
-        </asp:UpdatePanel>
-    </p>
-        <asp:GridView ID="FieldProceduresGridView" runat="server"
+        </div>        
+        <asp:GridView ID="IntentGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkFieldProcedure" 
-            SelectMethod="GetFieldProcedures"
-            UpdateMethod="UpdateFieldProcedure"
-            DeleteMethod="DeleteFieldProcedure" 
+            ItemType="RWInbound2.tlkIntent" 
+            SelectMethod="GetIntents"
+            UpdateMethod="UpdateIntent"
+            DeleteMethod="DeleteIntent" 
             InsertItemPosition="LastItem"  
-            OnRowEditing="FieldProceduresGridView_RowEditing"
-            OnRowCommand="FieldProceduresGridView_RowCommand"
+            OnRowEditing="IntentGridView_RowEditing"
+            OnRowCommand="IntentGridView_RowCommand"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
@@ -67,7 +44,7 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewFieldProcedure" />
+                                    OnClick="AddNewIntent" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
@@ -93,13 +70,13 @@
                     <FooterTemplate>
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
-                </asp:TemplateField>
+                </asp:TemplateField> 
                 <asp:TemplateField>                   
                     <ItemTemplate>
                         <asp:Button ID="GetAssignedSamplesButton" runat="server" Text="Download Assigned Samples"
                                     CommandName="GetAssignedSamples" CommandArgument='<%# Bind("ID") %>' />
                     </ItemTemplate>                   
-                </asp:TemplateField>
+                </asp:TemplateField>               
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       

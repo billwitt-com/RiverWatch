@@ -242,5 +242,15 @@ namespace RWInbound2.Edit
         {
             Response.Redirect("EditWatercodes.aspx"); 
         }
+
+        protected void btnItent_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditIntent.aspx");
+        }
+
+        protected void btnMedium_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

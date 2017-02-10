@@ -72,6 +72,14 @@
         </tr>
         <tr>
             <td class="button-list-td"> 
+                <asp:Button ID="btnItent" runat="server" OnClick="btnItent_Click" Text="Intent" 
+                            CssClass="button-list-button"/> 
+            </td>
+            <td class="button-list-td"> 
+                <asp:Button ID="btnMedium" runat="server" OnClick="btnMedium_Click" Text="Medium" 
+                            CssClass="button-list-button"/>
+            </td>
+            <td class="button-list-td"> 
                 <asp:Button ID="brnLimits" runat="server" OnClick="brnLimits_Click" Text="Metals Val Limits" 
                             CssClass="button-list-button"/> 
             </td>
@@ -83,6 +91,8 @@
                 <asp:Button ID="btnNutrientBarCodeType" runat="server" OnClick="btnNutrientBarCodeType_Click" Text="Nutrient Barcode Types" 
                             CssClass="button-list-button"/>
             </td>
+        </tr>
+        <tr>            
             <td class="button-list-td"> 
                 <asp:Button ID="btnNutrientLimits" runat="server" Text="Nutrient Val Limits" CssClass="button-list-button" OnClick="btnNutrientLimits_Click"/>  
             </td>
@@ -90,8 +100,6 @@
                 <asp:Button ID="btnOrganizationType" runat="server" OnClick="btnOrganizationType_Click" Text="Organization Types" 
                             CssClass="button-list-button"/>  
             </td>
-        </tr>
-        <tr>            
             <td class="button-list-td">  
                 <asp:Button ID="btnPhysHabPara" runat="server" OnClick="btnPhysHabPara_Click" Text="Phys Hab Para" 
                             CssClass="button-list-button"/>    
@@ -104,6 +112,8 @@
                 <asp:Button ID="btnProject" runat="server" OnClick="btnProject_Click" Text="Projects" 
                             CssClass="button-list-button"/>
             </td>
+        </tr>
+        <tr>
             <td class="button-list-td"> 
                 <asp:Button ID="btnQUADI" runat="server" OnClick="btnQUADI_Click" Text="QUADI" 
                             CssClass="button-list-button"/>
@@ -112,8 +122,6 @@
                 <asp:Button ID="btnQuarterSection" runat="server" OnClick="btnQuarterSection_Click" Text="Quarter Sections" 
                             CssClass="button-list-button"/>
             </td>
-        </tr>
-        <tr>
             <td class="button-list-td"> 
                 <asp:Button ID="btnRange" runat="server" OnClick="btnRange_Click" Text="Ranges" 
                             CssClass="button-list-button"/>
@@ -126,6 +134,8 @@
                 <asp:Button ID="btnRiverWatchWaterShed" runat="server" OnClick="btnRiverWatchWaterShed_Click" Text="RW Water Sheds" 
                             CssClass="button-list-button"/>
             </td>
+        </tr>
+        <tr>
             <td class="button-list-td"> 
                 <asp:Button ID="btnSampleType" runat="server" OnClick="btnSampleType_Click" Text="Sample Unknown Types" 
                             CssClass="button-list-button"/>  
@@ -134,8 +144,6 @@
                 <asp:Button ID="btnSection" runat="server" OnClick="btnSection_Click" Text="Sections" 
                             CssClass="button-list-button"/>
             </td>
-        </tr>
-        <tr>
             <td class="button-list-td"> 
                 <asp:Button ID="btnState" runat="server" OnClick="btnState_Click" Text="States" 
                             CssClass="button-list-button"/> 
@@ -148,6 +156,8 @@
                 <asp:Button ID="btnStationTypes" runat="server" OnClick="btnStationTypes_Click" Text="Station Types" 
                             CssClass="button-list-button"/>
             </td>
+        </tr>
+        <tr>
             <td class="button-list-td"> 
                 <asp:Button ID="btnStationStatus" runat="server" OnClick="btnStationStatus_Click" Text="Station Statuses" 
                             CssClass="button-list-button"/>  
@@ -156,8 +166,6 @@
                 <asp:Button ID="btnSubPara" runat="server" OnClick="btnSubPara_Click" Text="Sub Paras" 
                             CssClass="button-list-button"/>
             </td>
-        </tr>
-        <tr>
             <td class="button-list-td"> 
                 <asp:Button ID="btnEditSubSamps" runat="server" OnClick="btnEditSubSamps_Click" Text="Sub Samps" 
                             CssClass="button-list-button"/>
@@ -170,6 +178,8 @@
                 <asp:Button ID="btntblWBKey" runat="server" OnClick="btntblWBKey_Click" Text="Water Body IDs" 
                             CssClass="button-list-button"/>
              </td>
+        </tr>
+        <tr>
             <td class="button-list-td"> 
                 <asp:Button ID="btnWaterCodeDrainage" runat="server" OnClick="btnWaterCodeDrainage_Click" Text="Water Code Drainage" 
                             CssClass="button-list-button"/>
@@ -178,8 +188,6 @@
                 <asp:Button ID="btnWQCCWaterShed" runat="server" OnClick="btnWQCCWaterShed_Click" Text="WQCC Water Sheds" 
                             CssClass="button-list-button"/>
             </td>
-        </tr>
-        <tr>
             <td class="button-list-td"> 
                 <asp:Button ID="btnEditWaterCodes" runat="server" Text="Water Codes" CssClass="button-list-button" OnClick="btnEditWaterCodes_Click" />                
             </td>
@@ -190,9 +198,7 @@
             <td class="button-list-td">                
                 <asp:Button ID="btnWSR" runat="server" OnClick="btnWSR_Click" Text="WSRs" 
                             CssClass="button-list-button"/>
-            </td>
-            <td class="button-list-td">&nbsp;</td>
-            <td class="button-list-td">&nbsp;</td>
+            </td>            
         </tr>
         <tr>
             <td class="button-list-td">&nbsp;</td>
