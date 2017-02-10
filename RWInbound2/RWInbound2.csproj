@@ -202,6 +202,7 @@
     <Content Include="Admin\EditNutrients.aspx" />
     <Content Include="Admin\EditUnknowns.aspx" />
     <Content Include="Admin\EditParticipants.aspx" />
+    <Content Include="Edit\EditMedium.aspx" />
     <Content Include="Edit\EditWaterCodes.aspx" />
     <Content Include="Admin\OLDEditWaterCodes.aspx" />
     <Content Include="Admin\ManagePublicAccess.aspx" />
@@ -982,6 +983,13 @@
     </Compile>
     <Compile Include="Admin\EditUnknowns.aspx.designer.cs">
       <DependentUpon>EditUnknowns.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit\EditMedium.aspx.cs">
+      <DependentUpon>EditMedium.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditMedium.aspx.designer.cs">
+      <DependentUpon>EditMedium.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditWaterCodes.aspx.cs">
       <DependentUpon>EditWaterCodes.aspx</DependentUpon>

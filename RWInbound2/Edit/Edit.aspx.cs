@@ -250,7 +250,7 @@ namespace RWInbound2.Edit
 
         protected void btnMedium_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("EditMedium.aspx");
         }
     }
 }
