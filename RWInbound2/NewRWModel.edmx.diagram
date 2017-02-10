@@ -92,19 +92,21 @@
         <AssociationConnector Association="RiverWatchModel.FK_StationImage_StationImage" />
         <EntityTypeShape EntityType="RiverWatchModel.StationImageType" Width="1.5" PointX="5.375" PointY="15.875" />
         <AssociationConnector Association="RiverWatchModel.FK_StationImage_ImageType" />
-        <EntityTypeShape EntityType="RiverWatchModel.tlkIntent" Width="1.5" PointX="31.375" PointY="4.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.tlkMedium" Width="1.5" PointX="31.375" PointY="15.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkActivityType" Width="1.5" PointX="31.375" PointY="20.25" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="20.5" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkGearConfig" Width="1.5" PointX="23" PointY="35.875" />
+        <AssociationConnector Association="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8" />
+        <EntityTypeShape EntityType="RiverWatchModel.viewAWQMSData" Width="1.5" PointX="19.375" PointY="28.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="20.375" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkIntent" Width="1.5" PointX="31.375" PointY="33.75" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkMedium" Width="1.5" PointX="31.375" PointY="36.625" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5F492382" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__CollM__603D47BB" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Field__6225902D" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__GearC__6319B466" />
-        <AssociationConnector Association="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8" />
-        <EntityTypeShape EntityType="RiverWatchModel.viewAWQMSData" Width="1.5" PointX="19.375" PointY="28.75" />
+        <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Inten__7720AD13" />
+        <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Mediu__753864A1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

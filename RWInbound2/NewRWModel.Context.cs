@@ -109,11 +109,11 @@ namespace RWInbound2
         public virtual DbSet<WaterCodeDrainage> WaterCodeDrainages { get; set; }
         public virtual DbSet<StationImage> StationImages { get; set; }
         public virtual DbSet<StationImageType> StationImageTypes { get; set; }
-        public virtual DbSet<tlkIntent> tlkIntents { get; set; }
-        public virtual DbSet<tlkMedium> tlkMediums { get; set; }
         public virtual DbSet<tlkActivityType> tlkActivityTypes { get; set; }
-        public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<tlkGearConfig> tlkGearConfigs { get; set; }
         public virtual DbSet<viewAWQMSData> viewAWQMSDatas { get; set; }
+        public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
+        public virtual DbSet<tlkIntent> tlkIntents { get; set; }
+        public virtual DbSet<tlkMedium> tlkMediums { get; set; }
     }
 }

@@ -14,9 +14,17 @@ namespace RWInbound2
     
     public partial class tlkMedium
     {
+        public tlkMedium()
+        {
+            this.tblBenSamps = new HashSet<tblBenSamp>();
+        }
+    
         public int Code { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
+        public int ID { get; set; }
+    
+        public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
     }
 }

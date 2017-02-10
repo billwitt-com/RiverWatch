@@ -28,7 +28,7 @@ namespace RWInbound2
         public int ID { get; set; }
         public int FieldGearID { get; set; }
     
-        public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
         public virtual tlkFieldGear tlkFieldGear { get; set; }
+        public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
     }
 }

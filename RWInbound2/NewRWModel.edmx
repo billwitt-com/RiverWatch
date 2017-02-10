@@ -661,15 +661,15 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SampleID" Type="int" Nullable="false" />
-          <Property Name="ActivityID" Type="int" />
+          <Property Name="ActivityID" Type="int" Nullable="false" />
           <Property Name="CollDate" Type="datetime" />
-          <Property Name="CollMeth" Type="int" />
-          <Property Name="GearConfigID" Type="int" />
+          <Property Name="CollMeth" Type="int" Nullable="false" />
+          <Property Name="GearConfigID" Type="int" Nullable="false" />
           <Property Name="CollTime" Type="datetime" />
-          <Property Name="Medium" Type="int" />
-          <Property Name="Intent" Type="int" />
+          <Property Name="Medium" Type="int" Nullable="false" />
+          <Property Name="Intent" Type="int" Nullable="false" />
           <Property Name="Community" Type="int" />
-          <Property Name="BioResultGroupID" Type="int" />
+          <Property Name="BioResultGroupID" Type="int" Nullable="false" />
           <Property Name="NumKicksSamples" Type="int" />
           <Property Name="Comments" Type="varchar" MaxLength="100" />
           <Property Name="EnterDate" Type="datetime" />
@@ -1126,12 +1126,13 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
         </EntityType>
         <EntityType Name="tlkIntent">
           <Key>
-            <PropertyRef Name="Code" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="Code" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="UserLastModified" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="tlkLimits">
           <Key>
@@ -1149,12 +1150,13 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
         </EntityType>
         <EntityType Name="tlkMedium">
           <Key>
-            <PropertyRef Name="Code" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="Code" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
           <Property Name="DateLastModified" Type="smalldatetime" />
           <Property Name="UserLastModified" Type="nvarchar" MaxLength="255" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="tlkMetalBarCodeType">
           <Key>
@@ -1764,7 +1766,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblBenSam__Activ__5F492382">
-          <End Role="tlkActivityCategory" Type="Self.tlkActivityCategory" Multiplicity="0..1" />
+          <End Role="tlkActivityCategory" Type="Self.tlkActivityCategory" Multiplicity="1" />
           <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tlkActivityCategory">
@@ -1776,7 +1778,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblBenSam__BioRe__5E54FF49">
-          <End Role="tlkBioResultsType" Type="Self.tlkBioResultsType" Multiplicity="0..1" />
+          <End Role="tlkBioResultsType" Type="Self.tlkBioResultsType" Multiplicity="1" />
           <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tlkBioResultsType">
@@ -1788,7 +1790,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblBenSam__CollM__603D47BB">
-          <End Role="tlkFieldProcedure" Type="Self.tlkFieldProcedure" Multiplicity="0..1" />
+          <End Role="tlkFieldProcedure" Type="Self.tlkFieldProcedure" Multiplicity="1" />
           <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tlkFieldProcedure">
@@ -1812,7 +1814,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblBenSam__GearC__6319B466">
-          <End Role="tlkGearConfig" Type="Self.tlkGearConfig" Multiplicity="0..1" />
+          <End Role="tlkGearConfig" Type="Self.tlkGearConfig" Multiplicity="1" />
           <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tlkGearConfig">
@@ -1820,6 +1822,30 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             </Principal>
             <Dependent Role="tblBenSamps">
               <PropertyRef Name="GearConfigID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__Inten__7720AD13">
+          <End Role="tlkIntent" Type="Self.tlkIntent" Multiplicity="1" />
+          <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkIntent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamps">
+              <PropertyRef Name="Intent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__Mediu__753864A1">
+          <End Role="tlkMedium" Type="Self.tlkMedium" Multiplicity="1" />
+          <End Role="tblBenSamps" Type="Self.tblBenSamps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkMedium">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamps">
+              <PropertyRef Name="Medium" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2223,6 +2249,14 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           </AssociationSet>
           <AssociationSet Name="FK__tblBenSam__GearC__6319B466" Association="Self.FK__tblBenSam__GearC__6319B466">
             <End Role="tlkGearConfig" EntitySet="tlkGearConfig" />
+            <End Role="tblBenSamps" EntitySet="tblBenSamps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblBenSam__Inten__7720AD13" Association="Self.FK__tblBenSam__Inten__7720AD13">
+            <End Role="tlkIntent" EntitySet="tlkIntent" />
+            <End Role="tblBenSamps" EntitySet="tblBenSamps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblBenSam__Mediu__753864A1" Association="Self.FK__tblBenSam__Mediu__753864A1">
+            <End Role="tlkMedium" EntitySet="tlkMedium" />
             <End Role="tblBenSamps" EntitySet="tblBenSamps" />
           </AssociationSet>
           <AssociationSet Name="FK__tlkGearCo__Field__6501FCD8" Association="Self.FK__tlkGearCo__Field__6501FCD8">
@@ -2702,8 +2736,8 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="F5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__Field__6225902D" FromRole="tlkFieldGear" ToRole="tblBenSamp" />
           <NavigationProperty Name="tlkGearConfigs" Relationship="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8" FromRole="tlkFieldGear" ToRole="tlkGearConfig" />
+          <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__Field__6225902D" FromRole="tlkFieldGear" ToRole="tblBenSamp" />
         </EntityType>
         <EntityType Name="tlkFieldProcedure">
           <Key>
@@ -3056,11 +3090,16 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             <End Role="StationImageType" EntitySet="StationImageTypes" />
             <End Role="StationImage" EntitySet="StationImages" />
           </AssociationSet>
+          <EntitySet Name="tlkActivityTypes" EntityType="RiverWatchModel.tlkActivityType" />
+          <EntitySet Name="tlkGearConfigs" EntityType="RiverWatchModel.tlkGearConfig" />
+          <AssociationSet Name="FK__tlkGearCo__Field__6501FCD8" Association="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8">
+            <End Role="tlkFieldGear" EntitySet="tlkFieldGears" />
+            <End Role="tlkGearConfig" EntitySet="tlkGearConfigs" />
+          </AssociationSet>
+          <EntitySet Name="viewAWQMSDatas" EntityType="RiverWatchModel.viewAWQMSData" />
+          <EntitySet Name="tblBenSamps" EntityType="RiverWatchModel.tblBenSamp" />
           <EntitySet Name="tlkIntents" EntityType="RiverWatchModel.tlkIntent" />
           <EntitySet Name="tlkMediums" EntityType="RiverWatchModel.tlkMedium" />
-          <EntitySet Name="tlkActivityTypes" EntityType="RiverWatchModel.tlkActivityType" />
-          <EntitySet Name="tblBenSamps" EntityType="RiverWatchModel.tblBenSamp" />
-          <EntitySet Name="tlkGearConfigs" EntityType="RiverWatchModel.tlkGearConfig" />
           <AssociationSet Name="FK__tblBenSam__Activ__5B78929E" Association="RiverWatchModel.FK__tblBenSam__Activ__5B78929E">
             <End Role="tlkActivityType" EntitySet="tlkActivityTypes" />
             <End Role="tblBenSamp" EntitySet="tblBenSamps" />
@@ -3085,11 +3124,14 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             <End Role="tlkGearConfig" EntitySet="tlkGearConfigs" />
             <End Role="tblBenSamp" EntitySet="tblBenSamps" />
           </AssociationSet>
-          <AssociationSet Name="FK__tlkGearCo__Field__6501FCD8" Association="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8">
-            <End Role="tlkFieldGear" EntitySet="tlkFieldGears" />
-            <End Role="tlkGearConfig" EntitySet="tlkGearConfigs" />
+          <AssociationSet Name="FK__tblBenSam__Inten__7720AD13" Association="RiverWatchModel.FK__tblBenSam__Inten__7720AD13">
+            <End Role="tlkIntent" EntitySet="tlkIntents" />
+            <End Role="tblBenSamp" EntitySet="tblBenSamps" />
           </AssociationSet>
-          <EntitySet Name="viewAWQMSDatas" EntityType="RiverWatchModel.viewAWQMSData" />
+          <AssociationSet Name="FK__tblBenSam__Mediu__753864A1" Association="RiverWatchModel.FK__tblBenSam__Mediu__753864A1">
+            <End Role="tlkMedium" EntitySet="tlkMediums" />
+            <End Role="tblBenSamp" EntitySet="tblBenSamps" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="tlkSubPara">
           <Key>
@@ -4015,24 +4057,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tlkIntent">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="tlkMedium">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="0" />
-          <Property Name="UserLastModified" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="tlkActivityType">
           <Key>
             <PropertyRef Name="ID" />
@@ -4044,34 +4068,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" FromRole="tlkActivityType" ToRole="tblBenSamp" />
-        </EntityType>
-        <EntityType Name="tblBenSamp">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SampleID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityID" Type="Int32" />
-          <Property Name="CollDate" Type="DateTime" Precision="3" />
-          <Property Name="CollMeth" Type="Int32" />
-          <Property Name="GearConfigID" Type="Int32" />
-          <Property Name="CollTime" Type="DateTime" Precision="3" />
-          <Property Name="Medium" Type="Int32" />
-          <Property Name="Intent" Type="Int32" />
-          <Property Name="Community" Type="Int32" />
-          <Property Name="BioResultGroupID" Type="Int32" />
-          <Property Name="NumKicksSamples" Type="Int32" />
-          <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EnterDate" Type="DateTime" Precision="3" />
-          <Property Name="Valid" Type="Boolean" />
-          <Property Name="ActivityTypeID" Type="Int32" Nullable="false" />
-          <Property Name="FieldGearID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tlkActivityType" Relationship="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" FromRole="tblBenSamp" ToRole="tlkActivityType" />
-          <NavigationProperty Name="tlkActivityCategory" Relationship="RiverWatchModel.FK__tblBenSam__Activ__5F492382" FromRole="tblBenSamp" ToRole="tlkActivityCategory" />
-          <NavigationProperty Name="tlkBioResultsType" Relationship="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49" FromRole="tblBenSamp" ToRole="tlkBioResultsType" />
-          <NavigationProperty Name="tlkFieldProcedure" Relationship="RiverWatchModel.FK__tblBenSam__CollM__603D47BB" FromRole="tblBenSamp" ToRole="tlkFieldProcedure" />
-          <NavigationProperty Name="tlkFieldGear" Relationship="RiverWatchModel.FK__tblBenSam__Field__6225902D" FromRole="tblBenSamp" ToRole="tlkFieldGear" />
-          <NavigationProperty Name="tlkGearConfig" Relationship="RiverWatchModel.FK__tblBenSam__GearC__6319B466" FromRole="tblBenSamp" ToRole="tlkGearConfig" />
         </EntityType>
         <EntityType Name="tlkGearConfig">
           <Key>
@@ -4085,81 +4081,9 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="Valid" Type="Boolean" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FieldGearID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__GearC__6319B466" FromRole="tlkGearConfig" ToRole="tblBenSamp" />
           <NavigationProperty Name="tlkFieldGear" Relationship="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8" FromRole="tlkGearConfig" ToRole="tlkFieldGear" />
+          <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__GearC__6319B466" FromRole="tlkGearConfig" ToRole="tblBenSamp" />
         </EntityType>
-        <Association Name="FK__tblBenSam__Activ__5B78929E">
-          <End Type="RiverWatchModel.tlkActivityType" Role="tlkActivityType" Multiplicity="1" />
-          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tlkActivityType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblBenSamp">
-              <PropertyRef Name="ActivityTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblBenSam__Activ__5F492382">
-          <End Type="RiverWatchModel.tlkActivityCategory" Role="tlkActivityCategory" Multiplicity="0..1" />
-          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tlkActivityCategory">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblBenSamp">
-              <PropertyRef Name="ActivityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblBenSam__BioRe__5E54FF49">
-          <End Type="RiverWatchModel.tlkBioResultsType" Role="tlkBioResultsType" Multiplicity="0..1" />
-          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tlkBioResultsType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblBenSamp">
-              <PropertyRef Name="BioResultGroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblBenSam__CollM__603D47BB">
-          <End Type="RiverWatchModel.tlkFieldProcedure" Role="tlkFieldProcedure" Multiplicity="0..1" />
-          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tlkFieldProcedure">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblBenSamp">
-              <PropertyRef Name="CollMeth" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblBenSam__Field__6225902D">
-          <End Type="RiverWatchModel.tlkFieldGear" Role="tlkFieldGear" Multiplicity="1" />
-          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tlkFieldGear">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblBenSamp">
-              <PropertyRef Name="FieldGearID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblBenSam__GearC__6319B466">
-          <End Type="RiverWatchModel.tlkGearConfig" Role="tlkGearConfig" Multiplicity="0..1" />
-          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tlkGearConfig">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblBenSamp">
-              <PropertyRef Name="GearConfigID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tlkGearCo__Field__6501FCD8">
           <End Type="RiverWatchModel.tlkFieldGear" Role="tlkFieldGear" Multiplicity="1" />
           <End Type="RiverWatchModel.tlkGearConfig" Role="tlkGearConfig" Multiplicity="*" />
@@ -4222,6 +4146,154 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="Valid" Type="Boolean" Nullable="false" />
           <Property Name="WaterBodyID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tblBenSamp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SampleID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="CollDate" Type="DateTime" Precision="3" />
+          <Property Name="CollMeth" Type="Int32" Nullable="false" />
+          <Property Name="GearConfigID" Type="Int32" Nullable="false" />
+          <Property Name="CollTime" Type="DateTime" Precision="3" />
+          <Property Name="Medium" Type="Int32" Nullable="false" />
+          <Property Name="Intent" Type="Int32" Nullable="false" />
+          <Property Name="Community" Type="Int32" />
+          <Property Name="BioResultGroupID" Type="Int32" Nullable="false" />
+          <Property Name="NumKicksSamples" Type="Int32" />
+          <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="Valid" Type="Boolean" />
+          <Property Name="ActivityTypeID" Type="Int32" Nullable="false" />
+          <Property Name="FieldGearID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tlkActivityType" Relationship="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" FromRole="tblBenSamp" ToRole="tlkActivityType" />
+          <NavigationProperty Name="tlkActivityCategory" Relationship="RiverWatchModel.FK__tblBenSam__Activ__5F492382" FromRole="tblBenSamp" ToRole="tlkActivityCategory" />
+          <NavigationProperty Name="tlkBioResultsType" Relationship="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49" FromRole="tblBenSamp" ToRole="tlkBioResultsType" />
+          <NavigationProperty Name="tlkFieldProcedure" Relationship="RiverWatchModel.FK__tblBenSam__CollM__603D47BB" FromRole="tblBenSamp" ToRole="tlkFieldProcedure" />
+          <NavigationProperty Name="tlkFieldGear" Relationship="RiverWatchModel.FK__tblBenSam__Field__6225902D" FromRole="tblBenSamp" ToRole="tlkFieldGear" />
+          <NavigationProperty Name="tlkGearConfig" Relationship="RiverWatchModel.FK__tblBenSam__GearC__6319B466" FromRole="tblBenSamp" ToRole="tlkGearConfig" />
+          <NavigationProperty Name="tlkIntent" Relationship="RiverWatchModel.FK__tblBenSam__Inten__7720AD13" FromRole="tblBenSamp" ToRole="tlkIntent" />
+          <NavigationProperty Name="tlkMedium" Relationship="RiverWatchModel.FK__tblBenSam__Mediu__753864A1" FromRole="tblBenSamp" ToRole="tlkMedium" />
+        </EntityType>
+        <EntityType Name="tlkIntent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="UserLastModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__Inten__7720AD13" FromRole="tlkIntent" ToRole="tblBenSamp" />
+        </EntityType>
+        <EntityType Name="tlkMedium">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="0" />
+          <Property Name="UserLastModified" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tblBenSamps" Relationship="RiverWatchModel.FK__tblBenSam__Mediu__753864A1" FromRole="tlkMedium" ToRole="tblBenSamp" />
+        </EntityType>
+        <Association Name="FK__tblBenSam__Activ__5B78929E">
+          <End Type="RiverWatchModel.tlkActivityType" Role="tlkActivityType" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkActivityType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="ActivityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__Activ__5F492382">
+          <End Type="RiverWatchModel.tlkActivityCategory" Role="tlkActivityCategory" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkActivityCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__BioRe__5E54FF49">
+          <End Type="RiverWatchModel.tlkBioResultsType" Role="tlkBioResultsType" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkBioResultsType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="BioResultGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__CollM__603D47BB">
+          <End Type="RiverWatchModel.tlkFieldProcedure" Role="tlkFieldProcedure" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkFieldProcedure">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="CollMeth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__Field__6225902D">
+          <End Type="RiverWatchModel.tlkFieldGear" Role="tlkFieldGear" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkFieldGear">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="FieldGearID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__GearC__6319B466">
+          <End Type="RiverWatchModel.tlkGearConfig" Role="tlkGearConfig" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkGearConfig">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="GearConfigID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__Inten__7720AD13">
+          <End Type="RiverWatchModel.tlkIntent" Role="tlkIntent" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkIntent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="Intent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBenSam__Mediu__753864A1">
+          <End Type="RiverWatchModel.tlkMedium" Role="tlkMedium" Multiplicity="1" />
+          <End Type="RiverWatchModel.tblBenSamp" Role="tblBenSamp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tlkMedium">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenSamp">
+              <PropertyRef Name="Medium" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5899,26 +5971,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tlkIntents">
-            <EntityTypeMapping TypeName="RiverWatchModel.tlkIntent">
-              <MappingFragment StoreEntitySet="tlkIntent">
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tlkMediums">
-            <EntityTypeMapping TypeName="RiverWatchModel.tlkMedium">
-              <MappingFragment StoreEntitySet="tlkMedium">
-                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tlkActivityTypes">
             <EntityTypeMapping TypeName="RiverWatchModel.tlkActivityType">
               <MappingFragment StoreEntitySet="tlkActivityType">
@@ -5928,29 +5980,6 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblBenSamps">
-            <EntityTypeMapping TypeName="RiverWatchModel.tblBenSamp">
-              <MappingFragment StoreEntitySet="tblBenSamps">
-                <ScalarProperty Name="FieldGearID" ColumnName="FieldGearID" />
-                <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
-                <ScalarProperty Name="Valid" ColumnName="Valid" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-                <ScalarProperty Name="NumKicksSamples" ColumnName="NumKicksSamples" />
-                <ScalarProperty Name="BioResultGroupID" ColumnName="BioResultGroupID" />
-                <ScalarProperty Name="Community" ColumnName="Community" />
-                <ScalarProperty Name="Intent" ColumnName="Intent" />
-                <ScalarProperty Name="Medium" ColumnName="Medium" />
-                <ScalarProperty Name="CollTime" ColumnName="CollTime" />
-                <ScalarProperty Name="GearConfigID" ColumnName="GearConfigID" />
-                <ScalarProperty Name="CollMeth" ColumnName="CollMeth" />
-                <ScalarProperty Name="CollDate" ColumnName="CollDate" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6015,6 +6044,51 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
                 <ScalarProperty Name="SampleDate" ColumnName="SampleDate" />
                 <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
                 <ScalarProperty Name="Event" ColumnName="Event" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBenSamps">
+            <EntityTypeMapping TypeName="RiverWatchModel.tblBenSamp">
+              <MappingFragment StoreEntitySet="tblBenSamps">
+                <ScalarProperty Name="FieldGearID" ColumnName="FieldGearID" />
+                <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="NumKicksSamples" ColumnName="NumKicksSamples" />
+                <ScalarProperty Name="BioResultGroupID" ColumnName="BioResultGroupID" />
+                <ScalarProperty Name="Community" ColumnName="Community" />
+                <ScalarProperty Name="Intent" ColumnName="Intent" />
+                <ScalarProperty Name="Medium" ColumnName="Medium" />
+                <ScalarProperty Name="CollTime" ColumnName="CollTime" />
+                <ScalarProperty Name="GearConfigID" ColumnName="GearConfigID" />
+                <ScalarProperty Name="CollMeth" ColumnName="CollMeth" />
+                <ScalarProperty Name="CollDate" ColumnName="CollDate" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="SampleID" ColumnName="SampleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkIntents">
+            <EntityTypeMapping TypeName="RiverWatchModel.tlkIntent">
+              <MappingFragment StoreEntitySet="tlkIntent">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tlkMediums">
+            <EntityTypeMapping TypeName="RiverWatchModel.tlkMedium">
+              <MappingFragment StoreEntitySet="tlkMedium">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>          
