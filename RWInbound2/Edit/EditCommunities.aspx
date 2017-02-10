@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Communities" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditCommunities.aspx.cs" Inherits="RWInbound2.Edit.EditCommunities" %>
+﻿<%@ Page Title="Edit Communities" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditCommunities.aspx.cs" Inherits="RWInbound2.Edit.EditCommunities" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>
@@ -23,7 +23,6 @@
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
                 <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
-                <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
                 <ajaxToolkit:AutoCompleteExtender 
                     ID="tbSearch_AutoCompleteExtender" 
                     runat="server" 
@@ -46,6 +45,8 @@
             UpdateMethod="UpdateCommunity"
             DeleteMethod="DeleteCommunity" 
             InsertItemPosition="LastItem"  
+            OnRowEditing="CommunitiesGridView_RowEditing"
+            OnRowCommand="CommunitiesGridView_RowCommand"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
@@ -92,7 +93,12 @@
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
                 </asp:TemplateField>
-                <asp:CheckBoxField DataField="Valid" HeaderText="Valid"  ReadOnly="true" SortExpression="Valid" />                
+                <asp:TemplateField>                   
+                    <ItemTemplate>
+                        <asp:Button ID="GetAssignedSamplesButton" runat="server" Text="Download Assigned Samples"
+                                    CommandName="GetAssignedSamples" CommandArgument='<%# Bind("ID") %>' />
+                    </ItemTemplate>                   
+                </asp:TemplateField>                
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       

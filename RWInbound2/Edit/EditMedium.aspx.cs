@@ -128,7 +128,7 @@ namespace RWInbound2.Edit
                     {
                         string errorMsg
                             = string.Format("Medium {1} can not be deleted because it is assigned to one or more Benthic Samples. {0}",
-                                            "\r\n Click the Download Assigned Samples button to get a list of the samples.", model.Code);
+                                            "\r\n Click the Download Assigned Samples button to get a list of the samples.", model.Description);
                         SetMessages("Error", errorMsg);
                     }
                     else

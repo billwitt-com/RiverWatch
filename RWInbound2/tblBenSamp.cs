@@ -23,7 +23,7 @@ namespace RWInbound2
         public Nullable<System.DateTime> CollTime { get; set; }
         public int Medium { get; set; }
         public int Intent { get; set; }
-        public Nullable<int> Community { get; set; }
+        public int Community { get; set; }
         public int BioResultGroupID { get; set; }
         public Nullable<int> NumKicksSamples { get; set; }
         public string Comments { get; set; }
@@ -36,6 +36,7 @@ namespace RWInbound2
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
         public virtual tlkBioResultsType tlkBioResultsType { get; set; }
         public virtual tlkFieldProcedure tlkFieldProcedure { get; set; }
+        public virtual tlkCommunity tlkCommunity { get; set; }
         public virtual tlkFieldGear tlkFieldGear { get; set; }
         public virtual tlkGearConfig tlkGearConfig { get; set; }
         public virtual tlkIntent tlkIntent { get; set; }

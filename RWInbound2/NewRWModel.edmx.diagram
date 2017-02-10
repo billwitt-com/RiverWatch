@@ -96,13 +96,14 @@
         <EntityTypeShape EntityType="RiverWatchModel.tlkGearConfig" Width="1.5" PointX="23" PointY="35.875" />
         <AssociationConnector Association="RiverWatchModel.FK__tlkGearCo__Field__6501FCD8" />
         <EntityTypeShape EntityType="RiverWatchModel.viewAWQMSData" Width="1.5" PointX="19.375" PointY="28.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="20.375" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkIntent" Width="1.5" PointX="31.375" PointY="33.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkMedium" Width="1.5" PointX="31.375" PointY="36.625" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="20.25" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5F492382" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__CollM__603D47BB" />
+        <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Commu__7814D14C" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Field__6225902D" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__GearC__6319B466" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Inten__7720AD13" />
