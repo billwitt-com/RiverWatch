@@ -1938,7 +1938,7 @@ tr.grid-enter-benthics-physhab-header{
     font-size: 14px;
     font-weight: bold;
     display: inline-block;
-    margin-right: 525px;
+    margin-right: 25px;
     margin-bottom: 25px;
 }
 
@@ -1965,8 +1965,6 @@ td input[type="submit"] .grid-edit-benthics-samples-add-new-button{
 .grid-edit-benthics-samples-no-results-panel{
     display: inline-block;
 }
-
-
 
 .grid-edit-benthics-samples-header{    
     font-weight:bold;

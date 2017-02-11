@@ -21,7 +21,7 @@
                 <div class="enter-benthics-physhab-search-by-any">
                     Search By Any One of the Options:
                 </div>
-                 <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" CssClass="adminButton" /> 
+                 <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" OnClick="btnSearchRefresh_Click" CssClass="adminButton" /> 
                 <br />
                 <label>Station#:</label>                  
                 <asp:TextBox ID="stationNumberSearch"                    
