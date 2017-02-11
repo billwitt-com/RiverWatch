@@ -273,34 +273,31 @@ namespace RWInbound2.Edit
                 {
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        if (e.CommandName == "GetAssignedSamples")
+                        int iD = Convert.ToInt32(e.CommandArgument);
+
+                        // Retrieve the row that contains the button 
+                        // from the Rows collection.
+                        //GridViewRow row = FieldProceduresGridView.Rows[iD];
+
+                        var tblBenSampSampleNumbers = (from bs in _db.tblBenSamps
+                                                       join s in _db.Samples on bs.SampleID equals s.ID
+                                                       where bs.Community == iD
+                                                       orderby s.SampleNumber
+                                                       select s.SampleNumber).Distinct().ToList();
+
+                        if (tblBenSampSampleNumbers.Count > 0)
                         {
-                            int iD = Convert.ToInt32(e.CommandArgument);
-
-                            // Retrieve the row that contains the button 
-                            // from the Rows collection.
-                            //GridViewRow row = FieldProceduresGridView.Rows[iD];
-
-                            var tblBenSampSampleNumbers = (from bs in _db.tblBenSamps
-                                                           join s in _db.Samples on bs.SampleID equals s.ID
-                                                           where bs.Community == iD
-                                                           orderby s.SampleNumber
-                                                           select s.SampleNumber).Distinct().ToList();
-
-                            if (tblBenSampSampleNumbers.Count > 0)
-                            {
-                                //return csv to show Assigned Sample numbers
-                                Response.ClearContent();
-                                Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "Assigned_SampleNumbers.csv"));
-                                Response.ContentType = "application/text";
-                                string csvContents = GetSamplesCSVData(tblBenSampSampleNumbers);
-                                Response.Write(csvContents);
-                                Response.End();
-                            }
-                            else
-                            {
-                                SetMessages("Error", "There are 0 Benthic Samples assigned to this item.");
-                            }
+                            //return csv to show Assigned Sample numbers
+                            Response.ClearContent();
+                            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "Assigned_SampleNumbers.csv"));
+                            Response.ContentType = "application/text";
+                            string csvContents = GetSamplesCSVData(tblBenSampSampleNumbers);
+                            Response.Write(csvContents);
+                            Response.End();
+                        }
+                        else
+                        {
+                            SetMessages("Error", "There are 0 Benthic Samples assigned to this item.");
                         }
                     }
                 }
@@ -344,12 +341,11 @@ namespace RWInbound2.Edit
                             ve.ErrorMessage + Environment.NewLine);
                     }
                 }
-                ErrorLabel.Text = sb.ToString();
+                SetMessages("Error", sb.ToString());
             }
             else
             {
-                SuccessLabel.Text = "";
-                ErrorLabel.Text = ex.Message;
+                SetMessages("Error", ex.Message);
             }
         }
 

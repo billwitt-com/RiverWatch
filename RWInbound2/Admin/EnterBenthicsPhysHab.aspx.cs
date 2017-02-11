@@ -94,7 +94,6 @@ namespace RWInbound2.Admin
                     bool stationIDIsInt = Int32.TryParse(stationIDSelected, out stationID);
                 }
 
-
                 if (stationID == 0)
                 {
                     SetStationData();
@@ -116,8 +115,7 @@ namespace RWInbound2.Admin
                     return _db.Samples
                                .Where(s => s.SampleNumber == sampleNumSelected && s.Valid == true)
                                .OrderBy(s => s.SampleNumber);
-                }
-                    //if (string.IsNullOrEmpty(stationIDSelected) && string.IsNullOrEmpty(sampleNumSelected))
+                }              
 
                 IQueryable<Sample> samples = _db.Samples
                                             .Where(s => s.StationID == stationID && s.Valid == true)
@@ -145,6 +143,7 @@ namespace RWInbound2.Admin
             try
             {
                 sampleNumberSearch.Text = "";
+                sampleEventNumberSearch.Text = "";
 
                 int stationNumber = 0;
                 bool stationNumberIsInt
@@ -207,7 +206,8 @@ namespace RWInbound2.Admin
             try
             {
                 stationNumberSearch.Text = "";
-               
+                sampleEventNumberSearch.Text = "";
+
                 if (!string.IsNullOrEmpty(sampleNumberSearch.Text.Trim()))
                 {
                     string sampleNumSelected = string.Empty;
@@ -261,6 +261,66 @@ namespace RWInbound2.Admin
             }
         }
 
+        protected void btnSearchSampleEventNumber_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                sampleNumberSearch.Text = "";
+                stationNumberSearch.Text = "";
+
+                if (!string.IsNullOrEmpty(sampleEventNumberSearch.Text.Trim()))
+                {
+                    string sampleNumSelected = string.Empty;
+
+                    using (RiverWatchEntities _db = new RiverWatchEntities())
+                    {
+                        sampleNumSelected = _db.Samples
+                                        .Where(s => s.NumberSample == sampleEventNumberSearch.Text.Trim())
+                                        .Select(s => s.SampleNumber)
+                                        .FirstOrDefault();
+                    }
+
+                    if (!string.IsNullOrEmpty(sampleNumSelected))
+                    {
+                        string redirect = "EnterBenthicsPhysHab.aspx?sampleNumSelected=" + sampleNumSelected;
+
+                        Response.Redirect(redirect, false);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "btnSearchSampleEventNumber_Click", "", "");
+            }
+        }
+
+        [ScriptMethod()]
+        [WebMethod]
+        public static List<string> SearchForSampleEventNumber(string prefixText, int count)
+        {
+            List<string> sampleEventNumbers = new List<string>();
+
+            try
+            {
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    sampleEventNumbers = _db.Samples
+                                    .Where(s => s.NumberSample.ToString().StartsWith(prefixText))
+                                    .OrderBy(s => s.ID.ToString())
+                                    .Select(s => s.NumberSample.ToString())
+                                    .Distinct()
+                                    .ToList();
+                    return sampleEventNumbers;
+                }
+            }
+            catch (Exception ex)
+            {
+                EnterBenthicsPhysHab enterBenthicsPhysHab = new EnterBenthicsPhysHab();
+                enterBenthicsPhysHab.HandleErrors(ex, ex.Message, " SearchForSampleEventNumber", "", "");
+                return sampleEventNumbers;
+            }
+        }
+
         protected void btnSearchRefresh_Click(object sender, EventArgs e)
         {
             try
@@ -283,6 +343,26 @@ namespace RWInbound2.Admin
         {
             public string StationNumber { get; set; }
             public string StationName { get; set; }
+        }
+
+        protected void BenthicsPhysHabGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "EditBenthicSample")
+                {
+
+                    int iD = Convert.ToInt32(e.CommandArgument);
+
+                    string redirect = "EditBenthicSamples.aspx?sampleIDSelected=" + iD;
+
+                    Response.Redirect(redirect, false);                 
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BenthicsPhysHabGridView_RowCommand", "", "");
+            }
         }
 
         private void HandleErrors(Exception ex, string msg, string fromPage,
@@ -315,6 +395,5 @@ namespace RWInbound2.Admin
                 SetMessages("Error", ex.Message);
             }
         }
-
     }
 }

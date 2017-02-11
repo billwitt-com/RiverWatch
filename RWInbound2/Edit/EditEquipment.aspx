@@ -49,7 +49,8 @@
                     EnableCaching="false" 
                     CompletionSetCount="10">
                 </ajaxToolkit:AutoCompleteExtender>
-                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" CssClass="adminButton org-unknown-results-reset-search" /> 
+                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" 
+                    CssClass="adminButton org-unknown-results-reset-search" /> 
                 <br />
                 <br />
                 <asp:Panel ID="OrganizationNamePanel" runat="server">
