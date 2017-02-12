@@ -68,7 +68,9 @@
             <td class="button-list-td">                   
                 <asp:Button ID="btnStationImages" runat="server" Text="Station Images" CssClass="button-list-button" OnClick="btnStationImages_Click" />     
             </td>
-           <td class="button-list-td">&nbsp;</td>                
+           <td class="button-list-td">
+               <asp:Button ID="btnEditAWQMSlookups" runat="server" Text="Edit AWQMS Lookups" OnClick="btnEditAWQMSlookups_Click" />
+            </td>                
            <td class="button-list-td">&nbsp;</td> 
         </tr>  
         <tr>

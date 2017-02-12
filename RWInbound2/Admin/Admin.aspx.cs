@@ -146,5 +146,10 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("EnterBenthicsPhysHab.aspx");
         }
+
+        protected void btnEditAWQMSlookups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditAWQMSlookups.aspx");
+        }
     }
 }

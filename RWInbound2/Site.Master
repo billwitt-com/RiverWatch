@@ -35,7 +35,7 @@
 <body>
      
     <form runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" AsyncPostBackTimeOut="56000" runat="server">
             <Scripts>
                 <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="jquery.ui.combined" />                 

@@ -189,6 +189,7 @@
     <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
+    <Content Include="Admin\EditAWQMSlookups.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Applications\Applications.aspx" />
@@ -899,6 +900,13 @@
     </Compile>
     <Compile Include="Admin\AdminUsers.aspx.designer.cs">
       <DependentUpon>AdminUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditAWQMSlookups.aspx.cs">
+      <DependentUpon>EditAWQMSlookups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditAWQMSlookups.aspx.designer.cs">
+      <DependentUpon>EditAWQMSlookups.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditExpWater.aspx.cs">
       <DependentUpon>EditExpWater.aspx</DependentUpon>
@@ -2218,7 +2226,9 @@
     <EmbeddedResource Include="Public\OrgStations.rdlc" />
     <EmbeddedResource Include="Public\OrgStatus.rdlc" />
     <EmbeddedResource Include="Public\OrgUnknownResults.rdlc" />
-    <EmbeddedResource Include="Public\QAQCReport.rdlc" />
+    <Content Include="Public\QAQCReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Public\RawSamplesAll.rdlc" />
     <EmbeddedResource Include="Public\Report2.rdlc" />
     <EmbeddedResource Include="Public\Report3.rdlc" />
