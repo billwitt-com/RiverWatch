@@ -14,6 +14,11 @@ namespace RWInbound2
     
     public partial class tblBenRep
     {
+        public tblBenRep()
+        {
+            this.tblBenthics = new HashSet<tblBenthic>();
+        }
+    
         public int BenSampID { get; set; }
         public int RepNum { get; set; }
         public Nullable<int> ActivityCategory { get; set; }
@@ -22,8 +27,11 @@ namespace RWInbound2
         public Nullable<System.DateTime> EnterDate { get; set; }
         public string StoretUploaded { get; set; }
         public int ID { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
+        public string UserLastModified { get; set; }
     
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
         public virtual tblBenSamp tblBenSamp { get; set; }
+        public virtual ICollection<tblBenthic> tblBenthics { get; set; }
     }
 }

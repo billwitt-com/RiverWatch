@@ -56,12 +56,12 @@ namespace RWInbound2.Edit
                 if (!string.IsNullOrEmpty(benSampleIDSearchSearchTerm))
                 {
                     int benSampleID = Convert.ToInt32(benSampleIDSearchSearchTerm);
-                    return _db.tblBenGrid
+                    return _db.tblBenGrids
                               .Where(b => b.BenSampID == benSampleID)
                               .OrderBy(b => b.BenSampID);
                 }
 
-                IQueryable<tblBenGrid> benGrids = _db.tblBenGrid
+                IQueryable<tblBenGrid> benGrids = _db.tblBenGrids
                                                      .OrderBy(b => b.BenSampID);
                 PropertyInfo isreadonly
                    = typeof(System.Collections.Specialized.NameValueCollection)
@@ -90,7 +90,7 @@ namespace RWInbound2.Edit
             {
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    benSampleIDs = _db.tblBenGrid
+                    benSampleIDs = _db.tblBenGrids
                                     .Where(b => b.BenSampID.ToString().StartsWith(prefixText))
                                     .OrderBy(b => b.BenSampID.ToString())
                                     .Select(b => b.BenSampID.ToString()).Distinct().ToList();
@@ -143,7 +143,7 @@ namespace RWInbound2.Edit
 
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var benGridToUpdate = _db.tblBenGrid.Find(model.ID);
+                    var benGridToUpdate = _db.tblBenGrids.Find(model.ID);
                     TryUpdateModel(benGridToUpdate);
 
                     _db.SaveChanges();
@@ -163,8 +163,8 @@ namespace RWInbound2.Edit
             {
                 try
                 {
-                    var benGridToDelete = _db.tblBenGrid.Find(model.ID);
-                    _db.tblBenGrid.Remove(benGridToDelete);
+                    var benGridToDelete = _db.tblBenGrids.Find(model.ID);
+                    _db.tblBenGrids.Remove(benGridToDelete);
                     _db.SaveChanges();
 
                     SetMessages("Success", "Ben Grid Deleted for Ben SampleID: {0}" + benGridToDelete.BenSampID);
@@ -233,7 +233,7 @@ namespace RWInbound2.Edit
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
-                        _db.tblBenGrid.Add(newBenGrid);
+                        _db.tblBenGrids.Add(newBenGrid);
                         _db.SaveChanges();
 
                         string successLabelText = "New Ben Grid Added for Ben SampleID: " + newBenGrid.BenSampID;

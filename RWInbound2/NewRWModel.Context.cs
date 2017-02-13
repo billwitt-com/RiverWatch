@@ -85,7 +85,6 @@ namespace RWInbound2
         public virtual DbSet<ViewSoloNutrientDup> ViewSoloNutrientDups { get; set; }
         public virtual DbSet<UnknownSample> UnknownSample { get; set; }
         public virtual DbSet<tblProject> tblProject { get; set; }
-        public virtual DbSet<tblBenGrid> tblBenGrid { get; set; }
         public virtual DbSet<tblPhysHab> tblPhysHab { get; set; }
         public virtual DbSet<tlkPhysHabPara> tlkPhysHabPara { get; set; }
         public virtual DbSet<tlkSubPara> tlkSubPara { get; set; }
@@ -113,10 +112,11 @@ namespace RWInbound2
         public virtual DbSet<viewAWQMSData> viewAWQMSDatas { get; set; }
         public virtual DbSet<tlkIntent> tlkIntents { get; set; }
         public virtual DbSet<tlkMedium> tlkMediums { get; set; }
-        public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
+        public virtual DbSet<tblBenGrid> tblBenGrids { get; set; }
         public virtual DbSet<tblBenRep> tblBenReps { get; set; }
+        public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<tblBenTaxa> tblBenTaxas { get; set; }
-        public virtual DbSet<tblBenHab_Beh> tblBenHab_Beh { get; set; }
         public virtual DbSet<tblBenthic> tblBenthics { get; set; }
+        public virtual DbSet<tblBenHab_Beh> tblBenHab_Beh { get; set; }
     }
 }

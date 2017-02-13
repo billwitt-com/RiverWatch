@@ -73,7 +73,6 @@
         <EntityTypeShape EntityType="RiverWatchModel.tlkSubPara" Width="1.5" PointX="29.375" PointY="22.75" />
         <EntityTypeShape EntityType="RiverWatchModel.ParticipantsView" Width="1.5" PointX="7.375" PointY="30.75" />
         <EntityTypeShape EntityType="RiverWatchModel.SamplesView" Width="1.5" PointX="15.375" PointY="28.75" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenGrid" Width="1.5" PointX="17.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkSection" Width="1.5" PointX="13.375" PointY="26.75" />
         <EntityTypeShape EntityType="RiverWatchModel.organization" Width="1.5" PointX="25.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.NEWexpWater" Width="1.5" PointX="27.375" PointY="28.75" />
@@ -97,7 +96,16 @@
         <EntityTypeShape EntityType="RiverWatchModel.viewAWQMSData" Width="1.5" PointX="19.375" PointY="28.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkIntent" Width="1.5" PointX="31.375" PointY="33.75" />
         <EntityTypeShape EntityType="RiverWatchModel.tlkMedium" Width="1.5" PointX="31.375" PointY="36.625" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="20.25" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenGrid" Width="1.5" PointX="35.875" PointY="26.125" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenRep" Width="1.5" PointX="35.875" PointY="16" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenSamp" Width="1.5" PointX="33.625" PointY="19.875" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenTaxa" Width="1.5" PointX="35.875" PointY="8.375" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenthic" Width="1.5" PointX="38.125" PointY="15.625" />
+        <EntityTypeShape EntityType="RiverWatchModel.tblBenHab_Beh" Width="1.5" PointX="31.375" PointY="4.75" />
+        <AssociationConnector Association="RiverWatchModel.FK__tblBenGri__BenSa__7EC1CEDB" />
+        <AssociationConnector Association="RiverWatchModel.FK__tblBenRep__Activ__7CD98669" />
+        <AssociationConnector Association="RiverWatchModel.FK__tblBenRep__BenSa__7DCDAAA2" />
+        <AssociationConnector Association="RiverWatchModel.tblBenReps_tblBenthics_FK" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5B78929E" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Activ__5F492382" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__BioRe__5E54FF49" />
@@ -107,13 +115,6 @@
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__GearC__6319B466" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Inten__7720AD13" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Mediu__753864A1" />
-        <AssociationConnector Association="RiverWatchModel.FK__tblBenGri__BenSa__7EC1CEDB" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenRep" Width="1.5" PointX="35.875" PointY="16.25" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenTaxa" Width="1.5" PointX="28.875" PointY="45.625" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenHab_Beh" Width="1.5" PointX="31.375" PointY="4.75" />
-        <AssociationConnector Association="RiverWatchModel.FK__tblBenRep__Activ__7CD98669" />
-        <AssociationConnector Association="RiverWatchModel.FK__tblBenRep__BenSa__7DCDAAA2" />
-        <EntityTypeShape EntityType="RiverWatchModel.tblBenthic" Width="1.5" PointX="31.125" PointY="47.125" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenthi__BenTa__056ECC6A" />
         </Diagram>
     </edmx:Diagrams>

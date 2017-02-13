@@ -21,6 +21,8 @@ namespace RWInbound2
         public Nullable<int> BenCount { get; set; }
         public string StoretUploaded { get; set; }
         public Nullable<bool> Valid { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
+        public string UserLastModified { get; set; }
     
         public virtual tblBenSamp tblBenSamp { get; set; }
     }

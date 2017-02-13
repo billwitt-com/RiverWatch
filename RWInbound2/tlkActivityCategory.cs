@@ -16,8 +16,8 @@ namespace RWInbound2
     {
         public tlkActivityCategory()
         {
-            this.tblBenSamps = new HashSet<tblBenSamp>();
             this.tblBenReps = new HashSet<tblBenRep>();
+            this.tblBenSamps = new HashSet<tblBenSamp>();
         }
     
         public int Code { get; set; }
@@ -27,7 +27,7 @@ namespace RWInbound2
         public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
     
-        public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
         public virtual ICollection<tblBenRep> tblBenReps { get; set; }
+        public virtual ICollection<tblBenSamp> tblBenSamps { get; set; }
     }
 }

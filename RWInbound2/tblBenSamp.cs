@@ -37,7 +37,11 @@ namespace RWInbound2
         public Nullable<bool> Valid { get; set; }
         public int ActivityTypeID { get; set; }
         public int FieldGearID { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
+        public string UserLastModified { get; set; }
     
+        public virtual ICollection<tblBenGrid> tblBenGrids { get; set; }
+        public virtual ICollection<tblBenRep> tblBenReps { get; set; }
         public virtual tlkActivityType tlkActivityType { get; set; }
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
         public virtual tlkBioResultsType tlkBioResultsType { get; set; }
@@ -47,7 +51,5 @@ namespace RWInbound2
         public virtual tlkGearConfig tlkGearConfig { get; set; }
         public virtual tlkIntent tlkIntent { get; set; }
         public virtual tlkMedium tlkMedium { get; set; }
-        public virtual ICollection<tblBenGrid> tblBenGrids { get; set; }
-        public virtual ICollection<tblBenRep> tblBenReps { get; set; }
     }
 }
