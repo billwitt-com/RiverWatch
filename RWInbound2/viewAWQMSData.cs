@@ -58,5 +58,13 @@ namespace RWInbound2
         public Nullable<double> TSS { get; set; }
         public bool Valid { get; set; }
         public string WaterBodyID { get; set; }
+        public Nullable<double> USGS_Flow { get; set; }
+        public Nullable<double> PH { get; set; }
+        public Nullable<double> TempC { get; set; }
+        public Nullable<double> PHEN_ALK { get; set; }
+        public Nullable<double> TOTAL_ALK { get; set; }
+        public Nullable<double> TOTAL_HARD { get; set; }
+        public Nullable<double> DO_MGL { get; set; }
+        public Nullable<int> DOSAT { get; set; }
     }
 }

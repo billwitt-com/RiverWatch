@@ -12,16 +12,18 @@ namespace RWInbound2
     using System;
     using System.Collections.Generic;
     
-    public partial class tblBenGrid
+    public partial class tblBenRep
     {
-        public int ID { get; set; }
-        public Nullable<int> BenSampID { get; set; }
+        public int BenSampID { get; set; }
         public int RepNum { get; set; }
-        public int GridNum { get; set; }
-        public Nullable<int> BenCount { get; set; }
+        public Nullable<int> ActivityCategory { get; set; }
+        public Nullable<int> Grids { get; set; }
+        public string Comments { get; set; }
+        public Nullable<System.DateTime> EnterDate { get; set; }
         public string StoretUploaded { get; set; }
-        public Nullable<bool> Valid { get; set; }
+        public int ID { get; set; }
     
+        public virtual tlkActivityCategory tlkActivityCategory { get; set; }
         public virtual tblBenSamp tblBenSamp { get; set; }
     }
 }

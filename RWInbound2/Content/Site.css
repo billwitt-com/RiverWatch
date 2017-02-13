@@ -1931,5 +1931,51 @@ tr.grid-enter-benthics-physhab-header{
 }
 
 .grid-columns-center.grid-enter-benthics-physhab-item-rowstyle{    
+    height: 25px;    
+}
+
+.enter-benthics-physhab-search-by-any{
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 25px;
+    margin-bottom: 25px;
+}
+
+/*Edit Benthics*/
+.edit-benthics-sample-number{
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.grid-columns-center.grid-edit-benthics-samples-item-rowstyle{    
     height: 25px;
+    width: 1050px;
+}
+
+.grid-columns-center.grid-edit-benthics-samples-item-rowstyle div.grid-edit-benthics-samples-empty-data-div{    
+   text-align:left;
+}
+
+td input[type="submit"] .grid-edit-benthics-samples-add-new-button{
+    margin-left: 25px;
+    padding:3px;
+}
+
+.grid-edit-benthics-samples-no-results-panel{
+    display: inline-block;
+}
+
+.grid-edit-benthics-samples-header{    
+    font-weight:bold;
+    font-size: 1.1em;
+    background-color:ActiveCaption;
+    height: 5px;
+}
+
+tr.grid-edit-benthics-samples-header{    
+    font-weight:bold;
+    font-size: 1.1em;
+    background-color:ActiveCaption;
+    max-height: 5px;
 }

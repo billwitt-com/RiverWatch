@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Field Procedure" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditFieldProcedure.aspx.cs" Inherits="RWInbound2.Edit.EditFieldProcedure" %>
+﻿<%@ Page Title="Edit Field Procedure" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditFieldProcedure.aspx.cs" Inherits="RWInbound2.Edit.EditFieldProcedure" %>
 <asp:Content ID="FieldProcedureContent" ContentPlaceHolderID="MainContent" runat="server">
     <section spellcheck="true">
         <div>

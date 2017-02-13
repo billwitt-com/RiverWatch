@@ -15,6 +15,7 @@ using System.Data.Entity;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.IO;
 
 
 namespace RWInbound2.Applications
@@ -29,11 +30,13 @@ namespace RWInbound2.Applications
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string herewego = "Here we go again"; 
+
             if(!IsPostBack)
             {
                 tbStartDate.Text = DateTime.Now.AddYears(-2).ToShortDateString();    // preload to some value... 
                 tbEndDate.Text = DateTime.Now.ToShortDateString();
+                btnDownload.Visible = false;  
+                lblDownload.Visible = false;
             }
         }
 
@@ -42,10 +45,11 @@ namespace RWInbound2.Applications
         protected bool createReport(DateTime startDate, DateTime endDate, string WBID)
         {
             RiverWatchEntities RWE = new RiverWatchEntities();
-            decimal? result;
+          //  decimal? result;
+            decimal? result; 
             string symbol = "";
 
-            bool updateRowResult = false;
+         //   bool updateRowResult = false;
 
             // first, read translation table into in-memory data table to avoid a second db query for each line.
             try
@@ -84,6 +88,8 @@ namespace RWInbound2.Applications
                 return false; 
             }
 
+            
+
             if(DTlookup.Rows.Count < 20)
             {
                 string nam = "";
@@ -97,7 +103,7 @@ namespace RWInbound2.Applications
                 return false; // not sure what to do here... 
             }
 
-            // now create data table for output data, make them all strings since we will do no changes, just write to CSV file. 
+            // now create data table for output data, make them all strings since we will do no changes, just write to CSV file.  
             // is 27 columns currently
 
             DTout.Columns.Add(new DataColumn("Monitoring Location ID", typeof(string)));    // station number   XX
@@ -129,61 +135,196 @@ namespace RWInbound2.Applications
             DTout.Columns.Add(new DataColumn("Analysis Start Time", typeof(string)));   // HHMM
             DTout.Columns.Add(new DataColumn("Analysis Start Time Zone", typeof(string)));      // , "MST"
 
-            try
-            {
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = string.Format("select distinct Element, HighLimit, Reporting from  [NutrientLimits]");
-                        cmd.Connection = conn;
-                        conn.Open();
-                        // SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                        using (SqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                            if (sdr.HasRows)
-                            {
-                                sdr.Read();
-
-                                DTlookup.Load(sdr);
-                            }
-                        }
-                        conn.Close();
-                    }
-                }
-            }
-
-            catch (Exception ex)
-            {
-                string nam = "";
-                if (User.Identity.Name.Length < 3)
-                    nam = "Not logged in";
-                else
-                    nam = User.Identity.Name;
-                string msg = ex.Message;
-                LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
-            }
-
 
             var R = from r in RWE.viewAWQMSDatas
                     where r.Valid == true & r.WaterBodyID.StartsWith(WBID) & r.SampleDate >= startDate & r.SampleDate <= endDate & !r.TypeCode.StartsWith("1") & !r.TypeCode.StartsWith("2")
+                    orderby r.SampleDate descending
                     select r ;
 
             foreach(viewAWQMSData r in R)
             {
-                // this will be my protype to be moved to a method 
-
-                    symbol = "AL_D"; 
-                    result = (decimal)r.AL_D;                   
+                    symbol = "AL_D";
+                    result = r.AL_D;                  
                     calculateRow( r, result, symbol );
                     // could write row to file now, to take advantage of file buffering.                
 
                     symbol = "AL_T";
-                    result = (decimal)r.AL_T;
+                    result = r.AL_T;
                     calculateRow(r, result, symbol);
-               
+
+                    symbol = "AS_D";
+                    result = r.AS_D; 
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "AS_T";
+                    result = r.AS_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "CA_D";
+                    result = r.CA_D; 
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "CA_T";
+                    result = r.CA_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "CD_D";
+                    result = r.CD_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "CD_T";
+                    result = r.CD_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "CU_D";
+                    result = r.CU_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "CU_T";
+                    result = r.CU_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "FE_D";
+                    result = r.FE_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "FE_T";
+                    result = r.FE_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "K_D";
+                    result = r.K_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "K_T";
+                    result = r.K_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "MG_D";
+                    result = r.MG_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "MG_T";
+                    result = r.MG_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "MN_D";
+                    result = r.MN_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "MN_T";
+                    result = r.MN_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "NA_D";
+                    result = r.NA_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "NA_T";
+                    result = r.NA_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "PB_D";
+                    result = r.PB_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "PB_T";
+                    result = r.PB_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "SE_D";
+                    result = r.SE_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "SE_T";
+                    result = r.SE_T;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "ZN_D";
+                    result = r.ZN_D;
+                    calculateRow(r, result, symbol);
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "ZN_T";
+                    result = r.ZN_T;
+                    calculateRow(r, result, symbol);
+
+                    // could write row to file now, to take advantage of file buffering.                
+
+                    symbol = "Ammonia";
+                    result = (decimal?)r.Ammonia;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "Chloride";
+                    result = (decimal?)r.Chloride;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "totP";
+                    result = (decimal?)r.totP;
+                    calculateRow(r, result, symbol);
+                    symbol = "Sulfate";
+                    result = (decimal?)r.Sulfate;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "TotalNitro";
+                    result = (decimal?)r.totN;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "NitrateNitrite";
+                    result = (decimal?)r.NN;
+                    calculateRow(r, result, symbol);
+
+                    symbol = "TSS";
+                    result = (decimal?)r.TSS;
+                    calculateRow(r, result, symbol);
+
+                // FIELD DATA - MAY NEED TO MOVE IT TO SEPARATE REPORT
+
+                    //symbol = "PHEN_ALK";
+                    //result = (decimal)r.PHEN_ALK.Value;
+                    //calculateRow(r, result, symbol);
+
+                    //symbol = "TempC";
+                    //result = (decimal)r.TempC.Value;
+                    //calculateRow(r, result, symbol);
+
+                    //symbol = "TOTAL_ALK";
+                    //result = (decimal)r.TOTAL_ALK.Value;
+                    //calculateRow(r, result, symbol);
+
+                    //symbol = "TOTAL_HARD";
+                    //result = (decimal)r.TOTAL_HARD.Value;
+                    //calculateRow(r, result, symbol);
+
+                    //symbol = "DO_MGL";
+                    //result = (decimal)r.DO_MGL.Value;
+                    //calculateRow(r, result, symbol);
+
+                    //symbol = "DO_MGL";
+                    //result = (decimal)r.DO_MGL.Value;
+                    //calculateRow(r, result, symbol);
+
+                    //symbol = "USGS_Flow";
+                    //result = (decimal)r.USGS_Flow.Value;
+                    //calculateRow(r, result, symbol);
+
+                    //symbol = "DOSAT";
+                    //result = (decimal)r.DOSAT.Value;
+                    //calculateRow(r, result, symbol);
+
+
+
 
                 // and do the rest... 
             }
@@ -191,6 +332,34 @@ namespace RWInbound2.Applications
 
             // when we get here, we have completed data table, ready to write out to file... 
             // may consider writing each new row... May be slower but... 
+
+            string app_DataDirectory = HttpContext.Current.Server.MapPath("~/App_Data");
+            if (!Directory.Exists(app_DataDirectory))
+            {
+                Directory.CreateDirectory(app_DataDirectory);
+            }
+
+            string outFile = "~/App_Data/AWQMSMetalsandNutrient." + DateTime.Now.ToString("MM.dd.yyyy") + ".csv";
+            outFile = HttpContext.Current.Server.MapPath(outFile);
+
+            FileInfo FI = new FileInfo(outFile);    // delete if exists
+            if (FI.Exists)
+                FI.Delete();
+            Session["OUTFILE"] = outFile; 
+            
+            using (StreamWriter writer = new StreamWriter(outFile))
+            {
+                Rfc4180Writer.WriteDataTable(DTout, writer, true);
+                //using (StreamWriter writer = new StreamWriter("C:\\Temp\\dump.csv")) {
+                //    Rfc4180Writer.WriteDataTable(sourceTable, writer, true);
+            }
+
+            FileInfo FII = new FileInfo(outFile);
+            string shortFileName = FII.Name; 
+            btnDownload.Visible = true;
+            btnDownload.Text = "DownLoad"; 
+            lblDownload.Visible = true;
+            lblDownload.Text = string.Format("Download {0}", shortFileName); 
 
             return true; 
         }
@@ -204,6 +373,7 @@ namespace RWInbound2.Applications
             string selStr = "";
             decimal DL = 0.0m;
             decimal RL = 0.0m;
+            bool isNullValue = false;
 
 
                 System.Data.DataRow DR = DTout.NewRow();                // make a new row for the data table
@@ -211,14 +381,17 @@ namespace RWInbound2.Applications
             if(result == null)
             {
                 DR["Result Value"] = ""; // nothing
+                isNullValue = true;
             }
             else  if (result.Value <= .0001m) //  'zero'
                 {
                     DR["Result Value"] = "0.0000"; // make it look like a real zero
+                    isNullValue = false; 
                 }
                 else  // result is a positive number
                 {
-                    DR["Result Value"] = result.Value.ToString("{0:0.0000}"); 
+                    DR["Result Value"] = result.Value.ToString("F4"); // format for 4 digits to right of decimal point
+                    isNullValue = false;
                 }
 
                 if (r.StationNumber != null)
@@ -260,8 +433,8 @@ namespace RWInbound2.Applications
                     DataRow[] RR = null ; 
                 try
                 {
-                    // selStr = string.Format("StartDate > #{0}# ", anaDate.ToShortDateString());       // and EndDate < #{0}# and LocalName = '{1}'", anaDate, "AL_D" );
-                    selStr = string.Format("LocalName = '{0}'", "AL_D"); 
+                  //  selStr = string.Format("StartDate >= #{0}#", anaDate);       // and EndDate < #{0}# and LocalName = '{1}'", anaDate, "AL_D" );
+                    selStr = string.Format("LocalName = '{0}'", symbol); 
                     RR = DTlookup.Select(selStr); 
                 }
                 catch(Exception ex)
@@ -283,7 +456,13 @@ namespace RWInbound2.Applications
 
                     DR["Method Speciation"] = RR[0]["MethodSpec"] ?? "";
 
-                    if (result < .00001m) // this 'looks like' 0 in floating point math
+                    if (isNullValue) // nothing measured
+                    {
+                        DR["Result Detection Condition"] = "Not Reported";
+                        DR["Result Qualifier"] = "A";
+                    }
+
+                    else if (result < .00001m) // this 'looks like' 0 in floating point math
                     {
                         DR["Result Detection Condition"] = "Not Detected";
                         DR["Result Qualifier"] = "U";                        
@@ -306,6 +485,8 @@ namespace RWInbound2.Applications
                         }       
                     }
                 }
+            
+
                 DTout.Rows.Add(DR); // add to the table
             
         }
@@ -477,6 +658,45 @@ namespace RWInbound2.Applications
                 return WBIDs;
             }
         }
+
+         protected void btnDownload_Click(object sender, System.EventArgs e)
+         {
+             string outFile = ""; 
+             string mappedPath = ""; 
+             if(Session["OUTFILE"] != null)
+             {
+                 outFile = (string)Session["OUTFILE"];
+
+                 try
+                 {
+                     // set the http content type 
+                     Response.ContentType = "application/x-csv"; 
+
+                     // initialize the http content-disposition header to
+                     // indicate a file attachment with the default filename
+                     // "myFile.txt"
+                     System.IO.FileInfo fileToDownload = new System.IO.FileInfo(outFile);
+                     mappedPath = fileToDownload.Name;
+                     System.String disHeader = "Attachment; Filename=\"" + mappedPath + "\"";
+                     Response.AppendHeader("Content-Disposition", disHeader);
+
+                     // transfer the file byte-by-byte to the response object
+                                  //"C:\\downloadJSP\\DownloadConv\\myFile.txt");
+                     Response.Flush();
+                     Response.WriteFile(fileToDownload.FullName);
+                 }
+                 catch (System.Exception exx)
+                 // file IO errors
+                 {
+                     string msg = exx.Message; 
+                 }
+
+
+
+                 // FileUpload1.PostedFile.ContentType == "application/x-csv"
+                
+             }
+         }
     }
     
 }
@@ -490,3 +710,44 @@ namespace RWInbound2.Applications
 //  [LocalName] ,[CName] ,[ResultUnit] ,[ResultFraction] ,[AnaMethodID] ,[AnaMethodContext] ,[DetectionLevel] 
 // ,[LowerReportingLimit] ,[DetectionUnit]  ,[MethodSpec]  ,[StartDate] ,[EndDate]
 // now, read in a line of data at a time, and if value not null, put it in a new row, and then to the DTout table 
+
+public static class Rfc4180Writer
+{
+    public static void WriteDataTable(DataTable sourceTable, TextWriter writer, bool includeHeaders) 
+    {
+        if (includeHeaders) {
+            IEnumerable<String> headerValues = sourceTable.Columns
+                .OfType<DataColumn>()
+                .Select(column => QuoteValue(column.ColumnName));
+                
+            writer.WriteLine(String.Join(",", headerValues));
+        }
+
+        IEnumerable<String> items = null;
+
+        foreach (DataRow row in sourceTable.Rows) {
+            items = row.ItemArray.Select(o => QuoteValue(o.ToString()));
+            writer.WriteLine(String.Join(",", items));
+        }
+
+        writer.Flush();
+    }
+
+    private static string QuoteValue(string value)
+    {
+        return String.Concat("\"",
+        value.Replace("\"", "\"\""), "\"");
+    }
+}
+
+//string app_DataDirectory = HttpContext.Current.Server.MapPath("~/App_Data");
+//            if (!Directory.Exists(app_DataDirectory))
+//            {
+//                Directory.CreateDirectory(app_DataDirectory);
+//            }
+            
+//            string logFile = "~/App_Data/ErrorLog." + DateTime.Now.ToString("MM.dd.yyyy") + ".txt";
+//            logFile = HttpContext.Current.Server.MapPath(logFile);
+
+//        //using (StreamWriter writer = new StreamWriter("C:\\Temp\\dump.csv")) {
+//        //    Rfc4180Writer.WriteDataTable(sourceTable, writer, true);

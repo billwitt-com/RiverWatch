@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditAWQMSlookups.aspx.cs" Inherits="RWInbound2.Admin.EditAWQMSlookups" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true"  CodeBehind="EditAWQMSlookups.aspx.cs" Inherits="RWInbound2.Admin.EditAWQMSlookups" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -8,9 +8,12 @@
         <br />
     <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" Width="1112px">
         <Columns>
-            <asp:CommandField ShowDeleteButton="True" ButtonType="Button" ControlStyle-Width="40px"   ShowEditButton="True" />
+            <asp:CommandField ShowDeleteButton="True" ButtonType="Button" ControlStyle-Width="40px"   ShowEditButton="True" >
+            <HeaderStyle Width="200px" />
+            <ItemStyle HorizontalAlign="Left" />
+            </asp:CommandField>
             <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
-            <asp:BoundField DataField="LocalName" HeaderText="LocalName" SortExpression="LocalName" />
+            <asp:BoundField DataField="LocalName"  HeaderText="LocalName" SortExpression="LocalName" />
             <asp:BoundField DataField="CName" HeaderText="CName" SortExpression="CName" />
             <asp:BoundField DataField="ResultUnit" HeaderText="ResultUnit" SortExpression="ResultUnit" />
             <asp:BoundField DataField="ResultFraction" HeaderText="ResultFraction" SortExpression="ResultFraction" />

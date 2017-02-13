@@ -14,6 +14,7 @@ namespace RWInbound2
     
     public partial class tblBenthic
     {
+        public int BenTaxaID { get; set; }
         public string Stage { get; set; }
         public int BenSampID { get; set; }
         public int RepNum { get; set; }
@@ -23,7 +24,8 @@ namespace RWInbound2
         public string Comments { get; set; }
         public Nullable<System.DateTime> EnterDate { get; set; }
         public string StoretUploaded { get; set; }
-        public Nullable<bool> Valid { get; set; }
         public int ID { get; set; }
+    
+        public virtual tblBenTaxa tblBenTaxa { get; set; }
     }
 }

@@ -85,8 +85,12 @@
         </tr>
         <tr>
             <td style="width: 36px">&nbsp;</td>
-            <td style="width: 222px">&nbsp;</td>
-            <td style="width: 219px">&nbsp;</td>
+            <td style="width: 222px">
+                <asp:Label ID="lblDownload" runat="server" Text="Label"></asp:Label>
+            </td>
+            <td style="width: 219px">
+                <asp:Button ID="btnDownload"  CssClass="adminButton" runat="server" OnClick="btnDownload_Click" />
+            </td>
             <td>&nbsp;</td>
         </tr>
     </table>

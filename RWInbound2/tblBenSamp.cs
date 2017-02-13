@@ -14,17 +14,23 @@ namespace RWInbound2
     
     public partial class tblBenSamp
     {
+        public tblBenSamp()
+        {
+            this.tblBenGrids = new HashSet<tblBenGrid>();
+            this.tblBenReps = new HashSet<tblBenRep>();
+        }
+    
         public int ID { get; set; }
         public int SampleID { get; set; }
-        public Nullable<int> ActivityID { get; set; }
+        public int ActivityID { get; set; }
         public Nullable<System.DateTime> CollDate { get; set; }
-        public Nullable<int> CollMeth { get; set; }
-        public Nullable<int> GearConfigID { get; set; }
+        public int CollMeth { get; set; }
+        public int GearConfigID { get; set; }
         public Nullable<System.DateTime> CollTime { get; set; }
-        public Nullable<int> Medium { get; set; }
-        public Nullable<int> Intent { get; set; }
-        public Nullable<int> Community { get; set; }
-        public Nullable<int> BioResultGroupID { get; set; }
+        public int Medium { get; set; }
+        public int Intent { get; set; }
+        public int Community { get; set; }
+        public int BioResultGroupID { get; set; }
         public Nullable<int> NumKicksSamples { get; set; }
         public string Comments { get; set; }
         public Nullable<System.DateTime> EnterDate { get; set; }
@@ -36,7 +42,12 @@ namespace RWInbound2
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
         public virtual tlkBioResultsType tlkBioResultsType { get; set; }
         public virtual tlkFieldProcedure tlkFieldProcedure { get; set; }
+        public virtual tlkCommunity tlkCommunity { get; set; }
         public virtual tlkFieldGear tlkFieldGear { get; set; }
         public virtual tlkGearConfig tlkGearConfig { get; set; }
+        public virtual tlkIntent tlkIntent { get; set; }
+        public virtual tlkMedium tlkMedium { get; set; }
+        public virtual ICollection<tblBenGrid> tblBenGrids { get; set; }
+        public virtual ICollection<tblBenRep> tblBenReps { get; set; }
     }
 }

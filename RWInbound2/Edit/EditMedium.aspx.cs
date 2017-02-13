@@ -11,16 +11,16 @@ using System.Web.UI.WebControls;
 
 namespace RWInbound2.Edit
 {
-    public partial class EditFieldProcedure : System.Web.UI.Page
+    public partial class EditMedium : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {           
+        {
             if (!IsPostBack)
             {
                 SetMessages();
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
-                Validate();                
+                Validate();
             }
         }
 
@@ -43,8 +43,8 @@ namespace RWInbound2.Edit
             }
         }
 
-        public IQueryable<tlkFieldProcedure> GetFieldProcedures([QueryString]string descriptionSearchTerm = "",
-                                                                     [QueryString]string successLabelMessage = "")
+        public IQueryable<tlkMedium> GetMediums([QueryString]string descriptionSearchTerm = "",
+                                                        [QueryString]string successLabelMessage = "")
         {
             try
             {
@@ -55,13 +55,8 @@ namespace RWInbound2.Edit
                     SetMessages("Success", successLabelMessage);
                 }
 
-                if (!string.IsNullOrEmpty(descriptionSearchTerm))
-                {
-                    return _db.tlkFieldProcedures.Where(c => c.Description.Equals(descriptionSearchTerm))
-                                       .OrderBy(c => c.Code);
-                }
-                IQueryable<tlkFieldProcedure> fieldProcedures = _db.tlkFieldProcedures
-                                                     .OrderBy(c => c.Code);
+                IQueryable<tlkMedium> mediums = _db.tlkMediums
+                                                   .OrderBy(c => c.Code);
                 PropertyInfo isreadonly
                   = typeof(System.Collections.Specialized.NameValueCollection)
                           .GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -70,68 +65,16 @@ namespace RWInbound2.Edit
                 // remove
                 this.Request.QueryString.Clear();
 
-                return fieldProcedures;
+                return mediums;
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "GetFieldProcedures", "", "");
+                HandleErrors(ex, ex.Message, "GetMediums", "", "");
                 return null;
             }
         }
 
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string descriptionSearchTerm = descriptionSearch.Text;
-                string redirect = "EditFieldProcedure.aspx?descriptionSearchterm=" + descriptionSearchTerm;
-
-                Response.Redirect(redirect, false);
-            }
-            catch (Exception ex)
-            {
-                HandleErrors(ex, ex.Message, "btnSearch_Click", "", "");
-            }
-        }
-
-        protected void btnSearchRefresh_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Response.Redirect("EditFieldProcedure.aspx", false);
-            }
-            catch (Exception ex)
-            {
-                HandleErrors(ex, ex.Message, "btnSearchRefresh_Click", "", "");
-            }
-        }
-
-        [System.Web.Script.Services.ScriptMethod()]
-        [System.Web.Services.WebMethod]
-        public static List<string> SearchForFieldProceduresDescription(string prefixText, int count)
-        {
-            List<string> fieldProceduresDescriptions = new List<string>();
-
-            try
-            {
-                using (RiverWatchEntities _db = new RiverWatchEntities())
-                {
-                    fieldProceduresDescriptions = _db.tlkFieldProcedures
-                                             .Where(c => c.Description.Contains(prefixText))
-                                             .Select(c => c.Description).ToList();
-
-                    return fieldProceduresDescriptions;
-                }
-            }
-            catch (Exception ex)
-            {
-                EditFieldProcedure editFieldProcedure = new EditFieldProcedure();
-                editFieldProcedure.HandleErrors(ex, ex.Message, "SearchForFieldProceduresDescription", "", "");
-                return fieldProceduresDescriptions;
-            }
-        }
-
-        public void UpdateFieldProcedure(tlkFieldProcedure model)
+        public void UpdateMedium(tlkMedium model)
         {
             try
             {
@@ -139,35 +82,35 @@ namespace RWInbound2.Edit
 
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var fieldProcedureToUpdate = _db.tlkFieldProcedures.Find(model.ID);
+                    var mediumToUpdate = _db.tlkMediums.Find(model.ID);
 
-                    fieldProcedureToUpdate.Code = model.Code;
-                    fieldProcedureToUpdate.Description = model.Description;
+                    mediumToUpdate.Code = model.Code;
+                    mediumToUpdate.Description = model.Description;
 
                     if (this.User != null && this.User.Identity.IsAuthenticated)
                     {
-                        fieldProcedureToUpdate.UserLastModified
+                        mediumToUpdate.UserLastModified
                             = HttpContext.Current.User.Identity.Name;
                     }
                     else
                     {
-                        fieldProcedureToUpdate.UserLastModified = "Unknown";
+                        mediumToUpdate.UserLastModified = "Unknown";
                     }
 
-                    fieldProcedureToUpdate.DateLastModified = DateTime.Now;
+                    mediumToUpdate.DateLastModified = DateTime.Now;
                     _db.SaveChanges();
 
-                    string successMsg = string.Format("Field Procedure Updated: {0}", model.Description);
+                    string successMsg = string.Format("Medium Updated: {0}", model.Description);
                     SetMessages("Success", successMsg);
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateFieldProcedure", "", "");
+                HandleErrors(ex, ex.Message, "UpdateMedium", "", "");
             }
         }
 
-        public void DeleteFieldProcedure(tlkFieldProcedure model)
+        public void DeleteMedium(tlkMedium model)
         {
             using (RiverWatchEntities _db = new RiverWatchEntities())
             {
@@ -176,42 +119,42 @@ namespace RWInbound2.Edit
                     SetMessages();
 
                     var tblBenSampSampleNumbers = (from bs in _db.tblBenSamps
-                                                  join s in _db.Samples on bs.SampleID equals s.ID
-                                                  where bs.CollMeth == model.ID
-                                                  orderby s.SampleNumber
-                                                  select s.SampleNumber).ToList();
+                                                   join s in _db.Samples on bs.SampleID equals s.ID
+                                                   where bs.Medium == model.ID
+                                                   orderby s.SampleNumber
+                                                   select s.SampleNumber).ToList();
 
                     if (tblBenSampSampleNumbers.Count > 0)
                     {
                         string errorMsg
-                            = string.Format("Field Procedure {1} can not be deleted because it is assigned to one or more Benthic Samples. {0}",
-                                            "\r\n Click the Download Assigned Samples button to get a list of the samples.", model.Code);
-                        SetMessages("Error", errorMsg);                         
+                            = string.Format("Medium {1} can not be deleted because it is assigned to one or more Benthic Samples. {0}",
+                                            "\r\n Click the Download Assigned Samples button to get a list of the samples.", model.Description);
+                        SetMessages("Error", errorMsg);
                     }
                     else
                     {
-                        var fieldProcedureToDelete = _db.tlkFieldProcedures.Find(model.ID);
-                        _db.tlkFieldProcedures.Remove(fieldProcedureToDelete);
+                        var mediumToDelete = _db.tlkMediums.Find(model.ID);
+                        _db.tlkMediums.Remove(mediumToDelete);
                         _db.SaveChanges();
 
-                        string successMsg = string.Format("Field Procedure Deleted: {0}", model.Description);
+                        string successMsg = string.Format("Medium Deleted: {0}", model.Description);
                         SetMessages("Success", successMsg);
-                    }                    
+                    }
                 }
                 catch (Exception ex)
                 {
-                    HandleErrors(ex, ex.Message, "DeleteFieldProcedure", "", "");
+                    HandleErrors(ex, ex.Message, "DeleteMedium", "", "");
                 }
             }
         }
 
-        public void AddNewFieldProcedure(object sender, EventArgs e)
+        public void AddNewMedium(object sender, EventArgs e)
         {
             try
             {
                 SetMessages();
-                string strCode = ((TextBox)FieldProceduresGridView.FooterRow.FindControl("NewCode")).Text;
-                string description = ((TextBox)FieldProceduresGridView.FooterRow.FindControl("NewDescription")).Text;
+                string strCode = ((TextBox)MediumGridView.FooterRow.FindControl("NewCode")).Text;
+                string description = ((TextBox)MediumGridView.FooterRow.FindControl("NewDescription")).Text;
 
                 if (string.IsNullOrEmpty(strCode))
                 {
@@ -227,31 +170,30 @@ namespace RWInbound2.Edit
                     }
                     else
                     {
-                        var newFieldProcedure = new tlkFieldProcedure()
+                        var newMedium = new tlkMedium()
                         {
                             Code = code,
                             Description = description,
-                            Valid = true,
                             DateLastModified = DateTime.Now
                         };
 
                         if (this.User != null && this.User.Identity.IsAuthenticated)
                         {
-                            newFieldProcedure.UserLastModified
+                            newMedium.UserLastModified
                                 = HttpContext.Current.User.Identity.Name;
                         }
                         else
                         {
-                            newFieldProcedure.UserLastModified = "Unknown";
+                            newMedium.UserLastModified = "Unknown";
                         }
 
                         using (RiverWatchEntities _db = new RiverWatchEntities())
                         {
-                            _db.tlkFieldProcedures.Add(newFieldProcedure);
+                            _db.tlkMediums.Add(newMedium);
                             _db.SaveChanges();
 
-                            string successLabelText = "New Field Procedure Added: " + newFieldProcedure.Description;
-                            string redirect = "EditFieldProcedure.aspx?successLabelMessage=" + successLabelText;
+                            string successLabelText = "New Medium Added: " + newMedium.Description;
+                            string redirect = "EditMedium.aspx?successLabelMessage=" + successLabelText;
 
                             Response.Redirect(redirect, false);
                         }
@@ -260,11 +202,11 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewFieldProcedure", "", "");
+                HandleErrors(ex, ex.Message, "AddNewMedium", "", "");
             }
-        }             
+        }
 
-        protected void FieldProceduresGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void MediumGridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
@@ -280,7 +222,7 @@ namespace RWInbound2.Edit
 
                         var tblBenSampSampleNumbers = (from bs in _db.tblBenSamps
                                                        join s in _db.Samples on bs.SampleID equals s.ID
-                                                       where bs.CollMeth == iD
+                                                       where bs.Medium == iD
                                                        orderby s.SampleNumber
                                                        select s.SampleNumber).Distinct().ToList();
 
@@ -303,8 +245,8 @@ namespace RWInbound2.Edit
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "FieldProceduresGridView_RowCommand", "", "");
-            }            
+                HandleErrors(ex, ex.Message, "MediumGridView_RowCommand", "", "");
+            }
         }
 
         private string GetSamplesCSVData(List<string> listOfSamples)
@@ -348,9 +290,9 @@ namespace RWInbound2.Edit
             }
         }
 
-        protected void FieldProceduresGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void MediumGridView_RowEditing(object sender, GridViewEditEventArgs e)
         {
             SetMessages();
         }
-    }        
+    }
 }

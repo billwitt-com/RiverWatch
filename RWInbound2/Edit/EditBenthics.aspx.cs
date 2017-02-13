@@ -237,7 +237,7 @@ namespace RWInbound2.Edit
                         Comments = comments,
                         EnterDate = enterDate,
                         StoretUploaded = storetUploaded,
-                        Valid = true
+                      //  Valid = true
                     };    
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())

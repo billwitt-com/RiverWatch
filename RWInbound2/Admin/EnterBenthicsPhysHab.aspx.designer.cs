@@ -7,8 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RWInbound2.Admin
-{   
+namespace RWInbound2.Admin {
+    
     
     public partial class EnterBenthicsPhysHab {
         
@@ -38,6 +38,15 @@ namespace RWInbound2.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label SuccessLabel;
+        
+        /// <summary>
+        /// btnSearchRefresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearchRefresh;
         
         /// <summary>
         /// stationNumberSearch control.
@@ -94,13 +103,31 @@ namespace RWInbound2.Admin
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
         
         /// <summary>
-        /// Button1 control.
+        /// sampleEventNumberSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.TextBox sampleEventNumberSearch;
+        
+        /// <summary>
+        /// btnSearchSampleEventNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearchSampleEventNumber;
+        
+        /// <summary>
+        /// AutoCompleteExtender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender2;
         
         /// <summary>
         /// StationDataPanel control.
@@ -130,12 +157,12 @@ namespace RWInbound2.Admin
         protected global::System.Web.UI.WebControls.Label lblStationName;
         
         /// <summary>
-        /// EquipmentGridView control.
+        /// BenthicsPhysHabGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView EquipmentGridView;
+        protected global::System.Web.UI.WebControls.GridView BenthicsPhysHabGridView;
     }
 }

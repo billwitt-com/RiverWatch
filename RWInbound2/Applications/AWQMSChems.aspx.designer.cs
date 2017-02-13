@@ -184,6 +184,24 @@ namespace RWInbound2.Applications {
         protected global::System.Web.UI.WebControls.Button btnSelect8;
         
         /// <summary>
+        /// lblDownload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDownload;
+        
+        /// <summary>
+        /// btnDownload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDownload;
+        
+        /// <summary>
         /// tbResults control.
         /// </summary>
         /// <remarks>

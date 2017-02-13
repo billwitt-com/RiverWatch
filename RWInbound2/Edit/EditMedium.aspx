@@ -1,6 +1,8 @@
-﻿<%@ Page Title="Edit Communities" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditCommunities.aspx.cs" Inherits="RWInbound2.Edit.EditCommunities" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <section spellcheck="true">
+﻿<%@ Page Title="Edit Medium" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditMedium.aspx.cs" Inherits="RWInbound2.Edit.EditMedium" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<section spellcheck="true">
         <div>
             <hgroup>
                 <h3><%: Page.Title %></h3>
@@ -10,43 +12,19 @@
                 <asp:Label ID="ErrorLabel" CssClass="label-error" runat="server" />               
             </div>
             <div class="label-placement">
-                 <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
+                 <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" Text=""/>
             </div>
             <br />            
-        </div>
-        <p>
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                <ContentTemplate>
-                Search By Description:
-                <asp:TextBox ID="descriptionSearch" 
-                    AutoPostBack="true"
-                    runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
-                <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
-                <ajaxToolkit:AutoCompleteExtender 
-                    ID="tbSearch_AutoCompleteExtender" 
-                    runat="server" 
-                    BehaviorID="tbSearch_AutoCompleteExtender" 
-                    DelimiterCharacters=""  
-                    ServiceMethod="SearchForCommunitiesDescription"             
-                    TargetControlID="descriptionSearch"
-                    MinimumPrefixLength="2"
-                    CompletionInterval="100" 
-                    EnableCaching="false" 
-                    CompletionSetCount="10">
-                </ajaxToolkit:AutoCompleteExtender> 
-            </ContentTemplate>
-        </asp:UpdatePanel>
-    </p>
-        <asp:GridView ID="CommunitiesGridView" runat="server"
+        </div>        
+        <asp:GridView ID="MediumGridView" runat="server"
             DataKeyNames="ID"
-            ItemType="RWInbound2.tlkCommunity" 
-            SelectMethod="GetCommunities"
-            UpdateMethod="UpdateCommunity"
-            DeleteMethod="DeleteCommunity" 
+            ItemType="RWInbound2.tlkMedium" 
+            SelectMethod="GetMediums"
+            UpdateMethod="UpdateMedium"
+            DeleteMethod="DeleteMedium" 
             InsertItemPosition="LastItem"  
-            OnRowEditing="CommunitiesGridView_RowEditing"
-            OnRowCommand="CommunitiesGridView_RowCommand"
+            OnRowEditing="MediumGridView_RowEditing"
+            OnRowCommand="MediumGridView_RowCommand"
             ShowFooter="true"
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center"
@@ -66,7 +44,7 @@
                     </EditItemTemplate>
                     <FooterTemplate>
                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                    OnClick = "AddNewCommunity" />
+                                    OnClick="AddNewMedium" />
                     </FooterTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
@@ -92,13 +70,13 @@
                     <FooterTemplate>
                         <asp:TextBox ID="NewDescription" runat="server"></asp:TextBox>
                     </FooterTemplate>
-                </asp:TemplateField>
+                </asp:TemplateField> 
                 <asp:TemplateField>                   
                     <ItemTemplate>
                         <asp:Button ID="GetAssignedSamplesButton" runat="server" Text="Download Assigned Samples"
                                     CommandName="GetAssignedSamples" CommandArgument='<%# Bind("ID") %>' />
                     </ItemTemplate>                   
-                </asp:TemplateField>                
+                </asp:TemplateField>               
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView>       
