@@ -72,16 +72,10 @@
                 <label>Kit Number:</label>
                 <asp:Label ID="KitNumber" runat="server" Text='<%# Bind("KitNumber") %>'></asp:Label>
                 <label>Organization Name:</label>
-                <asp:Label ID="OrganizationName" runat="server" Text='<%# Bind("OrganizationName") %>'></asp:Label>
-                <label>Organization ID:</label>
-                <asp:Label ID="OrganizationID" runat="server" Text='<%# Bind("OrganizationID") %>'></asp:Label>
-            </div>
-             <div class="edit-exp-water-div">
+                <asp:Label ID="OrganizationName" runat="server" Text='<%# Bind("OrganizationName") %>'></asp:Label>                
                 <label>Station Number:</label>
                 <asp:Label ID="StationNumber" runat="server" Text='<%# Bind("StationNumber") %>'></asp:Label>
-                <label>Station ID:</label>
-                <asp:Label ID="StationID" runat="server" Text='<%# Bind("StationID") %>'></asp:Label>
-             </div>   
+            </div>             
             <hr class="edit-exp-water-hr" /> 
             <div class="edit-exp-water-div">
                 <label>Type Code:</label>
