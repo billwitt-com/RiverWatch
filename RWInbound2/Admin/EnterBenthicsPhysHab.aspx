@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" ClientIDMode="Static">
     <div>
         <hgroup>
-            <h3>Select a Station to Enter Benthics or Physical Habitat Data to a Sample</h3>
+            <h3>Enter/Edit Benthics or Physical Habitat Data for a Sample</h3>
         </hgroup>
     </div>    
     <div>
