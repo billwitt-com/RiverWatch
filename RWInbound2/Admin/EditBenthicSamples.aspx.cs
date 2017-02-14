@@ -50,6 +50,39 @@ namespace RWInbound2.Admin
             }
         }
 
+        public IQueryable<tlkActivityCategory> BindActivityCategories()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var activityCategories = _db.tlkActivityCategories
+                                              .OrderBy(ws => ws.Description);
+                return activityCategories;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindActivityCategories", "", "");
+                return null;
+            }
+        }
+
+        public IQueryable<tblBenSamp> GetSelectedBenthicData()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+
+                IQueryable<tblBenSamp> benthicSamples = _db.tblBenSamps
+                                            .Where(bs => bs.ID == 3540);
+                return benthicSamples;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "GetSelectedBenthicData", "", "");
+                return null;
+            }
+        }
+
         public IQueryable<tblBenSamp> GetBenthicSamples([QueryString]string sampleIDSelected = "",
                                              [QueryString]string successLabelMessage = "")
         {

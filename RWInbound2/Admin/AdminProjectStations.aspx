@@ -75,10 +75,9 @@
                                         <span class="admin-project-station-or-label" >OR</span>
                                         <div class="admin-project-station-number-label">Station #:</div>
                                         <asp:TextBox ID="StationNumberSearchTextBox" 
-                                            AutoPostBack="true"
+                                            onkeydown="return (event.keyCode!=13);"
                                             Enabled="false"                                            
-                                            runat="server"></asp:TextBox>                                                                         
-                                        <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
+                                            runat="server"></asp:TextBox>   
                                         <ajaxToolkit:AutoCompleteExtender 
                                             ID="tbSearch_AutoCompleteExtender" 
                                             runat="server" 

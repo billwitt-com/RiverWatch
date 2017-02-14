@@ -20,7 +20,7 @@
             <ContentTemplate>
                 <label>Search By Station Name:</label>
                 <asp:TextBox ID="stationNameSearch" 
-                    AutoPostBack="true"
+                    onkeydown="return (event.keyCode!=13);"
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearchStationName" runat="server" Text="Select" Height="31px" OnClick="btnSearchStationName_Click" CssClass="adminButton" />
                 <ajaxToolkit:AutoCompleteExtender 
@@ -38,7 +38,7 @@
                 <div class="org-unknown-results-or"><label>OR</label></div>
                 <label>By Station#:</label>                
                 <asp:TextBox ID="stationNumberSearch" 
-                    AutoPostBack="true"
+                    onkeydown="return (event.keyCode!=13);"
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearchStationNumber" runat="server" Text="Select" Height="31px" OnClick="btnSearchStationNumber_Click" CssClass="adminButton" />                
                 <ajaxToolkit:AutoCompleteExtender 

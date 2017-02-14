@@ -9,8 +9,7 @@
         </div>
         <div class="label-placement">
              <asp:Label ID="SuccessLabel" CssClass="label-success" runat="server" />
-        </div>
-        
+        </div>        
         <br />            
     </div> 
     <div>
@@ -18,7 +17,7 @@
                 <ContentTemplate>
                     Search By Parameter Name:
                     <asp:TextBox ID="parameterNameSearch" 
-                        AutoPostBack="true"
+                        onkeydown="return (event.keyCode!=13);"
                         runat="server"></asp:TextBox>
                     <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" CssClass="adminButton"/>
                     <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" 

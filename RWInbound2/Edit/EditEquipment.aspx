@@ -16,7 +16,7 @@
                 <br />
                 <label>Search By Organization Name:</label>
                 <asp:TextBox ID="orgNameSearch" 
-                    AutoPostBack="true"
+                    onkeydown="return (event.keyCode!=13);"
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearchOrgName" runat="server" Text="Select" Height="31px" OnClick="btnSearchOrgName_Click" CssClass="adminButton" />
                 <ajaxToolkit:AutoCompleteExtender 

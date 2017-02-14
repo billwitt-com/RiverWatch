@@ -24,7 +24,8 @@
                  <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" OnClick="btnSearchRefresh_Click" CssClass="adminButton" /> 
                 <br />
                 <label>Station#:</label>                  
-                <asp:TextBox ID="stationNumberSearch"                    
+                <asp:TextBox ID="stationNumberSearch"  
+                    onkeydown = "return (event.keyCode!=13);"                   
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearch" runat="server" Text="Select" Height="31px" OnClick="btnSearchStationNumber_Click" CausesValidation="False" CssClass="adminButton" />               
                 <ajaxToolkit:AutoCompleteExtender 
@@ -42,7 +43,8 @@
                 </ajaxToolkit:AutoCompleteExtender>             
                <%-- <div class="org-unknown-results-or"><label>OR</label></div>--%>
                 <label>Sample Number:</label>                
-                <asp:TextBox ID="sampleNumberSearch"                    
+                <asp:TextBox ID="sampleNumberSearch"  
+                    onkeydown="return (event.keyCode!=13);"                   
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearchSampleNumber" runat="server" Text="Select" Height="31px" OnClick="btnSearchSampleNumber_Click" CssClass="adminButton" />                
                 <ajaxToolkit:AutoCompleteExtender 
@@ -58,7 +60,8 @@
                     CompletionSetCount="10">
                 </ajaxToolkit:AutoCompleteExtender>               
                 <label>Sample Event:</label>                
-                <asp:TextBox ID="sampleEventNumberSearch"                  
+                <asp:TextBox ID="sampleEventNumberSearch" 
+                    onkeydown="return (event.keyCode!=13);"                  
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearchSampleEventNumber" runat="server" Text="Select" Height="31px" OnClick="btnSearchSampleEventNumber_Click" CssClass="adminButton" />                
                 <ajaxToolkit:AutoCompleteExtender 
