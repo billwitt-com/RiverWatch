@@ -116,6 +116,7 @@
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Inten__7720AD13" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenSam__Mediu__753864A1" />
         <AssociationConnector Association="RiverWatchModel.FK__tblBenthi__BenTa__056ECC6A" />
+        <EntityTypeShape EntityType="RiverWatchModel.tlkAQWMStranslation" Width="1.5" PointX="31.375" PointY="27.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

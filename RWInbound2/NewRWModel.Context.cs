@@ -118,5 +118,6 @@ namespace RWInbound2
         public virtual DbSet<tblBenTaxa> tblBenTaxas { get; set; }
         public virtual DbSet<tblBenthic> tblBenthics { get; set; }
         public virtual DbSet<tblBenHab_Beh> tblBenHab_Beh { get; set; }
+        public virtual DbSet<tlkAQWMStranslation> tlkAQWMStranslations { get; set; }
     }
 }
