@@ -19,12 +19,11 @@
                 <ContentTemplate>
                 Search By Description:
                 <asp:TextBox ID="descriptionSearch" 
-                    AutoPostBack="true"
+                    onkeydown="return (event.keyCode!=13);"
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
                 <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
-                <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
-                <ajaxToolkit:AutoCompleteExtender 
+               <ajaxToolkit:AutoCompleteExtender 
                     ID="tbSearch_AutoCompleteExtender" 
                     runat="server" 
                     BehaviorID="tbSearch_AutoCompleteExtender" 

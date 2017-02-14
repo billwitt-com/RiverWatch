@@ -1979,3 +1979,17 @@ tr.grid-edit-benthics-samples-header{
     background-color:ActiveCaption;
     max-height: 5px;
 }
+
+/*Edit Benthics Samples Form View*/
+.benthics-samples-formview-edit-template-div{
+    display: inline-flex;
+    width: 100px;
+    padding-left: 5px;
+}
+
+.benthics-samples-form-view-labels{
+    width: 140px;
+    display: inline-block;
+    height: 25px;
+    font-size: 16px;
+}

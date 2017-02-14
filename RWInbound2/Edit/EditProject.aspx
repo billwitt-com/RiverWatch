@@ -19,24 +19,23 @@
                 <ContentTemplate>
                     Search By Project Name:
                     <asp:TextBox ID="projectNameSearch" 
-                        AutoPostBack="true"
+                        onkeydown="return (event.keyCode!=13);"
                         runat="server"></asp:TextBox>
                     <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" />
                     <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" />
-                     <%--This is from drag and drop from toolbox. Note, servicemethod was added by hand by me--%>
-                        <ajaxToolkit:AutoCompleteExtender 
-                                ID="tbSearch_AutoCompleteExtender" 
-                                runat="server" 
-                                BehaviorID="tbSearch_AutoCompleteExtender" 
-                                DelimiterCharacters=""  
-                                ServiceMethod="SearchForProjectsName"             
-                                TargetControlID="projectNameSearch"
-                                MinimumPrefixLength="2"
-                                CompletionInterval="100" 
-                                EnableCaching="true" 
-                                CompletionSetCount="10"
-                                UseContextKey="True">
-                            </ajaxToolkit:AutoCompleteExtender> 
+                     <ajaxToolkit:AutoCompleteExtender 
+                            ID="tbSearch_AutoCompleteExtender" 
+                            runat="server" 
+                            BehaviorID="tbSearch_AutoCompleteExtender" 
+                            DelimiterCharacters=""  
+                            ServiceMethod="SearchForProjectsName"             
+                            TargetControlID="projectNameSearch"
+                            MinimumPrefixLength="2"
+                            CompletionInterval="100" 
+                            EnableCaching="true" 
+                            CompletionSetCount="10"
+                            UseContextKey="True">
+                        </ajaxToolkit:AutoCompleteExtender> 
                 </ContentTemplate>
             </asp:UpdatePanel>             
         </p>

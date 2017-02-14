@@ -18,7 +18,7 @@
             <ContentTemplate>
                 Search By Metals Bar Code:
                 <asp:TextBox ID="inboundICPMetalsBarCodeSearch" 
-                    AutoPostBack="true"
+                    onkeydown="return (event.keyCode!=13);" 
                     runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearch" runat="server" Text="Select" Height="31px" OnClick="btnSearch_Click" CausesValidation="False" CssClass="adminButton" />
                 <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" OnClick="btnSearchRefresh_Click" CausesValidation="False" CssClass="adminButton"/>

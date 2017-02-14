@@ -20,8 +20,8 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     Search By Sample Number:
-                    <asp:TextBox ID="sampleNumberSearch" 
-                        AutoPostBack="true"
+                    <asp:TextBox ID="sampleNumberSearch"
+                        onkeydown = "return (event.keyCode!=13);"                         
                         runat="server"></asp:TextBox>
                     <asp:Button ID="btnSearch" runat="server" Text="Search" Height="31px" OnClick="btnSearch_Click" CssClass="adminButton"/>
                     <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" Height="31px" 
@@ -85,24 +85,14 @@
             <hr class="edit-exp-water-hr" /> 
             <div class="edit-exp-water-div">
                 <label>Type Code:</label>
-                <asp:TextBox ID="TextBoxTypeCode" runat="server" Text='<%# Bind("TypeCode") %>'></asp:TextBox>  
+                <asp:Label ID="TextBoxTypeCode" runat="server" Text='<%# Bind("TypeCode") %>'></asp:Label>  
                 <label>Metals BarCode:</label>
-                <asp:TextBox ID="TextBoxBarCode" runat="server" Text='<%# Bind("MetalsBarCode") %>'></asp:TextBox>  
+                <asp:Label ID="TextBoxBarCode" runat="server" Text='<%# Bind("MetalsBarCode") %>'></asp:Label>   
                 <label>Nutrient BarCode:</label>
-                <asp:TextBox ID="TextBoxNutrientBarCode" runat="server" Text='<%# Bind("NutrientBarCode") %>'></asp:TextBox>                  
-            </div>   
-            <hr class="edit-exp-water-hr" />  
-            <div class="edit-exp-water-div">
-                <label>Field BarCode:</label> 
-                <asp:TextBox ID="TextBoxFieldBarCode" runat="server" Text='<%# Bind("FieldBarCode") %>'></asp:TextBox> 
-                <label>Bugs BarCode:</label> 
-                <asp:TextBox ID="TextBoxBugsBarCode" runat="server" Text='<%# Bind("BugsBarCode") %>'></asp:TextBox> 
+                <asp:Label ID="TextBoxNutrientBarCode" runat="server" Text='<%# Bind("NutrientBarCode") %>'></asp:Label>                  
                 <label>Sample Date:</label> 
-                <asp:TextBox ID="TextBoxSampleDate" runat="server" Text='<%# Bind("SampleDate") %>'></asp:TextBox>
-                <ajaxToolkit:CalendarExtender ID="TextBoxSampleDate_CalendarExtender" runat="server" 
-                                                BehaviorID="TextBoxSampleDate_CalendarExtender" 
-                                                TargetControlID="TextBoxSampleDate"></ajaxToolkit:CalendarExtender>
-            </div>
+                <asp:Label ID="TextBoxSampleDate" runat="server" Text='<%# Bind("SampleDate") %>'></asp:Label>                
+            </div>  
             <hr class="edit-exp-water-hr" />  
             <br />  
             <table>
@@ -475,15 +465,32 @@
                                 ID="CompareValidator45" runat="server" Type="Double" ForeColor="Red" Font-Bold="true"
                                 Display="Dynamic" ErrorMessage="Please enter a valid TSS value.">
                 </asp:CompareValidator>  
-            </div>           
-            
-            <asp:HiddenField id="tblSampleID" runat="server" value='<%# Bind("tblSampleID") %>' />
-            <asp:HiddenField id="BadBlank" runat="server" value='<%# Bind("BadBlank") %>' />
-            <asp:HiddenField id="BadDuplicate" runat="server" value='<%# Bind("BadDuplicate") %>' />
-            <asp:HiddenField id="BadSample" runat="server" value='<%# Bind("BadSample") %>' />
-            <asp:HiddenField id="Valid" runat="server" value='<%# Bind("Valid") %>' />
-             <asp:HiddenField id="HiddenEvent" runat="server" value='<%# Bind("Event") %>' />
-             <asp:HiddenField id="HiddenSampleNumber" runat="server" value='<%# Bind("SampleNumber") %>' />
+            </div> 
+
+            <asp:HiddenField id="HiddenField_Event" runat="server" value='<%# Bind("Event") %>' />
+            <asp:HiddenField id="HiddenField_WaterShed" runat="server" value='<%# Bind("WaterShed") %>' />
+            <asp:HiddenField id="HiddenField_SampleNumber" runat="server" value='<%# Bind("SampleNumber") %>' />
+            <asp:HiddenField id="HiddenField_RiverName" runat="server" value='<%# Bind("RiverName") %>' />
+            <asp:HiddenField id="HiddenField_KitNumber" runat="server" value='<%# Bind("KitNumber") %>' />
+            <asp:HiddenField id="HiddenField_OrganizationName" runat="server" value='<%# Bind("OrganizationName") %>' />
+
+            <asp:HiddenField id="HiddenField_OrganizationID" runat="server" value='<%# Bind("OrganizationID") %>' />
+            <asp:HiddenField id="HiddenField_StationNumber" runat="server" value='<%# Bind("StationNumber") %>' />
+            <asp:HiddenField id="HiddenField_StationName" runat="server" value='<%# Bind("StationName") %>' />
+            <asp:HiddenField id="HiddenField_StationID" runat="server" value='<%# Bind("StationID") %>' />
+            <asp:HiddenField id="HiddenField_TypeCode" runat="server" value='<%# Bind("TypeCode") %>' />
+            <asp:HiddenField id="HiddenField_MetalsBarCode" runat="server" value='<%# Bind("MetalsBarCode") %>' />
+            <asp:HiddenField id="HiddenField_NutrientBarCode" runat="server" value='<%# Bind("NutrientBarCode") %>' />
+            <asp:HiddenField id="HiddenField_FieldBarCode" runat="server" value='<%# Bind("FieldBarCode") %>' />
+            <asp:HiddenField id="HiddenField_BugsBarCode" runat="server" value='<%# Bind("BugsBarCode") %>' />
+            <asp:HiddenField id="HiddenField_SampleDate" runat="server" value='<%# Bind("SampleDate") %>' />
+
+            <asp:HiddenField id="HiddenField_ID" runat="server" value='<%# Bind("ID") %>' />
+            <asp:HiddenField id="HiddenField_tblSampleID" runat="server" value='<%# Bind("tblSampleID") %>' />
+            <asp:HiddenField id="HiddenField_BadBlank" runat="server" value='<%# Bind("BadBlank") %>' />
+            <asp:HiddenField id="HiddenField_BadDuplicate" runat="server" value='<%# Bind("BadDuplicate") %>' />
+            <asp:HiddenField id="HiddenField_BadSample" runat="server" value='<%# Bind("BadSample") %>' />
+            <asp:HiddenField id="HiddenField_Valid" runat="server" value='<%# Bind("Valid") %>' />
         </EditItemTemplate>            
     </asp:FormView>            
 </asp:Content>

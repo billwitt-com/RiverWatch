@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Edit Benthic Samples" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditBenthicSamples.aspx.cs" Inherits="RWInbound2.Admin.EditBenthicSamples" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" ClientIDMode="Static">
     <section spellcheck="true">
         <div>
             <hgroup>
@@ -40,7 +40,7 @@
             CellPadding="4"
             AutoGenerateColumns="False" CssClass="grid-columns-center grid-edit-benthics-samples-item-rowstyle"
             HeaderStyle-CssClass="grid-edit-benthics-samples-header" 
-            GridLines="None" ForeColor="#333333" 
+            ForeColor="#333333" 
             AllowPaging="true" Pagesize="15">
             <AlternatingRowStyle BackColor="White" />
             <EmptyDataTemplate>
@@ -113,6 +113,49 @@
                 </asp:TemplateField>                             
             </Columns>
             <EditRowStyle BackColor="#2461BF" />            
-        </asp:GridView>       
+        </asp:GridView> 
+        
+        <asp:Panel ID="BenthicDataFormView_Panel" runat="server">
+            <h4>Benthics Data</h4>
+            <asp:FormView ID="BenthicDataFormView" runat="server" 
+                    DataKeyNames="ID"
+                    ItemType="RWInbound2.tblBenSamp" 
+                    SelectMethod="GetSelectedBenthicData"
+                    DefaultMode="Edit"
+                    AllowPaging="false"
+                    EmptyDataText="No results found.">                
+                <EditItemTemplate> 
+                    <div class="benthics-samples-form-view-labels">
+                        <label>Activity:</label>
+                    </div>
+                    <asp:UpdatePanel ID="UpdatePanel_Activity" runat="server" class="update-panel-div">
+                        <ContentTemplate>              
+                            <asp:DropDownList ID="dropDownActivity" runat="server" DataMember="it"
+                                                SelectMethod="BindActivityCategories" CssClass="formview-dropdowns"   
+                                                SelectedValue='<%# Bind("tlkActivityCategory.ID") %>'                                          
+                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                            </asp:DropDownList>             
+                        </ContentTemplate>
+                    </asp:UpdatePanel> 
+                    <br />
+                    <div class="benthics-samples-form-view-labels">
+                        <label>Collection Date:</label>
+                    </div>
+                    <div class="benthics-samples-formview-edit-template-div">
+                        <%# Eval("CollDate", "{0:M-dd-yyyy}") %>
+                    </div>
+                    <br /> 
+                    <div class="benthics-samples-form-view-labels">
+                        <label>Collection Time:</label>
+                    </div>
+                    <div class="benthics-samples-formview-edit-template-div">
+                        <%# Eval("CollTime", "{0:HH:mm}") %>
+                    </div>  
+                    <br /><br />
+                    <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" CssClass="adminButton" />
+                    <asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" CommandName="Update" CssClass="adminButton" />
+                </EditItemTemplate>
+            </asp:FormView>
+        </asp:Panel>          
     </section>
 </asp:Content>
