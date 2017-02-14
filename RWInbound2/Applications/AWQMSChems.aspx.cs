@@ -4,16 +4,6 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Sql;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Data.Entity;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
 using System.IO;
 
@@ -126,9 +116,18 @@ namespace RWInbound2.Applications
             DTout.Columns.Add(new DataColumn("Result Status ID", typeof(string)));  // , "Validated"
             DTout.Columns.Add(new DataColumn("Result Analytical Method ID", typeof(string)));
             DTout.Columns.Add(new DataColumn("Result Analytical Method Context", typeof(string)));
-            DTout.Columns.Add(new DataColumn("Result Detection Limit Value", typeof(string)));
+            // above unchanged
+
+            //DTout.Columns.Add(new DataColumn("Result Detection Limit Value", typeof(string)));
+            //DTout.Columns.Add(new DataColumn("Result Detection Limit Unit", typeof(string)));
+            //DTout.Columns.Add(new DataColumn("Result Detection Limit Type", typeof(string)));
+
+            // three columns below have been renamed
+            DTout.Columns.Add(new DataColumn("Method Detection Level", typeof(string)));
+            DTout.Columns.Add(new DataColumn("Lower Reporting Limit", typeof(string)));
             DTout.Columns.Add(new DataColumn("Result Detection Limit Unit", typeof(string)));
-            DTout.Columns.Add(new DataColumn("Result Detection Limit Type", typeof(string)));
+
+
             DTout.Columns.Add(new DataColumn("Method Speciation", typeof(string)));
             DTout.Columns.Add(new DataColumn("Activity Media Subdivision Name", typeof(string)));   // , "Surface Water"
             DTout.Columns.Add(new DataColumn("Analysis Start Date", typeof(string)));   // MM/DD/YYYY
@@ -138,7 +137,7 @@ namespace RWInbound2.Applications
 
             var R = from r in RWE.viewAWQMSDatas
                     where r.Valid == true & r.WaterBodyID.StartsWith(WBID) & r.SampleDate >= startDate & r.SampleDate <= endDate & !r.TypeCode.StartsWith("1") & !r.TypeCode.StartsWith("2")
-                    orderby r.SampleDate descending
+                    orderby r.SampleDate.Value 
                     select r ;
 
             foreach(viewAWQMSData r in R)
@@ -291,42 +290,39 @@ namespace RWInbound2.Applications
 
                 // FIELD DATA - MAY NEED TO MOVE IT TO SEPARATE REPORT
 
-                    //symbol = "PHEN_ALK";
-                    //result = (decimal)r.PHEN_ALK.Value;
-                    //calculateRow(r, result, symbol);
+                    symbol = "PHEN_ALK";
+                    result = (decimal)r.PHEN_ALK.Value;
+                    calculateRow(r, result, symbol);
 
-                    //symbol = "TempC";
-                    //result = (decimal)r.TempC.Value;
-                    //calculateRow(r, result, symbol);
+                    symbol = "TempC";
+                    result = (decimal)r.TempC.Value;
+                    calculateRow(r, result, symbol);
 
-                    //symbol = "TOTAL_ALK";
-                    //result = (decimal)r.TOTAL_ALK.Value;
-                    //calculateRow(r, result, symbol);
+                    symbol = "TOTAL_ALK";
+                    result = (decimal)r.TOTAL_ALK.Value;
+                    calculateRow(r, result, symbol);
 
-                    //symbol = "TOTAL_HARD";
-                    //result = (decimal)r.TOTAL_HARD.Value;
-                    //calculateRow(r, result, symbol);
+                    symbol = "TOTAL_HARD";
+                    result = (decimal)r.TOTAL_HARD.Value;
+                    calculateRow(r, result, symbol);
 
-                    //symbol = "DO_MGL";
-                    //result = (decimal)r.DO_MGL.Value;
-                    //calculateRow(r, result, symbol);
+                    symbol = "DO_MGL";
+                    result = (decimal)r.DO_MGL.Value;
+                    calculateRow(r, result, symbol);
 
-                    //symbol = "DO_MGL";
-                    //result = (decimal)r.DO_MGL.Value;
-                    //calculateRow(r, result, symbol);
+                    symbol = "DO_MGL";
+                    result = (decimal)r.DO_MGL.Value;
+                    calculateRow(r, result, symbol);
 
-                    //symbol = "USGS_Flow";
-                    //result = (decimal)r.USGS_Flow.Value;
-                    //calculateRow(r, result, symbol);
+                    symbol = "USGS_Flow";
+                    result = (decimal)r.USGS_Flow.Value;
+                    calculateRow(r, result, symbol);
 
-                    //symbol = "DOSAT";
-                    //result = (decimal)r.DOSAT.Value;
-                    //calculateRow(r, result, symbol);
-
-
+                    symbol = "DOSAT";
+                    result = (decimal)r.DOSAT.Value;
+                    calculateRow(r, result, symbol);
 
 
-                // and do the rest... 
             }
 
 
@@ -349,9 +345,7 @@ namespace RWInbound2.Applications
             
             using (StreamWriter writer = new StreamWriter(outFile))
             {
-                Rfc4180Writer.WriteDataTable(DTout, writer, true);
-                //using (StreamWriter writer = new StreamWriter("C:\\Temp\\dump.csv")) {
-                //    Rfc4180Writer.WriteDataTable(sourceTable, writer, true);
+                OurWriter.WriteDataTable(DTout, writer, true);
             }
 
             FileInfo FII = new FileInfo(outFile);
@@ -427,10 +421,23 @@ namespace RWInbound2.Applications
                 DR["Result Status ID"] = "Validated" ;
 
                 // now do the lookups from DT
-                //  [LocalName] ,[CName] ,[ResultUnit] ,[ResultFraction] ,[AnaMethodID] ,[AnaMethodContext] ,[DetectionLevel] 
-                // ,[LowerReportingLimit] ,[DetectionUnit]  ,[MethodSpec]  ,[StartDate] ,[EndDate]
+      //,[LocalName]
+      //,[Characteristic Name]
+      //,[Result Unit]
+      //,[Result Sample Fraction]
+      //,[Result Analytical Method ID]
+      //,[Result Analytical Method Context]
+      //,[Method Detection Level]
+      //,[Lower Reporting Limit]
+      //,[Result Detection Limit Unit]
+      //,[Method Speciation]
+      //,[StartDate]
+      //,[EndDate]
+      //,[DateCreated]
+      //,[UserCreated]
+      //,[Valid]
 
-                    DataRow[] RR = null ; 
+                DataRow[] RR = null ; 
                 try
                 {
                   //  selStr = string.Format("StartDate >= #{0}#", anaDate);       // and EndDate < #{0}# and LocalName = '{1}'", anaDate, "AL_D" );
@@ -444,17 +451,28 @@ namespace RWInbound2.Applications
 
                 if(RR != null)
                 {
-                    DR["Characteristic Name"] = RR[0]["CName"];
-                    DR["Result Sample Fraction"] = RR[0]["ResultFraction"] ?? "";
-                    DR["Result Unit"] = RR[0]["ResultUnit"] ?? "";
+                    DR["Characteristic Name"] = RR[0]["Characteristic Name"];
+                    DR["Result Sample Fraction"] = RR[0]["Result Sample Fraction"] ?? "";
+                    DR["Result Unit"] = RR[0]["Result Unit"] ?? "";
 
-                    DR["Result Analytical Method ID"] = RR[0]["AnaMethodID"] ?? "";
-                    DR["Result Analytical Method Context"] = RR[0]["AnaMethodContext"] ?? "";
-                    DR["Result Detection Limit Value"] = RR[0]["DetectionLevel"] ?? ""; 
-                    DR["Result Detection Limit Unit"] = RR[0]["DetectionUnit"] ?? "";
-                    DR["Result Detection Limit Type"] = RR[0]["LowerReportingLimit"] ?? "";
+                    DR["Result Analytical Method ID"] = RR[0]["Result Analytical Method ID"] ?? "";
+                    DR["Result Analytical Method Context"] = RR[0]["Result Analytical Method Context"] ?? "";
 
-                    DR["Method Speciation"] = RR[0]["MethodSpec"] ?? "";
+                    // replaced 
+                    //DR["Result Detection Limit Value"] = RR[0]["DetectionLevel"] ?? ""; 
+                    //DR["Result Detection Limit Unit"] = RR[0]["DetectionUnit"] ?? "";
+                    //DR["Result Detection Limit Type"] = RR[0]["LowerReportingLimit"] ?? "";
+
+                    // examples
+                    //DTout.Columns.Add(new DataColumn("Method Detection Level", typeof(string)));
+                    //DTout.Columns.Add(new DataColumn("Lower Reporting Limit", typeof(string)));
+                    //DTout.Columns.Add(new DataColumn("Result Detection Limit Unit", typeof(string)));
+
+                    DR["Method Detection Level"] = RR[0]["Method Detection Level"] ?? "";
+                    DR["Lower Reporting Limit"] = RR[0]["Lower Reporting Limit"] ?? "";
+                    DR["Result Detection Limit Unit"] = RR[0]["Result Detection Limit Unit"] ?? "";
+
+                    DR["Method Speciation"] = RR[0]["Method Speciation"] ?? "";
 
                     if (isNullValue) // nothing measured
                     {
@@ -511,6 +529,8 @@ namespace RWInbound2.Applications
 
         protected void btnSelect6_Click(object sender, EventArgs e)
         {
+            string msg = "";
+            bool success = false;
             StartDate = DateTime.Parse(tbStartDate.Text);
             EndDate = DateTime.Parse(tbEndDate.Text);
             Wbid = tbWBID6.Text.Trim();
@@ -520,12 +540,16 @@ namespace RWInbound2.Applications
                 tbWBID4.Focus();
                 return;
             }
-            string msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(6) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
+            success = createReport(StartDate, EndDate, Wbid);
+            msg = string.Format("Reports returned {0}", success);
+          //  string msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(6) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
             tbResults.Text = msg; 
         }
 
         protected void btnSelect8_Click(object sender, EventArgs e)
         {
+            string msg = "";
+            bool success = false;
             StartDate = DateTime.Parse(tbStartDate.Text);
             EndDate = DateTime.Parse(tbEndDate.Text);
             Wbid = tbWBID8.Text.Trim();
@@ -535,7 +559,9 @@ namespace RWInbound2.Applications
                 tbWBID4.Focus();
                 return;
             }
-            string msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(8) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
+            success = createReport(StartDate, EndDate, Wbid);
+            msg = string.Format("Reports returned {0}", success);
+         //   string msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(8) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
             tbResults.Text = msg; 
         }
 
@@ -711,21 +737,23 @@ namespace RWInbound2.Applications
 // ,[LowerReportingLimit] ,[DetectionUnit]  ,[MethodSpec]  ,[StartDate] ,[EndDate]
 // now, read in a line of data at a time, and if value not null, put it in a new row, and then to the DTout table 
 
-public static class Rfc4180Writer
+public static class OurWriter
 {
     public static void WriteDataTable(DataTable sourceTable, TextWriter writer, bool includeHeaders) 
     {
-        if (includeHeaders) {
+        if (includeHeaders)
+        {
             IEnumerable<String> headerValues = sourceTable.Columns
                 .OfType<DataColumn>()
                 .Select(column => QuoteValue(column.ColumnName));
-                
+
             writer.WriteLine(String.Join(",", headerValues));
         }
 
         IEnumerable<String> items = null;
 
-        foreach (DataRow row in sourceTable.Rows) {
+        foreach (DataRow row in sourceTable.Rows) 
+        {
             items = row.ItemArray.Select(o => QuoteValue(o.ToString()));
             writer.WriteLine(String.Join(",", items));
         }
@@ -751,3 +779,37 @@ public static class Rfc4180Writer
 
 //        //using (StreamWriter writer = new StreamWriter("C:\\Temp\\dump.csv")) {
 //        //    Rfc4180Writer.WriteDataTable(sourceTable, writer, true);
+
+
+//    public static string ToCsv(this DataTable dataTable) {
+//        StringBuilder sbData = new StringBuilder();
+
+//        // Only return Null if there is no structure.
+//        if (dataTable.Columns.Count == 0)
+//            return null;
+
+//        foreach (var col in dataTable.Columns) {
+//            if (col == null)
+//                sbData.Append(",");
+//            else
+//                sbData.Append("\"" + col.ToString().Replace("\"", "\"\"") + "\",");
+//        }
+
+//        sbData.Replace(",", System.Environment.NewLine, sbData.Length - 1, 1);
+
+//        foreach (DataRow dr in dataTable.Rows) {
+//            foreach (var column in dr.ItemArray) {
+//                if (column == null)
+//                    sbData.Append(",");
+//                else
+//                    sbData.Append("\"" + column.ToString().Replace("\"", "\"\"") + "\",");
+//            }
+//            sbData.Replace(",", System.Environment.NewLine, sbData.Length - 1, 1);
+//        }
+
+//        return sbData.ToString();
+//    }
+
+//You call it as follows:
+
+//var csvData = dataTableOject.ToCsv();

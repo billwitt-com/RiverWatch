@@ -2003,6 +2003,9 @@
     <Compile Include="tlkActivityType.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tlkAQWMStranslation.cs">
+      <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tlkBioResultsType.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>

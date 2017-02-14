@@ -649,6 +649,7 @@ namespace RWInbound2.Validation
                     if(STN != null)
                     {
                         NW.StationName = STN.StationName;
+                        NW.StationID = STN.ID; 
                         NW.StationNumber = STN.StationNumber;
                         NW.WaterShed = STN.RWWaterShed;   
                     }
