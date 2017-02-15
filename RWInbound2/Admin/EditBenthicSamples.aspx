@@ -58,16 +58,14 @@
             </EmptyDataTemplate>    
             <Columns>  
                 <asp:TemplateField>
-                    <ItemTemplate>
-                       <%-- <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />--%>
+                    <ItemTemplate>                       
                         <%--<asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
                                     OnClientClick="return confirm('Are you certain you want to delete this?');"/>--%>
-                        <asp:Button ID="EditButton" runat="server" Text="Edit" OnClientClick="return alert('Coming Soon!');" />
                         <asp:Button ID="DeleteButton" runat="server" Text="Delete" OnClientClick="return alert('Coming Soon!');" />
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
-                        <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
+                       <%-- <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
+                        <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />--%>
                     </EditItemTemplate>
                     <FooterTemplate>
                         <%--<asp:Button ID="btnAdd" runat="server" Text="Add"
@@ -106,7 +104,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Reps/Grids">                   
                     <ItemTemplate>
-                        <asp:Button ID="ViewRepsGridButton" runat="server" Text="View" OnClientClick="return alert('Coming Soon!');"/>
+                        <asp:Button ID="ViewRepsGridButton" runat="server" Text="View" OnClick="ViewRepsGridButton_Click" OnClientClick="return alert('Coming Soon!');"/>
                         <%--<asp:Button ID="GetAssignedSamplesButton" runat="server" Text="Download Assigned Samples"
                                     CommandName="GetAssignedSamples" CommandArgument='<%# Bind("ID") %>' />--%>
                     </ItemTemplate>                   
@@ -115,7 +113,7 @@
             <EditRowStyle BackColor="#2461BF" />            
         </asp:GridView> 
         
-        <asp:Panel ID="BenthicDataFormView_Panel" runat="server">
+        <asp:Panel ID="BenthicDataFormView_Panel" runat="server" Visible="false">
             <h4>Benthics Data</h4>
             <asp:FormView ID="BenthicDataFormView" runat="server" 
                     DataKeyNames="ID"
