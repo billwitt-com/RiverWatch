@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" ClientIDMode="Static">
     <div>
         <hgroup>
-            <h3>Select a Station to Enter Benthics or Physical Habitat Data to a Sample</h3>
+            <h3>Enter/Edit Benthics or Physical Habitat Data for a Sample</h3>
         </hgroup>
     </div>    
     <div>
@@ -40,8 +40,7 @@
                     EnableCaching="true" 
                     CompletionSetCount="10"
                     UseContextKey="True">
-                </ajaxToolkit:AutoCompleteExtender>             
-               <%-- <div class="org-unknown-results-or"><label>OR</label></div>--%>
+                </ajaxToolkit:AutoCompleteExtender>     
                 <label>Sample Number:</label>                
                 <asp:TextBox ID="sampleNumberSearch"  
                     onkeydown="return (event.keyCode!=13);"                   

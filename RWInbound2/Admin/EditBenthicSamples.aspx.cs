@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Validation;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -13,6 +14,9 @@ namespace RWInbound2.Admin
 {
     public partial class EditBenthicSamples : System.Web.UI.Page
     {
+        private int benSampIDSelected = 0;
+        private int benSampActivityIDSelected = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -26,7 +30,7 @@ namespace RWInbound2.Admin
 
         private void SetSampleData(bool showPanel = false, string sampleNumber = "", string stationEvent = "")
         {
-            SampleDataPanel.Visible = showPanel;
+            SampleData_Panel.Visible = showPanel;
             lblSampleNumber.Text = sampleNumber;
             lblSampleEvent.Text = stationEvent;
         }
@@ -66,6 +70,134 @@ namespace RWInbound2.Admin
             }
         }
 
+        public IQueryable<tlkFieldProcedure> BindFieldProcedures()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tlkFieldProcedures = _db.tlkFieldProcedures
+                                              .OrderBy(ws => ws.Description);
+                return tlkFieldProcedures;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindFieldProcedures", "", "");
+                return null;
+            }
+        }
+
+        public IQueryable<tlkFieldGear> BindFieldGears()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tlkFieldGearsList = _db.tlkFieldGears
+                                            .OrderBy(ws => ws.Description);
+                return tlkFieldGearsList;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindFieldGear", "", "");
+                return null;
+            }
+        }
+
+        public IQueryable<tlkGearConfig> BindGearConfigs()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tlkGearConfigList = _db.tlkGearConfigs
+                                            .OrderBy(ws => ws.Description);
+                return tlkGearConfigList;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindGearConfig", "", "");
+                return null;
+            }
+        }
+
+        public IQueryable<tlkActivityType> BindActivityTypes()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tlkActivityTypeList = _db.tlkActivityTypes
+                                            .OrderBy(ws => ws.Description);
+                return tlkActivityTypeList;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindActivityType", "", "");
+                return null;
+            }
+        }
+
+        public IQueryable<tlkMedium> BindMediums()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tlkMediumList = _db.tlkMediums
+                                            .OrderBy(ws => ws.Description);
+                return tlkMediumList;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindMedium", "", "");
+                return null;
+            }
+        }
+
+        public IQueryable<tlkIntent> BindIntents()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tlkIntentList = _db.tlkIntents
+                                       .OrderBy(ws => ws.Description);
+                return tlkIntentList;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindIntent", "", "");
+                return null;
+            }
+        }
+
+        public IQueryable<tlkCommunity> BindCommunities()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tlkCommunityList = _db.tlkCommunities
+                                       .OrderBy(ws => ws.Description);
+                return tlkCommunityList;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindCommunities", "", "");
+                return null;
+            }
+        }
+
+        public IQueryable<tlkBioResultsType> BindBioResultsTypes()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tlkBioResultsTypeList = _db.tlkBioResultsTypes
+                                       .OrderBy(ws => ws.Description);
+                return tlkBioResultsTypeList;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindBioResultsTypes", "", "");
+                return null;
+            }
+        }
+
         public IQueryable<tblBenSamp> GetSelectedBenthicData()
         {
             try
@@ -73,7 +205,7 @@ namespace RWInbound2.Admin
                 RiverWatchEntities _db = new RiverWatchEntities();
 
                 IQueryable<tblBenSamp> benthicSamples = _db.tblBenSamps
-                                            .Where(bs => bs.ID == 3540);
+                                            .Where(bs => bs.ID == benSampIDSelected);
                 return benthicSamples;
             }
             catch (Exception ex)
@@ -205,7 +337,7 @@ namespace RWInbound2.Admin
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
 
-            SuccessLabel.Text = "";
+            SetMessages();
 
             if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
             {
@@ -233,6 +365,73 @@ namespace RWInbound2.Admin
         protected void BenthicSamplesGridView_RowEditing(object sender, GridViewEditEventArgs e)
         {
             SetMessages();
+        }       
+
+        protected void BenthicSamplesGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "GetAllBenthicsData")
+                {
+                    using (RiverWatchEntities _db = new RiverWatchEntities())
+                    {
+                        string[] commandArgs = e.CommandArgument.ToString().Split(new char[] { ',' });
+                        int selectedGridRowIndex = Convert.ToInt32(commandArgs[0]);
+                        benSampIDSelected = Convert.ToInt32(commandArgs[1]);
+                        //int selectedGridIndex = BenthicSamplesGridView.SelectedIndex;
+
+                        if (benSampIDSelected > 0)
+                        {
+                            //GridViewRow row = BenthicSamplesGridView.Rows[selectedGridRowIndex];
+
+                            foreach(GridViewRow row in BenthicSamplesGridView.Rows)
+                            {
+                                if (row.RowIndex == selectedGridRowIndex)
+                                {
+                                    row.BackColor = ColorTranslator.FromHtml("#FFFF00");
+                                    row.ToolTip = "This Sample's Benthics data is being displayed below.";
+                                }
+                                else
+                                {
+                                    row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                                    row.ToolTip = "Click on the View button to Edit this Sample's Benthics data.";
+                                }
+                            }                             
+                                                       
+                            BenthicDataFormView_Panel.Visible = true;
+                            BenthicDataFormView.DataBind();
+                            BenthicDataFormView_UpdatePanel.Update();
+                        }
+                        else
+                        {
+                            SetMessages("Error", "The ID for Benthic Sample Selected could not be found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BenthicSamplesGridView_RowCommand", "", "");
+            }
+        }
+
+        protected void CancelButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BenthicDataFormView_Panel.Visible = true;
+                BenthicDataFormView.DataBind();
+                //BenthicDataFormView_UpdatePanel.Update();
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "CancelButton_Click", "", "");
+            }
+        }
+
+        protected void BenthicDataFormView_ItemCommand(object sender, FormViewCommandEventArgs e)
+        {
+            e.
         }
     }
 }
