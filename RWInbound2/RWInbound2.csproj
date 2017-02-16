@@ -190,7 +190,6 @@
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
     <Content Include="Admin\EditBenthicSamples.aspx" />
-    <Content Include="Admin\EditAWQMSlookups.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Applications\Applications.aspx" />
@@ -908,13 +907,6 @@
     </Compile>
     <Compile Include="Admin\EditBenthicSamples.aspx.designer.cs">
       <DependentUpon>EditBenthicSamples.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\EditAWQMSlookups.aspx.cs">
-      <DependentUpon>EditAWQMSlookups.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\EditAWQMSlookups.aspx.designer.cs">
-      <DependentUpon>EditAWQMSlookups.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditExpWater.aspx.cs">
       <DependentUpon>EditExpWater.aspx</DependentUpon>
