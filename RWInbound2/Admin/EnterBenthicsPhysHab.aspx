@@ -40,8 +40,7 @@
                     EnableCaching="true" 
                     CompletionSetCount="10"
                     UseContextKey="True">
-                </ajaxToolkit:AutoCompleteExtender>             
-               <%-- <div class="org-unknown-results-or"><label>OR</label></div>--%>
+                </ajaxToolkit:AutoCompleteExtender>     
                 <label>Sample Number:</label>                
                 <asp:TextBox ID="sampleNumberSearch"  
                     onkeydown="return (event.keyCode!=13);"                   

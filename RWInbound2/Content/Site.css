@@ -1809,6 +1809,7 @@ select#dropDownNewEquipCategories.grid-edit-equipment-medium-textbox.no-results{
     border-radius: 0;
     margin: 15px 5px -7px 5px;
     padding: 3px;
+    resize: vertical;
 }
 
 .rowId-charid-dsorder-textbox {
@@ -1988,8 +1989,32 @@ tr.grid-edit-benthics-samples-header{
 }
 
 .benthics-samples-form-view-labels{
-    width: 140px;
+    width: 150px;
     display: inline-block;
     height: 25px;
     font-size: 16px;
+}
+
+.benthics-samples-form-view-width-num-kicks{
+    width: 40px;
+    margin-left: 5px;
+}
+
+.benthics-samples-formview-dropdowns{
+    margin:5px 5px -7px 5px;
+    width: 230px;
+    height: 20px;
+    border-color:gray;
+    font-size:11px;
+}
+
+.benthics-samples-form-view-textbox{
+    font-size:11px;
+    width: 225px;
+    height: 20px;
+    border-color:gray;
+    border-radius: 0;
+    margin: 15px 5px -7px 5px;
+    padding: 3px;
+    resize: vertical;
 }

@@ -13,6 +13,15 @@ namespace RWInbound2.Admin {
     public partial class EditBenthicSamples {
         
         /// <summary>
+        /// BenthicSamplesGridView_UpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel BenthicSamplesGridView_UpdatePanel;
+        
+        /// <summary>
         /// ErrorLabel control.
         /// </summary>
         /// <remarks>
@@ -31,13 +40,13 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Label SuccessLabel;
         
         /// <summary>
-        /// SampleDataPanel control.
+        /// SampleData_Panel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel SampleDataPanel;
+        protected global::System.Web.UI.WebControls.Panel SampleData_Panel;
         
         /// <summary>
         /// lblSampleNumber control.
@@ -65,6 +74,15 @@ namespace RWInbound2.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView BenthicSamplesGridView;
+        
+        /// <summary>
+        /// BenthicDataFormView_UpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel BenthicDataFormView_UpdatePanel;
         
         /// <summary>
         /// BenthicDataFormView_Panel control.
