@@ -42,7 +42,7 @@
                 <td>
                     <asp:Button ID="btnICPBlanksAndDups" CssClass="adminButton" runat="server" Text="ALL ICP Blanks And Dups" OnClick="btnICPBlanksAndDups_Click" />
                 </td>
-                <td style="width: 340px">&nbsp;</td>
+                <td> <asp:Button ID="btnAWQMSlookups" CssClass="adminButton" runat="server" Text="AWQMS Lookups" OnClick="btnAWQMSlookups_Click"  /></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>

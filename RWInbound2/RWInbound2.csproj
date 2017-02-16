@@ -367,6 +367,7 @@
     <Content Include="Data\UnknownData.aspx" />
     <Content Include="Public\ViewStationsWithGauges.aspx" />
     <Content Include="Reports\AllOrgsReport.aspx" />
+    <Content Include="Reports\AWQMSLookups.aspx" />
     <Content Include="Reports\ICPBlanksAndDups.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
@@ -424,6 +425,17 @@
       <DependentUpon>AllOrgsDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Content\RWdatainfodownload.pdf" />
+    <Content Include="AWQMSLookupDataSet.xsc">
+      <DependentUpon>AWQMSLookupDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="AWQMSLookupDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AWQMSLookupDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AWQMSLookupDataSet.xss">
+      <DependentUpon>AWQMSLookupDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="DataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
@@ -950,6 +962,11 @@
     </Compile>
     <Compile Include="Admin\EnterBenthicsPhysHab.aspx.designer.cs">
       <DependentUpon>EnterBenthicsPhysHab.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AWQMSLookupDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AWQMSLookupDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditIntent.aspx.cs">
       <DependentUpon>EditIntent.aspx</DependentUpon>
@@ -1679,6 +1696,13 @@
     <Compile Include="Reports\AllOrgsReport.aspx.designer.cs">
       <DependentUpon>AllOrgsReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\AWQMSLookups.aspx.cs">
+      <DependentUpon>AWQMSLookups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\AWQMSLookups.aspx.designer.cs">
+      <DependentUpon>AWQMSLookups.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ICPBlanksAndDups.aspx.cs">
       <DependentUpon>ICPBlanksAndDups.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2269,6 +2293,9 @@
     <Content Include="Public\stationsByProject.rdlc" />
     <Content Include="Public\StationsWithGauges.rdlc" />
     <Content Include="Reports\MLables.rdlc" />
+    <Content Include="Reports\AWQMSLookup.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
     <EmbeddedResource Include="Reports\Report4.rdlc" />
     <Content Include="Reports\ReportAllOrgs.rdlc" />

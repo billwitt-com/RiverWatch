@@ -103,5 +103,10 @@ namespace RWInbound2.Reports
             Response.Redirect("ICPBlanksAndDups.aspx");
         }
 
+        protected void btnAWQMSlookups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AWQMSLookups.aspx");
+        }
+
     }
 }
