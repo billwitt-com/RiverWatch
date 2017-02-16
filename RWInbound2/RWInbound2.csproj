@@ -189,6 +189,7 @@
     <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
+    <Content Include="Admin\EditAWQMSLookups.aspx" />
     <Content Include="Admin\EditBenthicSamples.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
@@ -900,6 +901,13 @@
     </Compile>
     <Compile Include="Admin\AdminUsers.aspx.designer.cs">
       <DependentUpon>AdminUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditAWQMSLookups.aspx.cs">
+      <DependentUpon>EditAWQMSLookups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditAWQMSLookups.aspx.designer.cs">
+      <DependentUpon>EditAWQMSLookups.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditBenthicSamples.aspx.cs">
       <DependentUpon>EditBenthicSamples.aspx</DependentUpon>

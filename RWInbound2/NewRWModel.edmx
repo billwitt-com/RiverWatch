@@ -1073,7 +1073,7 @@ warning 6002: The table/view 'RiverWatch.dbo.tblXS' does not have a primary key 
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocalName" Type="nvarchar" MaxLength="50" />
           <Property Name="Characteristic_Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Result_ Unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="Result_Unit" Type="nvarchar" MaxLength="50" />
           <Property Name="Result_Sample_Fraction" Type="nvarchar" MaxLength="50" />
           <Property Name="Result_Analytical_Method_ID" Type="nvarchar" MaxLength="50" />
           <Property Name="Result_Analytical_Method_Context" Type="nvarchar" MaxLength="50" />
@@ -4703,7 +4703,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LocalName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Characteristic_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Result__Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Result_Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Result_Sample_Fraction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Result_Analytical_Method_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Result_Analytical_Method_Context" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -6604,7 +6604,7 @@ warning 6002: The table/view 'RiverWatch.dbo.ViewSoloNutrientDups' does not have
                 <ScalarProperty Name="Result_Analytical_Method_Context" ColumnName="Result_Analytical_Method_Context" />
                 <ScalarProperty Name="Result_Analytical_Method_ID" ColumnName="Result_Analytical_Method_ID" />
                 <ScalarProperty Name="Result_Sample_Fraction" ColumnName="Result_Sample_Fraction" />
-                <ScalarProperty Name="Result__Unit" ColumnName="Result_ Unit" />
+                <ScalarProperty Name="Result_Unit" ColumnName="Result_Unit" />
                 <ScalarProperty Name="Characteristic_Name" ColumnName="Characteristic_Name" />
                 <ScalarProperty Name="LocalName" ColumnName="LocalName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

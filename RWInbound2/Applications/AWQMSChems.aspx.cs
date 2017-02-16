@@ -475,7 +475,7 @@ namespace RWInbound2.Applications
                 {
                     DR["Characteristic Name"] = T.Characteristic_Name;                                  //RR[0]["Characteristic Name"];
                     DR["Result Sample Fraction"] = T.Result_Sample_Fraction ?? "";                            //RR[0]["Result Sample Fraction"] ?? "";
-                    DR["Result Unit"] = T.Result__Unit;                                                 //RR[0]["Result Unit"] ?? "";
+                    DR["Result Unit"] = T.Result_Unit;                                                 //RR[0]["Result Unit"] ?? "";
 
                     DR["Result Analytical Method ID"] = T.Result_Analytical_Method_ID ?? "";                  //RR[0]["Result Analytical Method ID"] ?? "";
                     DR["Result Analytical Method Context"] = T.Result_Analytical_Method_Context ?? "";        //RR[0]["Result Analytical Method Context"] ?? "";
@@ -710,7 +710,8 @@ namespace RWInbound2.Applications
          protected void btnDownload_Click(object sender, System.EventArgs e)
          {
              string outFile = ""; 
-             string mappedPath = ""; 
+
+             lblDownload.Text = "";
              if(Session["OUTFILE"] != null)
              {
                  outFile = (string)Session["OUTFILE"];
@@ -728,7 +729,6 @@ namespace RWInbound2.Applications
                     LiveFileStream.Close();
                     Response.Clear(); 
 
-
                     Response.Charset = "utf-8";
                   //  Response.ContentType = "text/plain";
                     Response.ContentType = "application/x-csv"; 
@@ -737,38 +737,13 @@ namespace RWInbound2.Applications
                     Response.BinaryWrite(filebuffer);
                     Response.End();
 
-
-
-
-                   //  Response.ContentType = "text/csv";
-                   //  Response.Redirect(outFile); 
-
-                     //string hdr = string.Format("attachment; filename={0}", outFile); 
-
-
-                     //Response.AddHeader("Content-Disposition", hdr);              //("Content-Disposition", "attachment; filename=yourfile.csv");
-
-                     // set the http content type 
-                //     Response.ContentType = "application/x-csv"; 
-
-                //     // initialize the http content-disposition header to
-                //     // indicate a file attachment with the default filename
-                //     // "myFile.txt"
-                //     System.IO.FileInfo fileToDownload = new System.IO.FileInfo(outFile);
-                //     mappedPath = fileToDownload.Name;
-                //     System.String disHeader = "Attachment; Filename=\"" + mappedPath + "\"";
-                //     Response.AppendHeader("Content-Disposition", disHeader);
-
-                //     // transfer the file byte-by-byte to the response object
-                //                  //"C:\\downloadJSP\\DownloadConv\\myFile.txt");
-                ////     Response.Flush();
-                //     Response.WriteFile(fileToDownload.FullName);
                  }
                  catch (System.Exception exx)
                  // file IO errors
                  {
                      // we seem to be getting here via aborted thread. Seems OK as the response is closed in code
-                     string msg = exx.Message; 
+                     string msg = exx.Message;
+                     lblDownload.Text = "";
                  }
              }
          }    

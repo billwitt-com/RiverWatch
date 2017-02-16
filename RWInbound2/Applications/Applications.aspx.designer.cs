@@ -31,15 +31,6 @@ namespace RWInbound2.Applications {
         protected global::System.Web.UI.WebControls.Button btnAWQMSChems;
         
         /// <summary>
-        /// btnAWQMSField control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAWQMSField;
-        
-        /// <summary>
         /// btnAWQMSStations control.
         /// </summary>
         /// <remarks>

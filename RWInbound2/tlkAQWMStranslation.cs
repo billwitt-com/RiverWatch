@@ -17,7 +17,7 @@ namespace RWInbound2
         public int ID { get; set; }
         public string LocalName { get; set; }
         public string Characteristic_Name { get; set; }
-        public string Result__Unit { get; set; }
+        public string Result_Unit { get; set; }
         public string Result_Sample_Fraction { get; set; }
         public string Result_Analytical_Method_ID { get; set; }
         public string Result_Analytical_Method_Context { get; set; }
