@@ -10,7 +10,7 @@
 namespace RWInbound2.Admin {
     
     
-    public partial class Admin {
+    public partial class BatchDeleteNutrients {
         
         /// <summary>
         /// Label1 control.
@@ -22,228 +22,165 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// btnAddInboundICP control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddInboundICP;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// btnControlPermissions control.
+        /// tbSelectBatch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnControlPermissions;
+        protected global::System.Web.UI.WebControls.TextBox tbSelectBatch;
         
         /// <summary>
-        /// btnEditAWQMSlookups control.
+        /// tbSelectBatch_AutoCompleteExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditAWQMSlookups;
+        protected global::AjaxControlToolkit.AutoCompleteExtender tbSelectBatch_AutoCompleteExtender;
         
         /// <summary>
-        /// btnExpWater control.
+        /// btnSelect control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExpWater;
+        protected global::System.Web.UI.WebControls.Button btnSelect;
         
         /// <summary>
-        /// btnEditIncoming control.
+        /// lblMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditIncoming;
+        protected global::System.Web.UI.WebControls.Label lblMsg;
         
         /// <summary>
-        /// btnEditMetalBarcode control.
+        /// pnlResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditMetalBarcode;
+        protected global::System.Web.UI.WebControls.Panel pnlResults;
         
         /// <summary>
-        /// btnEditNutrients control.
+        /// lblTotalResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditNutrients;
+        protected global::System.Web.UI.WebControls.Label lblTotalResults;
         
         /// <summary>
-        /// btnEditNutrientBarcodes control.
+        /// lblResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditNutrientBarcodes;
+        protected global::System.Web.UI.WebControls.Label lblResults;
         
         /// <summary>
-        /// btnEditUnknowns control.
+        /// lblCanBeDeleted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditUnknowns;
+        protected global::System.Web.UI.WebControls.Label lblCanBeDeleted;
         
         /// <summary>
-        /// btnManageOrgs control.
+        /// btnDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManageOrgs;
+        protected global::System.Web.UI.WebControls.Button btnDelete;
         
         /// <summary>
-        /// btnManageOrgStatus control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManageOrgStatus;
+        protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
-        /// btnManageParticipants control.
+        /// pnlAreYouSure control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManageParticipants;
+        protected global::System.Web.UI.WebControls.Panel pnlAreYouSure;
         
         /// <summary>
-        /// btnPermissions control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPermissions;
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// btnManageStations control.
+        /// btnYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManageStations;
+        protected global::System.Web.UI.WebControls.Button btnYes;
         
         /// <summary>
-        /// btnUsers control.
+        /// btnNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUsers;
+        protected global::System.Web.UI.WebControls.Button btnNo;
         
         /// <summary>
-        /// btnProjectStations control.
+        /// pnlConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnProjectStations;
+        protected global::System.Web.UI.WebControls.Panel pnlConfirm;
         
         /// <summary>
-        /// btnManagePublicUsers control.
+        /// lblConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnManagePublicUsers;
+        protected global::System.Web.UI.WebControls.Label lblConfirm;
         
         /// <summary>
-        /// btnRoles control.
+        /// btnConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRoles;
-        
-        /// <summary>
-        /// btnStationImages control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStationImages;
-        
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
-        
-        /// <summary>
-        /// btnBulkEditOrgActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBulkEditOrgActive;
-        
-        /// <summary>
-        /// btnResetAllOrgActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnResetAllOrgActive;
-        
-        /// <summary>
-        /// btnEnterBenthicsPhysHab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnterBenthicsPhysHab;
-        
-        /// <summary>
-        /// btnBulkEditStnActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBulkEditStnActive;
-        
-        /// <summary>
-        /// btnResetAllStnActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnResetAllStnActive;
+        protected global::System.Web.UI.WebControls.Button btnConfirm;
     }
 }
