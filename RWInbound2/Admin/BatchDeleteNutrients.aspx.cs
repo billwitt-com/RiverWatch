@@ -151,6 +151,7 @@ namespace RWInbound2.Admin
         protected void btnYes_Click(object sender, EventArgs e)
         {
             RiverWatchEntities RWE = new RiverWatchEntities();
+            List<string> nBarcodes = new List<string>();
             int counter = 0;
             string batch = tbSelectBatch.Text;
             var T = from t in RWE.Lachats
@@ -161,11 +162,43 @@ namespace RWInbound2.Admin
             {
                 foreach(var z in T)
                 {
+                    nBarcodes.Add(z.SampleType); 
                     z.Valid = false;
                     counter++;
                 }
                 RWE.SaveChanges(); 
             }
+
+            if(nBarcodes.Count() > 0)
+            {
+                foreach (string bc in nBarcodes)
+                {
+                    var Q = from q in RWE.NutrientDatas
+                            where q.BARCODE == bc
+                            select q;
+
+                    if (Q != null)
+                    {
+                        foreach (var n in Q)
+                        {
+                            n.Valid = false;
+                        }
+                        RWE.SaveChanges();
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
 
             pnlConfirm.Visible = true;
             lblConfirm.Visible = true;

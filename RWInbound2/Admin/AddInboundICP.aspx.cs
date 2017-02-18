@@ -160,15 +160,20 @@ namespace RWInbound2.Admin
                 SetMessages();
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {                  
+                    //var sampleIDinInboundICPTable
+                    //        = _db.InboundICPFinals
+                    //             .Where(i => i.tblSampleID == model.tblSampleID || i.CODE.Equals(model.CODE))
+                    //             .FirstOrDefault();
+
+                    // changed code to only look for barcode 
                     var sampleIDinInboundICPTable
-                            = _db.InboundICPFinals
-                                 .Where(i => i.tblSampleID == model.tblSampleID || i.CODE.Equals(model.CODE))
-                                 .FirstOrDefault();
+                    = _db.InboundICPFinals
+                        .Where(i => i.CODE.ToUpper().Equals(model.CODE.ToUpper()))
+                            .FirstOrDefault();
 
                     if (sampleIDinInboundICPTable != null)
                     {
-                        string errorMsg = string.Format("This Sample and/or Code already exists. Sample Id:{0} Code:{1}.",
-                                                        model.tblSampleID, model.CODE);
+                        string errorMsg = string.Format("This Bar Code already exists: Code:{0}.", model.CODE);
                         SetMessages("Error", errorMsg);
                     }
                     else
@@ -186,9 +191,15 @@ namespace RWInbound2.Admin
                         newInboundICPFinal.CreatedBy = createdBy;
                         newInboundICPFinal.CreatedDate = DateTime.Now;
                         newInboundICPFinal.Valid = true;
-                        newInboundICPFinal.Saved = true;
+                        newInboundICPFinal.Saved = false; 
+                //        newInboundICPFinal.Saved = true;
                         newInboundICPFinal.Edited = false;
 
+                        // added bw to make sure a null did not come from the model, which breaks the check box binding... 
+                        if(model.COMPLETE == null)
+                        {
+                            model.COMPLETE = false; 
+                        }
                         var newInboundICPOrigional = new InboundICPOrigional()
                         {
                             CODE = model.CODE,
@@ -227,7 +238,8 @@ namespace RWInbound2.Admin
                             CreatedBy = createdBy,
                             CreatedDate = DateTime.Now,
                             Valid = true,
-                            Saved = true,
+                         //   Saved = true,
+                            Saved = false,
                             Edited = false                            
                         };
 

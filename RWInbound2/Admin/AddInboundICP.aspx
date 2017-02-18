@@ -73,7 +73,7 @@
             <hr class="edit-inboundicp-hr" />    
             <div class="edit-inboundicp-div">
                 <label>Duplicate:</label>
-                <asp:TextBox ID="TextBoxDUPLICATE" MaxLength="2" runat="server" Text='<%# Bind("DUPLICATE") %>'></asp:TextBox>                     
+                <asp:TextBox ID="TextBoxDUPLICATE" MaxLength="2"  runat="server" Text='<%# Bind("DUPLICATE") %>'></asp:TextBox>                     
                 <asp:RequiredFieldValidator 
                         id="RequiredFieldValidator3" runat="server" 
                         CssClass="edit-inboundicp-required"
