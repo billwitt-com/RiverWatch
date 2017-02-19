@@ -197,6 +197,7 @@
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\AWQMSChems.aspx" />
     <Content Include="Admin\EnterBenthicsPhysHab.aspx" />
+    <Content Include="Applications\AWQMSStations.aspx" />
     <Content Include="Content\faq.png" />
     <Content Include="Edit\EditIntent.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
@@ -970,6 +971,13 @@
     </Compile>
     <Compile Include="Admin\EnterBenthicsPhysHab.aspx.designer.cs">
       <DependentUpon>EnterBenthicsPhysHab.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\AWQMSStations.aspx.cs">
+      <DependentUpon>AWQMSStations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Applications\AWQMSStations.aspx.designer.cs">
+      <DependentUpon>AWQMSStations.aspx</DependentUpon>
     </Compile>
     <Compile Include="AWQMSLookupDataSet.Designer.cs">
       <AutoGen>True</AutoGen>

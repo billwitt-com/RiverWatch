@@ -18,5 +18,10 @@ namespace RWInbound2.Applications
         {
             Response.Redirect("AWQMSChems.aspx");
         }
+
+        protected void btnAWQMSStations_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AWQMSStations.aspx");
+        }
     }
 }

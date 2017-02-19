@@ -20,7 +20,7 @@
                 <asp:Button ID="btnAWQMSChems" runat="server" Text="AWQMS Chemicals Download" CssClass="adminButton" OnClick="btnAWQMSChems_Click" />
             </td>
             <td style="width: 296px">
-                <asp:Button ID="btnAWQMSStations" runat="server" CssClass="adminButton" Text="AWQMS Stations Download" Enabled="False" />
+                <asp:Button ID="btnAWQMSStations" runat="server" CssClass="adminButton" Text="AWQMS Stations Download" Enabled="False" OnClick="btnAWQMSStations_Click" />
             </td>
             <td>
                 &nbsp;</td>
