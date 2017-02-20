@@ -523,6 +523,7 @@
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
+    <Content Include="Reports\StationsWithNoSamples.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
     <Content Include="RiverWatchStationsWithGauges.xsc">
@@ -848,6 +849,17 @@
     </None>
     <Content Include="StationsByProject.xss">
       <DependentUpon>StationsByProject.xsd</DependentUpon>
+    </Content>
+    <Content Include="StationsWithNoSamples.xsc">
+      <DependentUpon>StationsWithNoSamples.xsd</DependentUpon>
+    </Content>
+    <None Include="StationsWithNoSamples.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StationsWithNoSamples.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="StationsWithNoSamples.xss">
+      <DependentUpon>StationsWithNoSamples.xsd</DependentUpon>
     </Content>
     <None Include="Web.config.ajaxissue">
       <SubType>Designer</SubType>
@@ -1831,6 +1843,13 @@
     <Compile Include="Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\StationsWithNoSamples.aspx.cs">
+      <DependentUpon>StationsWithNoSamples.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\StationsWithNoSamples.aspx.designer.cs">
+      <DependentUpon>StationsWithNoSamples.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1982,6 +2001,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StationsByProject.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="StationsWithNoSamples.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationsWithNoSamples.xsd</DependentUpon>
     </Compile>
     <Compile Include="tblBenGrid.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -2377,6 +2401,9 @@
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
     <EmbeddedResource Include="Reports\Report4.rdlc" />
     <Content Include="Reports\ReportAllOrgs.rdlc" />
+    <Content Include="Reports\StationsWithNoSamples.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

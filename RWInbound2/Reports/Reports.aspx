@@ -56,7 +56,9 @@
                 <td>
                     <asp:Button ID="btnOrgEquipment" runat="server" CssClass="adminButton" OnClick="btnOrgEquipment_Click" Text="Org Equipment" />
                 </td>
-                <td> &nbsp;</td>
+                <td> 
+                    <asp:Button ID="Button1" runat="server" CssClass="adminButton" OnClick="Button1_Click" Text="Stations with No Samples" />
+                </td>
                 <td>
                     &nbsp;</td>
                 <td>

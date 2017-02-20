@@ -123,5 +123,10 @@ namespace RWInbound2.Reports
             Response.Redirect("OrgEquipment.aspx");
         }
 
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StationsWithNoSamples.aspx");
+        }
+
     }
 }
