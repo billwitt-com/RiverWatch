@@ -63,6 +63,20 @@
                     <asp:Button ID="btnOrgsNoSamples" runat="server" CssClass="adminButton" OnClick="btnOrgsNoSamples_Click" Text="Orgs with No Samples" />
                 </td>
                 <td>
+                    <asp:Button ID="btnNutrientsLookup" runat="server" CssClass="adminButton" OnClick="btnNutrientsLookup_Click" Text="Nutrient Limits Lookup" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="rowId-charid-dsorder-textbox" style="width: 15px">&nbsp;</td>
+                <td>
+                    <asp:Button ID="btnMetalsLookups" runat="server" CssClass="adminButton" OnClick="btnMetalsLookups_Click" Text="Metals Limits Lookup" />
+                </td>
+                <td> 
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td>
                     &nbsp;</td>
             </tr>
 

@@ -373,7 +373,9 @@
     <Content Include="Reports\ICPBlanksAndDups.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
+    <Content Include="Reports\MetalsLimits.aspx" />
     <Content Include="Reports\NutrientBlankDups.aspx" />
+    <Content Include="Reports\NutrientLimitsReport.aspx" />
     <Content Include="Reports\NutrientsNOTBlankorDup.aspx" />
     <Content Include="Reports\OrgEquipment.aspx" />
     <Content Include="Reports\OrgsWithNoSamples.aspx" />
@@ -491,6 +493,28 @@
     </Content>
     <Content Include="OrgEquipmentDataSource.xsc">
       <DependentUpon>OrgEquipmentDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="NutrientLimits.xsc">
+      <DependentUpon>NutrientLimits.xsd</DependentUpon>
+    </Content>
+    <Content Include="MetalsLookupTable.xsc">
+      <DependentUpon>MetalsLookupTable.xsd</DependentUpon>
+    </Content>
+    <None Include="MetalsLookupTable.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MetalsLookupTable.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MetalsLookupTable.xss">
+      <DependentUpon>MetalsLookupTable.xsd</DependentUpon>
+    </Content>
+    <None Include="NutrientLimits.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NutrientLimits.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="NutrientLimits.xss">
+      <DependentUpon>NutrientLimits.xsd</DependentUpon>
     </Content>
     <None Include="OrgEquipmentDataSource.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1420,6 +1444,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MailList.xsd</DependentUpon>
     </Compile>
+    <Compile Include="MetalsLookupTable.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetalsLookupTable.xsd</DependentUpon>
+    </Compile>
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -1428,6 +1457,11 @@
     </Compile>
     <Compile Include="NutrientLimit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NutrientLimits.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NutrientLimits.xsd</DependentUpon>
     </Compile>
     <Compile Include="OrgContractStatu.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1804,12 +1838,26 @@
     <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\MetalsLimits.aspx.cs">
+      <DependentUpon>MetalsLimits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MetalsLimits.aspx.designer.cs">
+      <DependentUpon>MetalsLimits.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\NutrientBlankDups.aspx.cs">
       <DependentUpon>NutrientBlankDups.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reports\NutrientBlankDups.aspx.designer.cs">
       <DependentUpon>NutrientBlankDups.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NutrientLimitsReport.aspx.cs">
+      <DependentUpon>NutrientLimitsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\NutrientLimitsReport.aspx.designer.cs">
+      <DependentUpon>NutrientLimitsReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\NutrientsNOTBlankorDup.aspx.cs">
       <DependentUpon>NutrientsNOTBlankorDup.aspx</DependentUpon>
@@ -2422,6 +2470,10 @@
     <Content Include="Reports\OrgEquipment.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reports\NutrientLimits.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Reports\MetalsLookup.rdlc" />
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
     <Content Include="Reports\OrgsWithoutSamples.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

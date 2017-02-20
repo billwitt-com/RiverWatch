@@ -133,5 +133,15 @@ namespace RWInbound2.Reports
             Response.Redirect("OrgsWithNoSamples.aspx");
         }
 
+        protected void btnNutrientsLookup_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgsWithNoSamples.aspx");
+        }
+
+        protected void btnMetalsLookups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MetalsLimits.aspx");
+        }
+
     }
 }
