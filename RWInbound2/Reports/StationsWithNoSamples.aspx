@@ -4,7 +4,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+ <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="Stations With No Samples"></asp:Label>  
 
+            <br />
+            <br />
     <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1108px">
         <LocalReport ReportPath="Reports\StationsWithNoSamples.rdlc">
             <DataSources>

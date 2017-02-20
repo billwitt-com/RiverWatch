@@ -2473,7 +2473,9 @@
     <Content Include="Reports\NutrientLimits.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Reports\MetalsLookup.rdlc" />
+    <Content Include="Reports\MetalsLookup.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
     <Content Include="Reports\OrgsWithoutSamples.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

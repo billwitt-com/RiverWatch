@@ -135,7 +135,7 @@ namespace RWInbound2.Reports
 
         protected void btnNutrientsLookup_Click(object sender, EventArgs e)
         {
-            Response.Redirect("OrgsWithNoSamples.aspx");
+            Response.Redirect("NutrientLimitsReport.aspx");
         }
 
         protected void btnMetalsLookups_Click(object sender, EventArgs e)
