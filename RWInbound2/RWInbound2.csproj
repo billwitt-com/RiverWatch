@@ -2423,7 +2423,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
-    <EmbeddedResource Include="Reports\OrgsWithoutSamples.rdlc" />
+    <Content Include="Reports\OrgsWithoutSamples.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Reports\Report4.rdlc" />
     <Content Include="Reports\ReportAllOrgs.rdlc" />
     <Content Include="Reports\StationsWithNoSamples.rdlc">

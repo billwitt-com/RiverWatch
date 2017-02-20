@@ -224,9 +224,11 @@ namespace RWInbound2.Validation
             }
 
             // rule: if pH < 8.3 AND pHAlk > 0 == warning
+            // rewrite this rule from indicator tab
+            // val Phen Alk= 0 and pH >=8.3
             if (isPhenolAlk & ispH)
             {
-                if ((PhenolAlk > 0) & (pH < 8.3M))
+                if ((PhenolAlk < 0.0001m) & (pH < 8.3M))
                 {
                     Pmsg1 = "PhenAlk > 0 while pH < 8.3";
                     lblPhenol.Text = Pmsg1; 
@@ -244,27 +246,7 @@ namespace RWInbound2.Validation
                         lblPhenol.Text = "";
                         lblPhenol.ForeColor = System.Drawing.Color.Black;
                     }
-                }
-                // new rule 01/20 bwitt
-                if ((PhenolAlk < .001m) & (pH >= 8.3M))
-                {
-                    Pmsg1 = "PhenAlk = 0 while pH >= 8.3";
-                    lblPhenol.Text = Pmsg1;
-                    lblPhenol.ForeColor = System.Drawing.Color.Red;
-                }
-                else  // we are removing msg1 but not msg2, if it exists
-                {
-                    if (Pmsg2.Length > 5)
-                    {
-                        lblPhenol.Text = Pmsg2;
-                    }
-                    else
-                    {
-                        Pmsg1 = "";
-                        lblPhenol.Text = "";
-                        lblPhenol.ForeColor = System.Drawing.Color.Black;
-                    }
-                }
+                }                
             }
 
             // rule: TotalAlk > Hardness + 10
@@ -325,7 +307,7 @@ namespace RWInbound2.Validation
                     lblpH.ForeColor = System.Drawing.Color.Red;
                 }
 
-                if ((pH > 4.5m) & (pH < 9.1m))
+                if ((pH >= 4.5m) & (pH <= 9.1m))
                 {
                     lblpH.Text = "";
                     lblpH.ForeColor = System.Drawing.Color.Black;
@@ -348,7 +330,7 @@ namespace RWInbound2.Validation
                     lblDO.ForeColor = System.Drawing.Color.Red;
                 }
 
-                if ((DO > 4.5m) & (DO < 14.0m))
+                if ((DO >= 4.5m) & (DO <= 14.0m))
                 {
                     lblDO.Text = "";
                     lblDO.ForeColor = System.Drawing.Color.Black;
