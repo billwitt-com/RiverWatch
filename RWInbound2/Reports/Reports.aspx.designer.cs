@@ -110,5 +110,23 @@ namespace RWInbound2.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAWQMSlookups;
+        
+        /// <summary>
+        /// btnNutrientBlanksDups control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNutrientBlanksDups;
+        
+        /// <summary>
+        /// btnNutrientNOT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNutrientNOT;
     }
 }

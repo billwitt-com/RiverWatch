@@ -43,8 +43,12 @@
                     <asp:Button ID="btnICPBlanksAndDups" CssClass="adminButton" runat="server" Text="ALL ICP Blanks And Dups" OnClick="btnICPBlanksAndDups_Click" />
                 </td>
                 <td> <asp:Button ID="btnAWQMSlookups" CssClass="adminButton" runat="server" Text="AWQMS Lookups" OnClick="btnAWQMSlookups_Click"  /></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:Button ID="btnNutrientBlanksDups" runat="server" CssClass="adminButton" OnClick="btnNutrientBlanksDups_Click" Text="Nutrient Blks &amp; Dups" />
+                </td>
+                <td>
+                    <asp:Button ID="btnNutrientNOT" runat="server" CssClass="adminButton" OnClick="btnNutrientNOT_Click" Text="Nutrient NOT BlanksDups" />
+                </td>
             </tr>
 
         </table>

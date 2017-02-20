@@ -108,5 +108,15 @@ namespace RWInbound2.Reports
             Response.Redirect("AWQMSLookups.aspx");
         }
 
+        protected void btnNutrientBlanksDups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NutrientBlankDups.aspx");
+        }
+
+        protected void btnNutrientNOT_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NutrientsNOTBlankorDup.aspx.aspx");
+        }
+
     }
 }

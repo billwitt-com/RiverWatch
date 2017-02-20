@@ -373,6 +373,8 @@
     <Content Include="Reports\ICPBlanksAndDups.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
+    <Content Include="Reports\NutrientBlankDups.aspx" />
+    <Content Include="Reports\NutrientsNOTBlankorDup.aspx" />
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
@@ -462,6 +464,17 @@
     </None>
     <Content Include="DataSetAllOrgs.xss">
       <DependentUpon>DataSetAllOrgs.xsd</DependentUpon>
+    </Content>
+    <Content Include="LachatBlanksDups.xsc">
+      <DependentUpon>LachatBlanksDups.xsd</DependentUpon>
+    </Content>
+    <None Include="LachatBlanksDups.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LachatBlanksDups.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="LachatBlanksDups.xss">
+      <DependentUpon>LachatBlanksDups.xsd</DependentUpon>
     </Content>
     <None Include="MailList.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1360,6 +1373,11 @@
     <Compile Include="InboundSamples.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LachatBlanksDups.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LachatBlanksDups.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Logic\ExceptionUtility.cs" />
     <Compile Include="MailList.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1739,6 +1757,20 @@
     </Compile>
     <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NutrientBlankDups.aspx.cs">
+      <DependentUpon>NutrientBlankDups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\NutrientBlankDups.aspx.designer.cs">
+      <DependentUpon>NutrientBlankDups.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NutrientsNOTBlankorDup.aspx.cs">
+      <DependentUpon>NutrientsNOTBlankorDup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\NutrientsNOTBlankorDup.aspx.designer.cs">
+      <DependentUpon>NutrientsNOTBlankorDup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
@@ -2310,6 +2342,9 @@
     <Content Include="Public\StationsWithGauges.rdlc" />
     <Content Include="Reports\MLables.rdlc" />
     <Content Include="Reports\AWQMSLookup.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\LachatBlanksDups.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
