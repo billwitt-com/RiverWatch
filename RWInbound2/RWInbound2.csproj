@@ -376,6 +376,7 @@
     <Content Include="Reports\NutrientBlankDups.aspx" />
     <Content Include="Reports\NutrientsNOTBlankorDup.aspx" />
     <Content Include="Reports\OrgEquipment.aspx" />
+    <Content Include="Reports\OrgsWithNoSamples.aspx" />
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
@@ -506,6 +507,17 @@
     </None>
     <Content Include="OrgReportDataSet.xss">
       <DependentUpon>OrgReportDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="OrgsWithNoSamples.xsc">
+      <DependentUpon>OrgsWithNoSamples.xsd</DependentUpon>
+    </Content>
+    <None Include="OrgsWithNoSamples.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrgsWithNoSamples.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="OrgsWithNoSamples.xss">
+      <DependentUpon>OrgsWithNoSamples.xsd</DependentUpon>
     </Content>
     <None Include="PartsWithOrgs.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1431,6 +1443,11 @@
     <Compile Include="OrgStatusView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrgsWithNoSamples.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrgsWithNoSamples.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ParticipantsView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -1807,6 +1824,13 @@
     </Compile>
     <Compile Include="Reports\OrgEquipment.aspx.designer.cs">
       <DependentUpon>OrgEquipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OrgsWithNoSamples.aspx.cs">
+      <DependentUpon>OrgsWithNoSamples.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgsWithNoSamples.aspx.designer.cs">
+      <DependentUpon>OrgsWithNoSamples.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
@@ -2399,6 +2423,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
+    <EmbeddedResource Include="Reports\OrgsWithoutSamples.rdlc" />
     <EmbeddedResource Include="Reports\Report4.rdlc" />
     <Content Include="Reports\ReportAllOrgs.rdlc" />
     <Content Include="Reports\StationsWithNoSamples.rdlc">
