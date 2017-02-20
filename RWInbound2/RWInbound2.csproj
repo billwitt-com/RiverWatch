@@ -375,6 +375,7 @@
     <Content Include="Reports\MetalBarCodes.aspx" />
     <Content Include="Reports\NutrientBlankDups.aspx" />
     <Content Include="Reports\NutrientsNOTBlankorDup.aspx" />
+    <Content Include="Reports\OrgEquipment.aspx" />
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
@@ -486,6 +487,17 @@
     </Content>
     <Content Include="OrgReportDataSet.xsc">
       <DependentUpon>OrgReportDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="OrgEquipmentDataSource.xsc">
+      <DependentUpon>OrgEquipmentDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="OrgEquipmentDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrgEquipmentDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="OrgEquipmentDataSource.xss">
+      <DependentUpon>OrgEquipmentDataSource.xsd</DependentUpon>
     </Content>
     <None Include="OrgReportDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -1396,6 +1408,11 @@
     <Compile Include="OrgContractStatu.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrgEquipmentDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrgEquipmentDataSource.xsd</DependentUpon>
+    </Compile>
     <Compile Include="OrgStationsView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
@@ -1771,6 +1788,13 @@
     </Compile>
     <Compile Include="Reports\NutrientsNOTBlankorDup.aspx.designer.cs">
       <DependentUpon>NutrientsNOTBlankorDup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OrgEquipment.aspx.cs">
+      <DependentUpon>OrgEquipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgEquipment.aspx.designer.cs">
+      <DependentUpon>OrgEquipment.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
@@ -2345,6 +2369,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\LachatBlanksDups.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\OrgEquipment.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />

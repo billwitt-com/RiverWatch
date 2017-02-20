@@ -51,6 +51,18 @@
                 </td>
             </tr>
 
+            <tr>
+                <td class="rowId-charid-dsorder-textbox" style="width: 15px">&nbsp;</td>
+                <td>
+                    <asp:Button ID="btnOrgEquipment" runat="server" CssClass="adminButton" OnClick="btnOrgEquipment_Click" Text="Org Equipment" />
+                </td>
+                <td> &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+
         </table>
     </div>
 

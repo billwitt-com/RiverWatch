@@ -115,7 +115,12 @@ namespace RWInbound2.Reports
 
         protected void btnNutrientNOT_Click(object sender, EventArgs e)
         {
-            Response.Redirect("NutrientsNOTBlankorDup.aspx.aspx");
+            Response.Redirect("NutrientsNOTBlankorDup.aspx");
+        }
+
+        protected void btnOrgEquipment_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgEquipment.aspx");
         }
 
     }

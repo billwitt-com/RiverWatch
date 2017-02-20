@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="OrgEquipmentDataSource" targetNamespace="http://tempuri.org/OrgEquipmentDataSource.xsd" xmlns:mstns="http://tempuri.org/OrgEquipmentDataSource.xsd" xmlns="http://tempuri.org/OrgEquipmentDataSource.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="RiverWatchDEV" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RiverWatchDEV (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.RiverWatchDEV.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="OrgEquipmentTableAdapter" GeneratorDataComponentClassName="OrgEquipmentTableAdapter" Name="OrgEquipment" UserDataComponentName="OrgEquipmentTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="RiverWatchDEV (Web.config)" DbObjectName="RiverWatch.dbo.OrgEquipment" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT OrganizationName, ItemName, ItemDescription, CategoryID, Quantity, SerialNumber, DateReceived, DateReJuv1, DateReJuv2, AutoReplaceDt, Comment FROM dbo.OrgEquipment</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="OrganizationName" DataSetColumn="OrganizationName" />
+              <Mapping SourceColumn="ItemName" DataSetColumn="ItemName" />
+              <Mapping SourceColumn="ItemDescription" DataSetColumn="ItemDescription" />
+              <Mapping SourceColumn="CategoryID" DataSetColumn="CategoryID" />
+              <Mapping SourceColumn="Quantity" DataSetColumn="Quantity" />
+              <Mapping SourceColumn="SerialNumber" DataSetColumn="SerialNumber" />
+              <Mapping SourceColumn="DateReceived" DataSetColumn="DateReceived" />
+              <Mapping SourceColumn="DateReJuv1" DataSetColumn="DateReJuv1" />
+              <Mapping SourceColumn="DateReJuv2" DataSetColumn="DateReJuv2" />
+              <Mapping SourceColumn="AutoReplaceDt" DataSetColumn="AutoReplaceDt" />
+              <Mapping SourceColumn="Comment" DataSetColumn="Comment" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="OrgEquipmentDataSource" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="OrgEquipmentDataSource" msprop:Generator_UserDSName="OrgEquipmentDataSource">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="OrgEquipment" msprop:Generator_TableClassName="OrgEquipmentDataTable" msprop:Generator_TableVarName="tableOrgEquipment" msprop:Generator_TablePropName="OrgEquipment" msprop:Generator_RowDeletingName="OrgEquipmentRowDeleting" msprop:Generator_RowChangingName="OrgEquipmentRowChanging" msprop:Generator_RowEvHandlerName="OrgEquipmentRowChangeEventHandler" msprop:Generator_RowDeletedName="OrgEquipmentRowDeleted" msprop:Generator_UserTableName="OrgEquipment" msprop:Generator_RowChangedName="OrgEquipmentRowChanged" msprop:Generator_RowEvArgName="OrgEquipmentRowChangeEvent" msprop:Generator_RowClassName="OrgEquipmentRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OrganizationName" msprop:Generator_ColumnVarNameInTable="columnOrganizationName" msprop:Generator_ColumnPropNameInRow="OrganizationName" msprop:Generator_ColumnPropNameInTable="OrganizationNameColumn" msprop:Generator_UserColumnName="OrganizationName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ItemName" msprop:Generator_ColumnVarNameInTable="columnItemName" msprop:Generator_ColumnPropNameInRow="ItemName" msprop:Generator_ColumnPropNameInTable="ItemNameColumn" msprop:Generator_UserColumnName="ItemName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ItemDescription" msprop:Generator_ColumnVarNameInTable="columnItemDescription" msprop:Generator_ColumnPropNameInRow="ItemDescription" msprop:Generator_ColumnPropNameInTable="ItemDescriptionColumn" msprop:Generator_UserColumnName="ItemDescription" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CategoryID" msprop:Generator_ColumnVarNameInTable="columnCategoryID" msprop:Generator_ColumnPropNameInRow="CategoryID" msprop:Generator_ColumnPropNameInTable="CategoryIDColumn" msprop:Generator_UserColumnName="CategoryID" type="xs:int" minOccurs="0" />
+              <xs:element name="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_UserColumnName="Quantity" type="xs:int" minOccurs="0" />
+              <xs:element name="SerialNumber" msprop:Generator_ColumnVarNameInTable="columnSerialNumber" msprop:Generator_ColumnPropNameInRow="SerialNumber" msprop:Generator_ColumnPropNameInTable="SerialNumberColumn" msprop:Generator_UserColumnName="SerialNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateReceived" msprop:Generator_ColumnVarNameInTable="columnDateReceived" msprop:Generator_ColumnPropNameInRow="DateReceived" msprop:Generator_ColumnPropNameInTable="DateReceivedColumn" msprop:Generator_UserColumnName="DateReceived" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DateReJuv1" msprop:Generator_ColumnVarNameInTable="columnDateReJuv1" msprop:Generator_ColumnPropNameInRow="DateReJuv1" msprop:Generator_ColumnPropNameInTable="DateReJuv1Column" msprop:Generator_UserColumnName="DateReJuv1" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DateReJuv2" msprop:Generator_ColumnVarNameInTable="columnDateReJuv2" msprop:Generator_ColumnPropNameInRow="DateReJuv2" msprop:Generator_ColumnPropNameInTable="DateReJuv2Column" msprop:Generator_UserColumnName="DateReJuv2" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="AutoReplaceDt" msprop:Generator_ColumnVarNameInTable="columnAutoReplaceDt" msprop:Generator_ColumnPropNameInRow="AutoReplaceDt" msprop:Generator_ColumnPropNameInTable="AutoReplaceDtColumn" msprop:Generator_UserColumnName="AutoReplaceDt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Comment" msprop:Generator_ColumnVarNameInTable="columnComment" msprop:Generator_ColumnPropNameInRow="Comment" msprop:Generator_ColumnPropNameInTable="CommentColumn" msprop:Generator_UserColumnName="Comment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
