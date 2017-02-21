@@ -94,6 +94,24 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Panel BenthicDataFormView_Panel;
         
         /// <summary>
+        /// BenthicsDataErrorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BenthicsDataErrorLabel;
+        
+        /// <summary>
+        /// BenthicsDataSuccessLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BenthicsDataSuccessLabel;
+        
+        /// <summary>
         /// BenthicDataFormView control.
         /// </summary>
         /// <remarks>

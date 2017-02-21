@@ -42,14 +42,32 @@ namespace RWInbound2.Admin
                 case "Success":
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = message;
+                    BenthicsDataErrorLabel.Text = "";
+                    BenthicsDataSuccessLabel.Text = "";
                     break;
                 case "Error":
                     ErrorLabel.Text = message;
                     SuccessLabel.Text = "";
+                    BenthicsDataErrorLabel.Text = "";
+                    BenthicsDataSuccessLabel.Text = "";
+                    break;
+                case "BenthicsData_Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    BenthicsDataErrorLabel.Text = "";
+                    BenthicsDataSuccessLabel.Text = message;
+                    break;
+                case "BenthicsData_Error":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    BenthicsDataErrorLabel.Text = message;
+                    BenthicsDataSuccessLabel.Text = "";
                     break;
                 default:
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "";
+                    BenthicsDataErrorLabel.Text = "";
+                    BenthicsDataSuccessLabel.Text = "";
                     break;
             }
         }
@@ -373,6 +391,8 @@ namespace RWInbound2.Admin
             {
                 if (e.CommandName == "GetAllBenthicsData")
                 {
+                    SetMessages();
+
                     using (RiverWatchEntities _db = new RiverWatchEntities())
                     {
                         string[] commandArgs = e.CommandArgument.ToString().Split(new char[] { ',' });
@@ -415,23 +435,81 @@ namespace RWInbound2.Admin
             }
         }
 
-        protected void CancelButton_Click(object sender, EventArgs e)
+        /*****************************************************************************************************************
+         * Benthics Data Panel 
+        ******************************************************************************************************************/
+        protected void BenthicDataFormView_ItemCommand(object sender, FormViewCommandEventArgs e)
         {
             try
             {
-                BenthicDataFormView_Panel.Visible = true;
-                BenthicDataFormView.DataBind();
-                //BenthicDataFormView_UpdatePanel.Update();
+                if (e.CommandName.Equals("Cancel"))
+                {
+                    SetMessages();
+
+                    string forViewID = e.CommandArgument.ToString();
+                    bool convertIDToInt = int.TryParse(forViewID, out benSampIDSelected);
+                    if (!convertIDToInt)
+                    {
+                        SetMessages("BenthicsData_Error", "The Benthics Sample ID provided is not a number. Please correct the error and try again.");
+                    }
+                    else
+                    {
+                        BenthicDataFormView_Panel.Visible = true;
+                        BenthicDataFormView.DataBind();
+                        BenthicDataFormView_UpdatePanel.Update();                    
+                    }                  
+                }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "CancelButton_Click", "", "");
-            }
+                HandleErrors(ex, ex.Message, "BenthicDataFormView_ItemCommand", "", "");
+            }            
         }
 
-        protected void BenthicDataFormView_ItemCommand(object sender, FormViewCommandEventArgs e)
+        public void UpdateSelectedBenthicData(tblBenSamp model)
         {
-           
-        }
+            try
+            {
+                SetMessages();
+
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    var selectedBenthicsDataToUpdate = _db.tblBenSamps.Find(model.ID);
+
+                    if (selectedBenthicsDataToUpdate != null)
+                    {
+                        TryUpdateModel(selectedBenthicsDataToUpdate);
+
+                        if (ModelState.IsValid)
+                        {
+                            benSampIDSelected = model.ID;
+                            if (this.User != null && this.User.Identity.IsAuthenticated)
+                            {
+                                selectedBenthicsDataToUpdate.UserLastModified
+                                    = HttpContext.Current.User.Identity.Name;
+                            }
+                            else
+                            {
+                                selectedBenthicsDataToUpdate.UserLastModified = "Unknown";
+                            }
+
+                            selectedBenthicsDataToUpdate.DateLastModified = DateTime.Now;
+                            _db.SaveChanges();
+
+                            string successMsg = string.Format("Benthics Data Updated: {0}", selectedBenthicsDataToUpdate.tlkActivityCategory.Description);
+                            SetMessages("BenthicsData_Success", successMsg);
+                        }
+                        else
+                        {
+                            SetMessages("BenthicsData_Error", "Correct all input errors");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "UpdateSelectedBenthicData", "", "");
+            }
+        }       
     }
 }
