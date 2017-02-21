@@ -19,18 +19,25 @@
         <br />
         <asp:Panel ID="pnlResults" runat="server">
 
-        <br />
-        <asp:Label ID="lblTotalResults" runat="server" ></asp:Label>
-        <br />
-        <br />
-        <asp:Label ID="lblResults" runat="server" ></asp:Label>
-        <br />
-        <br />
-            <asp:Label ID="lblCanBeDeleted" runat="server" ></asp:Label>
-        <br />
-        <br />
-        <asp:Button ID="btnDelete" CssClass="adminButton"  runat="server" Text="Delete" OnClick="btnDelete_Click" />
+            <br />
+            <asp:Label ID="lblTotalResults" runat="server"></asp:Label>
+            <br />
+            <br />
+            <asp:Label ID="lblResults" runat="server"></asp:Label>
+
+            <br />
+            <br />
+            <asp:Label ID="lblBlankDups" runat="server"></asp:Label>
+            <br />
+            <br />
+            <asp:Label ID="lblCanBeDeleted" runat="server"></asp:Label>
+
+            <br />
+            <br />
+            <asp:Button ID="btnDelete" CssClass="adminButton" runat="server" Text="Delete" OnClick="btnDelete_Click" />
             <asp:Button ID="btnCancel" runat="server" CssClass="adminButton" OnClick="btnCancel_Click" Text="Cancel" />
+            <br />
+            <br />
         </asp:Panel>
     <asp:Panel ID="pnlAreYouSure" runat="server">
 
@@ -42,6 +49,8 @@
     <asp:Panel ID="pnlConfirm" runat="server">
 
         <asp:Label ID="lblConfirm" runat="server" ></asp:Label> <asp:Button ID="btnConfirm" runat="server" Text="OK" OnClick="btnConfirm_Click" />
+
+
     </asp:Panel>
 
 
