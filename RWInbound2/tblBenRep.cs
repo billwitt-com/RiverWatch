@@ -31,7 +31,7 @@ namespace RWInbound2
         public string UserLastModified { get; set; }
     
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
-        public virtual tblBenSamp tblBenSamp { get; set; }
         public virtual ICollection<tblBenthic> tblBenthics { get; set; }
+        public virtual tblBenSamp tblBenSamp { get; set; }
     }
 }

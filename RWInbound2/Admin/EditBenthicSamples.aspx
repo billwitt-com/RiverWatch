@@ -119,145 +119,159 @@
             </ContentTemplate>           
         </asp:UpdatePanel>
          <%--Benthics Data--%>
-        <asp:UpdatePanel ID="BenthicDataFormView_UpdatePanel" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>
-                <asp:Panel ID="BenthicDataFormView_Panel" runat="server" Visible="false">
-                    <h4>Benthics Data</h4>
-                    <asp:FormView ID="BenthicDataFormView" runat="server" 
-                            DataKeyNames="ID"
-                            ItemType="RWInbound2.tblBenSamp" 
-                            SelectMethod="GetSelectedBenthicData"
-                            OnItemCommand="BenthicDataFormView_ItemCommand"
-                            DefaultMode="Edit"
-                            AllowPaging="false"
-                            EmptyDataText="No results found.">                
-                        <EditItemTemplate> 
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Activity:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownActivity" runat="server" DataMember="it"
-                                                SelectMethod="BindActivityCategories" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkActivityCategory.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList>   
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Collection Date:</label>
-                            </div>
-                            <div class="benthics-samples-formview-edit-template-div">
-                                <%# Eval("CollDate", "{0:M-dd-yyyy}") %>
-                            </div>
-                            <br /> 
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Collection Time:</label>
-                            </div>
-                            <div class="benthics-samples-formview-edit-template-div">
-                                <%# Eval("CollTime", "{0:HH:mm}") %>
-                            </div>
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Enter Date:</label>
-                            </div>
-                            <div class="benthics-samples-formview-edit-template-div">
-                                <%# Eval("EnterDate", "{0:M-dd-yyyy}") %>
-                            </div>
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Number Kicks:</label>
-                            </div>
-                            <asp:TextBox ID="txtNumKicksSamples" runat="server" Text='<%# Bind("NumKicksSamples") %>' 
-                                         CssClass="benthics-samples-form-view-width-num-kicks" TextMode="Number"></asp:TextBox> 
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Collection Method:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownFieldProcedures" runat="server" DataMember="it"
-                                                SelectMethod="BindFieldProcedures" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkFieldProcedure.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList>
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Field Gear:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownFieldGears" runat="server" DataMember="it"
-                                                SelectMethod="BindFieldGears" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkFieldGear.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList>
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Gear Configuration:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownGearConfigs" runat="server" DataMember="it"
-                                                SelectMethod="BindGearConfigs" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkGearConfig.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList>
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Activity Type:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownActivityTypes" runat="server" DataMember="it"
-                                                SelectMethod="BindActivityTypes" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkActivityType.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList> 
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Medium:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownMediums" runat="server" DataMember="it"
-                                                SelectMethod="BindMediums" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkMedium.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList> 
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Intent:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownIntents" runat="server" DataMember="it"
-                                                SelectMethod="BindIntents" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkIntent.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList>
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Communities:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownCommunities" runat="server" DataMember="it"
-                                                SelectMethod="BindCommunities" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkCommunity.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList>
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Bio Results Type:</label>
-                            </div>
-                            <asp:DropDownList ID="dropDownBioResultsTypes" runat="server" DataMember="it"
-                                                SelectMethod="BindBioResultsTypes" CssClass="benthics-samples-formview-dropdowns"   
-                                                SelectedValue='<%# Bind("tlkBioResultsType.ID") %>'                                          
-                                                AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
-                            </asp:DropDownList> 
-                            <br />
-                            <div class="benthics-samples-form-view-labels">
-                                <label>Comments:</label>
-                            </div>
-                            <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Text='<%# Bind("Comments") %>' MaxLength="100" CssClass="benthics-samples-form-view-textbox"></asp:TextBox>          
-                            <br /><br />
-                            <asp:Button ID="CancelButton" runat="server" Text="Cancel" OnClick="CancelButton_Click" CssClass="adminButton" />
-                            <asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" OnClientClick="return alert('Coming Soon!');" CssClass="adminButton" />
-                            <%--<asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" CssClass="adminButton" />
-                            <asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" CommandName="Update" CssClass="adminButton" />--%>
+        <div class="benthic-data-formview">
+            <asp:UpdatePanel ID="BenthicDataFormView_UpdatePanel" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:Panel ID="BenthicDataFormView_Panel" runat="server" Visible="false">
+                        <h4>Benthics Data</h4>
+                        <div class="benthics-data-label-placement">
+                            <asp:Label ID="BenthicsDataErrorLabel" CssClass="benthics-data-label-error" runat="server" />               
+                        </div>
+                        <div class="benthics-data-label-placement">
+                             <asp:Label ID="BenthicsDataSuccessLabel" CssClass="benthics-data-label-success" runat="server" />
+                        </div>
+                        <asp:FormView ID="BenthicDataFormView" runat="server" 
+                                DataKeyNames="ID"
+                                ItemType="RWInbound2.tblBenSamp" 
+                                SelectMethod="GetSelectedBenthicData"
+                                UpdateMethod="UpdateSelectedBenthicData"
+                                OnItemCommand="BenthicDataFormView_ItemCommand"
+                                DefaultMode="Edit"
+                                AllowPaging="false"
+                                EmptyDataText="No results found.">                
+                            <EditItemTemplate> 
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Activity:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownActivity" runat="server" DataMember="it"
+                                                    SelectMethod="BindActivityCategories" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkActivityCategory.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList>   
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Collection Date:</label>
+                                </div>
+                                <div class="benthics-samples-formview-edit-template-div">
+                                    <%# Eval("CollDate", "{0:M-dd-yyyy}") %>
+                                </div>
+                                <br /> 
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Collection Time:</label>
+                                </div>
+                                <div class="benthics-samples-formview-edit-template-div">
+                                    <%# Eval("CollTime", "{0:HH:mm}") %>
+                                </div>
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Enter Date:</label>
+                                </div>
+                                <div class="benthics-samples-formview-edit-template-div">
+                                    <%# Eval("EnterDate", "{0:M-dd-yyyy}") %>
+                                </div>
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Number Kicks:</label>
+                                </div>
+                                <asp:TextBox ID="txtNumKicksSamples" runat="server" Text='<%# Bind("NumKicksSamples") %>' 
+                                             CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox> 
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Lab Count:</label>
+                                </div>
+                                <asp:TextBox ID="txtLabCount" runat="server" Text='<%# Bind("LabCount") %>' 
+                                             CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox> 
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Collection Method:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownFieldProcedures" runat="server" DataMember="it"
+                                                    SelectMethod="BindFieldProcedures" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkFieldProcedure.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList>
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Field Gear:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownFieldGears" runat="server" DataMember="it"
+                                                    SelectMethod="BindFieldGears" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkFieldGear.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList>
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Gear Configuration:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownGearConfigs" runat="server" DataMember="it"
+                                                    SelectMethod="BindGearConfigs" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkGearConfig.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList>
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Activity Type:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownActivityTypes" runat="server" DataMember="it"
+                                                    SelectMethod="BindActivityTypes" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkActivityType.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList> 
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Medium:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownMediums" runat="server" DataMember="it"
+                                                    SelectMethod="BindMediums" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkMedium.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList> 
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Intent:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownIntents" runat="server" DataMember="it"
+                                                    SelectMethod="BindIntents" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkIntent.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList>
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Communities:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownCommunities" runat="server" DataMember="it"
+                                                    SelectMethod="BindCommunities" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkCommunity.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList>
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Bio Results Type:</label>
+                                </div>
+                                <asp:DropDownList ID="dropDownBioResultsTypes" runat="server" DataMember="it"
+                                                    SelectMethod="BindBioResultsTypes" CssClass="benthics-samples-formview-dropdowns"   
+                                                    SelectedValue='<%# Bind("tlkBioResultsType.ID") %>'                                          
+                                                    AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                </asp:DropDownList> 
+                                <br />
+                                <div class="benthics-samples-form-view-labels">
+                                    <label>Comments:</label>
+                                </div>
+                                <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Text='<%# Bind("Comments") %>' MaxLength="100" CssClass="benthics-samples-form-view-textbox"></asp:TextBox>          
+                                <br /><br />
+                                <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" CssClass="adminButton" CommandArgument='<%# Eval("ID") %>' />                                                 
+                                <%--<asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" OnClientClick="return alert('Coming Soon!');" CssClass="adminButton" />--%>                        
+                                <asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" CommandName="Update" CssClass="adminButton" />
 
-                            <asp:HiddenField id="HiddenField_SampleID" runat="server" value='<%# Bind("SampleID") %>' />
-                            <asp:HiddenField id="HiddenField_Valid" runat="server" value='<%# Bind("Valid") %>' />
-                            <asp:HiddenField id="HiddenField_DateLastModified" runat="server" value='<%# Bind("DateLastModified") %>' />
-                            <asp:HiddenField id="HiddenField_UserLastModified" runat="server" value='<%# Bind("UserLastModified") %>' />
-                        </EditItemTemplate>
-                    </asp:FormView>
-                </asp:Panel> 
-            </ContentTemplate>
-        </asp:UpdatePanel>            
+                                <asp:HiddenField id="HiddenField_SampleID" runat="server" value='<%# Bind("SampleID") %>' />
+                                <asp:HiddenField id="HiddenField_Valid" runat="server" value='<%# Bind("Valid") %>' />
+                                <asp:HiddenField id="HiddenField_DateLastModified" runat="server" value='<%# Bind("DateLastModified") %>' />
+                                <asp:HiddenField id="HiddenField_UserLastModified" runat="server" value='<%# Bind("UserLastModified") %>' />
+                            </EditItemTemplate>
+                        </asp:FormView>
+                    </asp:Panel> 
+                </ContentTemplate>
+            </asp:UpdatePanel>     
+        </div>
     </section>
 </asp:Content>

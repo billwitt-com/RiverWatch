@@ -168,7 +168,7 @@ td button {
     cursor: pointer !important;
     border: 2px solid #787878; /*this works*/
     padding: 1px;
-    height: 26px;
+    /*height: 26px;*/ /*Not sure why Bill W added this on 2/17? Messed up buttons in many places*/
 }
 
 buttonSWAP {
@@ -1996,7 +1996,7 @@ tr.grid-edit-benthics-samples-header{
     font-size: 16px;
 }
 
-.benthics-samples-form-view-width-num-kicks{
+.benthics-samples-form-view-width-number-textbox{
     width: 40px;
     margin-left: 5px;
 }
@@ -2018,4 +2018,27 @@ tr.grid-edit-benthics-samples-header{
     margin: 15px 5px -7px 5px;
     padding: 3px;
     resize: vertical;
+}
+
+div.benthic-data-formview{
+    width: 450px;
+}
+
+.benthics-data-label-error{  
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #b94a48;
+}
+
+.benthics-data-label-success{
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #468847;
+}
+
+.benthics-data-label-placement{
+    width: 400px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    text-align:left;
 }

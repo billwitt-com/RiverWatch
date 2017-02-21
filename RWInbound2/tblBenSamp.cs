@@ -39,6 +39,7 @@ namespace RWInbound2
         public int FieldGearID { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
+        public int LabCount { get; set; }
     
         public virtual ICollection<tblBenGrid> tblBenGrids { get; set; }
         public virtual ICollection<tblBenRep> tblBenReps { get; set; }
