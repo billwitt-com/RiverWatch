@@ -17,6 +17,8 @@ namespace RWInbound2.Applications
         string Wbid = "";
         DataTable DTlookup = new DataTable(); // make public so it can be shared without memory overhead in a method call
         DataTable DTout = new DataTable(); // output table
+   //     static IQueryable<tlkAQWMStranslation> LKUP; 
+        List<tlkAQWMStranslation> LKUP = new List<tlkAQWMStranslation>(); 
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,6 +37,8 @@ namespace RWInbound2.Applications
         protected bool createReport(DateTime startDate, DateTime endDate, string WBID)
         {
             RiverWatchEntities RWE = new RiverWatchEntities();
+
+         //  IEnumerable<tlkAQWMStranslation> Lookup = null; 
           //  decimal? result;
             decimal? result; 
             string symbol = "";
@@ -44,25 +48,32 @@ namespace RWInbound2.Applications
             // first, read translation table into in-memory data table to avoid a second db query for each line.
             try
             {
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = string.Format(" select * from [dbo].[tlkAQWMStranslation] where valid = 1");
-                        cmd.Connection = conn;
-                        conn.Open();
+                LKUP.Clear(); 
+               var ZZ = from Z in RWE.tlkAQWMStranslations
+                         where Z.Valid == true
+                         select Z;
+               foreach (tlkAQWMStranslation s in ZZ)
+                   LKUP.Add(s); 
+
+                //using (SqlConnection conn = new SqlConnection())
+                //{
+                //    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
+                //    using (SqlCommand cmd = new SqlCommand())
+                //    {
+                //        cmd.CommandText = string.Format(" select * from [dbo].[tlkAQWMStranslation] where valid = 1");
+                //        cmd.Connection = conn;
+                //        conn.Open();
  
-                        using (SqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                            if (sdr.HasRows)
-                            {
-                                DTlookup.Load(sdr);
-                            }
-                        }
-                        conn.Close();
-                    }
-                }
+                //        using (SqlDataReader sdr = cmd.ExecuteReader())
+                //        {
+                //            if (sdr.HasRows)
+                //            {
+                //                DTlookup.Load(sdr);
+                //            }
+                //        }
+                //        conn.Close();
+                //    }
+                //}
             }
 
             catch (Exception ex)
@@ -80,7 +91,8 @@ namespace RWInbound2.Applications
 
             
 
-            if(DTlookup.Rows.Count < 20)
+           // if(DTlookup.Rows.Count < 20)
+            if (LKUP.Count() < 20)
             {
                 string nam = "";
                 if (User.Identity.Name.Length < 3)
@@ -291,35 +303,35 @@ namespace RWInbound2.Applications
                 // FIELD DATA - MAY NEED TO MOVE IT TO SEPARATE REPORT
 
                     symbol = "PHEN_ALK";
-                    result = (decimal)r.PHEN_ALK.Value;
+                    result = (decimal?)r.PHEN_ALK;
                     calculateRow(r, result, symbol);
 
                     symbol = "TempC";
-                    result = (decimal)r.TempC.Value;
+                    result = (decimal?)r.TempC;
                     calculateRow(r, result, symbol);
 
                     symbol = "TOTAL_ALK";
-                    result = (decimal)r.TOTAL_ALK.Value;
+                    result = (decimal?)r.TOTAL_ALK;
                     calculateRow(r, result, symbol);
 
                     symbol = "TOTAL_HARD";
-                    result = (decimal)r.TOTAL_HARD.Value;
+                    result = (decimal?)r.TOTAL_HARD;
                     calculateRow(r, result, symbol);
 
                     symbol = "DO_MGL";
-                    result = (decimal)r.DO_MGL.Value;
+                    result = (decimal?)r.DO_MGL;
                     calculateRow(r, result, symbol);
 
                     symbol = "DO_MGL";
-                    result = (decimal)r.DO_MGL.Value;
+                    result = (decimal?)r.DO_MGL;
                     calculateRow(r, result, symbol);
 
                     symbol = "USGS_Flow";
-                    result = (decimal)r.USGS_Flow.Value;
+                    result = (decimal?)r.USGS_Flow;
                     calculateRow(r, result, symbol);
 
                     symbol = "DOSAT";
-                    result = (decimal)r.DOSAT.Value;
+                    result = (decimal?)r.DOSAT;
                     calculateRow(r, result, symbol);
 
 
@@ -335,12 +347,21 @@ namespace RWInbound2.Applications
                 Directory.CreateDirectory(app_DataDirectory);
             }
 
+            string filesToDelete = "~/App_Data/AWQMSMetalsandNutrient*.csv";
+
+            string[] txtList = Directory.GetFiles(app_DataDirectory, "AWQMSMetalsandNutrient*.csv");
+            foreach (string f in txtList)
+            {
+                File.Delete(f);
+            }
+
             string outFile = "~/App_Data/AWQMSMetalsandNutrient." + DateTime.Now.ToString("MM.dd.yyyy") + ".csv";
             outFile = HttpContext.Current.Server.MapPath(outFile);
 
             FileInfo FI = new FileInfo(outFile);    // delete if exists
             if (FI.Exists)
                 FI.Delete();
+
             Session["OUTFILE"] = outFile; 
             
             using (StreamWriter writer = new StreamWriter(outFile))
@@ -437,26 +458,27 @@ namespace RWInbound2.Applications
       //,[UserCreated]
       //,[Valid]
 
-                DataRow[] RR = null ; 
-                try
-                {
+           //     DataRow[] RR = null ;
+
+                string stophere = "stop"; 
+           tlkAQWMStranslation T = (from t in LKUP
+                         where t.LocalName == symbol & t.StartDate <= anaDate & t.EndDate >= anaDate
+                         select t).FirstOrDefault();                                    
+
+               
                   //  selStr = string.Format("StartDate >= #{0}#", anaDate);       // and EndDate < #{0}# and LocalName = '{1}'", anaDate, "AL_D" );
-                    selStr = string.Format("LocalName = '{0}'", symbol); 
-                    RR = DTlookup.Select(selStr); 
-                }
-                catch(Exception ex)
-                {
-                    string whattodo = "I don't know"; 
-                }
+                  //  selStr = string.Format("LocalName = '{0}'", symbol); 
+                //    RR = DTlookup.Select(selStr); 
 
-                if(RR != null)
-                {
-                    DR["Characteristic Name"] = RR[0]["Characteristic Name"];
-                    DR["Result Sample Fraction"] = RR[0]["Result Sample Fraction"] ?? "";
-                    DR["Result Unit"] = RR[0]["Result Unit"] ?? "";
 
-                    DR["Result Analytical Method ID"] = RR[0]["Result Analytical Method ID"] ?? "";
-                    DR["Result Analytical Method Context"] = RR[0]["Result Analytical Method Context"] ?? "";
+                 if(T != null)                           //  if(RR != null)
+                {
+                    DR["Characteristic Name"] = T.Characteristic_Name;                                  //RR[0]["Characteristic Name"];
+                    DR["Result Sample Fraction"] = T.Result_Sample_Fraction ?? "";                            //RR[0]["Result Sample Fraction"] ?? "";
+                    DR["Result Unit"] = T.Result_Unit;                                                 //RR[0]["Result Unit"] ?? "";
+
+                    DR["Result Analytical Method ID"] = T.Result_Analytical_Method_ID ?? "";                  //RR[0]["Result Analytical Method ID"] ?? "";
+                    DR["Result Analytical Method Context"] = T.Result_Analytical_Method_Context ?? "";        //RR[0]["Result Analytical Method Context"] ?? "";
 
                     // replaced 
                     //DR["Result Detection Limit Value"] = RR[0]["DetectionLevel"] ?? ""; 
@@ -468,11 +490,11 @@ namespace RWInbound2.Applications
                     //DTout.Columns.Add(new DataColumn("Lower Reporting Limit", typeof(string)));
                     //DTout.Columns.Add(new DataColumn("Result Detection Limit Unit", typeof(string)));
 
-                    DR["Method Detection Level"] = RR[0]["Method Detection Level"] ?? "";
-                    DR["Lower Reporting Limit"] = RR[0]["Lower Reporting Limit"] ?? "";
-                    DR["Result Detection Limit Unit"] = RR[0]["Result Detection Limit Unit"] ?? "";
+                    DR["Method Detection Level"] = T.Method_Detection_Level;                 //RR[0]["Method Detection Level"] ?? "";
+                    DR["Lower Reporting Limit"] = T.Lower_Reporting_Limit;                                  //RR[0]["Lower Reporting Limit"] ?? "";
+                    DR["Result Detection Limit Unit"] = T.Result_Detection_Limit_Unit ?? "";                                 //RR[0]["Result Detection Limit Unit"] ?? "";
 
-                    DR["Method Speciation"] = RR[0]["Method Speciation"] ?? "";
+                    DR["Method Speciation"] = T.Method_Speciation ?? "";                     //RR[0]["Method Speciation"] ?? "";
 
                     if (isNullValue) // nothing measured
                     {
@@ -486,12 +508,12 @@ namespace RWInbound2.Applications
                         DR["Result Qualifier"] = "U";                        
                     }
 
-                    else if (!DBNull.Value.Equals(RR[0]["DetectionLevel"]))
+                    else if (T.Method_Detection_Level != null)                                 //RR[0]["Method Detection Level"]))
                     {
-                        DL = (decimal)RR[0]["DetectionLevel"];
-                        if (!DBNull.Value.Equals(RR[0]["LowerReportingLimit"]))
+                        DL = (decimal)T.Method_Detection_Level;                             // RR[0]["Method Detection Level"];
+                        if (T.Lower_Reporting_Limit != null)                                        //   RR[0]["Lower Reporting Limit"]))
                         {
-                            RL = (decimal)RR[0]["LowerReportingLimit"];
+                            RL = (decimal) T.Lower_Reporting_Limit;                                                 //RR[0]["Lower Reporting Limit"];
                         }
                         if ((RL > .00001m) & (DL > .00001m))
                         {
@@ -688,54 +710,45 @@ namespace RWInbound2.Applications
          protected void btnDownload_Click(object sender, System.EventArgs e)
          {
              string outFile = ""; 
-             string mappedPath = ""; 
+
+             lblDownload.Text = "";
              if(Session["OUTFILE"] != null)
              {
                  outFile = (string)Session["OUTFILE"];
 
+             //   outFile = @"\App_Data\AWQMSMetalsandNutrient.02.16.2017.csv"; 
+
                  try
-                 {
-                     // set the http content type 
-                     Response.ContentType = "application/x-csv"; 
+                 {          
+                FileStream LiveFileStream = new FileStream(outFile, FileMode.Open, FileAccess.Read);
+                byte[] filebuffer = new byte[(int)LiveFileStream.Length+1];
 
-                     // initialize the http content-disposition header to
-                     // indicate a file attachment with the default filename
-                     // "myFile.txt"
-                     System.IO.FileInfo fileToDownload = new System.IO.FileInfo(outFile);
-                     mappedPath = fileToDownload.Name;
-                     System.String disHeader = "Attachment; Filename=\"" + mappedPath + "\"";
-                     Response.AppendHeader("Content-Disposition", disHeader);
+                int result = LiveFileStream.Read(filebuffer, 0, (int)LiveFileStream.Length); 
+                  //  BufferedStream   fileBuffer = new BufferedStream( LiveFileStream, (int)LiveFileStream.Length); 
+                 //   LiveFileStream.Read(fileBuffer, 0, (int)LiveFileStream.Length); 
+                    LiveFileStream.Close();
+                    Response.Clear(); 
 
-                     // transfer the file byte-by-byte to the response object
-                                  //"C:\\downloadJSP\\DownloadConv\\myFile.txt");
-                     Response.Flush();
-                     Response.WriteFile(fileToDownload.FullName);
+                    Response.Charset = "utf-8";
+                  //  Response.ContentType = "text/plain";
+                    Response.ContentType = "application/x-csv"; 
+                    Response.AddHeader("Content-Length", filebuffer.Length.ToString());
+                    Response.AddHeader("Content-Disposition", "attachment; filename=\\App_Data\\AWQMSMetalsandNutrient.02.16.2017.csv");
+                    Response.BinaryWrite(filebuffer);
+                    Response.End();
+
                  }
                  catch (System.Exception exx)
                  // file IO errors
                  {
-                     string msg = exx.Message; 
+                     // we seem to be getting here via aborted thread. Seems OK as the response is closed in code
+                     string msg = exx.Message;
+                     lblDownload.Text = "";
                  }
-
-
-
-                 // FileUpload1.PostedFile.ContentType == "application/x-csv"
-                
              }
-         }
-    }
-    
+         }    
+    }    
 }
-
-
-                        // result = 0.00 - qualifier = U and detection condition ="Not Detected"
-                        // blank or null results, qualifier =A and detection condition -"Not Reported"
-                       // between DL and RL and result is a number vs 0, qualifier-= J and detection condition = >DL and <RL
-
-// list of elements in lookup table 
-//  [LocalName] ,[CName] ,[ResultUnit] ,[ResultFraction] ,[AnaMethodID] ,[AnaMethodContext] ,[DetectionLevel] 
-// ,[LowerReportingLimit] ,[DetectionUnit]  ,[MethodSpec]  ,[StartDate] ,[EndDate]
-// now, read in a line of data at a time, and if value not null, put it in a new row, and then to the DTout table 
 
 public static class OurWriter
 {
@@ -744,8 +757,7 @@ public static class OurWriter
         if (includeHeaders)
         {
             IEnumerable<String> headerValues = sourceTable.Columns
-                .OfType<DataColumn>()
-                .Select(column => QuoteValue(column.ColumnName));
+                .OfType<DataColumn>().Select(column => QuoteValue(column.ColumnName));
 
             writer.WriteLine(String.Join(",", headerValues));
         }

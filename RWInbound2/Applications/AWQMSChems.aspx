@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <asp:Label ID="Label1" runat="server" CssClass="PageLabel" Text="AWQMS Metals and Nutrients Download"></asp:Label>
-    <br />
+    <br />    <br />
 
     <table style="width: 100%">
         <tr>
@@ -83,17 +83,15 @@
                 <asp:Button ID="btnSelect8" runat="server" CssClass="adminButton" Text="WBID '8' Select " OnClick="btnSelect8_Click" />
             </td>
         </tr>
-        <tr>
-            <td style="width: 36px">&nbsp;</td>
-            <td style="width: 222px">
+   </table>
+        <br />
+        <br />
                 <asp:Label ID="lblDownload" runat="server" Text="Label"></asp:Label>
-            </td>
-            <td style="width: 219px">
+        <br />
+
                 <asp:Button ID="btnDownload"  CssClass="adminButton" runat="server" OnClick="btnDownload_Click" />
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-    </table>
+
+  
 
     <asp:TextBox ID="tbResults" runat="server" ReadOnly="True" Font-Bold="True" Height="20px" Width="966px" ></asp:TextBox>
 

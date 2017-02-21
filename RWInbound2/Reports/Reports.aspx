@@ -42,9 +42,42 @@
                 <td>
                     <asp:Button ID="btnICPBlanksAndDups" CssClass="adminButton" runat="server" Text="ALL ICP Blanks And Dups" OnClick="btnICPBlanksAndDups_Click" />
                 </td>
-                <td style="width: 340px">&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td> <asp:Button ID="btnAWQMSlookups" CssClass="adminButton" runat="server" Text="AWQMS Lookups" OnClick="btnAWQMSlookups_Click"  /></td>
+                <td>
+                    <asp:Button ID="btnNutrientBlanksDups" runat="server" CssClass="adminButton" OnClick="btnNutrientBlanksDups_Click" Text="Nutrient Blks &amp; Dups" />
+                </td>
+                <td>
+                    <asp:Button ID="btnNutrientNOT" runat="server" CssClass="adminButton" OnClick="btnNutrientNOT_Click" Text="Nutrient NOT BlanksDups" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="rowId-charid-dsorder-textbox" style="width: 15px">&nbsp;</td>
+                <td>
+                    <asp:Button ID="btnOrgEquipment" runat="server" CssClass="adminButton" OnClick="btnOrgEquipment_Click" Text="Org Equipment" />
+                </td>
+                <td> 
+                    <asp:Button ID="Button1" runat="server" CssClass="adminButton" OnClick="Button1_Click" Text="Stations with No Samples" />
+                </td>
+                <td>
+                    <asp:Button ID="btnOrgsNoSamples" runat="server" CssClass="adminButton" OnClick="btnOrgsNoSamples_Click" Text="Orgs with No Samples" />
+                </td>
+                <td>
+                    <asp:Button ID="btnNutrientsLookup" runat="server" CssClass="adminButton" OnClick="btnNutrientsLookup_Click" Text="Nutrient Limits Lookup" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="rowId-charid-dsorder-textbox" style="width: 15px">&nbsp;</td>
+                <td>
+                    <asp:Button ID="btnMetalsLookups" runat="server" CssClass="adminButton" OnClick="btnMetalsLookups_Click" Text="Metals Limits Lookup" />
+                </td>
+                <td> 
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
 
         </table>

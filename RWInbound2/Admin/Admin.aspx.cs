@@ -151,5 +151,10 @@ namespace RWInbound2.Admin
         {
             Response.Redirect("EditAWQMSlookups.aspx");
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("BatchDeleteNutrients.aspx") ;
+        }
     }
 }

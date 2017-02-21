@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="OrgsWithNoSamples" targetNamespace="http://tempuri.org/OrgsWithNoSamples.xsd" xmlns:mstns="http://tempuri.org/OrgsWithNoSamples.xsd" xmlns="http://tempuri.org/OrgsWithNoSamples.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="RiverWatchDEV" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RiverWatchDEV (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.RiverWatchDEV.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ViewOrgsWithNoSamplesTableAdapter" GeneratorDataComponentClassName="ViewOrgsWithNoSamplesTableAdapter" Name="ViewOrgsWithNoSamples" UserDataComponentName="ViewOrgsWithNoSamplesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="RiverWatchDEV (Web.config)" DbObjectName="RiverWatch.dbo.ViewOrgsWithNoSamples" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT OrganizationName, KitNumber, OrganizationType, Email, MailingAddress, ShippingAddress, City, State, Zip, Phone FROM dbo.ViewOrgsWithNoSamples</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="OrganizationName" DataSetColumn="OrganizationName" />
+              <Mapping SourceColumn="KitNumber" DataSetColumn="KitNumber" />
+              <Mapping SourceColumn="OrganizationType" DataSetColumn="OrganizationType" />
+              <Mapping SourceColumn="Email" DataSetColumn="Email" />
+              <Mapping SourceColumn="MailingAddress" DataSetColumn="MailingAddress" />
+              <Mapping SourceColumn="ShippingAddress" DataSetColumn="ShippingAddress" />
+              <Mapping SourceColumn="City" DataSetColumn="City" />
+              <Mapping SourceColumn="State" DataSetColumn="State" />
+              <Mapping SourceColumn="Zip" DataSetColumn="Zip" />
+              <Mapping SourceColumn="Phone" DataSetColumn="Phone" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="OrgsWithNoSamples" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="OrgsWithNoSamples" msprop:Generator_UserDSName="OrgsWithNoSamples">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ViewOrgsWithNoSamples" msprop:Generator_TableClassName="ViewOrgsWithNoSamplesDataTable" msprop:Generator_TableVarName="tableViewOrgsWithNoSamples" msprop:Generator_TablePropName="ViewOrgsWithNoSamples" msprop:Generator_RowDeletingName="ViewOrgsWithNoSamplesRowDeleting" msprop:Generator_RowChangingName="ViewOrgsWithNoSamplesRowChanging" msprop:Generator_RowEvHandlerName="ViewOrgsWithNoSamplesRowChangeEventHandler" msprop:Generator_RowDeletedName="ViewOrgsWithNoSamplesRowDeleted" msprop:Generator_UserTableName="ViewOrgsWithNoSamples" msprop:Generator_RowChangedName="ViewOrgsWithNoSamplesRowChanged" msprop:Generator_RowEvArgName="ViewOrgsWithNoSamplesRowChangeEvent" msprop:Generator_RowClassName="ViewOrgsWithNoSamplesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OrganizationName" msprop:Generator_ColumnVarNameInTable="columnOrganizationName" msprop:Generator_ColumnPropNameInRow="OrganizationName" msprop:Generator_ColumnPropNameInTable="OrganizationNameColumn" msprop:Generator_UserColumnName="OrganizationName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KitNumber" msprop:Generator_ColumnVarNameInTable="columnKitNumber" msprop:Generator_ColumnPropNameInRow="KitNumber" msprop:Generator_ColumnPropNameInTable="KitNumberColumn" msprop:Generator_UserColumnName="KitNumber" type="xs:int" minOccurs="0" />
+              <xs:element name="OrganizationType" msprop:Generator_ColumnVarNameInTable="columnOrganizationType" msprop:Generator_ColumnPropNameInRow="OrganizationType" msprop:Generator_ColumnPropNameInTable="OrganizationTypeColumn" msprop:Generator_UserColumnName="OrganizationType">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Email" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_UserColumnName="Email" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MailingAddress" msprop:Generator_ColumnVarNameInTable="columnMailingAddress" msprop:Generator_ColumnPropNameInRow="MailingAddress" msprop:Generator_ColumnPropNameInTable="MailingAddressColumn" msprop:Generator_UserColumnName="MailingAddress" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ShippingAddress" msprop:Generator_ColumnVarNameInTable="columnShippingAddress" msprop:Generator_ColumnPropNameInRow="ShippingAddress" msprop:Generator_ColumnPropNameInTable="ShippingAddressColumn" msprop:Generator_UserColumnName="ShippingAddress" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="City" msprop:Generator_ColumnVarNameInTable="columnCity" msprop:Generator_ColumnPropNameInRow="City" msprop:Generator_ColumnPropNameInTable="CityColumn" msprop:Generator_UserColumnName="City" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="State" msprop:Generator_ColumnVarNameInTable="columnState" msprop:Generator_ColumnPropNameInRow="State" msprop:Generator_ColumnPropNameInTable="StateColumn" msprop:Generator_UserColumnName="State" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Zip" msprop:Generator_ColumnVarNameInTable="columnZip" msprop:Generator_ColumnPropNameInRow="Zip" msprop:Generator_ColumnPropNameInTable="ZipColumn" msprop:Generator_UserColumnName="Zip" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Phone" msprop:Generator_ColumnVarNameInTable="columnPhone" msprop:Generator_ColumnPropNameInRow="Phone" msprop:Generator_ColumnPropNameInTable="PhoneColumn" msprop:Generator_UserColumnName="Phone" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

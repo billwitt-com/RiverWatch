@@ -168,7 +168,8 @@ td button {
     cursor: pointer !important;
     border: 2px solid #787878; /*this works*/
     padding: 1px;
-    }
+    height: 26px;
+}
 
 buttonSWAP {
     background-color: lightblue !important;

@@ -103,5 +103,45 @@ namespace RWInbound2.Reports
             Response.Redirect("ICPBlanksAndDups.aspx");
         }
 
+        protected void btnAWQMSlookups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AWQMSLookups.aspx");
+        }
+
+        protected void btnNutrientBlanksDups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NutrientBlankDups.aspx");
+        }
+
+        protected void btnNutrientNOT_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NutrientsNOTBlankorDup.aspx");
+        }
+
+        protected void btnOrgEquipment_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgEquipment.aspx");
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StationsWithNoSamples.aspx");
+        }
+
+        protected void btnOrgsNoSamples_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("OrgsWithNoSamples.aspx");
+        }
+
+        protected void btnNutrientsLookup_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NutrientLimitsReport.aspx");
+        }
+
+        protected void btnMetalsLookups_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MetalsLimits.aspx");
+        }
+
     }
 }

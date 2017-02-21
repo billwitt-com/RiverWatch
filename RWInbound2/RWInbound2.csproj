@@ -189,13 +189,15 @@
     <Content Include="Admin\AdminRoles.aspx" />
     <Content Include="Admin\AdminStations.aspx" />
     <Content Include="Admin\AdminUsers.aspx" />
+    <Content Include="Admin\BatchDeleteNutrients.aspx" />
+    <Content Include="Admin\EditAWQMSLookups.aspx" />
     <Content Include="Admin\EditBenthicSamples.aspx" />
-    <Content Include="Admin\EditAWQMSlookups.aspx" />
     <Content Include="Admin\EditExpWater.aspx" />
     <Content Include="Admin\EditInboundFieldData.aspx" />
     <Content Include="Applications\Applications.aspx" />
     <Content Include="Applications\AWQMSChems.aspx" />
     <Content Include="Admin\EnterBenthicsPhysHab.aspx" />
+    <Content Include="Applications\AWQMSStations.aspx" />
     <Content Include="Content\faq.png" />
     <Content Include="Edit\EditIntent.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
@@ -367,9 +369,16 @@
     <Content Include="Data\UnknownData.aspx" />
     <Content Include="Public\ViewStationsWithGauges.aspx" />
     <Content Include="Reports\AllOrgsReport.aspx" />
+    <Content Include="Reports\AWQMSLookups.aspx" />
     <Content Include="Reports\ICPBlanksAndDups.aspx" />
     <Content Include="Reports\MailingLabels.aspx" />
     <Content Include="Reports\MetalBarCodes.aspx" />
+    <Content Include="Reports\MetalsLimits.aspx" />
+    <Content Include="Reports\NutrientBlankDups.aspx" />
+    <Content Include="Reports\NutrientLimitsReport.aspx" />
+    <Content Include="Reports\NutrientsNOTBlankorDup.aspx" />
+    <Content Include="Reports\OrgEquipment.aspx" />
+    <Content Include="Reports\OrgsWithNoSamples.aspx" />
     <Content Include="Reports\Participants.aspx" />
     <Content Include="Reports\ParticipantsPrimaryContacts.aspx" />
     <Content Include="Reports\PublicUsers.aspx" />
@@ -424,6 +433,17 @@
       <DependentUpon>AllOrgsDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Content\RWdatainfodownload.pdf" />
+    <Content Include="AWQMSLookupDataSet.xsc">
+      <DependentUpon>AWQMSLookupDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="AWQMSLookupDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AWQMSLookupDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AWQMSLookupDataSet.xss">
+      <DependentUpon>AWQMSLookupDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="DataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
@@ -449,6 +469,17 @@
     <Content Include="DataSetAllOrgs.xss">
       <DependentUpon>DataSetAllOrgs.xsd</DependentUpon>
     </Content>
+    <Content Include="LachatBlanksDups.xsc">
+      <DependentUpon>LachatBlanksDups.xsd</DependentUpon>
+    </Content>
+    <None Include="LachatBlanksDups.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LachatBlanksDups.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="LachatBlanksDups.xss">
+      <DependentUpon>LachatBlanksDups.xsd</DependentUpon>
+    </Content>
     <None Include="MailList.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MailList.Designer.cs</LastGenOutput>
@@ -460,6 +491,39 @@
     <Content Include="OrgReportDataSet.xsc">
       <DependentUpon>OrgReportDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="OrgEquipmentDataSource.xsc">
+      <DependentUpon>OrgEquipmentDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="NutrientLimits.xsc">
+      <DependentUpon>NutrientLimits.xsd</DependentUpon>
+    </Content>
+    <Content Include="MetalsLookupTable.xsc">
+      <DependentUpon>MetalsLookupTable.xsd</DependentUpon>
+    </Content>
+    <None Include="MetalsLookupTable.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MetalsLookupTable.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="MetalsLookupTable.xss">
+      <DependentUpon>MetalsLookupTable.xsd</DependentUpon>
+    </Content>
+    <None Include="NutrientLimits.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NutrientLimits.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="NutrientLimits.xss">
+      <DependentUpon>NutrientLimits.xsd</DependentUpon>
+    </Content>
+    <None Include="OrgEquipmentDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrgEquipmentDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="OrgEquipmentDataSource.xss">
+      <DependentUpon>OrgEquipmentDataSource.xsd</DependentUpon>
+    </Content>
     <None Include="OrgReportDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>OrgReportDataSet.Designer.cs</LastGenOutput>
@@ -467,6 +531,17 @@
     </None>
     <Content Include="OrgReportDataSet.xss">
       <DependentUpon>OrgReportDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="OrgsWithNoSamples.xsc">
+      <DependentUpon>OrgsWithNoSamples.xsd</DependentUpon>
+    </Content>
+    <None Include="OrgsWithNoSamples.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrgsWithNoSamples.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="OrgsWithNoSamples.xss">
+      <DependentUpon>OrgsWithNoSamples.xsd</DependentUpon>
     </Content>
     <None Include="PartsWithOrgs.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -484,6 +559,7 @@
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coloradoriverwatchwest.pubxml" />
     <None Include="Properties\PublishProfiles\local IIS.pubxml" />
+    <Content Include="Reports\StationsWithNoSamples.aspx" />
     <Content Include="Reports\ViewErrorLog.aspx" />
     <Content Include="Samples\NewSamples2.aspx" />
     <Content Include="RiverWatchStationsWithGauges.xsc">
@@ -810,6 +886,17 @@
     <Content Include="StationsByProject.xss">
       <DependentUpon>StationsByProject.xsd</DependentUpon>
     </Content>
+    <Content Include="StationsWithNoSamples.xsc">
+      <DependentUpon>StationsWithNoSamples.xsd</DependentUpon>
+    </Content>
+    <None Include="StationsWithNoSamples.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StationsWithNoSamples.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="StationsWithNoSamples.xss">
+      <DependentUpon>StationsWithNoSamples.xsd</DependentUpon>
+    </Content>
     <None Include="Web.config.ajaxissue">
       <SubType>Designer</SubType>
     </None>
@@ -902,19 +989,26 @@
     <Compile Include="Admin\AdminUsers.aspx.designer.cs">
       <DependentUpon>AdminUsers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\BatchDeleteNutrients.aspx.cs">
+      <DependentUpon>BatchDeleteNutrients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\BatchDeleteNutrients.aspx.designer.cs">
+      <DependentUpon>BatchDeleteNutrients.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EditAWQMSLookups.aspx.cs">
+      <DependentUpon>EditAWQMSLookups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EditAWQMSLookups.aspx.designer.cs">
+      <DependentUpon>EditAWQMSLookups.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\EditBenthicSamples.aspx.cs">
       <DependentUpon>EditBenthicSamples.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\EditBenthicSamples.aspx.designer.cs">
       <DependentUpon>EditBenthicSamples.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\EditAWQMSlookups.aspx.cs">
-      <DependentUpon>EditAWQMSlookups.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\EditAWQMSlookups.aspx.designer.cs">
-      <DependentUpon>EditAWQMSlookups.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\EditExpWater.aspx.cs">
       <DependentUpon>EditExpWater.aspx</DependentUpon>
@@ -950,6 +1044,18 @@
     </Compile>
     <Compile Include="Admin\EnterBenthicsPhysHab.aspx.designer.cs">
       <DependentUpon>EnterBenthicsPhysHab.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\AWQMSStations.aspx.cs">
+      <DependentUpon>AWQMSStations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Applications\AWQMSStations.aspx.designer.cs">
+      <DependentUpon>AWQMSStations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AWQMSLookupDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AWQMSLookupDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditIntent.aspx.cs">
       <DependentUpon>EditIntent.aspx</DependentUpon>
@@ -1327,11 +1433,21 @@
     <Compile Include="InboundSamples.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LachatBlanksDups.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LachatBlanksDups.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Logic\ExceptionUtility.cs" />
     <Compile Include="MailList.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailList.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MetalsLookupTable.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetalsLookupTable.xsd</DependentUpon>
     </Compile>
     <Compile Include="NEWexpWater.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1342,14 +1458,29 @@
     <Compile Include="NutrientLimit.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NutrientLimits.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NutrientLimits.xsd</DependentUpon>
+    </Compile>
     <Compile Include="OrgContractStatu.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgEquipmentDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrgEquipmentDataSource.xsd</DependentUpon>
     </Compile>
     <Compile Include="OrgStationsView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OrgStatusView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgsWithNoSamples.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrgsWithNoSamples.xsd</DependentUpon>
     </Compile>
     <Compile Include="ParticipantsView.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -1679,6 +1810,13 @@
     <Compile Include="Reports\AllOrgsReport.aspx.designer.cs">
       <DependentUpon>AllOrgsReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\AWQMSLookups.aspx.cs">
+      <DependentUpon>AWQMSLookups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\AWQMSLookups.aspx.designer.cs">
+      <DependentUpon>AWQMSLookups.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ICPBlanksAndDups.aspx.cs">
       <DependentUpon>ICPBlanksAndDups.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1699,6 +1837,48 @@
     </Compile>
     <Compile Include="Reports\MetalBarCodes.aspx.designer.cs">
       <DependentUpon>MetalBarCodes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MetalsLimits.aspx.cs">
+      <DependentUpon>MetalsLimits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MetalsLimits.aspx.designer.cs">
+      <DependentUpon>MetalsLimits.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NutrientBlankDups.aspx.cs">
+      <DependentUpon>NutrientBlankDups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\NutrientBlankDups.aspx.designer.cs">
+      <DependentUpon>NutrientBlankDups.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NutrientLimitsReport.aspx.cs">
+      <DependentUpon>NutrientLimitsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\NutrientLimitsReport.aspx.designer.cs">
+      <DependentUpon>NutrientLimitsReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NutrientsNOTBlankorDup.aspx.cs">
+      <DependentUpon>NutrientsNOTBlankorDup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\NutrientsNOTBlankorDup.aspx.designer.cs">
+      <DependentUpon>NutrientsNOTBlankorDup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OrgEquipment.aspx.cs">
+      <DependentUpon>OrgEquipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgEquipment.aspx.designer.cs">
+      <DependentUpon>OrgEquipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OrgsWithNoSamples.aspx.cs">
+      <DependentUpon>OrgsWithNoSamples.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OrgsWithNoSamples.aspx.designer.cs">
+      <DependentUpon>OrgsWithNoSamples.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\Participants.aspx.cs">
       <DependentUpon>Participants.aspx</DependentUpon>
@@ -1734,6 +1914,13 @@
     </Compile>
     <Compile Include="Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\StationsWithNoSamples.aspx.cs">
+      <DependentUpon>StationsWithNoSamples.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\StationsWithNoSamples.aspx.designer.cs">
+      <DependentUpon>StationsWithNoSamples.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ViewErrorLog.aspx.cs">
       <DependentUpon>ViewErrorLog.aspx</DependentUpon>
@@ -1886,6 +2073,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StationsByProject.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="StationsWithNoSamples.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationsWithNoSamples.xsd</DependentUpon>
     </Compile>
     <Compile Include="tblBenGrid.cs">
       <DependentUpon>NewRWModel.tt</DependentUpon>
@@ -2269,9 +2461,30 @@
     <Content Include="Public\stationsByProject.rdlc" />
     <Content Include="Public\StationsWithGauges.rdlc" />
     <Content Include="Reports\MLables.rdlc" />
+    <Content Include="Reports\AWQMSLookup.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\LachatBlanksDups.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\OrgEquipment.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\NutrientLimits.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\MetalsLookup.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Reports\OrgsReport.rdlc" />
+    <Content Include="Reports\OrgsWithoutSamples.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Reports\Report4.rdlc" />
     <Content Include="Reports\ReportAllOrgs.rdlc" />
+    <Content Include="Reports\StationsWithNoSamples.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
