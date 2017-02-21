@@ -33,6 +33,18 @@
         <tr>
             <td style="width: 36px">&nbsp;</td>
             <td style="width: 222px">
+                <asp:Label ID="Label7" runat="server" Text="Select All Records"></asp:Label>
+            </td>
+            <td style="width: 219px">
+                <asp:TextBox ID="TextBox1" runat="server" Font-Bold="True" ReadOnly="True">Select ALL</asp:TextBox>
+            </td>
+            <td>
+                <asp:Button ID="btnSelectAll" runat="server" CssClass="adminButton" OnClick="btnSelectAll_Click" Text="Select All" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 36px">&nbsp;</td>
+            <td style="width: 222px">
                 <asp:Label ID="Label4" runat="server" CssClass="label"  Text="Select first 4 of WBID"></asp:Label>
             </td>
             <td style="width: 219px">
