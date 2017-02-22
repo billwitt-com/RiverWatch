@@ -2021,6 +2021,7 @@ tr.grid-edit-benthics-samples-header{
 }
 
 div.benthic-data-formview{
+    display: inline-block;
     width: 450px;
 }
 
@@ -2041,4 +2042,18 @@ div.benthic-data-formview{
     padding-top: 2px;
     padding-bottom: 5px;
     text-align:left;
+}
+
+div.benthic-reps-gridview{
+    display: inline-block;    
+}
+
+.benthic-reps-grid-columns-center{
+    text-align:center;
+    font-size: 10px;
+    width: 400px;
+}
+
+.benthics-reps-gridview-dropdowns{      
+    font-size:10px;
 }

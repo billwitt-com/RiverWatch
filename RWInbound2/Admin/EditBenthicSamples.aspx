@@ -99,7 +99,7 @@
                                 <asp:Label ID="lbltlkCommunityDescription" runat="server" Text='<%# Bind("tlkCommunity.Description") %>'></asp:Label>
                             </ItemTemplate>                    
                         </asp:TemplateField> 
-                        <asp:TemplateField HeaderText="Intent" SortExpression="tlkBioResultsType.Description">                   
+                        <asp:TemplateField HeaderText="Bio Result Type" SortExpression="tlkBioResultsType.Description">                   
                             <ItemTemplate>
                                 <asp:Label ID="lbltlkBioResultsTypeDescription" runat="server" Text='<%# Bind("tlkBioResultsType.Description") %>'></asp:Label>
                             </ItemTemplate>                    
@@ -272,6 +272,135 @@
                     </asp:Panel> 
                 </ContentTemplate>
             </asp:UpdatePanel>     
+        </div>
+        <div class="benthic-reps-gridview">
+            <asp:UpdatePanel ID="BenthicsReps_UpdatePanel" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:Panel ID="BenthicsRepsGridView_Panel" runat="server" Visible="false">
+                        <h4>Benthics Reps</h4>
+                        <div class="benthics-data-label-placement">
+                            <asp:Label ID="BenthicsRepErrorLabel" CssClass="benthics-data-label-error" runat="server" />               
+                        </div>
+                        <div class="benthics-data-label-placement">
+                             <asp:Label ID="BenthicsRepSuccessLabel" CssClass="benthics-data-label-success" runat="server" />
+                        </div>
+                            <asp:GridView ID="BenthicsRepsGridView" runat="server"
+                            DataKeyNames="ID"
+                            ItemType="RWInbound2.tblBenRep" 
+                            SelectMethod="GetBenthicsReps"
+                            UpdateMethod="UpdateBenthicRep"
+                            DeleteMethod="DeleteBenthicRep" 
+                            InsertItemPosition="LastItem"  
+                            OnRowEditing="BenthicsRepsGridView_RowEditing"                
+                            ShowFooter="true"
+                            CellPadding="4"
+                            AutoGenerateColumns="False" CssClass="benthic-reps-grid-columns-center"
+                            HeaderStyle-CssClass="grid-edit-benthics-samples-header" 
+                            ForeColor="#333333" 
+                            AllowPaging="true" Pagesize="15">
+                            <AlternatingRowStyle BackColor="White" />
+                            <EmptyDataTemplate>
+                                <div class="grid-edit-benthics-samples-empty-data-div">
+                                    No Benthics Reps were found.
+                                     <%-- <% =Show() %>--%>
+                                   <%-- <asp:Panel ID="NoResultsPanel" runat="server" Visible="false" OnInit="Show" OnDataBinding="Show" OnLoad="Show"
+                                         CssClass="grid-edit-benthics-samples-no-results-panel" >                              
+                                        <asp:Button ID="btnAdd" runat="server" Text="Add New Benthic Sample"
+                                                     OnClientClick="return alert('Coming Soon!');" CssClass="adminButton grid-edit-benthics-samples-add-new-button" />                    
+                                    </asp:Panel>--%>
+                                </div>
+                            </EmptyDataTemplate>    
+                            <Columns>  
+                                <asp:TemplateField>
+                                    <ItemTemplate>   
+                                        <asp:Button ID="EditButton" runat="server" Text="Edit" OnClientClick="return alert('Coming Soon!');" />
+                                        <%--<asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />  --%>                  
+                                        <%--<asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
+                                                    OnClientClick="return confirm('Are you certain you want to delete this?');"/>--%>
+                                        <asp:Button ID="DeleteButton" runat="server" Text="Delete" OnClientClick="return alert('Coming Soon!');" />
+                                    </ItemTemplate>
+                                    <EditItemTemplate>
+                                        <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
+                                        <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
+                                    </EditItemTemplate>
+                                    <FooterTemplate>
+                                        <%--<asp:Button ID="btnAdd" runat="server" Text="Add"
+                                                    OnClick="AddNewBenthicRep" />--%>
+                                        <asp:Button ID="btnAdd" runat="server" Text="Add"
+                                                     OnClientClick="return alert('Coming Soon!');" />
+                                    </FooterTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
+                                <asp:TemplateField HeaderText="Rep" SortExpression="RepNum">                   
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="txtRepNum" runat="server" Text='<%# Bind("RepNum") %>' 
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRepNum" runat="server" Text='<%# Bind("RepNum") %>'></asp:Label>                                                                   
+                                    </ItemTemplate> 
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtNewRepNum" runat="server"
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                    </FooterTemplate>                                              
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Activity" SortExpression="tlkActivityCategory.Description">                   
+                                    <EditItemTemplate>
+                                        <asp:DropDownList ID="dropDownBenthicsRepActivity" runat="server" DataMember="it"
+                                                            SelectMethod="BindActivityCategories" CssClass="benthics-reps-gridview-dropdowns"   
+                                                            SelectedValue='<%# Bind("tlkActivityCategory.ID") %>'                                          
+                                                            AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                        </asp:DropDownList> 
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblBenthicsReptlkActivityCategoryDescription" runat="server" Text='<%# Bind("tlkActivityCategory.Description") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="dropDownNewBenthicsRepActivity" runat="server" DataMember="it"
+                                                            SelectMethod="BindActivityCategories" CssClass="benthics-reps-gridview-dropdowns"                                                                                               
+                                                            AppendDataBoundItems="true" DataTextField="Description" DataValueField="ID">
+                                        </asp:DropDownList> 
+                                    </FooterTemplate>                    
+                                </asp:TemplateField> 
+                               <asp:TemplateField HeaderText="Count" SortExpression="Grids">                   
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="txtGrids" runat="server" Text='<%# Bind("Grids") %>' 
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblGrids" runat="server" Text='<%# Bind("Grids") %>'></asp:Label>                                                                   
+                                    </ItemTemplate> 
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtNewGrids" runat="server"
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                    </FooterTemplate>                                              
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Comments" SortExpression="Comments" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-edit-equipment-medium-textbox" 
+                                    ControlStyle-CssClass="grid-edit-equipment-medium-textbox" >
+                                    <EditItemTemplate >
+                                        <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" MaxLength="100" Text='<%# Bind("Comments") %>'></asp:TextBox>                                                          
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                       <asp:Label ID="lblComments" runat="server" Text='<%# Bind("Comments") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="NewComments" runat="server" TextMode="MultiLine" MaxLength="100" CssClass="grid-edit-equipment-medium-textbox"></asp:TextBox>   
+                                    </FooterTemplate>                            
+                                </asp:TemplateField>  
+                                <asp:TemplateField HeaderText="Entered" SortExpression="EnterDate">                   
+                                    <EditItemTemplate>
+                                         <asp:Label ID="txtEnterDate" runat="server" Text='<%# Bind("EnterDate") %>'></asp:Label>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEnterDate" runat="server" Text='<%# Bind("EnterDate") %>'></asp:Label>
+                                    </ItemTemplate>                    
+                                </asp:TemplateField>                                                  
+                            </Columns>
+                            <EditRowStyle BackColor="#2461BF" />            
+                        </asp:GridView> 
+                        </asp:Panel>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </section>
 </asp:Content>
