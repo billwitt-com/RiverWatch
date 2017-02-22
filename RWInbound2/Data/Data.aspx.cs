@@ -73,6 +73,11 @@ namespace RWInbound2.Data
         protected void btnUnknownSample_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Data/UnknownData.aspx");
+        }
+
+        protected void btnICPUpload_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Data/UploadICP.aspx");
         }        
     }
 }

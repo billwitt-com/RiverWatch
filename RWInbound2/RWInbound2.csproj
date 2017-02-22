@@ -199,6 +199,7 @@
     <Content Include="Admin\EnterBenthicsPhysHab.aspx" />
     <Content Include="Applications\AWQMSStations.aspx" />
     <Content Include="Content\faq.png" />
+    <Content Include="Data\UploadICP.aspx" />
     <Content Include="Edit\EditIntent.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
@@ -1056,6 +1057,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AWQMSLookupDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\UploadICP.aspx.cs">
+      <DependentUpon>UploadICP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Data\UploadICP.aspx.designer.cs">
+      <DependentUpon>UploadICP.aspx</DependentUpon>
     </Compile>
     <Compile Include="Edit\EditIntent.aspx.cs">
       <DependentUpon>EditIntent.aspx</DependentUpon>

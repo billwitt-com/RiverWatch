@@ -9,4 +9,6 @@
     <asp:Button ID="btnUnknownSample" runat="server"  CssClass="adminButton" Text="Enter an Unknown Sample"  OnClick="btnUnknownSample_Click" Width="218px" Height="23px" />
     <br />
     <asp:Button ID="btnUploadLatchat" runat="server" Text="Upload Latchat" CssClass="adminButton" Width="218px" OnClick="btnUploadLatchat_Click" />    
+    <br />
+    <asp:Button ID="btnICPUpload" CssClass="adminButton" Width="218px"  runat="server" Text="Upload incomming ICP" OnClick="btnICPUpload_Click" />
 </asp:Content>
