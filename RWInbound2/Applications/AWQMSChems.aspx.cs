@@ -110,15 +110,10 @@ namespace RWInbound2.Applications
             DTout.Columns.Add(new DataColumn("Result Analytical Method Context", typeof(string)));
             // above unchanged
 
-            //DTout.Columns.Add(new DataColumn("Result Detection Limit Value", typeof(string)));
-            //DTout.Columns.Add(new DataColumn("Result Detection Limit Unit", typeof(string)));
-            //DTout.Columns.Add(new DataColumn("Result Detection Limit Type", typeof(string)));
-
             // three columns below have been renamed
             DTout.Columns.Add(new DataColumn("Method Detection Level", typeof(string)));
             DTout.Columns.Add(new DataColumn("Lower Reporting Limit", typeof(string)));
             DTout.Columns.Add(new DataColumn("Result Detection Limit Unit", typeof(string)));
-
 
             DTout.Columns.Add(new DataColumn("Method Speciation", typeof(string)));
             DTout.Columns.Add(new DataColumn("Activity Media Subdivision Name", typeof(string)));   // , "Surface Water"
@@ -136,8 +131,7 @@ namespace RWInbound2.Applications
             {
                     symbol = "AL_D";
                     result = r.AL_D;                  
-                    calculateRow( r, result, symbol );
-                    // could write row to file now, to take advantage of file buffering.                
+                    calculateRow( r, result, symbol );                                
 
                     symbol = "AL_T";
                     result = r.AL_T;
@@ -146,7 +140,6 @@ namespace RWInbound2.Applications
                     symbol = "AS_D";
                     result = r.AS_D; 
                     calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
 
                     symbol = "AS_T";
                     result = r.AS_T;
@@ -154,8 +147,7 @@ namespace RWInbound2.Applications
 
                     symbol = "CA_D";
                     result = r.CA_D; 
-                    calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
+                    calculateRow(r, result, symbol);               
 
                     symbol = "CA_T";
                     result = r.CA_T;
@@ -164,7 +156,7 @@ namespace RWInbound2.Applications
                     symbol = "CD_D";
                     result = r.CD_D;
                     calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
+                 
 
                     symbol = "CD_T";
                     result = r.CD_T;
@@ -173,7 +165,7 @@ namespace RWInbound2.Applications
                     symbol = "CU_D";
                     result = r.CU_D;
                     calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
+           
 
                     symbol = "CU_T";
                     result = r.CU_T;
@@ -182,7 +174,7 @@ namespace RWInbound2.Applications
                     symbol = "FE_D";
                     result = r.FE_D;
                     calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
+             
 
                     symbol = "FE_T";
                     result = r.FE_T;
@@ -191,7 +183,6 @@ namespace RWInbound2.Applications
                     symbol = "K_D";
                     result = r.K_D;
                     calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
 
                     symbol = "K_T";
                     result = r.K_T;
@@ -200,7 +191,6 @@ namespace RWInbound2.Applications
                     symbol = "MG_D";
                     result = r.MG_D;
                     calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
 
                     symbol = "MG_T";
                     result = r.MG_T;
@@ -209,7 +199,6 @@ namespace RWInbound2.Applications
                     symbol = "MN_D";
                     result = r.MN_D;
                     calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
 
                     symbol = "MN_T";
                     result = r.MN_T;
@@ -217,8 +206,7 @@ namespace RWInbound2.Applications
 
                     symbol = "NA_D";
                     result = r.NA_D;
-                    calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
+                    calculateRow(r, result, symbol);              
 
                     symbol = "NA_T";
                     result = r.NA_T;
@@ -226,8 +214,7 @@ namespace RWInbound2.Applications
 
                     symbol = "PB_D";
                     result = r.PB_D;
-                    calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
+                    calculateRow(r, result, symbol);               
 
                     symbol = "PB_T";
                     result = r.PB_T;
@@ -235,8 +222,7 @@ namespace RWInbound2.Applications
 
                     symbol = "SE_D";
                     result = r.SE_D;
-                    calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
+                    calculateRow(r, result, symbol);              
 
                     symbol = "SE_T";
                     result = r.SE_T;
@@ -245,13 +231,10 @@ namespace RWInbound2.Applications
                     symbol = "ZN_D";
                     result = r.ZN_D;
                     calculateRow(r, result, symbol);
-                    // could write row to file now, to take advantage of file buffering.                
 
                     symbol = "ZN_T";
                     result = r.ZN_T;
                     calculateRow(r, result, symbol);
-
-                    // could write row to file now, to take advantage of file buffering.                
 
                     symbol = "Ammonia";
                     result = (decimal?)r.Ammonia;
@@ -264,6 +247,7 @@ namespace RWInbound2.Applications
                     symbol = "totP";
                     result = (decimal?)r.totP;
                     calculateRow(r, result, symbol);
+
                     symbol = "Sulfate";
                     result = (decimal?)r.Sulfate;
                     calculateRow(r, result, symbol);
@@ -280,7 +264,11 @@ namespace RWInbound2.Applications
                     result = (decimal?)r.TSS;
                     calculateRow(r, result, symbol);
 
-                // FIELD DATA - MAY NEED TO MOVE IT TO SEPARATE REPORT
+                // FIELD DATA - 
+
+                    symbol = "PH";
+                    result = (decimal?)r.PH;
+                    calculateRow(r, result, symbol);
 
                     symbol = "PHEN_ALK";
                     result = (decimal?)r.PHEN_ALK;
@@ -302,10 +290,6 @@ namespace RWInbound2.Applications
                     result = (decimal?)r.DO_MGL;
                     calculateRow(r, result, symbol);
 
-                    symbol = "DO_MGL";
-                    result = (decimal?)r.DO_MGL;
-                    calculateRow(r, result, symbol);
-
                     symbol = "USGS_Flow";
                     result = (decimal?)r.USGS_Flow;
                     calculateRow(r, result, symbol);
@@ -313,7 +297,6 @@ namespace RWInbound2.Applications
                     symbol = "DOSAT";
                     result = (decimal?)r.DOSAT;
                     calculateRow(r, result, symbol);
-
 
             }
 
@@ -327,7 +310,7 @@ namespace RWInbound2.Applications
                 Directory.CreateDirectory(app_DataDirectory);
             }
 
-            string filesToDelete = "~/App_Data/AWQMSMetalsandNutrient*.csv";
+         //   string filesToDelete = "~/App_Data/AWQMSMetalsandNutrient*.csv";
 
             string[] txtList = Directory.GetFiles(app_DataDirectory, "AWQMSMetalsandNutrient*.csv");
             foreach (string f in txtList)
@@ -400,7 +383,9 @@ namespace RWInbound2.Applications
                     DR["Activity Start Date"] = r.SampleDate.Value.Month.ToString() + "/" + r.SampleDate.Value.Day.ToString() + "/" + r.SampleDate.Value.Year.ToString();
                     DR["Activity Start Time"] = r.SampleDate.Value.Hour.ToString() + r.SampleDate.Value.Minute.ToString();
                     DR["Analysis Start Date"] = r.SampleDate.Value.Month.ToString() + "/" + r.SampleDate.Value.Day.ToString() + "/" + r.SampleDate.Value.Year.ToString();
-                    DR["Analysis Start Time"] = r.SampleDate.Value.Hour.ToString() + r.SampleDate.Value.Minute.ToString();
+                    DR["Analysis Start Time"] = r.SampleDate.Value.ToString("MMmm");
+                        //r.SampleDate.Value.Hour.ToString() + r.SampleDate.Value.Minute.ToString();
+                     
                     DR["Activity Start Time Zone"] = "MST";
                     DR["Analysis Start Time Zone"] = "MST";
                     anaDate = r.SampleDate.Value;
@@ -452,13 +437,13 @@ namespace RWInbound2.Applications
 
 
                  if(T != null)                           //  if(RR != null)
-                {
-                    DR["Characteristic Name"] = T.Characteristic_Name;                                  //RR[0]["Characteristic Name"];
-                    DR["Result Sample Fraction"] = T.Result_Sample_Fraction ?? "";                            //RR[0]["Result Sample Fraction"] ?? "";
-                    DR["Result Unit"] = T.Result_Unit;                                                 //RR[0]["Result Unit"] ?? "";
+                 {
+                     DR["Characteristic Name"] = (T.Characteristic_Name ?? "").TrimEnd('\r', '\n');                   //T.Characteristic_Name.TrimEnd('\r', '\n');
+                     DR["Result Sample Fraction"] = (T.Result_Sample_Fraction ?? "").TrimEnd('\r', '\n');                            //RR[0]["Result Sample Fraction"] ?? "";
+                     DR["Result Unit"] = (T.Result_Unit ?? "").TrimEnd('\r', '\n');                                                 //RR[0]["Result Unit"] ?? "";
 
-                    DR["Result Analytical Method ID"] = T.Result_Analytical_Method_ID ?? "";                  //RR[0]["Result Analytical Method ID"] ?? "";
-                    DR["Result Analytical Method Context"] = T.Result_Analytical_Method_Context ?? "";        //RR[0]["Result Analytical Method Context"] ?? "";
+                     DR["Result Analytical Method ID"] = (T.Result_Analytical_Method_ID ?? "").TrimEnd('\r', '\n');                  //RR[0]["Result Analytical Method ID"] ?? "";
+                     DR["Result Analytical Method Context"] = (T.Result_Analytical_Method_Context ?? "").TrimEnd('\r', '\n');        //RR[0]["Result Analytical Method Context"] ?? "";
 
                     // replaced 
                     //DR["Result Detection Limit Value"] = RR[0]["DetectionLevel"] ?? ""; 
@@ -470,11 +455,11 @@ namespace RWInbound2.Applications
                     //DTout.Columns.Add(new DataColumn("Lower Reporting Limit", typeof(string)));
                     //DTout.Columns.Add(new DataColumn("Result Detection Limit Unit", typeof(string)));
 
-                    DR["Method Detection Level"] = T.Method_Detection_Level;                 //RR[0]["Method Detection Level"] ?? "";
-                    DR["Lower Reporting Limit"] = T.Lower_Reporting_Limit;                                  //RR[0]["Lower Reporting Limit"] ?? "";
-                    DR["Result Detection Limit Unit"] = T.Result_Detection_Limit_Unit ?? "";                                 //RR[0]["Result Detection Limit Unit"] ?? "";
+                    DR["Method Detection Level"] = T.Method_Detection_Level;                 
+                    DR["Lower Reporting Limit"] = T.Lower_Reporting_Limit; 
+                    DR["Result Detection Limit Unit"] = (T.Result_Detection_Limit_Unit ?? "").TrimEnd('\r', '\n');                                 //RR[0]["Result Detection Limit Unit"] ?? "";
 
-                    DR["Method Speciation"] = T.Method_Speciation ?? "";                     //RR[0]["Method Speciation"] ?? "";
+                    DR["Method Speciation"] = (T.Method_Speciation ?? "").TrimEnd('\r', '\n');                     //RR[0]["Method Speciation"] ?? "";
 
                     if (isNullValue) // nothing measured
                     {
@@ -505,6 +490,17 @@ namespace RWInbound2.Applications
                         }       
                     }
                 }
+                 else   // we did not find values in translation table
+                 {
+                     string nam = "";
+                     if (User.Identity.Name.Length < 3)
+                         nam = "Not logged in";
+                     else
+                         nam = User.Identity.Name;
+                     string msg = string.Format("AWQMS translation table failed to find entries for {0}, date {1}", symbol, anaDate);
+                     LogError LE = new LogError();
+                     LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath,"", nam, "");   
+                 }
             
 
                 DTout.Rows.Add(DR); // add to the table
@@ -512,7 +508,6 @@ namespace RWInbound2.Applications
         }
         protected void btnSelect4_Click(object sender, EventArgs e)
         {
-            string msg = "";
             bool success = false;
             StartDate = DateTime.Parse(tbStartDate.Text);
             EndDate = DateTime.Parse(tbEndDate.Text); 
@@ -524,14 +519,11 @@ namespace RWInbound2.Applications
                 return;
             }
             success = createReport(StartDate, EndDate, Wbid);
-         //   msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(4) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
-            msg = string.Format ("Reports returned {0}", success);
-            tbResults.Text = msg; 
+        
         }
 
         protected void btnSelect6_Click(object sender, EventArgs e)
         {
-            string msg = "";
             bool success = false;
             StartDate = DateTime.Parse(tbStartDate.Text);
             EndDate = DateTime.Parse(tbEndDate.Text);
@@ -543,14 +535,10 @@ namespace RWInbound2.Applications
                 return;
             }
             success = createReport(StartDate, EndDate, Wbid);
-            msg = string.Format("Reports returned {0}", success);
-          //  string msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(6) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
-            tbResults.Text = msg; 
         }
 
         protected void btnSelect8_Click(object sender, EventArgs e)
         {
-            string msg = "";
             bool success = false;
             StartDate = DateTime.Parse(tbStartDate.Text);
             EndDate = DateTime.Parse(tbEndDate.Text);
@@ -562,9 +550,6 @@ namespace RWInbound2.Applications
                 return;
             }
             success = createReport(StartDate, EndDate, Wbid);
-            msg = string.Format("Reports returned {0}", success);
-         //   string msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(8) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
-            tbResults.Text = msg; 
         }
 
         [System.Web.Script.Services.ScriptMethod()]
@@ -730,16 +715,11 @@ namespace RWInbound2.Applications
 
          protected void btnSelectAll_Click(object sender, EventArgs e)
          {
-             string msg = "";
              bool success = false;
              StartDate = DateTime.Parse(tbStartDate.Text);
              EndDate = DateTime.Parse(tbEndDate.Text);
              Wbid = "CO";   // this will get all the wbids which all start with CO - for Colorado ?
-
              success = createReport(StartDate, EndDate, Wbid);
-             //   msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(4) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
-             msg = string.Format("Reports returned {0}", success);
-             tbResults.Text = msg; 
          }    
     }    
 }
