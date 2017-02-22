@@ -65,12 +65,17 @@ namespace RWInbound2.Admin
             }
         }
 
+        // this is a bit confusing as when I add a blank or dup to the data base
+        // I set valid = true, validated = true (so the validation process does not select blanks and dups
+        // and set BlkDup = true so it can be archived in same table
+        // adding bulk delete make it important to OR validated and BlkDup so the dups can be deleted too
         protected void btnSelect_Click(object sender, EventArgs e)
         {
             string batch = "";
             int rawCount = 0;
             int validatedCount = 0;
             int NotValidatedCount = 0;
+            int blankdupCount = 0;
 
             batch = tbSelectBatch.Text;
             if(batch.Length < 1)
@@ -102,14 +107,11 @@ namespace RWInbound2.Admin
                 lblResults.Text = string.Format("There are no Valid entries in Batch {0}", batch);
             }
 
-            // NOT validated
-            var R = from r in RWE.Lachats
-                    where r.Validated == false & r.Batch == batch & r.Valid == true
-                    select r;
+            
 
             // already validated
             var V = from v in RWE.Lachats
-                    where v.Validated == true & v.Batch == batch & v.Valid == true
+                    where  v.Batch == batch & v.Valid == true & (v.Validated == true | v.BlkDup == true)
                     select v;
 
             if(V != null)
@@ -117,15 +119,35 @@ namespace RWInbound2.Admin
                 validatedCount = V.Count(); 
             }
 
+            // blankdups    lblBlankDups
+
+            var ZZ = from z in RWE.Lachats
+                    where z.Validated == true & z.Batch == batch & z.Valid == true & z.BlkDup == true
+                    select z;
+
+            if(ZZ != null)
+            {
+                blankdupCount = ZZ.Count();
+                lblBlankDups.Text = string.Format("There are {0} blankDups to be deleted", blankdupCount);
+            }
+            else
+            {
+                lblBlankDups.Text = string.Format("There are NO blankDups to be deleted");
+            }
+
+            // NOT validated
+            var R = from r in RWE.Lachats
+                    where r.Validated == false & r.Batch == batch & r.Valid == true
+                    select r;
             if(R != null)
             {
                 // pnlResults
                 NotValidatedCount = R.Count();
-                lblResults.Text = string.Format("There are {0} entries that have NOT been validated in Batch {1}", NotValidatedCount, batch);
+                lblResults.Text = string.Format("There are {0} entries that have NOT been validated in Batch {1}", NotValidatedCount + blankdupCount, batch);
                 
                 if (validatedCount > 0)
                 {
-                    lblCanBeDeleted.Text = string.Format("Would you like to delete the {0} unvalidated entries?", NotValidatedCount);
+                    lblCanBeDeleted.Text = string.Format("Would you like to delete the {0} unvalidated and BlankDup entries?", NotValidatedCount + blankdupCount);
                     btnDelete.Visible = true;
                     btnDelete.ForeColor = System.Drawing.Color.Red;
                 }
@@ -138,7 +160,8 @@ namespace RWInbound2.Admin
             else
             {
                 lblResults.Text = string.Format("There are no Valid entries for Batch {0}", batch);
-                btnDelete.Visible = false; 
+                btnDelete.Visible = false;
+                btnCancel.Visible = false; 
             }
         }
 
@@ -155,7 +178,7 @@ namespace RWInbound2.Admin
             int counter = 0;
             string batch = tbSelectBatch.Text;
             var T = from t in RWE.Lachats
-                    where t.Batch == batch & t.Valid == true & t.Validated == false 
+                    where t.Batch == batch & t.Valid == true & (t.Validated == false | t.BlkDup == true)
                     select t;
 
             if(T != null)
@@ -187,19 +210,7 @@ namespace RWInbound2.Admin
                     }
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
+         
             pnlConfirm.Visible = true;
             lblConfirm.Visible = true;
             lblConfirm.Text = string.Format("{0} entries have been deleted - Click OK to continue", counter); // confirm button

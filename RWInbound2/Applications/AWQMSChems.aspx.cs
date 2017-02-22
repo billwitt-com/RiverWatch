@@ -53,27 +53,7 @@ namespace RWInbound2.Applications
                          where Z.Valid == true
                          select Z;
                foreach (tlkAQWMStranslation s in ZZ)
-                   LKUP.Add(s); 
-
-                //using (SqlConnection conn = new SqlConnection())
-                //{
-                //    conn.ConnectionString = ConfigurationManager.ConnectionStrings["RiverWatchDev"].ConnectionString; //GlobalSite.RiverWatchDev;
-                //    using (SqlCommand cmd = new SqlCommand())
-                //    {
-                //        cmd.CommandText = string.Format(" select * from [dbo].[tlkAQWMStranslation] where valid = 1");
-                //        cmd.Connection = conn;
-                //        conn.Open();
- 
-                //        using (SqlDataReader sdr = cmd.ExecuteReader())
-                //        {
-                //            if (sdr.HasRows)
-                //            {
-                //                DTlookup.Load(sdr);
-                //            }
-                //        }
-                //        conn.Close();
-                //    }
-                //}
+                   LKUP.Add(s);                                
             }
 
             catch (Exception ex)
@@ -146,12 +126,12 @@ namespace RWInbound2.Applications
             DTout.Columns.Add(new DataColumn("Analysis Start Time", typeof(string)));   // HHMM
             DTout.Columns.Add(new DataColumn("Analysis Start Time Zone", typeof(string)));      // , "MST"
 
-
+            
             var R = from r in RWE.viewAWQMSDatas
                     where r.Valid == true & r.WaterBodyID.StartsWith(WBID) & r.SampleDate >= startDate & r.SampleDate <= endDate & !r.TypeCode.StartsWith("1") & !r.TypeCode.StartsWith("2")
-                    orderby r.SampleDate.Value 
-                    select r ;
-
+                    orderby r.SampleDate.Value
+                    select r;
+       
             foreach(viewAWQMSData r in R)
             {
                     symbol = "AL_D";
@@ -746,6 +726,20 @@ namespace RWInbound2.Applications
                      lblDownload.Text = "";
                  }
              }
+         }
+
+         protected void btnSelectAll_Click(object sender, EventArgs e)
+         {
+             string msg = "";
+             bool success = false;
+             StartDate = DateTime.Parse(tbStartDate.Text);
+             EndDate = DateTime.Parse(tbEndDate.Text);
+             Wbid = "CO";   // this will get all the wbids which all start with CO - for Colorado ?
+
+             success = createReport(StartDate, EndDate, Wbid);
+             //   msg = string.Format("You have chosen the AWQMS Chemical report starting at {0} through {1} for WBID(4) {2}", StartDate.ToShortDateString(), EndDate.ToShortDateString(), Wbid);
+             msg = string.Format("Reports returned {0}", success);
+             tbResults.Text = msg; 
          }    
     }    
 }
