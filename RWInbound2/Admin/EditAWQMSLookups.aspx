@@ -61,10 +61,10 @@
             <asp:TextBox ID="EndDateTextBox" runat="server" Text='<%# Bind("EndDate") %>' />
             <br />
             DateCreated:
-            <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' />
+            <asp:TextBox ID="DateCreatedTextBox" ReadOnly="true" runat="server" Text='<%# Bind("DateCreated") %>' />
             <br />
             UserCreated:
-            <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
+            <asp:TextBox ID="UserCreatedTextBox" ReadOnly="true" runat="server" Text='<%# Bind("UserCreated") %>' />
             <br />
             Valid:
             <asp:CheckBox ID="ValidCheckBox" runat="server" Checked='<%# Bind("Valid") %>' />
@@ -110,10 +110,10 @@
             <asp:TextBox ID="EndDateTextBox" runat="server" Text='<%# Bind("EndDate") %>' />
             <br />
             DateCreated:
-            <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' />
+            <asp:TextBox ID="DateCreatedTextBox" ReadOnly="true" runat="server" Text='<%# Bind("DateCreated") %>' />
             <br />
             UserCreated:
-            <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
+            <asp:TextBox ID="UserCreatedTextBox"  ReadOnly="true" runat="server" Text='<%# Bind("UserCreated") %>' />
             <br />
             Valid:
             <asp:CheckBox ID="ValidCheckBox"  runat="server" Checked='<%# Bind("Valid") %>' />
@@ -177,7 +177,11 @@
         </asp:FormView>
 
 
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" DeleteCommand="DELETE FROM [tlkAQWMStranslation] WHERE [ID] = @ID" InsertCommand="INSERT INTO [tlkAQWMStranslation] ([LocalName], [Characteristic_Name], [Result_Unit], [Result_Sample_Fraction], [Result_Analytical_Method_ID], [Result_Analytical_Method_Context], [Method_Detection_Level], [Lower_Reporting_Limit], [Result_Detection_Limit_Unit], [Method_Speciation], [StartDate], [EndDate], [DateCreated], [UserCreated], [Valid]) VALUES (@LocalName, @Characteristic_Name, @Result_Unit, @Result_Sample_Fraction, @Result_Analytical_Method_ID, @Result_Analytical_Method_Context, @Method_Detection_Level, @Lower_Reporting_Limit, @Result_Detection_Limit_Unit, @Method_Speciation, @StartDate, @EndDate, @DateCreated, @UserCreated, @Valid)" SelectCommand="SELECT * FROM [tlkAQWMStranslation]" UpdateCommand="UPDATE [tlkAQWMStranslation] SET [LocalName] = @LocalName, [Characteristic_Name] = @Characteristic_Name, [Result_Unit] = @Result_Unit, [Result_Sample_Fraction] = @Result_Sample_Fraction, [Result_Analytical_Method_ID] = @Result_Analytical_Method_ID, [Result_Analytical_Method_Context] = @Result_Analytical_Method_Context, [Method_Detection_Level] = @Method_Detection_Level, [Lower_Reporting_Limit] = @Lower_Reporting_Limit, [Result_Detection_Limit_Unit] = @Result_Detection_Limit_Unit, [Method_Speciation] = @Method_Speciation, [StartDate] = @StartDate, [EndDate] = @EndDate, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [Valid] = @Valid WHERE [ID] = @ID">
+        <asp:SqlDataSource ID="SqlDataSource1" OnInserting="SqlDataSource1_Inserting" OnUpdating="SqlDataSource1_Updating" runat="server" ConnectionString="<%$ ConnectionStrings:RiverWatchDEV %>" 
+            DeleteCommand="DELETE FROM [tlkAQWMStranslation] WHERE [ID] = @ID" 
+            InsertCommand="INSERT INTO [tlkAQWMStranslation] ([LocalName], [Characteristic_Name], [Result_Unit], [Result_Sample_Fraction], [Result_Analytical_Method_ID], [Result_Analytical_Method_Context], [Method_Detection_Level], [Lower_Reporting_Limit], [Result_Detection_Limit_Unit], [Method_Speciation], [StartDate], [EndDate], [DateCreated], [UserCreated], [Valid]) VALUES (@LocalName, @Characteristic_Name, @Result_Unit, @Result_Sample_Fraction, @Result_Analytical_Method_ID, @Result_Analytical_Method_Context, @Method_Detection_Level, @Lower_Reporting_Limit, @Result_Detection_Limit_Unit, @Method_Speciation, @StartDate, @EndDate, @DateCreated, @UserCreated, @Valid)" 
+            SelectCommand="SELECT * FROM [tlkAQWMStranslation]" 
+            UpdateCommand="UPDATE [tlkAQWMStranslation] SET [LocalName] = @LocalName, [Characteristic_Name] = @Characteristic_Name, [Result_Unit] = @Result_Unit, [Result_Sample_Fraction] = @Result_Sample_Fraction, [Result_Analytical_Method_ID] = @Result_Analytical_Method_ID, [Result_Analytical_Method_Context] = @Result_Analytical_Method_Context, [Method_Detection_Level] = @Method_Detection_Level, [Lower_Reporting_Limit] = @Lower_Reporting_Limit, [Result_Detection_Limit_Unit] = @Result_Detection_Limit_Unit, [Method_Speciation] = @Method_Speciation, [StartDate] = @StartDate, [EndDate] = @EndDate, [DateCreated] = @DateCreated, [UserCreated] = @UserCreated, [Valid] = @Valid WHERE [ID] = @ID">
             <DeleteParameters>
                 <asp:Parameter Name="ID" Type="Int32" />
             </DeleteParameters>
