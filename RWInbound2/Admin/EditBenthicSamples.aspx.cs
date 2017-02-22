@@ -28,13 +28,6 @@ namespace RWInbound2.Admin
             }
         }
 
-        private void SetSampleData(bool showPanel = false, string sampleNumber = "", string stationEvent = "")
-        {
-            SampleData_Panel.Visible = showPanel;
-            lblSampleNumber.Text = sampleNumber;
-            lblSampleEvent.Text = stationEvent;
-        }
-
         private void SetMessages(string type = "", string message = "")
         {
             switch (type)
@@ -44,33 +37,63 @@ namespace RWInbound2.Admin
                     SuccessLabel.Text = message;
                     BenthicsDataErrorLabel.Text = "";
                     BenthicsDataSuccessLabel.Text = "";
+                    BenthicsRepErrorLabel.Text = "";
+                    BenthicsRepSuccessLabel.Text = "";
                     break;
                 case "Error":
                     ErrorLabel.Text = message;
                     SuccessLabel.Text = "";
                     BenthicsDataErrorLabel.Text = "";
                     BenthicsDataSuccessLabel.Text = "";
+                    BenthicsRepErrorLabel.Text = "";
+                    BenthicsRepSuccessLabel.Text = "";
                     break;
                 case "BenthicsData_Success":
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "";
                     BenthicsDataErrorLabel.Text = "";
                     BenthicsDataSuccessLabel.Text = message;
+                    BenthicsRepErrorLabel.Text = "";
+                    BenthicsRepSuccessLabel.Text = "";
                     break;
                 case "BenthicsData_Error":
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "";
                     BenthicsDataErrorLabel.Text = message;
                     BenthicsDataSuccessLabel.Text = "";
+                    BenthicsRepErrorLabel.Text = "";
+                    BenthicsRepSuccessLabel.Text = "";
+                    break;
+                case "BenthicsRep_Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    BenthicsDataErrorLabel.Text = "";
+                    BenthicsDataSuccessLabel.Text = "";
+                    BenthicsRepErrorLabel.Text = "";
+                    BenthicsRepSuccessLabel.Text = message;
+                    break;
+                case "BenthicsRep_Error":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    BenthicsDataErrorLabel.Text = "";
+                    BenthicsDataSuccessLabel.Text = "";
+                    BenthicsRepErrorLabel.Text = message;
+                    BenthicsRepSuccessLabel.Text = "";
                     break;
                 default:
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "";
                     BenthicsDataErrorLabel.Text = "";
                     BenthicsDataSuccessLabel.Text = "";
+                    BenthicsRepErrorLabel.Text = "";
+                    BenthicsRepSuccessLabel.Text = "";
                     break;
             }
         }
+
+        /***************************************************************************************
+         * Bind Dropdown lists 
+        ****************************************************************************************/
 
         public IQueryable<tlkActivityCategory> BindActivityCategories()
         {
@@ -216,23 +239,9 @@ namespace RWInbound2.Admin
             }
         }
 
-        public IQueryable<tblBenSamp> GetSelectedBenthicData()
-        {
-            try
-            {
-                RiverWatchEntities _db = new RiverWatchEntities();
-
-                IQueryable<tblBenSamp> benthicSamples = _db.tblBenSamps
-                                            .Where(bs => bs.ID == benSampIDSelected);
-                return benthicSamples;
-            }
-            catch (Exception ex)
-            {
-                HandleErrors(ex, ex.Message, "GetSelectedBenthicData", "", "");
-                return null;
-            }
-        }
-
+        /***************************************************************************************
+         * Main Sample Grid
+        ****************************************************************************************/
         public IQueryable<tblBenSamp> GetBenthicSamples([QueryString]string sampleIDSelected = "",
                                              [QueryString]string successLabelMessage = "")
         {
@@ -334,6 +343,13 @@ namespace RWInbound2.Admin
             }
         }
 
+        private void SetSampleData(bool showPanel = false, string sampleNumber = "", string stationEvent = "")
+        {
+            SampleData_Panel.Visible = showPanel;
+            lblSampleNumber.Text = sampleNumber;
+            lblSampleEvent.Text = stationEvent;
+        }
+
         protected void Show(object sender, EventArgs e)
         {
             if (lblSampleNumber != null && !string.IsNullOrEmpty(lblSampleNumber.Text) &&
@@ -347,37 +363,6 @@ namespace RWInbound2.Admin
         {
             public string SampleNumber { get; set; }
             public string SampleEvent { get; set; }
-        }
-
-        private void HandleErrors(Exception ex, string msg, string fromPage,
-                                                string nam, string comment)
-        {
-            LogError LE = new LogError();
-            LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
-
-            SetMessages();
-
-            if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
-            {
-                DbEntityValidationException efException = ex as DbEntityValidationException;
-                StringBuilder sb = new StringBuilder();
-
-                foreach (var eve in efException.EntityValidationErrors)
-                {
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        sb.AppendFormat("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage + Environment.NewLine);
-                    }
-                }
-                SetMessages("Error", sb.ToString());
-            }
-            else
-            {
-                SetMessages("Error", ex.Message);
-            }
         }
 
         protected void BenthicSamplesGridView_RowEditing(object sender, GridViewEditEventArgs e)
@@ -421,6 +406,10 @@ namespace RWInbound2.Admin
                             BenthicDataFormView_Panel.Visible = true;
                             BenthicDataFormView.DataBind();
                             BenthicDataFormView_UpdatePanel.Update();
+
+                            BenthicsRepsGridView_Panel.Visible = true;
+                            BenthicsRepsGridView_Panel.DataBind();
+                            BenthicsReps_UpdatePanel.Update();
                         }
                         else
                         {
@@ -435,9 +424,26 @@ namespace RWInbound2.Admin
             }
         }
 
-        /*****************************************************************************************************************
+        /***************************************************************************************
          * Benthics Data Panel 
-        ******************************************************************************************************************/
+        ****************************************************************************************/
+        public IQueryable<tblBenSamp> GetSelectedBenthicData()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+
+                IQueryable<tblBenSamp> benthicSamples = _db.tblBenSamps
+                                            .Where(bs => bs.ID == benSampIDSelected);
+                return benthicSamples;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "GetSelectedBenthicData", "", "");
+                return null;
+            }
+        }
+
         protected void BenthicDataFormView_ItemCommand(object sender, FormViewCommandEventArgs e)
         {
             try
@@ -510,6 +516,99 @@ namespace RWInbound2.Admin
             {
                 HandleErrors(ex, ex.Message, "UpdateSelectedBenthicData", "", "");
             }
-        }       
+        }
+
+        /***************************************************************************************
+         * Benthics Reps Panel 
+        ****************************************************************************************/
+
+        public IQueryable<tblBenRep> GetBenthicsReps()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+
+                IQueryable<tblBenRep> benthicReps = _db.tblBenReps
+                                            .Where(br => br.BenSampID == benSampIDSelected);
+                return benthicReps;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "GetBenthicsReps", "", "");
+                return null;
+            }
+        }
+
+        public void UpdateBenthicRep(tblBenRep model)
+        {
+            try
+            {
+                SetMessages();
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "UpdateBenthicRep", "", "");
+            }
+        }
+
+        public void DeleteBenthicRep(tblBenRep model)
+        {
+            try
+            {
+                SetMessages();
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "DeleteBenthicRep", "", "");
+            }
+        }
+
+        public void AddNewBenthicRep(object sender, EventArgs e)
+        {
+            try
+            {
+                SetMessages();
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "AddNewBenthicRep", "", "");
+            }
+        }
+
+        protected void BenthicsRepsGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            SetMessages();
+        }
+
+        private void HandleErrors(Exception ex, string msg, string fromPage,
+                                                string nam, string comment)
+        {
+            LogError LE = new LogError();
+            LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
+
+            SetMessages();
+
+            if (ex.GetType().IsAssignableFrom(typeof(DbEntityValidationException)))
+            {
+                DbEntityValidationException efException = ex as DbEntityValidationException;
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var eve in efException.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        sb.AppendFormat("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage + Environment.NewLine);
+                    }
+                }
+                SetMessages("Error", sb.ToString());
+            }
+            else
+            {
+                SetMessages("Error", ex.Message);
+            }
+        }
     }
 }
