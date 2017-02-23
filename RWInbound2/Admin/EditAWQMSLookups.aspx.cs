@@ -155,8 +155,8 @@ namespace RWInbound2.Admin
                 // <asp:Parameter Name="UserCreated" Type="String" />
 
             string user = User.Identity.Name;
-            //e.Command.Parameters["@UserCreated"].Value = user;
-            //e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+            e.Command.Parameters["@UserCreated"].Value = user;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
         }
 
         protected void SqlDataSource1_Updating(object sender, SqlDataSourceCommandEventArgs e)
@@ -165,8 +165,8 @@ namespace RWInbound2.Admin
 
                 // <asp:Parameter Name="DateCreated" Type="DateTime" />
                 //<asp:Parameter Name="UserCreated" Type="String" />
-        //    e.Command.Parameters["@UserCreated"].Value = user;
-        //    e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
+            e.Command.Parameters["@UserCreated"].Value = user;
+            e.Command.Parameters["@DateCreated"].Value = DateTime.Now;
         }
 
         protected void SqlDataSource1_DataBinding(object sender, EventArgs e)
