@@ -29,7 +29,7 @@ namespace RWInbound2
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
     
-        public virtual tblBenRep tblBenRep { get; set; }
         public virtual tblBenTaxa tblBenTaxa { get; set; }
+        public virtual tblBenRep tblBenRep { get; set; }
     }
 }

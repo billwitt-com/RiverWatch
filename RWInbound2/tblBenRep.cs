@@ -29,9 +29,10 @@ namespace RWInbound2
         public int ID { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string UserLastModified { get; set; }
+        public string Type { get; set; }
     
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
-        public virtual ICollection<tblBenthic> tblBenthics { get; set; }
         public virtual tblBenSamp tblBenSamp { get; set; }
+        public virtual ICollection<tblBenthic> tblBenthics { get; set; }
     }
 }

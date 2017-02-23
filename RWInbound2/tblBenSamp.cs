@@ -42,7 +42,6 @@ namespace RWInbound2
         public int LabCount { get; set; }
     
         public virtual ICollection<tblBenGrid> tblBenGrids { get; set; }
-        public virtual ICollection<tblBenRep> tblBenReps { get; set; }
         public virtual tlkActivityType tlkActivityType { get; set; }
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
         public virtual tlkBioResultsType tlkBioResultsType { get; set; }
@@ -52,5 +51,6 @@ namespace RWInbound2
         public virtual tlkGearConfig tlkGearConfig { get; set; }
         public virtual tlkIntent tlkIntent { get; set; }
         public virtual tlkMedium tlkMedium { get; set; }
+        public virtual ICollection<tblBenRep> tblBenReps { get; set; }
     }
 }

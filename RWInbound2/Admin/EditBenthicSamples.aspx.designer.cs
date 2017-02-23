@@ -164,5 +164,50 @@ namespace RWInbound2.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView BenthicsRepsGridView;
+        
+        /// <summary>
+        /// BenthicsGrids_UpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel BenthicsGrids_UpdatePanel;
+        
+        /// <summary>
+        /// BenthicsGridsGridView_Panel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel BenthicsGridsGridView_Panel;
+        
+        /// <summary>
+        /// BenthicsGridErrorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BenthicsGridErrorLabel;
+        
+        /// <summary>
+        /// BenthicsGridSuccessLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BenthicsGridSuccessLabel;
+        
+        /// <summary>
+        /// BenthicsGridsGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView BenthicsGridsGridView;
     }
 }
