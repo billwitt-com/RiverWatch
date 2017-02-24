@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Linq;
@@ -56,6 +58,7 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    UpdatePanels();
                     break;
                 case "Error":
                     ErrorLabel.Text = message;
@@ -66,6 +69,7 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    UpdatePanels();
                     break;
                 case "BenthicsData_Success":
                     ErrorLabel.Text = "";
@@ -76,6 +80,7 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    UpdatePanels();
                     break;
                 case "BenthicsData_Error":
                     ErrorLabel.Text = "";
@@ -86,6 +91,7 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    UpdatePanels();
                     break;
                 case "BenthicsRep_Success":
                     ErrorLabel.Text = "";
@@ -96,6 +102,7 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = message;
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    UpdatePanels();
                     break;
                 case "BenthicsRep_Error":
                     ErrorLabel.Text = "";
@@ -106,6 +113,7 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    UpdatePanels();
                     break;
                 case "BenthicsGrid_Success":
                     ErrorLabel.Text = "";
@@ -116,6 +124,7 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = message;
+                    UpdatePanels();
                     break;
                 case "BenthicsGrid_Error":
                     ErrorLabel.Text = "";
@@ -126,6 +135,7 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = message;
                     BenthicsGridSuccessLabel.Text = "";
+                    UpdatePanels();
                     break;
                 default:
                     ErrorLabel.Text = "";
@@ -136,8 +146,17 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    UpdatePanels();
                     break;
             }
+        }
+
+        private void UpdatePanels()
+        {
+            BenthicSamplesGridView_UpdatePanel.Update();
+            BenthicDataFormView_UpdatePanel.Update();
+            BenthicsReps_UpdatePanel.Update();
+            BenthicsGrids_UpdatePanel.Update();
         }
 
         /***************************************************************************************
@@ -155,7 +174,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindActivityCategories", "", "");
+                HandleErrors(ex, ex.Message, "BindActivityCategories", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -171,7 +190,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindFieldProcedures", "", "");
+                HandleErrors(ex, ex.Message, "BindFieldProcedures", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -187,7 +206,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindFieldGear", "", "");
+                HandleErrors(ex, ex.Message, "BindFieldGear", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -203,7 +222,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindGearConfig", "", "");
+                HandleErrors(ex, ex.Message, "BindGearConfig", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -219,7 +238,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindActivityType", "", "");
+                HandleErrors(ex, ex.Message, "BindActivityType", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -235,7 +254,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindMedium", "", "");
+                HandleErrors(ex, ex.Message, "BindMedium", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -251,7 +270,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindIntent", "", "");
+                HandleErrors(ex, ex.Message, "BindIntent", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -267,7 +286,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindCommunities", "", "");
+                HandleErrors(ex, ex.Message, "BindCommunities", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -283,7 +302,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindBioResultsTypes", "", "");
+                HandleErrors(ex, ex.Message, "BindBioResultsTypes", "", "", "BenthicsData_Error");
                 return null;
             }
         }
@@ -302,7 +321,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BindGridReps", "", "");
+                HandleErrors(ex, ex.Message, "BindGridReps", "", "", "BenthicsGrid_Error");
                 return null;
             }
         }
@@ -420,10 +439,17 @@ namespace RWInbound2.Admin
 
         protected void Show(object sender, EventArgs e)
         {
-            if (lblSampleNumber != null && !string.IsNullOrEmpty(lblSampleNumber.Text) &&
-                !BenthicSamplesGridView.Controls[0].Controls[0].FindControl("NoResultsPanel").Visible)
+            try
             {
-                BenthicSamplesGridView.Controls[0].Controls[0].FindControl("NoResultsPanel").Visible = true;
+                if (lblSampleNumber != null && !string.IsNullOrEmpty(lblSampleNumber.Text) &&
+                    !BenthicSamplesGridView.Controls[0].Controls[0].FindControl("NoResultsPanel").Visible)
+                {
+                    BenthicSamplesGridView.Controls[0].Controls[0].FindControl("NoResultsPanel").Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "Show", "", "");
             }
         }
 
@@ -525,19 +551,6 @@ namespace RWInbound2.Admin
                     BenthicDataFormView_Panel.Visible = true;
                     BenthicDataFormView.DataBind();
                     BenthicDataFormView_UpdatePanel.Update();
-
-                    //string forViewID = e.CommandArgument.ToString();
-                    //bool convertIDToInt = int.TryParse(forViewID, out benSampIDSelected);
-                    //if (!convertIDToInt)
-                    //{
-                    //    SetMessages("BenthicsData_Error", "The Benthics Sample ID provided is not a number. Please correct the error and try again.");
-                    //}
-                    //else
-                    //{
-                    //    BenthicDataFormView_Panel.Visible = true;
-                    //    BenthicDataFormView.DataBind();
-                    //    BenthicDataFormView_UpdatePanel.Update();                    
-                    //}                  
                 }
             }
             catch (Exception ex)
@@ -667,6 +680,8 @@ namespace RWInbound2.Admin
                                                     selectedBenthicsRepToUpdate.Type);
 
                             SetMessages("BenthicsRep_Success", successMsg);
+                            BenthicsGridsGridView_Panel.DataBind();
+                            BenthicsGrids_UpdatePanel.Update();
                         }
                         else
                         {
@@ -677,7 +692,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateBenthicRep", "", "");
+                HandleErrors(ex, ex.Message, "UpdateBenthicRep", "", "", "BenthicsRep_Error");
             }
         }
 
@@ -709,12 +724,15 @@ namespace RWInbound2.Admin
 
                         BenthicsRepsGridView_Panel.DataBind();
                         BenthicsReps_UpdatePanel.Update();
+
+                        BenthicsGridsGridView_Panel.DataBind();
+                        BenthicsGrids_UpdatePanel.Update();
                     }
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "DeleteBenthicRep", "", "");
+                HandleErrors(ex, ex.Message, "DeleteBenthicRep", "", "", "BenthicsRep_Error");
             }
         }
 
@@ -773,12 +791,15 @@ namespace RWInbound2.Admin
 
                         BenthicsRepsGridView_Panel.DataBind();
                         BenthicsReps_UpdatePanel.Update();
+
+                        BenthicsGridsGridView_Panel.DataBind();
+                        BenthicsGrids_UpdatePanel.Update();
                     }
                 }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewBenthicRep", "", "");
+                HandleErrors(ex, ex.Message, "AddNewBenthicRep", "", "", "BenthicsRep_Error");
             }
         }
 
@@ -792,7 +813,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "BenthicsRepsGridView_RowEditing", "", "");
+                HandleErrors(ex, ex.Message, "BenthicsRepsGridView_RowEditing", "", "", "BenthicsRep_Error");
             }
         }
 
@@ -812,7 +833,8 @@ namespace RWInbound2.Admin
                 RiverWatchEntities _db = new RiverWatchEntities();
 
                 IQueryable<tblBenGrid> benthicGrids = _db.tblBenGrids
-                                            .Where(br => br.BenSampID == benSampIDSelected);
+                                            .Where(bg => bg.BenSampID == benSampIDSelected)
+                                            .OrderBy(bg => bg.RepNum);
                 return benthicGrids;
             }
             catch (Exception ex)
@@ -867,7 +889,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateBenthicGrid", "", "");
+                HandleErrors(ex, ex.Message, "UpdateBenthicGrid", "", "", "BenthicsGrid_Error");
             }
         }
 
@@ -879,8 +901,8 @@ namespace RWInbound2.Admin
 
                 using (RiverWatchEntities _db = new RiverWatchEntities())
                 {
-                    var benthicGridToDelete = _db.tblBenReps.Find(model.ID);
-                    _db.tblBenReps.Remove(benthicGridToDelete);
+                    var benthicGridToDelete = _db.tblBenGrids.Find(model.ID);
+                    _db.tblBenGrids.Remove(benthicGridToDelete);
                     _db.SaveChanges();
 
                     string successMsg = string.Format("Benthics Grid Deleted: Rep Num {0}, GridNum {1}", model.RepNum, model.GridNum);
@@ -892,7 +914,7 @@ namespace RWInbound2.Admin
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "DeleteBenthicGrid", "", "");
+                HandleErrors(ex, ex.Message, "DeleteBenthicGrid", "", "", "BenthicsGrid_Error");
             }
         }
 
@@ -902,61 +924,56 @@ namespace RWInbound2.Admin
             {
                 SetMessages();
 
-                //string repNumText = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewRepNum")).Text;
+                string gridNumText = ((TextBox)BenthicsGridsGridView.FooterRow.FindControl("txtNewGridNum")).Text;
 
-                //if (string.IsNullOrEmpty(repNumText))
-                //{
-                //    ((Label)BenthicsRepsGridView.FooterRow.FindControl("lblNewRepNumRequired")).Visible = true;
-                //}
-                //else
-                //{
-                //    int repNum = Convert.ToInt32(repNumText);
-                //    int activityCategory =
-                //            Convert.ToInt32(((DropDownList)BenthicsRepsGridView.FooterRow.FindControl("dropDownNewBenthicsRepActivity")).SelectedValue);
+                if (string.IsNullOrEmpty(gridNumText))
+                {
+                    ((Label)BenthicsGridsGridView.FooterRow.FindControl("lblNewGridNumRequired")).Visible = true;
+                }
+                else
+                {
+                    int gridNum = Convert.ToInt32(gridNumText);
+                    int repNum =
+                            Convert.ToInt32(((DropDownList)BenthicsGridsGridView.FooterRow.FindControl("dropDownNewBenthicsGridReps")).SelectedValue);
 
-                //    string gridsText = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewGrids")).Text;
-                //    int grids = string.IsNullOrEmpty(gridsText) ? 0 : Convert.ToInt32(gridsText);
+                    string benCountText = ((TextBox)BenthicsGridsGridView.FooterRow.FindControl("txtNewBenCount")).Text;
+                    int benCount = string.IsNullOrEmpty(benCountText) ? 0 : Convert.ToInt32(benCountText);
+                   
+                    string userLastModified = "Unknown";
 
-                //    string type = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewType")).Text;
-                //    string comments = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewComments")).Text;
-                //    string userLastModified = "Unknown";
+                    if (this.User != null && this.User.Identity.IsAuthenticated)
+                    {
+                        userLastModified = HttpContext.Current.User.Identity.Name;
+                    }
 
-                //    if (this.User != null && this.User.Identity.IsAuthenticated)
-                //    {
-                //        userLastModified = HttpContext.Current.User.Identity.Name;
-                //    }
+                    var newBenGrid = new tblBenGrid()
+                    {
+                        BenSampID = benSampIDSelected,
+                        RepNum = repNum,
+                        GridNum = gridNum,
+                        BenCount = benCount,
+                        UserLastModified = userLastModified,
+                        DateLastModified = DateTime.Now
+                    };
 
-                //    var newBenRep = new tblBenRep()
-                //    {
-                //        BenSampID = benSampIDSelected,
-                //        RepNum = repNum,
-                //        ActivityCategory = activityCategory,
-                //        Grids = grids,
-                //        Type = type,
-                //        Comments = comments,
-                //        EnterDate = DateTime.Now,
-                //        UserLastModified = userLastModified,
-                //        DateLastModified = DateTime.Now
-                //    };
+                    using (RiverWatchEntities _db = new RiverWatchEntities())
+                    {
+                        _db.tblBenGrids.Add(newBenGrid);
+                        _db.SaveChanges();
 
-                //    using (RiverWatchEntities _db = new RiverWatchEntities())
-                //    {
-                //        _db.tblBenReps.Add(newBenRep);
-                //        _db.SaveChanges();
+                        string successMsg
+                                = string.Format("Benthics Grid Added for Rep {0} Grid Num {1}", repNum, gridNum);
 
-                //        string successMsg
-                //                = string.Format("Benthics Rep Added for Rep Num {0}", repNum);
+                        SetMessages("BenthicsGrid_Success", successMsg);
 
-                //        SetMessages("BenthicsRep_Success", successMsg);
-
-                //        BenthicsRepsGridView_Panel.DataBind();
-                //        BenthicsReps_UpdatePanel.Update();
-                //    }
-                //}
+                        BenthicsGridsGridView_Panel.DataBind();
+                        BenthicsGrids_UpdatePanel.Update();
+                    }
+                }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "AddNewBenthicGrid", "", "");
+                HandleErrors(ex, ex.Message, "AddNewBenthicGrid", "", "", "BenthicsGrid_Error");
             }
         }
 
@@ -975,7 +992,7 @@ namespace RWInbound2.Admin
         }
 
         private void HandleErrors(Exception ex, string msg, string fromPage,
-                                                string nam, string comment)
+                                                string nam, string comment, string type = "Error")
         {
             LogError LE = new LogError();
             LE.logError(msg, fromPage, ex.StackTrace.ToString(), nam, comment);
@@ -997,12 +1014,69 @@ namespace RWInbound2.Admin
                             ve.ErrorMessage + Environment.NewLine);
                     }
                 }
-                SetMessages("Error", sb.ToString());
+                SetMessages(type, sb.ToString());
+            }
+            else if (ex.GetType().IsAssignableFrom(typeof(DbUpdateException)))
+            {
+                DbUpdateException efUpdateException = ex as DbUpdateException;
+                var validationResultList = TryDecodeDbUpdateException(efUpdateException);
+
+                if(validationResultList != null)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendFormat("ERROR! ");
+                    foreach (var vr in validationResultList)
+                    {
+                        sb.AppendFormat("{0} ", vr.ErrorMessage);
+                    }
+
+                    SetMessages(type, sb.ToString());
+                }
             }
             else
             {
-                SetMessages("Error", ex.Message);
+                SetMessages(type, ex.Message);
             }
+        }
+
+        /***************************************************************************************
+         * New Error Handling - Can move to seperate class
+        ****************************************************************************************/
+        private static readonly Dictionary<int, string> _sqlErrorTextDict =
+            new Dictionary<int, string>
+        {
+            {547,
+             "This operation failed because another data entry uses this entry."},
+            {2601,
+             "One of the properties is marked as Unique index and there is already an entry with that value."},
+            {2627,
+             "This operation failed because there is already an entry with that value ."}
+        };
+
+        /// <summary>
+        /// This decodes the DbUpdateException. If there are any errors it can
+        /// handle then it returns a list of errors. Otherwise it returns null
+        /// which means rethrow the error as it has not been handled
+        /// </summary>
+        /// <param id="ex""></param>
+        /// <returns>null if cannot handle errors, otherwise a list of errors</returns>
+        IEnumerable<ValidationResult> TryDecodeDbUpdateException(DbUpdateException ex)
+        {
+            if (!(ex.InnerException is System.Data.Entity.Core.UpdateException) ||
+                !(ex.InnerException.InnerException is System.Data.SqlClient.SqlException))
+                return null;
+            var sqlException =
+                (System.Data.SqlClient.SqlException)ex.InnerException.InnerException;
+            var result = new List<ValidationResult>();
+            for (int i = 0; i < sqlException.Errors.Count; i++)
+            {
+                var errorNum = sqlException.Errors[i].Number;
+                string errorText;
+                if (!_sqlErrorTextDict.TryGetValue(errorNum, out errorText))
+                    errorText = sqlException.Errors[i].Message;
+                result.Add(new ValidationResult(errorText));
+            }
+            return result.Any() ? result : null;
         }
     }
 }

@@ -227,8 +227,7 @@ namespace RWInbound2.Edit
                         RepNum = repNum,
                         GridNum = gridNum,
                         BenCount = benCount,
-                        StoretUploaded = storetUploaded,
-                        Valid = true
+                        StoretUploaded = storetUploaded
                     };
 
                     using (RiverWatchEntities _db = new RiverWatchEntities())

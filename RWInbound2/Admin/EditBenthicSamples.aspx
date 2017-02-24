@@ -50,9 +50,7 @@
                             No Samples were found.
                              <%-- <% =Show() %>--%>
                             <asp:Panel ID="NoResultsPanel" runat="server" Visible="false" OnInit="Show" OnDataBinding="Show" OnLoad="Show"
-                                 CssClass="grid-edit-benthics-samples-no-results-panel" >
-                                <%--<asp:Button ID="btnAdd" runat="server" Text="Add New Benthic Sample"
-                                            OnClick="AddNewBenthicSample" CssClass="adminButton grid-edit-benthics-samples-add-new-button" />  --%>
+                                 CssClass="grid-edit-benthics-samples-no-results-panel" >                              
                                 <asp:Button ID="btnAdd" runat="server" Text="Add New Benthic Sample"
                                              OnClientClick="return alert('Coming Soon!');" CssClass="adminButton grid-edit-benthics-samples-add-new-button" />                    
                             </asp:Panel>
@@ -60,18 +58,12 @@
                     </EmptyDataTemplate>    
                     <Columns>  
                         <asp:TemplateField>
-                            <ItemTemplate>                       
-                                <%--<asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
-                                            OnClientClick="return confirm('Are you certain you want to delete this?');"/>--%>
+                            <ItemTemplate>         
                                 <asp:Button ID="DeleteButton" runat="server" Text="Delete" OnClientClick="return alert('Coming Soon!');" />
                             </ItemTemplate>
-                            <EditItemTemplate>
-                               <%-- <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
-                                <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />--%>
+                            <EditItemTemplate>                             
                             </EditItemTemplate>
-                            <FooterTemplate>
-                                <%--<asp:Button ID="btnAdd" runat="server" Text="Add"
-                                            OnClick="AddNewBenthicSample" />--%>
+                            <FooterTemplate>                               
                                 <asp:Button ID="btnAdd" runat="server" Text="Add"
                                              OnClientClick="return alert('Coming Soon!');" />
                             </FooterTemplate>
@@ -107,10 +99,7 @@
                         <asp:TemplateField HeaderText="Reps/Grids">                   
                             <ItemTemplate>
                                 <asp:Button ID="ViewRepsGridButton" runat="server" Text="View"  
-                                            CommandName="GetAllBenthicsData" CommandArgument='<%# ((GridViewRow) Container).RowIndex+","+ Eval("ID") %>'/>
-                                <%--<asp:Button ID="GetAssignedSamplesButton" runat="server" Text="Download Assigned Samples"
-                                            CommandName="GetAssignedSamples" CommandArgument='<%# Bind("ID") %>' />
-                                    OnClientClick="return alert('Coming Soon!');"--%>
+                                            CommandName="GetAllBenthicsData" CommandArgument='<%# ((GridViewRow) Container).RowIndex+","+ Eval("ID") %>'/>                               
                                 <asp:HiddenField id="HiddenField_SelectedGridRowBenSampID" runat="server" value='<%# Eval("ID") %>' />
                             </ItemTemplate>                   
                         </asp:TemplateField>                             
@@ -258,11 +247,11 @@
                                 <div class="benthics-samples-form-view-labels">
                                     <label>Comments:</label>
                                 </div>
-                                <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Text='<%# Bind("Comments") %>' MaxLength="100" CssClass="benthics-samples-form-view-textbox"></asp:TextBox>          
+                                <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Text='<%# Bind("Comments") %>' MaxLength="100" 
+                                             CssClass="benthics-samples-form-view-textbox"></asp:TextBox>          
                                 <br /><br />
                                 <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" CssClass="adminButton" CommandArgument='<%# Eval("ID") %>' />                                                 
-                                <%--<asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" OnClientClick="return alert('Coming Soon!');" CssClass="adminButton" />--%>                        
-                                <asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" CommandName="Update" CssClass="adminButton" />
+                               <asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" CommandName="Update" CssClass="adminButton" />
                                 
                                 <asp:HiddenField id="HiddenField_SampleID" runat="server" value='<%# Bind("SampleID") %>' />
                                 <asp:HiddenField id="HiddenField_Valid" runat="server" value='<%# Bind("Valid") %>' />
@@ -302,24 +291,15 @@
                             <AlternatingRowStyle BackColor="White" />
                             <EmptyDataTemplate>
                                 <div class="grid-edit-benthics-samples-empty-data-div">
-                                    No Benthics Reps were found.
-                                   <%-- <% =Show() %>--%>
-                                   <%-- <asp:Panel ID="NoResultsPanel" runat="server" Visible="false" OnInit="Show" OnDataBinding="Show" OnLoad="Show"
-                                         CssClass="grid-edit-benthics-samples-no-results-panel" >                              
-                                        <asp:Button ID="btnAdd" runat="server" Text="Add New Benthic Sample"
-                                                     OnClientClick="return alert('Coming Soon!');" CssClass="adminButton grid-edit-benthics-samples-add-new-button" />                    
-                                    </asp:Panel>--%>
+                                    No Benthics Reps were found.                                 
                                 </div>
                             </EmptyDataTemplate>    
                             <Columns>  
                                 <asp:TemplateField>
-                                    <ItemTemplate>  
-                                        <%--<asp:HiddenField id="HiddenField_BenSampID" runat="server" value='<%# Bind("BenSampID") %>' /> --%>
-                                        <%--<asp:Button ID="EditButton" runat="server" Text="Edit" OnClientClick="return alert('Coming Soon!');" />--%>
+                                    <ItemTemplate>                                        
                                         <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />                    
                                         <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
-                                                    OnClientClick="return confirm('Are you certain you want to delete this?');"/>
-                                        <%--<asp:Button ID="DeleteButton" runat="server" Text="Delete" OnClientClick="return alert('Coming Soon!');" />--%>
+                                                    OnClientClick="return confirm('Are you certain you want to delete this?');"/>                                     
                                     </ItemTemplate>
                                     <EditItemTemplate>
                                         <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
@@ -327,9 +307,7 @@
                                     </EditItemTemplate>
                                     <FooterTemplate>
                                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                                    OnClick="AddNewBenthicRep" />
-                                       <%-- <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                                     OnClientClick="return alert('Coming Soon!');" />--%>
+                                                    OnClick="AddNewBenthicRep" />                                      
                                     </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID"  />
@@ -442,39 +420,27 @@
                             AutoGenerateColumns="False" CssClass="benthic-reps-grid-columns-center"
                             HeaderStyle-CssClass="grid-edit-benthics-samples-header" 
                             ForeColor="#333333" 
-                            AllowPaging="true" Pagesize="15">
+                            AllowPaging="true" Pagesize="45">
                             <AlternatingRowStyle BackColor="White" />
                             <EmptyDataTemplate>
                                 <div class="grid-edit-benthics-samples-empty-data-div">
-                                    No Benthics Grids were found.
-                                   <%-- <% =Show() %>--%>
-                                   <%-- <asp:Panel ID="NoResultsPanel" runat="server" Visible="false" OnInit="Show" OnDataBinding="Show" OnLoad="Show"
-                                         CssClass="grid-edit-benthics-samples-no-results-panel" >                              
-                                        <asp:Button ID="btnAdd" runat="server" Text="Add New Benthic Sample"
-                                                     OnClientClick="return alert('Coming Soon!');" CssClass="adminButton grid-edit-benthics-samples-add-new-button" />                    
-                                    </asp:Panel>--%>
+                                    No Benthics Grids were found.                                
                                 </div>
                             </EmptyDataTemplate>    
                             <Columns>  
                                 <asp:TemplateField>
-                                    <ItemTemplate>  
-                                        <%--<asp:HiddenField id="HiddenField_BenSampID" runat="server" value='<%# Bind("BenSampID") %>' /> --%>
-                                        <%--<asp:Button ID="EditButton" runat="server" Text="Edit" OnClientClick="return alert('Coming Soon!');" />--%>
-                                        <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />                    
-                                       <%-- <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
-                                                    OnClientClick="return confirm('Are you certain you want to delete this?');"/>--%>
-                                        <asp:Button ID="DeleteButton" runat="server" Text="Delete" OnClientClick="return alert('Coming Soon!');" />
+                                    <ItemTemplate>                                         
+                                        <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />    
+                                        <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
+                                                    OnClientClick="return confirm('Are you certain you want to delete this?');"/>      
                                     </ItemTemplate>
                                     <EditItemTemplate>
                                         <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
-                                        <asp:Button ID="UpdateButton" runat="server" Text="Update" OnClientClick="return alert('Coming Soon!');" />
-                                        <%--<asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />--%>
+                                        <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
                                     </EditItemTemplate>
-                                    <FooterTemplate>
-                                        <%--<asp:Button ID="btnAdd" runat="server" Text="Add"
-                                                    OnClick="AddNewBenthicGrid" />--%>
+                                    <FooterTemplate>                                   
                                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                                     OnClientClick="return alert('Coming Soon!');" />
+                                                    OnClick="AddNewBenthicGrid" />   
                                     </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID"  />
