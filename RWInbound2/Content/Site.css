@@ -2070,7 +2070,13 @@ div.benthic-reps-gridview{
     padding: 1px;
 }
 
-.grid-benthics-reps-required{
+.grid-benthics-required{
+    font-size: 0.95em;
+    background-color:ActiveBorder;
+    color:red !important;
+}
+
+.grid-benthics-range-error{
     font-size: 0.95em;
     background-color:ActiveBorder;
     color:red !important;

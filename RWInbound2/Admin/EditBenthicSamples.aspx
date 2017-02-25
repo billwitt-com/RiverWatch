@@ -272,7 +272,13 @@
                         </div>
                         <div class="benthics-data-label-placement">
                              <asp:Label ID="BenthicsSuccessLabel" CssClass="benthics-data-label-success" runat="server" />
-                        </div>
+                        </div>                        
+                        <asp:Label runat="server" Text="Show Rep:" />
+                        <asp:DropDownList ID="dropDownBenthicsSelectedRepNum" runat="server" DataMember="it"
+                                            SelectMethod="BindGridReps" CssClass="benthics-reps-gridview-dropdowns"   
+                                            AutoPostBack="true" AppendDataBoundItems="true" 
+                                            DataTextField="RepNum" DataValueField="RepNum" >
+                        </asp:DropDownList> 
                         <asp:GridView ID="BenthicsGridView" runat="server"
                             DataKeyNames="ID"
                             ItemType="RWInbound2.tblBenthic" 
@@ -286,7 +292,7 @@
                             CellPadding="4"
                             AutoGenerateColumns="False" CssClass="benthic-reps-grid-columns-center"
                             HeaderStyle-CssClass="grid-edit-benthics-samples-header" 
-                            ForeColor="#333333"   AllowSorting="true"
+                            ForeColor="#333333"   
                             AllowPaging="true" Pagesize="10">
                             <AlternatingRowStyle BackColor="White" />
                             <EmptyDataTemplate>   
@@ -346,6 +352,9 @@
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtNumInHundredPct" runat="server" Text='<%# Bind("NumInHundredPct") %>' 
                                                      CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                        <asp:RangeValidator ID="RangeValidator_txtNumInHundredPct" runat="server" ControlToValidate="txtNumInHundredPct"
+                                             MinimumValue="0" MaximumValue="100" Type="Integer" ErrorMessage="0 to 100" CssClass="grid-benthics-range-error"
+                                             Display="Dynamic" />                                        
                                     </EditItemTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="lblNumInHundredPct" runat="server" Text='<%# Bind("NumInHundredPct") %>'></asp:Label>                                                                   
@@ -353,6 +362,9 @@
                                     <FooterTemplate>
                                         <asp:TextBox ID="txtNewNumInHundredPct" runat="server"
                                                      CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                        <asp:RangeValidator ID="RangeValidator_txtNewNumInHundredPct" runat="server" ControlToValidate="txtNewNumInHundredPct"
+                                             MinimumValue="0" MaximumValue="100" Type="Integer" ErrorMessage="0 to 100" CssClass="grid-benthics-range-error"
+                                             Display="Dynamic"/>   
                                     </FooterTemplate>                                              
                                 </asp:TemplateField>                                
                                 <asp:TemplateField HeaderText="Comments" SortExpression="Comments" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-benthics-reps-medium-textbox" 
@@ -382,6 +394,22 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblEnterDate" runat="server" Text='<%# Bind("EnterDate") %>'></asp:Label>
                                     </ItemTemplate>                    
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Rep" SortExpression="RepNum">                   
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="txtRepNum" runat="server" Text='<%# Bind("RepNum") %>' 
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRepNum" runat="server" Text='<%# Bind("RepNum") %>'></asp:Label>                                                                   
+                                    </ItemTemplate> 
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="dropDownNewBenthicsRepNum" runat="server" DataMember="it"
+                                                            SelectMethod="BindGridReps" CssClass="benthics-reps-gridview-dropdowns"   
+                                                            AutoPostBack="true" AppendDataBoundItems="true" 
+                                                            DataTextField="RepNum" DataValueField="RepNum" >
+                                        </asp:DropDownList>
+                                    </FooterTemplate>                                              
                                 </asp:TemplateField>                                                  
                             </Columns>
                             <EditRowStyle BackColor="#2461BF"  />            
@@ -449,7 +477,7 @@
                                     <FooterTemplate>
                                         <asp:TextBox ID="txtNewRepNum" runat="server"
                                                      CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
-                                        <asp:Label ID="lblNewRepNumRequired" runat="server" Visible="false" CssClass="grid-benthics-reps-required">
+                                        <asp:Label ID="lblNewRepNumRequired" runat="server" Visible="false" CssClass="grid-benthics-required">
                                             Required!
                                         </asp:Label>
                                     </FooterTemplate>                                              
@@ -600,7 +628,7 @@
                                     <FooterTemplate>
                                         <asp:TextBox ID="txtNewGridNum" runat="server"
                                                      CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
-                                        <asp:Label ID="lblNewGridNumRequired" runat="server" Visible="false" CssClass="grid-benthics-reps-required">
+                                        <asp:Label ID="lblNewGridNumRequired" runat="server" Visible="false" CssClass="grid-benthics-required">
                                             Required!
                                         </asp:Label>
                                     </FooterTemplate>                                              

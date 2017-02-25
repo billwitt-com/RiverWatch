@@ -1063,15 +1063,24 @@ namespace RWInbound2.Admin
         * Ben Taxa Panels 
        ****************************************************************************************/
 
-        public IQueryable<tblBenthic> GetBenthics()
+        public IQueryable<tblBenthic> GetBenthics([Control("dropDownBenthicsSelectedRepNum")] int? repNum)
         {
             try
             {
                 RiverWatchEntities _db = new RiverWatchEntities();
 
+                if(repNum == null)
+                {
+                    repNum = 1;
+                }
+
                 IQueryable<tblBenthic> benthics = _db.tblBenthics
-                                                     .Where(b => b.BenSampID == benSampIDSelected)
+                                                     .Where(b => b.BenSampID == benSampIDSelected && b.RepNum == repNum)
                                                      .OrderBy(b => b.tblBenTaxa.FinalID);
+
+                //BenthicsGridView_Panel.DataBind();
+                //Benthics_UpdatePanel.Update();
+
                 return benthics;
             }
             catch (Exception ex)
@@ -1162,60 +1171,53 @@ namespace RWInbound2.Admin
             {
                 SetMessages();
 
-                string repNumText = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewRepNum")).Text;
+                int benTaxaID =
+                        Convert.ToInt32(((DropDownList)BenthicsGridView.FooterRow.FindControl("dropDownNewBenthicsTaxa")).SelectedValue);
+                int repNum =
+                        Convert.ToInt32(((DropDownList)BenthicsGridView.FooterRow.FindControl("dropDownNewBenthicsTaxa")).SelectedValue);
+                int individuals =
+                        Convert.ToInt32(((TextBox)BenthicsGridView.FooterRow.FindControl("txtNewIndividuals")).Text);
+                string gridsText = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewGrids")).Text;
+                int grids = string.IsNullOrEmpty(gridsText) ? 0 : Convert.ToInt32(gridsText);
 
-                if (string.IsNullOrEmpty(repNumText))
+                string type = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewType")).Text;
+                string comments = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewComments")).Text;
+                string userLastModified = "Unknown";
+
+                if (this.User != null && this.User.Identity.IsAuthenticated)
                 {
-                    ((Label)BenthicsRepsGridView.FooterRow.FindControl("lblNewRepNumRequired")).Visible = true;
+                    userLastModified = HttpContext.Current.User.Identity.Name;
                 }
-                else
-                {
-                    int repNum = Convert.ToInt32(repNumText);
-                    int activityCategory =
-                            Convert.ToInt32(((DropDownList)BenthicsRepsGridView.FooterRow.FindControl("dropDownNewBenthicsRepActivity")).SelectedValue);
 
-                    string gridsText = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewGrids")).Text;
-                    int grids = string.IsNullOrEmpty(gridsText) ? 0 : Convert.ToInt32(gridsText);
+                //var newBenRep = new tblBenRep()
+                //{
+                //    BenSampID = benSampIDSelected,
+                //    RepNum = repNum,
+                //    ActivityCategory = activityCategory,
+                //    Grids = grids,
+                //    Type = type,
+                //    Comments = comments,
+                //    EnterDate = DateTime.Now,
+                //    UserLastModified = userLastModified,
+                //    DateLastModified = DateTime.Now
+                //};
 
-                    string type = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewType")).Text;
-                    string comments = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewComments")).Text;
-                    string userLastModified = "Unknown";
+                //using (RiverWatchEntities _db = new RiverWatchEntities())
+                //{
+                //    _db.tblBenReps.Add(newBenRep);
+                //    _db.SaveChanges();
 
-                    if (this.User != null && this.User.Identity.IsAuthenticated)
-                    {
-                        userLastModified = HttpContext.Current.User.Identity.Name;
-                    }
+                //    string successMsg
+                //            = string.Format("Benthics Rep Added for Rep Num {0}", repNum);
 
-                    var newBenRep = new tblBenRep()
-                    {
-                        BenSampID = benSampIDSelected,
-                        RepNum = repNum,
-                        ActivityCategory = activityCategory,
-                        Grids = grids,
-                        Type = type,
-                        Comments = comments,
-                        EnterDate = DateTime.Now,
-                        UserLastModified = userLastModified,
-                        DateLastModified = DateTime.Now
-                    };
+                //    SetMessages("BenthicsRep_Success", successMsg);
 
-                    using (RiverWatchEntities _db = new RiverWatchEntities())
-                    {
-                        _db.tblBenReps.Add(newBenRep);
-                        _db.SaveChanges();
+                //    BenthicsRepsGridView_Panel.DataBind();
+                //    BenthicsReps_UpdatePanel.Update();
 
-                        string successMsg
-                                = string.Format("Benthics Rep Added for Rep Num {0}", repNum);
-
-                        SetMessages("BenthicsRep_Success", successMsg);
-
-                        BenthicsRepsGridView_Panel.DataBind();
-                        BenthicsReps_UpdatePanel.Update();
-
-                        BenthicsGridsGridView_Panel.DataBind();
-                        BenthicsGrids_UpdatePanel.Update();
-                    }
-                }
+                //    BenthicsGridsGridView_Panel.DataBind();
+                //    BenthicsGrids_UpdatePanel.Update();
+                //}
             }
             catch (Exception ex)
             {
