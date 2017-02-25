@@ -41,9 +41,9 @@
                     ShowFooter="true"
                     CellPadding="4"
                     AutoGenerateColumns="False" CssClass="grid-columns-center grid-edit-benthics-samples-item-rowstyle"
-                    HeaderStyle-CssClass="grid-edit-benthics-samples-header" 
+                    HeaderStyle-CssClass="grid-edit-benthics-samples-header"                   
                     ForeColor="#333333" 
-                    AllowPaging="true" Pagesize="15">
+                    AllowPaging="true" Pagesize="10">
                     <AlternatingRowStyle BackColor="White" />
                     <EmptyDataTemplate>
                         <div class="grid-edit-benthics-samples-empty-data-div">
@@ -251,7 +251,7 @@
                                              CssClass="benthics-samples-form-view-textbox"></asp:TextBox>          
                                 <br /><br />
                                 <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" CssClass="adminButton" CommandArgument='<%# Eval("ID") %>' />                                                 
-                               <asp:Button ID="UpdateButton" runat="server" Text="Update Benthics Data" CommandName="Update" CssClass="adminButton" />
+                               <asp:Button ID="UpdateButton" runat="server" Text="Save Benthics Data Changes" CommandName="Update" CssClass="adminButton" />
                                 
                                 <asp:HiddenField id="HiddenField_SampleID" runat="server" value='<%# Bind("SampleID") %>' />
                                 <asp:HiddenField id="HiddenField_Valid" runat="server" value='<%# Bind("Valid") %>' />
@@ -260,6 +260,133 @@
                             </EditItemTemplate>
                         </asp:FormView>
                     </asp:Panel> 
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            <br />
+            <asp:UpdatePanel ID="Benthics_UpdatePanel" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:Panel ID="BenthicsGridView_Panel" runat="server" Visible="false">
+                        <h4>Ben Taxa</h4>
+                        <div class="benthics-data-label-placement">
+                            <asp:Label ID="BenthicsErrorLabel" CssClass="benthics-data-label-error" runat="server" />               
+                        </div>
+                        <div class="benthics-data-label-placement">
+                             <asp:Label ID="BenthicsSuccessLabel" CssClass="benthics-data-label-success" runat="server" />
+                        </div>
+                        <asp:GridView ID="BenthicsGridView" runat="server"
+                            DataKeyNames="ID"
+                            ItemType="RWInbound2.tblBenthic" 
+                            SelectMethod="GetBenthics"
+                            UpdateMethod="UpdateBenthic"
+                            DeleteMethod="DeleteBenthic" 
+                            InsertItemPosition="LastItem"  
+                            OnRowEditing="BenthicsGridView_RowEditing"  
+                            ShowHeaderWhenEmpty="true"                                            
+                            ShowFooter="true"
+                            CellPadding="4"
+                            AutoGenerateColumns="False" CssClass="benthic-reps-grid-columns-center"
+                            HeaderStyle-CssClass="grid-edit-benthics-samples-header" 
+                            ForeColor="#333333"   AllowSorting="true"
+                            AllowPaging="true" Pagesize="10">
+                            <AlternatingRowStyle BackColor="White" />
+                            <EmptyDataTemplate>   
+                                <div class="grid-edit-benthics-samples-empty-data-div">
+                                    No Ben Taxa Records were found.                                 
+                                </div>
+                            </EmptyDataTemplate>    
+                            <Columns>  
+                                <asp:TemplateField>
+                                    <ItemTemplate>                                        
+                                        <asp:Button ID="EditButton" runat="server" Text="Edit" CommandName="Edit" />                    
+                                        <asp:Button ID="DeleteButton" runat="server" Text="Delete" CommandName="Delete" 
+                                                    OnClientClick="return confirm('Are you certain you want to delete this?');"/>                                     
+                                    </ItemTemplate>
+                                    <EditItemTemplate>
+                                        <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" />
+                                        <asp:Button ID="UpdateButton" runat="server" Text="Update" CommandName="Update" />
+                                    </EditItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Button ID="btnAdd" runat="server" Text="Add"
+                                                    OnClick="AddNewBenthic" />                                      
+                                    </FooterTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID"  />                                
+                                <asp:TemplateField HeaderText="Taxa" SortExpression="tblBenTaxa.FinalID">                   
+                                    <EditItemTemplate>
+                                        <asp:DropDownList ID="dropDownBenthicsTaxa" runat="server" DataMember="it"
+                                                            SelectMethod="BindBenTaxa" CssClass="benthics-reps-gridview-dropdowns"   
+                                                            SelectedValue='<%# Bind("BenTaxaID") %>'                                          
+                                                            AppendDataBoundItems="true" DataTextField="FinalID" DataValueField="ID">
+                                        </asp:DropDownList> 
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbltblBenTaxaFinalID" runat="server" Text='<%# Bind("tblBenTaxa.FinalID") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="dropDownNewBenthicsTaxa" runat="server" DataMember="it"
+                                                            SelectMethod="BindBenTaxa" CssClass="benthics-reps-gridview-dropdowns"                                                                                               
+                                                            AppendDataBoundItems="true" DataTextField="FinalID" DataValueField="ID">
+                                        </asp:DropDownList> 
+                                    </FooterTemplate>                    
+                               </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Count" SortExpression="Individuals">                   
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="txtIndividuals" runat="server" Text='<%# Bind("Individuals") %>' 
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIndividuals" runat="server" Text='<%# Bind("Individuals") %>'></asp:Label>                                                                   
+                                    </ItemTemplate> 
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtNewIndividuals" runat="server"
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>                                       
+                                    </FooterTemplate>                                              
+                                </asp:TemplateField> 
+                               <asp:TemplateField HeaderText="Num In 100%" SortExpression="NumInHundredPct">                   
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="txtNumInHundredPct" runat="server" Text='<%# Bind("NumInHundredPct") %>' 
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblNumInHundredPct" runat="server" Text='<%# Bind("NumInHundredPct") %>'></asp:Label>                                                                   
+                                    </ItemTemplate> 
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtNewNumInHundredPct" runat="server"
+                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                    </FooterTemplate>                                              
+                                </asp:TemplateField>                                
+                                <asp:TemplateField HeaderText="Comments" SortExpression="Comments" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-benthics-reps-medium-textbox" 
+                                    ControlStyle-CssClass="grid-benthics-reps-medium-textbox" >
+                                    <EditItemTemplate >
+                                        <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" MaxLength="100" Text='<%# Bind("Comments") %>'></asp:TextBox>                                                          
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                       <asp:Label ID="lblComments" runat="server" Text='<%# Bind("Comments") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtNewComments" runat="server" TextMode="MultiLine" MaxLength="100" CssClass="grid-benthics-reps-medium-textbox"></asp:TextBox>   
+                                    </FooterTemplate>                            
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Life Cycle" SortExpression="LifeCycle" >
+                                    <EditItemTemplate >
+                                        <asp:Label ID="lblEditLifeCycle" runat="server" Text='<%# Bind("tblBenTaxa.LifeCycle") %>'></asp:Label>                                                        
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                       <asp:Label ID="lblLifeCycle" runat="server" Text='<%# Bind("tblBenTaxa.LifeCycle") %>'></asp:Label>
+                                    </ItemTemplate>                                                           
+                                </asp:TemplateField>    
+                                <asp:TemplateField HeaderText="Entered" SortExpression="EnterDate">                   
+                                    <EditItemTemplate>
+                                         <asp:Label ID="txtEnterDate" runat="server" Text='<%# Bind("EnterDate") %>'></asp:Label>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEnterDate" runat="server" Text='<%# Bind("EnterDate") %>'></asp:Label>
+                                    </ItemTemplate>                    
+                                </asp:TemplateField>                                                  
+                            </Columns>
+                            <EditRowStyle BackColor="#2461BF"  />            
+                        </asp:GridView> 
+                        </asp:Panel>
                 </ContentTemplate>
             </asp:UpdatePanel>     
         </div>

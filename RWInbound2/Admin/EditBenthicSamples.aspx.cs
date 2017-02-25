@@ -58,6 +58,10 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    BenthicsGridErrorLabel.Text = "";
+                    BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
                 case "Error":
@@ -69,6 +73,8 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
                 case "BenthicsData_Success":
@@ -80,6 +86,8 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
                 case "BenthicsData_Error":
@@ -91,6 +99,8 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
                 case "BenthicsRep_Success":
@@ -102,6 +112,8 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = message;
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
                 case "BenthicsRep_Error":
@@ -113,6 +125,8 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
                 case "BenthicsGrid_Success":
@@ -124,6 +138,8 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = message;
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
                 case "BenthicsGrid_Error":
@@ -135,6 +151,34 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = message;
                     BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
+                    UpdatePanels();
+                    break;
+                case "Benthics_Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    BenthicsDataErrorLabel.Text = "";
+                    BenthicsDataSuccessLabel.Text = "";
+                    BenthicsRepErrorLabel.Text = "";
+                    BenthicsRepSuccessLabel.Text = "";
+                    BenthicsGridErrorLabel.Text = "";
+                    BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = message;
+                    UpdatePanels();
+                    break;
+                case "Benthics_Error":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    BenthicsDataErrorLabel.Text = "";
+                    BenthicsDataSuccessLabel.Text = "";
+                    BenthicsRepErrorLabel.Text = "";
+                    BenthicsRepSuccessLabel.Text = "";
+                    BenthicsGridErrorLabel.Text = "";
+                    BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = message;
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
                 default:
@@ -146,6 +190,8 @@ namespace RWInbound2.Admin
                     BenthicsRepSuccessLabel.Text = "";
                     BenthicsGridErrorLabel.Text = "";
                     BenthicsGridSuccessLabel.Text = "";
+                    BenthicsErrorLabel.Text = "";
+                    BenthicsSuccessLabel.Text = "";
                     UpdatePanels();
                     break;
             }
@@ -157,6 +203,7 @@ namespace RWInbound2.Admin
             BenthicDataFormView_UpdatePanel.Update();
             BenthicsReps_UpdatePanel.Update();
             BenthicsGrids_UpdatePanel.Update();
+            Benthics_UpdatePanel.Update();
         }
 
         /***************************************************************************************
@@ -322,6 +369,22 @@ namespace RWInbound2.Admin
             catch (Exception ex)
             {
                 HandleErrors(ex, ex.Message, "BindGridReps", "", "", "BenthicsGrid_Error");
+                return null;
+            }
+        }
+
+        public IQueryable<tblBenTaxa> BindBenTaxa()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+                var tblBentaxaList = _db.tblBenTaxas
+                                       .OrderBy(bt => bt.FinalID);
+                return tblBentaxaList;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BindBenTaxa", "", "", "Benthics_Error");
                 return null;
             }
         }
@@ -506,6 +569,11 @@ namespace RWInbound2.Admin
                             BenthicsGridsGridView_Panel.Visible = true;
                             BenthicsGridsGridView_Panel.DataBind();
                             BenthicsGrids_UpdatePanel.Update();
+
+                            BenthicsGridView_Panel.Visible = true;
+                            BenthicsGridView_Panel.DataBind();
+                            Benthics_UpdatePanel.Update();
+                       
                         }
                         else
                         {
@@ -988,6 +1056,184 @@ namespace RWInbound2.Admin
             catch (Exception ex)
             {
                 HandleErrors(ex, ex.Message, "BenthicsGridsGridView_RowEditing", "", "");
+            }
+        }
+
+        /***************************************************************************************
+        * Ben Taxa Panels 
+       ****************************************************************************************/
+
+        public IQueryable<tblBenthic> GetBenthics()
+        {
+            try
+            {
+                RiverWatchEntities _db = new RiverWatchEntities();
+
+                IQueryable<tblBenthic> benthics = _db.tblBenthics
+                                                     .Where(b => b.BenSampID == benSampIDSelected)
+                                                     .OrderBy(b => b.tblBenTaxa.FinalID);
+                return benthics;
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "GetBenthics", "", "");
+                return null;
+            }
+        }
+
+        public void UpdateBenthic(tblBenthic model)
+        {
+            try
+            {
+                SetMessages();
+
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    var selectedBenthicsToUpdate = _db.tblBenthics.Find(model.BenTaxaID, benSampIDSelected, model.RepNum);
+
+                    if (selectedBenthicsToUpdate != null)
+                    {
+                        TryUpdateModel(selectedBenthicsToUpdate);
+
+                        if (ModelState.IsValid)
+                        {
+                            if (this.User != null && this.User.Identity.IsAuthenticated)
+                            {
+                                selectedBenthicsToUpdate.UserLastModified
+                                    = HttpContext.Current.User.Identity.Name;
+                            }
+                            else
+                            {
+                                selectedBenthicsToUpdate.UserLastModified = "Unknown";
+                            }
+
+                            selectedBenthicsToUpdate.DateLastModified = DateTime.Now;
+                            _db.SaveChanges();
+
+                            string successMsg
+                                = string.Format("Ben Taxa Updated for Taxa {0} ",
+                                                    selectedBenthicsToUpdate.tblBenTaxa.FinalID);
+
+                            SetMessages("Benthics_Success", successMsg);
+                            BenthicsGridView_Panel.DataBind();
+                            Benthics_UpdatePanel.Update();
+                        }
+                        else
+                        {
+                            SetMessages("Benthics_Error", "Correct all input errors");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "UpdateBenthic", "", "", "Benthics_Error");
+            }
+        }
+
+        public void DeleteBenthic(tblBenthic model)
+        {
+            try
+            {
+                SetMessages();
+
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    var benthicToDelete = _db.tblBenthics.Find(model.BenTaxaID, benSampIDSelected, model.RepNum);
+                    _db.tblBenthics.Remove(benthicToDelete);
+                    _db.SaveChanges();
+
+                    string successMsg = string.Format("Ben Taxa Deleted: {0}", model.tblBenTaxa.FinalID);
+                    SetMessages("Benthics_Success", successMsg);
+
+                    BenthicsGridView_Panel.DataBind();
+                    Benthics_UpdatePanel.Update();
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "DeleteBenthic", "", "", "Benthics_Error");
+            }
+        }
+
+        public void AddNewBenthic(object sender, EventArgs e)
+        {
+            try
+            {
+                SetMessages();
+
+                string repNumText = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewRepNum")).Text;
+
+                if (string.IsNullOrEmpty(repNumText))
+                {
+                    ((Label)BenthicsRepsGridView.FooterRow.FindControl("lblNewRepNumRequired")).Visible = true;
+                }
+                else
+                {
+                    int repNum = Convert.ToInt32(repNumText);
+                    int activityCategory =
+                            Convert.ToInt32(((DropDownList)BenthicsRepsGridView.FooterRow.FindControl("dropDownNewBenthicsRepActivity")).SelectedValue);
+
+                    string gridsText = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewGrids")).Text;
+                    int grids = string.IsNullOrEmpty(gridsText) ? 0 : Convert.ToInt32(gridsText);
+
+                    string type = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewType")).Text;
+                    string comments = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewComments")).Text;
+                    string userLastModified = "Unknown";
+
+                    if (this.User != null && this.User.Identity.IsAuthenticated)
+                    {
+                        userLastModified = HttpContext.Current.User.Identity.Name;
+                    }
+
+                    var newBenRep = new tblBenRep()
+                    {
+                        BenSampID = benSampIDSelected,
+                        RepNum = repNum,
+                        ActivityCategory = activityCategory,
+                        Grids = grids,
+                        Type = type,
+                        Comments = comments,
+                        EnterDate = DateTime.Now,
+                        UserLastModified = userLastModified,
+                        DateLastModified = DateTime.Now
+                    };
+
+                    using (RiverWatchEntities _db = new RiverWatchEntities())
+                    {
+                        _db.tblBenReps.Add(newBenRep);
+                        _db.SaveChanges();
+
+                        string successMsg
+                                = string.Format("Benthics Rep Added for Rep Num {0}", repNum);
+
+                        SetMessages("BenthicsRep_Success", successMsg);
+
+                        BenthicsRepsGridView_Panel.DataBind();
+                        BenthicsReps_UpdatePanel.Update();
+
+                        BenthicsGridsGridView_Panel.DataBind();
+                        BenthicsGrids_UpdatePanel.Update();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "AddNewBenthicRep", "", "", "Benthics_Error");
+            }
+        }
+
+        protected void BenthicsGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            try
+            {
+                SetMessages();
+                BenthicsGridView.EditIndex = e.NewEditIndex;
+                BenthicsGridView_Panel.DataBind();
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "BenthicsGridView_RowEditing", "", "", "Benthics_Error");
             }
         }
 

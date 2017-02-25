@@ -2025,7 +2025,7 @@ tr.grid-edit-benthics-samples-header{
 }
 
 div.benthic-data-formview{
-    display: inline-block;
+    display: inline-table;
     width: 450px;
 }
 

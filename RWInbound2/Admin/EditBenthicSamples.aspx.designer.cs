@@ -121,6 +121,51 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.FormView BenthicDataFormView;
         
         /// <summary>
+        /// Benthics_UpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Benthics_UpdatePanel;
+        
+        /// <summary>
+        /// BenthicsGridView_Panel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel BenthicsGridView_Panel;
+        
+        /// <summary>
+        /// BenthicsErrorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BenthicsErrorLabel;
+        
+        /// <summary>
+        /// BenthicsSuccessLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BenthicsSuccessLabel;
+        
+        /// <summary>
+        /// BenthicsGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView BenthicsGridView;
+        
+        /// <summary>
         /// BenthicsReps_UpdatePanel control.
         /// </summary>
         /// <remarks>
