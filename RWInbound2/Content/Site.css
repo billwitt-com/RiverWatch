@@ -1248,7 +1248,7 @@ input#Cancel.multiselect-cancel{
     font-size: 1.1em;
 }
 
-/*Progress Bar*/
+/*Progress Bar - Spinner*/
 .modal
 {
     position: fixed;
@@ -1983,6 +1983,10 @@ tr.grid-edit-benthics-samples-header{
 }
 
 /*Edit Benthics Samples Form View*/
+.benthics-samples-section{
+    width: 1150px;    
+}
+
 .benthics-samples-formview-edit-template-div{
     display: inline-flex;
     width: 100px;
@@ -2021,31 +2025,32 @@ tr.grid-edit-benthics-samples-header{
 }
 
 div.benthic-data-formview{
-    display: inline-block;
+    display: inline-table;
     width: 450px;
 }
 
 .benthics-data-label-error{  
-    font-size: 12px;
+    font-size: 11px;
     font-family: sans-serif;
     color: #b94a48;
 }
 
 .benthics-data-label-success{
-    font-size: 12px;
+    font-size: 11px;
     font-family: sans-serif;
     color: #468847;
 }
 
 .benthics-data-label-placement{
-    width: 400px;
+    width: 450px;
     padding-top: 2px;
     padding-bottom: 5px;
     text-align:left;
+    display:table-caption;
 }
 
 div.benthic-reps-gridview{
-    display: inline-block;    
+    display:inline-table;    
 }
 
 .benthic-reps-grid-columns-center{
@@ -2056,4 +2061,28 @@ div.benthic-reps-gridview{
 
 .benthics-reps-gridview-dropdowns{      
     font-size:10px;
+}
+
+.grid-benthics-reps-medium-textbox{
+    width: 80px;
+    resize:vertical;
+    text-align:center;
+    padding: 1px;
+}
+
+.grid-benthics-required{
+    font-size: 0.95em;
+    background-color:ActiveBorder;
+    color:red !important;
+}
+
+.grid-benthics-range-error{
+    font-size: 0.95em;
+    background-color:ActiveBorder;
+    color:red !important;
+}
+
+.grid-benthics-options-div{
+    margin-bottom: 5px;
+
 }

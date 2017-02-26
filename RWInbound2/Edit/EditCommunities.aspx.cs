@@ -249,7 +249,6 @@ namespace RWInbound2.Edit
                         {
                             _db.tlkCommunities.Add(newCommunity);
                             _db.SaveChanges();
-                            ErrorLabel.Text = "";
 
                             string successLabelText = "New Community Added: " + newCommunity.Description;
                             string redirect = "EditCommunities.aspx?successLabelMessage=" + successLabelText;

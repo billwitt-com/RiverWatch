@@ -34,7 +34,6 @@ namespace RWInbound2
         public Nullable<int> NumKicksSamples { get; set; }
         public string Comments { get; set; }
         public Nullable<System.DateTime> EnterDate { get; set; }
-        public Nullable<bool> Valid { get; set; }
         public int ActivityTypeID { get; set; }
         public int FieldGearID { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
