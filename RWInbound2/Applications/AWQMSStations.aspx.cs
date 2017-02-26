@@ -218,8 +218,7 @@ namespace RWInbound2.Applications
 
         private static string QuoteValue(string value)
         {
-            return String.Concat("\"",
-            value.Replace("\"", "\"\""), "\"");
+            return String.Concat("\"", value.Replace("\"", "\"\""), "\"");
         }
     }
 }
