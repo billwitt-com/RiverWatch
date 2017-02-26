@@ -2081,3 +2081,8 @@ div.benthic-reps-gridview{
     background-color:ActiveBorder;
     color:red !important;
 }
+
+.grid-benthics-options-div{
+    margin-bottom: 5px;
+
+}

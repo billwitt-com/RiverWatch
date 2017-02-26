@@ -32,7 +32,7 @@ namespace RWInbound2
         public string Type { get; set; }
     
         public virtual tlkActivityCategory tlkActivityCategory { get; set; }
-        public virtual tblBenSamp tblBenSamp { get; set; }
         public virtual ICollection<tblBenthic> tblBenthics { get; set; }
+        public virtual tblBenSamp tblBenSamp { get; set; }
     }
 }

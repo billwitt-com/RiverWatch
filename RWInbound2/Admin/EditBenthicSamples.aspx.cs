@@ -426,18 +426,14 @@ namespace RWInbound2.Admin
                     return null;
                 }               
 
-                SampleData sampleData = (from s in _db.Samples
-                                          where s.ID == sampleID
-                                          select new SampleData
-                                          {
-                                              SampleNumber = s.SampleNumber.ToString(),
-                                              SampleEvent = s.NumberSample.ToString()
-                                           }).FirstOrDefault();
+                Sample sampleData = (from s in _db.Samples
+                                     where s.ID == sampleID
+                                     select s).FirstOrDefault();
 
-                SetSampleData(true, sampleData.SampleNumber, sampleData.SampleEvent);                
+                SetSampleData(true, sampleData);                
 
                 IQueryable<tblBenSamp> benthicSamples = _db.tblBenSamps
-                                            .Where(bs => bs.SampleID == sampleID && bs.Valid == true)
+                                            .Where(bs => bs.SampleID == sampleID)
                                             .OrderBy(bs => bs.CollDate);
 
                 // remove
@@ -485,7 +481,23 @@ namespace RWInbound2.Admin
         {
             try
             {
-                SetMessages();                
+                SetMessages();
+
+                BenthicDataFormView_Panel.Visible = true;
+                BenthicDataFormView.DataBind();
+                BenthicDataFormView_UpdatePanel.Update();
+
+                BenthicsRepsGridView_Panel.Visible = true;
+                BenthicsRepsGridView_Panel.DataBind();
+                BenthicsReps_UpdatePanel.Update();
+
+                BenthicsGridsGridView_Panel.Visible = true;
+                BenthicsGridsGridView_Panel.DataBind();
+                BenthicsGrids_UpdatePanel.Update();
+
+                BenthicsGridView_Panel.Visible = true;
+                BenthicsGridView_Panel.DataBind();
+                Benthics_UpdatePanel.Update();
             }
             catch (Exception ex)
             {
@@ -493,11 +505,28 @@ namespace RWInbound2.Admin
             }
         }
 
-        private void SetSampleData(bool showPanel = false, string sampleNumber = "", string stationEvent = "")
+        private void SetSampleData(bool showPanel = false, Sample sampleData = null)
         {
-            SampleData_Panel.Visible = showPanel;
-            lblSampleNumber.Text = sampleNumber;
-            lblSampleEvent.Text = stationEvent;
+            try
+            {
+                if (sampleData != null)
+                {
+                    SampleData_Panel.Visible = showPanel;
+                    lblSampleNumber.Text = sampleData.SampleNumber;
+                    lblSampleEvent.Text = sampleData.NumberSample;
+                    HiddenField_SampleID.Value = sampleData.ID.ToString();
+                    HiddenField_DateCollected.Value = sampleData.DateCollected.ToString();
+                    HiddenField_TimeCollected.Value = sampleData.TimeCollected.ToString();
+                }
+                else
+                {
+                    SampleData_Panel.Visible = showPanel;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "SetSampleData", "", "");
+            }
         }
 
         protected void Show(object sender, EventArgs e)
@@ -514,12 +543,6 @@ namespace RWInbound2.Admin
             {
                 HandleErrors(ex, ex.Message, "Show", "", "");
             }
-        }
-
-        private class SampleData
-        {
-            public string SampleNumber { get; set; }
-            public string SampleEvent { get; set; }
         }
 
         protected void BenthicSamplesGridView_RowEditing(object sender, GridViewEditEventArgs e)
@@ -595,6 +618,55 @@ namespace RWInbound2.Admin
         {
             try
             {
+                if (benSampIDSelected == 0 && SampleData_Panel.Visible)
+                {
+                    DateTime collDate = new DateTime();
+                    bool convertCollDate = DateTime.TryParse(HiddenField_DateCollected.Value, out collDate);
+
+                    DateTime collTime = new DateTime();
+                    bool convertCollTime = DateTime.TryParse(HiddenField_TimeCollected.Value, out collTime);
+
+                    if(!convertCollDate || !convertCollTime)
+                    {
+                        string errorMsg
+                            = string.Format("There was a problem with the formatting of the Collected Date: {0] and/or Time: {1} ",
+                                            collDate.ToString(), collTime.ToString());
+                        SetMessages("Error", errorMsg);
+                        return null;
+                    }
+                    else
+                    {
+                        DateTime enterDate = collDate.Add(collTime.TimeOfDay);
+                        //string newEnterDate = collDate.ToString("yyyy-mm-dd") + " " + TimeSpan.Parse(collTime.ToString());
+
+                        //var enterDate = DateTime.Parse(collDate.ToString("yyyy-mm-dd") + " " +
+                        //                               collTime.ToString("T"));
+
+                        var newBenthicSample = new tblBenSamp()
+                        {
+                            SampleID = Convert.ToInt32(HiddenField_SampleID.Value),
+                            ActivityID = 1,
+                            CollDate = collDate,
+                            CollTime = collTime,
+                            EnterDate =  enterDate,
+                            CollMeth = 1,
+                            GearConfigID = 1,
+                            Medium = 1,
+                            Intent = 1, 
+                            Community = 1,
+                            BioResultGroupID = 1,
+                            NumKicksSamples = 0,
+                            ActivityTypeID = 1,
+                            FieldGearID = 1,
+                            LabCount = 300
+                        };                    
+
+                        IQueryable<tblBenSamp> newBenthicSamples = new List<tblBenSamp>() { newBenthicSample }.AsQueryable<tblBenSamp>();
+
+                        return newBenthicSamples;
+                    }
+                }
+
                 RiverWatchEntities _db = new RiverWatchEntities();
 
                 IQueryable<tblBenSamp> benthicSamples = _db.tblBenSamps
@@ -666,12 +738,12 @@ namespace RWInbound2.Admin
                                 if (selectedGridRowBenSampID == benSampIDSelected)
                                 {
                                     row.BackColor = ColorTranslator.FromHtml("#FFFF00");
-                                    row.ToolTip = "This Sample's Benthics data is being displayed below test.";
+                                    row.ToolTip = "This Sample's Benthics data is being displayed below.";
                                 }
                                 else
                                 {
                                     row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
-                                    row.ToolTip = "Click on the View button to Edit this Sample's Benthics data test.";
+                                    row.ToolTip = "Click on the View button to Edit this Sample's Benthics data.";
                                 }
                             }
 
@@ -750,6 +822,9 @@ namespace RWInbound2.Admin
                             SetMessages("BenthicsRep_Success", successMsg);
                             BenthicsGridsGridView_Panel.DataBind();
                             BenthicsGrids_UpdatePanel.Update();
+
+                            BenthicsGridView_Panel.DataBind();
+                            Benthics_UpdatePanel.Update();
                         }
                         else
                         {
@@ -1063,7 +1138,7 @@ namespace RWInbound2.Admin
         * Ben Taxa Panels 
        ****************************************************************************************/
 
-        public IQueryable<tblBenthic> GetBenthics([Control("dropDownBenthicsSelectedRepNum")] int? repNum)
+        public IQueryable<tblBenthic> GetBenthics(string sortByExpression, [Control("dropDownBenthicsSelectedRepNum")] int? repNum)
         {
             try
             {
@@ -1074,12 +1149,32 @@ namespace RWInbound2.Admin
                     repNum = 1;
                 }
 
+                if(!string.IsNullOrEmpty(sortByExpression))
+                {
+                    switch (sortByExpression)
+                    {
+                        case "SortByBenTaxaFinalID DESC":
+                            return _db.tblBenthics
+                                      .Where(b => b.BenSampID == benSampIDSelected && b.RepNum == repNum)
+                                      .OrderByDescending(b => b.tblBenTaxa.FinalID);
+                        case "EnterDate DESC":
+                            return _db.tblBenthics
+                                      .Where(b => b.BenSampID == benSampIDSelected && b.RepNum == repNum)
+                                      .OrderByDescending(b => b.EnterDate);
+                        case "EnterDate":
+                            return _db.tblBenthics
+                                      .Where(b => b.BenSampID == benSampIDSelected && b.RepNum == repNum)
+                                      .OrderBy(b => b.EnterDate);
+                        default:
+                            return _db.tblBenthics
+                                      .Where(b => b.BenSampID == benSampIDSelected && b.RepNum == repNum)
+                                      .OrderBy(b => b.tblBenTaxa.FinalID);
+                    }                            
+                }
+
                 IQueryable<tblBenthic> benthics = _db.tblBenthics
                                                      .Where(b => b.BenSampID == benSampIDSelected && b.RepNum == repNum)
                                                      .OrderBy(b => b.tblBenTaxa.FinalID);
-
-                //BenthicsGridView_Panel.DataBind();
-                //Benthics_UpdatePanel.Update();
 
                 return benthics;
             }
@@ -1124,8 +1219,6 @@ namespace RWInbound2.Admin
                                                     selectedBenthicsToUpdate.tblBenTaxa.FinalID);
 
                             SetMessages("Benthics_Success", successMsg);
-                            BenthicsGridView_Panel.DataBind();
-                            Benthics_UpdatePanel.Update();
                         }
                         else
                         {
@@ -1152,11 +1245,12 @@ namespace RWInbound2.Admin
                     _db.tblBenthics.Remove(benthicToDelete);
                     _db.SaveChanges();
 
-                    string successMsg = string.Format("Ben Taxa Deleted: {0}", model.tblBenTaxa.FinalID);
+                    string successMsg
+                            = string.Format("Ben Taxa Deleted {0} for Rep Num {1}", model.tblBenTaxa.FinalID, model.RepNum);
                     SetMessages("Benthics_Success", successMsg);
-
-                    BenthicsGridView_Panel.DataBind();
-                    Benthics_UpdatePanel.Update();
+                   
+                    //BenthicsGridView_Panel.DataBind();
+                    //Benthics_UpdatePanel.Update();
                 }
             }
             catch (Exception ex)
@@ -1170,18 +1264,21 @@ namespace RWInbound2.Admin
             try
             {
                 SetMessages();
+                string taxaFinalID = ((DropDownList)BenthicsGridView.FooterRow.FindControl("dropDownNewBenthicsTaxa")).SelectedItem.Text;
 
                 int benTaxaID =
                         Convert.ToInt32(((DropDownList)BenthicsGridView.FooterRow.FindControl("dropDownNewBenthicsTaxa")).SelectedValue);
                 int repNum =
-                        Convert.ToInt32(((DropDownList)BenthicsGridView.FooterRow.FindControl("dropDownNewBenthicsTaxa")).SelectedValue);
+                        Convert.ToInt32(dropDownBenthicsSelectedRepNum.SelectedValue);
                 int individuals =
-                        Convert.ToInt32(((TextBox)BenthicsGridView.FooterRow.FindControl("txtNewIndividuals")).Text);
-                string gridsText = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewGrids")).Text;
-                int grids = string.IsNullOrEmpty(gridsText) ? 0 : Convert.ToInt32(gridsText);
-
-                string type = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewType")).Text;
-                string comments = ((TextBox)BenthicsRepsGridView.FooterRow.FindControl("txtNewComments")).Text;
+                        Convert.ToInt32(string.IsNullOrEmpty(((TextBox)BenthicsGridView.FooterRow.FindControl("txtNewIndividuals")).Text) ? "0" :
+                                        ((TextBox)BenthicsGridView.FooterRow.FindControl("txtNewIndividuals")).Text);
+                int numInHundredPct =
+                    Convert.ToInt32(string.IsNullOrEmpty(((TextBox)BenthicsGridView.FooterRow.FindControl("txtNewNumInHundredPct")).Text) ? "0" :
+                                    ((TextBox)BenthicsGridView.FooterRow.FindControl("txtNewNumInHundredPct")).Text);
+                
+                string comments = ((TextBox)BenthicsGridView.FooterRow.FindControl("txtNewComments")).Text;
+                
                 string userLastModified = "Unknown";
 
                 if (this.User != null && this.User.Identity.IsAuthenticated)
@@ -1189,35 +1286,37 @@ namespace RWInbound2.Admin
                     userLastModified = HttpContext.Current.User.Identity.Name;
                 }
 
-                //var newBenRep = new tblBenRep()
-                //{
-                //    BenSampID = benSampIDSelected,
-                //    RepNum = repNum,
-                //    ActivityCategory = activityCategory,
-                //    Grids = grids,
-                //    Type = type,
-                //    Comments = comments,
-                //    EnterDate = DateTime.Now,
-                //    UserLastModified = userLastModified,
-                //    DateLastModified = DateTime.Now
-                //};
+                var newBenthic = new tblBenthic()
+                {
+                    BenSampID = benSampIDSelected,
+                    BenTaxaID = benTaxaID,
+                    RepNum = repNum,
+                    Individuals = individuals,
+                    NumInHundredPct = numInHundredPct,
+                    Comments = comments,
+                    EnterDate = DateTime.Now,
+                    Stage = "X",
+                    UserLastModified = userLastModified,
+                    DateLastModified = DateTime.Now
+                };
 
-                //using (RiverWatchEntities _db = new RiverWatchEntities())
-                //{
-                //    _db.tblBenReps.Add(newBenRep);
-                //    _db.SaveChanges();
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    _db.tblBenthics.Add(newBenthic);
+                    _db.SaveChanges();
 
-                //    string successMsg
-                //            = string.Format("Benthics Rep Added for Rep Num {0}", repNum);
+                    string successMsg
+                            = string.Format("Ben Taxa Added {0} for Rep Num {1}", taxaFinalID, repNum);
 
-                //    SetMessages("BenthicsRep_Success", successMsg);
+                    SetMessages("Benthics_Success", successMsg);
 
-                //    BenthicsRepsGridView_Panel.DataBind();
-                //    BenthicsReps_UpdatePanel.Update();
-
-                //    BenthicsGridsGridView_Panel.DataBind();
-                //    BenthicsGrids_UpdatePanel.Update();
-                //}
+                    //BenthicsGridView_Panel.DataBind();
+                    //dropDownBenthicsSelectedRepNum.Items.Clear();
+                    //dropDownBenthicsSelectedRepNum.DataBind();
+                    //dropDownBenthicsSelectedRepNum.Items.FindByText(repNum.ToString()).Selected = true;
+                    BenthicsGridView.DataBind();
+                    Benthics_UpdatePanel.Update();
+                }
             }
             catch (Exception ex)
             {
@@ -1225,13 +1324,54 @@ namespace RWInbound2.Admin
             }
         }
 
+        protected void BenthicsGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    if ((e.Row.RowState & DataControlRowState.Edit) > 0)
+            //    {
+            //        dropDownBenthicsSelectedRepNum.Items.Clear();
+            //        dropDownBenthicsSelectedRepNum.DataBind();
+            //        var item = e.Row.DataItem as tblBenthic;
+            //        dropDownBenthicsSelectedRepNum.Items.FindByText(item.RepNum.ToString()).Selected = true;
+            //    }
+            //}
+        }
+
+        protected void ShowAllBenTaxaButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (BenthicsGridView != null)
+                {
+                    bool showAll = BenthicsGridView.AllowPaging;
+                    if (showAll)
+                    {
+                        BenthicsGridView.AllowPaging = false;
+                        ShowAllBenTaxaButton.Text = "Turn Paging Back On";
+                    }
+                    else
+                    {
+                        BenthicsGridView.AllowPaging = true;
+                        ShowAllBenTaxaButton.Text = "Show All For Rep";
+                    }
+                    BenthicsGridView.DataBind();
+                    Benthics_UpdatePanel.Update();
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "ShowAllBenTaxaButton_Click", "", "", "Benthics_Error");
+            }
+        }
+
         protected void BenthicsGridView_RowEditing(object sender, GridViewEditEventArgs e)
         {
             try
             {
-                SetMessages();
-                BenthicsGridView.EditIndex = e.NewEditIndex;
-                BenthicsGridView_Panel.DataBind();
+                //SetMessages();
+                //BenthicsGridView.EditIndex = e.NewEditIndex;
+                //BenthicsGridView_Panel.DataBind();
             }
             catch (Exception ex)
             {
@@ -1239,6 +1379,9 @@ namespace RWInbound2.Admin
             }
         }
 
+        /***************************************************************************************
+        * Error Handling 
+        ****************************************************************************************/
         private void HandleErrors(Exception ex, string msg, string fromPage,
                                                 string nam, string comment, string type = "Error")
         {
@@ -1326,5 +1469,7 @@ namespace RWInbound2.Admin
             }
             return result.Any() ? result : null;
         }
+
+        
     }
 }

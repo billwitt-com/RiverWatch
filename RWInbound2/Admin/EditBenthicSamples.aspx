@@ -26,6 +26,9 @@
                             <b>Event:</b>
                             <asp:Label ID="lblSampleEvent" runat="server"></asp:Label>
                         </div>   
+                        <asp:HiddenField id="HiddenField_SampleID" runat="server" />
+                        <asp:HiddenField id="HiddenField_DateCollected" runat="server" />
+                        <asp:HiddenField id="HiddenField_TimeCollected" runat="server" />
                     </div>
                     <br />
                 </asp:Panel>
@@ -51,8 +54,8 @@
                              <%-- <% =Show() %>--%>
                             <asp:Panel ID="NoResultsPanel" runat="server" Visible="false" OnInit="Show" OnDataBinding="Show" OnLoad="Show"
                                  CssClass="grid-edit-benthics-samples-no-results-panel" >                              
-                                <asp:Button ID="btnAdd" runat="server" Text="Add New Benthic Sample"
-                                             OnClientClick="return alert('Coming Soon!');" CssClass="adminButton grid-edit-benthics-samples-add-new-button" />                    
+                                <asp:Button ID="btnAdd" runat="server" Text="Add New Benthic Sample" OnClick="AddNewBenthicSample"
+                                            CssClass="adminButton grid-edit-benthics-samples-add-new-button" />                    
                             </asp:Panel>
                         </div>
                     </EmptyDataTemplate>    
@@ -65,7 +68,7 @@
                             </EditItemTemplate>
                             <FooterTemplate>                               
                                 <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                             OnClientClick="return alert('Coming Soon!');" />
+                                             OnClick="AddNewBenthicSample" />
                             </FooterTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID" />
@@ -104,7 +107,7 @@
                             </ItemTemplate>                   
                         </asp:TemplateField>                             
                     </Columns>
-                    <EditRowStyle BackColor="#2461BF" />            
+                    <EditRowStyle BackColor="antiquewhite" />            
                 </asp:GridView> 
             </ContentTemplate>           
         </asp:UpdatePanel>
@@ -254,7 +257,6 @@
                                <asp:Button ID="UpdateButton" runat="server" Text="Save Benthics Data Changes" CommandName="Update" CssClass="adminButton" />
                                 
                                 <asp:HiddenField id="HiddenField_SampleID" runat="server" value='<%# Bind("SampleID") %>' />
-                                <asp:HiddenField id="HiddenField_Valid" runat="server" value='<%# Bind("Valid") %>' />
                                 <asp:HiddenField id="HiddenField_DateLastModified" runat="server" value='<%# Bind("DateLastModified") %>' />
                                 <asp:HiddenField id="HiddenField_UserLastModified" runat="server" value='<%# Bind("UserLastModified") %>' />
                             </EditItemTemplate>
@@ -272,13 +274,17 @@
                         </div>
                         <div class="benthics-data-label-placement">
                              <asp:Label ID="BenthicsSuccessLabel" CssClass="benthics-data-label-success" runat="server" />
-                        </div>                        
-                        <asp:Label runat="server" Text="Show Rep:" />
-                        <asp:DropDownList ID="dropDownBenthicsSelectedRepNum" runat="server" DataMember="it"
-                                            SelectMethod="BindGridReps" CssClass="benthics-reps-gridview-dropdowns"   
-                                            AutoPostBack="true" AppendDataBoundItems="true" 
-                                            DataTextField="RepNum" DataValueField="RepNum" >
-                        </asp:DropDownList> 
+                        </div> 
+                        <div class="grid-benthics-options-div">
+                            <asp:Label runat="server" Text="Show Rep:" />
+                            <asp:DropDownList ID="dropDownBenthicsSelectedRepNum" runat="server" DataMember="it"
+                                                SelectMethod="BindGridReps" CssClass="benthics-reps-gridview-dropdowns"   
+                                                AutoPostBack="true" AppendDataBoundItems="false" 
+                                                DataTextField="RepNum" DataValueField="RepNum" >
+                            </asp:DropDownList> 
+                            <asp:Button ID="ShowAllBenTaxaButton" runat="server" OnClick="ShowAllBenTaxaButton_Click" 
+                                        Text="Show All For Rep" CssClass="adminButton"/>
+                        </div>                       
                         <asp:GridView ID="BenthicsGridView" runat="server"
                             DataKeyNames="ID"
                             ItemType="RWInbound2.tblBenthic" 
@@ -287,12 +293,13 @@
                             DeleteMethod="DeleteBenthic" 
                             InsertItemPosition="LastItem"  
                             OnRowEditing="BenthicsGridView_RowEditing"  
+                            OnRowDataBound="BenthicsGridView_RowDataBound"
                             ShowHeaderWhenEmpty="true"                                            
                             ShowFooter="true"
                             CellPadding="4"
                             AutoGenerateColumns="False" CssClass="benthic-reps-grid-columns-center"
                             HeaderStyle-CssClass="grid-edit-benthics-samples-header" 
-                            ForeColor="#333333"   
+                            ForeColor="#333333" AllowSorting="true"   
                             AllowPaging="true" Pagesize="10">
                             <AlternatingRowStyle BackColor="White" />
                             <EmptyDataTemplate>   
@@ -313,29 +320,32 @@
                                     </EditItemTemplate>
                                     <FooterTemplate>
                                         <asp:Button ID="btnAdd" runat="server" Text="Add"
-                                                    OnClick="AddNewBenthic" />                                      
+                                                    OnClick="AddNewBenthic" CommandArgument="" />                                      
                                     </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" ReadOnly="True" SortExpression="ID"  />                                
-                                <asp:TemplateField HeaderText="Taxa" SortExpression="tblBenTaxa.FinalID">                   
+                                <asp:TemplateField HeaderText="Taxa" SortExpression="SortByBenTaxaFinalID" >                   
                                     <EditItemTemplate>
-                                        <asp:DropDownList ID="dropDownBenthicsTaxa" runat="server" DataMember="it"
+                                        <asp:Label ID="lblEdittblBenTaxaFinalID" runat="server" Text='<%# Bind("tblBenTaxa.FinalID") %>'></asp:Label>
+                                        <asp:HiddenField id="HiddenField_Edit_BenTaxaID" runat="server" value='<%# Bind("BenTaxaID") %>' />
+                                        <%--<asp:DropDownList ID="dropDownBenthicsTaxa" runat="server" DataMember="it"
                                                             SelectMethod="BindBenTaxa" CssClass="benthics-reps-gridview-dropdowns"   
                                                             SelectedValue='<%# Bind("BenTaxaID") %>'                                          
-                                                            AppendDataBoundItems="true" DataTextField="FinalID" DataValueField="ID">
-                                        </asp:DropDownList> 
+                                                            DataTextField="FinalID" DataValueField="ID">
+                                        </asp:DropDownList> --%>
                                     </EditItemTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="lbltblBenTaxaFinalID" runat="server" Text='<%# Bind("tblBenTaxa.FinalID") %>'></asp:Label>
+                                        <asp:HiddenField id="HiddenField_BenTaxaID" runat="server" value='<%# Bind("BenTaxaID") %>' />
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         <asp:DropDownList ID="dropDownNewBenthicsTaxa" runat="server" DataMember="it"
                                                             SelectMethod="BindBenTaxa" CssClass="benthics-reps-gridview-dropdowns"                                                                                               
-                                                            AppendDataBoundItems="true" DataTextField="FinalID" DataValueField="ID">
+                                                            DataTextField="FinalID" DataValueField="ID">
                                         </asp:DropDownList> 
                                     </FooterTemplate>                    
                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Count" SortExpression="Individuals">                   
+                                <asp:TemplateField HeaderText="Count">                   
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtIndividuals" runat="server" Text='<%# Bind("Individuals") %>' 
                                                      CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
@@ -348,7 +358,7 @@
                                                      CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>                                       
                                     </FooterTemplate>                                              
                                 </asp:TemplateField> 
-                               <asp:TemplateField HeaderText="Num In 100%" SortExpression="NumInHundredPct">                   
+                               <asp:TemplateField HeaderText="Num In 100%">                   
                                     <EditItemTemplate>
                                         <asp:TextBox ID="txtNumInHundredPct" runat="server" Text='<%# Bind("NumInHundredPct") %>' 
                                                      CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
@@ -367,7 +377,7 @@
                                              Display="Dynamic"/>   
                                     </FooterTemplate>                                              
                                 </asp:TemplateField>                                
-                                <asp:TemplateField HeaderText="Comments" SortExpression="Comments" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-benthics-reps-medium-textbox" 
+                                <asp:TemplateField HeaderText="Comments" ItemStyle-VerticalAlign="Middle" ItemStyle-CssClass="grid-benthics-reps-medium-textbox" 
                                     ControlStyle-CssClass="grid-benthics-reps-medium-textbox" >
                                     <EditItemTemplate >
                                         <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" MaxLength="100" Text='<%# Bind("Comments") %>'></asp:TextBox>                                                          
@@ -376,10 +386,10 @@
                                        <asp:Label ID="lblComments" runat="server" Text='<%# Bind("Comments") %>'></asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:TextBox ID="txtNewComments" runat="server" TextMode="MultiLine" MaxLength="100" CssClass="grid-benthics-reps-medium-textbox"></asp:TextBox>   
+                                        <asp:TextBox ID="txtNewComments" runat="server" TextMode="MultiLine" MaxLength="100" CssClass="grid-benthics-reps-medium-textbox" ></asp:TextBox>   
                                     </FooterTemplate>                            
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Life Cycle" SortExpression="LifeCycle" >
+                                <asp:TemplateField HeaderText="Life Cycle" >
                                     <EditItemTemplate >
                                         <asp:Label ID="lblEditLifeCycle" runat="server" Text='<%# Bind("tblBenTaxa.LifeCycle") %>'></asp:Label>                                                        
                                     </EditItemTemplate>
@@ -395,24 +405,16 @@
                                         <asp:Label ID="lblEnterDate" runat="server" Text='<%# Bind("EnterDate") %>'></asp:Label>
                                     </ItemTemplate>                    
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Rep" SortExpression="RepNum">                   
+                                <asp:TemplateField HeaderText="Rep">                   
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtRepNum" runat="server" Text='<%# Bind("RepNum") %>' 
-                                                     CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                        <asp:Label ID="lblEditRepNum" runat="server" Text='<%# Bind("RepNum") %>'></asp:Label>                                                                           
                                     </EditItemTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="lblRepNum" runat="server" Text='<%# Bind("RepNum") %>'></asp:Label>                                                                   
-                                    </ItemTemplate> 
-                                    <FooterTemplate>
-                                        <asp:DropDownList ID="dropDownNewBenthicsRepNum" runat="server" DataMember="it"
-                                                            SelectMethod="BindGridReps" CssClass="benthics-reps-gridview-dropdowns"   
-                                                            AutoPostBack="true" AppendDataBoundItems="true" 
-                                                            DataTextField="RepNum" DataValueField="RepNum" >
-                                        </asp:DropDownList>
-                                    </FooterTemplate>                                              
+                                    </ItemTemplate>                                                                          
                                 </asp:TemplateField>                                                  
                             </Columns>
-                            <EditRowStyle BackColor="#2461BF"  />            
+                            <EditRowStyle BackColor="antiquewhite"  />            
                         </asp:GridView> 
                         </asp:Panel>
                 </ContentTemplate>
@@ -546,7 +548,7 @@
                                     </ItemTemplate>                    
                                 </asp:TemplateField>                                                  
                             </Columns>
-                            <EditRowStyle BackColor="#2461BF"  />            
+                            <EditRowStyle BackColor="antiquewhite"  />            
                         </asp:GridView> 
                         </asp:Panel>
                 </ContentTemplate>
@@ -647,7 +649,7 @@
                                     </FooterTemplate>                                              
                                 </asp:TemplateField>                                                                             
                             </Columns>
-                            <EditRowStyle BackColor="#2461BF"  />            
+                            <EditRowStyle BackColor="antiquewhite"  />            
                         </asp:GridView> 
                         </asp:Panel>
                 </ContentTemplate>

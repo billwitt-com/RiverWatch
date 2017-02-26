@@ -117,7 +117,7 @@ namespace RWInbound2
         public virtual DbSet<tlkAQWMStranslation> tlkAQWMStranslations { get; set; }
         public virtual DbSet<tblBenGrid> tblBenGrids { get; set; }
         public virtual DbSet<tblBenRep> tblBenReps { get; set; }
-        public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
         public virtual DbSet<tblBenthic> tblBenthics { get; set; }
+        public virtual DbSet<tblBenSamp> tblBenSamps { get; set; }
     }
 }

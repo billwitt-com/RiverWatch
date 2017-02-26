@@ -67,6 +67,33 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.Label lblSampleEvent;
         
         /// <summary>
+        /// HiddenField_SampleID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField_SampleID;
+        
+        /// <summary>
+        /// HiddenField_DateCollected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField_DateCollected;
+        
+        /// <summary>
+        /// HiddenField_TimeCollected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField_TimeCollected;
+        
+        /// <summary>
         /// BenthicSamplesGridView control.
         /// </summary>
         /// <remarks>
@@ -164,6 +191,15 @@ namespace RWInbound2.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList dropDownBenthicsSelectedRepNum;
+        
+        /// <summary>
+        /// ShowAllBenTaxaButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ShowAllBenTaxaButton;
         
         /// <summary>
         /// BenthicsGridView control.
