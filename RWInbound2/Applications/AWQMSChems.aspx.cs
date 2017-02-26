@@ -674,33 +674,38 @@ namespace RWInbound2.Applications
 
          protected void btnDownload_Click(object sender, System.EventArgs e)
          {
-             string outFile = ""; 
+             string outFile = "";
+             string Cheader = "";
+             string contentDisposition = "";
 
              lblDownload.Text = "";
              if(Session["OUTFILE"] != null)
              {
                  outFile = (string)Session["OUTFILE"];
 
-             //   outFile = @"\App_Data\AWQMSMetalsandNutrient.02.16.2017.csv"; 
-
                  try
-                 {          
-                FileStream LiveFileStream = new FileStream(outFile, FileMode.Open, FileAccess.Read);
-                byte[] filebuffer = new byte[(int)LiveFileStream.Length+1];
+                 {
+                     FileStream LiveFileStream = new FileStream(outFile, FileMode.Open, FileAccess.Read);
+                     byte[] filebuffer = new byte[(int)LiveFileStream.Length + 1];
 
-                int result = LiveFileStream.Read(filebuffer, 0, (int)LiveFileStream.Length); 
-                  //  BufferedStream   fileBuffer = new BufferedStream( LiveFileStream, (int)LiveFileStream.Length); 
-                 //   LiveFileStream.Read(fileBuffer, 0, (int)LiveFileStream.Length); 
-                    LiveFileStream.Close();
-                    Response.Clear(); 
+                     int result = LiveFileStream.Read(filebuffer, 0, (int)LiveFileStream.Length);
+                     //  BufferedStream   fileBuffer = new BufferedStream( LiveFileStream, (int)LiveFileStream.Length); 
+                     //   LiveFileStream.Read(fileBuffer, 0, (int)LiveFileStream.Length); 
+                     LiveFileStream.Close();
+                     Response.Clear();
 
-                    Response.Charset = "utf-8";
-                  //  Response.ContentType = "text/plain";
-                    Response.ContentType = "application/x-csv"; 
-                    Response.AddHeader("Content-Length", filebuffer.Length.ToString());
-                    Response.AddHeader("Content-Disposition", "attachment; filename=\\App_Data\\AWQMSMetalsandNutrient.02.16.2017.csv");
-                    Response.BinaryWrite(filebuffer);
-                    Response.End();
+                     Response.Charset = "utf-8";
+                     //  Response.ContentType = "text/plain";
+                     Response.ContentType = "application/x-csv";
+                     Response.AddHeader("Content-Length", filebuffer.Length.ToString());
+
+                     Cheader = string.Format("attachment; filename={0}", outFile);
+                     contentDisposition = "Content-Disposition";
+                     Response.AddHeader(contentDisposition, Cheader);
+
+                     //     Response.AddHeader("Content-Disposition", "attachment; filename=\\App_Data\\AWQMSMetalsandNutrient.02.16.2017.csv");
+                     Response.BinaryWrite(filebuffer);
+                     Response.End();
 
                  }
                  catch (System.Exception exx)

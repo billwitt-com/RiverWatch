@@ -30,19 +30,22 @@ namespace RWInbound2.Applications
             DTout.Columns.Add(new DataColumn("Latitude", typeof(string)));
             DTout.Columns.Add(new DataColumn("Longitude", typeof(string)));
             DTout.Columns.Add(new DataColumn("Coordinate System", typeof(string)));
+            DTout.Columns.Add(new DataColumn("Horizontal Collection Method", typeof(string)));
             DTout.Columns.Add(new DataColumn("State", typeof(string)));
-            DTout.Columns.Add(new DataColumn("County", typeof(string)));
+
             DTout.Columns.Add(new DataColumn("Description", typeof(string)));
             DTout.Columns.Add(new DataColumn("Elevation", typeof(string)));
             DTout.Columns.Add(new DataColumn("Vertical Units", typeof(string)));
             DTout.Columns.Add(new DataColumn("Vertical Reference", typeof(string)));
-            DTout.Columns.Add(new DataColumn("Scale", typeof(string)));
-            DTout.Columns.Add(new DataColumn("River", typeof(string)));
-            DTout.Columns.Add(new DataColumn("HydroUnit", typeof(string)));
-            DTout.Columns.Add(new DataColumn("Move", typeof(string)));
-            DTout.Columns.Add(new DataColumn("HUC 12", typeof(string)));
-            DTout.Columns.Add(new DataColumn("Horizontal Collection Method", typeof(string)));
             DTout.Columns.Add(new DataColumn("Vertical Collection Method", typeof(string)));
+            DTout.Columns.Add(new DataColumn("Scale", typeof(string)));
+            DTout.Columns.Add(new DataColumn("Waterbody Name", typeof(string)));
+            DTout.Columns.Add(new DataColumn("County", typeof(string)));
+            DTout.Columns.Add(new DataColumn("HydroUnit", typeof(string)));
+
+            DTout.Columns.Add(new DataColumn("HUC 12", typeof(string)));
+
+
             DTout.Columns.Add(new DataColumn("Country", typeof(string)));
 
 
@@ -82,10 +85,10 @@ namespace RWInbound2.Applications
                         DR["Elevation"] = "";
                     DR["Vertical Units"] = "FT";
                     DR["Vertical Reference"] = "SEALV";
-                    DR["Scale"] = "1:1600,000";
-                    DR["River"] = stn.River ?? "";
+                    DR["Scale"] = "1:1600000";
+                    DR["Waterbody Name"] = stn.River ?? "";
                     DR["HydroUnit"] = stn.HydroUnit ?? "";
-                    DR["Move"] = "";
+ //                   DR["Move"] = "";
                     DR["HUC 12"] = "";
                     DR["Horizontal Collection Method"] = "Interpolation-Map";
                     DR["Vertical Collection Method"] = "Topographic Map Interpolation";
@@ -145,6 +148,8 @@ namespace RWInbound2.Applications
         protected void btnSendFile_Click(object sender, EventArgs e)
         {
             string outFile = "";
+            string Cheader = "";
+            string contentDisposition = "";
 
             lblDownload.Text = "";
             if (Session["OUTFILE"] != null)
@@ -168,7 +173,9 @@ namespace RWInbound2.Applications
                     //  Response.ContentType = "text/plain";
                     Response.ContentType = "application/x-csv";
                     Response.AddHeader("Content-Length", filebuffer.Length.ToString());
-                    Response.AddHeader("Content-Disposition", "attachment; filename=\\App_Data\\AWQMSMetalsandNutrient.02.16.2017.csv");
+                    Cheader = string.Format("attachment; filename={0}", outFile) ; //"\\App_Data\\AWQMSMetalsandNutrient.02.16.2017.csv");
+                    contentDisposition = "Content-Disposition";
+                    Response.AddHeader(contentDisposition, Cheader);
                     Response.BinaryWrite(filebuffer);
                     Response.End();
                 }
