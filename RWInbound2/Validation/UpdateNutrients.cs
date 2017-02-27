@@ -247,7 +247,8 @@ namespace RWInbound2.Validation
                                     NData.Batch = ""; 
                                 }
 
-
+                                NData.Valid = item.Valid; // XXXX bw 2017 02 27 this must be valid since the incoming lachat date is already filtered to be valid
+                                NData.Validated = item.Validated; 
                             }   // end of foreach
                         }   // end of if 
 
@@ -262,8 +263,7 @@ namespace RWInbound2.Validation
 
                         NData.BARCODE = bcode;
                         // set these values just in case
-                        //NData.Valid = true;
-                        //NData.Validated = false;
+                       
                         if (!existingRecord)    // only update these if this is a new record
                         {
                             NData.Valid = true;
