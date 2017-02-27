@@ -1134,6 +1134,7 @@ namespace RWInbound2.Admin
                 bool repNumExists = int.TryParse(((DropDownList)gridView.FindControl("dropDownNewBenthicsGridReps")).SelectedValue,
                                                     out repNum);
                 string gridNumText = ((TextBox)gridView.FindControl("txtNewGridNum")).Text;
+                string benCountText = ((TextBox)gridView.FindControl("txtNewBenCount")).Text;
 
                 if (!repNumExists)
                 {
@@ -1144,13 +1145,15 @@ namespace RWInbound2.Admin
                 else if (string.IsNullOrEmpty(gridNumText))
                 {
                     ((Label)gridView.FindControl("lblNewGridNumRequired")).Visible = true;
-                }               
+                }
+                else if (string.IsNullOrEmpty(benCountText))
+                {
+                    ((Label)gridView.FindControl("lblNewBenCountRequired")).Visible = true;
+                }
                 else
                 {
-                    int gridNum = Convert.ToInt32(gridNumText);                   
-
-                    string benCountText = ((TextBox)gridView.FindControl("txtNewBenCount")).Text;
-                    int benCount = string.IsNullOrEmpty(benCountText) ? 0 : Convert.ToInt32(benCountText);
+                    int gridNum = Convert.ToInt32(gridNumText);  
+                    int benCount = Convert.ToInt32(benCountText);
                    
                     string userLastModified = "Unknown";
 

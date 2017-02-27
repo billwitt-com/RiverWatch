@@ -520,6 +520,9 @@
                                                     <td>
                                                         <asp:TextBox ID="txtNewGridNum" runat="server"
                                                                 CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator id="RequiredFieldValidator_4" runat="server" CssClass="grid-benthics-required"
+                                                                                Display="Dynamic" ErrorMessage="Required!" ControlToValidate="txtNewGridNum">
+                                                        </asp:RequiredFieldValidator>
                                                         <asp:Label ID="lblNewGridNumRequired" runat="server" Visible="false" CssClass="grid-benthics-required">
                                                             Required!
                                                         </asp:Label>
@@ -527,6 +530,9 @@
                                                     <td>
                                                         <asp:TextBox ID="txtNewBenCount" runat="server"
                                                                 CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator id="RequiredFieldValidator_5" runat="server" CssClass="grid-benthics-required"
+                                                                                Display="Dynamic" ErrorMessage="Required!" ControlToValidate="txtNewBenCount">
+                                                        </asp:RequiredFieldValidator>
                                                     </td>                                                                                   
                                                 </tr>
                                             </tbody>
@@ -571,6 +577,9 @@
                                             <EditItemTemplate>
                                                 <asp:TextBox ID="txtGridNum" runat="server" Text='<%# Bind("GridNum") %>' 
                                                                 CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                                <asp:RequiredFieldValidator id="RequiredFieldValidator_1" runat="server" CssClass="grid-benthics-required"
+                                                                        Display="Dynamic" ErrorMessage="Required!" ControlToValidate="txtGridNum">
+                                                </asp:RequiredFieldValidator>
                                             </EditItemTemplate>
                                             <ItemTemplate>
                                                 <asp:Label ID="lblGridNum" runat="server" Text='<%# Bind("GridNum") %>'></asp:Label>                                                                   
@@ -580,13 +589,16 @@
                                                                 CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
                                                 <asp:Label ID="lblNewGridNumRequired" runat="server" Visible="false" CssClass="grid-benthics-required">
                                                     Required!
-                                                </asp:Label>
+                                                </asp:Label>                                               
                                             </FooterTemplate>                                              
                                         </asp:TemplateField>                                
                                         <asp:TemplateField HeaderText="Count" SortExpression="BenCount">                   
                                             <EditItemTemplate>
                                                 <asp:TextBox ID="txtBenCount" runat="server" Text='<%# Bind("BenCount") %>' 
                                                                 CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                                <asp:RequiredFieldValidator id="RequiredFieldValidator_2" runat="server" CssClass="grid-benthics-required"
+                                                                        Display="Dynamic" ErrorMessage="Required!" ControlToValidate="txtBenCount" >
+                                                </asp:RequiredFieldValidator>
                                             </EditItemTemplate>
                                             <ItemTemplate>
                                                 <asp:Label ID="lblBenCount" runat="server" Text='<%# Bind("BenCount") %>'></asp:Label>                                                                   
@@ -594,6 +606,9 @@
                                             <FooterTemplate>
                                                 <asp:TextBox ID="txtNewBenCount" runat="server"
                                                                 CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
+                                                <asp:Label ID="lblNewBenCountRequired" runat="server" Visible="false" CssClass="grid-benthics-required">
+                                                    Required!
+                                                </asp:Label> 
                                             </FooterTemplate>                                              
                                         </asp:TemplateField>                                                                             
                                     </Columns>
