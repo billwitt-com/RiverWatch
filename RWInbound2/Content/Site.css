@@ -1623,7 +1623,7 @@ input.public-button-reports{
     font-weight:bold;
     font-size: 1em;    
     background-color:ActiveCaption;    
-    margin-left:10px;
+    margin-left:10px;    
 }
 
 .grid-edit-equipment-small-textbox {
@@ -1984,7 +1984,7 @@ tr.grid-edit-benthics-samples-header{
 
 /*Edit Benthics Samples Form View*/
 .benthics-samples-section{
-    width: 1150px;    
+    width: 1100px;    
 }
 
 .benthics-samples-formview-edit-template-div{
@@ -2024,10 +2024,6 @@ tr.grid-edit-benthics-samples-header{
     resize: vertical;
 }
 
-div.benthic-data-formview{
-    display: inline-table;
-    width: 450px;
-}
 
 .benthics-data-label-error{  
     font-size: 11px;
@@ -2042,25 +2038,51 @@ div.benthic-data-formview{
 }
 
 .benthics-data-label-placement{
-    width: 450px;
+    width: 390px;
     padding-top: 2px;
     padding-bottom: 5px;
     text-align:left;
     display:table-caption;
 }
 
-div.benthic-reps-gridview{
-    display:inline-table;    
+div.benthic-data-formview{
+    display: inline-table;   
+    /*border:solid 1px blue;*/  
 }
 
-.benthic-reps-grid-columns-center{
+div.benthic-group-all-views{
+    width: 1100px;   
+    /*border:solid 1px orange;*/     
+}
+
+.benthic-reps-gridview{
+    display:inline-table; 
+    float: right;
+    /*border:solid 1px red;*/  
+    margin-left: -155px; 
+    padding-right: 55px;
+}
+
+.benthic-grids-gridview{
+    display:inline-table;
+    float:right;
+    /*border:solid 1px yellow;*/   
+}
+
+.benthic-benthics-taxa-gridview{
+    display:inline-table;
+    /*border:solid 1px purple;*/
+}
+
+.benthic-samples-grid-columns-center{
     text-align:center;
     font-size: 10px;
-    width: 400px;
+    width: 400px;    
+    /*border-color: transparent;*/
 }
 
 .benthics-reps-gridview-dropdowns{      
-    font-size:10px;
+    font-size:10px;    
 }
 
 .grid-benthics-reps-medium-textbox{
@@ -2084,5 +2106,18 @@ div.benthic-reps-gridview{
 
 .grid-benthics-options-div{
     margin-bottom: 5px;
+}
 
+.edit-benthic-samples-headergroup{
+    display:inline-block;
+}
+
+.edit-benthic-samples-link-div{
+    display:inline-block;
+    margin-left: 90px;
+    font-size: 10px;
+}
+
+.edit-benthic-samples-link-to-manage-bugs-physHab{    
+    margin-bottom: 5px;
 }

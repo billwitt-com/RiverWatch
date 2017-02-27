@@ -13,6 +13,15 @@ namespace RWInbound2.Admin {
     public partial class EditBenthicSamples {
         
         /// <summary>
+        /// UpdateProgress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress UpdateProgress;
+        
+        /// <summary>
         /// BenthicSamplesGridView_UpdatePanel control.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,15 @@ namespace RWInbound2.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel BenthicSamplesGridView_UpdatePanel;
+        
+        /// <summary>
+        /// btnLinkToManageBugsPhysHab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLinkToManageBugsPhysHab;
         
         /// <summary>
         /// ErrorLabel control.
@@ -148,69 +166,6 @@ namespace RWInbound2.Admin {
         protected global::System.Web.UI.WebControls.FormView BenthicDataFormView;
         
         /// <summary>
-        /// Benthics_UpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel Benthics_UpdatePanel;
-        
-        /// <summary>
-        /// BenthicsGridView_Panel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel BenthicsGridView_Panel;
-        
-        /// <summary>
-        /// BenthicsErrorLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BenthicsErrorLabel;
-        
-        /// <summary>
-        /// BenthicsSuccessLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BenthicsSuccessLabel;
-        
-        /// <summary>
-        /// dropDownBenthicsSelectedRepNum control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dropDownBenthicsSelectedRepNum;
-        
-        /// <summary>
-        /// ShowAllBenTaxaButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ShowAllBenTaxaButton;
-        
-        /// <summary>
-        /// BenthicsGridView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView BenthicsGridView;
-        
-        /// <summary>
         /// BenthicsReps_UpdatePanel control.
         /// </summary>
         /// <remarks>
@@ -299,5 +254,77 @@ namespace RWInbound2.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView BenthicsGridsGridView;
+        
+        /// <summary>
+        /// Benthics_UpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel Benthics_UpdatePanel;
+        
+        /// <summary>
+        /// BenthicsGridView_Panel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel BenthicsGridView_Panel;
+        
+        /// <summary>
+        /// BenthicsErrorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BenthicsErrorLabel;
+        
+        /// <summary>
+        /// BenthicsSuccessLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BenthicsSuccessLabel;
+        
+        /// <summary>
+        /// dropDownBenthicsSelectedRepNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dropDownBenthicsSelectedRepNum;
+        
+        /// <summary>
+        /// ShowAllBenTaxaButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ShowAllBenTaxaButton;
+        
+        /// <summary>
+        /// lblBenthicsSampleEvent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBenthicsSampleEvent;
+        
+        /// <summary>
+        /// BenthicsGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView BenthicsGridView;
     }
 }
