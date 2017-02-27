@@ -637,8 +637,10 @@ namespace RWInbound2.Admin
                     DateTime collDate = new DateTime();
                     bool convertCollDate = DateTime.TryParse(HiddenField_DateCollected.Value, out collDate);
 
+                    string collectedTime = string.IsNullOrEmpty(HiddenField_TimeCollected.Value.ToString()) ? "1900-01-01 00:00:00.000" :
+                                                                HiddenField_TimeCollected.Value.ToString();
                     DateTime collTime = new DateTime();
-                    bool convertCollTime = DateTime.TryParse(HiddenField_TimeCollected.Value, out collTime);
+                    bool convertCollTime = DateTime.TryParse(collectedTime, out collTime);
 
                     if(!convertCollDate || !convertCollTime)
                     {
