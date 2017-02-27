@@ -42,6 +42,8 @@ namespace RWInbound2.Applications
           //  decimal? result;
             decimal? result; 
             string symbol = "";
+            int minutes = 0;
+            int hours = 0;
 
          //   bool updateRowResult = false;
 
@@ -297,7 +299,6 @@ namespace RWInbound2.Applications
                     symbol = "DOSAT";
                     result = (decimal?)r.DOSAT;
                     calculateRow(r, result, symbol);
-
             }
 
 
@@ -318,7 +319,7 @@ namespace RWInbound2.Applications
                 File.Delete(f);
             }
 
-            string outFile = "~/App_Data/AWQMSMetalsandNutrient." + DateTime.Now.ToString("MM.dd.yyyy") + ".csv";
+            string outFile = "~/App_Data/AWQMSMetalsandNutrientandField." + DateTime.Now.ToString("MM.dd.yyyy") + ".csv";
             outFile = HttpContext.Current.Server.MapPath(outFile);
 
             FileInfo FI = new FileInfo(outFile);    // delete if exists
@@ -349,6 +350,8 @@ namespace RWInbound2.Applications
             int stationNumber;
             DateTime anaDate;
             string selStr = "";
+            int hours = 0;
+            int minutes = 0;
             decimal DL = 0.0m;
             decimal RL = 0.0m;
             bool isNullValue = false;
@@ -377,13 +380,20 @@ namespace RWInbound2.Applications
                     stationNumber = r.StationNumber.Value;
                     DR["Monitoring Location ID"] = stationNumber.ToString();                // ("{0:0.0000}"); 
                 }
-
+           
                 if (r.SampleDate != null)
                 {
                     DR["Activity Start Date"] = r.SampleDate.Value.Month.ToString() + "/" + r.SampleDate.Value.Day.ToString() + "/" + r.SampleDate.Value.Year.ToString();
-                    DR["Activity Start Time"] = r.SampleDate.Value.Hour.ToString() + r.SampleDate.Value.Minute.ToString();
+                    
+                //    DR["Activity Start Time"] = r.SampleDate.Value.Hour.ToString() + r.SampleDate.Value.Minute.ToString();
                     DR["Analysis Start Date"] = r.SampleDate.Value.Month.ToString() + "/" + r.SampleDate.Value.Day.ToString() + "/" + r.SampleDate.Value.Year.ToString();
-                    DR["Analysis Start Time"] = r.SampleDate.Value.ToString("MMmm");
+                    hours = r.SampleDate.Value.Hour;
+                    minutes = r.SampleDate.Value.Minute;
+
+                    string tempStr = string.Format("{0:00}{1:00}", hours, minutes); 
+                        //r.SampleDate.Value.Hour.ToString(), r.SampleDate.Value.Minute.ToString());
+                    DR["Analysis Start Time"] = tempStr; // string.Format("{0:00}{1:00}", r.SampleDate.Value.Minute, r.SampleDate.Value.Second);                // .ToString("MMSS");
+                     DR["Activity Start Time"] = tempStr; 
                         //r.SampleDate.Value.Hour.ToString() + r.SampleDate.Value.Minute.ToString();
                      
                     DR["Activity Start Time Zone"] = "MST";
@@ -500,8 +510,7 @@ namespace RWInbound2.Applications
                      string msg = string.Format("AWQMS translation table failed to find entries for {0}, date {1}", symbol, anaDate);
                      LogError LE = new LogError();
                      LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath,"", nam, "");   
-                 }
-            
+                 }            
 
                 DTout.Rows.Add(DR); // add to the table
             
@@ -674,33 +683,38 @@ namespace RWInbound2.Applications
 
          protected void btnDownload_Click(object sender, System.EventArgs e)
          {
-             string outFile = ""; 
+             string outFile = "";
+             string Cheader = "";
+             string contentDisposition = "";
 
              lblDownload.Text = "";
              if(Session["OUTFILE"] != null)
              {
                  outFile = (string)Session["OUTFILE"];
 
-             //   outFile = @"\App_Data\AWQMSMetalsandNutrient.02.16.2017.csv"; 
-
                  try
-                 {          
-                FileStream LiveFileStream = new FileStream(outFile, FileMode.Open, FileAccess.Read);
-                byte[] filebuffer = new byte[(int)LiveFileStream.Length+1];
+                 {
+                     FileStream LiveFileStream = new FileStream(outFile, FileMode.Open, FileAccess.Read);
+                     byte[] filebuffer = new byte[(int)LiveFileStream.Length + 1];
 
-                int result = LiveFileStream.Read(filebuffer, 0, (int)LiveFileStream.Length); 
-                  //  BufferedStream   fileBuffer = new BufferedStream( LiveFileStream, (int)LiveFileStream.Length); 
-                 //   LiveFileStream.Read(fileBuffer, 0, (int)LiveFileStream.Length); 
-                    LiveFileStream.Close();
-                    Response.Clear(); 
+                     int result = LiveFileStream.Read(filebuffer, 0, (int)LiveFileStream.Length);
+                     //  BufferedStream   fileBuffer = new BufferedStream( LiveFileStream, (int)LiveFileStream.Length); 
+                     //   LiveFileStream.Read(fileBuffer, 0, (int)LiveFileStream.Length); 
+                     LiveFileStream.Close();
+                     Response.Clear();
 
-                    Response.Charset = "utf-8";
-                  //  Response.ContentType = "text/plain";
-                    Response.ContentType = "application/x-csv"; 
-                    Response.AddHeader("Content-Length", filebuffer.Length.ToString());
-                    Response.AddHeader("Content-Disposition", "attachment; filename=\\App_Data\\AWQMSMetalsandNutrient.02.16.2017.csv");
-                    Response.BinaryWrite(filebuffer);
-                    Response.End();
+                     Response.Charset = "utf-8";
+                     //  Response.ContentType = "text/plain";
+                     Response.ContentType = "application/x-csv";
+                     Response.AddHeader("Content-Length", filebuffer.Length.ToString());
+
+                     Cheader = string.Format("attachment; filename={0}", outFile);
+                     contentDisposition = "Content-Disposition";
+                     Response.AddHeader(contentDisposition, Cheader);
+
+                     //     Response.AddHeader("Content-Disposition", "attachment; filename=\\App_Data\\AWQMSMetalsandNutrient.02.16.2017.csv");
+                     Response.BinaryWrite(filebuffer);
+                     Response.End();
 
                  }
                  catch (System.Exception exx)
