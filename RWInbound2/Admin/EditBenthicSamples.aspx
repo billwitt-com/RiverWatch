@@ -519,10 +519,7 @@
                                                     </td>
                                                     <td>
                                                         <asp:TextBox ID="txtNewGridNum" runat="server"
-                                                                CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator id="RequiredFieldValidator_4" runat="server" CssClass="grid-benthics-required"
-                                                                                Display="Dynamic" ErrorMessage="Required!" ControlToValidate="txtNewGridNum">
-                                                        </asp:RequiredFieldValidator>
+                                                                CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>                                                      
                                                         <asp:Label ID="lblNewGridNumRequired" runat="server" Visible="false" CssClass="grid-benthics-required">
                                                             Required!
                                                         </asp:Label>
@@ -530,9 +527,9 @@
                                                     <td>
                                                         <asp:TextBox ID="txtNewBenCount" runat="server"
                                                                 CssClass="benthics-samples-form-view-width-number-textbox" TextMode="Number"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator id="RequiredFieldValidator_5" runat="server" CssClass="grid-benthics-required"
-                                                                                Display="Dynamic" ErrorMessage="Required!" ControlToValidate="txtNewBenCount">
-                                                        </asp:RequiredFieldValidator>
+                                                        <asp:Label ID="lblNewBenCountRequired" runat="server" Visible="false" CssClass="grid-benthics-required">
+                                                            Required!
+                                                        </asp:Label> 
                                                     </td>                                                                                   
                                                 </tr>
                                             </tbody>

@@ -500,6 +500,11 @@ namespace RWInbound2.Admin
                     benSampIDSelected = 0;
                 }
 
+                if(BenthicSamplesGridView.Controls[0].Controls[0].FindControl("btnAddNewSample") != null)
+                {
+                    ((Button)BenthicSamplesGridView.Controls[0].Controls[0].FindControl("btnAddNewSample")).Visible = false;
+                }
+                
                 BenthicDataFormView_Panel.Visible = true;
                 BenthicDataFormView.DataBind();
                 
