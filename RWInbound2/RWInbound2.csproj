@@ -200,6 +200,7 @@
     <Content Include="Applications\AWQMSStations.aspx" />
     <Content Include="Content\faq.png" />
     <Content Include="Data\UploadICP.aspx" />
+    <Content Include="Edit\EditBenTaxa.aspx" />
     <Content Include="Edit\EditIntent.aspx" />
     <Content Include="Edit\EditLimits.aspx" />
     <Content Include="Admin\EditMetalBarCode.aspx" />
@@ -1065,6 +1066,13 @@
     <Compile Include="Data\UploadICP.aspx.designer.cs">
       <DependentUpon>UploadICP.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Edit\EditBenTaxa.aspx.cs">
+      <DependentUpon>EditBenTaxa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit\EditBenTaxa.aspx.designer.cs">
+      <DependentUpon>EditBenTaxa.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit\EditIntent.aspx.cs">
       <DependentUpon>EditIntent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1430,6 +1438,7 @@
     <Compile Include="Admin\EditStationImages.aspx.designer.cs">
       <DependentUpon>EditStationImages.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HelperMethods\EntityFrameworkError.cs" />
     <Compile Include="HelperModels\StationImageModels.cs" />
     <Compile Include="Help\HelpInboundICP.aspx.cs">
       <DependentUpon>HelpInboundICP.aspx</DependentUpon>

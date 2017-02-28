@@ -830,7 +830,7 @@ namespace RWInbound2.Samples
                 // here we save sample, get the new identity and save that value in sampleID in case we want to use it later... 
                 NRWDE.Samples.Add(TS);
                 NRWDE.SaveChanges(); // update 
-                TS.SampleID = TS.ID;    // update old sampleID column, which is not an identity column, but we may want to use it...  just in case
+                TS.ID = TS.ID;    // update old sampleID column, which is not an identity column, but we may want to use it...  just in case
                 NRWDE.SaveChanges(); // update 
 
                 // clear fields for next sample
@@ -1359,7 +1359,7 @@ namespace RWInbound2.Samples
 
             int SN = (from q in NRWDE.Samples
                       where q.SampleNumber == smpNum & q.Valid == true
-                      select q.SampleID).FirstOrDefault();
+                      select q.ID).FirstOrDefault();
 
             MetalBarCode TMB = new MetalBarCode(); // make a new entity to fill in with data
 
@@ -1921,7 +1921,7 @@ namespace RWInbound2.Samples
 
             int SN = (from q in NRWDE.Samples
                       where q.SampleNumber == sampNum & q.Valid == true
-                      select q.SampleID).FirstOrDefault();
+                      select q.ID).FirstOrDefault();
 
             if (SN > 0)
             {

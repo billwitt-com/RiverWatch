@@ -751,7 +751,7 @@ namespace RWInbound2.Validation
             try
             {
                 Sample ts = (from t in NewRWE.Samples
-                             where t.SampleID == sID & t.Valid == true
+                             where t.ID == sID & t.Valid == true
                              select t).FirstOrDefault(); // should be only one copy
                 if (ts != null)
                 {
@@ -759,7 +759,7 @@ namespace RWInbound2.Validation
                     NEW.OrganizationID = ts.OrganizationID;
 
 
-                    NEW.tblSampleID = ts.SampleID;
+                    NEW.tblSampleID = ts.ID;
                     if (ts.DateCollected.Year > 1900)
                     {
                         NEW.SampleDate = ts.DateCollected; // this is date part only, no time and may be junk XXXX
