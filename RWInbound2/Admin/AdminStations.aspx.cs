@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Configuration;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Runtime.Serialization;
-using System.IO;
-using System.Web.Providers.Entities;
-using System.Drawing; 
+using System.Drawing;
 // 09/23 Added code to add all stations to project 1 in projectstations
 
 namespace RWInbound2.Admin

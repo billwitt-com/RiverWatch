@@ -831,7 +831,7 @@ namespace RWInbound2.Validation
                         NEW.StationNumber = (short)ts.StationID;   // XXXX hope this gets working soon and we can get rid of shorts
                         NEW.Sulfate = null;
 
-                        NEW.tblSampleID = ts.SampleID;
+                        NEW.tblSampleID = ts.ID;
                         NEW.TempC = null;
                         NEW.TKN = null;
                         NEW.TOTAL_ALK = null;

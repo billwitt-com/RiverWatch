@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Configuration;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Runtime.Serialization;
-using System.IO;
-using System.Web.Providers.Entities; 
 
 namespace RWInbound2.Admin
 {
