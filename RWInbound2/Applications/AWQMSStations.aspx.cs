@@ -32,7 +32,7 @@ namespace RWInbound2.Applications
             DTout.Columns.Add(new DataColumn("Coordinate System", typeof(string)));
             DTout.Columns.Add(new DataColumn("Horizontal Collection Method", typeof(string)));
             DTout.Columns.Add(new DataColumn("State", typeof(string)));
-
+            DTout.Columns.Add(new DataColumn("County", typeof(string)));
             DTout.Columns.Add(new DataColumn("Description", typeof(string)));
             DTout.Columns.Add(new DataColumn("Elevation", typeof(string)));
             DTout.Columns.Add(new DataColumn("Vertical Units", typeof(string)));
@@ -40,13 +40,11 @@ namespace RWInbound2.Applications
             DTout.Columns.Add(new DataColumn("Vertical Collection Method", typeof(string)));
             DTout.Columns.Add(new DataColumn("Scale", typeof(string)));
             DTout.Columns.Add(new DataColumn("Waterbody Name", typeof(string)));
-            DTout.Columns.Add(new DataColumn("County", typeof(string)));
+            DTout.Columns.Add(new DataColumn("Country", typeof(string)));
             DTout.Columns.Add(new DataColumn("HydroUnit", typeof(string)));
-
             DTout.Columns.Add(new DataColumn("HUC 12", typeof(string)));
 
 
-            DTout.Columns.Add(new DataColumn("Country", typeof(string)));
 
 
             try
@@ -85,7 +83,7 @@ namespace RWInbound2.Applications
                         DR["Elevation"] = "";
                     DR["Vertical Units"] = "FT";
                     DR["Vertical Reference"] = "SEALV";
-                    DR["Scale"] = "1:1600000";
+                    DR["Scale"] = "1600000";
                     DR["Waterbody Name"] = stn.River ?? "";
                     DR["HydroUnit"] = stn.HydroUnit ?? "";
  //                   DR["Move"] = "";
@@ -123,7 +121,7 @@ namespace RWInbound2.Applications
                 File.Delete(f);
             }
 
-            string outFile = "~/App_Data/AWQMS_Stations." + DateTime.Now.ToString("MM.dd.yyyy") + ".csv";
+            string outFile = "~/App_Data/AWQMS_Stations" + DateTime.Now.ToString("MMddyyyy") + ".csv";
             outFile = HttpContext.Current.Server.MapPath(outFile);
 
             FileInfo FI = new FileInfo(outFile);    // delete if exists

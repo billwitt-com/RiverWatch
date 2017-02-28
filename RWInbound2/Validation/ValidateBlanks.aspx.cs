@@ -699,7 +699,7 @@ namespace RWInbound2.Validation
                 else   // no results from query, no existing record 
                 {
                     NEW = new NEWexpWater(); // create new entity as there is not one yet
-                    existingRecord = false;
+                    existingRecord = false; 
                 }
 
                 // here we have one or more existing records 
@@ -872,7 +872,7 @@ namespace RWInbound2.Validation
                 NEW.AL_D = Disolved;
                 NEW.AL_T = Total;
                 F.AL_D = Disolved;
-                F.AL_T = Total; ;
+                F.AL_T = Total;
 
                 workString = "AS";
                 getText2Values(workString, uniqueID, out  Disolved, out  Total);

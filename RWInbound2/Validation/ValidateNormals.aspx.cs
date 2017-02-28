@@ -336,7 +336,7 @@ namespace RWInbound2.Validation
                     nam = User.Identity.Name;
                 string msg = ex.Message;
                 LogError LE = new LogError();
-                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "");
+                LE.logError(msg, this.Page.Request.AppRelativeCurrentExecutionFilePath, ex.StackTrace.ToString(), nam, "Problem scraping controls off page");
             }
 
             // check to see if a record already exists, it may if field data was entered first.... 
