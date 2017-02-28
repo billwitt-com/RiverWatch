@@ -319,7 +319,7 @@ namespace RWInbound2.Applications
                 File.Delete(f);
             }
 
-            string outFile = "~/App_Data/AWQMSMetalsandNutrientandField." + DateTime.Now.ToString("MM.dd.yyyy") + ".csv";
+            string outFile = "~/App_Data/AWQMSMetalsandNutrientandField" + DateTime.Now.ToString("MMddyyyy") + ".csv";
             outFile = HttpContext.Current.Server.MapPath(outFile);
 
             FileInfo FI = new FileInfo(outFile);    // delete if exists

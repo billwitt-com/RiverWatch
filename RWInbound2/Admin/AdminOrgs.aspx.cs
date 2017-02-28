@@ -161,6 +161,7 @@ namespace RWInbound2.Admin
                 theDropDownList.Items.Clear();
                 theDropDownList.Items.Insert(0, new ListItem("Please select", ""));
                 theDropDownList.SelectedValue = "";
+                theDropDownList.BackColor = System.Drawing.Color.Red;
             }
         }
 
