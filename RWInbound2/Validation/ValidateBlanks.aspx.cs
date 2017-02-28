@@ -125,7 +125,7 @@ namespace RWInbound2.Validation
                                         if (sdr["Element"].GetType() != typeof(System.DBNull))      // is this crap or what???
                                         {
                                             name = ((string)sdr["Element"]).ToUpper();  // make upper case to be sure
-                                            D2Tvalue = (decimal)sdr["DvsTDifference"];
+                                            D2Tvalue = 0; // (decimal)sdr["DvsTDifference"];    // this is not currently used,
                                             MeasurementValue = (decimal)sdr["MDL"];
                                             D2TLimits.Add(name, D2Tvalue);
                                             MeasurementLimits.Add(name, MeasurementValue);
@@ -377,7 +377,7 @@ namespace RWInbound2.Validation
             // **** end of transplanted code
 
 
-            // get the dictionaries of limits from session state - these do not change during session
+            // get the dictionaries of limits from session IONe - these do not change during session
             if (Session["HighLimit"] == null)
                 Response.Redirect("timedout.axpx"); 
 
@@ -570,10 +570,6 @@ namespace RWInbound2.Validation
             btnHelp.Visible = false; 
         }
 
-
-
-
-
         // user has edited (or just accepts) the blank and now we will save it to table
         // must update page as there will one fewer blanks to process
         protected void UpdateButton_Click(object sender, EventArgs e)
@@ -641,39 +637,9 @@ namespace RWInbound2.Validation
 
 
             // XXXX check to see if a record already exists, it may if field data was entered first.... 
-            // will create a method for this, I think, so we can reuse
-            // note new master summary table
-
-            //try
-            //{
-            //    //NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
-            //    //                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
-            //    //                    select t).FirstOrDefault();
-
-            //    // changed query to use barcode 
-            //    NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
-            //                        where t.Valid == true & t.MetalsBarCode == barCode
-            //                        select t).FirstOrDefault();
-            //    if (TEST != null)
-            //    {
-            //        // skip these as they are not our business to insert into a row that already exists
-            //        // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
-            //        NEW = TEST; // keep the name common to this method
-            //        existingRecord = true; // flag for later
-            //    }
-            //    else
-            //    {
-            //        NEW = new NEWexpWater(); // create new entity as there is not one yet
-            //        existingRecord = false;
-            //    }
-           // }
-
+            
             try
             {
-                //NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
-                //                    where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
-                //                    select t).FirstOrDefault();
-
                 // see if we have any entries in the table with this sample id 
                 var TEST = from t in NewRWE.NEWexpWaters
                            where t.tblSampleID == sID & t.Valid == true
@@ -753,6 +719,7 @@ namespace RWInbound2.Validation
             if (!existingRecord)
             {
                 NEW.BadDuplicate = false;
+                NEW.BadBlank = false; 
                 NEW.BadSample = false;
                 NEW.BenthicsComments = null;
                 NEW.BugsBarCode = null;
@@ -838,6 +805,12 @@ namespace RWInbound2.Validation
                         NEW.TOTAL_HARD = null;
                         NEW.BadBlank = isbad; // record value from type passed in by caller
                         NEW.Valid = true; 
+                    }
+                    else
+                    {
+                        // serious error, should never happen
+                        lblCount.Text = string.Format("ERROR, Bar Code {0} does not have a valid sample number in the samples table", barCode);
+                        return;                     
                     }
                 }
                 catch (Exception ex)
