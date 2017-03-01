@@ -36,13 +36,7 @@ namespace RWInbound2
         public string FFG { get; set; }
         public string Habit { get; set; }
         public string LifeCycle { get; set; }
-        public string InBenthics { get; set; }
-        public string CharGroupID { get; set; }
-        public string RowID { get; set; }
         public string VialNum { get; set; }
-        public string PhotoLoc { get; set; }
-        public Nullable<bool> AdminCheck { get; set; }
-        public Nullable<System.DateTime> DateNameRevised { get; set; }
         public Nullable<System.DateTime> EnterDate { get; set; }
         public string Comments { get; set; }
         public int ID { get; set; }

@@ -2149,8 +2149,9 @@ div.bentaxa-messages-and-search{
 .ben-taxa-data-formview-div{
     display:inline-table;
     float: right;
-    border:solid 1px red;
     width: 450px;
+    margin-top: -30px;    
+    border:solid 1px red;
 }
 
 .large-width-textbox{
@@ -2161,8 +2162,8 @@ div.bentaxa-messages-and-search{
     width: 150px;   
 }
 
-.small-width-textbox{
-    width: 100px;   
+.ben-taxa-data-formview-textbox.small-width-textbox{
+    width: 30px;   
 }
 
 .grid-columns-center.grid-edit-ben-taxa{    
@@ -2179,4 +2180,12 @@ div.bentaxa-messages-and-search{
     margin: 10px 5px -7px 5px;
     padding: 3px;
     resize: vertical;
+}
+
+.ben-taxa-data-formview-label{    
+    display: inline-flex;
+    font-size:12px;
+    height: 15px;
+    margin: 10px 5px -7px 5px;
+    padding: 3px;
 }

@@ -46,7 +46,7 @@
                                 EnableCaching="false" 
                                 CompletionSetCount="10">
                             </ajaxToolkit:AutoCompleteExtender>
-                            <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset Search" OnClick="btnSearchRefresh_Click" CssClass="adminButton adminButton-larger" />                                 
+                            <asp:Button ID="btnSearchRefresh" runat="server" Text="Reset" OnClick="btnSearchRefresh_Click" CssClass="adminButton adminButton-larger" />                                 
                         </div>                    
                     </div>                    
                     <br /> <br />
@@ -138,7 +138,7 @@
                                     EmptyDataText="No results found.">                
                                 <EditItemTemplate> 
                                     <div class="benthics-samples-form-view-labels">
-                                        <label>Taxon:</label>
+                                        <label>Taxa:</label>
                                     </div>  
                                     <asp:TextBox ID="txtFinalID" runat="server" Text='<%# Bind("FinalID") %>' MaxLength="100" TextMode="MultiLine"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
@@ -149,93 +149,129 @@
                                     <div class="benthics-samples-form-view-labels">
                                         <label>TSN:</label>
                                     </div>
-                                    <asp:TextBox ID="txtTSN" runat="server" Text='<%# Bind("TSN") %>' 
+                                    <asp:TextBox ID="txtTSN" runat="server" Text='<%# Bind("TSN") %>' MaxLength="10" 
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Par TSN:</label>
                                     </div>
-                                    <asp:TextBox ID="txtParTSN" runat="server" Text='<%# Bind("ParTSN") %>' 
+                                    <asp:TextBox ID="txtParTSN" runat="server" Text='<%# Bind("ParTSN") %>' MaxLength="10" 
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox> 
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Phylum:</label>
                                     </div>
-                                    <asp:TextBox ID="txtPhylum" runat="server" Text='<%# Bind("Phylum") %>' 
+                                    <asp:TextBox ID="txtPhylum" runat="server" Text='<%# Bind("Phylum") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Subphylum:</label>
                                     </div>
-                                    <asp:TextBox ID="txtSubphylum" runat="server" Text='<%# Bind("Subphylum") %>' 
+                                    <asp:TextBox ID="txtSubphylum" runat="server" Text='<%# Bind("Subphylum") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Class:</label>
                                     </div>
-                                    <asp:TextBox ID="txtClass" runat="server" Text='<%# Bind("Class") %>' 
+                                    <asp:TextBox ID="txtClass" runat="server" Text='<%# Bind("Class") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Border:</label>
                                     </div>
-                                    <asp:TextBox ID="txtBOrder" runat="server" Text='<%# Bind("BOrder") %>' 
+                                    <asp:TextBox ID="txtBOrder" runat="server" Text='<%# Bind("BOrder") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Family:</label>
                                     </div>
-                                    <asp:TextBox ID="txtFamily" runat="server" Text='<%# Bind("Family") %>' 
+                                    <asp:TextBox ID="txtFamily" runat="server" Text='<%# Bind("Family") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Tribe:</label>
                                     </div>
-                                    <asp:TextBox ID="txtTribe" runat="server" Text='<%# Bind("Tribe") %>' 
+                                    <asp:TextBox ID="txtTribe" runat="server" Text='<%# Bind("Tribe") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Genus:</label>
                                     </div>
-                                    <asp:TextBox ID="txtGenus" runat="server" Text='<%# Bind("Genus") %>' 
+                                    <asp:TextBox ID="txtGenus" runat="server" Text='<%# Bind("Genus") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Species:</label>
                                     </div>
-                                    <asp:TextBox ID="txt" runat="server" Text='<%# Bind("Species") %>' 
+                                    <asp:TextBox ID="txt" runat="server" Text='<%# Bind("Species") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Variety:</label>
                                     </div>
-                                    <asp:TextBox ID="txtVariety" runat="server" Text='<%# Bind("Variety") %>' 
+                                    <asp:TextBox ID="txtVariety" runat="server" Text='<%# Bind("Variety") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
-                                        <label>TaxaGroup:</label>
+                                        <label>Taxa Group:</label>
                                     </div>
-                                    <asp:TextBox ID="txtTaxaGroup" runat="server" Text='<%# Bind("TaxaGroup") %>' 
+                                    <asp:TextBox ID="txtTaxaGroup" runat="server" Text='<%# Bind("TaxaGroup") %>' MaxLength="50"
                                                     CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
                                     <br />
                                     <div class="benthics-samples-form-view-labels">
-                                        <label>Date Name Revised:</label>
+                                        <label>Tol Val:</label>
                                     </div>
-                                    <asp:TextBox ID="txtDateNameRevised" runat="server" Text='<%# Bind("DateNameRevised") %>'
-                                                CssClass="ben-taxa-data-formview-textbox"></asp:TextBox> 
-                                    <ajaxToolkit:CalendarExtender ID="txtDateNameRevised_CalendarExtender" runat="server" 
-                                                                    BehaviorID="txtDateNameRevised_CalendarExtender" 
-                                                                    TargetControlID="txtDateNameRevised"></ajaxToolkit:CalendarExtender> 
+                                    <asp:TextBox ID="txtTolVal" runat="server" Text='<%# Bind("TolVal") %>' 
+                                                 CssClass="ben-taxa-data-formview-textbox small-width-textbox" TextMode="Number"></asp:TextBox> 
                                     <br />
+                                    <div class="benthics-samples-form-view-labels">
+                                        <label>FFG:</label>
+                                    </div>
+                                    <asp:TextBox ID="txtFFG" runat="server" Text='<%# Bind("TaxaGroup") %>' TextMode="MultiLine" MaxLength="255" 
+                                                    CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
+                                    <br />
+                                    <div class="benthics-samples-form-view-labels">
+                                        <label>Habit:</label>
+                                    </div>
+                                    <asp:TextBox ID="txtHabit" runat="server" Text='<%# Bind("Habit") %>' MaxLength="50"
+                                                    CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
+                                    <br />
+                                    <div class="benthics-samples-form-view-labels">
+                                        <label>Life Cycle:</label>
+                                    </div>
+                                    <asp:TextBox ID="txtLifeCycle" runat="server" Text='<%# Bind("LifeCycle") %>' MaxLength="50"
+                                                    CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
+                                    <br />  
+                                    <div class="benthics-samples-form-view-labels">
+                                        <label>Vial Num:</label>
+                                    </div>
+                                    <asp:TextBox ID="txtVialNum" runat="server" Text='<%# Bind("VialNum") %>' MaxLength="50"
+                                                    CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
+                                    <br />                                    
                                     <div class="benthics-samples-form-view-labels">
                                         <label>Comments:</label>
                                     </div>
                                     <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Text='<%# Bind("Comments") %>' MaxLength="100" 
-                                                    CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>          
-                                    <br /><br />
+                                                    CssClass="ben-taxa-data-formview-textbox"></asp:TextBox>
+                                    <br />
+                                    <div class="benthics-samples-form-view-labels">
+                                        <label>Date Last Modified:</label>
+                                    </div>
+                                    <div class="ben-taxa-data-formview-label">
+                                        <%# Eval("DateLastModified") %>                                    
+                                    </div>                                    
+                                    <br /> 
+                                    <div class="benthics-samples-form-view-labels">
+                                        <label>User Last Modified:</label>
+                                    </div>
+                                    <div class="ben-taxa-data-formview-label">
+                                        <%# Eval("UserLastModified") %>                                    
+                                    </div>
+                                    <br />
                                     <asp:Button ID="CancelButton" runat="server" Text="Cancel" CommandName="Cancel" CssClass="adminButton" CommandArgument='<%# Eval("ID") %>' />                                                 
-                                    <asp:Button ID="UpdateButton" runat="server" Text="Save Benthics Data" CommandName="Update" CssClass="adminButton" />                                                                                               
-                               
+                                    <asp:Button ID="UpdateButton" runat="server" Text="Save Taxa Data" CommandName="Update" CssClass="adminButton" />                                                                                               
+                                    
+                                    <asp:HiddenField id="HiddenField_EnterDate" runat="server" value='<%# Bind("EnterDate") %>' />
                                     <asp:HiddenField id="HiddenField_DateLastModified" runat="server" value='<%# Bind("DateLastModified") %>' />
                                     <asp:HiddenField id="HiddenField_UserLastModified" runat="server" value='<%# Bind("UserLastModified") %>' />
                                 </EditItemTemplate>

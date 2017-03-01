@@ -18,6 +18,7 @@ namespace RWInbound2.Edit
     public partial class EditBenTaxa : System.Web.UI.Page
     {
         private int taxaIDSelected = 0;
+        private bool update = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -26,6 +27,24 @@ namespace RWInbound2.Edit
                 // Validate initially to force asterisks
                 // to appear before the first roundtrip.
                 Validate();
+            }
+
+            try
+            {
+                if (BenTaxaGridView.Rows != null)
+                {
+                    if (BenTaxaGridView.Rows.Count > 0 && BenTaxaGridView.SelectedIndex >= 0)
+                    {
+                        taxaIDSelected
+                            = Convert.ToInt32(((HiddenField)BenTaxaGridView.Rows[BenTaxaGridView.SelectedIndex]
+                                                                                   .FindControl("HiddenField_SelectedGridRowTaxaID"))
+                                                                                   .Value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleErrors(ex, ex.Message, "Page_Load_Get_benSampIDSelected", "", "");
             }
         }
 
@@ -44,6 +63,20 @@ namespace RWInbound2.Edit
                     SuccessLabel.Text = "";
                     UpdatePanels();
                     break;
+                case "TaxaData_Success":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    BenTaxaDataErrorLabel.Text = "";
+                    BenTaxaDataSuccessLabel.Text = message;                    
+                    UpdatePanels();
+                    break;
+                case "TaxaData_Error":
+                    ErrorLabel.Text = "";
+                    SuccessLabel.Text = "";
+                    BenTaxaDataErrorLabel.Text = message;
+                    BenTaxaDataSuccessLabel.Text = "";                   
+                    UpdatePanels();
+                    break;
                 default:
                     ErrorLabel.Text = "";
                     SuccessLabel.Text = "";
@@ -55,6 +88,7 @@ namespace RWInbound2.Edit
         private void UpdatePanels()
         {
             BenTaxaGridView_UpdatePanel.Update();
+            BenTaxaDataFormView_UpdatePanel.Update();
         }
         #endregion
 
@@ -123,6 +157,9 @@ namespace RWInbound2.Edit
 
                 BenTaxaGridView.DataBind();
                 BenTaxaGridView_UpdatePanel.Update();
+
+                BenTaxaDataFormView_Panel.Visible = false;
+                BenTaxaDataFormView_UpdatePanel.Update();
             }
             catch (Exception ex)
             {
@@ -161,7 +198,7 @@ namespace RWInbound2.Edit
 
                 //SetSampleData(true, sampleData);
 
-                if(taxaIDSelected > 0)
+                if(taxaIDSelected > 0 && !update)
                 {
                     return _db.tblBenTaxas
                               .Where(bt => bt.ID == taxaIDSelected)
@@ -186,10 +223,88 @@ namespace RWInbound2.Edit
             try
             {
                 SetMessages();
+
+                using (RiverWatchEntities _db = new RiverWatchEntities())
+                {
+                    tblBenTaxa selectedBenTaxaDataToUpdateOrAdd = new tblBenTaxa();
+                    bool newBenTaxa = model.ID == 0;
+
+                    if (!newBenTaxa)
+                    {
+                        selectedBenTaxaDataToUpdateOrAdd = _db.tblBenTaxas.Find(model.ID);
+                    }
+
+                    if (selectedBenTaxaDataToUpdateOrAdd != null)
+                    {
+                        TryUpdateModel(selectedBenTaxaDataToUpdateOrAdd);
+
+                        if (ModelState.IsValid)
+                        {
+                            if (this.User != null && this.User.Identity.IsAuthenticated)
+                            {
+                                selectedBenTaxaDataToUpdateOrAdd.UserLastModified
+                                    = HttpContext.Current.User.Identity.Name;
+                            }
+                            else
+                            {
+                                selectedBenTaxaDataToUpdateOrAdd.UserLastModified = "Unknown";
+                            }
+
+                            selectedBenTaxaDataToUpdateOrAdd.DateLastModified = DateTime.Now;
+
+                            if (newBenTaxa)
+                            {
+                                selectedBenTaxaDataToUpdateOrAdd.EnterDate = DateTime.Now;
+                                _db.tblBenTaxas.Add(selectedBenTaxaDataToUpdateOrAdd);
+                                _db.SaveChanges();
+
+                                taxaIDSelected = model.ID;
+                                BenTaxaDataFormView_Panel.Visible = false;
+
+                                BenTaxaGridView.DataBind();
+                                BenTaxaGridView_UpdatePanel.Update();
+
+                                string addSuccessMsg = string.Format("New Ben Taxa Added {0}", model.FinalID);
+                                SetMessages("Success", addSuccessMsg);
+                            }
+                            else
+                            {
+                                _db.SaveChanges();
+
+                                BenTaxaGridView.DataBind();
+                                BenTaxaGridView_UpdatePanel.Update();                                
+
+                                foreach (GridViewRow row in BenTaxaGridView.Rows)
+                                {
+                                    var selectedGridRowBenTaxaID = Convert.ToInt32(((HiddenField)row.FindControl("HiddenField_SelectedGridRowTaxaID")).Value);
+                                    if (selectedGridRowBenTaxaID == taxaIDSelected)
+                                    {
+                                        update = true;
+                                        //BenTaxaGridView.SelectedIndex = row.RowIndex;
+                                        row.BackColor = ColorTranslator.FromHtml("#FFFF00");
+                                        row.ToolTip = "This Taxa's data is being displayed below.";
+                                    }
+                                    else
+                                    {
+                                        row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                                        row.ToolTip = "Click on the View button to Edit this Taxa's data.";
+                                    }
+                                }
+
+                                string successMsg = string.Format("Taxa Data Updated: {0}", selectedBenTaxaDataToUpdateOrAdd.FinalID);
+                                SetMessages("TaxaData_Success", successMsg);
+                            }
+                        }
+                        else
+                        {
+                            SetMessages("TaxaData_Error", "Correct all input errors");
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                HandleErrors(ex, ex.Message, "UpdateBenTaxa", "", "");
+                HandleErrors(ex, ex.Message, "UpdateBenTaxa", "", "", "TaxaData_Error");
             }
         }
 
@@ -282,12 +397,12 @@ namespace RWInbound2.Edit
                                 {
                                     BenTaxaGridView.SelectedIndex = row.RowIndex;
                                     row.BackColor = ColorTranslator.FromHtml("#FFFF00");
-                                    row.ToolTip = "This Taxon's data is being displayed below.";
+                                    row.ToolTip = "This Taxa's data is being displayed below.";
                                 }
                                 else
                                 {
                                     row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
-                                    row.ToolTip = "Click on the View button to Edit this Taxon's data.";
+                                    row.ToolTip = "Click on the View button to Edit this Taxa's data.";
                                 }
                             }
 
@@ -297,7 +412,7 @@ namespace RWInbound2.Edit
                         }
                         else
                         {
-                            SetMessages("Error", "The ID for the Taxon Selected could not be found.");
+                            SetMessages("Error", "The ID for the Taxa Selected could not be found.");
                         }
                     }
                 }
