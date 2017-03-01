@@ -514,6 +514,12 @@ namespace RWInbound2.Validation
                     NEW.BadBlank = isbad; // record value from type passed in by caller
                     NEW.Valid = true;
                 }
+                else
+                {
+                    // serious error, should never happen
+                    lblCount.Text = string.Format("ERROR, Bar Code {0} does not have a valid sample number in the samples table", barCode);
+                    return;
+                }
             }
             catch (Exception ex)
             {

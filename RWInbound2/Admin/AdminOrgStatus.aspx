@@ -19,8 +19,7 @@
     <asp:Label ID="lblOrgName" runat="server" ></asp:Label>
         <br />
         <asp:FormView ID="FormView1" OnItemInserting="FormView1_ItemInserting"  CssClass="formviewText" runat="server"  AllowPaging="True" PagerSettings-Position="TopAndBottom" DataKeyNames="ID" DataSourceID="SqlDataSource1">
-            <EditItemTemplate >
-                
+            <EditItemTemplate >                
 
                 Contract Start Date:
                 <asp:TextBox ID="ContractStartDateTextBox" runat="server" Text='<%# Bind("ContractStartDate") %>' />
@@ -140,10 +139,10 @@
                 <asp:TextBox ID="HardshipCommentTextBox" runat="server" Text='<%# Bind("HardshipComment") %>' />
                 <br />
                 Date Created:
-                <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' />
+                <asp:TextBox ID="DateCreatedTextBox" ReadOnly="true" runat="server" Text='<%# Bind("DateCreated") %>' />
                 <br />
                 User Created:
-                <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
+                <asp:TextBox ID="UserCreatedTextBox" ReadOnly="true" runat="server" Text='<%# Bind("UserCreated") %>' />
                 <br />
                 <asp:TextBox ID="OrganizationIDTextBox" BackColor="White" runat="server" Text='<%# Bind("OrganizationID") %>' />
                 <br />
@@ -274,10 +273,10 @@
                 <asp:TextBox ID="HardshipCommentTextBox" runat="server" Text='<%# Bind("HardshipComment") %>' />
                 <br />
                 Date Created:
-                <asp:TextBox ID="DateCreatedTextBox" runat="server" Text='<%# Bind("DateCreated") %>' />
+                <asp:TextBox ID="DateCreatedTextBox" ReadOnly="true" runat="server" Text='<%# Bind("DateCreated") %>' />
                 <br />
                 User Created:
-                <asp:TextBox ID="UserCreatedTextBox" runat="server" Text='<%# Bind("UserCreated") %>' />
+                <asp:TextBox ID="UserCreatedTextBox" ReadOnly="true" runat="server" Text='<%# Bind("UserCreated") %>' />
 
                 <asp:TextBox ID="OrganizationIDTextBox"  BackColor="White" runat="server" Text='<%# Bind("OrganizationID") %>' />
                 <br />

@@ -608,24 +608,7 @@ namespace RWInbound2.Validation
             }
 
             // check to see if a record already exists, it may if field data was entered first.... 
-
-            //try
-            //{
-            //    NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
-            //                        where t.tblSampleID == sID & t.Valid == true & t.MetalsBarCode == barCode
-            //                        select t).FirstOrDefault();
-            //    if (TEST != null)
-            //    {
-            //        // skip these as they are not our business to insert into a row that already exists
-            //        // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
-            //        NEW = TEST; // keep the name common to this method
-            //        existingRecord = true; // flag for later
-            //    }
-            //    else
-            //    {
-            //        NEW = new NEWexpWater(); // create new entity as there is not one yet
-            //    }
-            //}
+           
             try
             {
                 //NEWexpWater TEST = (from t in NewRWE.NEWexpWaters
@@ -671,7 +654,7 @@ namespace RWInbound2.Validation
                     if (T != null)
                     {
                         // skip these as they are not our business to insert into a row that already exists
-                        // items like kit number, etc. will be here already as a result of inserting field or nutrient data earlier
+                        // items like kit number, etc. MAY be here already as a result of inserting field or nutrient data earlier
                         NEW = T; // keep the name common to this method
                         existingRecord = true; // flag for later
                     }
@@ -793,6 +776,12 @@ namespace RWInbound2.Validation
 
                     NEW.BadBlank = isbad; // record value from type passed in by caller
                     NEW.Valid = true;
+                }
+                else
+                {
+                    // serious error, should never happen
+                    lblCount.Text = string.Format("ERROR, Bar Code {0} does not have a valid sample number in the samples table", barCode);
+                    return;
                 }
             }
             catch (Exception ex)

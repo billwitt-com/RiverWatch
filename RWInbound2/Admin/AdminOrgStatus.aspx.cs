@@ -24,6 +24,7 @@ namespace RWInbound2.Admin
                 sCommand = (string)Session["COMMAND"];
                 SqlDataSource1.SelectCommand = sCommand;
                 
+                
             }
         }
 
@@ -76,6 +77,7 @@ namespace RWInbound2.Admin
             if (orgName.Length < 3)
             {
                 lblMsg.Text = "Please choose an organization";
+                lblOrgName.Text = "";
                 return;
             }
             try
@@ -88,23 +90,32 @@ namespace RWInbound2.Admin
                 if (C == null)
                 {
                     lblMsg.Text = "Please choose a valid organization";
+                    lblOrgName.Text = "";
                     return;
                 }
                 lblMsg.Text = "";
                 orgID = C.ID;
                 lblOrgName.Text = string.Format("Organization: {0}", C.OrganizationName);
 
-                Session["ORGID"] = orgID; 
+                Session["ORGID"] = orgID;
 
-                // first, check to see if there are any 
-                //sCommand = string.Format(" select *  FROM [RiverWatch].[dbo].[UnknownSample] " +
-                //    " where validated = 0 and OrganizationID = {0} and valid = 1 order by datesent desc ", orgID);
-                // removed [RiverWatch].[dbo]. from select
-                sCommand = string.Format("   select * from OrgStatus where OrganizationID = {0} order by ContractEndDate desc", orgID);
+                var O = (from o in RWE.OrgStatus
+                        where o.OrganizationID == orgID
+                        select o).FirstOrDefault();
+
+                if(O == null)
+                {
+                    lblMsg.Text = string.Format("There is no status for Org: {0} ", C.OrganizationName);
+                    FormView1.DefaultMode = FormViewMode.Insert;
+                    FormView1.Visible = true;
+                    return;
+                }
+
+                sCommand = string.Format(" select * from OrgStatus where OrganizationID = {0} order by ContractEndDate desc", orgID);
                 SqlDataSource1.SelectCommand = sCommand;
                 Session["COMMAND"] = sCommand;
                 FormView1.Visible = true;
-                FormView1.DataBind();
+             //   FormView1.DataBind();
             }
 
             catch (Exception ex)
@@ -143,6 +154,7 @@ namespace RWInbound2.Admin
             else
             {
                 lblMsg.Text = "Please select a valid Organization";
+                lblOrgName.Text = "";
                 return;
             }
         }
@@ -247,6 +259,7 @@ namespace RWInbound2.Admin
             else
             {
                 lblMsg.Text = "Please select a valid Organization";
+                lblOrgName.Text = "";
                 return;
             }
 
